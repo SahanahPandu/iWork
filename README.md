@@ -1,2 +1,2 @@
 # eswm
-eSWM project is an App development for SWM Environment collection operation
+eSWM project is a hybrid App development for SWM Environment collection operation
