@@ -25,7 +25,7 @@ class _TodayTaskCardState extends State<TodayTaskCard> {
             color: Colors.grey.shade400,
             blurRadius: 5,
             offset: const Offset(0.0, 8.0),
-          )
+          ),
         ],
         borderRadius: BorderRadius.circular(30),
         gradient: const LinearGradient(
