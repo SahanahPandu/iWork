@@ -20,6 +20,13 @@ class _TodayTaskCardState extends State<TodayTaskCard> {
       width: MediaQuery.of(context).size.width,
       height: 240,
       decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.shade400,
+            blurRadius: 5,
+            offset: const Offset(0.0, 8.0),
+          )
+        ],
         borderRadius: BorderRadius.circular(30),
         gradient: const LinearGradient(
           colors: [
