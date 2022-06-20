@@ -49,7 +49,7 @@ class _PraMyTaskListDetailsState extends State<PraMyTaskListDetails> {
         ),
         //Sub Laluan
         Padding(
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -85,7 +85,7 @@ class _PraMyTaskListDetailsState extends State<PraMyTaskListDetails> {
         ),
         //No Kenderaan
         Padding(
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -121,7 +121,7 @@ class _PraMyTaskListDetailsState extends State<PraMyTaskListDetails> {
         ),
         //Jumlah Taman/Jalan
         Padding(
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
