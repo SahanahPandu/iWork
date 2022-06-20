@@ -15,10 +15,10 @@ class _TodayTaskCardState extends State<TodayTaskCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(2),
-      padding: const EdgeInsets.all(18),
+      //margin: const EdgeInsets.all(2),
+      padding: const EdgeInsets.all(13),
       width: MediaQuery.of(context).size.width,
-      height: 280,
+      height: 240,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
         gradient: const LinearGradient(
