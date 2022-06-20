@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 //import files
 import 'package:eswm/widgets/buttons/ecuti_button.dart';
+import 'package:eswm/widgets/buttons/time_in_button.dart';
 
 class PraTodayTaskDetails extends StatefulWidget {
   const PraTodayTaskDetails({Key? key}) : super(key: key);
@@ -50,9 +51,6 @@ class _PraTodayTaskDetailsState extends State<PraTodayTaskDetails> {
           style: TextStyle(
               fontSize: 38, fontWeight: FontWeight.w600, color: Colors.white),
         ),
-        const SizedBox(
-          height: 8,
-        ),
         const Text(
           "7 pagi - 12 tengahari",
           style: TextStyle(
@@ -62,7 +60,7 @@ class _PraTodayTaskDetailsState extends State<PraTodayTaskDetails> {
           ),
         ),
         const SizedBox(
-          height: 10,
+          height: 5,
         ),
         Row(
           children: const [
@@ -85,50 +83,16 @@ class _PraTodayTaskDetailsState extends State<PraTodayTaskDetails> {
           ],
         ),
         const SizedBox(
-          height: 50,
+          height: 30,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            const EcutiButton(),
-            const SizedBox(
+          children: const [
+            EcutiButton(),
+            SizedBox(
               width: 10,
             ),
-            Container(
-              width: 150,
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.white,
-                ),
-                color: Colors.white,
-                borderRadius: const BorderRadius.all(Radius.circular(18)),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 6,
-                ),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.timer_outlined,
-                      color: Colors.grey.shade800,
-                    ),
-                    const SizedBox(
-                      width: 6,
-                    ),
-                    Text(
-                      "Masuk Kerja",
-                      style: TextStyle(
-                        color: Colors.grey.shade800,
-                        fontSize: 17,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            TimeInButton(),
           ],
         )
       ],
