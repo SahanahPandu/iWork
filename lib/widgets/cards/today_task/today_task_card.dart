@@ -16,7 +16,7 @@ class _TodayTaskCardState extends State<TodayTaskCard> {
   Widget build(BuildContext context) {
     return Container(
       //margin: const EdgeInsets.all(2),
-      padding: const EdgeInsets.all(13),
+      padding: const EdgeInsets.all(14),
       width: MediaQuery.of(context).size.width,
       height: 240,
       decoration: BoxDecoration(

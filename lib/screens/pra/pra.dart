@@ -23,7 +23,7 @@ class _PraState extends State<Pra> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    final double categoryHeight = size.height * 0.35;
+    final double categoryHeight = size.height * 0.30;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -38,30 +38,12 @@ class _PraState extends State<Pra> {
             height: closeTopCard ? 0 : categoryHeight,
             child: SizedBox(
               height: categoryHeight,
-              child: FittedBox(
+              child: const FittedBox(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(
+                  padding: EdgeInsets.symmetric(
                     horizontal: 13,
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 15,
-                        ),
-                        child: Text(
-                          "Hi, Suhaimi",
-                          style: TextStyle(
-                            color: Colors.grey.shade900,
-                            fontSize: 30,
-                            fontWeight: FontWeight.w800,
-                          ),
-                        ),
-                      ),
-                      const TodayTaskCard(),
-                    ],
-                  ),
+                  child: TodayTaskCard(),
                 ),
               ),
             ),

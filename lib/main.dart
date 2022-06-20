@@ -23,6 +23,17 @@ class MyApp extends StatelessWidget {
         backgroundColor: config.appBackgroundColor,
         //extendBodyBehindAppBar: true,
         appBar: AppBar(
+          title: Padding(
+            padding: const EdgeInsets.only(left: 8.0),
+            child: Text(
+              "Hi, Suhaimi",
+              style: TextStyle(
+                color: Colors.grey.shade900,
+                fontSize: 25,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+          ),
           backgroundColor: config.appBarBgColor,
           elevation: 0,
           leading: Icon(
