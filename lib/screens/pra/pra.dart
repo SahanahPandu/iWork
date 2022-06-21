@@ -28,6 +28,17 @@ class _PraState extends State<Pra> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 30, top: 15),
+          child: Text(
+            "Hi, Suhaimi!",
+            style: TextStyle(
+              color: Colors.grey.shade800,
+              fontSize: 24,
+              fontWeight: FontWeight.w900,
+            ),
+          ),
+        ),
         AnimatedOpacity(
           duration: const Duration(milliseconds: 400),
           opacity: closeTopCard ? 0 : 1,
@@ -56,7 +67,7 @@ class _PraState extends State<Pra> {
             style: TextStyle(
               color: Colors.grey.shade500,
               fontWeight: FontWeight.w500,
-              fontSize: 20,
+              fontSize: 17,
             ),
           ),
         ),

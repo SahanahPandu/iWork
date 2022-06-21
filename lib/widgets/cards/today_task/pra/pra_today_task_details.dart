@@ -49,7 +49,10 @@ class _PraTodayTaskDetailsState extends State<PraTodayTaskDetails> {
         const Text(
           "22/5/2022",
           style: TextStyle(
-              fontSize: 38, fontWeight: FontWeight.w600, color: Colors.white),
+            fontSize: 35,
+            fontWeight: FontWeight.w600,
+            color: Colors.white,
+          ),
         ),
         const Text(
           "7 pagi - 12 tengahari",
@@ -60,7 +63,7 @@ class _PraTodayTaskDetailsState extends State<PraTodayTaskDetails> {
           ),
         ),
         const SizedBox(
-          height: 5,
+          height: 15,
         ),
         Row(
           children: const [
@@ -75,7 +78,7 @@ class _PraTodayTaskDetailsState extends State<PraTodayTaskDetails> {
             Text(
               "7:05 pagi",
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 16,
                 fontWeight: FontWeight.w500,
                 color: Colors.white,
               ),
@@ -83,7 +86,7 @@ class _PraTodayTaskDetailsState extends State<PraTodayTaskDetails> {
           ],
         ),
         const SizedBox(
-          height: 30,
+          height: 20,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,

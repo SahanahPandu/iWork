@@ -15,7 +15,7 @@ class _MyTaskCardState extends State<MyTaskCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 5),
+      padding: const EdgeInsets.only(bottom: 3),
       child: SizedBox(
         height: 180,
         child: Card(
@@ -23,7 +23,7 @@ class _MyTaskCardState extends State<MyTaskCard> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
           ),
-          shadowColor: Colors.grey.shade100,
+          shadowColor: Colors.white,
           elevation: 14,
           child: const Padding(
             padding: EdgeInsets.all(6),

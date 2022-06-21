@@ -30,8 +30,10 @@ class _TodayTaskCardState extends State<TodayTaskCard> {
         borderRadius: BorderRadius.circular(30),
         gradient: const LinearGradient(
           colors: [
-            Color.fromARGB(225, 51, 102, 255),
-            Color.fromARGB(235, 0, 204, 255),
+            //Color.fromARGB(225, 51, 102, 255),
+            //Color.fromARGB(235, 0, 204, 255),
+            Color.fromARGB(220, 51, 102, 255),
+            Color.fromARGB(200, 0, 220, 255),
           ],
           begin: FractionalOffset(0.0, 1.0),
           end: FractionalOffset(1.0, 0.0),
