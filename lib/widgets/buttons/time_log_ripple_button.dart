@@ -17,7 +17,7 @@ class _TimeLogRippleButtonState extends State<TimeLogRippleButton> {
   @override
   Widget build(BuildContext context) {
     return RippleAnimation(
-      //delay: const Duration(milliseconds: 3000),
+      delay: const Duration(milliseconds: 100),
       //duration: const Duration(milliseconds: 2000),
       repeat: true,
       color: widget.btnColor,
@@ -34,10 +34,7 @@ class _TimeLogRippleButtonState extends State<TimeLogRippleButton> {
           child: Text(
             widget.btnText,
             style: const TextStyle(
-              fontSize: 16,
-              color: Colors.white,
-              fontWeight: FontWeight.w600,
-            ),
+                fontSize: 16, color: Colors.white, fontWeight: FontWeight.w600),
           ),
         ),
       ),
