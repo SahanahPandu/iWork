@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 //import files
 import 'package:eswm/widgets/buttons/ecuti_button.dart';
-import 'package:eswm/widgets/buttons/time_in_button.dart';
+import 'package:eswm/widgets/buttons/time_log_button.dart';
 
 class PraTodayTaskDetails extends StatefulWidget {
   const PraTodayTaskDetails({Key? key}) : super(key: key);
@@ -95,7 +95,7 @@ class _PraTodayTaskDetailsState extends State<PraTodayTaskDetails> {
             SizedBox(
               width: 10,
             ),
-            TimeInButton(),
+            TimeLogButton(),
           ],
         )
       ],

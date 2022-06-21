@@ -1,21 +1,29 @@
 import 'package:flutter/material.dart';
 
-class TimeInButton extends StatefulWidget {
-  const TimeInButton({Key? key}) : super(key: key);
+//import files
+import 'package:eswm/screens/time_log/time_log.dart';
+
+class TimeLogButton extends StatefulWidget {
+  const TimeLogButton({Key? key}) : super(key: key);
 
   @override
-  State<TimeInButton> createState() => _TimeInButtonState();
+  State<TimeLogButton> createState() => _TimeLogButtonState();
 }
 
-class _TimeInButtonState extends State<TimeInButton> {
+class _TimeLogButtonState extends State<TimeLogButton> {
   Color buttonTextColor = Colors.green;
   String buttonText = "Masuk Kerja";
 
   changeButtonColor() {
-    setState(() {
-      buttonTextColor = Colors.red;
-      buttonText = "Tamat Kerja";
-    });
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) =>
+              TimeLog(btnText: buttonText, btnColor: buttonTextColor),
+        )).then((value) => setState(() {
+          buttonTextColor = Colors.red;
+          buttonText = "Tamat Kerja";
+        }));
   }
 
   @override
