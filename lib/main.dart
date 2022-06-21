@@ -23,29 +23,30 @@ class MyApp extends StatelessWidget {
         backgroundColor: config.appBackgroundColor,
         //extendBodyBehindAppBar: true,
         appBar: AppBar(
-          title: Padding(
-            padding: const EdgeInsets.only(left: 8.0),
-            child: Text(
-              "Hi, Suhaimi",
-              style: TextStyle(
-                color: Colors.grey.shade900,
-                fontSize: 25,
-                fontWeight: FontWeight.w800,
-              ),
-            ),
-          ),
+          // title: Padding(
+          //   padding: const EdgeInsets.only(left: 8.0),
+          //   child: Text(
+          //     "Hi, Suhaimi",
+          //     style: TextStyle(
+          //       color: Colors.grey.shade900,
+          //       fontSize: 24,
+          //       fontWeight: FontWeight.w800,
+          //     ),
+          //   ),
+          // ),
           backgroundColor: config.appBarBgColor,
-          elevation: 0,
+          elevation: 4,
+          shadowColor: Colors.white,
           leading: Icon(
             Icons.menu,
-            color: Colors.grey.shade900,
+            color: Colors.grey.shade800,
           ),
-          actions: const [
+          actions: [
             Icon(
               Icons.notifications,
-              color: Colors.black87,
+              color: Colors.grey.shade800,
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             )
           ],
