@@ -13,8 +13,9 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: appBackgroundColor,
         //extendBodyBehindAppBar: true,
         appBar: AppBar(
-          backgroundColor: appBackgroundColor,
-          elevation: 0,
+          backgroundColor: appBarBgColor,
+          elevation: 4,
+          shadowColor: Colors.white,
           leading: Icon(
             Icons.menu,
             color: darkGrey,

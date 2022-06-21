@@ -95,17 +95,18 @@ class _LoginScreenState extends State<LoginScreen> {
           if (value == null || value.isEmpty) {
             return 'Sila masukkan $label anda';
           } else {
-          if (label == kompaktorID) {
-            compactorIDText = value;
-            deviceType = compactorPanel;
-          } else if (label == staffID) {
-            staffIDText = value;
-            deviceType = mobileApp;
-          } else {
-            passwordText = value;
+            if (label == kompaktorID) {
+              compactorIDText = value;
+              deviceType = compactorPanel;
+            } else if (label == staffID) {
+              staffIDText = value;
+              deviceType = mobileApp;
+            } else {
+              passwordText = value;
+            }
           }
-        }
-          return null;},
+          return null;
+        },
         decoration: InputDecoration(
           hintMaxLines: 1,
           filled: true,
@@ -121,7 +122,8 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           labelStyle: TextStyle(color: grey, fontSize: 14),
           labelText: label,
-          suffixIcon: label == password ? IconButton(
+          suffixIcon: label == password
+              ? IconButton(
                   icon: Icon(
                     _isObscure ? Icons.visibility : Icons.visibility_off,
                     color: Theme.of(context).primaryColorDark,
@@ -160,7 +162,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return ElevatedButton(
       onPressed: () {
         if (_formKey.currentState!.validate()) {
-          showSnackBar (context, loginSuccess, const Duration(seconds: 2));
+          showSnackBar(context, loginSuccess, const Duration(seconds: 2));
           Navigator.of(context).pushNamed(HomeScreen.tag);
           //isMobile(context)? print("ID: $staffIDText, password: $passwordText"):
           //print("ID: $compactorIDText, password: $passwordText");
