@@ -1,8 +1,6 @@
+import 'package:eswm/screens/home/home.dart';
+import 'package:eswm/screens/login/login.dart';
 import 'package:flutter/material.dart';
-
-//import files
-import 'package:eswm/config/config.dart' as config;
-import 'package:eswm/screens/screens.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,40 +17,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Scaffold(
-        backgroundColor: config.appBackgroundColor,
-        //extendBodyBehindAppBar: true,
-        appBar: AppBar(
-          // title: Padding(
-          //   padding: const EdgeInsets.only(left: 8.0),
-          //   child: Text(
-          //     "Hi, Suhaimi",
-          //     style: TextStyle(
-          //       color: Colors.grey.shade900,
-          //       fontSize: 24,
-          //       fontWeight: FontWeight.w800,
-          //     ),
-          //   ),
-          // ),
-          backgroundColor: config.appBarBgColor,
-          elevation: 4,
-          shadowColor: Colors.white,
-          leading: Icon(
-            Icons.menu,
-            color: Colors.grey.shade800,
-          ),
-          actions: [
-            Icon(
-              Icons.notifications,
-              color: Colors.grey.shade800,
-            ),
-            const SizedBox(
-              width: 10,
-            )
-          ],
-        ),
-        body: const Screens(),
-      ),
+      home: const LoginScreen(),
+      routes: <String, WidgetBuilder>{
+        LoginScreen.tag: (BuildContext context) => const LoginScreen(),
+        HomeScreen.tag: (BuildContext context) => const HomeScreen()
+      },
     );
   }
 }

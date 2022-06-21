@@ -1,3 +1,4 @@
+import 'package:eswm/utils/responsive.dart';
 import 'package:flutter/material.dart';
 
 //import files
@@ -17,7 +18,7 @@ class _TodayTaskCardState extends State<TodayTaskCard> {
     return Container(
       //margin: const EdgeInsets.all(2),
       padding: const EdgeInsets.all(14),
-      width: MediaQuery.of(context).size.width,
+      width: screenWidth(context),
       height: 240,
       decoration: BoxDecoration(
         boxShadow: [
