@@ -2,7 +2,7 @@ import 'package:eswm/widgets/buttons/time_log_ripple_button.dart';
 import 'package:flutter/material.dart';
 
 //import files
-import 'package:eswm/config/config.dart' as config;
+import 'package:eswm/config/palette.dart';
 
 class TimeLog extends StatefulWidget {
   final String btnText;
@@ -20,7 +20,7 @@ class _TimeLogState extends State<TimeLog> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: config.appBarBgColor,
+        backgroundColor: appBarBgColor,
         elevation: 4,
         shadowColor: Colors.white,
         leading: IconButton(
