@@ -1,7 +1,11 @@
-import 'package:flutter/material.dart';
+/// * GLOBAL VARIABLE LIST
+///
+///  ** Device **
+///
+const int mobileApp = 9;
+const int compactorPanel = 8;
+const int adminPanel = 7;
 
-Color appBackgroundColor = Colors.grey.shade200;
-Color appBarBgColor = Colors.grey.shade200;
-
-//global variables
-int userRole = 1;//PRA
+/// ** Role **
+///
+const int userRole = 1;//PRA

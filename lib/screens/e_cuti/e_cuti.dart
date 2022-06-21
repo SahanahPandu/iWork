@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 //import files
-import 'package:eswm/config/config.dart' as config;
+import '../../config/palette.dart';
+import '../../config/string.dart';
 
 class ECuti extends StatefulWidget {
   const ECuti({Key? key}) : super(key: key);
@@ -14,14 +15,14 @@ class _ECutiState extends State<ECuti> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: config.appBackgroundColor,
+      backgroundColor: appBackgroundColor,
       appBar: AppBar(
-        backgroundColor: config.appBarBgColor,
+        backgroundColor: appBackgroundColor,
         elevation: 0,
         title: Text(
-          "E-Cuti",
+          eCuti,
           style: TextStyle(
-            color: Colors.grey.shade900,
+            color: darkGrey,
             fontSize: 20,
             fontWeight: FontWeight.w800,
           ),
@@ -32,7 +33,7 @@ class _ECutiState extends State<ECuti> {
           },
           icon: Icon(
             Icons.arrow_back,
-            color: Colors.grey.shade900,
+            color: darkGrey,
           ),
         ),
       ),
@@ -40,7 +41,7 @@ class _ECutiState extends State<ECuti> {
         child: Text(
           "This is E- Cuti Page",
           style: TextStyle(
-            color: Colors.grey.shade900,
+            color: darkGrey,
             fontSize: 20,
           ),
         ),

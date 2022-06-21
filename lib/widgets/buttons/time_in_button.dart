@@ -1,3 +1,4 @@
+import 'package:eswm/utils/responsive.dart';
 import 'package:flutter/material.dart';
 
 class TimeInButton extends StatefulWidget {
@@ -10,11 +11,10 @@ class TimeInButton extends StatefulWidget {
 class _TimeInButtonState extends State<TimeInButton> {
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
 
     return SizedBox(
-      width: size.width * 0.40,
-      height: size.height * 0.05,
+      width: screenWidth(context) * 0.40,
+      height: screenHeight(context) * 0.05,
       //color: Colors.white,
       child: ElevatedButton.icon(
         style: ElevatedButton.styleFrom(
