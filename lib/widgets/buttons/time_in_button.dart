@@ -8,6 +8,16 @@ class TimeInButton extends StatefulWidget {
 }
 
 class _TimeInButtonState extends State<TimeInButton> {
+  Color buttonTextColor = Colors.green;
+  String buttonText = "Masuk Kerja";
+
+  changeButtonColor() {
+    setState(() {
+      buttonTextColor = Colors.red;
+      buttonText = "Tamat Kerja";
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -26,21 +36,18 @@ class _TimeInButtonState extends State<TimeInButton> {
           elevation: 5.0,
         ),
         onPressed: () {
-          // Navigator.push(
-          //     context,
-          //     MaterialPageRoute(
-          //       builder: (context) => const ECuti(),
-          //     ));
+          changeButtonColor();
         },
         icon: Icon(
           Icons.timer_outlined,
-          color: Colors.grey.shade800,
+          //color: Colors.grey.shade800,
+          color: buttonTextColor,
           size: 20,
         ),
         label: Text(
-          "Masuk Kerja",
+          buttonText,
           style: TextStyle(
-            color: Colors.grey.shade800,
+            color: buttonTextColor,
             fontSize: 17,
             fontWeight: FontWeight.w700,
           ),
