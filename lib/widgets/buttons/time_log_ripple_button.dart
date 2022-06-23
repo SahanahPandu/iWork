@@ -35,7 +35,7 @@ class _TimeLogRippleButtonState extends State<TimeLogRippleButton> {
                 return showAlertDialog(
                     context,
                     "Pengesahan",
-                    "Adakah anda pasti untuk masuk kerja sekarang?",
+                    "Adakah anda pasti untuk ${widget.btnText} sekarang?",
                     "Batal",
                     widget.btnText);
               }).then((actionText) {
