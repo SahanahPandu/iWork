@@ -1,12 +1,16 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:simple_ripple_animation/simple_ripple_animation.dart';
 
-class TimeLogRippleButton extends StatefulWidget {
-  final String btnText;
-  final Color btnColor;
+//import files
+import "package:eswm/widgets/alert/alert_dialog.dart";
 
-  const TimeLogRippleButton(
-      {Key? key, required this.btnText, required this.btnColor})
+class TimeLogRippleButton extends StatefulWidget {
+  late String btnText;
+  late Color btnColor;
+
+  TimeLogRippleButton({Key? key, required this.btnText, required this.btnColor})
       : super(key: key);
 
   @override
@@ -23,18 +27,38 @@ class _TimeLogRippleButtonState extends State<TimeLogRippleButton> {
       color: widget.btnColor,
       minRadius: 40,
       ripplesCount: 15,
-      child: Container(
-        width: 250,
-        height: 150,
-        decoration: BoxDecoration(
-          color: widget.btnColor,
-          shape: BoxShape.circle,
-        ),
-        child: Center(
-          child: Text(
-            widget.btnText,
-            style: const TextStyle(
-                fontSize: 16, color: Colors.white, fontWeight: FontWeight.w600),
+      child: InkWell(
+        onTap: () {
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return showAlertDialog(
+                    context,
+                    "Pengesahan",
+                    "Adakah anda pasti untuk masuk kerja sekarang?",
+                    "Batal",
+                    widget.btnText);
+              }).then((actionText) {
+            if (actionText == "Masuk Kerja" || actionText == "Tamat Kerja") {
+              Navigator.pop(context, actionText);
+            }
+          });
+        },
+        child: Container(
+          width: 250,
+          height: 150,
+          decoration: BoxDecoration(
+            color: widget.btnColor,
+            shape: BoxShape.circle,
+          ),
+          child: Center(
+            child: Text(
+              widget.btnText,
+              style: const TextStyle(
+                  fontSize: 16,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600),
+            ),
           ),
         ),
       ),

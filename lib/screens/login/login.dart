@@ -110,7 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
         decoration: InputDecoration(
           hintMaxLines: 1,
           filled: true,
-          fillColor: appBackgroundColor,
+          fillColor: lightGrey,
           focusColor: green,
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
