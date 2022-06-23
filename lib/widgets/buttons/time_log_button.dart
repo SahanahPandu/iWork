@@ -20,10 +20,19 @@ class _TimeLogButtonState extends State<TimeLogButton> {
         MaterialPageRoute(
           builder: (context) =>
               TimeLog(btnText: buttonText, btnColor: buttonTextColor),
-        )).then((value) => setState(() {
-          buttonTextColor = Colors.red;
+        )).then((actionText) {
+      if (actionText == "Masuk Kerja") {
+        setState(() {
           buttonText = "Tamat Kerja";
-        }));
+          buttonTextColor = Colors.red;
+        });
+      } else if (actionText == "Tamat Kerja") {
+        setState(() {
+          buttonText = "Masuk Kerja";
+          buttonTextColor = Colors.green;
+        });
+      }
+    });
   }
 
   @override

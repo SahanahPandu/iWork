@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-Future showAlertDialog(BuildContext context, String title, String detail,
-    String action_1, String action_2) async {
-  AlertDialog(
+showAlertDialog(BuildContext context, String title, String detail,
+    String action_1, String action_2) {
+  return AlertDialog(
     title: Text(title),
     content: Text(detail),
     actions: <Widget>[
