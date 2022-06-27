@@ -5,7 +5,6 @@ import '../screens.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
-  static String tag = 'home-screen';
 
   @override
   Widget build(BuildContext context) {
@@ -18,12 +17,12 @@ class HomeScreen extends StatelessWidget {
           shadowColor: Colors.white,
           leading: Icon(
             Icons.menu,
-            color: darkGrey,
+            color: grey900,
           ),
           actions: [
             Icon(
               Icons.notifications,
-              color: lightBlack,
+              color: black87,
             ),
             const SizedBox(
               width: 10,

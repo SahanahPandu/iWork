@@ -22,7 +22,7 @@ class _ECutiState extends State<ECuti> {
         title: Text(
           eCuti,
           style: TextStyle(
-            color: darkGrey,
+            color: grey900,
             fontSize: 20,
             fontWeight: FontWeight.w800,
           ),
@@ -33,7 +33,7 @@ class _ECutiState extends State<ECuti> {
           },
           icon: Icon(
             Icons.arrow_back,
-            color: darkGrey,
+            color: grey900,
           ),
         ),
       ),
@@ -41,7 +41,7 @@ class _ECutiState extends State<ECuti> {
         child: Text(
           "This is E- Cuti Page",
           style: TextStyle(
-            color: darkGrey,
+            color: grey900,
             fontSize: 20,
           ),
         ),

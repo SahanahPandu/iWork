@@ -1,16 +1,14 @@
+import 'package:eswm/config/dimen.dart';
 import 'package:flutter/material.dart';
 
-import '../../config/config.dart';
 import '../../config/string.dart';
 import '../../config/palette.dart';
 import '../../config/resource.dart';
-import '../../utils/responsive.dart';
+import '../../utils/device.dart';
 import '../../widgets/alert/snackbar.dart';
-import '../home/home.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
-  static String tag = 'login-screen';
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -18,14 +16,26 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
+  final Devices _device = Devices();
+
   bool _isObscure = true;
+  late String _userIdInput;
+  late String _passwordInput;
 
-  String compactorIDText = "0000";
-  String staffIDText = "0000";
-  String passwordText = "0";
+  //------------------------------------------------------
+  // Validate user id & password.
+  //------------------------------------------------------
+  void credentialValidate(BuildContext context) {
+    if (_formKey.currentState!.validate()) {
+      showSnackBar(context, loginSuccess, const Duration(seconds: 2));
+      Navigator.of(context).pushReplacementNamed('/home');
+      _formKey.currentState?.reset();
+    }
+  }
 
-  int deviceType = 9;
-
+  //------------------------------------------------------
+  // Build widget.
+  //------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
       resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
         child: Padding(
-          padding: getDevicePadding(context),
+          padding: devicePadding(context),
           child: Column(
             children: <Widget>[
               spaceBuild(context, 0.1),
@@ -52,11 +62,9 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  EdgeInsets getDevicePadding(BuildContext context) {
+  EdgeInsets devicePadding(BuildContext context) {
     return EdgeInsets.symmetric(
-        horizontal: (isMobile(context)
-            ? (isPortrait(context) ? 15.0 : 200.0)
-            : (isPortrait(context) ? 180.0 : 340.0)));
+        horizontal: loginPadding(context));
   }
 
   Center imageBuild(BuildContext context, double top, double widthSz,
@@ -66,10 +74,10 @@ class _LoginScreenState extends State<LoginScreen> {
             padding: EdgeInsets.only(
                 left: 0,
                 right: 0,
-                top: (screenHeight(context) * top),
+                top: (_device.screenHeight(context) * top),
                 bottom: 0),
-            width: screenWidth(context) * widthSz,
-            height: screenHeight(context) * heightSz,
+            width: _device.screenWidth(context) * widthSz,
+            height: _device.screenHeight(context) * heightSz,
             child: Image.asset(image)));
   }
 
@@ -78,31 +86,26 @@ class _LoginScreenState extends State<LoginScreen> {
         key: _formKey,
         child: Column(
           children: <Widget>[
-            loginFieldBuild(context, isTablet(context) ? kompaktorID : staffID),
+            idBox(_device.isTablet() ? compactorID : staffID),
             spaceBuild(context, 0.02),
-            loginFieldBuild(context, password),
+            passwordBox(),
           ],
         ));
   }
 
-  SizedBox loginFieldBuild(BuildContext context, String label) {
+  SizedBox idBox(String label) {
     return SizedBox(
       height: 55.0,
       child: TextFormField(
         autofocus: false,
-        obscureText: label == password ? _isObscure : false,
         validator: (value) {
           if (value == null || value.isEmpty) {
             return 'Sila masukkan $label anda';
           } else {
-            if (label == kompaktorID) {
-              compactorIDText = value;
-              deviceType = compactorPanel;
-            } else if (label == staffID) {
-              staffIDText = value;
-              deviceType = mobileApp;
+            if (label == compactorID) {
+              _userIdInput = value;
             } else {
-              passwordText = value;
+              _userIdInput = value;
             }
           }
           return null;
@@ -110,14 +113,14 @@ class _LoginScreenState extends State<LoginScreen> {
         decoration: InputDecoration(
           hintMaxLines: 1,
           filled: true,
-          fillColor: lightGrey,
+          fillColor: grey200,
           focusColor: green,
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide.none,
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.green),
+            borderSide: BorderSide(color: green),
             borderRadius: BorderRadius.circular(10.0),
           ),
           labelStyle: TextStyle(color: grey, fontSize: 14),
@@ -126,7 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ? IconButton(
                   icon: Icon(
                     _isObscure ? Icons.visibility : Icons.visibility_off,
-                    color: Theme.of(context).primaryColorDark,
+                    color: grey900,
                   ),
                   onPressed: () {
                     setState(() {
@@ -135,6 +138,51 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                 )
               : null,
+        ),
+      ),
+    );
+  }
+
+  SizedBox passwordBox() {
+    return SizedBox(
+      height: 55.0,
+      child: TextFormField(
+        autofocus: false,
+        obscureText: _isObscure,
+        validator: (val) {
+          if (val == null || val.isEmpty) {
+            return emptyPassword;
+          } else {
+              _passwordInput = val;
+          }
+          return null;
+        },
+        decoration: InputDecoration(
+          hintMaxLines: 1,
+          filled: true,
+          fillColor: grey200,
+          focusColor: green,
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide.none,
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: green),
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          labelStyle: TextStyle(color: grey, fontSize: 14),
+          labelText: password,
+          suffixIcon:IconButton(
+            icon: Icon(
+              _isObscure ? Icons.visibility : Icons.visibility_off,
+              color: grey900,
+            ),
+            onPressed: () {
+              setState(() {
+                _isObscure = !_isObscure;
+              });
+            },
+          )
         ),
       ),
     );
@@ -161,16 +209,13 @@ class _LoginScreenState extends State<LoginScreen> {
   ElevatedButton loginButton(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        if (_formKey.currentState!.validate()) {
-          showSnackBar(context, loginSuccess, const Duration(seconds: 2));
-          Navigator.of(context).pushNamed(HomeScreen.tag);
-          //isMobile(context)? print("ID: $staffIDText, password: $passwordText"):
-          //print("ID: $compactorIDText, password: $passwordText");
-        }
+        credentialValidate(context);
       },
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(green),
-        minimumSize: MaterialStateProperty.all(Size(screenWidth(context), 50)),
+        elevation: MaterialStateProperty.all(3),
+        shadowColor: MaterialStateProperty.all(grey900),
+        minimumSize: MaterialStateProperty.all(Size(_device.screenWidth(context), 50)),
         shape: MaterialStateProperty.all(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
@@ -183,7 +228,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   SizedBox spaceBuild(BuildContext context, double size) {
     return SizedBox(
-      height: screenHeight(context) * size,
+      height: _device.screenHeight(context) * size,
     );
   }
 }

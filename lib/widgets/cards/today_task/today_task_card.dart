@@ -1,9 +1,10 @@
-import 'package:eswm/utils/responsive.dart';
 import 'package:flutter/material.dart';
 
 //import files
-import 'package:eswm/config/config.dart' as config;
 import 'package:eswm/widgets/cards/today_task/pra/pra_today_task_details.dart';
+import 'package:eswm/config/dimen.dart';
+import 'package:eswm/utils/device.dart';
+import 'package:eswm/widgets/cards/today_task/compactor_panel/compactor_panel_today_task_details.dart';
 
 class TodayTaskCard extends StatefulWidget {
   const TodayTaskCard({Key? key}) : super(key: key);
@@ -13,12 +14,15 @@ class TodayTaskCard extends StatefulWidget {
 }
 
 class _TodayTaskCardState extends State<TodayTaskCard> {
+
+  final Devices _device = Devices();
+
   @override
   Widget build(BuildContext context) {
     return Container(
       //margin: const EdgeInsets.all(2),
-      padding: const EdgeInsets.all(14),
-      width: screenWidth(context),
+      padding: EdgeInsets.all(taskCardPadding),
+      width: _device.screenWidth(context),
       height: 240,
       decoration: BoxDecoration(
         boxShadow: [
@@ -42,9 +46,9 @@ class _TodayTaskCardState extends State<TodayTaskCard> {
           tileMode: TileMode.decal,
         ),
       ),
-      child: config.userRole == 1
+      child: _device.isPhone()
           ? const PraTodayTaskDetails()
-          : const Text("This is not PRA section"),
+          : const CompactorPanelTodayTaskDetails(),
     );
   }
 }

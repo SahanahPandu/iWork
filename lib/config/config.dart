@@ -8,6 +8,7 @@ const int adminPanel = 7;
 
 //global variables
 int userRole = 1; //PRA
+
 /// ** Role **
 ///
 

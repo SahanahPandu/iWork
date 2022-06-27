@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 
 //import files
 import 'package:eswm/widgets/cards/my_task/pra/pra_my_task_list_details.dart';
+import '../../../utils/device.dart';
+import 'compactor_panel/compactor_panel_my_task_list_details.dart';
 
 class MyTaskCard extends StatefulWidget {
   const MyTaskCard({Key? key}) : super(key: key);
@@ -12,6 +14,9 @@ class MyTaskCard extends StatefulWidget {
 }
 
 class _MyTaskCardState extends State<MyTaskCard> {
+
+  final Devices _device = Devices();
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -25,9 +30,12 @@ class _MyTaskCardState extends State<MyTaskCard> {
           ),
           shadowColor: Colors.white,
           elevation: 14,
-          child: const Padding(
+          child: Padding(
             padding: EdgeInsets.all(6),
-            child: PraMyTaskListDetails(),
+            child: _device.isPhone()
+                ? const PraMyTaskListDetails()
+                : const CompactorPanelMyTaskListDetails()
+            ,
           ),
         ),
       ),

@@ -19,8 +19,8 @@ class MyApp extends StatelessWidget {
       ),
       home: const LoginScreen(),
       routes: <String, WidgetBuilder>{
-        LoginScreen.tag: (BuildContext context) => const LoginScreen(),
-        HomeScreen.tag: (BuildContext context) => const HomeScreen()
+        '/login' : (BuildContext context) => const LoginScreen(),
+        '/home': (BuildContext context) => const HomeScreen()
       },
     );
   }

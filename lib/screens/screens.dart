@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 //import files
-import 'package:eswm/config/config.dart' as config;
 import 'package:eswm/screens/pra/pra.dart';
+import '../utils/device.dart';
+import 'package:eswm/screens/compactor_panel/compactor_panel.dart';
 
 class Screens extends StatefulWidget {
   const Screens({Key? key}) : super(key: key);
@@ -13,6 +14,9 @@ class Screens extends StatefulWidget {
 }
 
 class _ScreensState extends State<Screens> {
+
+  final Devices _device = Devices();
+
   @override
   void initState() {
     super.initState();
@@ -21,8 +25,8 @@ class _ScreensState extends State<Screens> {
 
   @override
   Widget build(BuildContext context) {
-    return config.userRole == 1
+    return _device.isPhone()
         ? const Pra()
-        : const Text("This is not PRA section");
+        : const CompactorPanel();
   }
 }

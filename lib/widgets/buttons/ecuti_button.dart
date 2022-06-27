@@ -1,6 +1,8 @@
-import 'package:eswm/screens/e_cuti/e_cuti.dart';
-import 'package:eswm/utils/responsive.dart';
 import 'package:flutter/material.dart';
+
+import 'package:eswm/screens/e_cuti/e_cuti.dart';
+import 'package:eswm/utils/device.dart';
+import '../../config/dimen.dart';
 
 class EcutiButton extends StatefulWidget {
   const EcutiButton({Key? key}) : super(key: key);
@@ -12,10 +14,9 @@ class EcutiButton extends StatefulWidget {
 class _EcutiButtonState extends State<EcutiButton> {
   @override
   Widget build(BuildContext context) {
-
     return SizedBox(
-      width: screenWidth(context) * 0.25,
-      height: screenHeight(context) * 0.05,
+      width: _device.screenWidth(context) * (buttonWidth(context)),
+      height: _device.screenHeight(context) * (buttonHeight(context)),
       //color: Colors.white,
       child: ElevatedButton.icon(
         style: ElevatedButton.styleFrom(
