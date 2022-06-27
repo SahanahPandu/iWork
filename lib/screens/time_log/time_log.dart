@@ -1,5 +1,6 @@
 import 'package:eswm/widgets/buttons/time_log_ripple_button.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 //import files
 import 'package:eswm/config/palette.dart';
@@ -16,6 +17,14 @@ class TimeLog extends StatefulWidget {
 }
 
 class _TimeLogState extends State<TimeLog> {
+  //get current date and time
+
+  String day = DateFormat("EEEE", 'ms').format(DateTime.now());
+  String date = DateFormat("d", 'ms').format(DateTime.now());
+  String month = DateFormat("MMMM", 'ms').format(DateTime.now());
+  late String today = "   $date   $month ";
+  String currentTime = DateFormat("HH:mm:ss").format(DateTime.now());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,21 +67,45 @@ class _TimeLogState extends State<TimeLog> {
         child: Center(
           child: Column(
             children: [
-              Text(
-                "Jumaat . 20 May",
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.grey.shade400,
-                  fontWeight: FontWeight.w500,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    day,
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.grey.shade400,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  Icon(
+                    Icons.fiber_manual_record,
+                    size: 5,
+                    color: Colors.grey.shade400,
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    today,
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.grey.shade400,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(
-                height: 15,
+                height: 13,
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 8.0),
                 child: Text(
-                  "7:05:00",
+                  currentTime,
                   style: TextStyle(
                     fontSize: 40,
                     color: Colors.grey.shade900,
@@ -81,7 +114,7 @@ class _TimeLogState extends State<TimeLog> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(45),
+                padding: const EdgeInsets.all(55),
                 child: TimeLogRippleButton(
                     btnText: widget.btnText, btnColor: widget.btnColor),
               ),
