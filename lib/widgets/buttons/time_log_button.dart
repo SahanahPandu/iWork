@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 //import files
 import 'package:eswm/screens/time_log/time_log.dart';
+import '../../config/dimen.dart';
+import '../../utils/device.dart';
 
 class TimeLogButton extends StatefulWidget {
   const TimeLogButton({Key? key}) : super(key: key);
@@ -11,6 +13,9 @@ class TimeLogButton extends StatefulWidget {
 }
 
 class _TimeLogButtonState extends State<TimeLogButton> {
+
+  final Devices _device = Devices();
+
   Color buttonTextColor = Colors.green;
   String buttonText = "Masuk Kerja";
 
@@ -37,11 +42,9 @@ class _TimeLogButtonState extends State<TimeLogButton> {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
-
     return SizedBox(
-      width: size.width * 0.40,
-      height: size.height * 0.05,
+      width: _device.screenWidth(context) * (buttonWidth(context)),
+      height: _device.screenHeight(context) * (buttonHeight(context)),
       //color: Colors.white,
       child: ElevatedButton.icon(
         style: ElevatedButton.styleFrom(
