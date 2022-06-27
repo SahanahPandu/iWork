@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 //import files
 import 'package:eswm/config/config.dart' as config;
@@ -12,6 +13,12 @@ class Screens extends StatefulWidget {
 }
 
 class _ScreensState extends State<Screens> {
+  @override
+  void initState() {
+    super.initState();
+    initializeDateFormatting('ms', null); //very important
+  }
+
   @override
   Widget build(BuildContext context) {
     return config.userRole == 1
