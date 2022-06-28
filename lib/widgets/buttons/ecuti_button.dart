@@ -12,10 +12,12 @@ class EcutiButton extends StatefulWidget {
 }
 
 class _EcutiButtonState extends State<EcutiButton> {
+  final Devices _device = Devices();
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: _device.screenWidth(context) * (buttonWidth(context)),
+      width: _device.screenWidth(context) * (buttonEcutiWidth(context)),
       height: _device.screenHeight(context) * (buttonHeight(context)),
       //color: Colors.white,
       child: ElevatedButton.icon(

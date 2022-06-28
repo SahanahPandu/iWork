@@ -12,9 +12,13 @@ double loginPadding(BuildContext context) => _device.isPhone()
     : (_device.isPortrait(context) ? 180.0 : 340.0);
 
 double buttonWidth(BuildContext context) => _device.isPhone()
-    ? (_device.isPortrait(context) ? 0.25 : 0.30)
+    ? (_device.isPortrait(context) ? 0.40 : 0.30)
     : (_device.isPortrait(context) ? 0.25 : 0.16);
 
 double buttonHeight(BuildContext context) => _device.isPhone()
-    ? (_device.isPortrait(context) ? 0.05 : 0.1)
+    ? (_device.isPortrait(context) ? 0.05 : 0.12)
     : (_device.isPortrait(context) ? 0.05 : 0.06);
+
+double buttonEcutiWidth(BuildContext context) => _device.isPhone()
+    ? (_device.isPortrait(context) ? 0.30 : 0.24)
+    : (_device.isPortrait(context) ? 0.25 : 0.16);
