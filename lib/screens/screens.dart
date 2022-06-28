@@ -1,8 +1,10 @@
+import 'package:eswm/screens/compactor_panel/compactor_panel.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 //import files
 import 'package:eswm/screens/pra/pra.dart';
+
 import '../utils/device.dart';
 import 'package:eswm/screens/compactor_panel/compactor_panel.dart';
 
