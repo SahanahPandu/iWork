@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 
 //import files
@@ -6,14 +8,15 @@ import '../../config/dimen.dart';
 import '../../utils/device.dart';
 
 class TimeLogButton extends StatefulWidget {
-  const TimeLogButton({Key? key}) : super(key: key);
+  Function getTimeLog;
+
+  TimeLogButton({Key? key, required this.getTimeLog}) : super(key: key);
 
   @override
   State<TimeLogButton> createState() => _TimeLogButtonState();
 }
 
 class _TimeLogButtonState extends State<TimeLogButton> {
-
   final Devices _device = Devices();
 
   Color buttonTextColor = Colors.green;
@@ -23,10 +26,13 @@ class _TimeLogButtonState extends State<TimeLogButton> {
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) =>
-              TimeLog(btnText: buttonText, btnColor: buttonTextColor),
+          builder: (context) => TimeLog(
+            btnText: buttonText,
+            btnColor: buttonTextColor,
+          ),
         )).then((actionText) {
       if (actionText == "Masuk Kerja") {
+        widget.getTimeLog();
         setState(() {
           buttonText = "Tamat Kerja";
           buttonTextColor = Colors.red;

@@ -10,8 +10,11 @@ class TimeLogRippleButton extends StatefulWidget {
   late String btnText;
   late Color btnColor;
 
-  TimeLogRippleButton({Key? key, required this.btnText, required this.btnColor})
-      : super(key: key);
+  TimeLogRippleButton({
+    Key? key,
+    required this.btnText,
+    required this.btnColor,
+  }) : super(key: key);
 
   @override
   State<TimeLogRippleButton> createState() => _TimeLogRippleButtonState();
@@ -39,7 +42,9 @@ class _TimeLogRippleButtonState extends State<TimeLogRippleButton> {
                     "Batal",
                     widget.btnText);
               }).then((actionText) {
-            if (actionText == "Masuk Kerja" || actionText == "Tamat Kerja") {
+            if (actionText == "Masuk Kerja") {
+              Navigator.pop(context, actionText);
+            } else if (actionText == "Tamat Kerja") {
               Navigator.pop(context, actionText);
             }
           });

@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:eswm/widgets/buttons/time_log_ripple_button.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -9,8 +11,11 @@ class TimeLog extends StatefulWidget {
   final String btnText;
   final Color btnColor;
 
-  const TimeLog({Key? key, required this.btnText, required this.btnColor})
-      : super(key: key);
+  const TimeLog({
+    Key? key,
+    required this.btnText,
+    required this.btnColor,
+  }) : super(key: key);
 
   @override
   State<TimeLog> createState() => _TimeLogState();
@@ -18,11 +23,10 @@ class TimeLog extends StatefulWidget {
 
 class _TimeLogState extends State<TimeLog> {
   //get current date and time
-
   String day = DateFormat("EEEE", 'ms').format(DateTime.now());
   String date = DateFormat("d", 'ms').format(DateTime.now());
   String month = DateFormat("MMMM", 'ms').format(DateTime.now());
-  late String today = "   $date   $month ";
+  late String today = "   $date  $month ";
   String currentTime = DateFormat("HH:mm:ss").format(DateTime.now());
 
   @override
@@ -116,7 +120,9 @@ class _TimeLogState extends State<TimeLog> {
               Padding(
                 padding: const EdgeInsets.all(55),
                 child: TimeLogRippleButton(
-                    btnText: widget.btnText, btnColor: widget.btnColor),
+                  btnText: widget.btnText,
+                  btnColor: widget.btnColor,
+                ),
               ),
             ],
           ),

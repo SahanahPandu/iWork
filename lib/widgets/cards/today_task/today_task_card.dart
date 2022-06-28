@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 //import files
 import 'package:eswm/widgets/cards/today_task/pra/pra_today_task_details.dart';
@@ -14,6 +15,14 @@ class TodayTaskCard extends StatefulWidget {
 }
 
 class _TodayTaskCardState extends State<TodayTaskCard> {
+  late String timeIn = "";
+
+  getTimeLog() {
+    String currentTime = DateFormat("hh:mm a").format(DateTime.now());
+    setState(() {
+      timeIn = currentTime;
+    });
+  }
 
   final Devices _device = Devices();
 
@@ -47,8 +56,9 @@ class _TodayTaskCardState extends State<TodayTaskCard> {
         ),
       ),
       child: _device.isPhone()
-          ? const PraTodayTaskDetails()
-          : const CompactorPanelTodayTaskDetails(),
+          ? PraTodayTaskDetails(timeIn: timeIn, getTimeLog: getTimeLog)
+          : CompactorPanelTodayTaskDetails(
+              timeIn: timeIn, getTimeLog: getTimeLog),
     );
   }
 }

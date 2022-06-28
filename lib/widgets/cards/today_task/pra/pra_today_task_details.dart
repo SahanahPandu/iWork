@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 
 //import files
@@ -5,7 +7,12 @@ import 'package:eswm/widgets/buttons/ecuti_button.dart';
 import 'package:eswm/widgets/buttons/time_log_button.dart';
 
 class PraTodayTaskDetails extends StatefulWidget {
-  const PraTodayTaskDetails({Key? key}) : super(key: key);
+  late String timeIn;
+  Function getTimeLog;
+
+  PraTodayTaskDetails(
+      {Key? key, required this.timeIn, required this.getTimeLog})
+      : super(key: key);
 
   @override
   State<PraTodayTaskDetails> createState() => _PraTodayTaskDetailsState();
@@ -66,18 +73,18 @@ class _PraTodayTaskDetailsState extends State<PraTodayTaskDetails> {
           height: 15,
         ),
         Row(
-          children: const [
-            Icon(
+          children: [
+            const Icon(
               Icons.timer_outlined,
               color: Colors.white,
               size: 18,
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             Text(
-              "7:05 pagi",
-              style: TextStyle(
+              widget.timeIn,
+              style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
                 color: Colors.white,
@@ -90,12 +97,12 @@ class _PraTodayTaskDetailsState extends State<PraTodayTaskDetails> {
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
-          children: const [
-            EcutiButton(),
-            SizedBox(
+          children: [
+            const EcutiButton(),
+            const SizedBox(
               width: 10,
             ),
-            TimeLogButton(),
+            TimeLogButton(getTimeLog: widget.getTimeLog),
           ],
         )
       ],

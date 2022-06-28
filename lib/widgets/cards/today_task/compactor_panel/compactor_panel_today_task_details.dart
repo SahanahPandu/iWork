@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 
 import 'package:eswm/config/palette.dart';
@@ -8,13 +10,20 @@ import '../../../../config/string.dart';
 import '../../../../utils/date.dart';
 
 class CompactorPanelTodayTaskDetails extends StatefulWidget {
-  const CompactorPanelTodayTaskDetails({Key? key}) : super(key: key);
+  late String timeIn;
+  Function getTimeLog;
+
+  CompactorPanelTodayTaskDetails(
+      {Key? key, required this.timeIn, required this.getTimeLog})
+      : super(key: key);
 
   @override
-  State<CompactorPanelTodayTaskDetails> createState() => _CompactorPanelTodayTaskDetailsState();
+  State<CompactorPanelTodayTaskDetails> createState() =>
+      _CompactorPanelTodayTaskDetailsState();
 }
 
-class _CompactorPanelTodayTaskDetailsState extends State<CompactorPanelTodayTaskDetails> {
+class _CompactorPanelTodayTaskDetailsState
+    extends State<CompactorPanelTodayTaskDetails> {
   String todayDate = "0";
 
   @override
@@ -94,7 +103,7 @@ class _CompactorPanelTodayTaskDetailsState extends State<CompactorPanelTodayTask
                   width: 10,
                 ),
                 Text(
-                  "7:05 pagi",
+                  widget.timeIn,
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
@@ -105,17 +114,16 @@ class _CompactorPanelTodayTaskDetailsState extends State<CompactorPanelTodayTask
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
-              children: const [
-                EcutiButton(),
-                SizedBox(
+              children: [
+                const EcutiButton(),
+                const SizedBox(
                   width: 10,
                 ),
-                TimeLogButton(),
+                TimeLogButton(getTimeLog: widget.getTimeLog),
               ],
             )
           ],
         )
-
       ],
     );
   }
