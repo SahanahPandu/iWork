@@ -17,6 +17,7 @@ class TodayTaskCard extends StatefulWidget {
 class _TodayTaskCardState extends State<TodayTaskCard> {
   late String timeIn = "";
   late String timeOut = "";
+  final Devices _device = Devices();
 
   getTimeLog(actionText) {
     String currentTime = DateFormat("hh:mm a").format(DateTime.now());
@@ -31,8 +32,6 @@ class _TodayTaskCardState extends State<TodayTaskCard> {
       });
     }
   }
-
-  final Devices _device = Devices();
 
   @override
   Widget build(BuildContext context) {

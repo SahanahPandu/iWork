@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import '../../../../utils/date.dart';
 
 //import files
 import 'package:eswm/widgets/buttons/ecuti_button.dart';
@@ -23,6 +24,14 @@ class PraTodayTaskDetails extends StatefulWidget {
 }
 
 class _PraTodayTaskDetailsState extends State<PraTodayTaskDetails> {
+  String todayDate = "0";
+
+  @override
+  void initState() {
+    super.initState();
+    todayDate = Date.getTodayDate();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -57,9 +66,9 @@ class _PraTodayTaskDetailsState extends State<PraTodayTaskDetails> {
             ),
           ],
         ),
-        const Text(
-          "22/5/2022",
-          style: TextStyle(
+        Text(
+          todayDate,
+          style: const TextStyle(
             fontSize: 35,
             fontWeight: FontWeight.w600,
             color: Colors.white,
@@ -78,11 +87,12 @@ class _PraTodayTaskDetailsState extends State<PraTodayTaskDetails> {
         ),
         Row(
           children: [
-            const Icon(
-              Icons.timer_outlined,
-              color: Colors.white,
-              size: 18,
-            ),
+            if (widget.timeIn != "")
+              const Icon(
+                Icons.timer_outlined,
+                color: Colors.white,
+                size: 18,
+              ),
             const SizedBox(
               width: 6,
             ),
@@ -97,11 +107,12 @@ class _PraTodayTaskDetailsState extends State<PraTodayTaskDetails> {
             const SizedBox(
               width: 25,
             ),
-            const Icon(
-              Icons.timer_outlined,
-              color: Colors.white,
-              size: 18,
-            ),
+            if (widget.timeOut != "")
+              const Icon(
+                Icons.timer_outlined,
+                color: Colors.white,
+                size: 18,
+              ),
             const SizedBox(
               width: 6,
             ),
