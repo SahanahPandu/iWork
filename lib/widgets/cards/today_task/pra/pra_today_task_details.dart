@@ -8,10 +8,14 @@ import 'package:eswm/widgets/buttons/time_log_button.dart';
 
 class PraTodayTaskDetails extends StatefulWidget {
   late String timeIn;
+  late String timeOut;
   Function getTimeLog;
 
   PraTodayTaskDetails(
-      {Key? key, required this.timeIn, required this.getTimeLog})
+      {Key? key,
+      required this.timeIn,
+      required this.timeOut,
+      required this.getTimeLog})
       : super(key: key);
 
   @override
@@ -80,10 +84,29 @@ class _PraTodayTaskDetailsState extends State<PraTodayTaskDetails> {
               size: 18,
             ),
             const SizedBox(
-              width: 10,
+              width: 6,
             ),
             Text(
               widget.timeIn,
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                color: Colors.white,
+              ),
+            ),
+            const SizedBox(
+              width: 25,
+            ),
+            const Icon(
+              Icons.timer_outlined,
+              color: Colors.white,
+              size: 18,
+            ),
+            const SizedBox(
+              width: 6,
+            ),
+            Text(
+              widget.timeOut,
               style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,

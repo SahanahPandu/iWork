@@ -31,8 +31,8 @@ class _TimeLogButtonState extends State<TimeLogButton> {
             btnColor: buttonTextColor,
           ),
         )).then((actionText) {
+      widget.getTimeLog(actionText);
       if (actionText == "Masuk Kerja") {
-        widget.getTimeLog();
         setState(() {
           buttonText = "Tamat Kerja";
           buttonTextColor = Colors.red;

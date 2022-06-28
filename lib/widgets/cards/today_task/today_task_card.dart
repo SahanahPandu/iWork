@@ -16,12 +16,20 @@ class TodayTaskCard extends StatefulWidget {
 
 class _TodayTaskCardState extends State<TodayTaskCard> {
   late String timeIn = "";
+  late String timeOut = "";
 
-  getTimeLog() {
+  getTimeLog(actionText) {
     String currentTime = DateFormat("hh:mm a").format(DateTime.now());
-    setState(() {
-      timeIn = currentTime;
-    });
+
+    if (actionText == "Masuk Kerja") {
+      setState(() {
+        timeIn = currentTime;
+      });
+    } else if (actionText == "Tamat Kerja") {
+      setState(() {
+        timeOut = currentTime;
+      });
+    }
   }
 
   final Devices _device = Devices();
@@ -56,9 +64,10 @@ class _TodayTaskCardState extends State<TodayTaskCard> {
         ),
       ),
       child: _device.isPhone()
-          ? PraTodayTaskDetails(timeIn: timeIn, getTimeLog: getTimeLog)
+          ? PraTodayTaskDetails(
+              timeIn: timeIn, timeOut: timeOut, getTimeLog: getTimeLog)
           : CompactorPanelTodayTaskDetails(
-              timeIn: timeIn, getTimeLog: getTimeLog),
+              timeIn: timeIn, timeOut: timeOut, getTimeLog: getTimeLog),
     );
   }
 }

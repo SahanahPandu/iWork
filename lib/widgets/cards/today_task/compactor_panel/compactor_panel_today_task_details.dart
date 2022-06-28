@@ -11,10 +11,14 @@ import '../../../../utils/date.dart';
 
 class CompactorPanelTodayTaskDetails extends StatefulWidget {
   late String timeIn;
+  late String timeOut;
   Function getTimeLog;
 
   CompactorPanelTodayTaskDetails(
-      {Key? key, required this.timeIn, required this.getTimeLog})
+      {Key? key,
+      required this.timeIn,
+      required this.timeOut,
+      required this.getTimeLog})
       : super(key: key);
 
   @override
@@ -103,7 +107,7 @@ class _CompactorPanelTodayTaskDetailsState
                   width: 10,
                 ),
                 Text(
-                  widget.timeIn,
+                  "${widget.timeIn} - ${widget.timeOut}",
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
