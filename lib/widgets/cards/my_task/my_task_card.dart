@@ -14,7 +14,6 @@ class MyTaskCard extends StatefulWidget {
 }
 
 class _MyTaskCardState extends State<MyTaskCard> {
-
   final Devices _device = Devices();
 
   @override
@@ -31,11 +30,10 @@ class _MyTaskCardState extends State<MyTaskCard> {
           shadowColor: Colors.white,
           elevation: 14,
           child: Padding(
-            padding: EdgeInsets.all(6),
+            padding: const EdgeInsets.all(6),
             child: _device.isPhone()
                 ? const PraMyTaskListDetails()
-                : const CompactorPanelMyTaskListDetails()
-            ,
+                : const CompactorPanelMyTaskListDetails(),
           ),
         ),
       ),
