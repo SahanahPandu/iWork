@@ -40,7 +40,7 @@ class _TimeLogButtonState extends State<TimeLogButton> {
       } else if (actionText == "Tamat Kerja") {
         setState(() {
           buttonText = "Masuk Kerja";
-          buttonTextColor = Colors.green;
+          buttonTextColor = Colors.grey;
         });
       }
     });
@@ -62,7 +62,9 @@ class _TimeLogButtonState extends State<TimeLogButton> {
           elevation: 5.0,
         ),
         onPressed: () {
-          changeButtonColor();
+          if (buttonTextColor != Colors.grey) {
+            changeButtonColor();
+          }
         },
         icon: Icon(
           Icons.timer_outlined,
