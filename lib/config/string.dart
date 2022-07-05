@@ -8,5 +8,5 @@ String forgotPassword = 'Lupa Kata Laluan?';
 String eCuti = 'E-Cuti';
 String loginSuccess = 'Berjaya log masuk';
 String emptyPassword = 'Sila masukkan kata laluan anda';
-String scheduleList = 'Senarai Tugasan';
+String scheduleList = 'Tugasan Saya';
 String todayTask = 'Tugasan Hari Ini';

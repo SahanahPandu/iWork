@@ -12,4 +12,6 @@ Color grey800 = Colors.grey.shade800;
 Color grey900 = Colors.grey.shade900;
 Color black26 = Colors.black26;
 Color black87 = Colors.black87;
+Color orange100 = Colors.orange.shade100;
+Color orange700 = Colors.orange.shade700;
 Color green = Colors.green;

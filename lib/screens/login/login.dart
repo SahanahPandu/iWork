@@ -123,7 +123,7 @@ class _LoginScreenState extends State<LoginScreen> {
             borderSide: BorderSide(color: green),
             borderRadius: BorderRadius.circular(10.0),
           ),
-          labelStyle: TextStyle(color: grey, fontSize: 14),
+          labelStyle: TextStyle(color: black87, fontSize: 14),
           labelText: label,
           suffixIcon: label == password
               ? IconButton(
@@ -170,7 +170,7 @@ class _LoginScreenState extends State<LoginScreen> {
             borderSide: BorderSide(color: green),
             borderRadius: BorderRadius.circular(10.0),
           ),
-          labelStyle: TextStyle(color: grey, fontSize: 14),
+          labelStyle: TextStyle(color: black87, fontSize: 14),
           labelText: password,
           suffixIcon:IconButton(
             icon: Icon(

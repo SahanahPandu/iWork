@@ -14,7 +14,6 @@ class MyTaskCard extends StatefulWidget {
 }
 
 class _MyTaskCardState extends State<MyTaskCard> {
-  final Devices _device = Devices();
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +30,7 @@ class _MyTaskCardState extends State<MyTaskCard> {
           elevation: 14,
           child: Padding(
             padding: const EdgeInsets.all(6),
-            child: _device.isPhone()
-                ? const PraMyTaskListDetails()
-                : const CompactorPanelMyTaskListDetails(),
+            child: const PraMyTaskListDetails()
           ),
         ),
       ),
