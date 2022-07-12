@@ -32,16 +32,31 @@ class _CompactorPanelState extends State<CompactorPanel> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 30, top: 15),
-          child: Text(
-            "Hi, Khairul!",
-            style: TextStyle(
-              color: grey800,
-              fontSize: 24,
-              fontWeight: FontWeight.w900,
+        Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 30, top: 15),
+              child: Text(
+                "Hi, Suhaimi",
+                style: TextStyle(
+                  color: grey800,
+                  fontSize: 24,
+                  fontWeight: FontWeight.w900,
+                ),
+              ),
             ),
-          ),
+            Padding(
+              padding: const EdgeInsets.only(left: 10, top: 15),
+              child: Text(
+                "BLW 7096",
+                style: TextStyle(
+                  color: grey500,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          ],
         ),
         AnimatedOpacity(
           duration: const Duration(milliseconds: 400),
@@ -65,11 +80,11 @@ class _CompactorPanelState extends State<CompactorPanel> {
           ),
         ),
         Container(
-          margin: const EdgeInsets.only(left: 15, top: 10),
+          margin: const EdgeInsets.only(left: 20, top: 10),
           child: Text(
             scheduleList,
             style: TextStyle(
-              color: grey500,
+              color: black87,
               fontWeight: FontWeight.w500,
               fontSize: 17,
             ),
