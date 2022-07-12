@@ -18,7 +18,6 @@ class _TabsState extends State<Tabs> {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        backgroundColor: appBackgroundColor,
         appBar: AppBar(
           backgroundColor: appBackgroundColor,
           elevation: 4,
