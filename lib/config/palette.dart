@@ -13,3 +13,22 @@ Color grey900 = Colors.grey.shade900;
 Color black26 = Colors.black26;
 Color black87 = Colors.black87;
 Color green = Colors.green;
+
+//------Text Form Field--------------------------------------------------------
+Color textFormFieldFillColor = Colors.white70;
+
+//border setting
+double borderSideWidth = 1.5;
+double borderRadiusCircular = 8;
+
+//border color
+Color focusedBorder = Colors.green;
+Color enabledBorderWithText = Colors.green;
+Color enabledBorderWithoutText = Colors.grey.shade400;
+
+//label
+Color labelTextColor = Colors.grey.shade500;
+FontWeight labelFontWeight = FontWeight.w400;
+
+
+//------End of Text Form Field--------------------------------------------------------
