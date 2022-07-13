@@ -17,7 +17,7 @@ Color orange700 = Colors.orange.shade700;
 Color green = Colors.green;
 
 //------Text Form Field--------------------------------------------------------
-Color textFormFieldFillColor = Colors.white70;
+Color textFormFieldFillColor = Colors.white;
 
 //border setting
 double borderSideWidth = 1.5;
