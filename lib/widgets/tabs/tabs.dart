@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 //import files
 import 'package:eswm/screens/e_cuti/leave_form.dart';
+import 'package:eswm/screens/e_cuti/leave_list.dart';
 import '../../config/palette.dart';
 import '../../config/string.dart';
 
@@ -69,10 +70,7 @@ class _TabsState extends State<Tabs> {
         ),
         body: const TabBarView(children: [
           LeaveForm(),
-          Icon(
-            Icons.directions_transit,
-            size: 350,
-          ),
+          LeaveList(),
         ]),
       ),
     );
