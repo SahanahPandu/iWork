@@ -67,7 +67,6 @@ class _LeaveFormState extends State<LeaveForm> {
         }
       },
       child: Scaffold(
-        backgroundColor: grey200,
         bottomSheet: _showBottomSheet(),
         body: Container(
           margin: const EdgeInsets.all(7),
@@ -488,13 +487,14 @@ class _LeaveFormState extends State<LeaveForm> {
   Widget? _showBottomSheet() {
     if (_show) {
       return BottomSheet(
-        enableDrag: true,
+        backgroundColor: Colors.white,
+        elevation: 50,
+        enableDrag: false,
         onClosing: () {},
         builder: (context) {
           return Container(
             height: 90,
             width: double.infinity,
-            color: Colors.white,
             alignment: Alignment.center,
             child: ElevatedButton(
               onPressed: () {
