@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 /// * COLOR LIST
 
 Color white = Colors.white;
-Color appBackgroundColor = Colors.white;
+Color appBackgroundColor = Colors.grey.shade100;
 Color appBarBgColor = Colors.white;
 Color grey = Colors.grey;
 Color grey200 = Colors.grey.shade200;
