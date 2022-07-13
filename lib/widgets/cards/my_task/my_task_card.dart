@@ -14,7 +14,6 @@ class MyTaskCard extends StatefulWidget {
 }
 
 class _MyTaskCardState extends State<MyTaskCard> {
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -28,9 +27,9 @@ class _MyTaskCardState extends State<MyTaskCard> {
           ),
           shadowColor: Colors.white,
           elevation: 14,
-          child: Padding(
-            padding: const EdgeInsets.all(6),
-            child: const PraMyTaskListDetails()
+          child: const Padding(
+            padding: EdgeInsets.all(6),
+            child: PraMyTaskListDetails(),
           ),
         ),
       ),
