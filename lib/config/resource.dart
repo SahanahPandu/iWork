@@ -2,5 +2,5 @@
 ///
 /// ** IMAGE **
 ///
-String operationImg = 'asset/image/operation.png';
-String logoImg = 'asset/image/logo.png';
+String operationImg = 'assets/image/operation.png';
+String logoImg = 'assets/image/logo.png';
