@@ -1,6 +1,7 @@
-import 'package:eswm/widgets/cards/e_cuti/pra/pra_e_cuti_list_details.dart';
-import 'package:eswm/widgets/listview/card_list_view.dart';
 import 'package:flutter/material.dart';
+
+//import files
+import 'package:eswm/widgets/listview/card_list_view.dart';
 
 class LeaveList extends StatefulWidget {
   const LeaveList({Key? key}) : super(key: key);
@@ -10,8 +11,6 @@ class LeaveList extends StatefulWidget {
 }
 
 class _LeaveListState extends State<LeaveList> {
-  List items = ['Cuti1', 'Cuti2', 'Cuti3', 'Cuti4'];
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -29,9 +28,8 @@ class _LeaveListState extends State<LeaveList> {
           ),
         ),
         CardListView(
-          itemList: items,
-          pages: const PraECutiListDetails(),
-          cardHeight: 130,
+          type: "Cuti",
+          cardHeight: 150,
         ),
       ],
     );
