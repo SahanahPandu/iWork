@@ -1,15 +1,20 @@
-import 'dart:async';
+// ignore_for_file: must_be_immutable
 
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:intl/intl.dart';
 
 //import files
 import 'package:eswm/config/palette.dart';
 import 'package:eswm/utils/device.dart';
-import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
-import 'package:intl/intl.dart';
+import '../../models/cuti.dart';
 
 class LeaveForm extends StatefulWidget {
-  const LeaveForm({Key? key}) : super(key: key);
+  String screen;
+  Cuti? data;
+
+  LeaveForm({Key? key, required this.screen, this.data}) : super(key: key);
 
   @override
   State<LeaveForm> createState() => _LeaveFormState();
@@ -29,9 +34,54 @@ class _LeaveFormState extends State<LeaveForm> {
   final TextEditingController _jenisCuti = TextEditingController();
   final TextEditingController _tarikhMula = TextEditingController();
   final TextEditingController _tarikhTamat = TextEditingController();
+  final TextEditingController _lampiran = TextEditingController();
   final TextEditingController _catatan = TextEditingController();
 
   bool _show = true;
+  Color textFieldFillColor = textFormFieldFillColor;
+  Color focusBorderColor = focusedBorder;
+  Color enableBorderWithTextColor = enabledBorderWithText;
+  bool _lampiranVisibility = true;
+  bool _lampiranDetailsVisibility = false;
+
+  getData() {
+    // ignore: unnecessary_null_comparison
+    if (widget.screen == "2") {
+      //from leave list
+      setState(() {
+        textFieldFillColor = Colors.grey.shade300;
+        focusBorderColor = Colors.grey.shade300;
+        enableBorderWithTextColor = Colors.grey.shade300;
+
+        if ((widget.data!.idStatus == 4 || widget.data!.idStatus == 3) &&
+            widget.data!.lampiran == "") {
+          _lampiranVisibility = false;
+          _lampiranDetailsVisibility = false;
+        } else if (widget.data!.idStatus != 2) {
+          _lampiranVisibility = false;
+          _lampiranDetailsVisibility = true;
+        }
+
+        if (widget.data!.jenisCuti != "") {
+          _jenisCuti.text = widget.data!.jenisCuti;
+        }
+        if (widget.data!.tarikhMula != "") {
+          _tarikhMula.text = widget.data!.tarikhMula;
+        }
+        if (widget.data!.tarikhTamat != "") {
+          _tarikhTamat.text = widget.data!.tarikhTamat;
+        }
+
+        if (widget.data!.lampiran != "") {
+          _lampiran.text = widget.data!.lampiran;
+        }
+
+        if (widget.data!.catatan != "") {
+          _catatan.text = widget.data!.catatan;
+        }
+      });
+    }
+  }
 
   @override
   void initState() {
@@ -49,6 +99,8 @@ class _LeaveFormState extends State<LeaveForm> {
         });
       }
     });
+
+    getData();
   }
 
   @override
@@ -99,11 +151,11 @@ class _LeaveFormState extends State<LeaveForm> {
                         readOnly: true,
                         decoration: InputDecoration(
                           filled: true,
-                          fillColor: textFormFieldFillColor,
+                          fillColor: textFieldFillColor,
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                               width: borderSideWidth,
-                              color: focusedBorder,
+                              color: focusBorderColor,
                             ),
                             borderRadius: BorderRadius.circular(
                               borderRadiusCircular,
@@ -113,7 +165,7 @@ class _LeaveFormState extends State<LeaveForm> {
                               ? OutlineInputBorder(
                                   borderSide: BorderSide(
                                     width: borderSideWidth,
-                                    color: enabledBorderWithText,
+                                    color: enableBorderWithTextColor,
                                   ),
                                   borderRadius: BorderRadius.circular(
                                       borderRadiusCircular),
@@ -134,88 +186,92 @@ class _LeaveFormState extends State<LeaveForm> {
                           contentPadding: const EdgeInsets.all(8),
                           suffixIcon: InkWell(
                             onTap: () {
-                              showModalBottomSheet(
-                                  shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(20),
-                                      topRight: Radius.circular(20),
+                              if (widget.screen == "2") {
+                              } else {
+                                showModalBottomSheet(
+                                    shape: const RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(20),
+                                        topRight: Radius.circular(20),
+                                      ),
                                     ),
-                                  ),
-                                  context: context,
-                                  builder: (builder) {
-                                    return SizedBox(
-                                      height: 350,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                              top: 25,
-                                              left: 25,
-                                              bottom: 15,
-                                            ),
-                                            child: Text(
-                                              "Jenis Cuti",
-                                              style: TextStyle(
-                                                color: Colors.grey.shade500,
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w500,
+                                    context: context,
+                                    builder: (builder) {
+                                      return SizedBox(
+                                        height: 350,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                top: 25,
+                                                left: 25,
+                                                bottom: 15,
+                                              ),
+                                              child: Text(
+                                                "Jenis Cuti",
+                                                style: TextStyle(
+                                                  color: Colors.grey.shade500,
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                          Expanded(
-                                            child: ListView.builder(
-                                                shrinkWrap: true,
-                                                itemCount: jenisCuti.length,
-                                                itemBuilder: (context, index) {
-                                                  return InkWell(
-                                                    onTap: () {
-                                                      setState(() {
-                                                        _jenisCuti.text =
-                                                            jenisCuti[index]
-                                                                ["name"];
-                                                      });
-                                                      Navigator.pop(context);
-                                                    },
-                                                    child: Container(
-                                                      margin: const EdgeInsets
-                                                              .symmetric(
-                                                          horizontal: 25,
-                                                          vertical: 20),
-                                                      height: 35,
-                                                      child: Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Text(
-                                                            jenisCuti[index]
-                                                                ["name"],
-                                                            style:
-                                                                const TextStyle(
-                                                              fontSize: 16,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
+                                            Expanded(
+                                              child: ListView.builder(
+                                                  shrinkWrap: true,
+                                                  itemCount: jenisCuti.length,
+                                                  itemBuilder:
+                                                      (context, index) {
+                                                    return InkWell(
+                                                      onTap: () {
+                                                        setState(() {
+                                                          _jenisCuti.text =
+                                                              jenisCuti[index]
+                                                                  ["name"];
+                                                        });
+                                                        Navigator.pop(context);
+                                                      },
+                                                      child: Container(
+                                                        margin: const EdgeInsets
+                                                                .symmetric(
+                                                            horizontal: 25,
+                                                            vertical: 20),
+                                                        height: 35,
+                                                        child: Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Text(
+                                                              jenisCuti[index]
+                                                                  ["name"],
+                                                              style:
+                                                                  const TextStyle(
+                                                                fontSize: 16,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                              ),
                                                             ),
-                                                          ),
-                                                          Divider(
-                                                            color: grey500,
-                                                            thickness: 1,
-                                                            //indent: 8,
-                                                            endIndent: 8,
-                                                          ),
-                                                        ],
+                                                            Divider(
+                                                              color: grey500,
+                                                              thickness: 1,
+                                                              //indent: 8,
+                                                              endIndent: 8,
+                                                            ),
+                                                          ],
+                                                        ),
                                                       ),
-                                                    ),
-                                                  );
-                                                }),
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  });
+                                                    );
+                                                  }),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    });
+                              }
                             },
                             child: const Icon(
                               Icons.arrow_drop_down,
@@ -238,11 +294,11 @@ class _LeaveFormState extends State<LeaveForm> {
                           readOnly: true,
                           decoration: InputDecoration(
                             filled: true,
-                            fillColor: textFormFieldFillColor,
+                            fillColor: textFieldFillColor,
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 width: borderSideWidth,
-                                color: focusedBorder,
+                                color: focusBorderColor,
                               ),
                               borderRadius:
                                   BorderRadius.circular(borderRadiusCircular),
@@ -251,7 +307,7 @@ class _LeaveFormState extends State<LeaveForm> {
                                 ? OutlineInputBorder(
                                     borderSide: BorderSide(
                                       width: borderSideWidth,
-                                      color: enabledBorderWithText,
+                                      color: enableBorderWithTextColor,
                                     ),
                                     borderRadius: BorderRadius.circular(
                                         borderRadiusCircular),
@@ -284,14 +340,16 @@ class _LeaveFormState extends State<LeaveForm> {
                                     margin: const EdgeInsets.only(right: 6),
                                     child: InkWell(
                                       onTap: () async {
-                                        DateTime? getStartDate =
-                                            await datePicker(context);
-                                        if (getStartDate != null) {
-                                          setState(() {
-                                            _tarikhMula.text =
-                                                DateFormat("dd/MM/yyyy")
-                                                    .format(getStartDate);
-                                          });
+                                        if (widget.screen != "2") {
+                                          DateTime? getStartDate =
+                                              await datePicker(context);
+                                          if (getStartDate != null) {
+                                            setState(() {
+                                              _tarikhMula.text =
+                                                  DateFormat("dd/MM/yyyy")
+                                                      .format(getStartDate);
+                                            });
+                                          }
                                         }
                                       },
                                       child: Icon(
@@ -315,10 +373,12 @@ class _LeaveFormState extends State<LeaveForm> {
                           readOnly: true,
                           decoration: InputDecoration(
                             filled: true,
-                            fillColor: textFormFieldFillColor,
+                            fillColor: textFieldFillColor,
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  width: borderSideWidth, color: focusedBorder),
+                                width: borderSideWidth,
+                                color: focusBorderColor,
+                              ),
                               borderRadius:
                                   BorderRadius.circular(borderRadiusCircular),
                             ),
@@ -326,7 +386,7 @@ class _LeaveFormState extends State<LeaveForm> {
                                 ? OutlineInputBorder(
                                     borderSide: BorderSide(
                                       width: borderSideWidth,
-                                      color: enabledBorderWithText,
+                                      color: enableBorderWithTextColor,
                                     ),
                                     borderRadius: BorderRadius.circular(
                                         borderRadiusCircular),
@@ -359,14 +419,16 @@ class _LeaveFormState extends State<LeaveForm> {
                                     margin: const EdgeInsets.only(right: 6),
                                     child: InkWell(
                                       onTap: () async {
-                                        DateTime? getEndDate =
-                                            await datePicker(context);
-                                        if (getEndDate != null) {
-                                          setState(() {
-                                            _tarikhTamat.text =
-                                                DateFormat("dd/MM/yyyy")
-                                                    .format(getEndDate);
-                                          });
+                                        if (widget.screen != "2") {
+                                          DateTime? getEndDate =
+                                              await datePicker(context);
+                                          if (getEndDate != null) {
+                                            setState(() {
+                                              _tarikhTamat.text =
+                                                  DateFormat("dd/MM/yyyy")
+                                                      .format(getEndDate);
+                                            });
+                                          }
                                         }
                                       },
                                       child: Icon(
@@ -385,50 +447,99 @@ class _LeaveFormState extends State<LeaveForm> {
                     ],
                   ),
                   //Lampiran
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      top: 25,
-                      bottom: 5,
-                    ),
-                    child: SizedBox(
-                      width: _device.screenWidth(context),
-                      height: 55,
-                      child: ElevatedButton.icon(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.cloud_upload,
-                          size: 28,
-                        ),
-                        label: const Text(
-                          "Muat Naik Lampiran",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700,
+
+                  if (_lampiranVisibility)
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        top: 25,
+                        bottom: 5,
+                      ),
+                      child: SizedBox(
+                        width: _device.screenWidth(context),
+                        height: 55,
+                        child: ElevatedButton.icon(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.cloud_upload,
+                            size: 28,
                           ),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.blue.shade800,
-                          padding: const EdgeInsets.all(8),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
+                          label: const Text(
+                            "Muat Naik Lampiran",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
-                          elevation: 5.0,
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.blue.shade800,
+                            padding: const EdgeInsets.all(8),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            elevation: 5.0,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Text(
-                    "*Maksimum 500kb.Format fail .jpeg & .png sahaja",
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w500,
-                      color: grey500,
-                      fontStyle: FontStyle.italic,
+                  if (_lampiranVisibility)
+                    Text(
+                      "*Maksimum 500kb.Format fail .jpeg & .png sahaja",
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w500,
+                        color: grey500,
+                        fontStyle: FontStyle.italic,
+                      ),
                     ),
-                  ),
+
+                  //Detail Lampiran
+                  if (_lampiranDetailsVisibility)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8, bottom: 8),
+                      child: Container(
+                        margin: const EdgeInsets.all(5),
+                        width: _device.screenWidth(context),
+                        child: TextFormField(
+                          controller: _lampiran,
+                          readOnly: true,
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor: textFieldFillColor,
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                width: borderSideWidth,
+                                color: focusBorderColor,
+                              ),
+                              borderRadius:
+                                  BorderRadius.circular(borderRadiusCircular),
+                            ),
+                            enabledBorder: _catatan.text != ''
+                                ? OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      width: borderSideWidth,
+                                      color: enableBorderWithTextColor,
+                                    ),
+                                    borderRadius: BorderRadius.circular(
+                                        borderRadiusCircular),
+                                  )
+                                : OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      width: borderSideWidth,
+                                      color: enabledBorderWithoutText,
+                                    ),
+                                    borderRadius: BorderRadius.circular(
+                                        borderRadiusCircular),
+                                  ),
+                            contentPadding: const EdgeInsets.all(15),
+                          ),
+                          enabled: false,
+                        ),
+                      ),
+                    ),
+
                   //Catatan
                   Padding(
-                    padding: const EdgeInsets.only(top: 25),
+                    padding: const EdgeInsets.only(top: 8),
                     child: Container(
                       margin: const EdgeInsets.all(5),
                       width: _device.screenWidth(context),
@@ -438,11 +549,11 @@ class _LeaveFormState extends State<LeaveForm> {
                         maxLines: 5,
                         decoration: InputDecoration(
                           filled: true,
-                          fillColor: textFormFieldFillColor,
+                          fillColor: textFieldFillColor,
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                               width: borderSideWidth,
-                              color: focusedBorder,
+                              color: focusBorderColor,
                             ),
                             borderRadius:
                                 BorderRadius.circular(borderRadiusCircular),
@@ -451,7 +562,7 @@ class _LeaveFormState extends State<LeaveForm> {
                               ? OutlineInputBorder(
                                   borderSide: BorderSide(
                                     width: borderSideWidth,
-                                    color: enabledBorderWithText,
+                                    color: enableBorderWithTextColor,
                                   ),
                                   borderRadius: BorderRadius.circular(
                                       borderRadiusCircular),
@@ -472,6 +583,7 @@ class _LeaveFormState extends State<LeaveForm> {
                           ),
                           contentPadding: const EdgeInsets.all(15),
                         ),
+                        enabled: (widget.screen == "2") ? false : true,
                       ),
                     ),
                   ),
@@ -485,7 +597,7 @@ class _LeaveFormState extends State<LeaveForm> {
   }
 
   Widget? _showBottomSheet() {
-    if (_show) {
+    if (_show && widget.screen != "2") {
       return BottomSheet(
         backgroundColor: Colors.white,
         elevation: 50,

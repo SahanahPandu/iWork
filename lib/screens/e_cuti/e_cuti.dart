@@ -1,10 +1,17 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 
 //import files
 import 'package:eswm/widgets/tabs/tabs.dart';
 
+import '../../models/cuti.dart';
+
 class ECuti extends StatefulWidget {
-  const ECuti({Key? key}) : super(key: key);
+  String screen;
+  Cuti data;
+
+  ECuti({Key? key, required this.screen, required this.data}) : super(key: key);
 
   @override
   State<ECuti> createState() => _ECutiState();
@@ -13,6 +20,6 @@ class ECuti extends StatefulWidget {
 class _ECutiState extends State<ECuti> {
   @override
   Widget build(BuildContext context) {
-    return const Tabs();
+    return Tabs(screen: widget.screen, data: widget.data);
   }
 }

@@ -1,4 +1,5 @@
 // ignore_for_file: must_be_immutable
+import 'package:eswm/screens/e_cuti/e_cuti.dart';
 import 'package:flutter/material.dart';
 
 //import files
@@ -34,15 +35,29 @@ class _ListCardState extends State<ListCard> {
       padding: const EdgeInsets.only(bottom: 3),
       child: SizedBox(
         //height: widget.cardHeight,
-        child: Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
-          ),
-          shadowColor: Colors.white,
-          elevation: 14,
-          child: Padding(
-            padding: const EdgeInsets.all(6),
-            child: getWidget(),
+        child: GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) {
+                if (widget.type == "Cuti") {
+                  return ECuti(screen: "2", data: widget.data);
+                } else {
+                  return Container();
+                }
+              }),
+            );
+          },
+          child: Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+            ),
+            shadowColor: Colors.white,
+            elevation: 14,
+            child: Padding(
+              padding: const EdgeInsets.all(6),
+              child: getWidget(),
+            ),
           ),
         ),
       ),

@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 
 //import files
@@ -7,13 +9,27 @@ import '../../config/palette.dart';
 import '../../config/string.dart';
 
 class Tabs extends StatefulWidget {
-  const Tabs({Key? key}) : super(key: key);
+  String screen;
+  dynamic data;
+
+  Tabs({Key? key, required this.screen, required this.data}) : super(key: key);
 
   @override
   State<Tabs> createState() => _TabsState();
 }
 
 class _TabsState extends State<Tabs> {
+  getTabView() {
+    if (widget.screen == "1" || widget.screen == "2") {
+      // e_cuti
+      //screen = "1" - ecuti button , screen ="2" -  from leave list
+      return TabBarView(children: [
+        LeaveForm(screen: widget.screen, data: widget.data),
+        const LeaveList(),
+      ]);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -68,10 +84,7 @@ class _TabsState extends State<Tabs> {
             ],
           ),
         ),
-        body: const TabBarView(children: [
-          LeaveForm(),
-          LeaveList(),
-        ]),
+        body: getTabView(),
       ),
     );
   }
