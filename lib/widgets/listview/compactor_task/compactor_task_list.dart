@@ -32,6 +32,7 @@ class _CompactorTaskListState extends State<CompactorTaskList> {
             child: ListView.builder(
                 controller: controller,
                 shrinkWrap: true,
+                physics: const BouncingScrollPhysics(),
                 itemCount: tabletItems.length,
                 itemBuilder: (context, index) {
                   return const CompactorTaskCard();

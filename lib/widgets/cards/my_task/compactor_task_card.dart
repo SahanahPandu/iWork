@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:eswm/widgets/cards/my_task/compactor_panel/compactor_panel_my_task_list_details.dart';
 import 'package:eswm/widgets/cards/my_task/compactor_panel/vehicle_checklist_card_details.dart';
 import '../../../config/dimen.dart';
+import '../../../utils/device.dart';
 
 class CompactorTaskCard extends StatefulWidget {
   const CompactorTaskCard({Key? key}) : super(key: key);
@@ -12,6 +13,8 @@ class CompactorTaskCard extends StatefulWidget {
 }
 
 class _CompactorTaskCardState extends State<CompactorTaskCard> {
+
+  final Devices _device = Devices();
 
   //------------------------------------------------------
   // Build card details for vc/tasks.
@@ -38,11 +41,11 @@ class _CompactorTaskCardState extends State<CompactorTaskCard> {
     return GridView.count(
         crossAxisCount: 2,
         primary: false,
-        physics: const ScrollPhysics(),
+        physics: BouncingScrollPhysics(),
         padding: const EdgeInsets.only(
-            left: 20.0, top: 5.0, bottom: 3, right: 10.0),
-        crossAxisSpacing: 10.0,
-        mainAxisSpacing: 10.0,
+            left: 10, top: 5.0, bottom: 3, right: 10.0),
+        crossAxisSpacing: axisSpacing(context),
+        mainAxisSpacing: axisSpacing(context),
         shrinkWrap: true,
         childAspectRatio: gridRatio(context),
         children: [
