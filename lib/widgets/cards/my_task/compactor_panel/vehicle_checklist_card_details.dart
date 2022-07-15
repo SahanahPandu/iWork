@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../config/dimen.dart';
 import '../../../../config/palette.dart';
 import '../../../../utils/device.dart';
+import 'package:eswm/screens/vehicle_checklist/vehicle_checklist.dart';
 
 class VehicleChecklistCardDetails extends StatefulWidget {
   const VehicleChecklistCardDetails({Key? key}) : super(key: key);
@@ -76,7 +77,7 @@ class _VehicleChecklistCardDetailsState
                     "Selepas Bertugas",
                     style: TextStyle(
                       fontSize: 15,
-                      color: Colors.grey.shade800,
+                      color: grey800,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -90,7 +91,12 @@ class _VehicleChecklistCardDetailsState
           height: 45.0,
           width: 350,
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const VehicleChecklist()));
+            },
             style: ButtonStyle(
                 shape: MaterialStateProperty.all(
                   RoundedRectangleBorder(

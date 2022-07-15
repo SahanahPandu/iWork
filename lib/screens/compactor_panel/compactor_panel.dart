@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:eswm/config/string.dart';
 import 'package:eswm/utils/device.dart';
-import 'package:eswm/widgets/listview/my_task/my_task_list.dart';
 import 'package:eswm/widgets/cards/today_task/today_task_card.dart';
+import 'package:eswm/widgets/listview/compactor_task/compactor_task_list.dart';
 import '../../config/palette.dart';
 
 class CompactorPanel extends StatefulWidget {
@@ -90,7 +90,7 @@ class _CompactorPanelState extends State<CompactorPanel> {
             ),
           ),
         ),
-        MyTaskList(topCardStatus: getTopCardStatus),
+        CompactorTaskList(topCardStatus: getTopCardStatus),
       ],
     );
   }

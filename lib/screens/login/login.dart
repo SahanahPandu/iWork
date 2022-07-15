@@ -97,6 +97,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return SizedBox(
       height: 55.0,
       child: TextFormField(
+        cursorColor: green,
         autofocus: false,
         validator: (value) {
           if (value == null || value.isEmpty) {
@@ -147,6 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return SizedBox(
       height: 55.0,
       child: TextFormField(
+        cursorColor: green,
         autofocus: false,
         obscureText: _isObscure,
         validator: (val) {
