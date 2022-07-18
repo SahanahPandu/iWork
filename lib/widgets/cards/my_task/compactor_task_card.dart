@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'package:eswm/widgets/cards/my_task/compactor_panel/compactor_panel_my_task_list_details.dart';
-import 'package:eswm/widgets/cards/my_task/compactor_panel/vehicle_checklist_card_details.dart';
 import '../../../config/dimen.dart';
-import '../../../utils/device.dart';
+import '../../../config/palette.dart';
+import 'compactor_panel/compactor_panel_my_task_list_details.dart';
+import 'compactor_panel/vehicle_checklist_card_details.dart';
 
 class CompactorTaskCard extends StatefulWidget {
   const CompactorTaskCard({Key? key}) : super(key: key);
@@ -13,9 +13,6 @@ class CompactorTaskCard extends StatefulWidget {
 }
 
 class _CompactorTaskCardState extends State<CompactorTaskCard> {
-
-  final Devices _device = Devices();
-
   //------------------------------------------------------
   // Build card details for vc/tasks.
   //------------------------------------------------------
@@ -28,7 +25,7 @@ class _CompactorTaskCardState extends State<CompactorTaskCard> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
           ),
-          shadowColor: Colors.grey.shade500,
+          shadowColor: grey500,
           elevation: 5,
           child: Padding(padding: const EdgeInsets.all(6), child: redirect),
         ),

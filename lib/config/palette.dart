@@ -14,6 +14,7 @@ Color grey500 = Colors.grey.shade500;
 Color grey800 = Colors.grey.shade800;
 Color grey900 = Colors.grey.shade900;
 Color black26 = Colors.black26;
+Color black45 = Colors.black45;
 Color black87 = Colors.black87;
 Color black = Colors.black;
 Color transparent = Colors.transparent;
@@ -25,8 +26,12 @@ Color green800 = Colors.green.shade800;
 Color red = Colors.red;
 Color lightPink = Color(0xffeabcbc);
 Color lightGreen = Color(0xffb9e1b9);
+Color lighterGreen = Color(0xffd5ecd5);
+Color darkGreen = Color(0xFF25A426);
 Color greenGrey = Color(0xFF818C81);
 Color blueGrey = Color(0xFFAEAEBB);
+Color lightBlue = Color(0xFFC2E8FF);
+Color blue = Color(0xFF0C80E1);
 
 //------Text Form Field--------------------------------------------------------
 Color textFormFieldFillColor = Colors.white;

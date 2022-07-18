@@ -10,7 +10,20 @@ String loginSuccess = 'Berjaya log masuk';
 String emptyPassword = 'Sila masukkan kata laluan anda';
 String scheduleList = 'Tugasan Saya';
 String todayTask = 'Tugasan Hari Ini';
+
+String taskIdle = 'Belum Dimulakan';
+String taskStarted = 'Sedang Bertugas';
+String taskEnded = 'Tugasan Selesai';
+String slidedStartTime = '';
+String slidedEndTime = '';
+
 String vc = 'Semak Kenderaan';
+String startWorkText = 'Mula Kerja';
+String endWorkText = 'Tamat Kerja';
+String startWork = 'Leretkan Ke Kanan Untuk Mula Tugas';
+String confirmStartWork = 'Adakah anda ingin memulakan tugasan untuk Laluan JHBP01-C02?';
+String confirmEndWork = 'Adakah anda ingin menamatkan tugasan untuk Laluan JHBP01-C02? Pastikan tugasan telah selesai';
+String endWork = 'Leretkan Ke Kiri Untuk Tamat Tugas';
 String fillUpVC = 'Lengkapkan borang semakan kenderaan sebelum keluar di bawah :';
 String date = 'Tarikh';
 String streetNo = 'No Laluan';
@@ -37,4 +50,5 @@ String no = 'Tiada';
 String cancel = 'Batal';
 String confirmBack = 'Adakah anda pasti untuk kembali?';
 String fillVc = 'Pastikan anda mengisi borang semak kenderaan terlebih dahulu sebelum memulakan tugasan kerja.';
-String confirmation = 'Peringatan!';
+String reminder = 'Peringatan!';
+String confirmation = 'Pengesahan';

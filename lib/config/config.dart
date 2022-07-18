@@ -9,6 +9,7 @@ const int adminPanel = 7;
 //global variables
 int userRole = 1; //PRA
 
-/// ** Role **
-///
+/// ** Task **
+/// '1' = belum dimulakan | '2' = sedang bertugas | '3' = tugasan selesai'
+int statusTask = 1;
 
