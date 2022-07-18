@@ -23,10 +23,10 @@ Color green = Colors.green;
 Color green600 = Colors.green.shade600;
 Color green800 = Colors.green.shade800;
 Color red = Colors.red;
-Color lightPink = Color(0xffeabcbc);
-Color lightGreen = Color(0xffb9e1b9);
-Color greenGrey = Color(0xFF818C81);
-Color blueGrey = Color(0xFFAEAEBB);
+Color lightPink = const Color(0xffeabcbc);
+Color lightGreen = const Color(0xffb9e1b9);
+Color greenGrey = const Color(0xFF818C81);
+Color blueGrey = const Color(0xFFAEAEBB);
 
 //------Text Form Field--------------------------------------------------------
 Color textFormFieldFillColor = Colors.white;

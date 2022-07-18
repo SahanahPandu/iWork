@@ -11,7 +11,8 @@ String emptyPassword = 'Sila masukkan kata laluan anda';
 String scheduleList = 'Tugasan Saya';
 String todayTask = 'Tugasan Hari Ini';
 String vc = 'Semak Kenderaan';
-String fillUpVC = 'Lengkapkan borang semakan kenderaan sebelum keluar di bawah :';
+String fillUpVC =
+    'Lengkapkan borang semakan kenderaan sebelum keluar di bawah :';
 String date = 'Tarikh';
 String streetNo = 'No Laluan';
 String outTime = 'Masa Keluar';
@@ -21,6 +22,7 @@ String odometer = 'Odometer';
 String odometerLvl = 'Bacaan Odometer (KELUAR)';
 String odometerFunc = 'Odometer berfungsi';
 String totalKM = 'Jumlah Penggunaan KM Harian';
+// ignore: non_constant_identifier_names
 String AKBKno = 'No. AKBK (Laporan Kerosakan)';
 String dieselFill = 'Diesel Diisi';
 String passReceipt = 'Diserahkan Resit Minyak Diesel';
@@ -36,5 +38,6 @@ String yes = 'Ya';
 String no = 'Tiada';
 String cancel = 'Batal';
 String confirmBack = 'Adakah anda pasti untuk kembali?';
-String fillVc = 'Pastikan anda mengisi borang semak kenderaan terlebih dahulu sebelum memulakan tugasan kerja.';
+String fillVc =
+    'Pastikan anda mengisi borang semak kenderaan terlebih dahulu sebelum memulakan tugasan kerja.';
 String confirmation = 'Peringatan!';

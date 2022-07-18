@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 
 //import files
 import 'package:eswm/widgets/cards/my_task/pra/pra_my_task_list_details.dart';
-import '../../../utils/device.dart';
-import 'compactor_panel/compactor_panel_my_task_list_details.dart';
 
 class MyTaskCard extends StatefulWidget {
   const MyTaskCard({Key? key}) : super(key: key);
