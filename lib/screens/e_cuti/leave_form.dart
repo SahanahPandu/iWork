@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 import 'package:eswm/config/palette.dart';
 import 'package:eswm/utils/device.dart';
 import '../../models/cuti.dart';
+import 'package:eswm/utils/file_picker.dart';
 
 class LeaveForm extends StatefulWidget {
   String screen;
@@ -458,14 +459,29 @@ class _LeaveFormState extends State<LeaveForm> {
                         width: _device.screenWidth(context),
                         height: 55,
                         child: ElevatedButton.icon(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.cloud_upload,
-                            size: 28,
-                          ),
-                          label: const Text(
-                            "Muat Naik Lampiran",
-                            style: TextStyle(
+                          onPressed: () async {
+                            String getFileName =
+                                await FilePickerClass.getFilePathName();
+
+                            setState(() {
+                              _lampiran.text = getFileName;
+                            });
+                          },
+                          icon: (_lampiran.text != "")
+                              ? const Icon(
+                                  Icons.check_circle,
+                                  color: Colors.green,
+                                  size: 28,
+                                )
+                              : const Icon(
+                                  Icons.cloud_upload,
+                                  size: 28,
+                                ),
+                          label: Text(
+                            (_lampiran.text != "")
+                                ? _lampiran.text
+                                : "Muat Naik Lampiran",
+                            style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w700,
                             ),
