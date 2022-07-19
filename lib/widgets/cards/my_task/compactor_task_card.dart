@@ -38,9 +38,9 @@ class _CompactorTaskCardState extends State<CompactorTaskCard> {
     return GridView.count(
         crossAxisCount: 2,
         primary: false,
-        physics: BouncingScrollPhysics(),
-        padding: const EdgeInsets.only(
-            left: 10, top: 5.0, bottom: 3, right: 10.0),
+        physics: const BouncingScrollPhysics(),
+        padding:
+            const EdgeInsets.only(left: 10, top: 5.0, bottom: 3, right: 10.0),
         crossAxisSpacing: axisSpacing(context),
         mainAxisSpacing: axisSpacing(context),
         shrinkWrap: true,
