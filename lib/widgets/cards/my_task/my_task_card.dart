@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 //import files
-import 'package:eswm/widgets/cards/my_task/pra/pra_my_task_list_details.dart';
+//import 'package:eswm/widgets/cards/my_task/pra/pra_my_task_list_details.dart';
 
 class MyTaskCard extends StatefulWidget {
   const MyTaskCard({Key? key}) : super(key: key);
@@ -25,9 +25,9 @@ class _MyTaskCardState extends State<MyTaskCard> {
           ),
           shadowColor: Colors.white,
           elevation: 14,
-          child: const Padding(
-            padding: EdgeInsets.all(6),
-            child: PraMyTaskListDetails(),
+          child: Padding(
+            padding: const EdgeInsets.all(6),
+            child: Container(), //PraMyTaskListDetails(),
           ),
         ),
       ),

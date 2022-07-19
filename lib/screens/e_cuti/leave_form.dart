@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 //import files
 import 'package:eswm/config/palette.dart';
 import 'package:eswm/utils/device.dart';
+import '../../config/font_weight.dart';
 import '../../models/cuti.dart';
 import 'package:eswm/utils/file_picker.dart';
 
@@ -182,7 +183,7 @@ class _LeaveFormState extends State<LeaveForm> {
                           labelText: 'Pilih Jenis Cuti',
                           labelStyle: TextStyle(
                             color: labelTextColor,
-                            fontWeight: labelFontWeight,
+                            fontWeight: textFormFieldLabelFontWeight,
                           ),
                           contentPadding: const EdgeInsets.all(8),
                           suffixIcon: InkWell(
@@ -324,7 +325,7 @@ class _LeaveFormState extends State<LeaveForm> {
                             labelText: 'Tarikh Mula',
                             labelStyle: TextStyle(
                               color: labelTextColor,
-                              fontWeight: labelFontWeight,
+                              fontWeight: textFormFieldLabelFontWeight,
                             ),
                             contentPadding: const EdgeInsets.only(left: 8),
                             suffixIcon: IntrinsicHeight(
@@ -403,7 +404,7 @@ class _LeaveFormState extends State<LeaveForm> {
                             labelText: 'Tarikh Tamat',
                             labelStyle: TextStyle(
                               color: labelTextColor,
-                              fontWeight: labelFontWeight,
+                              fontWeight: textFormFieldLabelFontWeight,
                             ),
                             contentPadding: const EdgeInsets.only(left: 8),
                             suffixIcon: IntrinsicHeight(
@@ -595,7 +596,7 @@ class _LeaveFormState extends State<LeaveForm> {
                           labelText: 'Catatan',
                           labelStyle: TextStyle(
                             color: labelTextColor,
-                            fontWeight: labelFontWeight,
+                            fontWeight: textFormFieldLabelFontWeight,
                           ),
                           contentPadding: const EdgeInsets.all(15),
                         ),

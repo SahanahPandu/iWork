@@ -3,7 +3,10 @@
 import 'package:flutter/material.dart';
 
 //import files
+import '../../../../config/font_weight.dart';
+import '../../../../config/palette.dart';
 import '../../../../models/cuti.dart';
+import '../../../../widgets/container/status_container.dart';
 
 class PraECutiListDetails extends StatefulWidget {
   Cuti data;
@@ -15,29 +18,29 @@ class PraECutiListDetails extends StatefulWidget {
 }
 
 class _PraECutiListDetailsState extends State<PraECutiListDetails> {
-  Color statusTextColor = Colors.grey;
-  Color statusBoxColor = Colors.grey.shade100;
+  Color statusTextColor = greyStatusText;
+  Color statusBoxColor = greyStatusBox;
 
   filterData() {
-    Color textColor = Colors.grey;
-    Color boxColor = Colors.grey.shade100;
+    Color textColor = greyStatusText;
+    Color boxColor = greyStatusBox;
 
     if (widget.data.idStatus == 1) {
       //Dalam Proses
-      textColor = Colors.blue.shade800;
-      boxColor = Colors.blue.shade100;
+      textColor = blueStatusText;
+      boxColor = blueStatusBox;
     } else if (widget.data.idStatus == 2) {
       //Diluluskan Tanpa Lampiran
-      textColor = Colors.orange;
-      boxColor = Colors.orange.shade100;
+      textColor = orangeStatusText;
+      boxColor = orangeStatusBox;
     } else if (widget.data.idStatus == 3) {
       //Diluluskan
-      textColor = Colors.green;
-      boxColor = const Color(0xffc9ffd7);
+      textColor = greenStatusText;
+      boxColor = greenStatusBox;
     } else if (widget.data.idStatus == 4) {
       //Tidak Diluluskan
-      textColor = Colors.red;
-      boxColor = Colors.red.shade100;
+      textColor = redStatusText;
+      boxColor = redStatusBox;
     }
 
     setState(() {
@@ -72,23 +75,29 @@ class _PraECutiListDetailsState extends State<PraECutiListDetails> {
                   fontWeight: FontWeight.w900,
                 ),
               ),
-              Container(
-                decoration: BoxDecoration(
-                  color: statusBoxColor,
-                  borderRadius: BorderRadius.circular(6),
-                ),
-                child: Container(
-                  margin: const EdgeInsets.all(5),
-                  child: Center(
-                    child: Text(
-                      widget.data.status,
-                      style: TextStyle(
-                        color: statusTextColor,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ),
-                ),
+              // Container(
+              //   decoration: BoxDecoration(
+              //     color: statusBoxColor,
+              //     borderRadius: BorderRadius.circular(6),
+              //   ),
+              //   child: Container(
+              //     margin: const EdgeInsets.all(5),
+              //     child: Center(
+              //       child: Text(
+              //         widget.data.status,
+              //         style: TextStyle(
+              //           color: statusTextColor,
+              //           fontWeight: FontWeight.w700,
+              //         ),
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              StatusContainer(
+                boxColor: statusBoxColor,
+                status: widget.data.status,
+                textColor: statusTextColor,
+                fontWeight: statusFontWeight,
               ),
             ],
           ),
