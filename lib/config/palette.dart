@@ -47,7 +47,23 @@ Color enabledBorderWithoutText = Colors.grey.shade400;
 
 //label
 Color labelTextColor = Colors.grey.shade500;
-FontWeight labelFontWeight = FontWeight.w400;
-
 
 //------End of Text Form Field--------------------------------------------------------
+
+//-----Card Status--------------------------------------------------------------------
+Color greyStatusText = Colors.grey;
+Color greyStatusBox = Colors.grey.shade100;
+
+Color blueStatusText = Colors.blue.shade800;
+Color blueStatusBox = Colors.blue.shade100;
+
+Color orangeStatusText = Colors.orange;
+Color orangeStatusBox = Colors.orange.shade100;
+
+Color greenStatusText = Colors.green;
+Color greenStatusBox = const Color(0xffc9ffd7);
+
+Color redStatusText = Colors.red;
+Color redStatusBox = Colors.red.shade100;
+
+//-----End of Card Status--------------------------------------------------------------------
