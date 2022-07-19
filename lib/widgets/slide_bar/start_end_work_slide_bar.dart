@@ -8,9 +8,12 @@ import '../../config/string.dart';
 import '../../utils/date.dart';
 import '../../utils/device.dart';
 import '../alert/alert_dialog.dart';
+import '../cards/my_task/compactor_panel/compactor_panel_my_task_list_details.dart';
+
+typedef StringCallback = void Function(String val);
 
 class StartEndWorkSlideBar extends StatefulWidget {
-  const StartEndWorkSlideBar(int statusTask, {Key? key}) : super(key: key);
+  const StartEndWorkSlideBar({Key? key}) : super(key: key);
 
   @override
   State<StartEndWorkSlideBar> createState() => _StartEndWorkSlideBarState();
@@ -19,7 +22,6 @@ class StartEndWorkSlideBar extends StatefulWidget {
 class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
   final _controller = ActionSliderController();
   final Devices _device = Devices();
-//  String currentTime = DateFormat("hh:mm a").format(DateTime.now());
 
   //  statusTask == 1
   Color textColor = green;
@@ -111,33 +113,29 @@ class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
                   cancel);
             }).then((actionText) {
             if (actionText == startWorkText) {
-              setStartedTaskState();
+              setTaskState(endWork, red, red, red, white, 2);
+              slidedStartTime = Date.getCurrentTime();
+              CompactorPanelMyTaskListDetails.of(context)
+                  ?.setStartTime(slidedStartTime);
             } else if (actionText == endWorkText) {
-              setEndedTaskState();
+              setTaskState(
+                  startWork, grey, transparent, transparent, grey300, 3);
+              slidedEndTime = Date.getCurrentTime();
+              CompactorPanelMyTaskListDetails.of(context)
+                  ?.setEndTime(slidedEndTime);
             }
           });
   }
 
-  void setEndedTaskState() {
+  void setTaskState(String textP, Color textColorP, Color iconColorP,
+      Color borderColorP, Color boxColorP, int stateP) {
     return setState(() {
-      slideText = startWork;
-      textColor = grey;
-      iconColor = transparent;
-      borderColor = transparent;
-      boxColor = grey300;
-      statusTask = 3;
-      slidedEndTime = Date.getCurrentTime();
-    });
-  }
-
-  void setStartedTaskState() {
-    return setState(() {
-      textColor = red;
-      iconColor = red;
-      borderColor = red;
-      slideText = endWork;
-      statusTask = 2;
-      slidedStartTime = Date.getCurrentTime();
+      slideText = textP;
+      textColor = textColorP;
+      iconColor = iconColorP;
+      borderColor = borderColorP;
+      boxColor = boxColorP;
+      statusTask = stateP;
     });
   }
 }

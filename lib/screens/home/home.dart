@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../config/palette.dart';
+import '../../widgets/drawer/drawer.dart';
 import '../screens.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -15,10 +16,7 @@ class HomeScreen extends StatelessWidget {
           backgroundColor: appBarBgColor,
           elevation: 4,
           shadowColor: Colors.white,
-          leading: Icon(
-            Icons.menu,
-            color: grey900,
-          ),
+          iconTheme: IconThemeData(color: black87),
           actions: [
             Icon(
               Icons.notifications,
@@ -29,6 +27,7 @@ class HomeScreen extends StatelessWidget {
             )
           ],
         ),
+        drawer: DrawerBuild(),
         body: const Screens());
   }
 }

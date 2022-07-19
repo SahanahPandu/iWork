@@ -11,9 +11,14 @@ class CompactorPanelMyTaskListDetails extends StatefulWidget {
 
   @override
   State<CompactorPanelMyTaskListDetails> createState() => _CompactorPanelMyTaskListDetailsState();
+
+  static _CompactorPanelMyTaskListDetailsState? of(BuildContext context) =>
+      context.findAncestorStateOfType<_CompactorPanelMyTaskListDetailsState>();
 }
 
 class _CompactorPanelMyTaskListDetailsState extends State<CompactorPanelMyTaskListDetails> {
+  String _startedTime = "--:--";
+  String _endedTime = "--:--";
 
   final Devices _device = Devices();
 
@@ -199,7 +204,9 @@ class _CompactorPanelMyTaskListDetailsState extends State<CompactorPanelMyTaskLi
                     ],
                   ),
                   Text(
-                    '$slidedStartTime / $slidedEndTime',
+                    statusTask == 1
+                        ? '--:-- / --:--'
+                        : '$_startedTime / $_endedTime',
                     style: TextStyle(
                       fontSize: _device.isLandscape(context) ? 15.0 : 13.0,
                       color: black45,
@@ -216,11 +223,15 @@ class _CompactorPanelMyTaskListDetailsState extends State<CompactorPanelMyTaskLi
                 left: 10, right: 10, top: 10.0, bottom: 15),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                StartEndWorkSlideBar(statusTask),
+              children: const <Widget>[
+                StartEndWorkSlideBar(),
               ],
             ))
       ],
     );
   }
+
+  void setStartTime(String value) => setState(() => _startedTime = value);
+
+  void setEndTime(String value) => setState(() => _endedTime = value);
 }

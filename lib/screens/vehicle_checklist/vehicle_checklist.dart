@@ -415,7 +415,7 @@ class _VehicleChecklistState extends State<VehicleChecklist>
                                             ? 16
                                             : 14,
                                         color: blueGrey)),
-                                Text(AKBKno,
+                                Text(akbkNo,
                                     textAlign: TextAlign.left,
                                     style: TextStyle(
                                       fontSize: _device.isLandscape(context)
