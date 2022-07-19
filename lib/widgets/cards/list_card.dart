@@ -1,20 +1,17 @@
 // ignore_for_file: must_be_immutable
-import 'package:eswm/screens/e_cuti/e_cuti.dart';
 import 'package:flutter/material.dart';
 
 //import files
+import 'package:eswm/screens/e_cuti/e_cuti.dart';
 import 'package:eswm/widgets/cards/e_cuti/pra/pra_e_cuti_list_details.dart';
+import 'my_task/pra/pra_my_task_list_details.dart';
+import 'package:eswm/screens/work_schedule/work_schedule.dart';
 
 class ListCard extends StatefulWidget {
-  double cardHeight;
   dynamic data;
   String type;
 
-  ListCard(
-      {Key? key,
-      required this.cardHeight,
-      required this.data,
-      required this.type})
+  ListCard({Key? key, required this.data, required this.type})
       : super(key: key);
 
   @override
@@ -25,6 +22,8 @@ class _ListCardState extends State<ListCard> {
   Widget? getWidget() {
     if (widget.type == "Cuti") {
       return PraECutiListDetails(data: widget.data);
+    } else if (widget.type == "Laluan") {
+      return PraMyTaskListDetails(data: widget.data);
     }
     return null;
   }
@@ -33,31 +32,30 @@ class _ListCardState extends State<ListCard> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 3),
-      child: SizedBox(
-        //height: widget.cardHeight,
-        child: GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) {
-                if (widget.type == "Cuti") {
-                  return ECuti(screen: "2", data: widget.data);
-                } else {
-                  return Container();
-                }
-              }),
-            );
-          },
-          child: Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
-            ),
-            shadowColor: Colors.white,
-            elevation: 14,
-            child: Padding(
-              padding: const EdgeInsets.all(6),
-              child: getWidget(),
-            ),
+      child: GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) {
+              if (widget.type == "Cuti") {
+                return ECuti(screen: "2", data: widget.data);
+              } else if (widget.type == "Laluan") {
+                return WorkSchedule(data: widget.data);
+              } else {
+                return Container();
+              }
+            }),
+          );
+        },
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          shadowColor: Colors.white,
+          elevation: 14,
+          child: Padding(
+            padding: const EdgeInsets.all(6),
+            child: getWidget(),
           ),
         ),
       ),
