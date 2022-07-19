@@ -1,0 +1,58 @@
+[
+    {
+        "id": 1,
+        "namaLaluan": "JHBP01-C02",
+        "idSubLaluan": 1,
+        "subLaluan": "JHBP01-C02-1",
+        "idStatus": 1,
+        "status": "Belum Dimulakan",
+        "idKenderaan":1,
+        "noKenderaan": "BLW7096",
+        "jumlahTaman": 13,
+        "jumlahJalan":123,
+        "idJenisKutipan":1,
+        "jenisKutipan":"KI (Kutipan Isi Rumah)"
+    },
+    {
+        "id": 2,
+        "namaLaluan": "JHBP01-C02",
+        "idSubLaluan": 2,
+        "subLaluan": "JHBP01-C02-2",
+        "idStatus": 1,
+        "status": "Belum Dimulakan",
+        "idKenderaan":1,
+        "noKenderaan": "BLW7096",
+        "jumlahTaman": 10,
+        "jumlahJalan":105,
+        "idJenisKutipan":1,
+        "jenisKutipan":"KI (Kutipan Isi Rumah)"
+    },
+    {
+        "id": 3,
+        "namaLaluan": "JHBP01-C03",
+        "idSubLaluan": 3,
+        "subLaluan": "JHBP01-C03-1",
+        "idStatus": 2,
+        "status": "Sedang Bertugas",
+        "idKenderaan":2,
+        "noKenderaan": "BLM8886",
+        "jumlahTaman": 12,
+        "jumlahJalan":132,
+        "idJenisKutipan":1,
+        "jenisKutipan":"KI (Kutipan Isi Rumah)"
+    },
+    {
+        "id": 4,
+        "namaLaluan": "JHBP01-C04",
+        "idSubLaluan": 4,
+        "subLaluan": "JHBP01-C04-1",
+        "idStatus": 3,
+        "status": "Tugasan Selesai",
+        "idKenderaan":3,
+        "noKenderaan": "BLS7687",
+        "jumlahTaman": 9,
+        "jumlahJalan":70,
+        "idJenisKutipan":1,
+        "jenisKutipan":"KI (Kutipan Isi Rumah)"
+    }
+]
