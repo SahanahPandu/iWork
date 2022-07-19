@@ -72,7 +72,7 @@ class _VehicleChecklistState extends State<VehicleChecklist>
                 context: context,
                 builder: (BuildContext context) {
                   return showAlertDialog(
-                      context, confirmation, confirmBack, yes, cancel);
+                      context, reminder, confirmBack, yes, cancel);
                 }).then((actionText) {
               if (actionText == yes) {
                 Navigator.pop(context);
