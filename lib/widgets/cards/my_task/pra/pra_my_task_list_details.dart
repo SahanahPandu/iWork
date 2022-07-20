@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 
 //import files
-import '../../../../config/font_weight.dart';
+import '../../../../config/font.dart';
 import '../../../../models/laluan.dart';
 import '../../../container/status_container.dart';
 

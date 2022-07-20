@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 
 //import files
-import '../../../../config/font_weight.dart';
+import '../../../config/font.dart';
 import '../../../../config/palette.dart';
 import '../../../../models/cuti.dart';
 import '../../../../widgets/container/status_container.dart';
@@ -75,24 +75,6 @@ class _PraECutiListDetailsState extends State<PraECutiListDetails> {
                   fontWeight: FontWeight.w900,
                 ),
               ),
-              // Container(
-              //   decoration: BoxDecoration(
-              //     color: statusBoxColor,
-              //     borderRadius: BorderRadius.circular(6),
-              //   ),
-              //   child: Container(
-              //     margin: const EdgeInsets.all(5),
-              //     child: Center(
-              //       child: Text(
-              //         widget.data.status,
-              //         style: TextStyle(
-              //           color: statusTextColor,
-              //           fontWeight: FontWeight.w700,
-              //         ),
-              //       ),
-              //     ),
-              //   ),
-              // ),
               StatusContainer(
                 boxColor: statusBoxColor,
                 status: widget.data.status,
