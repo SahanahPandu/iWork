@@ -8,7 +8,7 @@ import 'package:intl/intl.dart';
 //import files
 import 'package:eswm/config/palette.dart';
 import 'package:eswm/utils/device.dart';
-import '../../config/font_weight.dart';
+import '../../config/font.dart';
 import '../../models/cuti.dart';
 import 'package:eswm/utils/file_picker.dart';
 
