@@ -1,10 +1,14 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:eswm/providers/taman_api.dart';
 import 'package:flutter/material.dart';
 
 import '../../config/palette.dart';
 
 class ListOfParks extends StatefulWidget {
-  const ListOfParks({Key? key}) : super(key: key);
+  Function() showSenaraiJalan;
+
+  ListOfParks({Key? key, required this.showSenaraiJalan}) : super(key: key);
 
   @override
   State<ListOfParks> createState() => _ListOfParksState();
@@ -16,7 +20,7 @@ class _ListOfParksState extends State<ListOfParks> {
   int totalTaman = 0;
 
   getTotalData() {
-    final getList = TamanApi.getTamanData(context).then((value) {
+    TamanApi.getTamanData(context).then((value) {
       if (value.isNotEmpty) {
         setState(() {
           totalTaman = value.length;
@@ -128,9 +132,11 @@ class _ListOfParksState extends State<ListOfParks> {
                                 itemBuilder: (context, index) {
                                   return InkWell(
                                     onTap: () {
+                                      widget.showSenaraiJalan();
                                       setState(() {
                                         _namaTaman.text =
                                             dataFuture[index].namaTaman;
+
                                         Navigator.pop(context);
                                       });
                                     },

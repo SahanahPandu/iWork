@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:eswm/screens/list_of_park/list_of_parks.dart';
+import 'package:eswm/screens/list_of_road/list_of_road.dart';
 import 'package:eswm/widgets/cards/cards.dart';
 import 'package:flutter/material.dart';
 
@@ -17,6 +18,14 @@ class WorkSchedule extends StatefulWidget {
 }
 
 class _WorkScheduleState extends State<WorkSchedule> {
+  bool _showSenaraiJalan = false;
+
+  updateShowSenaraiJalan() {
+    setState(() {
+      _showSenaraiJalan = true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,27 +58,34 @@ class _WorkScheduleState extends State<WorkSchedule> {
           )
         ],
       ),
-      body: Column(
-        children: [
-          Container(
-            margin: const EdgeInsets.only(
-              left: 15,
-              top: 20,
-              right: 15,
-              bottom: 25,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              margin: const EdgeInsets.only(
+                left: 15,
+                top: 20,
+                right: 15,
+                bottom: 25,
+              ),
+              child: Cards(
+                type: "PRA Laluan Details",
+                data: widget.data,
+              ),
             ),
-            child: Cards(
-              type: "PRA Laluan Details",
-              data: widget.data,
-            ),
-          ),
-          Container(
+            Container(
               margin: const EdgeInsets.symmetric(
                 horizontal: 15,
                 vertical: 10,
               ),
-              child: const ListOfParks()),
-        ],
+              child: ListOfParks(showSenaraiJalan: updateShowSenaraiJalan),
+            ),
+            const SizedBox(
+              height: 1000,
+              child: ListOfRoad(),
+            ),
+          ],
+        ),
       ),
     );
   }

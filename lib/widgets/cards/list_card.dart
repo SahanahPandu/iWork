@@ -1,4 +1,5 @@
 // ignore_for_file: must_be_immutable
+import 'package:eswm/screens/list_of_road/list_of_road_details.dart';
 import 'package:flutter/material.dart';
 
 //import files
@@ -24,6 +25,8 @@ class _ListCardState extends State<ListCard> {
       return PraECutiListDetails(data: widget.data);
     } else if (widget.type == "Laluan") {
       return PraMyTaskListDetails(data: widget.data);
+    } else if (widget.type == "Senarai Jalan") {
+      return ListOfRoadDetails(data: widget.data);
     }
     return null;
   }
