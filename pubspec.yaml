@@ -74,6 +74,7 @@ flutter:
     - assets/image/
     - assets/data/data_cuti.json
     - assets/data/data_laluan.json
+    - assets/data/data_taman.json
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
