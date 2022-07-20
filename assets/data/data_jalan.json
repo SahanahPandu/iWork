@@ -1,0 +1,58 @@
+[
+    {
+        "id":1,
+        "idTaman": 1,
+        "namaJalan": "Jalan Bukit Pasar",
+        "latLong":"",
+        "jumlahTong":2
+    },
+    {
+        "id":2,
+        "idTaman": 1,
+        "namaJalan": "Jalan Mewah",
+        "latLong":"",
+        "jumlahTong":6
+    },
+    {
+        "id":3,
+        "idTaman": 2,
+        "namaJalan": "Jalan 24",
+        "latLong":"",
+        "jumlahTong":9
+    },
+    {
+        "id":4,
+        "idTaman": 2,
+        "namaJalan": "Jalan Jalan",
+        "latLong":"",
+        "jumlahTong":6
+    },
+    {
+        "id":1,
+        "idTaman": 1,
+        "namaJalan": "Jalan Bukit Pasar",
+        "latLong":"",
+        "jumlahTong":2
+    },
+    {
+        "id":2,
+        "idTaman": 1,
+        "namaJalan": "Jalan Mewah",
+        "latLong":"",
+        "jumlahTong":6
+    },
+    {
+        "id":3,
+        "idTaman": 2,
+        "namaJalan": "Jalan 24",
+        "latLong":"",
+        "jumlahTong":9
+    },
+    {
+        "id":4,
+        "idTaman": 2,
+        "namaJalan": "Jalan Jalan",
+        "latLong":"",
+        "jumlahTong":6
+    }
+]
