@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:eswm/screens/list_of_park/list_of_parks.dart';
 import 'package:eswm/widgets/cards/cards.dart';
 import 'package:flutter/material.dart';
 
@@ -55,14 +56,19 @@ class _WorkScheduleState extends State<WorkSchedule> {
               left: 15,
               top: 20,
               right: 15,
-              bottom: 50,
+              bottom: 25,
             ),
             child: Cards(
               type: "PRA Laluan Details",
               data: widget.data,
             ),
           ),
-          const Text("Senarai Taman"),
+          Container(
+              margin: const EdgeInsets.symmetric(
+                horizontal: 15,
+                vertical: 10,
+              ),
+              child: const ListOfParks()),
         ],
       ),
     );
