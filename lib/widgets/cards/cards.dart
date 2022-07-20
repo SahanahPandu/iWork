@@ -1,7 +1,10 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:eswm/widgets/cards/work_schedule/pra/pra_work_schedule_details.dart';
 import 'package:flutter/material.dart';
+
+//import files
+
+import '../../screens/work_schedule/pra/pra_work_schedule_details.dart';
 
 class Cards extends StatefulWidget {
   String type;

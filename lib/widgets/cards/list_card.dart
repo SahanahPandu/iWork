@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 //import files
 import 'package:eswm/screens/e_cuti/e_cuti.dart';
-import 'package:eswm/widgets/cards/e_cuti/pra/pra_e_cuti_list_details.dart';
+import '../../screens/e_cuti/pra/pra_e_cuti_list_details.dart';
 import 'my_task/pra/pra_my_task_list_details.dart';
 import 'package:eswm/screens/work_schedule/work_schedule.dart';
 
