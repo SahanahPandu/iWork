@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../models/jalan.dart';
+import '../../widgets/modal_bottom_sheet/navigation_options.dart';
 
 class ListOfRoadDetails extends StatefulWidget {
   Jalan data;
@@ -40,7 +41,9 @@ class _ListOfRoadDetailsState extends State<ListOfRoadDetails> {
               width: 28,
               height: 28,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  showNavigationOptions(context);
+                },
                 style: ElevatedButton.styleFrom(
                   primary: const Color(0xffc9ffd7),
                   padding: const EdgeInsets.all(0),
