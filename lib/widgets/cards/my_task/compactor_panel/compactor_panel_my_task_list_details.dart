@@ -180,7 +180,7 @@ class _CompactorPanelMyTaskListDetailsState extends State<CompactorPanelMyTaskLi
             ),
             //Mula Kerja/ Tamat Kerja
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+              padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 6),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -206,7 +206,7 @@ class _CompactorPanelMyTaskListDetailsState extends State<CompactorPanelMyTaskLi
                   Text(
                     statusTask == 1
                         ? '--:-- / --:--'
-                        : '$_startedTime / $_endedTime',
+                        : '$_startedTime/$_endedTime',
                     style: TextStyle(
                       fontSize: _device.isLandscape(context) ? 15.0 : 13.0,
                       color: black45,
