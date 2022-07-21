@@ -1,6 +1,7 @@
-import 'package:eswm/screens/home/home.dart';
-import 'package:eswm/screens/login/login.dart';
 import 'package:flutter/material.dart';
+
+import 'package:eswm/routes.dart';
+import 'package:eswm/root.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,11 +18,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue
       ),
-      home: const LoginScreen(),
-      routes: <String, WidgetBuilder>{
-        '/login': (BuildContext context) => const LoginScreen(),
-        '/home': (BuildContext context) => const HomeScreen()
-      },
+        onGenerateRoute: Routes.generateRoute,
+        navigatorKey: GlobalKey(),
     );
   }
 }

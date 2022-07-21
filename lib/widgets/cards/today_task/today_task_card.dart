@@ -1,3 +1,5 @@
+import 'package:eswm/config/config.dart';
+import 'package:eswm/config/resource.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -6,6 +8,10 @@ import 'package:eswm/widgets/cards/today_task/pra/pra_today_task_details.dart';
 import 'package:eswm/config/dimen.dart';
 import 'package:eswm/utils/device.dart';
 import 'package:eswm/widgets/cards/today_task/compactor_panel/compactor_panel_today_task_details.dart';
+
+import '../../../config/palette.dart';
+import '../../../config/string.dart';
+import 'supervisor/supervisor_today_task_details.dart';
 
 class TodayTaskCard extends StatefulWidget {
   const TodayTaskCard({Key? key}) : super(key: key);
@@ -62,11 +68,32 @@ class _TodayTaskCardState extends State<TodayTaskCard> {
           tileMode: TileMode.decal,
         ),
       ),
-      child: _device.isPhone()
-          ? PraTodayTaskDetails(
-              timeIn: timeIn, timeOut: timeOut, getTimeLog: getTimeLog)
-          : CompactorPanelTodayTaskDetails(
-              timeIn: timeIn, timeOut: timeOut, getTimeLog: getTimeLog),
+      child: assignRoleTaskDetails(),
+    );
+  }
+
+  StatefulWidget assignRoleTaskDetails() {
+    switch (userRole) {
+      case 100:
+        return CompactorPanelTodayTaskDetails(
+            timeIn: timeIn, timeOut: timeOut, getTimeLog: getTimeLog);
+      case 200:
+        return PraTodayTaskDetails(
+            timeIn: timeIn, timeOut: timeOut, getTimeLog: getTimeLog);
+      case 300:
+        return SupervisorTodayTaskDetails(
+            timeIn: timeIn, timeOut: timeOut, getTimeLog: getTimeLog);
+    }
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(idleImg),
+            Text(tryAgain),
+          ],
+        ),
+      ),
     );
   }
 }

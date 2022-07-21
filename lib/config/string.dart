@@ -6,6 +6,7 @@ String password = 'Kata Laluan';
 String login = 'Log Masuk';
 String forgotPassword = 'Lupa Kata Laluan?';
 String eCuti = 'E-Cuti';
+String loginFail = 'Sila masukkan ID dan kata laluan yang betul';
 String loginSuccess = 'Berjaya log masuk';
 String emptyPassword = 'Sila masukkan kata laluan anda';
 String scheduleList = 'Tugasan Saya';
@@ -52,3 +53,6 @@ String confirmBack = 'Adakah anda pasti untuk kembali?';
 String fillVc = 'Pastikan anda mengisi borang semak kenderaan terlebih dahulu sebelum memulakan tugasan kerja.';
 String reminder = 'Peringatan!';
 String confirmation = 'Pengesahan';
+
+String confirmLogout = 'Adakah anda pasti untuk log keluar?';
+String tryAgain = "Cuba Semula";

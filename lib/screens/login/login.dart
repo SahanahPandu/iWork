@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../config/string.dart';
 import '../../config/palette.dart';
 import '../../config/resource.dart';
+import '../../utils/authentication/auth.dart';
 import '../../utils/device.dart';
 import '../../widgets/alert/snackbar.dart';
 
@@ -15,22 +16,31 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final Devices _device = Devices();
 
   bool _isObscure = true;
-  late String _userIdInput;
-  late String _passwordInput;
+  String _userIdInput = "";
+  String _passwordInput = "";
 
   //------------------------------------------------------
   // Validate user id & password.
   //------------------------------------------------------
-  void credentialValidate(BuildContext context) {
-    if (_formKey.currentState!.validate()) {
-      showSnackBar(context, loginSuccess, const Duration(seconds: 2));
-      Navigator.of(context).pushReplacementNamed('/home');
-      _formKey.currentState?.reset();
-    }
+  void _handleSubmittedCredential(context) async {
+    final FormState? form = _formKey.currentState;
+    if (form!.validate()) {
+      form.save();
+      if (Auth.validateCredential(_userIdInput, _passwordInput) != 0) {
+        await Auth.handleLogin(
+            _userIdInput, Auth.validateCredential(_userIdInput, _passwordInput));
+        Navigator.pushNamedAndRemoveUntil(
+            context, '/home', ModalRoute.withName('/home'));
+        showSnackBar(context, loginSuccess, const Duration(seconds: 2));
+      } else {
+        showSnackBar(
+            context, loginFail, const Duration(seconds: 2), Colors.red);
+      }
+    } else {}
   }
 
   //------------------------------------------------------
@@ -63,8 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   EdgeInsets devicePadding(BuildContext context) {
-    return EdgeInsets.symmetric(
-        horizontal: loginPadding(context));
+    return EdgeInsets.symmetric(horizontal: loginPadding(context));
   }
 
   Center imageBuild(BuildContext context, double top, double widthSz,
@@ -99,18 +108,16 @@ class _LoginScreenState extends State<LoginScreen> {
       child: TextFormField(
         cursorColor: green,
         autofocus: false,
+        onSaved: (value) {
+          _userIdInput = value!;
+        },
         validator: (value) {
           if (value == null || value.isEmpty) {
             return 'Sila masukkan $label anda';
-          } else {
-            if (label == compactorID) {
-              _userIdInput = value;
-            } else {
-              _userIdInput = value;
-            }
           }
           return null;
         },
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         decoration: InputDecoration(
           hintMaxLines: 1,
           filled: true,
@@ -126,19 +133,6 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           labelStyle: TextStyle(color: black87, fontSize: 14),
           labelText: label,
-          suffixIcon: label == password
-              ? IconButton(
-                  icon: Icon(
-                    _isObscure ? Icons.visibility : Icons.visibility_off,
-                    color: grey900,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      _isObscure = !_isObscure;
-                    });
-                  },
-                )
-              : null,
         ),
       ),
     );
@@ -151,41 +145,42 @@ class _LoginScreenState extends State<LoginScreen> {
         cursorColor: green,
         autofocus: false,
         obscureText: _isObscure,
+        onSaved: (val) {
+          _passwordInput = val!;
+        },
         validator: (val) {
           if (val == null || val.isEmpty) {
             return emptyPassword;
-          } else {
-              _passwordInput = val;
           }
           return null;
         },
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         decoration: InputDecoration(
-          hintMaxLines: 1,
-          filled: true,
-          fillColor: grey200,
-          focusColor: green,
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide.none,
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: green),
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-          labelStyle: TextStyle(color: black87, fontSize: 14),
-          labelText: password,
-          suffixIcon:IconButton(
-            icon: Icon(
-              _isObscure ? Icons.visibility : Icons.visibility_off,
-              color: grey900,
+            hintMaxLines: 1,
+            filled: true,
+            fillColor: grey200,
+            focusColor: green,
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide.none,
             ),
-            onPressed: () {
-              setState(() {
-                _isObscure = !_isObscure;
-              });
-            },
-          )
-        ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: green),
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            labelStyle: TextStyle(color: black87, fontSize: 14),
+            labelText: password,
+            suffixIcon: IconButton(
+              icon: Icon(
+                _isObscure ? Icons.visibility : Icons.visibility_off,
+                color: grey900,
+              ),
+              onPressed: () {
+                setState(() {
+                  _isObscure = !_isObscure;
+                });
+              },
+            )),
       ),
     );
   }
@@ -196,9 +191,7 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Align(
         alignment: Alignment.centerRight,
         child: TextButton(
-          onPressed: () {
-            print(forgotPassword);
-          },
+          onPressed: () {},
           style: TextButton.styleFrom(
             textStyle: const TextStyle(fontSize: 12),
           ),
@@ -211,7 +204,9 @@ class _LoginScreenState extends State<LoginScreen> {
   ElevatedButton loginButton(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        credentialValidate(context);
+        _handleSubmittedCredential(context);
+      //  print("user id = $userIdInput");
+      //  print("user password = $passwordInput");
       },
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(green),
