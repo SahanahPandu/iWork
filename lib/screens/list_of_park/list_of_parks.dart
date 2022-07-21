@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import '../../config/palette.dart';
 
 class ListOfParks extends StatefulWidget {
-  Function() showSenaraiJalan;
+  Function(dynamic) showSenaraiJalan;
 
   ListOfParks({Key? key, required this.showSenaraiJalan}) : super(key: key);
 
@@ -132,7 +132,8 @@ class _ListOfParksState extends State<ListOfParks> {
                                 itemBuilder: (context, index) {
                                   return InkWell(
                                     onTap: () {
-                                      widget.showSenaraiJalan();
+                                      widget.showSenaraiJalan(
+                                          dataFuture[index].id);
                                       setState(() {
                                         _namaTaman.text =
                                             dataFuture[index].namaTaman;

@@ -11,8 +11,13 @@ import 'package:eswm/screens/work_schedule/work_schedule.dart';
 class ListCard extends StatefulWidget {
   dynamic data;
   String type;
+  int listIndex;
 
-  ListCard({Key? key, required this.data, required this.type})
+  ListCard(
+      {Key? key,
+      required this.data,
+      required this.type,
+      required this.listIndex})
       : super(key: key);
 
   @override
@@ -26,7 +31,7 @@ class _ListCardState extends State<ListCard> {
     } else if (widget.type == "Laluan") {
       return PraMyTaskListDetails(data: widget.data);
     } else if (widget.type == "Senarai Jalan") {
-      return ListOfRoadDetails(data: widget.data);
+      return ListOfRoadDetails(data: widget.data, index: widget.listIndex);
     }
     return null;
   }

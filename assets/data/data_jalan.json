@@ -2,7 +2,7 @@
     {
         "id":1,
         "idTaman": 1,
-        "namaJalan": "Jalan Bukit Pasar",
+        "namaJalan": "Jalan Bukit Pasir",
         "latLong":"",
         "jumlahTong":2
     },
@@ -30,28 +30,28 @@
     {
         "id":1,
         "idTaman": 1,
-        "namaJalan": "Jalan Bukit Pasar",
+        "namaJalan": "Jalan Bukit Indah",
         "latLong":"",
         "jumlahTong":2
     },
     {
         "id":2,
         "idTaman": 1,
-        "namaJalan": "Jalan Mewah",
+        "namaJalan": "Jalan Merong",
         "latLong":"",
         "jumlahTong":6
     },
     {
         "id":3,
         "idTaman": 2,
-        "namaJalan": "Jalan 24",
+        "namaJalan": "Jalan 29",
         "latLong":"",
         "jumlahTong":9
     },
     {
         "id":4,
         "idTaman": 2,
-        "namaJalan": "Jalan Jalan",
+        "namaJalan": "Jalan Raya",
         "latLong":"",
         "jumlahTong":6
     }

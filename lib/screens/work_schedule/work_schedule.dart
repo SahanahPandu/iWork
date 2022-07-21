@@ -18,11 +18,14 @@ class WorkSchedule extends StatefulWidget {
 }
 
 class _WorkScheduleState extends State<WorkSchedule> {
+  // ignore: unused_field
   bool _showSenaraiJalan = false;
+  int idTaman = 0;
 
-  updateShowSenaraiJalan() {
+  updateShowSenaraiJalan(id) {
     setState(() {
       _showSenaraiJalan = true;
+      idTaman = id;
     });
   }
 
@@ -66,7 +69,7 @@ class _WorkScheduleState extends State<WorkSchedule> {
                 left: 15,
                 top: 20,
                 right: 15,
-                bottom: 25,
+                bottom: 10,
               ),
               child: Cards(
                 type: "PRA Laluan Details",
@@ -80,10 +83,7 @@ class _WorkScheduleState extends State<WorkSchedule> {
               ),
               child: ListOfParks(showSenaraiJalan: updateShowSenaraiJalan),
             ),
-            const SizedBox(
-              height: 1000,
-              child: ListOfRoad(),
-            ),
+            if (_showSenaraiJalan) ListOfRoad(idTaman: idTaman),
           ],
         ),
       ),
