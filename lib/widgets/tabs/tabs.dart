@@ -76,14 +76,18 @@ class _TabsState extends State<Tabs> {
           bottom: TabBar(
             labelColor: grey900,
             unselectedLabelColor: Colors.black54,
-            indicatorColor: Colors.green,
-            indicatorWeight: 3,
+            indicator: const UnderlineTabIndicator(
+              borderSide: BorderSide(
+                width: 3,
+                color: Colors.green,
+              ),
+              insets: EdgeInsets.symmetric(horizontal: 16.0),
+            ),
             tabs: const [
               Tab(
                 child: Text(
                   "Borang",
                   style: TextStyle(
-                    //color: Colors.black54,
                     fontSize: 16,
                   ),
                 ),
@@ -92,7 +96,6 @@ class _TabsState extends State<Tabs> {
                 child: Text(
                   "Rekod",
                   style: TextStyle(
-                    //color: Colors.black54,
                     fontSize: 16,
                   ),
                 ),
