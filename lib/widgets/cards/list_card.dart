@@ -1,12 +1,14 @@
 // ignore_for_file: must_be_immutable
-import 'package:eswm/screens/list_of_road/list_of_road_details.dart';
+
 import 'package:flutter/material.dart';
 
 //import files
 import 'package:eswm/screens/e_cuti/e_cuti.dart';
-import '../../screens/e_cuti/pra/pra_e_cuti_list_details.dart';
-import 'my_task/pra/pra_my_task_list_details.dart';
 import 'package:eswm/screens/work_schedule/work_schedule.dart';
+import '../../screens/e_cuti/pra/pra_e_cuti_list_details.dart';
+import '../../screens/list_of_road/list_of_road_details.dart';
+import '../../screens/reports/report_list_details.dart';
+import './my_task/pra/pra_my_task_list_details.dart';
 
 class ListCard extends StatefulWidget {
   dynamic data;
@@ -32,6 +34,8 @@ class _ListCardState extends State<ListCard> {
       return PraMyTaskListDetails(data: widget.data);
     } else if (widget.type == "Senarai Jalan") {
       return ListOfRoadDetails(data: widget.data, index: widget.listIndex);
+    } else if (widget.type == "Laporan") {
+      return ReportListDetails(data: widget.data, index: widget.listIndex);
     }
     return null;
   }

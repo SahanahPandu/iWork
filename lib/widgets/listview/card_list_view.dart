@@ -1,12 +1,12 @@
 // ignore_for_file: must_be_immutable
-
-import 'package:eswm/providers/jalan_api.dart';
 import 'package:flutter/material.dart';
 
 //import files
-import 'package:eswm/providers/cuti_api.dart';
 import 'package:eswm/widgets/cards/list_card.dart';
+import 'package:eswm/providers/cuti_api.dart';
 import 'package:eswm/providers/laluan_api.dart';
+import 'package:eswm/providers/jalan_api.dart';
+import 'package:eswm/providers/reports_api.dart';
 
 class CardListView extends StatefulWidget {
   String type;
@@ -34,6 +34,8 @@ class _CardListViewState extends State<CardListView> {
       list = LaluanApi.getLaluanData(context);
     } else if (widget.type == "Senarai Jalan") {
       list = JalanApi.getJalanData(context);
+    } else if (widget.type == "Laporan") {
+      list = ReportsApi.getReportsData(context);
     } else {
       list = null;
     }
