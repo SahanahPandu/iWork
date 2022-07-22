@@ -1,18 +1,25 @@
 // ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
 
 //import files
-import 'package:eswm/screens/e_cuti/leave_form.dart';
-import 'package:eswm/screens/e_cuti/leave_list.dart';
 import '../../config/palette.dart';
 import '../../config/string.dart';
+import 'package:eswm/screens/e_cuti/leave_form.dart';
+import 'package:eswm/screens/e_cuti/leave_list.dart';
+import 'package:eswm/screens/reports/report_form.dart';
+import 'package:eswm/screens/reports/report_list.dart';
 
 class Tabs extends StatefulWidget {
   String screen;
   dynamic data;
+  String tabTitle;
 
-  Tabs({Key? key, required this.screen, required this.data}) : super(key: key);
+  Tabs(
+      {Key? key,
+      required this.screen,
+      required this.data,
+      required this.tabTitle})
+      : super(key: key);
 
   @override
   State<Tabs> createState() => _TabsState();
@@ -23,9 +30,18 @@ class _TabsState extends State<Tabs> {
     if (widget.screen == "1" || widget.screen == "2") {
       // e_cuti
       //screen = "1" - ecuti button , screen ="2" -  from leave list
+
       return TabBarView(children: [
         LeaveForm(screen: widget.screen, data: widget.data),
         const LeaveList(),
+      ]);
+    } else if (widget.screen == "3" || widget.screen == "4") {
+      //reports
+      //screen = "3" - report button (work schedule), screen = "4" - from record list
+
+      return const TabBarView(children: [
+        ReportForm(),
+        ReportList(),
       ]);
     }
   }
@@ -41,7 +57,7 @@ class _TabsState extends State<Tabs> {
           shadowColor: Colors.white,
           centerTitle: true,
           title: Text(
-            eCuti,
+            widget.tabTitle,
             style: TextStyle(
               fontSize: 18,
               color: Colors.grey.shade800,

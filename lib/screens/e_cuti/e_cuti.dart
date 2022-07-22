@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 //import files
 import 'package:eswm/widgets/tabs/tabs.dart';
-
+import 'package:eswm/config/string.dart';
 import '../../models/cuti.dart';
 
 class ECuti extends StatefulWidget {
@@ -20,6 +20,10 @@ class ECuti extends StatefulWidget {
 class _ECutiState extends State<ECuti> {
   @override
   Widget build(BuildContext context) {
-    return Tabs(screen: widget.screen, data: widget.data);
+    return Tabs(
+      screen: widget.screen,
+      data: widget.data,
+      tabTitle: eCuti,
+    );
   }
 }
