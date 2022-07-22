@@ -21,13 +21,13 @@ class Cuti {
       required this.catatan});
 
   static Cuti fromJson(json) => Cuti(
-      id: json['id'],
-      idJenisCuti: json['idJenisCuti'],
-      jenisCuti: json['jenisCuti'],
-      idStatus: json['idStatus'],
-      status: json['status'],
-      tarikhMula: json['tarikhMula'],
-      tarikhTamat: json['tarikhTamat'],
-      lampiran: json['lampiran'],
+      id: json['id'] ?? 0,
+      idJenisCuti: json['idJenisCuti'] ?? 0,
+      jenisCuti: json['jenisCuti'] ?? "",
+      idStatus: json['idStatus'] ?? 0,
+      status: json['status'] ?? "",
+      tarikhMula: json['tarikhMula'] ?? "",
+      tarikhTamat: json['tarikhTamat'] ?? "",
+      lampiran: json['lampiran'] ?? "",
       catatan: json['catatan'] ?? "");
 }
