@@ -1,0 +1,69 @@
+[
+    {
+        "id": 1,
+        "idLaluan" :1 ,
+        "namaLaluan":"JHBP01-C02",
+        "idKenderaan": 1,
+        "noKenderaan":"BLW7096",
+        "idTaman":1,
+        "namaTaman":"Pekan Bukit Pasir",
+        "idJalan":1,
+        "namaJalan": "Jalan Bukit Pasir",
+        "idJenisHalangan":1,
+        "jenisHalangan" :"Cuaca",
+        "lampiran":"",
+        "catatan":"",
+        "idStatusPenyelia": 1,
+        "statusPenyelia": "Diterima",
+        "maklumbalasPenyelia": "Perlu ubah ke masa lain.",
+        "idStatusBA":1,
+        "statusBA":"Diterima",
+        "maklumbalasBA": "Teruskan dengan tindakan seterusnya"
+
+    },
+    {
+        "id": 2,
+        "idLaluan" :2 ,
+        "namaLaluan":"JHBP01-C03",
+        "idKenderaan": 2,
+        "noKenderaan":"BLM1111",
+        "idTaman":3,
+        "namaTaman":"Taman Cemerlang Jaya",
+        "idJalan":4,
+        "namaJalan": "Jalan Raya",
+        "idJenisHalangan":2,
+        "jenisHalangan" :"Laluan",
+        "lampiran":"abcd.jpg",
+        "catatan":"terdapat khemah yang menganggu halangan",
+        "idStatusPenyelia": 1,
+        "statusPenyelia": "Diterima",
+        "maklumbalasPenyelia": "Buat tugasan semula selepas khemah di alihkan",
+        "idStatusBA":1,
+        "statusBA":"Diterima",
+        "maklumbalasBA": "Teruskan dengan tindakan seterusnya"
+
+    }
+    ,
+    {
+        "id": 3,
+        "idLaluan" :3 ,
+        "namaLaluan":"JHBP02-C01",
+        "idKenderaan": 3,
+        "noKenderaan":"BLK3432",
+        "idTaman":4,
+        "namaTaman":"Taman Cemerlang Ria",
+        "idJalan":4,
+        "namaJalan": "Jalan Raya",
+        "idJenisHalangan":3,
+        "jenisHalangan" :"Kerosakan Kenderaan",
+        "lampiran":"efgh.jpg",
+        "catatan":"Enjin mati tengah , tak boleh nak start semula",
+        "idStatusPenyelia": 1,
+        "statusPenyelia": "Diterima",
+        "maklumbalasPenyelia": "Tunggu sehingga mekanik bengkel sampai dan update status semula",
+        "idStatusBA":1,
+        "statusBA":"Diterima",
+        "maklumbalasBA": "Teruskan dengan tindakan seterusnya"
+
+    }
+]
