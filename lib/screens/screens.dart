@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 import 'package:eswm/config/config.dart';
-import 'package:eswm/config/palette.dart';
 import '../config/resource.dart';
 import '../config/string.dart';
 import 'compactor_panel/compactor_panel.dart';

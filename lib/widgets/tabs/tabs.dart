@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../config/palette.dart';
-import '../../config/string.dart';
 import 'package:eswm/screens/e_cuti/leave_form.dart';
 import 'package:eswm/screens/e_cuti/leave_list.dart';
 import 'package:eswm/screens/reports/report_form.dart';
