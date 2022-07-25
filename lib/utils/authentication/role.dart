@@ -3,32 +3,32 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../config/config.dart';
 
 class Roles {
-  static const ROLE_COMP = "comp";
-  static const ROLE_PRA = "pra";
-  static const ROLE_SV = "sv";
-  static const ROLE_EO = "eo";
-  static const ROLE_BA = "ba";
-  static const ROLE_SAM = "sam";
-  static const ROLE_ROM = "rom";
-  static const ROLE_MECH = "mech";
+  static const roleComp = "comp";
+  static const rolePra = "pra";
+  static const roleSv = "sv";
+  static const roleEo = "eo";
+  static const roleBa = "ba";
+  static const roleSam = "sam";
+  static const roleRom = "rom";
+  static const roleMech = "mech";
 
   static int? setRole(String roleID) {
     switch (roleID) {
-      case ROLE_COMP:
+      case roleComp:
         return userRole = 100;
-      case ROLE_PRA:
+      case rolePra:
         return userRole = 200;
-      case ROLE_SV:
+      case roleSv:
         return userRole = 300;
-      case ROLE_EO:
+      case roleEo:
         return userRole = 400;
-      case ROLE_BA:
+      case roleBa:
         return userRole = 500;
-      case ROLE_SAM:
+      case roleSam:
         return userRole = 600;
-      case ROLE_ROM:
+      case roleRom:
         return userRole = 700;
-      case ROLE_MECH:
+      case roleMech:
         return userRole = 800;
       default:
         return userRole = 0;

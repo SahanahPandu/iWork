@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
+//import files
 import 'package:eswm/routes.dart';
-import 'package:eswm/root.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,11 +15,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue
-      ),
-        onGenerateRoute: Routes.generateRoute,
-        navigatorKey: GlobalKey(),
+      theme: ThemeData(primarySwatch: Colors.blue),
+      onGenerateRoute: Routes.generateRoute,
+      navigatorKey: GlobalKey(),
     );
   }
 }
