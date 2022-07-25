@@ -45,6 +45,8 @@ class _ReportButtonState extends State<ReportButton> {
                     namaJalan: "",
                     idJenisHalangan: 0,
                     jenisHalangan: "",
+                    idStatus: 0,
+                    status: "",
                     lampiran: "",
                     catatan: "",
                     idStatusPenyelia: 0,

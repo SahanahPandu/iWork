@@ -10,6 +10,8 @@ class Reports {
   final String namaJalan;
   final int idJenisHalangan;
   final String jenisHalangan;
+  final int idStatus;
+  final String status;
   final String lampiran;
   final String catatan;
   final int idStatusPenyelia;
@@ -31,6 +33,8 @@ class Reports {
       required this.namaJalan,
       required this.idJenisHalangan,
       required this.jenisHalangan,
+      required this.idStatus,
+      required this.status,
       required this.lampiran,
       required this.catatan,
       required this.idStatusPenyelia,
@@ -52,6 +56,8 @@ class Reports {
       namaJalan: json['namaJalan'] ?? "",
       idJenisHalangan: json['idJenisHalangan'] ?? 0,
       jenisHalangan: json['jenisHalangan'] ?? "",
+      idStatus: json['idStatus'] ?? 0,
+      status: json['status'] ?? "",
       lampiran: json['lampiran'] ?? "",
       catatan: json['catatan'] ?? "",
       idStatusPenyelia: json['idStatusPenyelia'] ?? 0,
