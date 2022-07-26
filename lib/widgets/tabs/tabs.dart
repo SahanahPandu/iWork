@@ -38,9 +38,9 @@ class _TabsState extends State<Tabs> {
       //reports
       //screen = "3" - report button (work schedule), screen = "4" - from record list
 
-      return const TabBarView(children: [
-        ReportForm(),
-        ReportList(),
+      return TabBarView(children: [
+        ReportForm(screen: widget.screen, data: widget.data),
+        const ReportList(),
       ]);
     }
   }

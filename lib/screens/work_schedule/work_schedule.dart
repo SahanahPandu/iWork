@@ -21,6 +21,7 @@ class _WorkScheduleState extends State<WorkSchedule> {
   // ignore: unused_field
   bool _showSenaraiJalan = false;
   int idTaman = 0;
+  int iconCondition = 1;
 
   updateShowSenaraiJalan(id) {
     setState(() {
@@ -81,7 +82,19 @@ class _WorkScheduleState extends State<WorkSchedule> {
                 horizontal: 15,
                 vertical: 10,
               ),
-              child: ListOfParks(showSenaraiJalan: updateShowSenaraiJalan),
+              child: Card(
+                elevation: 5,
+                shadowColor: Colors.grey.shade50,
+                child: ListOfParks(
+                  showSenaraiJalan: updateShowSenaraiJalan,
+                  hintText: 'Senarai Taman',
+                  fontSize: 18,
+                  borderCondition: 0, //no border
+                  fillColor: textFormFieldFillColor,
+                  iconCondition: iconCondition,
+                  data: "",
+                ),
+              ),
             ),
             if (_showSenaraiJalan) ListOfRoad(idTaman: idTaman),
           ],

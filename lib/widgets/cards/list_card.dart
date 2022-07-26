@@ -8,6 +8,7 @@ import 'package:eswm/screens/work_schedule/work_schedule.dart';
 import '../../screens/e_cuti/pra/pra_e_cuti_list_details.dart';
 import '../../screens/list_of_road/list_of_road_details.dart';
 import '../../screens/reports/report_list_details.dart';
+import '../../screens/reports/reports.dart';
 import './my_task/pra/pra_my_task_list_details.dart';
 
 class ListCard extends StatefulWidget {
@@ -53,6 +54,8 @@ class _ListCardState extends State<ListCard> {
                 return ECuti(screen: "2", data: widget.data);
               } else if (widget.type == "Laluan") {
                 return WorkSchedule(data: widget.data);
+              } else if (widget.type == "Laporan") {
+                return ReportsPage(screen: "4", data: widget.data);
               } else {
                 return Container();
               }

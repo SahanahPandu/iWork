@@ -1,53 +1,49 @@
 // ignore_for_file: must_be_immutable
-
-import 'package:eswm/config/string.dart';
 import 'package:flutter/material.dart';
 
+//import files
 import '../../config/font.dart';
 import '../../config/palette.dart';
-import 'package:eswm/providers/taman_api.dart';
+import '../../providers/halangan_api.dart';
 
-class ListOfParks extends StatefulWidget {
-  Function(dynamic)? showSenaraiJalan;
-  String hintText;
+class ListOfObstacles extends StatefulWidget {
+  String text;
   double fontSize;
-  int borderCondition;
   Color fillColor;
   int iconCondition;
   String data;
 
-  ListOfParks(
+  ListOfObstacles(
       {Key? key,
-      required this.showSenaraiJalan,
-      required this.hintText,
+      required this.text,
       required this.fontSize,
-      required this.borderCondition,
       required this.fillColor,
       required this.iconCondition,
       required this.data})
       : super(key: key);
 
   @override
-  State<ListOfParks> createState() => _ListOfParksState();
+  State<ListOfObstacles> createState() => _ListOfObstaclesState();
 }
 
-class _ListOfParksState extends State<ListOfParks> {
-  final TextEditingController _namaTaman = TextEditingController();
+class _ListOfObstaclesState extends State<ListOfObstacles> {
+  final TextEditingController _jenisHalangan = TextEditingController();
 
-  int totalTaman = 0;
+  int totalHalangan = 0;
 
   getTotalData() {
-    TamanApi.getTamanData(context).then((value) {
+    HalanganApi.getHalanganData(context).then((value) {
       if (value.isNotEmpty) {
         setState(() {
-          totalTaman = value.length;
+          totalHalangan = value.length;
         });
       }
     });
 
     if (widget.data != "") {
+      // this is for get data from list and pass to form , to show pass data in text field
       setState(() {
-        _namaTaman.text = widget.data;
+        _jenisHalangan.text = widget.data;
       });
     }
   }
@@ -63,23 +59,17 @@ class _ListOfParksState extends State<ListOfParks> {
     return InkWell(
       onTap: () {
         if (widget.iconCondition == 1) {
-          showListOfParks();
+          showListOfObstacles();
         }
       },
       child: TextFormField(
-        controller: _namaTaman,
+        controller: _jenisHalangan,
         readOnly: true,
         enabled: false,
         decoration: InputDecoration(
           filled: true,
           fillColor: widget.fillColor,
-          contentPadding: const EdgeInsets.all(8),
-          hintText: widget.hintText,
-          hintStyle: TextStyle(
-            fontSize: widget.fontSize,
-            color: labelTextColor,
-            fontWeight: textFormFieldLabelFontWeight,
-          ),
+          contentPadding: const EdgeInsets.all(10),
           suffixIcon: widget.iconCondition == 1
               ? const Icon(
                   Icons.arrow_drop_down,
@@ -87,10 +77,8 @@ class _ListOfParksState extends State<ListOfParks> {
                   color: Colors.black87,
                 )
               : null,
-          labelText: widget.borderCondition == 1 && widget.iconCondition == 1
-              ? widget.hintText
-              : null,
-          labelStyle: widget.borderCondition == 1 && widget.iconCondition == 1
+          labelText: widget.iconCondition == 1 ? widget.text : null,
+          labelStyle: widget.iconCondition == 1
               ? TextStyle(
                   fontSize: widget.fontSize,
                   color: labelTextColor,
@@ -98,23 +86,20 @@ class _ListOfParksState extends State<ListOfParks> {
                 )
               : null,
           disabledBorder: OutlineInputBorder(
-            borderSide: widget.borderCondition == 0
-                ? BorderSide.none
-                : BorderSide(
-                    width: borderSideWidth,
-                    color: _namaTaman.text != '' && widget.iconCondition == 1
-                        ? enabledBorderWithText
-                        : enabledBorderWithoutText,
-                  ),
+            borderSide: BorderSide(
+              width: borderSideWidth,
+              color: _jenisHalangan.text != '' && widget.iconCondition == 1
+                  ? enabledBorderWithText
+                  : enabledBorderWithoutText,
+            ),
             borderRadius: BorderRadius.circular(borderRadiusCircular),
-            gapPadding: 6.0,
           ),
         ),
       ),
     );
   }
 
-  Widget? showListOfParks() {
+  Widget? showListOfObstacles() {
     showModalBottomSheet(
         isScrollControlled: true,
         shape: const RoundedRectangleBorder(
@@ -137,7 +122,7 @@ class _ListOfParksState extends State<ListOfParks> {
                     bottom: 10,
                   ),
                   child: Text(
-                    "${totalTaman.toString()} Senarai Taman",
+                    "${totalHalangan.toString()} Senarai Jenis Halangan",
                     style: TextStyle(
                       color: Colors.grey.shade500,
                       fontSize: 16,
@@ -146,7 +131,7 @@ class _ListOfParksState extends State<ListOfParks> {
                   ),
                 ),
                 FutureBuilder<List>(
-                  future: TamanApi.getTamanData(context),
+                  future: HalanganApi.getHalanganData(context),
                   builder: (context, snapshot) {
                     final dataFuture = snapshot.data;
 
@@ -174,14 +159,9 @@ class _ListOfParksState extends State<ListOfParks> {
                                 itemBuilder: (context, index) {
                                   return InkWell(
                                     onTap: () {
-                                      if (widget.showSenaraiJalan != null) {
-                                        widget.showSenaraiJalan!(
-                                            dataFuture[index].id);
-                                      }
-
                                       setState(() {
-                                        _namaTaman.text =
-                                            dataFuture[index].namaTaman;
+                                        _jenisHalangan.text =
+                                            dataFuture[index].namaHalangan;
 
                                         Navigator.pop(context);
                                       });
@@ -201,7 +181,7 @@ class _ListOfParksState extends State<ListOfParks> {
                                         ),
                                       ),
                                       child: Text(
-                                        dataFuture[index].namaTaman,
+                                        dataFuture[index].namaHalangan,
                                         style: const TextStyle(
                                           color: Colors.black87,
                                           fontSize: 16,

@@ -1,26 +1,73 @@
-import 'package:eswm/widgets/buttons/upload_image_button.dart';
+// ignore_for_file: must_be_immutable
+
+import 'package:eswm/models/reports.dart';
+import 'package:eswm/screens/list_of_obstacles/lis_of_obstacles.dart';
+import 'package:eswm/screens/list_of_road/list_of_road_text_form_field.dart';
 import 'package:flutter/material.dart';
 
 //import files
+import 'package:eswm/widgets/buttons/upload_image_button.dart';
 import '../../config/font.dart';
 import '../../config/palette.dart';
+import '../list_of_park/list_of_parks.dart';
 
 class ReportForm extends StatefulWidget {
-  const ReportForm({Key? key}) : super(key: key);
+  String screen;
+  Reports? data;
+
+  ReportForm({Key? key, required this.screen, required this.data})
+      : super(key: key);
 
   @override
   State<ReportForm> createState() => _ReportFormState();
 }
 
 class _ReportFormState extends State<ReportForm> {
-  final TextEditingController _namaTaman = TextEditingController();
-  final TextEditingController _namaJalan = TextEditingController();
-  final TextEditingController _jenisHalangan = TextEditingController();
   final TextEditingController _catatan = TextEditingController();
 
   Color textFieldFillColor = textFormFieldFillColor;
   Color focusBorderColor = focusedBorder;
   Color enableBorderWithTextColor = enabledBorderWithText;
+  int iconCondition = 1;
+  String namaTaman = "";
+  String namaJalan = "";
+  String jenisHalangan = "";
+
+  double spacingHeight = 20;
+
+  loadData() {
+    if (widget.screen == "4") {
+      //from report list
+      setState(() {
+        textFieldFillColor = Colors.grey.shade300;
+        focusBorderColor = Colors.grey.shade300;
+        enableBorderWithTextColor = Colors.grey.shade300;
+        iconCondition = 0;
+
+        if (widget.data!.namaTaman != "") {
+          namaTaman = widget.data!.namaTaman;
+        }
+
+        if (widget.data!.namaJalan != "") {
+          namaJalan = widget.data!.namaJalan;
+        }
+
+        if (widget.data!.jenisHalangan != "") {
+          jenisHalangan = widget.data!.jenisHalangan;
+        }
+
+        if (widget.data!.catatan != "") {
+          _catatan.text = widget.data!.catatan;
+        }
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    loadData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,184 +143,54 @@ class _ReportFormState extends State<ReportForm> {
                 height: 15,
               ),
               //Taman
-              SizedBox(
-                height: 40,
-                child: TextFormField(
-                  controller: _namaTaman,
-                  readOnly: true,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: textFieldFillColor,
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        width: borderSideWidth,
-                        color: focusBorderColor,
-                      ),
-                      borderRadius: BorderRadius.circular(
-                        borderRadiusCircular,
-                      ),
-                    ),
-                    enabledBorder: _namaTaman.text != ''
-                        ? OutlineInputBorder(
-                            borderSide: BorderSide(
-                              width: borderSideWidth,
-                              color: enableBorderWithTextColor,
-                            ),
-                            borderRadius:
-                                BorderRadius.circular(borderRadiusCircular),
-                          )
-                        : OutlineInputBorder(
-                            borderSide: BorderSide(
-                              width: borderSideWidth,
-                              color: enabledBorderWithoutText,
-                            ),
-                            borderRadius:
-                                BorderRadius.circular(borderRadiusCircular),
-                          ),
-                    labelText: 'Pilih Taman',
-                    labelStyle: TextStyle(
-                      fontSize: 15,
-                      color: labelTextColor,
-                      fontWeight: textFormFieldLabelFontWeight,
-                    ),
-                    contentPadding: const EdgeInsets.all(10),
-                    suffixIcon: InkWell(
-                      onTap: () {},
-                      child: const Icon(
-                        Icons.arrow_drop_down,
-                        size: 30,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                ),
+              ListOfParks(
+                showSenaraiJalan: null,
+                hintText: 'Pilih Nama Taman',
+                fontSize: 15,
+                borderCondition: 1, // have border
+                fillColor: textFieldFillColor,
+                iconCondition: iconCondition,
+                data: namaTaman,
               ),
-              const SizedBox(
-                height: 25,
+
+              SizedBox(
+                height: spacingHeight,
               ),
               //Jalan
-              SizedBox(
-                height: 40,
-                child: TextFormField(
-                  controller: _namaJalan,
-                  readOnly: true,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: textFieldFillColor,
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        width: borderSideWidth,
-                        color: focusBorderColor,
-                      ),
-                      borderRadius: BorderRadius.circular(
-                        borderRadiusCircular,
-                      ),
-                    ),
-                    enabledBorder: _namaJalan.text != ''
-                        ? OutlineInputBorder(
-                            borderSide: BorderSide(
-                              width: borderSideWidth,
-                              color: enableBorderWithTextColor,
-                            ),
-                            borderRadius:
-                                BorderRadius.circular(borderRadiusCircular),
-                          )
-                        : OutlineInputBorder(
-                            borderSide: BorderSide(
-                              width: borderSideWidth,
-                              color: enabledBorderWithoutText,
-                            ),
-                            borderRadius:
-                                BorderRadius.circular(borderRadiusCircular),
-                          ),
-                    labelText: 'Pilih Jalan',
-                    labelStyle: TextStyle(
-                      fontSize: 15,
-                      color: labelTextColor,
-                      fontWeight: textFormFieldLabelFontWeight,
-                    ),
-                    contentPadding: const EdgeInsets.all(10),
-                    suffixIcon: InkWell(
-                      onTap: () {},
-                      child: const Icon(
-                        Icons.arrow_drop_down,
-                        size: 30,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                ),
+              ListOfRoadTextFormField(
+                text: 'Pilih Nama Jalan',
+                fontSize: 15,
+                fillColor: textFieldFillColor,
+                iconCondition: iconCondition,
+                data: namaJalan,
               ),
-              const SizedBox(
-                height: 25,
+
+              SizedBox(
+                height: spacingHeight,
               ),
               //Jenis Halangan
-              SizedBox(
-                height: 40,
-                child: TextFormField(
-                  controller: _jenisHalangan,
-                  readOnly: true,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: textFieldFillColor,
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        width: borderSideWidth,
-                        color: focusBorderColor,
-                      ),
-                      borderRadius: BorderRadius.circular(
-                        borderRadiusCircular,
-                      ),
-                    ),
-                    enabledBorder: _jenisHalangan.text != ''
-                        ? OutlineInputBorder(
-                            borderSide: BorderSide(
-                              width: borderSideWidth,
-                              color: enableBorderWithTextColor,
-                            ),
-                            borderRadius:
-                                BorderRadius.circular(borderRadiusCircular),
-                          )
-                        : OutlineInputBorder(
-                            borderSide: BorderSide(
-                              width: borderSideWidth,
-                              color: enabledBorderWithoutText,
-                            ),
-                            borderRadius:
-                                BorderRadius.circular(borderRadiusCircular),
-                          ),
-                    labelText: 'Jenis Halangan',
-                    labelStyle: TextStyle(
-                      fontSize: 15,
-                      color: labelTextColor,
-                      fontWeight: textFormFieldLabelFontWeight,
-                    ),
-                    contentPadding: const EdgeInsets.all(10),
-                    suffixIcon: InkWell(
-                      onTap: () {},
-                      child: const Icon(
-                        Icons.arrow_drop_down,
-                        size: 30,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                ),
+              ListOfObstacles(
+                text: 'Pilih Jenis Halangan',
+                fontSize: 15,
+                fillColor: textFieldFillColor,
+                iconCondition: iconCondition,
+                data: jenisHalangan,
               ),
-              const SizedBox(
-                height: 25,
+
+              SizedBox(
+                height: spacingHeight,
               ),
               //Gambar
               SizedBox(
                 width: MediaQuery.of(context).size.width,
                 child: const UploadImageButton(),
               ),
-              const SizedBox(
-                height: 15,
+              SizedBox(
+                height: spacingHeight,
               ),
               TextFormField(
                 controller: _catatan,
-                maxLines: 4,
+                maxLines: 3,
                 enabled: true,
                 decoration: InputDecoration(
                   filled: true,
@@ -303,11 +220,13 @@ class _ReportFormState extends State<ReportForm> {
                               BorderRadius.circular(borderRadiusCircular),
                         ),
                   alignLabelWithHint: true,
-                  labelText: 'Catatan',
-                  labelStyle: TextStyle(
-                    color: labelTextColor,
-                    fontWeight: textFormFieldLabelFontWeight,
-                  ),
+                  labelText: _catatan.text == '' ? 'Catatan' : null,
+                  labelStyle: _catatan.text == ''
+                      ? TextStyle(
+                          color: labelTextColor,
+                          fontWeight: textFormFieldLabelFontWeight,
+                        )
+                      : null,
                   contentPadding: const EdgeInsets.all(15),
                 ),
               ),
