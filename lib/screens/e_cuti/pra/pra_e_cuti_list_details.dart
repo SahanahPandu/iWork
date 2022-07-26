@@ -75,6 +75,9 @@ class _PraECutiListDetailsState extends State<PraECutiListDetails> {
                   fontWeight: FontWeight.w900,
                 ),
               ),
+              const SizedBox(
+                width: 2,
+              ),
               StatusContainer(
                 boxColor: statusBoxColor,
                 status: widget.data.status,

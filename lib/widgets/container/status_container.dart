@@ -24,7 +24,7 @@ class _StatusContainerState extends State<StatusContainer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 7),
+      padding: const EdgeInsets.all(6),
       decoration: BoxDecoration(
         color: widget.boxColor,
         borderRadius: BorderRadius.circular(8),
