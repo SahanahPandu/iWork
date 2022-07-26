@@ -42,10 +42,10 @@ class _PraState extends State<Pra> {
           ),
         ),
         AnimatedOpacity(
-          duration: const Duration(milliseconds: 400),
+          duration: const Duration(milliseconds: 200),
           opacity: closeTopCard ? 0 : 1,
           child: AnimatedContainer(
-            duration: const Duration(milliseconds: 400),
+            duration: const Duration(milliseconds: 200),
             width: size.width,
             alignment: Alignment.topCenter,
             height: closeTopCard ? 0 : categoryHeight,
