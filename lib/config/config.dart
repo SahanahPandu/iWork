@@ -16,3 +16,7 @@ int statusTask = 1;
 /// '700' = rom
 /// '800' = mech
 int userRole = 0;
+
+/// ** VCStatus **
+bool completedFirstVc = false;
+bool completedSecondVc = false;

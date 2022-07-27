@@ -8,6 +8,7 @@ import '../../config/string.dart';
 import '../../utils/date.dart';
 import '../../utils/device.dart';
 import '../alert/alert_dialog.dart';
+import '../alert/toast.dart';
 import '../cards/my_task/compactor_panel/compactor_panel_my_task_list_details.dart';
 
 typedef StringCallback = void Function(String val);
@@ -102,29 +103,27 @@ class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
   void _switchWorkTime(BuildContext context) {
     statusTask == 3
         ? null
-        : showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return showAlertDialog(
-                  context,
-                  confirmation,
-                  statusTask == 2 ? confirmEndWork : confirmStartWork,
-                  statusTask == 2 ? endWorkText : startWorkText,
-                  cancel);
-            }).then((actionText) {
-            if (actionText == startWorkText) {
-              _setTaskState(endWork, red, red, red, white, 2);
-              slidedStartTime = Date.getCurrentTime();
-              CompactorPanelMyTaskListDetails.of(context)
-                  ?.setStartTime(slidedStartTime);
-            } else if (actionText == endWorkText) {
-              _setTaskState(
-                  startWork, grey, transparent, transparent, grey300, 3);
-              slidedEndTime = Date.getCurrentTime();
-              CompactorPanelMyTaskListDetails.of(context)
-                  ?.setEndTime(slidedEndTime);
-            }
-          });
+        : (completedFirstVc? showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return  showAlertDialog(
+              context,
+              confirmation,
+              statusTask == 2 ? confirmEndWork : confirmStartWork,
+              statusTask == 2 ? endWorkText : startWorkText,
+              cancel);
+        }).then((actionText) {
+      if (actionText == startWorkText) {
+        _setTaskState(endWork, red, red, red, white, 2);
+        slidedStartTime = Date.getCurrentTime();
+        CompactorPanelMyTaskListDetails.of(context)
+            ?.setStartTime(slidedStartTime);
+      } else if (actionText == endWorkText) {
+        _setTaskState(
+            startWork, grey, transparent, transparent, grey300, 3);
+        slidedEndTime = Date.getCurrentTime();
+      }
+    }) : showErrorToast(context, doVcFirst));
   }
 
   void _setTaskState(String textP, Color textColorP, Color iconColorP,

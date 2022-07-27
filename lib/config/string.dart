@@ -19,7 +19,7 @@ String taskEnded = 'Tugasan Selesai';
 String slidedStartTime = '';
 String slidedEndTime = '';
 
-String vc = 'Semak Kenderaan';
+String vc = 'Semakan Kenderaan';
 String startWorkText = 'Mula Kerja';
 String endWorkText = 'Tamat Kerja';
 String startWork = 'Leretkan Ke Kanan Untuk Mula Tugas';
@@ -28,6 +28,7 @@ String confirmStartWork =
 String confirmEndWork =
     'Adakah anda ingin menamatkan tugasan untuk Laluan JHBP01-C02? Pastikan tugasan telah selesai';
 String endWork = 'Leretkan Ke Kiri Untuk Tamat Tugas';
+String doVcFirst = 'Pastikan anda mengisi borang semak kenderaan terlebih dahulu sebelum memulakan tugasan kerja';
 String fillUpVC =
     'Lengkapkan borang semakan kenderaan sebelum keluar di bawah :';
 String date = 'Tarikh';

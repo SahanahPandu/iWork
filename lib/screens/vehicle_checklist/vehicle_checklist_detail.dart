@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
-import 'package:expansion_tile_card/expansion_tile_card.dart';
 
+import '../../config/config.dart';
 import '../../config/dimen.dart';
 import '../../config/palette.dart';
 import '../../config/string.dart';
@@ -9,6 +9,7 @@ import '../../models/vc/vc.dart';
 import '../../utils/date.dart';
 import '../../utils/device.dart';
 import '../../widgets/alert/alert_dialog.dart';
+import '../../widgets/alert/toast.dart';
 
 class VehicleChecklistDetail extends StatefulWidget {
   final VehicleChecklist data;
@@ -22,20 +23,28 @@ class VehicleChecklistDetail extends StatefulWidget {
 
 class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
     with TickerProviderStateMixin {
-  final GlobalKey<ExpansionTileCardState> cardA = GlobalKey();
-  bool _showBackToTopButton = false;
+
+  final List<GlobalKey<FormState>> _key = [
+    GlobalKey<FormState>(),
+    GlobalKey<FormState>(),
+    GlobalKey<FormState>(),
+    GlobalKey<FormState>(),
+    GlobalKey<FormState>(),
+    GlobalKey<FormState>()
+  ];
   late ScrollController _scrollController;
   final Devices _device = Devices();
-  String todayDate = "0";
-
+  bool _showBackToTopButton = false;
+  bool _valid = false;
+  String _todayDate = "0";
   double _value = 20;
-  int val = -1;
-  int vals = -2;
-  int valss = -3;
+  int _val = -1;
+  int _vals = -2;
+  int _valss = -3;
 
   @override
   void initState() {
-    todayDate = Date.getTodayDate();
+    _todayDate = Date.getTodayDate();
     _scrollController = ScrollController()
       ..addListener(() {
         setState(() {
@@ -168,7 +177,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                       textAlign: TextAlign.left,
                                       style: TextStyle(
                                           fontSize: 16, color: blueGrey)),
-                                  Text(todayDate,
+                                  Text(_todayDate,
                                       textAlign: TextAlign.left,
                                       style: TextStyle(
                                           fontSize: 16, color: black)),
@@ -266,40 +275,16 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                           MainAxisAlignment.spaceAround,
                                       children: [
                                         SizedBox(
-                                          height: _device.isLandscape(context)
-                                              ? 35
-                                              : 32,
-                                          width: _device.isLandscape(context)
-                                              ? 130
-                                              : 100,
-                                          child: TextField(
-                                            cursorColor: green,
-                                            keyboardType: TextInputType.number,
-                                            decoration: InputDecoration(
-                                                focusColor: green,
-                                                enabledBorder:
-                                                    OutlineInputBorder(
-                                                        borderRadius:
-                                                            const BorderRadius
-                                                                    .all(
-                                                                Radius.circular(
-                                                                    5)),
-                                                        borderSide: BorderSide(
-                                                            width: 1,
-                                                            color: grey300)),
-                                                focusedBorder:
-                                                    OutlineInputBorder(
-                                                  borderSide:
-                                                      BorderSide(color: green),
-                                                  borderRadius:
-                                                      BorderRadius.circular(5),
-                                                ),
-                                                labelText: odometer,
-                                                labelStyle: TextStyle(
-                                                    color: grey400,
-                                                    fontSize: 14)),
-                                          ),
-                                        ),
+                                            height: _device.isLandscape(context)
+                                                ? 35
+                                                : 32,
+                                            width: _device.isLandscape(context)
+                                                ? 130
+                                                : 100,
+                                            child: _valueTextFormBuild(
+                                                0,
+                                                TextInputType.number,
+                                                odometer)),
                                         SizedBox(width: columnSpaceVc(context)),
                                         Text(
                                           km,
@@ -330,10 +315,10 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                             children: [
                                               Radio(
                                                 value: 1,
-                                                groupValue: val,
+                                                groupValue: _val,
                                                 onChanged: (value) {
                                                   setState(() {
-                                                    val = value as int;
+                                                    _val = value as int;
                                                   });
                                                 },
                                                 activeColor: green,
@@ -345,10 +330,10 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                             children: [
                                               Radio(
                                                   value: 2,
-                                                  groupValue: val,
+                                                  groupValue: _val,
                                                   onChanged: (value) {
                                                     setState(() {
-                                                      val = value as int;
+                                                      _val = value as int;
                                                     });
                                                   },
                                                   activeColor: green),
@@ -379,36 +364,14 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                         MainAxisAlignment.spaceAround,
                                     children: [
                                       SizedBox(
-                                        height: _device.isLandscape(context)
-                                            ? 35
-                                            : 32,
-                                        width: _device.isLandscape(context)
-                                            ? 130
-                                            : 100,
-                                        child: TextField(
-                                          cursorColor: green,
-                                          keyboardType: TextInputType.number,
-                                          decoration: InputDecoration(
-                                              focusColor: green,
-                                              enabledBorder: OutlineInputBorder(
-                                                  borderRadius:
-                                                      const BorderRadius.all(
-                                                          Radius.circular(5)),
-                                                  borderSide: BorderSide(
-                                                      width: 1,
-                                                      color: grey300)),
-                                              focusedBorder: OutlineInputBorder(
-                                                borderSide:
-                                                    BorderSide(color: green),
-                                                borderRadius:
-                                                    BorderRadius.circular(5),
-                                              ),
-                                              labelText: odometer,
-                                              labelStyle: TextStyle(
-                                                  color: grey400,
-                                                  fontSize: 14)),
-                                        ),
-                                      ),
+                                          height: _device.isLandscape(context)
+                                              ? 35
+                                              : 32,
+                                          width: _device.isLandscape(context)
+                                              ? 130
+                                              : 100,
+                                          child: _valueTextFormBuild(1,
+                                              TextInputType.number, odometer)),
                                       SizedBox(width: columnSpaceVc(context)),
                                       Text(
                                         km,
@@ -433,34 +396,19 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                         color: blueGrey,
                                       )),
                                   Container(
-                                    padding: _device.isLandscape(context)
-                                        ? const EdgeInsets.symmetric(
-                                            horizontal: 20.0)
-                                        : const EdgeInsets.symmetric(
-                                            horizontal: 16.0),
-                                    height:
-                                        _device.isLandscape(context) ? 35 : 32,
-                                    width:
-                                        _device.isLandscape(context) ? 400 : 0,
-                                    child: TextField(
-                                      cursorColor: green,
-                                      keyboardType: TextInputType.number,
-                                      decoration: InputDecoration(
-                                        focusColor: green,
-                                        enabledBorder: OutlineInputBorder(
-                                            borderRadius:
-                                                const BorderRadius.all(
-                                                    Radius.circular(5)),
-                                            borderSide: BorderSide(
-                                                width: 1, color: grey300)),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(color: green),
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
+                                      padding: _device.isLandscape(context)
+                                          ? const EdgeInsets.symmetric(
+                                              horizontal: 20.0)
+                                          : const EdgeInsets.symmetric(
+                                              horizontal: 16.0),
+                                      height: _device.isLandscape(context)
+                                          ? 35
+                                          : 32,
+                                      width: _device.isLandscape(context)
+                                          ? 400
+                                          : 0,
+                                      child: _valueTextFormBuild(
+                                          2, TextInputType.number)),
                                 ]),
                               ])))),
               const SizedBox(height: 10),
@@ -505,36 +453,10 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                     child: Row(
                                       children: [
                                         SizedBox(
-                                          height: 35,
-                                          width: 130,
-                                          child: TextField(
-                                            cursorColor: green,
-                                            keyboardType: TextInputType.number,
-                                            decoration: InputDecoration(
-                                                focusColor: green,
-                                                enabledBorder:
-                                                    OutlineInputBorder(
-                                                        borderRadius:
-                                                            const BorderRadius
-                                                                    .all(
-                                                                Radius.circular(
-                                                                    5)),
-                                                        borderSide: BorderSide(
-                                                            width: 1,
-                                                            color: grey300)),
-                                                focusedBorder:
-                                                    OutlineInputBorder(
-                                                  borderSide:
-                                                      BorderSide(color: green),
-                                                  borderRadius:
-                                                      BorderRadius.circular(5),
-                                                ),
-                                                labelText: litre,
-                                                labelStyle: TextStyle(
-                                                    color: grey400,
-                                                    fontSize: 14)),
-                                          ),
-                                        ),
+                                            height: 35,
+                                            width: 130,
+                                            child: _valueTextFormBuild(3,
+                                                TextInputType.number, litre)),
                                         const SizedBox(width: 10),
                                         Text(
                                           litre,
@@ -542,36 +464,10 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                         ),
                                         const SizedBox(width: 35),
                                         SizedBox(
-                                          height: 35,
-                                          width: 130,
-                                          child: TextField(
-                                            cursorColor: green,
-                                            keyboardType: TextInputType.number,
-                                            decoration: InputDecoration(
-                                                focusColor: green,
-                                                enabledBorder:
-                                                    OutlineInputBorder(
-                                                        borderRadius:
-                                                            const BorderRadius
-                                                                    .all(
-                                                                Radius.circular(
-                                                                    5)),
-                                                        borderSide: BorderSide(
-                                                            width: 1,
-                                                            color: grey300)),
-                                                focusedBorder:
-                                                    OutlineInputBorder(
-                                                  borderSide:
-                                                      BorderSide(color: green),
-                                                  borderRadius:
-                                                      BorderRadius.circular(5),
-                                                ),
-                                                labelText: rm,
-                                                labelStyle: TextStyle(
-                                                    color: grey400,
-                                                    fontSize: 14)),
-                                          ),
-                                        )
+                                            height: 35,
+                                            width: 130,
+                                            child: _valueTextFormBuild(
+                                                4, TextInputType.number, rm))
                                       ],
                                     ),
                                   ),
@@ -598,10 +494,10 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                           children: [
                                             Radio(
                                               value: 1,
-                                              groupValue: vals,
+                                              groupValue: _vals,
                                               onChanged: (value) {
                                                 setState(() {
-                                                  vals = value as int;
+                                                  _vals = value as int;
                                                 });
                                               },
                                               activeColor: green,
@@ -614,10 +510,10 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                           children: [
                                             Radio(
                                                 value: 2,
-                                                groupValue: vals,
+                                                groupValue: _vals,
                                                 onChanged: (value) {
                                                   setState(() {
-                                                    vals = value as int;
+                                                    _vals = value as int;
                                                   });
                                                 },
                                                 activeColor: green),
@@ -644,10 +540,10 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                             children: [
                                               Radio(
                                                 value: 1,
-                                                groupValue: valss,
+                                                groupValue: _valss,
                                                 onChanged: (value) {
                                                   setState(() {
-                                                    valss = value as int;
+                                                    _valss = value as int;
                                                   });
                                                 },
                                                 activeColor: green,
@@ -660,10 +556,10 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                             children: [
                                               Radio(
                                                   value: 2,
-                                                  groupValue: valss,
+                                                  groupValue: _valss,
                                                   onChanged: (value) {
                                                     setState(() {
-                                                      valss = value as int;
+                                                      _valss = value as int;
                                                     });
                                                   },
                                                   activeColor: green),
@@ -688,32 +584,9 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                         SizedBox(
                                           height: 35,
                                           width: 130,
-                                          child: TextField(
-                                            cursorColor: green,
-                                            keyboardType: TextInputType.number,
-                                            decoration: InputDecoration(
-                                                focusColor: green,
-                                                enabledBorder:
-                                                    OutlineInputBorder(
-                                                        borderRadius:
-                                                            const BorderRadius
-                                                                    .all(
-                                                                Radius.circular(
-                                                                    5)),
-                                                        borderSide: BorderSide(
-                                                            width: 1,
-                                                            color: grey300)),
-                                                focusedBorder:
-                                                    OutlineInputBorder(
-                                                  borderSide:
-                                                      BorderSide(color: green),
-                                                  borderRadius:
-                                                      BorderRadius.circular(5),
-                                                ),
-                                                labelStyle: TextStyle(
-                                                    color: grey, fontSize: 14)),
-                                          ),
-                                        )
+                                          child: _valueTextFormBuild(
+                                              5, TextInputType.number),
+                                        ),
                                       ],
                                     ),
                                   )
@@ -880,9 +753,9 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                       border: TableBorder.all(
                                           color: Colors.transparent),
                                       children: [
-                                        tableRowBuild('1.1. Puspakom Disc'),
-                                        tableRowBuild('1.2. Cukai Jalan'),
-                                        tableRowBuild(
+                                        _tableRowBuild('1.1. Puspakom Disc'),
+                                        _tableRowBuild('1.2. Cukai Jalan'),
+                                        _tableRowBuild(
                                             '1.3. Lesen pembawa A/Permit'),
                                       ])),
                               Container(
@@ -890,7 +763,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                     30.0, 5.0, 30.0, 30.0),
                                 height: 130,
                                 width: double.infinity,
-                                child: textFieldBuild(),
+                                child: _textFieldBuild(),
                               )
                             ],
                           ),
@@ -930,11 +803,11 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                       border: TableBorder.all(
                                           color: Colors.transparent),
                                       children: [
-                                        tableRowBuild(
+                                        _tableRowBuild(
                                             '2.1. Bahagian bunga tayar diperiksa'),
-                                        tableRowBuild(
+                                        _tableRowBuild(
                                             '2.2. Nut tayar diperiksa'),
-                                        tableRowBuild(
+                                        _tableRowBuild(
                                             '2.3. Tekanan angin diperiksa'),
                                       ])),
                               Container(
@@ -942,7 +815,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                     30.0, 5.0, 30.0, 30.0),
                                 height: 130,
                                 width: double.infinity,
-                                child: textFieldBuild(),
+                                child: _textFieldBuild(),
                               )
                             ],
                           ),
@@ -982,14 +855,14 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                       border: TableBorder.all(
                                           color: Colors.transparent),
                                       children: [
-                                        tableRowBuild(
+                                        _tableRowBuild(
                                             '3.1. Sistem Hidraulik & Minyak'),
-                                        tableRowBuild('3.2. PTD/PAM'),
-                                        tableRowBuild(
+                                        _tableRowBuild('3.2. PTD/PAM'),
+                                        _tableRowBuild(
                                             '3.3. Semua penutup diperiksa'),
-                                        tableRowBuild(
+                                        _tableRowBuild(
                                             '3.4. Buang air dalam tabung angin'),
-                                        tableRowBuild(
+                                        _tableRowBuild(
                                             '3.5. Sistem LEACHATE diperiksa'),
                                       ])),
                               Container(
@@ -997,7 +870,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                     30.0, 5.0, 30.0, 30.0),
                                 height: 130,
                                 width: double.infinity,
-                                child: textFieldBuild(),
+                                child: _textFieldBuild(),
                               )
                             ],
                           ),
@@ -1037,17 +910,17 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                       border: TableBorder.all(
                                           color: Colors.transparent),
                                       children: [
-                                        tableRowBuild(
+                                        _tableRowBuild(
                                             '4.1. Lampu utama dan belakang diperiksa'),
-                                        tableRowBuild(
+                                        _tableRowBuild(
                                             '4.2. Lampu berhenti diperiksa'),
-                                        tableRowBuild(
+                                        _tableRowBuild(
                                             '4.3. Lampu isyarat diperiksa'),
-                                        tableRowBuild(
+                                        _tableRowBuild(
                                             '4.4. Lampu kecemasan diperiksa (Hazard Light)'),
-                                        tableRowBuild(
+                                        _tableRowBuild(
                                             '4.5. Lampu isyarat sedang bekerja diperiksa (Beacon Light)'),
-                                        tableRowBuild(
+                                        _tableRowBuild(
                                             '4.6. Lampu nombor plet diperiksa'),
                                       ])),
                               Container(
@@ -1055,7 +928,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                     30.0, 5.0, 30.0, 30.0),
                                 height: 130,
                                 width: double.infinity,
-                                child: textFieldBuild(),
+                                child: _textFieldBuild(),
                               )
                             ],
                           ),
@@ -1095,37 +968,37 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                       border: TableBorder.all(
                                           color: Colors.transparent),
                                       children: [
-                                        tableRowBuild(
+                                        _tableRowBuild(
                                             '5.1. Periksa dipstik minyak enjin'),
-                                        tableRowBuild(
+                                        _tableRowBuild(
                                             '5.2. Periksa paras minyak enjin'),
-                                        tableRowBuild(
+                                        _tableRowBuild(
                                             '5.3. Periksa penutup minyak enjin'),
-                                        tableRowBuild(
+                                        _tableRowBuild(
                                             '5.4. Periksa paras air radiator'),
-                                        tableRowBuild(
+                                        _tableRowBuild(
                                             '5.5. Periksa paras expansion tank'),
-                                        tableRowBuild(
+                                        _tableRowBuild(
                                             '5.6. Periksa dipstik minyak Auto Transmission'),
-                                        tableRowBuild(
+                                        _tableRowBuild(
                                             '5.7. Periksa paras minyak Auto Transmission'),
-                                        tableRowBuild(
+                                        _tableRowBuild(
                                             '5.8. Periksa paras minyak power steering'),
-                                        tableRowBuild(
+                                        _tableRowBuild(
                                             '5.9. Periksa paras minyak brek'),
-                                        tableRowBuild(
+                                        _tableRowBuild(
                                             '5.10. Nyatakan sistem cengkaman sistem brek'),
-                                        tableRowBuild(
+                                        _tableRowBuild(
                                             '5.11. Periksa paras minyak sistem clutch'),
-                                        tableRowBuild(
+                                        _tableRowBuild(
                                             '5.12. Adakah sistem clutch berfungsi dengan baik'),
-                                        tableRowBuild(
+                                        _tableRowBuild(
                                             '5.13. Periksa paras air wiper tank'),
-                                        tableRowBuild(
+                                        _tableRowBuild(
                                             '5.14. Periksa keadaan wiper (Kiri & Kanan)'),
-                                        tableRowBuild(
+                                        _tableRowBuild(
                                             '5.15. Periksa paras air bateri No. 1 & No. 2'),
-                                        tableRowBuild(
+                                        _tableRowBuild(
                                             '5.16. Periksa keadaan asap ekzos'),
                                       ])),
                               Container(
@@ -1133,7 +1006,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                     30.0, 5.0, 30.0, 30.0),
                                 height: 130,
                                 width: double.infinity,
-                                child: textFieldBuild(),
+                                child: _textFieldBuild(),
                               )
                             ],
                           ),
@@ -1173,16 +1046,16 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                       border: TableBorder.all(
                                           color: Colors.transparent),
                                       children: [
-                                        tableRowBuild(
+                                        _tableRowBuild(
                                             '6.1. Cermin pandang belakang dan sisi'),
-                                        tableRowBuild('6.2. Hon diperiksa'),
+                                        _tableRowBuild('6.2. Hon diperiksa'),
                                       ])),
                               Container(
                                 padding: const EdgeInsets.fromLTRB(
                                     30.0, 5.0, 30.0, 30.0),
                                 height: 130,
                                 width: double.infinity,
-                                child: textFieldBuild(),
+                                child: _textFieldBuild(),
                               )
                             ],
                           ),
@@ -1222,10 +1095,10 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                       border: TableBorder.all(
                                           color: Colors.transparent),
                                       children: [
-                                        tableRowBuild(
+                                        _tableRowBuild(
                                             '7.1. Penanda amaran kecemasan (Triangle Reflector)'),
-                                        tableRowBuild('7.2. Alat pemadam api'),
-                                        tableRowBuild(
+                                        _tableRowBuild('7.2. Alat pemadam api'),
+                                        _tableRowBuild(
                                             '7.3. Kotak kecemasan (First Aid Kit)'),
                                       ])),
                               Container(
@@ -1233,7 +1106,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                     30.0, 5.0, 30.0, 30.0),
                                 height: 130,
                                 width: double.infinity,
-                                child: textFieldBuild(),
+                                child: _textFieldBuild(),
                               )
                             ],
                           ),
@@ -1273,9 +1146,9 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                       border: TableBorder.all(
                                           color: Colors.transparent),
                                       children: [
-                                        tableRowBuild(
+                                        _tableRowBuild(
                                             '8.1. Kebersihan dalam kokpit (kabin)'),
-                                        tableRowBuild(
+                                        _tableRowBuild(
                                             '8.2. Kebersihan sekitar luaran badan trak'),
                                       ])),
                               Container(
@@ -1283,7 +1156,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                     30.0, 5.0, 30.0, 30.0),
                                 height: 130,
                                 width: double.infinity,
-                                child: textFieldBuild(),
+                                child: _textFieldBuild(),
                               )
                             ],
                           ),
@@ -1323,7 +1196,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                       border: TableBorder.all(
                                           color: Colors.transparent),
                                       children: [
-                                        tableRowBuild(
+                                        _tableRowBuild(
                                             '9.1. Bin lifter dicuci oleh pemandu'),
                                       ])),
                               Container(
@@ -1331,7 +1204,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                     30.0, 5.0, 30.0, 30.0),
                                 height: 130,
                                 width: double.infinity,
-                                child: textFieldBuild(),
+                                child: _textFieldBuild(),
                               )
                             ],
                           ),
@@ -1371,9 +1244,9 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                       border:
                                           TableBorder.all(color: transparent),
                                       children: [
-                                        tableRowBuild(
+                                        _tableRowBuild(
                                             '10.1. Adakah anda terlibat dengan mana-mana kemalangan'),
-                                        tableRowBuild(
+                                        _tableRowBuild(
                                             '10.2. Nombor kenderaan pihak ketiga'),
                                       ])),
                               Container(
@@ -1381,7 +1254,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                     30.0, 5.0, 30.0, 30.0),
                                 height: 130,
                                 width: double.infinity,
-                                child: textFieldBuild(),
+                                child: _textFieldBuild(),
                               )
                             ],
                           ),
@@ -1421,9 +1294,9 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                       border: TableBorder.all(
                                           color: Colors.transparent),
                                       children: [
-                                        tableRowBuild(
+                                        _tableRowBuild(
                                             '11.1. Sampah dalam kompaktor'),
-                                        tableRowBuild(
+                                        _tableRowBuild(
                                             '11.2. Keadaan fizikal/kecatatan pada trak'),
                                       ])),
                               Container(
@@ -1431,7 +1304,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                     30.0, 5.0, 30.0, 30.0),
                                 height: 130,
                                 width: double.infinity,
-                                child: textFieldBuild(),
+                                child: _textFieldBuild(),
                               )
                             ],
                           ),
@@ -1447,7 +1320,6 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
           height: 40,
           width: 150,
           child: ElevatedButton(
-            onPressed: () {},
             style: ButtonStyle(
                 shape: MaterialStateProperty.all(
                   RoundedRectangleBorder(
@@ -1460,15 +1332,51 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
             child: Text('Hantar',
                 style: TextStyle(
                     color: white, fontSize: 16, fontWeight: FontWeight.w700)),
+            onPressed: () {
+              _handleSubmittedData(context);
+            },
           ),
         ),
       ),
       floatingActionButton:
-          _showBackToTopButton == false ? null : goUpButtonBuild(),
+          _showBackToTopButton == false ? null : _goUpButtonBuild(),
     );
   }
 
-  FloatingActionButton goUpButtonBuild() {
+  Form _valueTextFormBuild(int idx, TextInputType type, [String? label]) {
+    return Form(
+        key: _key[idx],
+        child: TextFormField(
+          cursorColor: green,
+          keyboardType: type,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          decoration: InputDecoration(
+              errorStyle: const TextStyle(height: 0),
+              focusColor: green,
+              enabledBorder: OutlineInputBorder(
+                  borderRadius: const BorderRadius.all(Radius.circular(5)),
+                  borderSide: BorderSide(width: 1, color: grey300)),
+              border: const OutlineInputBorder(),
+              focusedErrorBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: green),
+                borderRadius: BorderRadius.circular(5),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: green),
+                borderRadius: BorderRadius.circular(5),
+              ),
+              labelText: label ?? "",
+              labelStyle: TextStyle(color: grey400, fontSize: 14)),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return "";
+            }
+            return null;
+          },
+        ));
+  }
+
+  FloatingActionButton _goUpButtonBuild() {
     return FloatingActionButton(
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(15))),
@@ -1480,7 +1388,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
     );
   }
 
-  TextField textFieldBuild() {
+  TextField _textFieldBuild() {
     return TextField(
       maxLines: 5,
       cursorColor: green,
@@ -1500,7 +1408,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
     );
   }
 
-  TableRow tableRowBuild(String title) {
+  TableRow _tableRowBuild(String title) {
     return TableRow(children: [
       Text(title,
           textAlign: TextAlign.left,
@@ -1515,10 +1423,10 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                 children: [
                   Radio(
                     value: 1,
-                    groupValue: valss,
+                    groupValue: _valss,
                     onChanged: (value) {
                       setState(() {
-                        valss = value as int;
+                        _valss = value as int;
                       });
                     },
                     activeColor: green,
@@ -1531,10 +1439,10 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                 children: [
                   Radio(
                       value: 2,
-                      groupValue: valss,
+                      groupValue: _valss,
                       onChanged: (value) {
                         setState(() {
-                          valss = value as int;
+                          _valss = value as int;
                         });
                       },
                       activeColor: green),
@@ -1546,5 +1454,45 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
         ),
       )
     ]);
+  }
+
+  _handleSubmittedData(context) {
+    for (var i = 0; i < _key.length; i++) {
+      final FormState? form = _key[i].currentState;
+      if (form!.validate()) {
+        form.save();
+        _valid = true;
+      } else {
+        _valid = false;
+      }
+    }
+    if (_valid) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return showAlertDialog(
+                context,
+                confirmation,
+                "Hantar semakan kenderaan sekarang? Pastikan maklumat diisi adalah betul.",
+                cancel,
+                yes);
+          }).then((actionText) {
+        if (actionText == yes) {
+          if (completedFirstVc && !completedSecondVc) {
+            completedSecondVc = true;
+          }
+          completedFirstVc = true;
+          showSuccessToast(context,
+              "Borang semakan kenderaan berjaya dihantar kepada penyelia anda!");
+          Future.delayed(const Duration(seconds: 3), () {
+            Navigator.pop(context, 'refresh');
+          });
+        }
+      });
+    } else {
+      _valid = false;
+      showErrorToast(
+          context, "Sila isikan borang semakan kenderaan sebelum dihantar");
+    }
   }
 }
