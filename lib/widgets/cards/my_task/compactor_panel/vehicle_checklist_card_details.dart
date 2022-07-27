@@ -7,9 +7,10 @@ import '../../../../models/vc/vc.dart';
 import '../../../../utils/device.dart';
 
 class VehicleChecklistCardDetails extends StatefulWidget {
-  VehicleChecklist data;
+  final VehicleChecklist data;
 
-  VehicleChecklistCardDetails({Key? key, required this.data}) : super(key: key);
+  const VehicleChecklistCardDetails({Key? key, required this.data})
+      : super(key: key);
 
   @override
   State<VehicleChecklistCardDetails> createState() =>
@@ -19,6 +20,8 @@ class VehicleChecklistCardDetails extends StatefulWidget {
 class _VehicleChecklistCardDetailsState
     extends State<VehicleChecklistCardDetails> {
   final Devices _device = Devices();
+  Color alterColorBefore = grey;
+  Color alterColorAfter = grey;
 
   @override
   Widget build(BuildContext context) {
@@ -45,9 +48,9 @@ class _VehicleChecklistCardDetailsState
               child: Row(
                 children: [
                   Icon(
-                    Icons.check_circle,
+                    Icons.check,
                     size: 18,
-                    color: green,
+                    color: alterColorBefore,
                   ),
                   const SizedBox(
                     width: 8,
@@ -56,7 +59,7 @@ class _VehicleChecklistCardDetailsState
                     "Sebelum Bertugas",
                     style: TextStyle(
                       fontSize: 15,
-                      color: green,
+                      color: alterColorBefore,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -69,9 +72,9 @@ class _VehicleChecklistCardDetailsState
               child: Row(
                 children: [
                   Icon(
-                    Icons.check_circle,
+                    Icons.check,
                     size: 18,
-                    color: grey,
+                    color: alterColorAfter,
                   ),
                   const SizedBox(
                     width: 8,
@@ -80,7 +83,7 @@ class _VehicleChecklistCardDetailsState
                     "Selepas Bertugas",
                     style: TextStyle(
                       fontSize: 15,
-                      color: grey800,
+                      color: alterColorAfter,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -98,7 +101,8 @@ class _VehicleChecklistCardDetailsState
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => VehicleChecklistDetail(data: widget.data)));
+                      builder: (context) =>
+                          VehicleChecklistDetail(data: widget.data)));
             },
             style: ButtonStyle(
                 shape: MaterialStateProperty.all(
