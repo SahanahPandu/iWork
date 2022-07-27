@@ -1,12 +1,15 @@
+import 'package:eswm/screens/vehicle_checklist/vehicle_checklist_detail.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../config/dimen.dart';
 import '../../../../config/palette.dart';
+import '../../../../models/vc/vc.dart';
 import '../../../../utils/device.dart';
-import 'package:eswm/screens/vehicle_checklist/vehicle_checklist.dart';
 
 class VehicleChecklistCardDetails extends StatefulWidget {
-  const VehicleChecklistCardDetails({Key? key}) : super(key: key);
+  VehicleChecklist data;
+
+  VehicleChecklistCardDetails({Key? key, required this.data}) : super(key: key);
 
   @override
   State<VehicleChecklistCardDetails> createState() =>
@@ -95,7 +98,7 @@ class _VehicleChecklistCardDetailsState
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const VehicleChecklist()));
+                      builder: (context) => VehicleChecklistDetail(data: widget.data)));
             },
             style: ButtonStyle(
                 shape: MaterialStateProperty.all(

@@ -92,14 +92,14 @@ class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
           controller.loading(); //starts loading animation
           await Future.delayed(const Duration(milliseconds: 20));
           controller.success(); //starts success animation
-          switchWorkTime(context);
+          _switchWorkTime(context);
           controller.reset(); //resets the slider
         },
       ),
     );
   }
 
-  void switchWorkTime(BuildContext context) {
+  void _switchWorkTime(BuildContext context) {
     statusTask == 3
         ? null
         : showDialog(
@@ -113,12 +113,12 @@ class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
                   cancel);
             }).then((actionText) {
             if (actionText == startWorkText) {
-              setTaskState(endWork, red, red, red, white, 2);
+              _setTaskState(endWork, red, red, red, white, 2);
               slidedStartTime = Date.getCurrentTime();
               CompactorPanelMyTaskListDetails.of(context)
                   ?.setStartTime(slidedStartTime);
             } else if (actionText == endWorkText) {
-              setTaskState(
+              _setTaskState(
                   startWork, grey, transparent, transparent, grey300, 3);
               slidedEndTime = Date.getCurrentTime();
               CompactorPanelMyTaskListDetails.of(context)
@@ -127,7 +127,7 @@ class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
           });
   }
 
-  void setTaskState(String textP, Color textColorP, Color iconColorP,
+  void _setTaskState(String textP, Color textColorP, Color iconColorP,
       Color borderColorP, Color boxColorP, int stateP) {
     return setState(() {
       slideText = textP;
