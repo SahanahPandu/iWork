@@ -1,7 +1,13 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 
+//import files
+import '../modal_bottom_sheet/upload_image_options.dart';
+
 class UploadImageButton extends StatefulWidget {
-  const UploadImageButton({Key? key}) : super(key: key);
+  Function? getImageName;
+  UploadImageButton({Key? key, required this.getImageName}) : super(key: key);
 
   @override
   State<UploadImageButton> createState() => _UploadImageButtonState();
@@ -14,7 +20,9 @@ class _UploadImageButtonState extends State<UploadImageButton> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         ElevatedButton.icon(
-          onPressed: () {},
+          onPressed: () {
+            showUploadImageOption(context, widget.getImageName);
+          },
           style: ElevatedButton.styleFrom(
             primary: Colors.blue.shade800,
             padding: const EdgeInsets.all(8),

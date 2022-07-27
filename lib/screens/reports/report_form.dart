@@ -1,8 +1,6 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:eswm/models/reports.dart';
-import 'package:eswm/screens/list_of_obstacles/lis_of_obstacles.dart';
-import 'package:eswm/screens/list_of_road/list_of_road_text_form_field.dart';
+import 'dart:io';
 import 'package:flutter/material.dart';
 
 //import files
@@ -10,6 +8,9 @@ import 'package:eswm/widgets/buttons/upload_image_button.dart';
 import '../../config/font.dart';
 import '../../config/palette.dart';
 import '../list_of_park/list_of_parks.dart';
+import 'package:eswm/models/reports.dart';
+import 'package:eswm/screens/list_of_obstacles/lis_of_obstacles.dart';
+import 'package:eswm/screens/list_of_road/list_of_road_text_form_field.dart';
 
 class ReportForm extends StatefulWidget {
   String screen;
@@ -32,6 +33,8 @@ class _ReportFormState extends State<ReportForm> {
   String namaTaman = "";
   String namaJalan = "";
   String jenisHalangan = "";
+  File? gambarLampiran;
+  String formTitleText = "Sila isikan laporan di bawah";
 
   double spacingHeight = 20;
 
@@ -39,6 +42,7 @@ class _ReportFormState extends State<ReportForm> {
     if (widget.screen == "4") {
       //from report list
       setState(() {
+        formTitleText = "Butiran Laporan";
         textFieldFillColor = Colors.grey.shade300;
         focusBorderColor = Colors.grey.shade300;
         enableBorderWithTextColor = Colors.grey.shade300;
@@ -61,6 +65,12 @@ class _ReportFormState extends State<ReportForm> {
         }
       });
     }
+  }
+
+  getImageName(fileName) {
+    setState(() {
+      gambarLampiran = fileName;
+    });
   }
 
   @override
@@ -132,7 +142,7 @@ class _ReportFormState extends State<ReportForm> {
                 height: 15,
               ),
               Text(
-                "Sila isikan laporan di bawah: ",
+                formTitleText,
                 style: TextStyle(
                   color: Colors.grey.shade500,
                   fontSize: 17,
@@ -181,13 +191,66 @@ class _ReportFormState extends State<ReportForm> {
                 height: spacingHeight,
               ),
               //Gambar
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                child: const UploadImageButton(),
-              ),
+              if (gambarLampiran == null && widget.screen == "3")
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: UploadImageButton(getImageName: getImageName),
+                ),
+              //Display selected image
+              if (gambarLampiran != null || widget.screen == "4")
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 200,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(borderRadiusCircular),
+                    ),
+                    color: Colors.lightBlue.shade100,
+                  ),
+                  child: gambarLampiran != null
+                      ? Center(
+                          child: Container(
+                            margin: const EdgeInsets.all(8),
+                            padding: const EdgeInsets.all(1),
+                            width: 200,
+                            height: 150,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.white,
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(borderRadiusCircular),
+                              ),
+                              color: Colors.white,
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Colors.white,
+                                  blurRadius: 7.0,
+                                  blurStyle: BlurStyle.outer,
+                                )
+                              ],
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.all(
+                                  Radius.circular(borderRadiusCircular)),
+                              child: Image.file(
+                                gambarLampiran!,
+                                width: double.infinity,
+                                height: double.infinity,
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                          ),
+                        )
+                      : const Center(
+                          child: Text("No Image"),
+                        ),
+                ),
               SizedBox(
                 height: spacingHeight,
               ),
+              //catatan
               TextFormField(
                 controller: _catatan,
                 maxLines: 3,
