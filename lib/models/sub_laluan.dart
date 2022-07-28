@@ -1,6 +1,6 @@
 class SubLaluan {
   final int id;
-  final int namaSubLaluan;
+  final String namaSubLaluan;
 
   const SubLaluan({
     required this.id,

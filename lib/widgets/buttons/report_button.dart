@@ -42,6 +42,8 @@ class _ReportButtonState extends State<ReportButton> {
                   id: 0,
                   idLaluan: 0,
                   namaLaluan: "",
+                  idSubLaluan: 0,
+                  namaSubLaluan: "",
                   idKenderaan: 0,
                   noKenderaan: "",
                   idTaman: 0,

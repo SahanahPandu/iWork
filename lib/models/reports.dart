@@ -2,6 +2,8 @@ class Reports {
   final int id;
   final int idLaluan;
   final String namaLaluan;
+  final int idSubLaluan;
+  final String namaSubLaluan;
   final int idKenderaan;
   final String noKenderaan;
   final int idTaman;
@@ -25,6 +27,8 @@ class Reports {
       {required this.id,
       required this.idLaluan,
       required this.namaLaluan,
+      required this.idSubLaluan,
+      required this.namaSubLaluan,
       required this.idKenderaan,
       required this.noKenderaan,
       required this.idTaman,
@@ -48,6 +52,8 @@ class Reports {
       id: json['id'] ?? 0,
       idLaluan: json['idLaluan'] ?? 0,
       namaLaluan: json['namaLaluan'] ?? "",
+      idSubLaluan: json['idSubLaluan'] ?? 0,
+      namaSubLaluan: json['namaSubLaluan'] ?? "",
       idKenderaan: json['idKenderaan'] ?? 0,
       noKenderaan: json['noKenderaan'] ?? "",
       idTaman: json['idTaman'] ?? 0,

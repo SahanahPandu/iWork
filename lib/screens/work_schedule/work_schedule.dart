@@ -2,6 +2,7 @@
 
 import 'package:eswm/screens/list_of_park/list_of_parks.dart';
 import 'package:eswm/screens/list_of_road/list_of_road.dart';
+import 'package:eswm/screens/list_of_sub_routes/list_of_sub_routes.dart';
 import 'package:eswm/widgets/cards/cards.dart';
 import 'package:flutter/material.dart';
 
@@ -75,6 +76,24 @@ class _WorkScheduleState extends State<WorkSchedule> {
               child: Cards(
                 type: "PRA Laluan Details",
                 data: widget.data,
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.symmetric(
+                horizontal: 15,
+                vertical: 10,
+              ),
+              child: Card(
+                elevation: 5,
+                shadowColor: Colors.grey.shade50,
+                child: ListOfSubRoutes(
+                  hintText: 'Senarai Sub Laluan',
+                  fontSize: 18,
+                  borderCondition: 0, //no border
+                  fillColor: textFormFieldFillColor,
+                  iconCondition: iconCondition,
+                  data: "",
+                ),
               ),
             ),
             Container(

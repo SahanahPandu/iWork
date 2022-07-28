@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import 'package:eswm/screens/list_of_sub_routes/list_of_sub_routes.dart';
 import 'package:flutter/material.dart';
 
 //import files
@@ -36,6 +37,7 @@ class _PraSectionReportFormState extends State<PraSectionReportForm> {
   String namaTaman = "";
   String namaJalan = "";
   String jenisHalangan = "";
+  String subLaluan = "";
   File? gambarLampiran;
   String formTitleText = "Sila isikan laporan di bawah";
   double spacingHeight = 20;
@@ -49,6 +51,10 @@ class _PraSectionReportFormState extends State<PraSectionReportForm> {
         focusBorderColor = Colors.grey.shade300;
         enableBorderWithTextColor = Colors.grey.shade300;
         iconCondition = 0;
+
+        if (widget.data!.namaSubLaluan != "") {
+          subLaluan = widget.data!.namaSubLaluan;
+        }
 
         if (widget.data!.namaTaman != "") {
           namaTaman = widget.data!.namaTaman;
@@ -100,6 +106,18 @@ class _PraSectionReportFormState extends State<PraSectionReportForm> {
             fontSize: 17,
             fontWeight: FontWeight.w500,
           ),
+        ),
+        const SizedBox(
+          height: 15,
+        ),
+        //Sub Laluan
+        ListOfSubRoutes(
+          hintText: 'Pilih Sub Laluan',
+          fontSize: 15,
+          borderCondition: 1, // have border
+          fillColor: textFieldFillColor,
+          iconCondition: iconCondition,
+          data: subLaluan,
         ),
         const SizedBox(
           height: 15,
