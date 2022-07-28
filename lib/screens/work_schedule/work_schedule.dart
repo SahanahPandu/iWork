@@ -23,7 +23,7 @@ class _WorkScheduleState extends State<WorkSchedule> {
   int idTaman = 0;
   int iconCondition = 1;
 
-  updateShowSenaraiJalan(id) {
+  updateShowSenaraiJalan(id, [name]) {
     setState(() {
       _showSenaraiJalan = true;
       idTaman = id;

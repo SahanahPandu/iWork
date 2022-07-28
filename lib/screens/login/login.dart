@@ -124,14 +124,15 @@ class _LoginScreenState extends State<LoginScreen> {
           focusColor: green,
           border: const OutlineInputBorder(),
           focusedErrorBorder:
-              OutlineInputBorder(borderSide: BorderSide(color: green)),
+              OutlineInputBorder(borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(color: green)),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide.none,
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: green),
-            borderRadius: BorderRadius.circular(10.0),
+            borderRadius: BorderRadius.circular(10),
           ),
           labelStyle: TextStyle(color: black87, fontSize: 14),
           labelText: label,
@@ -167,10 +168,10 @@ class _LoginScreenState extends State<LoginScreen> {
               borderSide: BorderSide.none,
             ),
             focusedErrorBorder:
-                OutlineInputBorder(borderSide: BorderSide(color: green)),
+                OutlineInputBorder(borderRadius: BorderRadius.circular(10),borderSide: BorderSide(color: green)),
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: green),
-              borderRadius: BorderRadius.circular(10.0),
+              borderRadius: BorderRadius.circular(10),
             ),
             labelStyle: TextStyle(color: black87, fontSize: 14),
             labelText: password,

@@ -1,7 +1,17 @@
 import 'package:flutter/material.dart';
 
+import '../../config/config.dart';
+import '../../utils/device.dart';
+
+final Devices _device = Devices();
+
 Widget? showNavigationOptions(BuildContext context) {
   showModalBottomSheet(
+      constraints: userRole == 100
+          ? (_device.isLandscape(context)
+              ? const BoxConstraints(maxWidth: 500, maxHeight: 150)
+              : const BoxConstraints(maxWidth: 500, maxHeight: 120))
+          : null,
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
@@ -18,8 +28,8 @@ Widget? showNavigationOptions(BuildContext context) {
             children: [
               Container(
                 margin: const EdgeInsets.all(8),
-                width: 120,
-                height: 100,
+                width: userRole == 100 ? 150 : 120,
+                height: userRole == 100 ? 100 : 100,
                 child: Image.asset(
                   'assets/image/waze_logo.png',
                   fit: BoxFit.fill,
@@ -27,8 +37,8 @@ Widget? showNavigationOptions(BuildContext context) {
               ),
               Container(
                 margin: const EdgeInsets.all(8),
-                width: 120,
-                height: 100,
+                width: userRole == 100 ? 150 : 120,
+                height: userRole == 100 ? 100 : 100,
                 child: Image.asset(
                   'assets/image/google_map_logo.png',
                   fit: BoxFit.fill,

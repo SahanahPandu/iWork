@@ -1,12 +1,10 @@
-// ignore_for_file: must_be_immutable
-
-import 'package:eswm/screens/list_of_park/list_of_parks.dart';
-import 'package:eswm/screens/list_of_road/list_of_road.dart';
-import 'package:eswm/widgets/cards/cards.dart';
 import 'package:flutter/material.dart';
 
 import '../../../config/palette.dart';
 import '../../../utils/device.dart';
+import '../../../widgets/cards/cards.dart';
+import '../../list_of_park/list_of_parks.dart';
+import '../../list_of_road/compactor_panel/comp_list_of_road.dart';
 
 class CompactorPanelSchedule extends StatefulWidget {
   dynamic data;
@@ -20,12 +18,14 @@ class CompactorPanelSchedule extends StatefulWidget {
 class _CompactorPanelScheduleState extends State<CompactorPanelSchedule> {
   bool _showSenaraiJalan = false;
   int idTaman = 0;
+  String getTaman = "";
   int iconCondition = 1;
 
-  updateShowSenaraiJalan(id) {
+  updateShowSenaraiJalan(id, name) {
     setState(() {
       _showSenaraiJalan = true;
       idTaman = id;
+      getTaman = name;
     });
   }
 
@@ -61,7 +61,9 @@ class _CompactorPanelScheduleState extends State<CompactorPanelSchedule> {
           )
         ],
       ),
-      body: Devices().isLandscape(context)? landscapeLayoutBuild(): portraitLayoutBuild(),
+      body: Devices().isLandscape(context)
+          ? landscapeLayoutBuild()
+          : portraitLayoutBuild(),
     );
   }
 
@@ -75,40 +77,44 @@ class _CompactorPanelScheduleState extends State<CompactorPanelSchedule> {
               left: 15,
               top: 20,
               right: 15,
-              bottom: 250,
+              bottom: 240,
             ),
-            height: 300,
+            height: 320,
             child: Cards(
-              type: "PRA Laluan Details",
+              type: "Comp Laluan Details",
               data: widget.data,
             ),
           ),
         ),
         Expanded(
-        child: Column(
-          children: [
-            Container(
-              margin: const EdgeInsets.symmetric(
-                horizontal: 15,
-                vertical: 30,
-              ),
-              child: Card(
-                elevation: 5,
-                shadowColor: Colors.grey.shade50,
-                child: ListOfParks(
-                  showSenaraiJalan: updateShowSenaraiJalan,
-                  hintText: 'Senarai Taman',
-                  fontSize: 18,
-                  borderCondition: 0, //no border
-                  fillColor: textFormFieldFillColor,
-                  iconCondition: iconCondition,
-                  data: "",
+          child: Column(
+            children: [
+              Container(
+                margin: const EdgeInsets.symmetric(
+                  horizontal: 15,
+                  vertical: 25,
+                ),
+                child: Card(
+                  elevation: 8,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  shadowColor: white54,
+                  child: ListOfParks(
+                    showSenaraiJalan: updateShowSenaraiJalan,
+                    hintText: 'Senarai Taman',
+                    fontSize: 16,
+                    borderCondition: 1,
+                    fillColor: textFormFieldFillColor,
+                    iconCondition: iconCondition,
+                    data: "",
+                  ),
                 ),
               ),
-            ),
-            if (_showSenaraiJalan) ListOfRoad(idTaman: idTaman),
-          ],
-        ),)
+              if (_showSenaraiJalan) CompListOfRoad(idTaman: idTaman, nameTaman: getTaman),
+            ],
+          ),
+        )
       ],
     );
   }
@@ -119,41 +125,44 @@ class _CompactorPanelScheduleState extends State<CompactorPanelSchedule> {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 100.0),
         child: Column(
-            children: [
-              Container(
-                margin: const EdgeInsets.only(
-                  left: 15,
-                  top: 20,
-                  right: 15,
-                  bottom: 10,
-                ),
-                child: Cards(
-                  type: "PRA Laluan Details",
-                  data: widget.data,
-                ),
+          children: [
+            Container(
+              margin: const EdgeInsets.only(
+                left: 15,
+                top: 20,
+                right: 15,
+                bottom: 10,
               ),
-              Container(
-                margin: const EdgeInsets.symmetric(
-                  horizontal: 15,
-                  vertical: 10,
-                ),
-              child: Card(
-                elevation: 5,
-                shadowColor: Colors.grey.shade50,
-                child: ListOfParks(
-                  showSenaraiJalan: updateShowSenaraiJalan,
-                  hintText: 'Senarai Taman',
-                  fontSize: 18,
-                  borderCondition: 0, //no border
-                  fillColor: textFormFieldFillColor,
-                  iconCondition: iconCondition,
-                  data: "",
-                ),
+              child: Cards(
+                type: "Comp Laluan Details",
+                data: widget.data,
               ),
+            ),
+            Container(
+              margin: const EdgeInsets.symmetric(
+                horizontal: 15,
+                vertical: 10,
               ),
-              if (_showSenaraiJalan) ListOfRoad(idTaman: idTaman),
-            ],
-          ),
+                child: Card(
+                  elevation: 8,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  shadowColor: white54,
+                  child: ListOfParks(
+                    showSenaraiJalan: updateShowSenaraiJalan,
+                    hintText: 'Senarai Taman',
+                    fontSize: 16,
+                    borderCondition: 1,
+                    fillColor: textFormFieldFillColor,
+                    iconCondition: iconCondition,
+                    data: "",
+                  ),
+                )
+            ),
+            if (_showSenaraiJalan) CompListOfRoad(idTaman: idTaman, nameTaman: getTaman),
+          ],
+        ),
       ),
     );
   }

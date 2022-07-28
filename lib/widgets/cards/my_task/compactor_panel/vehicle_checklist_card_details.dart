@@ -38,7 +38,7 @@ class _VehicleChecklistCardDetailsState
               child: Padding(
                   padding: const EdgeInsets.all(18.0),
                   child: Text(
-                    "Semakan Kenderaan",
+                    vc,
                     style: TextStyle(
                         fontSize: 19,
                         color: grey800,
