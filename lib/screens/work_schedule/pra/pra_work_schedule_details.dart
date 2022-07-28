@@ -219,8 +219,8 @@ class _PraWorkScheduleDetailsState extends State<PraWorkScheduleDetails> {
             ],
           ),
         ),
-        const Center(
-          child: ReportButton(),
+        Center(
+          child: ReportButton(dataLaluan: widget.data),
         ),
       ],
     );

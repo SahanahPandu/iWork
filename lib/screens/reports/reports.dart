@@ -1,4 +1,5 @@
 // ignore_for_file: must_be_immutable
+import 'package:eswm/models/laluan.dart';
 import 'package:flutter/material.dart';
 
 //import files
@@ -9,8 +10,13 @@ import 'package:eswm/widgets/tabs/tabs.dart';
 class ReportsPage extends StatefulWidget {
   String screen;
   Reports data;
+  dynamic dataLaluan;
 
-  ReportsPage({Key? key, required this.screen, required this.data})
+  ReportsPage(
+      {Key? key,
+      required this.screen,
+      required this.data,
+      required this.dataLaluan})
       : super(key: key);
 
   @override
@@ -24,6 +30,7 @@ class _ReportsPageState extends State<ReportsPage> {
       screen: widget.screen,
       data: widget.data,
       tabTitle: reports,
+      dataLaluan: widget.dataLaluan,
     );
   }
 }

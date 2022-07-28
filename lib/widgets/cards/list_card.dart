@@ -55,7 +55,11 @@ class _ListCardState extends State<ListCard> {
               } else if (widget.type == "Laluan") {
                 return WorkSchedule(data: widget.data);
               } else if (widget.type == "Laporan") {
-                return ReportsPage(screen: "4", data: widget.data);
+                return ReportsPage(
+                  screen: "4",
+                  data: widget.data,
+                  dataLaluan: null,
+                );
               } else {
                 return Container();
               }

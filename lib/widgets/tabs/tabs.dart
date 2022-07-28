@@ -12,12 +12,14 @@ class Tabs extends StatefulWidget {
   String screen;
   dynamic data;
   String tabTitle;
+  dynamic dataLaluan;
 
   Tabs(
       {Key? key,
       required this.screen,
       required this.data,
-      required this.tabTitle})
+      required this.tabTitle,
+      required this.dataLaluan})
       : super(key: key);
 
   @override
@@ -39,7 +41,11 @@ class _TabsState extends State<Tabs> {
       //screen = "3" - report button (work schedule), screen = "4" - from record list
 
       return TabBarView(children: [
-        ReportForm(screen: widget.screen, data: widget.data),
+        ReportForm(
+          screen: widget.screen,
+          data: widget.data,
+          dataLaluan: widget.dataLaluan,
+        ),
         const ReportList(),
       ]);
     }

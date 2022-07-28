@@ -24,6 +24,7 @@ class _ECutiState extends State<ECuti> {
       screen: widget.screen,
       data: widget.data,
       tabTitle: eCuti,
+      dataLaluan: null,
     );
   }
 }

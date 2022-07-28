@@ -1,3 +1,6 @@
+// ignore_for_file: must_be_immutable
+
+import 'package:eswm/models/laluan.dart';
 import 'package:eswm/models/reports.dart';
 import 'package:flutter/material.dart';
 
@@ -6,7 +9,9 @@ import '../../screens/reports/reports.dart';
 import '../../models/reports.dart';
 
 class ReportButton extends StatefulWidget {
-  const ReportButton({Key? key}) : super(key: key);
+  Laluan? dataLaluan;
+
+  ReportButton({Key? key, required this.dataLaluan}) : super(key: key);
 
   @override
   State<ReportButton> createState() => _ReportButtonState();
@@ -34,27 +39,29 @@ class _ReportButtonState extends State<ReportButton> {
               builder: (context) => ReportsPage(
                 screen: "3",
                 data: const Reports(
-                    id: 0,
-                    idLaluan: 0,
-                    namaLaluan: "",
-                    idKenderaan: 0,
-                    noKenderaan: "",
-                    idTaman: 0,
-                    namaTaman: "",
-                    idJalan: 0,
-                    namaJalan: "",
-                    idJenisHalangan: 0,
-                    jenisHalangan: "",
-                    idStatus: 0,
-                    status: "",
-                    lampiran: "",
-                    catatan: "",
-                    idStatusPenyelia: 0,
-                    statusPenyelia: "",
-                    maklumbalasPenyelia: "",
-                    idStatusBA: 0,
-                    statusBA: "",
-                    maklumbalasBA: ""),
+                  id: 0,
+                  idLaluan: 0,
+                  namaLaluan: "",
+                  idKenderaan: 0,
+                  noKenderaan: "",
+                  idTaman: 0,
+                  namaTaman: "",
+                  idJalan: 0,
+                  namaJalan: "",
+                  idJenisHalangan: 0,
+                  jenisHalangan: "",
+                  idStatus: 0,
+                  status: "",
+                  lampiran: "",
+                  catatan: "",
+                  idStatusPenyelia: 0,
+                  statusPenyelia: "",
+                  maklumbalasPenyelia: "",
+                  idStatusBA: 0,
+                  statusBA: "",
+                  maklumbalasBA: "",
+                ),
+                dataLaluan: widget.dataLaluan!,
               ),
             ));
       },
