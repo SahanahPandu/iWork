@@ -1,8 +1,7 @@
 class Laluan {
   final int id;
   final String namaLaluan;
-  final int idSubLaluan;
-  final String subLaluan;
+  final int jumSubLaluan;
   final int idStatus;
   final String status;
   final int idKenderaan;
@@ -15,8 +14,7 @@ class Laluan {
   Laluan(
       {required this.id,
       required this.namaLaluan,
-      required this.idSubLaluan,
-      required this.subLaluan,
+      required this.jumSubLaluan,
       required this.idStatus,
       required this.status,
       required this.idKenderaan,
@@ -29,8 +27,7 @@ class Laluan {
   static Laluan fromJson(json) => Laluan(
         id: json['id'] ?? 0,
         namaLaluan: json['namaLaluan'] ?? "",
-        idSubLaluan: json['idSubLaluan'] ?? 0,
-        subLaluan: json['subLaluan'] ?? "",
+        jumSubLaluan: json['jumSubLaluan'] ?? 0,
         idStatus: json['idStatus'] ?? 0,
         status: json['status'] ?? "",
         idKenderaan: json['idKenderaan'] ?? 0,

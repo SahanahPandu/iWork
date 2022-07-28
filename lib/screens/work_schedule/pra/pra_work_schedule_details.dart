@@ -137,7 +137,7 @@ class _PraWorkScheduleDetailsState extends State<PraWorkScheduleDetails> {
                 ],
               ),
               Text(
-                widget.data.subLaluan,
+                "${widget.data.jumSubLaluan}",
                 style: const TextStyle(
                   fontSize: 15,
                   color: Colors.black45,
