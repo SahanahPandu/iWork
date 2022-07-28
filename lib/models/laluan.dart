@@ -10,6 +10,8 @@ class Laluan {
   final int jumlahJalan;
   final int idJenisKutipan;
   final String jenisKutipan;
+  final String mulaKerja;
+  final String tamatKerja;
 
   Laluan(
       {required this.id,
@@ -22,7 +24,9 @@ class Laluan {
       required this.jumlahTaman,
       required this.jumlahJalan,
       required this.idJenisKutipan,
-      required this.jenisKutipan});
+      required this.jenisKutipan,
+      required this.mulaKerja,
+      required this.tamatKerja});
 
   static Laluan fromJson(json) => Laluan(
         id: json['id'] ?? 0,
@@ -36,5 +40,7 @@ class Laluan {
         jumlahJalan: json['jumlahJalan'] ?? 0,
         idJenisKutipan: json['idJenisKutipan'] ?? 0,
         jenisKutipan: json['jenisKutipan'] ?? "",
+        mulaKerja: json['mulaKerja'] ?? "",
+        tamatKerja: json['tamatKerja'] ?? "",
       );
 }

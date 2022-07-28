@@ -5,7 +5,7 @@ import '../../config/palette.dart';
 import '../../config/resource.dart';
 import '../../config/string.dart';
 import '../../data/data_drawer.dart';
-import '../../screens/vehicle_checklist/vehicle_checklist.dart';
+import '../../screens/vehicle_checklist/vehicle_checklist_detail.dart';
 import '../../utils/authentication/auth.dart';
 import '../../utils/device.dart';
 import '../alert/alert_dialog.dart';
@@ -70,12 +70,6 @@ class DrawerBuild extends StatelessWidget {
     switch (userRole) {
       case 100:
         switch (idx) {
-          case 3:
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const VehicleChecklist()));
-            break;
           case 5:
             _userLogout(context);
             break;

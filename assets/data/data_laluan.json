@@ -10,7 +10,9 @@
         "jumlahTaman": 13,
         "jumlahJalan":123,
         "idJenisKutipan":1,
-        "jenisKutipan":"KI (Kutipan Isi Rumah)"
+        "jenisKutipan":"KI (Kutipan Isi Rumah)",
+        "mulaKerja":"--:--",
+        "tamatKerja":"--:--"
     },
     {
         "id": 2,
@@ -23,7 +25,9 @@
         "jumlahTaman": 12,
         "jumlahJalan":132,
         "idJenisKutipan":1,
-        "jenisKutipan":"KI (Kutipan Isi Rumah)"
+        "jenisKutipan":"KI (Kutipan Isi Rumah)",
+        "mulaKerja":"--:--",
+        "tamatKerja":"--:--"
     },
     {
         "id": 3,
@@ -36,6 +40,8 @@
         "jumlahTaman": 9,
         "jumlahJalan":70,
         "idJenisKutipan":1,
-        "jenisKutipan":"KI (Kutipan Isi Rumah)"
+        "jenisKutipan":"KI (Kutipan Isi Rumah)",
+        "mulaKerja":"--:--",
+        "tamatKerja":"--:--"
     }
 ]

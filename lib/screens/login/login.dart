@@ -1,11 +1,12 @@
-import 'package:eswm/config/dimen.dart';
 import 'package:flutter/material.dart';
 
+import '../../config/dimen.dart';
 import '../../config/string.dart';
 import '../../config/palette.dart';
 import '../../config/resource.dart';
 import '../../utils/authentication/auth.dart';
 import '../../utils/device.dart';
+import '../../widgets/alert/toast.dart';
 import '../../widgets/alert/snackbar.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -31,14 +32,13 @@ class _LoginScreenState extends State<LoginScreen> {
     if (form!.validate()) {
       form.save();
       if (Auth.validateCredential(_userIdInput, _passwordInput) != 0) {
-        await Auth.handleLogin(
-            _userIdInput, Auth.validateCredential(_userIdInput, _passwordInput));
+        await Auth.handleLogin(_userIdInput,
+            Auth.validateCredential(_userIdInput, _passwordInput));
         Navigator.pushNamedAndRemoveUntil(
             context, '/home', ModalRoute.withName('/home'));
         showSnackBar(context, loginSuccess, const Duration(seconds: 2));
       } else {
-        showSnackBar(
-            context, loginFail, const Duration(seconds: 2), Colors.red);
+        showErrorToast(context, loginFail);
       }
     } else {}
   }
@@ -104,7 +104,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   SizedBox idBox(String label) {
     return SizedBox(
-      height: 55.0,
       child: TextFormField(
         cursorColor: green,
         autofocus: false,
@@ -123,13 +122,17 @@ class _LoginScreenState extends State<LoginScreen> {
           filled: true,
           fillColor: grey200,
           focusColor: green,
+          border: const OutlineInputBorder(),
+          focusedErrorBorder:
+              OutlineInputBorder(borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(color: green)),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide.none,
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: green),
-            borderRadius: BorderRadius.circular(10.0),
+            borderRadius: BorderRadius.circular(10),
           ),
           labelStyle: TextStyle(color: black87, fontSize: 14),
           labelText: label,
@@ -140,7 +143,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   SizedBox passwordBox() {
     return SizedBox(
-      height: 55.0,
       child: TextFormField(
         cursorColor: green,
         autofocus: false,
@@ -160,13 +162,16 @@ class _LoginScreenState extends State<LoginScreen> {
             filled: true,
             fillColor: grey200,
             focusColor: green,
+            border: const OutlineInputBorder(),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide.none,
             ),
+            focusedErrorBorder:
+                OutlineInputBorder(borderRadius: BorderRadius.circular(10),borderSide: BorderSide(color: green)),
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: green),
-              borderRadius: BorderRadius.circular(10.0),
+              borderRadius: BorderRadius.circular(10),
             ),
             labelStyle: TextStyle(color: black87, fontSize: 14),
             labelText: password,
@@ -205,14 +210,15 @@ class _LoginScreenState extends State<LoginScreen> {
     return ElevatedButton(
       onPressed: () {
         _handleSubmittedCredential(context);
-      //  print("user id = $userIdInput");
-      //  print("user password = $passwordInput");
+        //  print("user id = $userIdInput");
+        //  print("user password = $passwordInput");
       },
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(green),
         elevation: MaterialStateProperty.all(3),
         shadowColor: MaterialStateProperty.all(grey900),
-        minimumSize: MaterialStateProperty.all(Size(_device.screenWidth(context), 50)),
+        minimumSize:
+            MaterialStateProperty.all(Size(_device.screenWidth(context), 50)),
         shape: MaterialStateProperty.all(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),

@@ -1,0 +1,203 @@
+[
+  {
+    "id": 1,
+    "tarikh": "22/07/2022",
+    "noLaluan": "JHBP01-C02",
+    "noKenderaan": "BLW7096",
+    "masaKeluar": "--:--",
+    "masaBalik": "--:--",
+    "status": "Belum Dimulakan",
+    "sebelum": {
+      "vcItem": {
+        "odometer": {
+          "bacaanOdo": 0,
+          "odoFungsi": 0,
+          "totalKM": 0,
+          "noAkbk": "12345"
+        },
+        "fuel": {
+          "liter": 0,
+          "rm": 0,
+          "resit": 0,
+          "fleetCard": 0,
+          "noFleetCard": 0,
+          "fuelLevel": 0
+        },
+        "document": {
+          "puspakomDisc": 0,
+          "cukaiJalan": 0,
+          "lesen": 0,
+          "remarks": ""
+        },
+        "tyre": {
+          "bungaTayar": 0,
+          "nutTayar": 0,
+          "tekananTayar": 0,
+          "remarks": ""
+        },
+        "mampatan": {
+          "sistemHidraulik": 0,
+          "ptd/pam": 0,
+          "allPenutup": 0,
+          "buangAir": 0,
+          "leachate": 0,
+          "remarks": ""
+        },
+        "light": {
+          "lampuUtama": 0,
+          "lampuHenti": 0,
+          "lampuIsyarat": 0,
+          "lampuKecemasan": 0,
+          "lampuBeacon": 0,
+          "lampuPlet": 0,
+          "remarks": ""
+        },
+        "engine": {
+          "dipstikMinyakEnjin": 0,
+          "parasMinyak": 0,
+          "penutupMinyak": 0,
+          "parasAirRadiator": 0,
+          "parasExpansion": 0,
+          "dipstikMintakTransmission": 0,
+          "parasMinyakTransmission": 0,
+          "parasMinyakSteering": 0,
+          "parasMinyakBrek": 0,
+          "sistemCengkamanSistemBrek": 0,
+          "parasMinyakClutch": 0,
+          "sistemClutch": 0,
+          "parasAirWiper": 0,
+          "keadaanWiper": 0,
+          "parasAirBateri": 0,
+          "asapEkzos": 0,
+          "remarks": ""
+        },
+        "outside": {
+          "cermin": 0,
+          "hon": 0,
+          "remarks": ""
+        },
+        "safetyThings": {
+          "penandaKecemasan": 0,
+          "pemadamApi": 0,
+          "kotakKecemasan": 0,
+          "remarks": ""
+        },
+        "cleanliness": {
+          "dalamKokpit": 0,
+          "luarBadanTrak": 0,
+          "remarks": ""
+        },
+        "binLifterCleanliness": {
+          "binDicuci": 0,
+          "remarks": ""
+        },
+        "accident": {
+          "terlibatKemalangan": 0,
+          "noKenderaanPartiKetiga": 0,
+          "remarks": ""
+        },
+        "vehiclePhysical": {
+          "sampah": 0,
+          "kecacatan": 0,
+          "remarks": ""
+        }
+      }
+    },
+    "selepas": {
+      "vcItem": {
+        "odometer": {
+          "bacaanOdo": 0,
+          "odoFungsi": 0,
+          "totalKM": 0,
+          "noAkbk": "12345"
+        },
+        "fuel": {
+          "liter": 0,
+          "rm": 0,
+          "resit": 0,
+          "fleetCard": 0,
+          "noFleetCard": 0,
+          "fuelLevel": 0
+        },
+        "document": {
+          "puspakomDisc": 0,
+          "cukaiJalan": 0,
+          "lesen": 0,
+          "remarks": ""
+        },
+        "tyre": {
+          "bungaTayar": 0,
+          "nutTayar": 0,
+          "tekananTayar": 0,
+          "remarks": ""
+        },
+        "mampatan": {
+          "sistemHidraulik": 0,
+          "ptd/pam": 0,
+          "allPenutup": 0,
+          "buangAir": 0,
+          "leachate": 0,
+          "remarks": ""
+        },
+        "light": {
+          "lampuUtama": 0,
+          "lampuHenti": 0,
+          "lampuIsyarat": 0,
+          "lampuKecemasan": 0,
+          "lampuBeacon": 0,
+          "lampuPlet": 0,
+          "remarks": ""
+        },
+        "engine": {
+          "dipstikMinyakEnjin": 0,
+          "parasMinyak": 0,
+          "penutupMinyak": 0,
+          "parasAirRadiator": 0,
+          "parasExpansion": 0,
+          "dipstikMintakTransmission": 0,
+          "parasMinyakTransmission": 0,
+          "parasMinyakSteering": 0,
+          "parasMinyakBrek": 0,
+          "sistemCengkamanSistemBrek": 0,
+          "parasMinyakClutch": 0,
+          "sistemClutch": 0,
+          "parasAirWiper": 0,
+          "keadaanWiper": 0,
+          "parasAirBateri": 0,
+          "asapEkzos": 0,
+          "remarks": ""
+        },
+        "outside": {
+          "cermin": 0,
+          "hon": 0,
+          "remarks": ""
+        },
+        "safetyThings": {
+          "penandaKecemasan": 0,
+          "pemadamApi": 0,
+          "kotakKecemasan": 0,
+          "remarks": ""
+        },
+        "cleanliness": {
+          "dalamKokpit": 0,
+          "luarBadanTrak": 0,
+          "remarks": ""
+        },
+        "binLifterCleanliness": {
+          "binDicuci": 0,
+          "remarks": ""
+        },
+        "accident": {
+          "terlibatKemalangan": 0,
+          "noKenderaanPartiKetiga": 0,
+          "remarks": ""
+        },
+        "vehiclePhysical": {
+          "sampah": 0,
+          "kecacatan": 0,
+          "remarks": ""
+        }
+      }
+    }
+  }
+]

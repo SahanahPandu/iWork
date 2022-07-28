@@ -1,12 +1,14 @@
 // ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
 
+import '../../config/config.dart';
 import '../../config/font.dart';
 import '../../config/palette.dart';
-import 'package:eswm/providers/taman_api.dart';
+import '../../providers/taman_api.dart';
+import '../../utils/device.dart';
 
 class ListOfParks extends StatefulWidget {
-  Function(dynamic)? showSenaraiJalan;
+  Function(dynamic, dynamic)? showSenaraiJalan;
   String hintText;
   double fontSize;
   int borderCondition;
@@ -31,6 +33,7 @@ class ListOfParks extends StatefulWidget {
 
 class _ListOfParksState extends State<ListOfParks> {
   final TextEditingController _namaTaman = TextEditingController();
+  final Devices _device = Devices();
 
   int totalTaman = 0;
 
@@ -59,6 +62,8 @@ class _ListOfParksState extends State<ListOfParks> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      borderRadius:
+          userRole == 100 ? BorderRadius.circular(borderRadiusCircular) : null,
       onTap: () {
         if (widget.iconCondition == 1) {
           showListOfParks();
@@ -71,7 +76,9 @@ class _ListOfParksState extends State<ListOfParks> {
         decoration: InputDecoration(
           filled: true,
           fillColor: widget.fillColor,
-          contentPadding: const EdgeInsets.all(8),
+          contentPadding: userRole == 100
+              ? const EdgeInsets.symmetric(vertical: 15, horizontal: 20)
+              : const EdgeInsets.all(8),
           hintText: widget.hintText,
           hintStyle: TextStyle(
             fontSize: widget.fontSize,
@@ -79,9 +86,9 @@ class _ListOfParksState extends State<ListOfParks> {
             fontWeight: textFormFieldLabelFontWeight,
           ),
           suffixIcon: widget.iconCondition == 1
-              ? const Icon(
+              ? Icon(
                   Icons.arrow_drop_down,
-                  size: 30,
+                  size: userRole == 100 ? 25 : 30,
                   color: Colors.black87,
                 )
               : null,
@@ -101,8 +108,10 @@ class _ListOfParksState extends State<ListOfParks> {
                 : BorderSide(
                     width: borderSideWidth,
                     color: _namaTaman.text != '' && widget.iconCondition == 1
-                        ? enabledBorderWithText
-                        : enabledBorderWithoutText,
+                        ? (userRole == 100 ? grey100 : enabledBorderWithText)
+                        : (userRole == 100
+                            ? grey100
+                            : enabledBorderWithoutText),
                   ),
             borderRadius: BorderRadius.circular(borderRadiusCircular),
             gapPadding: 6.0,
@@ -121,17 +130,24 @@ class _ListOfParksState extends State<ListOfParks> {
             topRight: Radius.circular(20),
           ),
         ),
+        constraints: userRole == 100
+            ? (_device.isLandscape(context)
+                ? const BoxConstraints(maxWidth: 500, maxHeight: 400)
+                : const BoxConstraints(maxWidth: 500, maxHeight: 450))
+            : null,
         context: context,
         builder: (builder) {
           return SizedBox(
-            height: MediaQuery.of(context).size.height * 0.5,
+            height: userRole == 100
+                ? null
+                : MediaQuery.of(context).size.height * 0.5,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(
-                    top: 25,
-                    left: 25,
+                  padding: EdgeInsets.only(
+                    top: userRole == 100 ? 30 : 25,
+                    left: userRole == 100 ? 30 : 25,
                     bottom: 10,
                   ),
                   child: Text(
@@ -165,8 +181,14 @@ class _ListOfParksState extends State<ListOfParks> {
                               margin: const EdgeInsets.symmetric(
                                 horizontal: 10,
                               ),
-                              padding: const EdgeInsets.all(6),
+                              padding: userRole == 100
+                                  ? const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 10)
+                                  : const EdgeInsets.all(6),
                               child: ListView.builder(
+                                physics: userRole == 100
+                                    ? const BouncingScrollPhysics()
+                                    : const ScrollPhysics(),
                                 shrinkWrap: true,
                                 itemCount: dataFuture!.length,
                                 itemBuilder: (context, index) {
@@ -174,7 +196,8 @@ class _ListOfParksState extends State<ListOfParks> {
                                     onTap: () {
                                       if (widget.showSenaraiJalan != null) {
                                         widget.showSenaraiJalan!(
-                                            dataFuture[index].id);
+                                            dataFuture[index].id,
+                                            dataFuture[index].namaTaman);
                                       }
 
                                       setState(() {
@@ -185,15 +208,20 @@ class _ListOfParksState extends State<ListOfParks> {
                                       });
                                     },
                                     child: Container(
-                                      margin: const EdgeInsets.symmetric(
-                                          vertical: 12),
-                                      padding: const EdgeInsets.all(6),
+                                      margin: userRole == 100
+                                          ? null
+                                          : const EdgeInsets.symmetric(
+                                              vertical: 12),
+                                      padding: userRole == 100
+                                          ? const EdgeInsets.symmetric(
+                                              vertical: 23, horizontal: 5)
+                                          : const EdgeInsets.all(6),
                                       decoration: BoxDecoration(
                                         border: Border(
                                           top: BorderSide.none,
                                           bottom: BorderSide(
                                             color: grey400,
-                                            width: 0.9,
+                                            width: userRole == 100 ? 0.3 : 0.9,
                                             style: BorderStyle.solid,
                                           ),
                                         ),

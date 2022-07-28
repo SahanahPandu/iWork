@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 
+import '../../../../config/config.dart';
 import '../../../../config/dimen.dart';
 import '../../../../config/palette.dart';
+import '../../../../config/string.dart';
+import '../../../../models/vc/vc.dart';
+import '../../../../screens/vehicle_checklist/vehicle_checklist_detail.dart';
 import '../../../../utils/device.dart';
-import 'package:eswm/screens/vehicle_checklist/vehicle_checklist.dart';
 
 class VehicleChecklistCardDetails extends StatefulWidget {
-  const VehicleChecklistCardDetails({Key? key}) : super(key: key);
+  final VehicleChecklist data;
+
+  const VehicleChecklistCardDetails({Key? key, required this.data})
+      : super(key: key);
 
   @override
   State<VehicleChecklistCardDetails> createState() =>
@@ -16,6 +22,9 @@ class VehicleChecklistCardDetails extends StatefulWidget {
 class _VehicleChecklistCardDetailsState
     extends State<VehicleChecklistCardDetails> {
   final Devices _device = Devices();
+
+  Color alterColorBefore = Colors.grey;
+  Color alterColorAfter = Colors.grey;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +38,7 @@ class _VehicleChecklistCardDetailsState
               child: Padding(
                   padding: const EdgeInsets.all(18.0),
                   child: Text(
-                    "Semakan Kenderaan",
+                    vc,
                     style: TextStyle(
                         fontSize: 19,
                         color: grey800,
@@ -42,9 +51,9 @@ class _VehicleChecklistCardDetailsState
               child: Row(
                 children: [
                   Icon(
-                    Icons.check_circle,
+                    Icons.check,
                     size: 18,
-                    color: green,
+                    color: alterColorBefore,
                   ),
                   const SizedBox(
                     width: 8,
@@ -53,7 +62,7 @@ class _VehicleChecklistCardDetailsState
                     "Sebelum Bertugas",
                     style: TextStyle(
                       fontSize: 15,
-                      color: green,
+                      color: alterColorBefore,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -66,9 +75,9 @@ class _VehicleChecklistCardDetailsState
               child: Row(
                 children: [
                   Icon(
-                    Icons.check_circle,
+                    Icons.check,
                     size: 18,
-                    color: grey,
+                    color: alterColorAfter,
                   ),
                   const SizedBox(
                     width: 8,
@@ -77,7 +86,7 @@ class _VehicleChecklistCardDetailsState
                     "Selepas Bertugas",
                     style: TextStyle(
                       fontSize: 15,
-                      color: grey800,
+                      color: alterColorAfter,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -92,10 +101,7 @@ class _VehicleChecklistCardDetailsState
           width: 350,
           child: ElevatedButton(
             onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const VehicleChecklist()));
+              _navigateAndDisplaySelection(context);
             },
             style: ButtonStyle(
                 shape: MaterialStateProperty.all(
@@ -106,11 +112,40 @@ class _VehicleChecklistCardDetailsState
                 minimumSize: MaterialStateProperty.all(
                     Size(_device.screenWidth(context), 45)),
                 backgroundColor: MaterialStateProperty.all(white)),
-            child: Text("Semak Kenderaan",
+            child: Text(vc,
                 style: TextStyle(fontSize: 15, color: green)),
           ),
         ),
       ],
     );
+  }
+
+  Future<void> _navigateAndDisplaySelection(BuildContext context) async {
+    bool refresh = await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => VehicleChecklistDetail(data: widget.data)));
+    if (!mounted) return;
+    if (refresh == true) {
+      _changeStatus();
+    } else {}
+  }
+
+  void _changeStatus() {
+    setState(() {
+      if (completedFirstVc && !completedSecondVc) {
+        alterColorBefore = Colors.green;
+        alterColorAfter = Colors.grey;
+      } else if (completedFirstVc && completedSecondVc) {
+        alterColorBefore = Colors.green;
+        alterColorAfter = Colors.green;
+      } else if (!completedFirstVc && !completedSecondVc) {
+        alterColorBefore = Colors.grey;
+        alterColorAfter = Colors.grey;
+      } else {
+        completedFirstVc == false;
+        completedSecondVc == false;
+      }
+    });
   }
 }

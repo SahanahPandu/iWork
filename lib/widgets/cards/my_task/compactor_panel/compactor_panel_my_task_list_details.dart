@@ -3,20 +3,23 @@ import 'package:flutter/material.dart';
 import '../../../../config/config.dart';
 import '../../../../config/palette.dart';
 import '../../../../config/string.dart';
+import '../../../../models/laluan.dart';
 import '../../../../utils/device.dart';
 import '../../../../widgets/slide_bar/start_end_work_slide_bar.dart';
 
 class CompactorPanelMyTaskListDetails extends StatefulWidget {
-  const CompactorPanelMyTaskListDetails({Key? key}) : super(key: key);
+  final Laluan data;
+
+  const CompactorPanelMyTaskListDetails({Key? key, required this.data}) : super(key: key);
 
   @override
-  State<CompactorPanelMyTaskListDetails> createState() => _CompactorPanelMyTaskListDetailsState();
+  State<CompactorPanelMyTaskListDetails> createState() => CompactorPanelMyTaskListDetailsState();
 
-  static _CompactorPanelMyTaskListDetailsState? of(BuildContext context) =>
-      context.findAncestorStateOfType<_CompactorPanelMyTaskListDetailsState>();
+  static CompactorPanelMyTaskListDetailsState? of(BuildContext context) =>
+      context.findAncestorStateOfType<CompactorPanelMyTaskListDetailsState>();
 }
 
-class _CompactorPanelMyTaskListDetailsState extends State<CompactorPanelMyTaskListDetails> {
+class CompactorPanelMyTaskListDetailsState extends State<CompactorPanelMyTaskListDetails> {
   String _startedTime = "--:--";
   String _endedTime = "--:--";
 
@@ -37,7 +40,7 @@ class _CompactorPanelMyTaskListDetailsState extends State<CompactorPanelMyTaskLi
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "JHBP01-C02",
+                    widget.data.namaLaluan,
                     style: TextStyle(
                         fontSize: 19,
                         color: grey800,
@@ -96,7 +99,7 @@ class _CompactorPanelMyTaskListDetailsState extends State<CompactorPanelMyTaskLi
                     ],
                   ),
                   Text(
-                    "JHBP01-C02-1",
+                    widget.data.subLaluan,
                     style: TextStyle(
                       fontSize: _device.isLandscape(context) ? 15.0 : 13.0,
                       color: Colors.black45,
@@ -132,7 +135,7 @@ class _CompactorPanelMyTaskListDetailsState extends State<CompactorPanelMyTaskLi
                     ],
                   ),
                   Text(
-                    "BLW7096",
+                    widget.data.noKenderaan,
                     style: TextStyle(
                       fontSize: _device.isLandscape(context) ? 15.0 : 13.0,
                       color: Colors.black45,
@@ -168,7 +171,7 @@ class _CompactorPanelMyTaskListDetailsState extends State<CompactorPanelMyTaskLi
                     ],
                   ),
                   Text(
-                    "13/123",
+                    "${widget.data.jumlahTaman}/${widget.data.jumlahJalan}",
                     style: TextStyle(
                       fontSize: _device.isLandscape(context) ? 15.0 : 13.0,
                       color: Colors.black45,

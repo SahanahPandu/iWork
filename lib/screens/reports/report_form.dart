@@ -1,14 +1,15 @@
 // ignore_for_file: must_be_immutable
+
 import 'dart:async';
+import 'package:eswm/models/reports.dart';
+import 'package:eswm/screens/reports/pra/pra_section_report_form.dart';
 import 'package:flutter/material.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
 //import files
-import 'package:eswm/screens/reports/pra/pra_section_report_form.dart';
-import 'package:eswm/models/reports.dart';
-
 import '../../models/laluan.dart';
+import '../../utils/device.dart';
 import '../../widgets/buttons/hantar_button.dart';
 
 class ReportForm extends StatefulWidget {
@@ -35,6 +36,8 @@ class _ReportFormState extends State<ReportForm> {
   String noKenderaan = "No Kenderaan";
   double _height = 500;
   bool buttonVisibility = true;
+  final Devices _device = Devices();
+  final TextEditingController _catatan = TextEditingController();
 
   void onClick() {
     if (_height == 500) {
