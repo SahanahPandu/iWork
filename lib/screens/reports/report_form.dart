@@ -36,8 +36,8 @@ class _ReportFormState extends State<ReportForm> {
   String noKenderaan = "No Kenderaan";
   double _height = 500;
   bool buttonVisibility = true;
-  final Devices _device = Devices();
-  final TextEditingController _catatan = TextEditingController();
+  //final Devices _device = Devices();
+  //final TextEditingController _catatan = TextEditingController();
 
   void onClick() {
     if (_height == 500) {
