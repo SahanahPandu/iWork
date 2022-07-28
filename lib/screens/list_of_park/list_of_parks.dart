@@ -77,7 +77,7 @@ class _ListOfParksState extends State<ListOfParks> {
           filled: true,
           fillColor: widget.fillColor,
           contentPadding: userRole == 100
-              ? const EdgeInsets.symmetric(vertical: 8, horizontal: 20)
+              ? const EdgeInsets.symmetric(vertical: 15, horizontal: 20)
               : const EdgeInsets.all(8),
           hintText: widget.hintText,
           hintStyle: TextStyle(
