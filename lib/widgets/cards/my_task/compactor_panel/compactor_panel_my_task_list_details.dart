@@ -10,16 +10,19 @@ import '../../../../widgets/slide_bar/start_end_work_slide_bar.dart';
 class CompactorPanelMyTaskListDetails extends StatefulWidget {
   final Laluan data;
 
-  const CompactorPanelMyTaskListDetails({Key? key, required this.data}) : super(key: key);
+  const CompactorPanelMyTaskListDetails({Key? key, required this.data})
+      : super(key: key);
 
   @override
-  State<CompactorPanelMyTaskListDetails> createState() => CompactorPanelMyTaskListDetailsState();
+  State<CompactorPanelMyTaskListDetails> createState() =>
+      CompactorPanelMyTaskListDetailsState();
 
   static CompactorPanelMyTaskListDetailsState? of(BuildContext context) =>
       context.findAncestorStateOfType<CompactorPanelMyTaskListDetailsState>();
 }
 
-class CompactorPanelMyTaskListDetailsState extends State<CompactorPanelMyTaskListDetails> {
+class CompactorPanelMyTaskListDetailsState
+    extends State<CompactorPanelMyTaskListDetails> {
   String _startedTime = "--:--";
   String _endedTime = "--:--";
 
@@ -99,7 +102,7 @@ class CompactorPanelMyTaskListDetailsState extends State<CompactorPanelMyTaskLis
                     ],
                   ),
                   Text(
-                    widget.data.subLaluan,
+                    "${widget.data.jumSubLaluan}",
                     style: TextStyle(
                       fontSize: _device.isLandscape(context) ? 15.0 : 13.0,
                       color: Colors.black45,

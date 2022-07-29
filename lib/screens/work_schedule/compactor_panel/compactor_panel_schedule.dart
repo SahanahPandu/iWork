@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 
 import '../../../config/palette.dart';
@@ -111,7 +113,8 @@ class _CompactorPanelScheduleState extends State<CompactorPanelSchedule> {
                   ),
                 ),
               ),
-              if (_showSenaraiJalan) CompListOfRoad(idTaman: idTaman, nameTaman: getTaman),
+              if (_showSenaraiJalan)
+                CompListOfRoad(idTaman: idTaman, nameTaman: getTaman),
             ],
           ),
         )
@@ -139,10 +142,10 @@ class _CompactorPanelScheduleState extends State<CompactorPanelSchedule> {
               ),
             ),
             Container(
-              margin: const EdgeInsets.symmetric(
-                horizontal: 15,
-                vertical: 10,
-              ),
+                margin: const EdgeInsets.symmetric(
+                  horizontal: 15,
+                  vertical: 10,
+                ),
                 child: Card(
                   elevation: 8,
                   shape: RoundedRectangleBorder(
@@ -158,9 +161,9 @@ class _CompactorPanelScheduleState extends State<CompactorPanelSchedule> {
                     iconCondition: iconCondition,
                     data: "",
                   ),
-                )
-            ),
-            if (_showSenaraiJalan) CompListOfRoad(idTaman: idTaman, nameTaman: getTaman),
+                )),
+            if (_showSenaraiJalan)
+              CompListOfRoad(idTaman: idTaman, nameTaman: getTaman),
           ],
         ),
       ),

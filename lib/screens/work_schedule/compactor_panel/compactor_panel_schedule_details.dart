@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 
 import '../../../config/font.dart';
@@ -54,8 +56,7 @@ class _CompactorPanelScheduleDetailsState
 
   @override
   Widget build(BuildContext context) {
-    return Column(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
+    return Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
       Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -107,7 +108,7 @@ class _CompactorPanelScheduleDetailsState
                   ],
                 ),
                 Text(
-                  widget.data.subLaluan,
+                  "${widget.data.jumSubLaluan}",
                   style: TextStyle(
                     fontSize: _device.isLandscape(context) ? 15.0 : 13.0,
                     color: Colors.black45,
@@ -227,10 +228,12 @@ class _CompactorPanelScheduleDetailsState
           ),
         ],
       ),
-      const Padding(
-        padding: EdgeInsets.symmetric(vertical: 10.0),
+      Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10.0),
         child: Center(
-          child: ReportButton(),
+          child: ReportButton(
+            dataLaluan: widget.data,
+          ),
         ),
       ),
     ]);
