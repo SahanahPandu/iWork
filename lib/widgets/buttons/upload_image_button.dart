@@ -47,7 +47,7 @@ class _UploadImageButtonState extends State<UploadImageButton> {
           height: 5,
         ),
         Text(
-          "*Maksimum 500kb.Format fail .jpeg & .png sahaja",
+          "*Maksimum 500kb. Format fail .jpeg & .png sahaja",
           style: TextStyle(
             fontSize: 13,
             fontWeight: FontWeight.w600,

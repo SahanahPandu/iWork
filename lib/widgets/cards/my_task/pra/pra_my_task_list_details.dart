@@ -75,42 +75,6 @@ class _PraMyTaskListDetailsState extends State<PraMyTaskListDetails> {
             ],
           ),
         ),
-        //Sub Laluan
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  const Icon(
-                    Icons.location_on,
-                    size: 18,
-                  ),
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  Text(
-                    "Sub Laluan",
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: Colors.grey.shade800,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ],
-              ),
-              Text(
-                "${widget.data.jumSubLaluan}",
-                style: const TextStyle(
-                  fontSize: 15,
-                  color: Colors.black45,
-                  fontWeight: FontWeight.w500,
-                ),
-              )
-            ],
-          ),
-        ),
         //No Kenderaan
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
@@ -147,6 +111,43 @@ class _PraMyTaskListDetailsState extends State<PraMyTaskListDetails> {
             ],
           ),
         ),
+        //Sub Laluan
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  const Icon(
+                    Icons.location_on,
+                    size: 18,
+                  ),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  Text(
+                    "Sub Laluan",
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.grey.shade800,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ],
+              ),
+              Text(
+                "${widget.data.jumSubLaluan}",
+                style: const TextStyle(
+                  fontSize: 15,
+                  color: Colors.black45,
+                  fontWeight: FontWeight.w500,
+                ),
+              )
+            ],
+          ),
+        ),
+
         //Jumlah Taman/Jalan
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),

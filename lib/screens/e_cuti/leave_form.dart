@@ -1,16 +1,20 @@
 // ignore_for_file: must_be_immutable
 
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:intl/intl.dart';
 
 //import files
-import 'package:eswm/config/palette.dart';
-import 'package:eswm/utils/device.dart';
+import '../../config/config.dart';
+import '../../screens/list_of_leave_type/list_of_leave_type.dart';
+import '../../widgets/buttons/upload_files_button.dart';
+import '../../config/palette.dart';
+import '../../utils/device.dart';
 import '../../config/font.dart';
 import '../../models/cuti.dart';
-import 'package:eswm/utils/file_picker.dart';
+import '../../widgets/buttons/hantar_button.dart';
 
 class LeaveForm extends StatefulWidget {
   String screen;
@@ -23,30 +27,28 @@ class LeaveForm extends StatefulWidget {
 }
 
 class _LeaveFormState extends State<LeaveForm> {
-  late StreamSubscription<bool> keyboardVisibility;
+  late StreamSubscription<bool> keyboardSubscription;
   final _formKey = GlobalKey<FormState>();
   final Devices _device = Devices();
-
-  List<Map<String, dynamic>> jenisCuti = [
-    {"id": 1, "name": "Cuti Kecemasan"},
-    {"id": 1, "name": "Cuti Sakit"},
-    {"id": 1, "name": "Cuti Terancang"},
-  ];
-
-  final TextEditingController _jenisCuti = TextEditingController();
   final TextEditingController _tarikhMula = TextEditingController();
   final TextEditingController _tarikhTamat = TextEditingController();
   final TextEditingController _lampiran = TextEditingController();
   final TextEditingController _catatan = TextEditingController();
 
-  bool _show = true;
+  late FocusNode? _catatanFocusNode;
+
   Color textFieldFillColor = textFormFieldFillColor;
   Color focusBorderColor = focusedBorder;
   Color enableBorderWithTextColor = enabledBorderWithText;
   bool _lampiranVisibility = true;
   bool _lampiranDetailsVisibility = false;
+  double spaceHeight = 15;
+  String jenisCuti = "";
+  bool buttonVisibility = true;
+  int iconCondition = 1;
+  int borderCondition = 1;
 
-  getData() {
+  loadData() {
     // ignore: unnecessary_null_comparison
     if (widget.screen == "2") {
       //from leave list
@@ -54,6 +56,8 @@ class _LeaveFormState extends State<LeaveForm> {
         textFieldFillColor = Colors.grey.shade300;
         focusBorderColor = Colors.grey.shade300;
         enableBorderWithTextColor = Colors.grey.shade300;
+        iconCondition = 0;
+        borderCondition = 0;
 
         if ((widget.data!.idStatus == 4 || widget.data!.idStatus == 3) &&
             widget.data!.lampiran == "") {
@@ -65,7 +69,7 @@ class _LeaveFormState extends State<LeaveForm> {
         }
 
         if (widget.data!.jenisCuti != "") {
-          _jenisCuti.text = widget.data!.jenisCuti;
+          jenisCuti = widget.data!.jenisCuti;
         }
         if (widget.data!.tarikhMula != "") {
           _tarikhMula.text = widget.data!.tarikhMula;
@@ -87,27 +91,24 @@ class _LeaveFormState extends State<LeaveForm> {
 
   @override
   void initState() {
+    _catatanFocusNode = FocusNode();
     super.initState();
+    var keyboardVisibilityController = KeyboardVisibilityController();
 
-    keyboardVisibility =
-        KeyboardVisibilityController().onChange.listen((isVisible) {
-      if (isVisible) {
-        setState(() {
-          _show = false;
-        });
-      } else {
-        setState(() {
-          _show = true;
-        });
-      }
+    // Subscribe
+    keyboardSubscription =
+        keyboardVisibilityController.onChange.listen((bool visible) {
+      setState(() {
+        buttonVisibility =
+            !visible; // button Hantar and keyboard  condition are vice versa
+      });
     });
-
-    getData();
+    loadData();
   }
 
   @override
   void dispose() {
-    keyboardVisibility.cancel();
+    _catatanFocusNode!.dispose();
     super.dispose();
   }
 
@@ -120,20 +121,19 @@ class _LeaveFormState extends State<LeaveForm> {
           focus.focusedChild?.unfocus();
         }
       },
-      child: Scaffold(
-        bottomSheet: _showBottomSheet(),
-        body: Container(
-          margin: const EdgeInsets.all(7),
-          child: Form(
+      child: Stack(
+        children: [
+          Form(
             key: _formKey,
             child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 15, vertical: 20),
-                    child: Text(
+              physics: const BouncingScrollPhysics(),
+              child: Container(
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
                       "Lengkapkan maklumat di bawah:",
                       style: TextStyle(
                         color: Colors.grey.shade500,
@@ -141,380 +141,219 @@ class _LeaveFormState extends State<LeaveForm> {
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                  ),
-                  //Jenis Cuti
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 20),
-                    child: Container(
-                      margin: const EdgeInsets.all(5),
-                      width: _device.screenWidth(context),
-                      child: TextFormField(
-                        controller: _jenisCuti,
-                        readOnly: true,
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: textFieldFillColor,
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              width: borderSideWidth,
-                              color: focusBorderColor,
-                            ),
-                            borderRadius: BorderRadius.circular(
-                              borderRadiusCircular,
-                            ),
-                          ),
-                          enabledBorder: _jenisCuti.text != ''
-                              ? OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: borderSideWidth,
-                                    color: enableBorderWithTextColor,
-                                  ),
-                                  borderRadius: BorderRadius.circular(
-                                      borderRadiusCircular),
-                                )
-                              : OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: borderSideWidth,
-                                    color: enabledBorderWithoutText,
-                                  ),
-                                  borderRadius: BorderRadius.circular(
-                                      borderRadiusCircular),
-                                ),
-                          labelText: 'Pilih Jenis Cuti',
-                          labelStyle: TextStyle(
-                            color: labelTextColor,
-                            fontWeight: textFormFieldLabelFontWeight,
-                          ),
-                          contentPadding: const EdgeInsets.all(8),
-                          suffixIcon: InkWell(
-                            onTap: () {
-                              if (widget.screen == "2") {
-                              } else {
-                                showModalBottomSheet(
-                                    shape: const RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(20),
-                                        topRight: Radius.circular(20),
-                                      ),
-                                    ),
-                                    context: context,
-                                    builder: (builder) {
-                                      return SizedBox(
-                                        height: 350,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                top: 25,
-                                                left: 25,
-                                                bottom: 15,
-                                              ),
-                                              child: Text(
-                                                "Jenis Cuti",
-                                                style: TextStyle(
-                                                  color: Colors.grey.shade500,
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                              ),
-                                            ),
-                                            Expanded(
-                                              child: ListView.builder(
-                                                  shrinkWrap: true,
-                                                  itemCount: jenisCuti.length,
-                                                  itemBuilder:
-                                                      (context, index) {
-                                                    return InkWell(
-                                                      onTap: () {
-                                                        setState(() {
-                                                          _jenisCuti.text =
-                                                              jenisCuti[index]
-                                                                  ["name"];
-                                                        });
-                                                        Navigator.pop(context);
-                                                      },
-                                                      child: Container(
-                                                        margin: const EdgeInsets
-                                                                .symmetric(
-                                                            horizontal: 25,
-                                                            vertical: 20),
-                                                        height: 35,
-                                                        child: Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Text(
-                                                              jenisCuti[index]
-                                                                  ["name"],
-                                                              style:
-                                                                  const TextStyle(
-                                                                fontSize: 16,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                              ),
-                                                            ),
-                                                            Divider(
-                                                              color: grey500,
-                                                              thickness: 1,
-                                                              //indent: 8,
-                                                              endIndent: 8,
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    );
-                                                  }),
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                                    });
+                    SizedBox(
+                      height: spaceHeight,
+                    ),
+                    //Jenis Cuti
+                    ListOfLeaveType(
+                      hintText: 'Pilih Jenis Cuti',
+                      fontSize: 15,
+                      borderCondition: borderCondition, // have border
+                      fillColor: textFieldFillColor,
+                      iconCondition: iconCondition,
+                      data: jenisCuti,
+                    ),
+
+                    SizedBox(
+                      height: spaceHeight,
+                    ),
+                    //Tarikh Mula & Tarikh Tamat
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        //tarikh mula
+                        InkWell(
+                          onTap: () async {
+                            if (widget.screen != "2") {
+                              DateTime? getStartDate =
+                                  await datePicker(context);
+                              if (getStartDate != null) {
+                                setState(() {
+                                  _tarikhMula.text = DateFormat("dd/MM/yyyy")
+                                      .format(getStartDate);
+                                });
                               }
-                            },
-                            child: const Icon(
-                              Icons.arrow_drop_down,
-                              size: 30,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  //Tarikh Mula & Tarikh Tamat
-                  Row(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.all(5),
-                        width: _device.screenWidth(context) * 0.45,
-                        child: TextFormField(
-                          controller: _tarikhMula,
-                          readOnly: true,
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: textFieldFillColor,
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                width: borderSideWidth,
-                                color: focusBorderColor,
-                              ),
-                              borderRadius:
-                                  BorderRadius.circular(borderRadiusCircular),
-                            ),
-                            enabledBorder: _tarikhMula.text != ''
-                                ? OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      width: borderSideWidth,
-                                      color: enableBorderWithTextColor,
-                                    ),
-                                    borderRadius: BorderRadius.circular(
-                                        borderRadiusCircular),
-                                  )
-                                : OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      width: borderSideWidth,
-                                      color: enabledBorderWithoutText,
-                                    ),
-                                    borderRadius: BorderRadius.circular(
-                                        borderRadiusCircular),
-                                  ),
-                            labelText: 'Tarikh Mula',
-                            labelStyle: TextStyle(
-                              color: labelTextColor,
-                              fontWeight: textFormFieldLabelFontWeight,
-                            ),
-                            contentPadding: const EdgeInsets.only(left: 8),
-                            suffixIcon: IntrinsicHeight(
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  VerticalDivider(
-                                    color: Colors.grey.shade400,
-                                    thickness: 1,
-                                    indent: 8,
-                                    endIndent: 8,
-                                  ),
-                                  Container(
-                                    margin: const EdgeInsets.only(right: 6),
-                                    child: InkWell(
-                                      onTap: () async {
-                                        if (widget.screen != "2") {
-                                          DateTime? getStartDate =
-                                              await datePicker(context);
-                                          if (getStartDate != null) {
-                                            setState(() {
-                                              _tarikhMula.text =
-                                                  DateFormat("dd/MM/yyyy")
-                                                      .format(getStartDate);
-                                            });
-                                          }
-                                        }
-                                      },
-                                      child: Icon(
-                                        Icons.date_range,
-                                        size: 30,
-                                        color: Colors.grey.shade800,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.all(5),
-                        width: _device.screenWidth(context) * 0.45,
-                        child: TextFormField(
-                          controller: _tarikhTamat,
-                          readOnly: true,
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: textFieldFillColor,
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                width: borderSideWidth,
-                                color: focusBorderColor,
-                              ),
-                              borderRadius:
-                                  BorderRadius.circular(borderRadiusCircular),
-                            ),
-                            enabledBorder: _tarikhTamat.text != ''
-                                ? OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      width: borderSideWidth,
-                                      color: enableBorderWithTextColor,
-                                    ),
-                                    borderRadius: BorderRadius.circular(
-                                        borderRadiusCircular),
-                                  )
-                                : OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      width: borderSideWidth,
-                                      color: enabledBorderWithoutText,
-                                    ),
-                                    borderRadius: BorderRadius.circular(
-                                        borderRadiusCircular),
-                                  ),
-                            labelText: 'Tarikh Tamat',
-                            labelStyle: TextStyle(
-                              color: labelTextColor,
-                              fontWeight: textFormFieldLabelFontWeight,
-                            ),
-                            contentPadding: const EdgeInsets.only(left: 8),
-                            suffixIcon: IntrinsicHeight(
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  VerticalDivider(
-                                    color: Colors.grey.shade400,
-                                    thickness: 1,
-                                    indent: 8,
-                                    endIndent: 8,
-                                  ),
-                                  Container(
-                                    margin: const EdgeInsets.only(right: 6),
-                                    child: InkWell(
-                                      onTap: () async {
-                                        if (widget.screen != "2") {
-                                          DateTime? getEndDate =
-                                              await datePicker(context);
-                                          if (getEndDate != null) {
-                                            setState(() {
-                                              _tarikhTamat.text =
-                                                  DateFormat("dd/MM/yyyy")
-                                                      .format(getEndDate);
-                                            });
-                                          }
-                                        }
-                                      },
-                                      child: Icon(
-                                        Icons.date_range,
-                                        size: 30,
-                                        color: Colors.grey.shade800,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  //Lampiran
-
-                  if (_lampiranVisibility)
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        top: 25,
-                        bottom: 5,
-                      ),
-                      child: SizedBox(
-                        width: _device.screenWidth(context),
-                        height: 55,
-                        child: ElevatedButton.icon(
-                          onPressed: () async {
-                            String getFileName =
-                                await FilePickerClass.getFilePathName();
-
-                            setState(() {
-                              _lampiran.text = getFileName;
-                            });
+                            }
                           },
-                          icon: (_lampiran.text != "")
-                              ? const Icon(
-                                  Icons.check_circle,
-                                  color: Colors.green,
-                                  size: 28,
-                                )
-                              : const Icon(
-                                  Icons.cloud_upload,
-                                  size: 28,
+                          child: SizedBox(
+                            width: _device.screenWidth(context) * 0.42,
+                            child: TextFormField(
+                              controller: _tarikhMula,
+                              readOnly: true,
+                              enabled: false,
+                              decoration: InputDecoration(
+                                filled: true,
+                                fillColor: textFieldFillColor,
+                                contentPadding: userRole == 100
+                                    ? const EdgeInsets.symmetric(
+                                        vertical: 15, horizontal: 20)
+                                    : const EdgeInsets.all(8),
+                                hintText: 'Tarikh Mula',
+                                hintStyle: TextStyle(
+                                  fontSize: 15,
+                                  color: labelTextColor,
+                                  fontWeight: textFormFieldLabelFontWeight,
                                 ),
-                          label: Text(
-                            (_lampiran.text != "")
-                                ? _lampiran.text
-                                : "Muat Naik Lampiran",
-                            style: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700,
+                                labelText:
+                                    borderCondition == 1 && iconCondition == 1
+                                        ? 'Tarikh Mula'
+                                        : null,
+                                labelStyle:
+                                    borderCondition == 1 && iconCondition == 1
+                                        ? TextStyle(
+                                            fontSize: 15,
+                                            color: labelTextColor,
+                                            fontWeight:
+                                                textFormFieldLabelFontWeight,
+                                          )
+                                        : null,
+                                disabledBorder: OutlineInputBorder(
+                                  borderSide: borderCondition == 0
+                                      ? BorderSide.none
+                                      : BorderSide(
+                                          width: borderSideWidth,
+                                          color: _tarikhMula.text != '' &&
+                                                  iconCondition == 1
+                                              ? (userRole == 100
+                                                  ? grey100
+                                                  : enabledBorderWithText)
+                                              : (userRole == 100
+                                                  ? grey100
+                                                  : enabledBorderWithoutText),
+                                        ),
+                                  borderRadius: BorderRadius.circular(
+                                      borderRadiusCircular),
+                                  gapPadding: 6.0,
+                                ),
+                                suffixIcon: IntrinsicHeight(
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      VerticalDivider(
+                                        color: Colors.grey.shade400,
+                                        thickness: 1,
+                                        indent: 8,
+                                        endIndent: 8,
+                                      ),
+                                      Container(
+                                        margin: const EdgeInsets.only(right: 6),
+                                        child: Icon(
+                                          Icons.date_range,
+                                          size: 30,
+                                          color: Colors.grey.shade800,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            primary: Colors.blue.shade800,
-                            padding: const EdgeInsets.all(8),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            elevation: 5.0,
                           ),
                         ),
-                      ),
+                        //tarikh tamat
+                        InkWell(
+                          onTap: () async {
+                            if (widget.screen != "2") {
+                              DateTime? getEndDate = await datePicker(context);
+                              if (getEndDate != null) {
+                                setState(() {
+                                  _tarikhTamat.text = DateFormat("dd/MM/yyyy")
+                                      .format(getEndDate);
+                                });
+                              }
+                            }
+                          },
+                          child: SizedBox(
+                            width: _device.screenWidth(context) * 0.42,
+                            child: TextFormField(
+                              controller: _tarikhTamat,
+                              readOnly: true,
+                              enabled: false,
+                              decoration: InputDecoration(
+                                filled: true,
+                                fillColor: textFieldFillColor,
+                                contentPadding: userRole == 100
+                                    ? const EdgeInsets.symmetric(
+                                        vertical: 15, horizontal: 20)
+                                    : const EdgeInsets.all(8),
+                                hintText: 'Tarikh Tamat',
+                                hintStyle: TextStyle(
+                                  fontSize: 15,
+                                  color: labelTextColor,
+                                  fontWeight: textFormFieldLabelFontWeight,
+                                ),
+                                labelText:
+                                    borderCondition == 1 && iconCondition == 1
+                                        ? 'Tarikh Tamat'
+                                        : null,
+                                labelStyle:
+                                    borderCondition == 1 && iconCondition == 1
+                                        ? TextStyle(
+                                            fontSize: 15,
+                                            color: labelTextColor,
+                                            fontWeight:
+                                                textFormFieldLabelFontWeight,
+                                          )
+                                        : null,
+                                disabledBorder: OutlineInputBorder(
+                                  borderSide: borderCondition == 0
+                                      ? BorderSide.none
+                                      : BorderSide(
+                                          width: borderSideWidth,
+                                          color: _tarikhTamat.text != '' &&
+                                                  iconCondition == 1
+                                              ? (userRole == 100
+                                                  ? grey100
+                                                  : enabledBorderWithText)
+                                              : (userRole == 100
+                                                  ? grey100
+                                                  : enabledBorderWithoutText),
+                                        ),
+                                  borderRadius: BorderRadius.circular(
+                                      borderRadiusCircular),
+                                  gapPadding: 6.0,
+                                ),
+                                suffixIcon: IntrinsicHeight(
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      VerticalDivider(
+                                        color: Colors.grey.shade400,
+                                        thickness: 1,
+                                        indent: 8,
+                                        endIndent: 8,
+                                      ),
+                                      Container(
+                                        margin: const EdgeInsets.only(right: 6),
+                                        child: Icon(
+                                          Icons.date_range,
+                                          size: 30,
+                                          color: Colors.grey.shade800,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  if (_lampiranVisibility)
-                    Text(
-                      "*Maksimum 500kb.Format fail .jpeg & .png sahaja",
-                      style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w500,
-                        color: grey500,
-                        fontStyle: FontStyle.italic,
-                      ),
+                    //Lampiran
+                    SizedBox(
+                      height: spaceHeight,
                     ),
+                    if (_lampiranVisibility)
+                      SizedBox(
+                        width: _device.screenWidth(context),
+                        child: UploadFilesButton(textLampiran: _lampiran.text),
+                      ),
 
-                  //Detail Lampiran
-                  if (_lampiranDetailsVisibility)
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8, bottom: 8),
-                      child: Container(
-                        margin: const EdgeInsets.all(5),
+                    //Detail Lampiran
+                    if (_lampiranDetailsVisibility)
+                      SizedBox(
                         width: _device.screenWidth(context),
                         child: TextFormField(
                           controller: _lampiran,
@@ -552,113 +391,91 @@ class _LeaveFormState extends State<LeaveForm> {
                           enabled: false,
                         ),
                       ),
+                    SizedBox(
+                      height: spaceHeight,
                     ),
 
-                  //Catatan
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8),
-                    child: Container(
-                      margin: const EdgeInsets.all(5),
-                      width: _device.screenWidth(context),
-                      height: 90,
-                      child: TextFormField(
-                        controller: _catatan,
-                        maxLines: 5,
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: textFieldFillColor,
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              width: borderSideWidth,
-                              color: focusBorderColor,
-                            ),
-                            borderRadius:
-                                BorderRadius.circular(borderRadiusCircular),
+                    //Catatan
+                    TextFormField(
+                      controller: _catatan,
+                      maxLines: 5,
+                      enabled: (widget.screen == "2") ? false : true,
+                      cursorColor: green,
+                      focusNode: _catatanFocusNode,
+                      onTap: () {
+                        FocusScope.of(context).requestFocus(_catatanFocusNode);
+                      },
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: textFieldFillColor,
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            width: borderSideWidth,
+                            color: focusBorderColor,
                           ),
-                          enabledBorder: _catatan.text != ''
-                              ? OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: borderSideWidth,
-                                    color: enableBorderWithTextColor,
-                                  ),
-                                  borderRadius: BorderRadius.circular(
-                                      borderRadiusCircular),
-                                )
-                              : OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: borderSideWidth,
-                                    color: enabledBorderWithoutText,
-                                  ),
-                                  borderRadius: BorderRadius.circular(
-                                      borderRadiusCircular),
-                                ),
-                          alignLabelWithHint: true,
-                          labelText: 'Catatan',
-                          labelStyle: TextStyle(
-                            color: labelTextColor,
-                            fontWeight: textFormFieldLabelFontWeight,
-                          ),
-                          contentPadding: const EdgeInsets.all(15),
+                          borderRadius:
+                              BorderRadius.circular(borderRadiusCircular),
                         ),
-                        enabled: (widget.screen == "2") ? false : true,
+                        enabledBorder: _catatan.text != ''
+                            ? OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  width: borderSideWidth,
+                                  color: enableBorderWithTextColor,
+                                ),
+                                borderRadius:
+                                    BorderRadius.circular(borderRadiusCircular),
+                              )
+                            : OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  width: borderSideWidth,
+                                  color: enabledBorderWithoutText,
+                                ),
+                                borderRadius:
+                                    BorderRadius.circular(borderRadiusCircular),
+                              ),
+                        alignLabelWithHint: true,
+                        floatingLabelAlignment: FloatingLabelAlignment.start,
+                        labelText: _catatan.text == '' ? 'Catatan' : null,
+                        labelStyle: _catatan.text == ''
+                            ? TextStyle(
+                                color: labelTextColor,
+                                fontWeight: textFormFieldLabelFontWeight,
+                              )
+                            : null,
+                        contentPadding: const EdgeInsets.all(15),
                       ),
                     ),
-                  ),
-                ],
+                    const SizedBox(
+                      height: 100,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget? _showBottomSheet() {
-    if (_show && widget.screen != "2") {
-      return BottomSheet(
-        backgroundColor: Colors.white,
-        elevation: 50,
-        enableDrag: false,
-        onClosing: () {},
-        builder: (context) {
-          return Container(
-            height: 90,
-            width: double.infinity,
-            alignment: Alignment.center,
-            child: ElevatedButton(
-              onPressed: () {
-                Container(
-                  margin: const EdgeInsets.all(20),
-                  child: const CircularProgressIndicator(
-                    backgroundColor: Colors.grey,
-                    color: Colors.purple,
-                    strokeWidth: 5,
+          //button
+          if (buttonVisibility && widget.screen == "1")
+            Positioned(
+              bottom: 0,
+              child: Material(
+                elevation: 50,
+                child: Container(
+                  color: Colors.white,
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 0.1,
+                  child: Center(
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      height: MediaQuery.of(context).size.height * 0.06,
+                      child: const HantarButton(),
+                    ),
                   ),
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                primary: Colors.green,
-                padding: const EdgeInsets.all(8),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                elevation: 5.0,
-                fixedSize: const Size(300, 50),
-              ),
-              child: const Text(
-                "Hantar",
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),
-          );
-        },
-      );
-    }
-
-    return null;
+        ],
+      ),
+    );
   }
 }
 

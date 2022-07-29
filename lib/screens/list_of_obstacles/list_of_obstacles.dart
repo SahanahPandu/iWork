@@ -12,6 +12,7 @@ class ListOfObstacles extends StatefulWidget {
   String text;
   double fontSize;
   Color fillColor;
+  int borderCondition;
   int iconCondition;
   String data;
 
@@ -20,6 +21,7 @@ class ListOfObstacles extends StatefulWidget {
       required this.text,
       required this.fontSize,
       required this.fillColor,
+      required this.borderCondition,
       required this.iconCondition,
       required this.data})
       : super(key: key);
@@ -93,13 +95,19 @@ class _ListOfObstaclesState extends State<ListOfObstacles> {
                 )
               : null,
           disabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              width: borderSideWidth,
-              color: _jenisHalangan.text != '' && widget.iconCondition == 1
-                  ? (userRole == 100 ? grey100 : enabledBorderWithText)
-                  : (userRole == 100 ? grey100 : enabledBorderWithoutText),
-            ),
+            borderSide: widget.borderCondition == 0
+                ? BorderSide.none
+                : BorderSide(
+                    width: borderSideWidth,
+                    color: _jenisHalangan.text != '' &&
+                            widget.iconCondition == 1
+                        ? (userRole == 100 ? grey100 : enabledBorderWithText)
+                        : (userRole == 100
+                            ? grey100
+                            : enabledBorderWithoutText),
+                  ),
             borderRadius: BorderRadius.circular(borderRadiusCircular),
+            gapPadding: 6.0,
           ),
         ),
       ),

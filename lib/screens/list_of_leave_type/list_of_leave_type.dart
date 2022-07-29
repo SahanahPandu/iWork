@@ -1,55 +1,53 @@
 // ignore_for_file: must_be_immutable
+
+import 'package:eswm/providers/jenis_cuti_api.dart';
 import 'package:flutter/material.dart';
 
 //import files
 import '../../config/config.dart';
 import '../../config/font.dart';
 import '../../config/palette.dart';
-import 'package:eswm/providers/jalan_api.dart';
-
 import '../../utils/device.dart';
 
-class ListOfRoadTextFormField extends StatefulWidget {
-  String text;
+class ListOfLeaveType extends StatefulWidget {
+  String hintText;
   double fontSize;
-  Color fillColor;
   int borderCondition;
+  Color fillColor;
   int iconCondition;
   String data;
 
-  ListOfRoadTextFormField(
+  ListOfLeaveType(
       {Key? key,
-      required this.text,
+      required this.hintText,
       required this.fontSize,
-      required this.fillColor,
       required this.borderCondition,
+      required this.fillColor,
       required this.iconCondition,
       required this.data})
       : super(key: key);
 
   @override
-  State<ListOfRoadTextFormField> createState() =>
-      _ListOfRoadTextFormFieldState();
+  State<ListOfLeaveType> createState() => _ListOfLeaveTypeState();
 }
 
-class _ListOfRoadTextFormFieldState extends State<ListOfRoadTextFormField> {
-  final TextEditingController _namaJalan = TextEditingController();
+class _ListOfLeaveTypeState extends State<ListOfLeaveType> {
+  final TextEditingController _jenisCuti = TextEditingController();
   final Devices _device = Devices();
-
-  int totalJalan = 0;
+  int totalJenisCuti = 0;
 
   getTotalData() {
-    JalanApi.getJalanData(context).then((value) {
+    JenisCutiApi.getJenisCutiData(context).then((value) {
       if (value.isNotEmpty) {
         setState(() {
-          totalJalan = value.length;
+          totalJenisCuti = value.length;
         });
       }
     });
 
     if (widget.data != "") {
       setState(() {
-        _namaJalan.text = widget.data;
+        _jenisCuti.text = widget.data;
       });
     }
   }
@@ -67,11 +65,11 @@ class _ListOfRoadTextFormFieldState extends State<ListOfRoadTextFormField> {
           userRole == 100 ? BorderRadius.circular(borderRadiusCircular) : null,
       onTap: () {
         if (widget.iconCondition == 1) {
-          showListOfRoads();
+          showListOfLeaveType();
         }
       },
       child: TextFormField(
-        controller: _namaJalan,
+        controller: _jenisCuti,
         readOnly: true,
         enabled: false,
         decoration: InputDecoration(
@@ -79,7 +77,13 @@ class _ListOfRoadTextFormFieldState extends State<ListOfRoadTextFormField> {
           fillColor: widget.fillColor,
           contentPadding: userRole == 100
               ? const EdgeInsets.symmetric(vertical: 15, horizontal: 20)
-              : const EdgeInsets.all(10),
+              : const EdgeInsets.all(8),
+          hintText: widget.hintText,
+          hintStyle: TextStyle(
+            fontSize: widget.fontSize,
+            color: labelTextColor,
+            fontWeight: textFormFieldLabelFontWeight,
+          ),
           suffixIcon: widget.iconCondition == 1
               ? Icon(
                   Icons.arrow_drop_down,
@@ -87,8 +91,10 @@ class _ListOfRoadTextFormFieldState extends State<ListOfRoadTextFormField> {
                   color: Colors.black87,
                 )
               : null,
-          labelText: widget.iconCondition == 1 ? widget.text : null,
-          labelStyle: widget.iconCondition == 1
+          labelText: widget.borderCondition == 1 && widget.iconCondition == 1
+              ? widget.hintText
+              : null,
+          labelStyle: widget.borderCondition == 1 && widget.iconCondition == 1
               ? TextStyle(
                   fontSize: widget.fontSize,
                   color: labelTextColor,
@@ -100,7 +106,7 @@ class _ListOfRoadTextFormFieldState extends State<ListOfRoadTextFormField> {
                 ? BorderSide.none
                 : BorderSide(
                     width: borderSideWidth,
-                    color: _namaJalan.text != '' && widget.iconCondition == 1
+                    color: _jenisCuti.text != '' && widget.iconCondition == 1
                         ? (userRole == 100 ? grey100 : enabledBorderWithText)
                         : (userRole == 100
                             ? grey100
@@ -114,7 +120,7 @@ class _ListOfRoadTextFormFieldState extends State<ListOfRoadTextFormField> {
     );
   }
 
-  Widget? showListOfRoads() {
+  Widget? showListOfLeaveType() {
     showModalBottomSheet(
         isScrollControlled: true,
         shape: const RoundedRectangleBorder(
@@ -144,7 +150,7 @@ class _ListOfRoadTextFormFieldState extends State<ListOfRoadTextFormField> {
                     bottom: 10,
                   ),
                   child: Text(
-                    "${totalJalan.toString()} Senarai Jalan",
+                    "${totalJenisCuti.toString()} Senarai Jenis Cuti",
                     style: TextStyle(
                       color: Colors.grey.shade500,
                       fontSize: 16,
@@ -153,7 +159,7 @@ class _ListOfRoadTextFormFieldState extends State<ListOfRoadTextFormField> {
                   ),
                 ),
                 FutureBuilder<List>(
-                  future: JalanApi.getJalanData(context),
+                  future: JenisCutiApi.getJenisCutiData(context),
                   builder: (context, snapshot) {
                     final dataFuture = snapshot.data;
 
@@ -188,8 +194,8 @@ class _ListOfRoadTextFormFieldState extends State<ListOfRoadTextFormField> {
                                   return InkWell(
                                     onTap: () {
                                       setState(() {
-                                        _namaJalan.text =
-                                            dataFuture[index].namaJalan;
+                                        _jenisCuti.text =
+                                            dataFuture[index].jenisCuti;
 
                                         Navigator.pop(context);
                                       });
@@ -214,7 +220,7 @@ class _ListOfRoadTextFormFieldState extends State<ListOfRoadTextFormField> {
                                         ),
                                       ),
                                       child: Text(
-                                        dataFuture[index].namaJalan,
+                                        dataFuture[index].jenisCuti,
                                         style: const TextStyle(
                                           color: Colors.black87,
                                           fontSize: 16,

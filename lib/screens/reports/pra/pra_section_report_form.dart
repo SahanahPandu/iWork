@@ -12,7 +12,7 @@ import '../../../config/font.dart';
 import '../../../config/palette.dart';
 import '../../../utils/device.dart';
 import '../../../widgets/buttons/upload_image_button.dart';
-import '../../list_of_obstacles/lis_of_obstacles.dart';
+import '../../list_of_obstacles/list_of_obstacles.dart';
 import '../../list_of_park/list_of_parks.dart';
 import '../../list_of_road/list_of_road_text_form_field.dart';
 
@@ -36,7 +36,7 @@ class _PraSectionReportFormState extends State<PraSectionReportForm> {
   Color focusBorderColor = focusedBorder;
   Color enableBorderWithTextColor = enabledBorderWithText;
   int iconCondition = 1;
-
+  int borderCondition = 1;
   String namaTaman = "";
   String namaJalan = "";
   String jenisHalangan = "";
@@ -54,6 +54,7 @@ class _PraSectionReportFormState extends State<PraSectionReportForm> {
         focusBorderColor = Colors.grey.shade300;
         enableBorderWithTextColor = Colors.grey.shade300;
         iconCondition = 0;
+        borderCondition = 0;
 
         if (widget.data!.namaSubLaluan != "") {
           subLaluan = widget.data!.namaSubLaluan;
@@ -117,7 +118,7 @@ class _PraSectionReportFormState extends State<PraSectionReportForm> {
         ListOfSubRoutes(
           hintText: 'Pilih Sub Laluan',
           fontSize: 15,
-          borderCondition: 1, // have border
+          borderCondition: borderCondition, // have border
           fillColor: textFieldFillColor,
           iconCondition: iconCondition,
           data: subLaluan,
@@ -130,7 +131,7 @@ class _PraSectionReportFormState extends State<PraSectionReportForm> {
           showSenaraiJalan: null,
           hintText: 'Pilih Nama Taman',
           fontSize: 15,
-          borderCondition: 1, // have border
+          borderCondition: borderCondition, // have border
           fillColor: textFieldFillColor,
           iconCondition: iconCondition,
           data: namaTaman,
@@ -143,6 +144,7 @@ class _PraSectionReportFormState extends State<PraSectionReportForm> {
         ListOfRoadTextFormField(
           text: 'Pilih Nama Jalan',
           fontSize: 15,
+          borderCondition: borderCondition,
           fillColor: textFieldFillColor,
           iconCondition: iconCondition,
           data: namaJalan,
@@ -155,6 +157,7 @@ class _PraSectionReportFormState extends State<PraSectionReportForm> {
         ListOfObstacles(
           text: 'Pilih Jenis Halangan',
           fontSize: 15,
+          borderCondition: borderCondition,
           fillColor: textFieldFillColor,
           iconCondition: iconCondition,
           data: jenisHalangan,
@@ -226,7 +229,7 @@ class _PraSectionReportFormState extends State<PraSectionReportForm> {
         TextFormField(
           controller: _catatan,
           maxLines: 3,
-          enabled: true,
+          enabled: (widget.screen == "4") ? false : true,
           cursorColor: green,
           focusNode: _catatanFocusNode,
           onTap: () {
@@ -257,7 +260,6 @@ class _PraSectionReportFormState extends State<PraSectionReportForm> {
                     ),
                     borderRadius: BorderRadius.circular(borderRadiusCircular),
                   ),
-            alignLabelWithHint: true,
             labelText: _catatan.text == '' ? 'Catatan' : null,
             labelStyle: _catatan.text == ''
                 ? TextStyle(
