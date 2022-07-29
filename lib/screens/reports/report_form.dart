@@ -1,16 +1,18 @@
 // ignore_for_file: must_be_immutable
 
 import 'dart:async';
-import 'package:eswm/models/reports.dart';
-import 'package:eswm/screens/reports/pra/pra_section_report_form.dart';
 import 'package:flutter/material.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
 //import files
+import '../../config/palette.dart';
 import '../../models/laluan.dart';
+import '../../config/config.dart';
 import '../../utils/device.dart';
 import '../../widgets/buttons/hantar_button.dart';
+import '../../models/reports.dart';
+import '../../screens/reports/pra/pra_section_report_form.dart';
 
 class ReportForm extends StatefulWidget {
   String screen;
@@ -29,6 +31,7 @@ class ReportForm extends StatefulWidget {
 }
 
 class _ReportFormState extends State<ReportForm> {
+  final Devices _device = Devices();
   late StreamSubscription<bool> keyboardSubscription;
   final ExpandableController _controller =
       ExpandableController(initialExpanded: true);
@@ -37,7 +40,6 @@ class _ReportFormState extends State<ReportForm> {
   double _height = 500;
   bool buttonVisibility = true;
   //final Devices _device = Devices();
-  //final TextEditingController _catatan = TextEditingController();
 
   void onClick() {
     if (_height == 500) {
@@ -77,10 +79,18 @@ class _ReportFormState extends State<ReportForm> {
     return Stack(
       children: [
         SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: ExpandableNotifier(
             controller: _controller,
             child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+              margin: userRole != 100
+                  ? const EdgeInsets.symmetric(horizontal: 20, vertical: 30)
+                  : (userRole == 100 &&
+                          _device.isLandscape(
+                              context)) // condition for compactor panel
+                      ? const EdgeInsets.fromLTRB(100, 80, 100, 150)
+                      : const EdgeInsets.symmetric(
+                          horizontal: 80, vertical: 60),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -99,9 +109,10 @@ class _ReportFormState extends State<ReportForm> {
                                 ? widget.data!.namaLaluan
                                 : namaLaluan,
                         style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.grey.shade800,
-                            fontWeight: FontWeight.w900),
+                          fontSize: userRole == 100 ? 22 : 20,
+                          color: Colors.grey.shade800,
+                          fontWeight: FontWeight.w900,
+                        ),
                       ),
                       if (widget.screen == "4")
                         ExpandableButton(
@@ -127,8 +138,8 @@ class _ReportFormState extends State<ReportForm> {
                         ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 15,
+                  SizedBox(
+                    height: userRole == 100 ? 30 : 15,
                   ),
                   //no kenderaan
                   Row(
@@ -137,8 +148,8 @@ class _ReportFormState extends State<ReportForm> {
                         Icons.local_shipping,
                         size: 19,
                       ),
-                      const SizedBox(
-                        width: 8,
+                      SizedBox(
+                        width: userRole == 100 ? 20 : 8,
                       ),
                       Text(
                         "No. Kenderaan",
@@ -148,8 +159,12 @@ class _ReportFormState extends State<ReportForm> {
                           fontWeight: FontWeight.w700,
                         ),
                       ),
-                      const SizedBox(
-                        width: 8,
+                      SizedBox(
+                        width: userRole != 100
+                            ? 8
+                            : (userRole == 100 && _device.isLandscape(context))
+                                ? 300
+                                : 200,
                       ),
                       Text(
                         (widget.screen == "3" &&
@@ -173,11 +188,11 @@ class _ReportFormState extends State<ReportForm> {
                     height: 15,
                   ),
                   Divider(
-                    color: Colors.grey.shade500,
-                    thickness: 1,
+                    color: userRole == 100 ? grey300 : Colors.grey.shade500,
+                    thickness: userRole == 100 ? 0.5 : 1,
                   ),
-                  const SizedBox(
-                    height: 15,
+                  SizedBox(
+                    height: userRole == 100 ? 30 : 15,
                   ),
                   ScrollOnExpand(
                     scrollOnCollapse: false,

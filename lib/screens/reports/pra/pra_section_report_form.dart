@@ -7,8 +7,10 @@ import 'package:flutter/material.dart';
 
 //import files
 import 'package:eswm/models/reports.dart';
+import '../../../config/config.dart';
 import '../../../config/font.dart';
 import '../../../config/palette.dart';
+import '../../../utils/device.dart';
 import '../../../widgets/buttons/upload_image_button.dart';
 import '../../list_of_obstacles/lis_of_obstacles.dart';
 import '../../list_of_park/list_of_parks.dart';
@@ -26,6 +28,7 @@ class PraSectionReportForm extends StatefulWidget {
 }
 
 class _PraSectionReportFormState extends State<PraSectionReportForm> {
+  final Devices _device = Devices();
   final TextEditingController _catatan = TextEditingController();
   late FocusNode? _catatanFocusNode;
 
@@ -40,7 +43,7 @@ class _PraSectionReportFormState extends State<PraSectionReportForm> {
   String subLaluan = "";
   File? gambarLampiran;
   String formTitleText = "Sila isikan laporan di bawah";
-  double spacingHeight = 20;
+  double spacingHeight = userRole == 100 ? 25 : 20;
 
   loadData() {
     if (widget.screen == "4") {
@@ -107,8 +110,8 @@ class _PraSectionReportFormState extends State<PraSectionReportForm> {
             fontWeight: FontWeight.w500,
           ),
         ),
-        const SizedBox(
-          height: 15,
+        SizedBox(
+          height: userRole == 100 ? 30 : 15,
         ),
         //Sub Laluan
         ListOfSubRoutes(
@@ -119,8 +122,8 @@ class _PraSectionReportFormState extends State<PraSectionReportForm> {
           iconCondition: iconCondition,
           data: subLaluan,
         ),
-        const SizedBox(
-          height: 15,
+        SizedBox(
+          height: spacingHeight,
         ),
         //Taman
         ListOfParks(
@@ -163,7 +166,7 @@ class _PraSectionReportFormState extends State<PraSectionReportForm> {
         //Gambar
         if (gambarLampiran == null && widget.screen == "3")
           SizedBox(
-            width: MediaQuery.of(context).size.width,
+            width: _device.screenWidth(context),
             child: UploadImageButton(getImageName: getImageName),
           ),
         //Display selected image
@@ -224,6 +227,7 @@ class _PraSectionReportFormState extends State<PraSectionReportForm> {
           controller: _catatan,
           maxLines: 3,
           enabled: true,
+          cursorColor: green,
           focusNode: _catatanFocusNode,
           onTap: () {
             FocusScope.of(context).requestFocus(_catatanFocusNode);
