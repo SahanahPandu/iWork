@@ -51,6 +51,7 @@ String km = 'km';
 String litre = 'Liter';
 String rm = 'RM';
 
+String has = 'Ada';
 String yes = 'Ya';
 String no = 'Tiada';
 String cancel = 'Batal';

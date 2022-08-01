@@ -23,7 +23,6 @@ class VehicleChecklistDetail extends StatefulWidget {
 
 class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
     with TickerProviderStateMixin {
-
   final List<GlobalKey<FormState>> _key = [
     GlobalKey<FormState>(),
     GlobalKey<FormState>(),
@@ -36,11 +35,12 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
   final Devices _device = Devices();
   bool _showBackToTopButton = false;
   bool _valid = false;
+  bool _incompleteRadioButton = false;
   String _todayDate = "0";
-  double _value = 20;
-  int _val = -1;
-  int _vals = -2;
-  int _valss = -3;
+  double _fuelValue = 20;
+  final _buttonVal = List.generate(50, (index) => index = -1);
+  final _keyIn = List<String>.generate(11, (index) => "0");
+  final _colorResult = List<Color>.generate(11, (index) => grey400);
 
   @override
   void initState() {
@@ -315,29 +315,45 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                             children: [
                                               Radio(
                                                 value: 1,
-                                                groupValue: _val,
+                                                groupValue: _buttonVal[0],
                                                 onChanged: (value) {
                                                   setState(() {
-                                                    _val = value as int;
+                                                    _buttonVal[0] =
+                                                        value as int;
                                                   });
                                                 },
                                                 activeColor: green,
                                               ),
-                                              Text(yes)
+                                              GestureDetector(
+                                                onTap: () {
+                                                  setState(() {
+                                                    _buttonVal[0] = 1;
+                                                  });
+                                                },
+                                                child: Text(yes),
+                                              )
                                             ],
                                           ),
                                           Row(
                                             children: [
                                               Radio(
                                                   value: 2,
-                                                  groupValue: _val,
+                                                  groupValue: _buttonVal[0],
                                                   onChanged: (value) {
                                                     setState(() {
-                                                      _val = value as int;
+                                                      _buttonVal[0] =
+                                                          value as int;
                                                     });
                                                   },
                                                   activeColor: green),
-                                              Text(no)
+                                              GestureDetector(
+                                                onTap: () {
+                                                  setState(() {
+                                                    _buttonVal[0] = 2;
+                                                  });
+                                                },
+                                                child: Text(no),
+                                              )
                                             ],
                                           ),
                                         ],
@@ -494,15 +510,22 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                           children: [
                                             Radio(
                                               value: 1,
-                                              groupValue: _vals,
+                                              groupValue: _buttonVal[1],
                                               onChanged: (value) {
                                                 setState(() {
-                                                  _vals = value as int;
+                                                  _buttonVal[1] = value as int;
                                                 });
                                               },
                                               activeColor: green,
                                             ),
-                                            Text(yes)
+                                            GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  _buttonVal[1] = 1;
+                                                });
+                                              },
+                                              child: Text(yes),
+                                            )
                                           ],
                                         ),
                                         const SizedBox(width: 5),
@@ -510,14 +533,22 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                           children: [
                                             Radio(
                                                 value: 2,
-                                                groupValue: _vals,
+                                                groupValue: _buttonVal[1],
                                                 onChanged: (value) {
                                                   setState(() {
-                                                    _vals = value as int;
+                                                    _buttonVal[1] =
+                                                        value as int;
                                                   });
                                                 },
                                                 activeColor: green),
-                                            Text(no)
+                                            GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  _buttonVal[1] = 2;
+                                                });
+                                              },
+                                              child: Text(no),
+                                            )
                                           ],
                                         ),
                                       ],
@@ -540,15 +571,23 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                             children: [
                                               Radio(
                                                 value: 1,
-                                                groupValue: _valss,
+                                                groupValue: _buttonVal[2],
                                                 onChanged: (value) {
                                                   setState(() {
-                                                    _valss = value as int;
+                                                    _buttonVal[2] =
+                                                        value as int;
                                                   });
                                                 },
                                                 activeColor: green,
                                               ),
-                                              Text(yes)
+                                              GestureDetector(
+                                                onTap: () {
+                                                  setState(() {
+                                                    _buttonVal[2] = 1;
+                                                  });
+                                                },
+                                                child: Text(yes),
+                                              )
                                             ],
                                           ),
                                           const SizedBox(width: 5),
@@ -556,14 +595,22 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                             children: [
                                               Radio(
                                                   value: 2,
-                                                  groupValue: _valss,
+                                                  groupValue: _buttonVal[2],
                                                   onChanged: (value) {
                                                     setState(() {
-                                                      _valss = value as int;
+                                                      _buttonVal[2] =
+                                                          value as int;
                                                     });
                                                   },
                                                   activeColor: green),
-                                              Text(no)
+                                              GestureDetector(
+                                                onTap: () {
+                                                  setState(() {
+                                                    _buttonVal[2] = 2;
+                                                  });
+                                                },
+                                                child: Text(no),
+                                              )
                                             ],
                                           ),
                                         ],
@@ -680,16 +727,17 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                                   child: Slider(
                                                     min: 0.0,
                                                     max: 100.0,
-                                                    value: _value,
+                                                    value: _fuelValue,
                                                     divisions: 4,
-                                                    label: '${_value.round()}%',
+                                                    label:
+                                                        '${_fuelValue.round()}%',
                                                     semanticFormatterCallback:
                                                         (double newValue) {
-                                                      return '${_value.round()}';
+                                                      return '${_fuelValue.round()}';
                                                     },
                                                     onChanged: (value) {
                                                       setState(() {
-                                                        _value = value;
+                                                        _fuelValue = value;
                                                       });
                                                     },
                                                   ),
@@ -704,7 +752,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                                   size: 30,
                                                 ),
                                               ),
-                                              Text('${_value.round()}%',
+                                              Text('${_fuelValue.round()}%',
                                                   style: TextStyle(
                                                       color: white,
                                                       fontSize: 17,
@@ -733,11 +781,20 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                       child: Column(
                         children: [
                           ExpansionTile(
-                            title: const Text(
-                              "1. Dokumen Perjalanan",
-                              style: TextStyle(
-                                  fontSize: 18.0, fontWeight: FontWeight.bold),
-                            ),
+                            title: RichText(
+                                text: TextSpan(
+                                    text: "1. Dokumen Perjalanan",
+                                    style: TextStyle(
+                                        fontSize: 18.0,
+                                        color: Colors.blue.shade700,
+                                        fontWeight: FontWeight.bold),
+                                    children: <TextSpan>[
+                                  TextSpan(
+                                      text: "  (${_keyIn[0]}/3)",
+                                      style: TextStyle(
+                                          fontSize: 14.0,
+                                          color: _colorResult[0])),
+                                ])),
                             textColor: Colors.blue.shade700,
                             children: <Widget>[
                               Container(
@@ -750,13 +807,13 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                         0: FlexColumnWidth(4),
                                         1: FlexColumnWidth(1.62),
                                       },
-                                      border: TableBorder.all(
-                                          color: Colors.transparent),
+                                      border:
+                                          TableBorder.all(color: transparent),
                                       children: [
-                                        _tableRowBuild('1.1. Puspakom Disc'),
-                                        _tableRowBuild('1.2. Cukai Jalan'),
+                                        _tableRowBuild('1.1. Puspakom Disc', 3),
+                                        _tableRowBuild('1.2. Cukai Jalan', 4),
                                         _tableRowBuild(
-                                            '1.3. Lesen pembawa A/Permit'),
+                                            '1.3. Lesen pembawa A/Permit', 5),
                                       ])),
                               Container(
                                 padding: const EdgeInsets.fromLTRB(
@@ -783,11 +840,20 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                       child: Column(
                         children: [
                           ExpansionTile(
-                            title: const Text(
-                              "2. Pemeriksaan Tayar",
-                              style: TextStyle(
-                                  fontSize: 18.0, fontWeight: FontWeight.bold),
-                            ),
+                            title: RichText(
+                                text: TextSpan(
+                                    text: "2. Pemeriksaan Tayar",
+                                    style: TextStyle(
+                                        fontSize: 18.0,
+                                        color: Colors.blue.shade700,
+                                        fontWeight: FontWeight.bold),
+                                    children: <TextSpan>[
+                                  TextSpan(
+                                      text: "  (${_keyIn[1]}/3)",
+                                      style: TextStyle(
+                                          fontSize: 14.0,
+                                          color: _colorResult[1])),
+                                ])),
                             textColor: Colors.blue.shade700,
                             children: <Widget>[
                               Container(
@@ -800,15 +866,16 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                         0: FlexColumnWidth(4),
                                         1: FlexColumnWidth(1.62),
                                       },
-                                      border: TableBorder.all(
-                                          color: Colors.transparent),
+                                      border:
+                                          TableBorder.all(color: transparent),
                                       children: [
                                         _tableRowBuild(
-                                            '2.1. Bahagian bunga tayar diperiksa'),
+                                            '2.1. Bahagian bunga tayar diperiksa',
+                                            6),
                                         _tableRowBuild(
-                                            '2.2. Nut tayar diperiksa'),
+                                            '2.2. Nut tayar diperiksa', 7),
                                         _tableRowBuild(
-                                            '2.3. Tekanan angin diperiksa'),
+                                            '2.3. Tekanan angin diperiksa', 8),
                                       ])),
                               Container(
                                 padding: const EdgeInsets.fromLTRB(
@@ -835,11 +902,20 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                       child: Column(
                         children: [
                           ExpansionTile(
-                            title: const Text(
-                              "3. Sistem Mampatan",
-                              style: TextStyle(
-                                  fontSize: 18.0, fontWeight: FontWeight.bold),
-                            ),
+                            title: RichText(
+                                text: TextSpan(
+                                    text: "3. Sistem Mampatan",
+                                    style: TextStyle(
+                                        fontSize: 18.0,
+                                        color: Colors.blue.shade700,
+                                        fontWeight: FontWeight.bold),
+                                    children: <TextSpan>[
+                                  TextSpan(
+                                      text: "  (${_keyIn[2]}/5)",
+                                      style: TextStyle(
+                                          fontSize: 14.0,
+                                          color: _colorResult[2])),
+                                ])),
                             textColor: Colors.blue.shade700,
                             children: <Widget>[
                               Container(
@@ -856,14 +932,17 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                           color: Colors.transparent),
                                       children: [
                                         _tableRowBuild(
-                                            '3.1. Sistem Hidraulik & Minyak'),
-                                        _tableRowBuild('3.2. PTD/PAM'),
+                                            '3.1. Sistem Hidraulik & Minyak',
+                                            9),
+                                        _tableRowBuild('3.2. PTD/PAM', 10),
                                         _tableRowBuild(
-                                            '3.3. Semua penutup diperiksa'),
+                                            '3.3. Semua penutup diperiksa', 11),
                                         _tableRowBuild(
-                                            '3.4. Buang air dalam tabung angin'),
+                                            '3.4. Buang air dalam tabung angin',
+                                            12),
                                         _tableRowBuild(
-                                            '3.5. Sistem LEACHATE diperiksa'),
+                                            '3.5. Sistem LEACHATE diperiksa',
+                                            13),
                                       ])),
                               Container(
                                 padding: const EdgeInsets.fromLTRB(
@@ -890,11 +969,20 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                       child: Column(
                         children: [
                           ExpansionTile(
-                            title: const Text(
-                              "4. Sistem Lampu",
-                              style: TextStyle(
-                                  fontSize: 18.0, fontWeight: FontWeight.bold),
-                            ),
+                            title: RichText(
+                                text: TextSpan(
+                                    text: "4. Sistem Lampu",
+                                    style: TextStyle(
+                                        fontSize: 18.0,
+                                        color: Colors.blue.shade700,
+                                        fontWeight: FontWeight.bold),
+                                    children: <TextSpan>[
+                                  TextSpan(
+                                      text: "  (${_keyIn[3]}/6)",
+                                      style: TextStyle(
+                                          fontSize: 14.0,
+                                          color: _colorResult[3])),
+                                ])),
                             textColor: Colors.blue.shade700,
                             children: <Widget>[
                               Container(
@@ -907,21 +995,26 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                         0: FlexColumnWidth(4),
                                         1: FlexColumnWidth(1.62),
                                       },
-                                      border: TableBorder.all(
-                                          color: Colors.transparent),
+                                      border:
+                                          TableBorder.all(color: transparent),
                                       children: [
                                         _tableRowBuild(
-                                            '4.1. Lampu utama dan belakang diperiksa'),
+                                            '4.1. Lampu utama dan belakang diperiksa',
+                                            14),
                                         _tableRowBuild(
-                                            '4.2. Lampu berhenti diperiksa'),
+                                            '4.2. Lampu berhenti diperiksa',
+                                            15),
                                         _tableRowBuild(
-                                            '4.3. Lampu isyarat diperiksa'),
+                                            '4.3. Lampu isyarat diperiksa', 16),
                                         _tableRowBuild(
-                                            '4.4. Lampu kecemasan diperiksa (Hazard Light)'),
+                                            '4.4. Lampu kecemasan diperiksa (Hazard Light)',
+                                            17),
                                         _tableRowBuild(
-                                            '4.5. Lampu isyarat sedang bekerja diperiksa (Beacon Light)'),
+                                            '4.5. Lampu isyarat sedang bekerja diperiksa (Beacon Light)',
+                                            18),
                                         _tableRowBuild(
-                                            '4.6. Lampu nombor plet diperiksa'),
+                                            '4.6. Lampu nombor plet diperiksa',
+                                            19),
                                       ])),
                               Container(
                                 padding: const EdgeInsets.fromLTRB(
@@ -948,11 +1041,20 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                       child: Column(
                         children: [
                           ExpansionTile(
-                            title: const Text(
-                              '5. Sistem Enjin dan Driveline*',
-                              style: TextStyle(
-                                  fontSize: 18.0, fontWeight: FontWeight.bold),
-                            ),
+                            title: RichText(
+                                text: TextSpan(
+                                    text: "5. Sistem Enjin dan Driveline*",
+                                    style: TextStyle(
+                                        fontSize: 18.0,
+                                        color: Colors.blue.shade700,
+                                        fontWeight: FontWeight.bold),
+                                    children: <TextSpan>[
+                                  TextSpan(
+                                      text: "  (${_keyIn[4]}/16)",
+                                      style: TextStyle(
+                                          fontSize: 14.0,
+                                          color: _colorResult[3])),
+                                ])),
                             textColor: Colors.blue.shade700,
                             children: <Widget>[
                               Container(
@@ -969,37 +1071,53 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                           color: Colors.transparent),
                                       children: [
                                         _tableRowBuild(
-                                            '5.1. Periksa dipstik minyak enjin'),
+                                            '5.1. Periksa dipstik minyak enjin',
+                                            20),
                                         _tableRowBuild(
-                                            '5.2. Periksa paras minyak enjin'),
+                                            '5.2. Periksa paras minyak enjin',
+                                            21),
                                         _tableRowBuild(
-                                            '5.3. Periksa penutup minyak enjin'),
+                                            '5.3. Periksa penutup minyak enjin',
+                                            22),
                                         _tableRowBuild(
-                                            '5.4. Periksa paras air radiator'),
+                                            '5.4. Periksa paras air radiator',
+                                            23),
                                         _tableRowBuild(
-                                            '5.5. Periksa paras expansion tank'),
+                                            '5.5. Periksa paras expansion tank',
+                                            24),
                                         _tableRowBuild(
-                                            '5.6. Periksa dipstik minyak Auto Transmission'),
+                                            '5.6. Periksa dipstik minyak Auto Transmission',
+                                            25),
                                         _tableRowBuild(
-                                            '5.7. Periksa paras minyak Auto Transmission'),
+                                            '5.7. Periksa paras minyak Auto Transmission',
+                                            26),
                                         _tableRowBuild(
-                                            '5.8. Periksa paras minyak power steering'),
+                                            '5.8. Periksa paras minyak power steering',
+                                            27),
                                         _tableRowBuild(
-                                            '5.9. Periksa paras minyak brek'),
+                                            '5.9. Periksa paras minyak brek',
+                                            28),
                                         _tableRowBuild(
-                                            '5.10. Nyatakan sistem cengkaman sistem brek'),
+                                            '5.10. Nyatakan sistem cengkaman sistem brek',
+                                            29),
                                         _tableRowBuild(
-                                            '5.11. Periksa paras minyak sistem clutch'),
+                                            '5.11. Periksa paras minyak sistem clutch',
+                                            30),
                                         _tableRowBuild(
-                                            '5.12. Adakah sistem clutch berfungsi dengan baik'),
+                                            '5.12. Adakah sistem clutch berfungsi dengan baik',
+                                            31),
                                         _tableRowBuild(
-                                            '5.13. Periksa paras air wiper tank'),
+                                            '5.13. Periksa paras air wiper tank',
+                                            32),
                                         _tableRowBuild(
-                                            '5.14. Periksa keadaan wiper (Kiri & Kanan)'),
+                                            '5.14. Periksa keadaan wiper (Kiri & Kanan)',
+                                            33),
                                         _tableRowBuild(
-                                            '5.15. Periksa paras air bateri No. 1 & No. 2'),
+                                            '5.15. Periksa paras air bateri No. 1 & No. 2',
+                                            34),
                                         _tableRowBuild(
-                                            '5.16. Periksa keadaan asap ekzos'),
+                                            '5.16. Periksa keadaan asap ekzos',
+                                            35),
                                       ])),
                               Container(
                                 padding: const EdgeInsets.fromLTRB(
@@ -1026,11 +1144,20 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                       child: Column(
                         children: [
                           ExpansionTile(
-                            title: const Text(
-                              '6. Bahagian Luaran',
-                              style: TextStyle(
-                                  fontSize: 18.0, fontWeight: FontWeight.bold),
-                            ),
+                            title: RichText(
+                                text: TextSpan(
+                                    text: "6. Bahagian Luaran",
+                                    style: TextStyle(
+                                        fontSize: 18.0,
+                                        color: Colors.blue.shade700,
+                                        fontWeight: FontWeight.bold),
+                                    children: <TextSpan>[
+                                  TextSpan(
+                                      text: "  (${_keyIn[5]}/2)",
+                                      style: TextStyle(
+                                          fontSize: 14.0,
+                                          color: _colorResult[5])),
+                                ])),
                             textColor: Colors.blue.shade700,
                             children: <Widget>[
                               Container(
@@ -1047,8 +1174,10 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                           color: Colors.transparent),
                                       children: [
                                         _tableRowBuild(
-                                            '6.1. Cermin pandang belakang dan sisi'),
-                                        _tableRowBuild('6.2. Hon diperiksa'),
+                                            '6.1. Cermin pandang belakang dan sisi',
+                                            36),
+                                        _tableRowBuild(
+                                            '6.2. Hon diperiksa', 37),
                                       ])),
                               Container(
                                 padding: const EdgeInsets.fromLTRB(
@@ -1075,11 +1204,20 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                       child: Column(
                         children: [
                           ExpansionTile(
-                            title: const Text(
-                              '7. Peralatan Keselamatan',
-                              style: TextStyle(
-                                  fontSize: 18.0, fontWeight: FontWeight.bold),
-                            ),
+                            title: RichText(
+                                text: TextSpan(
+                                    text: "7. Peralatan Keselamatan",
+                                    style: TextStyle(
+                                        fontSize: 18.0,
+                                        color: Colors.blue.shade700,
+                                        fontWeight: FontWeight.bold),
+                                    children: <TextSpan>[
+                                  TextSpan(
+                                      text: "  (${_keyIn[6]}/3)",
+                                      style: TextStyle(
+                                          fontSize: 14.0,
+                                          color: _colorResult[6])),
+                                ])),
                             textColor: Colors.blue.shade700,
                             children: <Widget>[
                               Container(
@@ -1096,10 +1234,13 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                           color: Colors.transparent),
                                       children: [
                                         _tableRowBuild(
-                                            '7.1. Penanda amaran kecemasan (Triangle Reflector)'),
-                                        _tableRowBuild('7.2. Alat pemadam api'),
+                                            '7.1. Penanda amaran kecemasan (Triangle Reflector)',
+                                            38),
                                         _tableRowBuild(
-                                            '7.3. Kotak kecemasan (First Aid Kit)'),
+                                            '7.2. Alat pemadam api', 39),
+                                        _tableRowBuild(
+                                            '7.3. Kotak kecemasan (First Aid Kit)',
+                                            40),
                                       ])),
                               Container(
                                 padding: const EdgeInsets.fromLTRB(
@@ -1126,11 +1267,20 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                       child: Column(
                         children: [
                           ExpansionTile(
-                            title: const Text(
-                              '8. Kebersihan Kenderaan',
-                              style: TextStyle(
-                                  fontSize: 18.0, fontWeight: FontWeight.bold),
-                            ),
+                            title: RichText(
+                                text: TextSpan(
+                                    text: "8. Kebersihan Kenderaan",
+                                    style: TextStyle(
+                                        fontSize: 18.0,
+                                        color: Colors.blue.shade700,
+                                        fontWeight: FontWeight.bold),
+                                    children: <TextSpan>[
+                                  TextSpan(
+                                      text: "  (${_keyIn[7]}/2)",
+                                      style: TextStyle(
+                                          fontSize: 14.0,
+                                          color: _colorResult[7])),
+                                ])),
                             textColor: Colors.blue.shade700,
                             children: <Widget>[
                               Container(
@@ -1147,9 +1297,11 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                           color: Colors.transparent),
                                       children: [
                                         _tableRowBuild(
-                                            '8.1. Kebersihan dalam kokpit (kabin)'),
+                                            '8.1. Kebersihan dalam kokpit (kabin)',
+                                            41),
                                         _tableRowBuild(
-                                            '8.2. Kebersihan sekitar luaran badan trak'),
+                                            '8.2. Kebersihan sekitar luaran badan trak',
+                                            42),
                                       ])),
                               Container(
                                 padding: const EdgeInsets.fromLTRB(
@@ -1176,11 +1328,20 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                       child: Column(
                         children: [
                           ExpansionTile(
-                            title: const Text(
-                              '9. Kebersihan Bin Lifter',
-                              style: TextStyle(
-                                  fontSize: 18.0, fontWeight: FontWeight.bold),
-                            ),
+                            title: RichText(
+                                text: TextSpan(
+                                    text: "9. Kebersihan Bin Lifter",
+                                    style: TextStyle(
+                                        fontSize: 18.0,
+                                        color: Colors.blue.shade700,
+                                        fontWeight: FontWeight.bold),
+                                    children: <TextSpan>[
+                                  TextSpan(
+                                      text: "  (${_keyIn[8]}/1)",
+                                      style: TextStyle(
+                                          fontSize: 14.0,
+                                          color: _colorResult[8])),
+                                ])),
                             textColor: Colors.blue.shade700,
                             children: <Widget>[
                               Container(
@@ -1197,7 +1358,8 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                           color: Colors.transparent),
                                       children: [
                                         _tableRowBuild(
-                                            '9.1. Bin lifter dicuci oleh pemandu'),
+                                            '9.1. Bin lifter dicuci oleh pemandu',
+                                            43),
                                       ])),
                               Container(
                                 padding: const EdgeInsets.fromLTRB(
@@ -1224,11 +1386,20 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                       child: Column(
                         children: [
                           ExpansionTile(
-                            title: const Text(
-                              '10. Kemalangan',
-                              style: TextStyle(
-                                  fontSize: 18.0, fontWeight: FontWeight.bold),
-                            ),
+                            title: RichText(
+                                text: TextSpan(
+                                    text: "10. Kemalangan",
+                                    style: TextStyle(
+                                        fontSize: 18.0,
+                                        color: Colors.blue.shade700,
+                                        fontWeight: FontWeight.bold),
+                                    children: <TextSpan>[
+                                  TextSpan(
+                                      text: "  (${_keyIn[9]}/2)",
+                                      style: TextStyle(
+                                          fontSize: 14.0,
+                                          color: _colorResult[9])),
+                                ])),
                             textColor: Colors.blue.shade700,
                             children: <Widget>[
                               Container(
@@ -1245,9 +1416,11 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                           TableBorder.all(color: transparent),
                                       children: [
                                         _tableRowBuild(
-                                            '10.1. Adakah anda terlibat dengan mana-mana kemalangan'),
+                                            '10.1. Adakah anda terlibat dengan mana-mana kemalangan',
+                                            44),
                                         _tableRowBuild(
-                                            '10.2. Nombor kenderaan pihak ketiga'),
+                                            '10.2. Nombor kenderaan pihak ketiga',
+                                            45),
                                       ])),
                               Container(
                                 padding: const EdgeInsets.fromLTRB(
@@ -1274,11 +1447,20 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                       child: Column(
                         children: [
                           ExpansionTile(
-                            title: const Text(
-                              '11. Fizikal Kenderaan',
-                              style: TextStyle(
-                                  fontSize: 18.0, fontWeight: FontWeight.bold),
-                            ),
+                            title: RichText(
+                                text: TextSpan(
+                                    text: "11. Fizikal Kenderaan",
+                                    style: TextStyle(
+                                        fontSize: 18.0,
+                                        color: Colors.blue.shade700,
+                                        fontWeight: FontWeight.bold),
+                                    children: <TextSpan>[
+                                  TextSpan(
+                                      text: "  (${_keyIn[10]}/2)",
+                                      style: TextStyle(
+                                          fontSize: 14.0,
+                                          color: _colorResult[10])),
+                                ])),
                             textColor: Colors.blue.shade700,
                             children: <Widget>[
                               Container(
@@ -1295,9 +1477,10 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                           color: Colors.transparent),
                                       children: [
                                         _tableRowBuild(
-                                            '11.1. Sampah dalam kompaktor'),
+                                            '11.1. Sampah dalam kompaktor', 46),
                                         _tableRowBuild(
-                                            '11.2. Keadaan fizikal/kecatatan pada trak'),
+                                            '11.2. Keadaan fizikal/kecatatan pada trak',
+                                            47),
                                       ])),
                               Container(
                                 padding: const EdgeInsets.fromLTRB(
@@ -1408,13 +1591,13 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
     );
   }
 
-  TableRow _tableRowBuild(String title) {
+  TableRow _tableRowBuild(String title, int idx) {
     return TableRow(children: [
       Text(title,
           textAlign: TextAlign.left,
           style: TextStyle(fontSize: 16, color: black87)),
       SizedBox(
-        height: 35,
+        height: 42,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 7.0),
           child: Row(
@@ -1423,15 +1606,22 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                 children: [
                   Radio(
                     value: 1,
-                    groupValue: _valss,
+                    groupValue: _buttonVal[idx],
                     onChanged: (value) {
                       setState(() {
-                        _valss = value as int;
+                        _buttonVal[idx] = value as int;
                       });
                     },
                     activeColor: green,
                   ),
-                  Text(yes)
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        _buttonVal[idx] = 1;
+                      });
+                    },
+                    child: Text(has),
+                  ),
                 ],
               ),
               const SizedBox(width: 5),
@@ -1439,14 +1629,21 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                 children: [
                   Radio(
                       value: 2,
-                      groupValue: _valss,
+                      groupValue: _buttonVal[idx],
                       onChanged: (value) {
                         setState(() {
-                          _valss = value as int;
+                          _buttonVal[idx] = value as int;
                         });
                       },
                       activeColor: green),
-                  Text(no)
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        _buttonVal[idx] = 2;
+                      });
+                    },
+                    child: Text(no),
+                  ),
                 ],
               ),
             ],
@@ -1456,16 +1653,79 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
     ]);
   }
 
+  _loadRadioButton() {
+    int data = 0;
+    int n = 0;
+    // List<int> _groupButtonVal_0 = List.generate(3, (index) => index = _buttonVal[index]);
+    List<int> groupButtonVal_1 =
+        List.generate(3, (index) => index = _buttonVal[index + 3]);
+    List<int> groupButtonVal_2 =
+        List.generate(3, (index) => index = _buttonVal[index + 6]);
+    List<int> groupButtonVal_3 =
+        List.generate(5, (index) => index = _buttonVal[index + 9]);
+    List<int> groupButtonVal_4 =
+        List.generate(6, (index) => index = _buttonVal[index + 14]);
+    List<int> groupButtonVal_5 =
+        List.generate(16, (index) => index = _buttonVal[index + 20]);
+    List<int> groupButtonVal_6 =
+        List.generate(2, (index) => index = _buttonVal[index + 36]);
+    List<int> groupButtonVal_7 =
+        List.generate(3, (index) => index = _buttonVal[index + 38]);
+    List<int> groupButtonVal_8 =
+        List.generate(2, (index) => index = _buttonVal[index + 41]);
+    List<int> groupButtonVal_9 =
+        List.generate(1, (index) => index = _buttonVal[index + 43]);
+    List<int> groupButtonVal_10 =
+        List.generate(2, (index) => index = _buttonVal[index + 44]);
+    List<int> groupButtonVal_11 =
+        List.generate(2, (index) => index = _buttonVal[index + 46]);
+    List allGroup = [
+      groupButtonVal_1,
+      groupButtonVal_2,
+      groupButtonVal_3,
+      groupButtonVal_4,
+      groupButtonVal_5,
+      groupButtonVal_6,
+      groupButtonVal_7,
+      groupButtonVal_8,
+      groupButtonVal_9,
+      groupButtonVal_10,
+      groupButtonVal_11
+    ];
+
+    for (var a = 0; a < allGroup.length; a++) {
+      // print("data [$a]: ${allGroup[a]}");
+      // print("length [$a]: ${allGroup[a].length}");
+      for (var b = 0; b < allGroup[a].length; b++) {
+        data = allGroup[a][b];
+        if (data == -1) {
+          n++;
+          _incompleteRadioButton = true;
+          _colorResult[a] = const Color(0x96FF2E2E);
+        } else {
+          _colorResult[a] = const Color(0x8E349813);
+        }
+      }
+      int totalLength = allGroup[a].length;
+      int filled = totalLength - n;
+      _keyIn[a] = filled.toString();
+      n = 0;
+      _incompleteRadioButton = false;
+    }
+  }
+
   _handleSubmittedData(context) {
+    _loadRadioButton();
     for (var i = 0; i < _key.length; i++) {
       final FormState? form = _key[i].currentState;
-      if (form!.validate()) {
+      if (form!.validate() && !_incompleteRadioButton) {
         form.save();
         _valid = true;
       } else {
         _valid = false;
       }
     }
+
     if (_valid) {
       showDialog(
           context: context,

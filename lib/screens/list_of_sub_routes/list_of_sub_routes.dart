@@ -1,9 +1,12 @@
 // ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
 
+//import files
+import '../../config/config.dart';
 import '../../config/font.dart';
 import '../../config/palette.dart';
 import 'package:eswm/providers/sub_laluan_api.dart';
+import '../../utils/device.dart';
 
 class ListOfSubRoutes extends StatefulWidget {
   String hintText;
@@ -29,6 +32,7 @@ class ListOfSubRoutes extends StatefulWidget {
 
 class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
   final TextEditingController _namaSubLaluan = TextEditingController();
+  final Devices _device = Devices();
 
   int totalSubLaluan = 0;
 
@@ -57,6 +61,8 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      borderRadius:
+          userRole == 100 ? BorderRadius.circular(borderRadiusCircular) : null,
       onTap: () {
         if (widget.iconCondition == 1) {
           showListOfSubRoutes();
@@ -69,7 +75,9 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
         decoration: InputDecoration(
           filled: true,
           fillColor: widget.fillColor,
-          contentPadding: const EdgeInsets.all(8),
+          contentPadding: userRole == 100
+              ? const EdgeInsets.symmetric(vertical: 15, horizontal: 20)
+              : const EdgeInsets.all(8),
           hintText: widget.hintText,
           hintStyle: TextStyle(
             fontSize: widget.fontSize,
@@ -77,9 +85,9 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
             fontWeight: textFormFieldLabelFontWeight,
           ),
           suffixIcon: widget.iconCondition == 1
-              ? const Icon(
+              ? Icon(
                   Icons.arrow_drop_down,
-                  size: 30,
+                  size: userRole == 100 ? 25 : 30,
                   color: Colors.black87,
                 )
               : null,
@@ -98,10 +106,12 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
                 ? BorderSide.none
                 : BorderSide(
                     width: borderSideWidth,
-                    color:
-                        _namaSubLaluan.text != '' && widget.iconCondition == 1
-                            ? enabledBorderWithText
-                            : enabledBorderWithoutText,
+                    color: _namaSubLaluan.text != '' &&
+                            widget.iconCondition == 1
+                        ? (userRole == 100 ? grey100 : enabledBorderWithText)
+                        : (userRole == 100
+                            ? grey100
+                            : enabledBorderWithoutText),
                   ),
             borderRadius: BorderRadius.circular(borderRadiusCircular),
             gapPadding: 6.0,
@@ -120,17 +130,24 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
             topRight: Radius.circular(20),
           ),
         ),
+        constraints: userRole == 100
+            ? (_device.isLandscape(context)
+                ? const BoxConstraints(maxWidth: 500, maxHeight: 400)
+                : const BoxConstraints(maxWidth: 500, maxHeight: 450))
+            : null,
         context: context,
         builder: (builder) {
           return SizedBox(
-            height: MediaQuery.of(context).size.height * 0.5,
+            height: userRole == 100
+                ? null
+                : MediaQuery.of(context).size.height * 0.5,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(
-                    top: 25,
-                    left: 25,
+                  padding: EdgeInsets.only(
+                    top: userRole == 100 ? 30 : 25,
+                    left: userRole == 100 ? 30 : 25,
                     bottom: 10,
                   ),
                   child: Text(
@@ -164,8 +181,14 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
                               margin: const EdgeInsets.symmetric(
                                 horizontal: 10,
                               ),
-                              padding: const EdgeInsets.all(6),
+                              padding: userRole == 100
+                                  ? const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 10)
+                                  : const EdgeInsets.all(6),
                               child: ListView.builder(
+                                physics: userRole == 100
+                                    ? const BouncingScrollPhysics()
+                                    : const ScrollPhysics(),
                                 shrinkWrap: true,
                                 itemCount: dataFuture!.length,
                                 itemBuilder: (context, index) {
@@ -179,15 +202,20 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
                                       });
                                     },
                                     child: Container(
-                                      margin: const EdgeInsets.symmetric(
-                                          vertical: 12),
-                                      padding: const EdgeInsets.all(6),
+                                      margin: userRole == 100
+                                          ? null
+                                          : const EdgeInsets.symmetric(
+                                              vertical: 12),
+                                      padding: userRole == 100
+                                          ? const EdgeInsets.symmetric(
+                                              vertical: 23, horizontal: 5)
+                                          : const EdgeInsets.all(6),
                                       decoration: BoxDecoration(
                                         border: Border(
                                           top: BorderSide.none,
                                           bottom: BorderSide(
                                             color: grey400,
-                                            width: 0.9,
+                                            width: userRole == 100 ? 0.3 : 0.9,
                                             style: BorderStyle.solid,
                                           ),
                                         ),

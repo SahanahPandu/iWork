@@ -1,9 +1,10 @@
 import 'dart:async';
-
-import 'package:eswm/config/palette.dart';
-import 'package:eswm/utils/device.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../../config/config.dart';
+import '../../config/palette.dart';
+import '../../utils/device.dart';
 
 final Devices _device = Devices();
 
@@ -20,14 +21,19 @@ void showSuccessToast(BuildContext context, String message,
 
 void showInfoToast(BuildContext context, String message,
     {bool shouldDismiss = true}) {
-  Timer.run(() => _showToast(context, message, const Color.fromRGBO(54, 105, 214, 1), Icons.info_outline,
-      white, shouldDismiss));
+  Timer.run(() => _showToast(
+      context,
+      message,
+      const Color.fromRGBO(54, 105, 214, 1),
+      Icons.info_outline,
+      white,
+      shouldDismiss));
 }
 
 void showErrorToast(BuildContext context, String message,
     {bool shouldDismiss = true}) {
-  Timer.run(() => _showToast(context, message, red,
-      Icons.error_outline, white, shouldDismiss));
+  Timer.run(() => _showToast(
+      context, message, red, Icons.error_outline, white, shouldDismiss));
 }
 
 void _showToast(BuildContext context, String message, Color color,
@@ -59,9 +65,11 @@ void _showToast(BuildContext context, String message, Color color,
                             top: Radius.circular(10),
                             bottom: Radius.circular(10)),
                         color: color),
-                    width: _device.isLandscape(context)
-                        ? _device.screenWidth(context) - 100
-                        : _device.screenWidth(context) - 60,
+                    width: userRole == 100
+                        ? (_device.isLandscape(context)
+                            ? _device.screenWidth(context) - 100
+                            : _device.screenWidth(context) - 60)
+                        : _device.screenWidth(context) - 50,
                     height: _device.isLandscape(context)
                         ? _device.screenHeight(context) / 10
                         : _device.screenHeight(context) / 17,
@@ -70,15 +78,17 @@ void _showToast(BuildContext context, String message, Color color,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          padding: userRole == 100
+                              ? const EdgeInsets.symmetric(horizontal: 20)
+                              : const EdgeInsets.symmetric(horizontal: 10),
                           child: Icon(
                             icon,
-                            size: 30,
+                            size: userRole == 100 ? 30 : 20,
                             color: iconColor,
                           ),
                         ),
-                        const SizedBox(
-                          width: 20,
+                        SizedBox(
+                          width: userRole == 100 ? 20 : 8,
                         ),
                         Flexible(
                           child: Text(
