@@ -8,6 +8,8 @@ import 'package:eswm/providers/laluan_api.dart';
 import 'package:eswm/providers/jalan_api.dart';
 import 'package:eswm/providers/reports_api.dart';
 
+import '../../config/config.dart';
+
 class CardListView extends StatefulWidget {
   String type;
   final dynamic topCardStatus;
@@ -74,11 +76,16 @@ class _CardListViewState extends State<CardListView> {
             } else {
               return Expanded(
                 child: Container(
-                  margin: const EdgeInsets.symmetric(
-                    horizontal: 15,
+                  margin: EdgeInsets.symmetric(
+                    horizontal: userRole == 200 ? 15 : 0,
                   ),
                   child: ListView.builder(
-                    controller: widget.type == "Laluan" ? controller : null,
+                    physics: userRole == 200
+                        ? const ScrollPhysics()
+                        : const BouncingScrollPhysics(),
+                    controller: widget.type == "Laluan" && userRole != 300
+                        ? controller
+                        : null,
                     shrinkWrap: true,
                     itemCount: dataFuture!.length,
                     itemBuilder: (context, index) {

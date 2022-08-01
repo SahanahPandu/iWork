@@ -62,7 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
               spaceBuild(context, 0.03),
               formBuild(context),
               forgotPasswordButton(),
-              spaceBuild(context, 0.03),
+              spaceBuild(context, 0.02),
               loginButton(context),
               spaceBuild(context, 0.1),
             ],
@@ -123,6 +123,7 @@ class _LoginScreenState extends State<LoginScreen> {
           fillColor: grey200,
           focusColor: green,
           border: const OutlineInputBorder(),
+          errorStyle: const TextStyle(fontSize: 10, height: 0.3),
           focusedErrorBorder:
               OutlineInputBorder(borderRadius: BorderRadius.circular(10),
                   borderSide: BorderSide(color: green)),
@@ -167,6 +168,7 @@ class _LoginScreenState extends State<LoginScreen> {
               borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide.none,
             ),
+            errorStyle: const TextStyle(fontSize: 10, height: 0.3),
             focusedErrorBorder:
                 OutlineInputBorder(borderRadius: BorderRadius.circular(10),borderSide: BorderSide(color: green)),
             focusedBorder: OutlineInputBorder(
@@ -215,7 +217,7 @@ class _LoginScreenState extends State<LoginScreen> {
       },
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(green),
-        elevation: MaterialStateProperty.all(3),
+        elevation: MaterialStateProperty.all(1),
         shadowColor: MaterialStateProperty.all(grey900),
         minimumSize:
             MaterialStateProperty.all(Size(_device.screenWidth(context), 50)),

@@ -21,10 +21,12 @@ class SupervisorTodayTaskDetails extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<SupervisorTodayTaskDetails> createState() => _SupervisorTodayTaskDetailsState();
+  State<SupervisorTodayTaskDetails> createState() =>
+      _SupervisorTodayTaskDetailsState();
 }
 
-class _SupervisorTodayTaskDetailsState extends State<SupervisorTodayTaskDetails> {
+class _SupervisorTodayTaskDetailsState
+    extends State<SupervisorTodayTaskDetails> {
   String todayDate = "0";
 
   @override
@@ -44,7 +46,7 @@ class _SupervisorTodayTaskDetailsState extends State<SupervisorTodayTaskDetails>
             const Text(
               "Tugasan Hari Ini",
               style: TextStyle(
-                color: Colors.white,
+                color: Color(0xCBFCFCFC),
                 fontWeight: FontWeight.w500,
                 fontSize: 16,
               ),
@@ -70,16 +72,8 @@ class _SupervisorTodayTaskDetailsState extends State<SupervisorTodayTaskDetails>
         Text(
           todayDate,
           style: const TextStyle(
-            fontSize: 30,
+            fontSize: 26,
             fontWeight: FontWeight.w600,
-            color: Colors.white,
-          ),
-        ),
-        const Text(
-          "7 pagi - 12 tengahari",
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
             color: Colors.white,
           ),
         ),
@@ -128,7 +122,7 @@ class _SupervisorTodayTaskDetailsState extends State<SupervisorTodayTaskDetails>
           ],
         ),
         const SizedBox(
-          height: 20,
+          height: 25,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,

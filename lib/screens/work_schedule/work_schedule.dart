@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:eswm/config/config.dart';
 import 'package:eswm/screens/list_of_park/list_of_parks.dart';
 import 'package:eswm/screens/list_of_road/list_of_road.dart';
 import 'package:eswm/screens/list_of_sub_routes/list_of_sub_routes.dart';
@@ -73,8 +74,11 @@ class _WorkScheduleState extends State<WorkSchedule> {
                 right: 15,
                 bottom: 10,
               ),
-              child: Cards(
+              child: userRole == 200? Cards(
                 type: "PRA Laluan Details",
+                data: widget.data,
+              ) : Cards(
+                type: "SV Laluan Details",
                 data: widget.data,
               ),
             ),

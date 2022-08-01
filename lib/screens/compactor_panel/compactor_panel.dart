@@ -14,7 +14,6 @@ class CompactorPanel extends StatefulWidget {
 }
 
 class _CompactorPanelState extends State<CompactorPanel> {
-
   final Devices _device = Devices();
 
   bool closeTopCard = false;
@@ -27,7 +26,9 @@ class _CompactorPanelState extends State<CompactorPanel> {
 
   @override
   Widget build(BuildContext context) {
-    final double categoryHeight = _device.screenHeight(context) * 0.30;
+    final double categoryHeight = _device.isLandscape(context)
+        ? _device.screenHeight(context) * 0.3
+        : _device.screenHeight(context) * 0.25;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,18 +36,24 @@ class _CompactorPanelState extends State<CompactorPanel> {
         Row(
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 30, top: 15),
+              padding: EdgeInsets.only(
+                  left: 30,
+                  top: 15,
+                  bottom: _device.isLandscape(context) ? 10 : 0),
               child: Text(
                 "Hi, Suhaimi",
                 style: TextStyle(
                   color: grey800,
                   fontSize: 24,
-                  fontWeight: FontWeight.w900,
+                  fontWeight: FontWeight.w800,
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 10, top: 15),
+              padding: EdgeInsets.only(
+                  left: 10,
+                  top: 15,
+                  bottom: _device.isLandscape(context) ? 10 : 0),
               child: Text(
                 "BLW 7096",
                 style: TextStyle(

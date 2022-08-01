@@ -49,11 +49,14 @@ class _CompactorPanelTodayTaskDetailsState
           children: [
             Text(
               todayTask,
-              style: TextStyle(
-                color: white,
+              style: const TextStyle(
+                color: Color(0xDDFFFFFF),
                 fontWeight: FontWeight.w500,
-                fontSize: 17,
+                fontSize: 16,
               ),
+            ),
+            const SizedBox(
+              height: 15,
             ),
             Container(
               decoration: BoxDecoration(
@@ -90,7 +93,7 @@ class _CompactorPanelTodayTaskDetailsState
           ),
         ),
         const SizedBox(
-          height: 15,
+          height: 20,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -1,15 +1,16 @@
-import 'package:eswm/config/config.dart';
-import 'package:eswm/config/resource.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 //import files
-import 'package:eswm/widgets/cards/today_task/pra/pra_today_task_details.dart';
-import 'package:eswm/config/dimen.dart';
-import 'package:eswm/utils/device.dart';
-import 'package:eswm/widgets/cards/today_task/compactor_panel/compactor_panel_today_task_details.dart';
-import '../../../config/string.dart';
+import 'compactor_panel/compactor_panel_today_task_details.dart';
 import 'supervisor/supervisor_today_task_details.dart';
+import 'pra/pra_today_task_details.dart';
+import '../../../config/config.dart';
+import '../../../config/dimen.dart';
+import '../../../config/palette.dart';
+import '../../../config/resource.dart';
+import '../../../config/string.dart';
+import '../../../utils/device.dart';
 
 class TodayTaskCard extends StatefulWidget {
   const TodayTaskCard({Key? key}) : super(key: key);
@@ -43,16 +44,30 @@ class _TodayTaskCardState extends State<TodayTaskCard> {
       //margin: const EdgeInsets.all(2),
       padding: EdgeInsets.all(taskCardPadding),
       width: _device.screenWidth(context),
-      height: 240,
+      height: userRole == 200
+          ? 240
+          : (userRole == 100
+              ? (_device.isLandscape(context) ? 210 : 230)
+              : 210),
       decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.shade400,
-            blurRadius: 5,
-            offset: const Offset(0.0, 8.0),
-          ),
-        ],
-        borderRadius: BorderRadius.circular(30),
+        boxShadow: userRole == 200
+            ? [
+                BoxShadow(
+                  color: Colors.grey.shade400,
+                  blurRadius: 5,
+                  offset: const Offset(0.0, 8.0),
+                ),
+              ]
+            : [
+                BoxShadow(
+                  color: grey400,
+                  blurRadius: 2,
+                  offset: const Offset(0.0, 1.0),
+                ),
+              ],
+        borderRadius: userRole == 200
+            ? BorderRadius.circular(30)
+            : BorderRadius.circular(24),
         gradient: const LinearGradient(
           colors: [
             //Color.fromARGB(225, 51, 102, 255),

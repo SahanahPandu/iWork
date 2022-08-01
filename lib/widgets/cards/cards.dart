@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../../screens/work_schedule/compactor_panel/compactor_panel_schedule_details.dart';
 import '../../screens/work_schedule/pra/pra_work_schedule_details.dart';
+import '../../screens/work_schedule/supervisor/supervisor_schedule_details.dart';
 
 class Cards extends StatefulWidget {
   String type;
@@ -23,6 +24,8 @@ class _CardsState extends State<Cards> {
       return PraWorkScheduleDetails(data: widget.data);
     } else if (widget.type == "Comp Laluan Details") {
       return CompactorPanelScheduleDetails(data: widget.data);
+    } else if (widget.type == "SV Laluan Details") {
+      return SupervisorScheduleDetails(data: widget.data);
     }
   }
 

@@ -29,7 +29,7 @@ class _ENotisButtonState extends State<ENotisButton> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(18),
           ),
-          elevation: 5.0,
+          elevation: 1,
         ),
         onPressed: () {
           showDialog(
@@ -50,13 +50,13 @@ class _ENotisButtonState extends State<ENotisButton> {
         icon: const Icon(
           Icons.add_box,
           color: Colors.orange,
-          size: 20,
+          size: 18,
         ),
         label: const Text(
           "E-Notis",
           style: TextStyle(
             color: Colors.orange,
-            fontSize: 17,
+            fontSize: 14,
             fontWeight: FontWeight.w600,
           ),
         ),

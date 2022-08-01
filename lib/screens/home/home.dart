@@ -14,7 +14,7 @@ class HomeScreen extends StatelessWidget {
         //extendBodyBehindAppBar: true,
         appBar: AppBar(
           backgroundColor: appBarBgColor,
-          elevation: 4,
+          elevation: 1,
           shadowColor: Colors.white,
           iconTheme: IconThemeData(color: black87),
           actions: [

@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:eswm/config/config.dart';
 import 'package:flutter/material.dart';
 
 //import files
@@ -59,7 +60,7 @@ class _TimeLogButtonState extends State<TimeLogButton> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(18),
           ),
-          elevation: 5.0,
+          elevation: userRole == 200? 5.0 : 1,
         ),
         onPressed: () {
           if (buttonTextColor != Colors.grey) {
@@ -76,7 +77,7 @@ class _TimeLogButtonState extends State<TimeLogButton> {
           buttonText,
           style: TextStyle(
             color: buttonTextColor,
-            fontSize: 17,
+            fontSize: userRole == 200? 17 : 14,
             fontWeight: FontWeight.w700,
           ),
         ),

@@ -5,11 +5,13 @@ import 'package:flutter/material.dart';
 //import files
 import 'package:eswm/screens/e_cuti/e_cuti.dart';
 import 'package:eswm/screens/work_schedule/work_schedule.dart';
+import '../../config/config.dart';
 import '../../screens/e_cuti/pra/pra_e_cuti_list_details.dart';
 import '../../screens/list_of_road/list_of_road_details.dart';
 import '../../screens/reports/report_list_details.dart';
 import '../../screens/reports/reports.dart';
 import './my_task/pra/pra_my_task_list_details.dart';
+import 'my_task/supervisor/supervisor_my_task_list_details.dart';
 
 class ListCard extends StatefulWidget {
   dynamic data;
@@ -32,7 +34,11 @@ class _ListCardState extends State<ListCard> {
     if (widget.type == "Cuti") {
       return PraECutiListDetails(data: widget.data);
     } else if (widget.type == "Laluan") {
-      return PraMyTaskListDetails(data: widget.data);
+      if (userRole == 200) {
+        return PraMyTaskListDetails(data: widget.data);
+      } else if (userRole == 300) {
+        return SupervisorMyTaskListDetails(data: widget.data);
+      }
     } else if (widget.type == "Senarai Jalan") {
       return ListOfRoadDetails(data: widget.data, index: widget.listIndex);
     } else if (widget.type == "Laporan") {
@@ -68,10 +74,10 @@ class _ListCardState extends State<ListCard> {
         },
         child: Card(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(userRole == 200 ? 15 : 10),
           ),
           shadowColor: Colors.white,
-          elevation: 14,
+          elevation: userRole == 200 ? 14 : 5,
           child: Padding(
             padding: const EdgeInsets.all(6),
             child: getWidget(),
