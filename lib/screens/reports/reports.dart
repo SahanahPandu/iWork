@@ -2,13 +2,12 @@
 import 'package:flutter/material.dart';
 
 //import files
-import '../../models/reports.dart';
 import 'package:eswm/config/string.dart';
 import 'package:eswm/widgets/tabs/tabs.dart';
 
 class ReportsPage extends StatefulWidget {
   String screen;
-  Reports data;
+  dynamic data;
   dynamic dataLaluan;
 
   ReportsPage(

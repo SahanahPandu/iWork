@@ -216,7 +216,10 @@ class _ReportFormState extends State<ReportForm> {
         ),
 
         //button
-        if (buttonVisibility && widget.screen == "3")
+        if (buttonVisibility &&
+            (widget.screen == "3" ||
+                widget.screen ==
+                    "6")) // screen 3-from Lapor Isu button and screen 6: from drawer menu
           Positioned(
             bottom: 0,
             child: Material(

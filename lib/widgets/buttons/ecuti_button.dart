@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:eswm/screens/e_cuti/e_cuti.dart';
 import 'package:eswm/utils/device.dart';
 import '../../config/dimen.dart';
-import '../../models/cuti.dart';
 
 class EcutiButton extends StatefulWidget {
   const EcutiButton({Key? key}) : super(key: key);
@@ -36,16 +35,7 @@ class _EcutiButtonState extends State<EcutiButton> {
               MaterialPageRoute(
                 builder: (context) => ECuti(
                   screen: "1",
-                  data: const Cuti(
-                      id: 0,
-                      idJenisCuti: 0,
-                      jenisCuti: "",
-                      idStatus: 0,
-                      status: "",
-                      tarikhMula: "",
-                      tarikhTamat: "",
-                      lampiran: "",
-                      catatan: ""),
+                  data: null,
                 ),
               ));
         },

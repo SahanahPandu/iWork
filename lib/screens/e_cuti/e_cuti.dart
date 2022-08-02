@@ -5,11 +5,10 @@ import 'package:flutter/material.dart';
 //import files
 import 'package:eswm/widgets/tabs/tabs.dart';
 import 'package:eswm/config/string.dart';
-import '../../models/cuti.dart';
 
 class ECuti extends StatefulWidget {
   String screen;
-  Cuti data;
+  dynamic data;
 
   ECuti({Key? key, required this.screen, required this.data}) : super(key: key);
 

@@ -1,3 +1,5 @@
+import 'package:eswm/screens/e_cuti/e_cuti.dart';
+import 'package:eswm/screens/reports/reports.dart';
 import 'package:flutter/material.dart';
 
 import '../../config/config.dart';
@@ -54,11 +56,11 @@ class DrawerBuild extends StatelessWidget {
 
   List _getList() {
     switch (userRole) {
-      case 100:
+      case 100: //compactor
         return compactorDrawerList;
-      case 200:
+      case 200: //pra
         return praDrawerList;
-      case 300:
+      case 300: //supervisor
         return svDrawerList;
     }
     return praDrawerList;
@@ -67,18 +69,49 @@ class DrawerBuild extends StatelessWidget {
   void _getDrawerRoute(int index, BuildContext context) {
     int idx = index;
     switch (userRole) {
-      case 100:
+      case 100: //compactor
         switch (idx) {
-          case 5:
+          case 2: //Laporan
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ReportsPage(
+                          screen: "6",
+                          data: null,
+                          dataLaluan: null,
+                        )));
+            break;
+
+          case 5: //logout
             _userLogout(context);
             break;
           default:
             Navigator.pop(context);
         }
         break;
-      case 200:
+      case 200: //pra
         switch (idx) {
-          case 6:
+          case 1: //E-Cuti
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ECuti(
+                          screen: "5",
+                          data: null,
+                        )));
+            break;
+          case 3: //Laporan
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ReportsPage(
+                          screen: "6",
+                          data: null,
+                          dataLaluan: null,
+                        )));
+            break;
+
+          case 6: //logout
             _userLogout(context);
             break;
           default:
@@ -86,9 +119,9 @@ class DrawerBuild extends StatelessWidget {
         }
         break;
 
-      case 300:
+      case 300: //supervisor
         switch (idx) {
-          case 9:
+          case 9: //logout
             _userLogout(context);
             break;
           default:

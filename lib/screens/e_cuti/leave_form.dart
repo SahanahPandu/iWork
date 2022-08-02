@@ -454,7 +454,10 @@ class _LeaveFormState extends State<LeaveForm> {
             ),
           ),
           //button
-          if (buttonVisibility && widget.screen == "1")
+          if (buttonVisibility &&
+              (widget.screen == "1" ||
+                  widget.screen ==
+                      "5")) // screen 1-from ecuti button and screen 5: from drawer menu
             Positioned(
               bottom: 0,
               child: Material(

@@ -27,18 +27,22 @@ class Tabs extends StatefulWidget {
 }
 
 class _TabsState extends State<Tabs> {
+  int tabInitialIndex = 0;
+
   getTabView() {
-    if (widget.screen == "1" || widget.screen == "2") {
+    if (widget.screen == "1" || widget.screen == "2" || widget.screen == "5") {
       // e_cuti
-      //screen = "1" - ecuti button , screen ="2" -  from leave list
+      //screen = "1" - ecuti button , screen ="2" -  from leave list , screen ="5" -  E-cuti menu from drawer
 
       return TabBarView(children: [
         LeaveForm(screen: widget.screen, data: widget.data),
         const LeaveList(),
       ]);
-    } else if (widget.screen == "3" || widget.screen == "4") {
+    } else if (widget.screen == "3" ||
+        widget.screen == "4" ||
+        widget.screen == "6") {
       //reports
-      //screen = "3" - report button (work schedule), screen = "4" - from record list
+      //screen = "3" - report button (work schedule), screen = "4" - from record list , screen ="6" -  Laporan menu from drawer
 
       return TabBarView(children: [
         ReportForm(
@@ -52,8 +56,20 @@ class _TabsState extends State<Tabs> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    if (widget.screen == "5" || widget.screen == "6") {
+      // from drawer menu
+      setState(() {
+        tabInitialIndex = 1;
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return DefaultTabController(
+      initialIndex: tabInitialIndex,
       length: 2,
       child: Scaffold(
         appBar: AppBar(
