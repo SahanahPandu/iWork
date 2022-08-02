@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:eswm/screens/issues/attendance/attendance_issues.dart';
 import 'package:flutter/material.dart';
 
 //import files
@@ -63,7 +64,12 @@ class _SupervisorMyTaskListDetailsState
   _filterTaskIssueAction(String issue) {
     switch (issue) {
       case "kehadiran":
-      //return print("click kehadiran");
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const AttendanceIssues(),
+            ));
+        break;
       case "belum":
       //return print("click Belum Mula Tugas");
       case "laporan":
