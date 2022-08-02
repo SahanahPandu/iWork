@@ -25,6 +25,7 @@ class SupervisorMyTaskListDetails extends StatefulWidget {
 
 class _SupervisorMyTaskListDetailsState
     extends State<SupervisorMyTaskListDetails> {
+  final Devices _device = Devices();
   late Color statusTextColor;
   late Color statusBoxColor;
   String taskIssueText = "";
@@ -231,7 +232,7 @@ class _SupervisorMyTaskListDetailsState
             ? Container(
                 alignment: Alignment.center,
                 padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
-                width: Devices().screenWidth(context) * 0.75,
+                width: _device.screenWidth(context) * 0.75,
                 child: ElevatedButton(
                   style: ButtonStyle(
                       shadowColor: MaterialStateProperty.all(Colors.grey[300]),
@@ -241,7 +242,7 @@ class _SupervisorMyTaskListDetailsState
                             side: BorderSide(color: red)),
                       ),
                       minimumSize: MaterialStateProperty.all(
-                          Size(Devices().screenWidth(context), 42)),
+                          Size(_device.screenWidth(context), 42)),
                       backgroundColor: MaterialStateProperty.all(white)),
                   child: Text(taskIssueText,
                       style: TextStyle(

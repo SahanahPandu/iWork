@@ -22,6 +22,7 @@ class SupervisorScheduleDetails extends StatefulWidget {
 }
 
 class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
+  final Devices _device = Devices();
   Color statusTextColor = greyStatusText;
   Color statusBoxColor = greyStatusBox;
 
@@ -362,16 +363,12 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
             ],
           ),
         ),
-        Container(
-          alignment: widget.button == true ? Alignment.center : null,
-          padding: widget.button == true
-              ? const EdgeInsets.fromLTRB(10, 15, 10, 15)
-              : null,
-          width: widget.button == true
-              ? Devices().screenWidth(context) * 0.75
-              : null,
-          child: widget.button == true
-              ? ElevatedButton(
+        widget.button == true
+            ? Container(
+                alignment: Alignment.center,
+                padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
+                width: _device.screenWidth(context) * 0.75,
+                child: ElevatedButton(
                   style: ButtonStyle(
                       shadowColor: MaterialStateProperty.all(Colors.grey[300]),
                       shape: MaterialStateProperty.all(
@@ -380,7 +377,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                             side: BorderSide(color: red)),
                       ),
                       minimumSize: MaterialStateProperty.all(
-                          Size(Devices().screenWidth(context), 42)),
+                          Size(_device.screenWidth(context), 42)),
                       backgroundColor: MaterialStateProperty.all(white)),
                   child: Text("Hubungi Pemandu",
                       style: TextStyle(
@@ -390,9 +387,9 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                   onPressed: () {
                     // _filterTaskIssueAction(widget.data.isu);
                   },
-                )
-              : null,
-        ),
+                ),
+              )
+            : const SizedBox(height: 4),
       ],
     );
   }

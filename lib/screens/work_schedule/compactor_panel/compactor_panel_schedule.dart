@@ -18,10 +18,11 @@ class CompactorPanelSchedule extends StatefulWidget {
 }
 
 class _CompactorPanelScheduleState extends State<CompactorPanelSchedule> {
+  final Devices _device = Devices();
   bool _showSenaraiJalan = false;
   int idTaman = 0;
-  String getTaman = "";
   int iconCondition = 1;
+  String getTaman = "";
 
   updateShowSenaraiJalan(id, name) {
     setState(() {
@@ -63,7 +64,7 @@ class _CompactorPanelScheduleState extends State<CompactorPanelSchedule> {
           )
         ],
       ),
-      body: Devices().isLandscape(context)
+      body: _device.isLandscape(context)
           ? landscapeLayoutBuild()
           : portraitLayoutBuild(),
     );
