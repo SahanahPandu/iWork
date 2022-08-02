@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:eswm/screens/e_cuti/e_cuti.dart';
 import 'package:eswm/utils/device.dart';
+import '../../config/config.dart';
 import '../../config/dimen.dart';
 
 class EcutiButton extends StatefulWidget {
@@ -27,7 +28,7 @@ class _EcutiButtonState extends State<EcutiButton> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(18),
           ),
-          elevation: 5.0,
+          elevation: userRole == 200? 5 : 1,
         ),
         onPressed: () {
           Navigator.push(
@@ -44,11 +45,11 @@ class _EcutiButtonState extends State<EcutiButton> {
           color: Colors.orange,
           size: 20,
         ),
-        label: const Text(
+        label: Text(
           "E-Cuti",
           style: TextStyle(
             color: Colors.orange,
-            fontSize: 17,
+            fontSize: userRole == 200? 17 : 14,
             fontWeight: FontWeight.w600,
           ),
         ),

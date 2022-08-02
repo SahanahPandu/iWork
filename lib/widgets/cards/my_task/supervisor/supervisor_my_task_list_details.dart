@@ -6,13 +6,17 @@ import 'package:flutter/material.dart';
 import '../../../../config/font.dart';
 import '../../../../config/palette.dart';
 import '../../../../models/laluan.dart';
+import '../../../../screens/schedule_issue/schedule_issue_main.dart';
 import '../../../../utils/device.dart';
 import '../../../container/status_container.dart';
 
 class SupervisorMyTaskListDetails extends StatefulWidget {
   Laluan data;
+  final bool? button;
 
-  SupervisorMyTaskListDetails({Key? key, required this.data}) : super(key: key);
+  SupervisorMyTaskListDetails(
+      {Key? key, required this.data, this.button = true})
+      : super(key: key);
 
   @override
   State<SupervisorMyTaskListDetails> createState() =>
@@ -25,7 +29,14 @@ class _SupervisorMyTaskListDetailsState
   late Color statusBoxColor;
   String taskIssueText = "";
 
-  filterData() {
+  @override
+  void initState() {
+    super.initState();
+    _filterData();
+    _filterTaskIssueText(widget.data.isu);
+  }
+
+  _filterData() {
     //default status belum dimulakan
     Color textColor = Colors.grey;
     Color boxColor = Colors.grey.shade100;
@@ -63,20 +74,17 @@ class _SupervisorMyTaskListDetailsState
   _filterTaskIssueAction(String issue) {
     switch (issue) {
       case "kehadiran":
-        return print("click kehadiran");
       case "belum":
-        return print("click Belum Mula Tugas");
       case "laporan":
-        return print("click Laporan");
+        return Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) {
+            return ScheduleIssueMainScreen(
+                laluanData: widget.data, fromHome: true, issueType: issue);
+          }),
+        );
     }
-    return print("click nothing");
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    filterData();
-    _filterTaskIssueText(widget.data.isu);
+    return null;
   }
 
   @override
@@ -219,29 +227,33 @@ class _SupervisorMyTaskListDetailsState
             ),
           ],
         ),
-        Container(
-          alignment: Alignment.center,
-          padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
-          width: Devices().screenWidth(context) * 0.75,
-          child: ElevatedButton(
-            style: ButtonStyle(
-                shadowColor: MaterialStateProperty.all(Colors.grey[300]),
-                shape: MaterialStateProperty.all(
-                  RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                      side: BorderSide(color: red)),
+        widget.button == true
+            ? Container(
+                alignment: Alignment.center,
+                padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
+                width: Devices().screenWidth(context) * 0.75,
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                      shadowColor: MaterialStateProperty.all(Colors.grey[300]),
+                      shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                            side: BorderSide(color: red)),
+                      ),
+                      minimumSize: MaterialStateProperty.all(
+                          Size(Devices().screenWidth(context), 42)),
+                      backgroundColor: MaterialStateProperty.all(white)),
+                  child: Text(taskIssueText,
+                      style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                          color: red)),
+                  onPressed: () {
+                    _filterTaskIssueAction(widget.data.isu);
+                  },
                 ),
-                minimumSize: MaterialStateProperty.all(
-                    Size(Devices().screenWidth(context), 42)),
-                backgroundColor: MaterialStateProperty.all(white)),
-            child: Text(taskIssueText,
-                style: TextStyle(
-                    fontSize: 13, fontWeight: FontWeight.w600, color: red)),
-            onPressed: () {
-              _filterTaskIssueAction(widget.data.isu);
-            },
-          ),
-        ),
+              )
+            : const SizedBox(height: 10),
       ],
     );
   }

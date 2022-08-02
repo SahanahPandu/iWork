@@ -6,12 +6,15 @@ import 'package:flutter/material.dart';
 import '../../../../config/palette.dart';
 import '../../../config/font.dart';
 import '../../../../models/laluan.dart';
+import '../../../utils/device.dart';
 import '../../../widgets/container/status_container.dart';
 
 class SupervisorScheduleDetails extends StatefulWidget {
   Laluan data;
+  final bool? button;
 
-  SupervisorScheduleDetails({Key? key, required this.data}) : super(key: key);
+  SupervisorScheduleDetails({Key? key, required this.data, this.button = false})
+      : super(key: key);
 
   @override
   State<SupervisorScheduleDetails> createState() =>
@@ -22,7 +25,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
   Color statusTextColor = greyStatusText;
   Color statusBoxColor = greyStatusBox;
 
-  filterData() {
+  _filterData() {
     Color textColor = greyStatusText;
     Color boxColor = greyStatusBox;
 
@@ -47,7 +50,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
   @override
   void initState() {
     super.initState();
-    filterData();
+    _filterData();
   }
 
   @override
@@ -358,6 +361,37 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
               )
             ],
           ),
+        ),
+        Container(
+          alignment: widget.button == true ? Alignment.center : null,
+          padding: widget.button == true
+              ? const EdgeInsets.fromLTRB(10, 15, 10, 15)
+              : null,
+          width: widget.button == true
+              ? Devices().screenWidth(context) * 0.75
+              : null,
+          child: widget.button == true
+              ? ElevatedButton(
+                  style: ButtonStyle(
+                      shadowColor: MaterialStateProperty.all(Colors.grey[300]),
+                      shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                            side: BorderSide(color: red)),
+                      ),
+                      minimumSize: MaterialStateProperty.all(
+                          Size(Devices().screenWidth(context), 42)),
+                      backgroundColor: MaterialStateProperty.all(white)),
+                  child: Text("Hubungi Pemandu",
+                      style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                          color: red)),
+                  onPressed: () {
+                    // _filterTaskIssueAction(widget.data.isu);
+                  },
+                )
+              : null,
         ),
       ],
     );

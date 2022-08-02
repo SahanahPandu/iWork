@@ -1,5 +1,3 @@
-import 'package:eswm/screens/e_cuti/e_cuti.dart';
-import 'package:eswm/screens/reports/reports.dart';
 import 'package:flutter/material.dart';
 
 import '../../config/config.dart';
@@ -7,6 +5,9 @@ import '../../config/palette.dart';
 import '../../config/resource.dart';
 import '../../config/string.dart';
 import '../../data/data_drawer.dart';
+import '../../screens/e_cuti/e_cuti.dart';
+import '../../screens/reports/reports.dart';
+import '../../screens/schedule_issue/schedule_issue_main.dart';
 import '../../utils/authentication/auth.dart';
 import '../../utils/device.dart';
 import '../alert/alert_dialog.dart';
@@ -121,6 +122,18 @@ class DrawerBuild extends StatelessWidget {
 
       case 300: //supervisor
         switch (idx) {
+          case 4: //report
+            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) {
+                return const ScheduleIssueMainScreen(
+                  fromHome: false,
+                  issueType: 'laporan',
+                );
+              }),
+            );
+            break;
           case 9: //logout
             _userLogout(context);
             break;
