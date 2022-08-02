@@ -73,7 +73,8 @@ class _PraState extends State<Pra> {
             ),
           ),
         ),
-        CardListView(type: "Laluan", topCardStatus: getTopCardStatus),
+	//temporarily send null
+        CardListView(type: "Laluan", topCardStatus: null),
         //MyTaskList(topCardStatus: getTopCardStatus),
       ],
     );

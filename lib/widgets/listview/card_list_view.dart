@@ -83,7 +83,9 @@ class _CardListViewState extends State<CardListView> {
                     physics: userRole == 200
                         ? const ScrollPhysics()
                         : const BouncingScrollPhysics(),
-                    controller: widget.type == "Laluan" && userRole != 300
+                    controller: widget.type == "Laluan" &&
+                            userRole != 200 &&
+                            userRole != 300
                         ? controller
                         : null,
                     shrinkWrap: true,
