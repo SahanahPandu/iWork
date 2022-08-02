@@ -33,7 +33,7 @@ class _ListOfRoadState extends State<ListOfRoad> {
           child: Text(
             "Senarai Jalan",
             style: TextStyle(
-              fontSize: userRole == 100 && userRole == 200 ? 17 : 16,
+              fontSize: userRole == 100 || userRole == 200 ? 17 : 16,
               color: Colors.grey.shade400,
               fontWeight: FontWeight.w500,
             ),

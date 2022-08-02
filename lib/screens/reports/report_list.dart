@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 //import files
+import '../../config/config.dart';
+import '../../widgets/gridview/compactor_task/compactor_report_list.dart';
 import '../../widgets/listview/card_list_view.dart';
 
 class ReportList extends StatefulWidget {
@@ -28,7 +30,9 @@ class _ReportListState extends State<ReportList> {
             ),
           ),
         ),
-        CardListView(type: "Laporan", topCardStatus: null),
+        userRole == 100
+            ? const CompactorReportList()
+            : CardListView(type: "Laporan", topCardStatus: null),
       ],
     );
   }

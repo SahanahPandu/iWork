@@ -154,8 +154,8 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
                     "${totalSubLaluan.toString()} Senarai Sub Laluan",
                     style: TextStyle(
                       color: Colors.grey.shade500,
-                      fontSize: userRole == 100 && userRole == 200 ? 16 : 14,
-                      fontWeight: userRole == 100 && userRole == 200
+                      fontSize: userRole == 100 || userRole == 200 ? 16 : 14,
+                      fontWeight: userRole == 100 || userRole == 200
                           ? FontWeight.w500
                           : FontWeight.w600,
                     ),
@@ -231,11 +231,11 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
                                         style: TextStyle(
                                           color: Colors.black87,
                                           fontSize:
-                                              userRole == 100 && userRole == 200
+                                              userRole == 100 || userRole == 200
                                                   ? 16
                                                   : 14,
                                           fontWeight:
-                                              userRole == 100 && userRole == 200
+                                              userRole == 100 || userRole == 200
                                                   ? FontWeight.w500
                                                   : FontWeight.w600,
                                         ),

@@ -68,7 +68,7 @@ class _ReportListDetailsState extends State<ReportListDetails> {
               Text(
                 "Laporan ${widget.index + 1} - ${widget.data.namaLaluan}",
                 style: TextStyle(
-                  fontSize: userRole == 200? 17 : 15,
+                  fontSize: userRole == 200 ? 17 : 15,
                   color: Colors.grey.shade800,
                   fontWeight: FontWeight.w900,
                 ),
@@ -100,7 +100,7 @@ class _ReportListDetailsState extends State<ReportListDetails> {
                   Text(
                     "Taman",
                     style: TextStyle(
-                      fontSize: userRole == 200? 15 : 13,
+                      fontSize: userRole == 100 || userRole == 200 ? 15 : 13,
                       color: Colors.grey.shade800,
                       fontWeight: FontWeight.w600,
                     ),
@@ -110,7 +110,7 @@ class _ReportListDetailsState extends State<ReportListDetails> {
               Text(
                 widget.data.namaTaman,
                 style: TextStyle(
-                  fontSize: userRole == 200? 15 : 13,
+                  fontSize: userRole == 100 || userRole == 200 ? 15 : 13,
                   color: Colors.grey.shade500,
                   fontWeight: FontWeight.w500,
                 ),
@@ -136,7 +136,7 @@ class _ReportListDetailsState extends State<ReportListDetails> {
                   Text(
                     "Jalan",
                     style: TextStyle(
-                      fontSize: userRole == 200? 15 : 13,
+                      fontSize: userRole == 100 || userRole == 200 ? 15 : 13,
                       color: Colors.grey.shade800,
                       fontWeight: FontWeight.w600,
                     ),
@@ -146,7 +146,7 @@ class _ReportListDetailsState extends State<ReportListDetails> {
               Text(
                 widget.data.namaJalan,
                 style: TextStyle(
-                  fontSize: userRole == 200? 15 : 13,
+                  fontSize: userRole == 100 || userRole == 200 ? 15 : 13,
                   color: Colors.grey.shade500,
                   fontWeight: FontWeight.w500,
                 ),
@@ -172,7 +172,7 @@ class _ReportListDetailsState extends State<ReportListDetails> {
                   Text(
                     "Jenis Halangan",
                     style: TextStyle(
-                      fontSize: userRole == 200? 15 : 13,
+                      fontSize: userRole == 100 || userRole == 200 ? 15 : 13,
                       color: Colors.grey.shade800,
                       fontWeight: FontWeight.w600,
                     ),
@@ -182,7 +182,7 @@ class _ReportListDetailsState extends State<ReportListDetails> {
               Text(
                 widget.data.jenisHalangan,
                 style: TextStyle(
-                  fontSize: userRole == 200? 15 : 13,
+                  fontSize: userRole == 100 || userRole == 200 ? 15 : 13,
                   color: Colors.grey.shade500,
                   fontWeight: FontWeight.w500,
                 ),
