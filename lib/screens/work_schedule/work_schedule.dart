@@ -37,7 +37,7 @@ class _WorkScheduleState extends State<WorkSchedule> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: appBarBgColor,
-        elevation: 4,
+        elevation: 1,
         shadowColor: Colors.white,
         leading: IconButton(
           onPressed: () {
@@ -65,6 +65,9 @@ class _WorkScheduleState extends State<WorkSchedule> {
         ],
       ),
       body: SingleChildScrollView(
+        physics: userRole == 200
+            ? const ScrollPhysics()
+            : const BouncingScrollPhysics(),
         child: Column(
           children: [
             Container(
@@ -74,26 +77,31 @@ class _WorkScheduleState extends State<WorkSchedule> {
                 right: 15,
                 bottom: 10,
               ),
-              child: userRole == 200? Cards(
-                type: "PRA Laluan Details",
-                data: widget.data,
-              ) : Cards(
-                type: "SV Laluan Details",
-                data: widget.data,
-              ),
+              child: userRole == 200
+                  ? Cards(
+                      type: "PRA Laluan Details",
+                      data: widget.data,
+                    )
+                  : Cards(
+                      type: "SV Laluan Details",
+                      data: widget.data,
+                    ),
             ),
             Container(
-              margin: const EdgeInsets.symmetric(
+              margin: EdgeInsets.symmetric(
                 horizontal: 15,
-                vertical: 10,
+                vertical: userRole == 200 ? 10 : 5,
               ),
               child: Card(
-                elevation: 5,
-                shadowColor: Colors.grey.shade50,
+                elevation: userRole == 200 ? 5 : 2,
+                shadowColor: userRole == 200
+                    ? Colors.grey.shade50
+                    : Colors.grey.shade200,
                 child: ListOfSubRoutes(
                   hintText: 'Senarai Sub Laluan',
-                  fontSize: 18,
-                  borderCondition: 0, //no border
+                  fontSize: userRole == 200 ? 18 : 15,
+                  borderCondition: userRole == 200 ? 0 : 1,
+                  //no border
                   fillColor: textFormFieldFillColor,
                   iconCondition: iconCondition,
                   data: "",
@@ -101,18 +109,21 @@ class _WorkScheduleState extends State<WorkSchedule> {
               ),
             ),
             Container(
-              margin: const EdgeInsets.symmetric(
+              margin: EdgeInsets.symmetric(
                 horizontal: 15,
-                vertical: 10,
+                vertical: userRole == 200 ? 10 : 5,
               ),
               child: Card(
-                elevation: 5,
-                shadowColor: Colors.grey.shade50,
+                elevation: userRole == 200 ? 5 : 2,
+                shadowColor: userRole == 200
+                    ? Colors.grey.shade50
+                    : Colors.grey.shade200,
                 child: ListOfParks(
                   showSenaraiJalan: updateShowSenaraiJalan,
                   hintText: 'Senarai Taman',
-                  fontSize: 18,
-                  borderCondition: 0, //no border
+                  fontSize: userRole == 200 ? 18 : 15,
+                  borderCondition: userRole == 200 ? 0 : 1,
+                  //no border
                   fillColor: textFormFieldFillColor,
                   iconCondition: iconCondition,
                   data: "",

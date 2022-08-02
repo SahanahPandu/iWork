@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:eswm/config/config.dart';
 import 'package:eswm/screens/list_of_road/list_of_road_details.dart';
 import 'package:flutter/material.dart';
 
@@ -8,6 +9,7 @@ import '../../providers/jalan_api.dart';
 
 class ListOfRoad extends StatefulWidget {
   int idTaman;
+
   ListOfRoad({Key? key, required this.idTaman}) : super(key: key);
 
   @override
@@ -29,7 +31,7 @@ class _ListOfRoadState extends State<ListOfRoad> {
           child: Text(
             "Senarai Jalan",
             style: TextStyle(
-              fontSize: 17,
+              fontSize: userRole == 100 && userRole == 200 ? 17 : 16,
               color: Colors.grey.shade400,
               fontWeight: FontWeight.w500,
             ),
@@ -69,19 +71,23 @@ class _ListOfRoadState extends State<ListOfRoad> {
                       itemCount: newList.length,
                       itemBuilder: (context, index) {
                         return Padding(
-                          padding: const EdgeInsets.only(bottom: 3),
+                          padding: userRole == 200
+                              ? const EdgeInsets.only(bottom: 3)
+                              : const EdgeInsets.only(bottom: 5),
                           child: GestureDetector(
                             onTap: () {},
                             child: SizedBox(
-                              height: 80,
+                              height: userRole == 200 ? 80 : 70,
                               child: Card(
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                                 shadowColor: Colors.grey.shade50,
-                                elevation: 5,
+                                elevation: userRole == 200 ? 5 : 2,
                                 child: Padding(
-                                    padding: const EdgeInsets.all(8),
+                                    padding: userRole == 200
+                                        ? const EdgeInsets.all(8)
+                                        : const EdgeInsets.all(15),
                                     child: ListOfRoadDetails(
                                         data: newList[index], index: index)),
                               ),

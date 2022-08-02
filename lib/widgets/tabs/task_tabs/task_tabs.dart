@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../../config/palette.dart';
-import '../../listview/card_list_view.dart';
+import 'supervisor/issue_tab_bar_view.dart';
+import 'supervisor/verify_tab_bar_view.dart';
 
 class StackOverTabs extends StatefulWidget {
   const StackOverTabs({Key? key}) : super(key: key);
@@ -74,22 +75,9 @@ class StackOverTabsState extends State<StackOverTabs>
           Expanded(
             child: TabBarView(
               controller: _tabController,
-              children: [
-                Column(
-                  children: [
-                    const SizedBox(height: 10),
-                    CardListView(topCardStatus: null, type: 'Laluan'),
-                  ],
-                ),
-                const Center(
-                  child: Text(
-                    'Pengesahan',
-                    style: TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
+              children: const [
+                IssueTabbarView(),
+                VarifyTabbarView(),
               ],
             ),
           ),

@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:eswm/config/config.dart';
 import 'package:flutter/material.dart';
 
 class StatusContainer extends StatefulWidget {
@@ -32,6 +33,7 @@ class _StatusContainerState extends State<StatusContainer> {
       child: Text(
         widget.status,
         style: TextStyle(
+          fontSize: userRole == 200? null : 12,
           color: widget.textColor,
           fontWeight: widget.fontWeight,
         ),

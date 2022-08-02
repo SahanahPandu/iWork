@@ -6,8 +6,7 @@ import 'package:flutter/material.dart';
 import '../../../../config/palette.dart';
 import '../../../config/font.dart';
 import '../../../../models/laluan.dart';
-import 'package:eswm/widgets/buttons/report_button.dart';
-import 'package:eswm/widgets/container/status_container.dart';
+import '../../../widgets/container/status_container.dart';
 
 class SupervisorScheduleDetails extends StatefulWidget {
   Laluan data;
@@ -15,7 +14,8 @@ class SupervisorScheduleDetails extends StatefulWidget {
   SupervisorScheduleDetails({Key? key, required this.data}) : super(key: key);
 
   @override
-  State<SupervisorScheduleDetails> createState() => _SupervisorScheduleDetailsState();
+  State<SupervisorScheduleDetails> createState() =>
+      _SupervisorScheduleDetailsState();
 }
 
 class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
@@ -62,7 +62,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
             Text(
               widget.data.namaLaluan,
               style: TextStyle(
-                fontSize: 19,
+                fontSize: 16,
                 color: Colors.grey.shade800,
                 fontWeight: FontWeight.w900,
               ),
@@ -75,8 +75,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
             ),
           ],
         ),
-
-        //No. Kenderaan
+        //Jenis Kutipan
         Padding(
           padding: const EdgeInsets.only(top: 20, bottom: 15),
           child: Row(
@@ -85,16 +84,16 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
               Row(
                 children: [
                   const Icon(
-                    Icons.local_shipping,
+                    Icons.grass,
                     size: 18,
                   ),
                   const SizedBox(
                     width: 8,
                   ),
                   Text(
-                    "No. Kenderaan",
+                    "Jenis Kutipan",
                     style: TextStyle(
-                      fontSize: 15,
+                      fontSize: 13,
                       color: Colors.grey.shade800,
                       fontWeight: FontWeight.w700,
                     ),
@@ -102,9 +101,9 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                 ],
               ),
               Text(
-                widget.data.noKenderaan,
+                widget.data.jenisKutipan,
                 style: const TextStyle(
-                  fontSize: 15,
+                  fontSize: 13,
                   color: Colors.black45,
                   fontWeight: FontWeight.w500,
                 ),
@@ -130,7 +129,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                   Text(
                     "Sub Laluan",
                     style: TextStyle(
-                      fontSize: 15,
+                      fontSize: 13,
                       color: Colors.grey.shade800,
                       fontWeight: FontWeight.w700,
                     ),
@@ -140,7 +139,43 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
               Text(
                 "${widget.data.jumSubLaluan}",
                 style: const TextStyle(
-                  fontSize: 15,
+                  fontSize: 13,
+                  color: Colors.black45,
+                  fontWeight: FontWeight.w500,
+                ),
+              )
+            ],
+          ),
+        ),
+        //No. Kenderaan
+        Padding(
+          padding: const EdgeInsets.only(bottom: 15),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  const Icon(
+                    Icons.local_shipping,
+                    size: 18,
+                  ),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  Text(
+                    "No. Kenderaan",
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: Colors.grey.shade800,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ],
+              ),
+              Text(
+                widget.data.noKenderaan,
+                style: const TextStyle(
+                  fontSize: 13,
                   color: Colors.black45,
                   fontWeight: FontWeight.w500,
                 ),
@@ -149,6 +184,42 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
           ),
         ),
 
+        //Masuk Kerja/Keluar Kerja
+        Padding(
+          padding: const EdgeInsets.only(bottom: 15),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  const Icon(
+                    Icons.schedule,
+                    size: 18,
+                  ),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  Text(
+                    "Masuk kerja/Keluar Kerja",
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: Colors.grey.shade800,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ],
+              ),
+              Text(
+                "${widget.data.mulaKerja} / ${widget.data.tamatKerja}",
+                style: const TextStyle(
+                  fontSize: 13,
+                  color: Colors.black45,
+                  fontWeight: FontWeight.w500,
+                ),
+              )
+            ],
+          ),
+        ),
         //Jumlah Taman dan Jalan
         Padding(
           padding: const EdgeInsets.only(bottom: 15),
@@ -167,7 +238,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                   Text(
                     "Jumlah Taman/Jalan",
                     style: TextStyle(
-                      fontSize: 15,
+                      fontSize: 13,
                       color: Colors.grey.shade800,
                       fontWeight: FontWeight.w700,
                     ),
@@ -177,7 +248,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
               Text(
                 "${widget.data.jumlahTaman}/${widget.data.jumlahJalan}",
                 style: const TextStyle(
-                  fontSize: 15,
+                  fontSize: 13,
                   color: Colors.black45,
                   fontWeight: FontWeight.w500,
                 ),
@@ -185,44 +256,108 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
             ],
           ),
         ),
-        //Jenis Kutipan
+        //Senarai Staf
         Padding(
-          padding: const EdgeInsets.only(bottom: 35),
+          padding: const EdgeInsets.only(bottom: 5),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
                 children: [
                   const Icon(
-                    Icons.grass,
+                    Icons.people_alt_rounded,
                     size: 18,
                   ),
                   const SizedBox(
                     width: 8,
                   ),
                   Text(
-                    "Jenis Kutipan",
+                    "Senarai Pekerja",
                     style: TextStyle(
-                      fontSize: 15,
+                      fontSize: 13,
                       color: Colors.grey.shade800,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
                 ],
               ),
-              Text(
-                widget.data.jenisKutipan,
-                style: const TextStyle(
-                  fontSize: 15,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 3),
+                    child: Text(
+                      widget.data.senaraiStaf.staf_1,
+                      style: const TextStyle(
+                        fontSize: 13,
+                        color: Colors.black45,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 3),
+                    child: Text(
+                      widget.data.senaraiStaf.staf_2,
+                      style: const TextStyle(
+                        fontSize: 13,
+                        color: Colors.black45,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 3),
+                    child: Text(
+                      widget.data.senaraiStaf.staf_3,
+                      style: const TextStyle(
+                        fontSize: 13,
+                        color: Colors.black45,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
+        //Semakan Kenderaan
+        Padding(
+          padding: const EdgeInsets.only(bottom: 15),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  const Icon(
+                    Icons.menu_book_outlined,
+                    size: 18,
+                  ),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  Text(
+                    "Semakan Kenderaan",
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: Colors.grey.shade800,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ],
+              ),
+              const Text(
+                "Sebelum/Selepas",
+                style: TextStyle(
+                  fontSize: 13,
                   color: Colors.black45,
                   fontWeight: FontWeight.w500,
                 ),
               )
             ],
           ),
-        ),
-        Center(
-          child: ReportButton(dataLaluan: widget.data),
         ),
       ],
     );

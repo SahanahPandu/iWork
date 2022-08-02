@@ -1,3 +1,5 @@
+import 'package:eswm/models/senaraiStaf.dart';
+
 class Laluan {
   final int id;
   final String namaLaluan;
@@ -12,6 +14,8 @@ class Laluan {
   final String jenisKutipan;
   final String mulaKerja;
   final String tamatKerja;
+  final String isu;
+  final SenaraiStaf senaraiStaf;
 
   Laluan(
       {required this.id,
@@ -26,7 +30,9 @@ class Laluan {
       required this.idJenisKutipan,
       required this.jenisKutipan,
       required this.mulaKerja,
-      required this.tamatKerja});
+      required this.tamatKerja,
+      required this.isu,
+      required this.senaraiStaf});
 
   static Laluan fromJson(json) => Laluan(
         id: json['id'] ?? 0,
@@ -42,5 +48,7 @@ class Laluan {
         jenisKutipan: json['jenisKutipan'] ?? "",
         mulaKerja: json['mulaKerja'] ?? "",
         tamatKerja: json['tamatKerja'] ?? "",
+        isu: json['isu'] ?? "",
+        senaraiStaf: SenaraiStaf.fromJson(json['senaraiStaf']),
       );
 }

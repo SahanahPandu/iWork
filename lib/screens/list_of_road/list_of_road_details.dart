@@ -85,17 +85,17 @@ class _ListOfRoadDetailsState extends State<ListOfRoadDetails> {
             Text(
               "${(widget.index + 1)}. ${widget.data.namaJalan}",
               style: TextStyle(
-                color: Colors.grey.shade800,
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-              ),
+                  color: Colors.grey.shade800,
+                  fontSize: userRole == 200 ? 16 : 14,
+                  fontWeight:
+                      userRole == 200 ? FontWeight.w500 : FontWeight.w600),
             ),
             const SizedBox(
               width: 10,
             ),
             SizedBox(
-              width: 28,
-              height: 28,
+              width: userRole == 200 ? 28 : 20,
+              height: userRole == 200 ? 28 : 20,
               child: ElevatedButton(
                 onPressed: () {
                   showNavigationOptions(context);
@@ -107,10 +107,10 @@ class _ListOfRoadDetailsState extends State<ListOfRoadDetails> {
                     borderRadius: BorderRadius.circular(50),
                   ),
                 ),
-                child: const Icon(
+                child: Icon(
                   Icons.near_me_rounded,
                   color: Colors.green,
-                  size: 20,
+                  size: userRole == 200 ? 20 : 16,
                 ),
               ),
             )
@@ -123,16 +123,16 @@ class _ListOfRoadDetailsState extends State<ListOfRoadDetails> {
               "Jumlah Tong",
               style: TextStyle(
                 color: Colors.grey.shade400,
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
+                fontSize: userRole == 200 ? 16 : 14,
+                fontWeight: userRole == 200 ? FontWeight.w500 : FontWeight.w600,
               ),
             ),
             const SizedBox(
               width: 7,
             ),
             Container(
-              width: 28,
-              height: 25,
+              width: userRole == 200 ? 28 : 20,
+              height: userRole == 200 ? 25 : 18,
               decoration: const BoxDecoration(
                 color: Color.fromARGB(255, 204, 220, 255),
                 borderRadius: BorderRadius.all(Radius.circular(5)),
@@ -140,10 +140,11 @@ class _ListOfRoadDetailsState extends State<ListOfRoadDetails> {
               child: Center(
                 child: Text(
                   "${widget.data.jumlahTong}",
-                  style: const TextStyle(
-                    fontSize: 17,
+                  style: TextStyle(
+                    fontSize: userRole == 200 ? 17 : 14,
                     color: Colors.black87,
-                    fontWeight: FontWeight.w700,
+                    fontWeight:
+                        userRole == 200 ? FontWeight.w700 : FontWeight.w600,
                   ),
                 ),
               ),

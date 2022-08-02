@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:eswm/config/config.dart';
 import 'package:flutter/material.dart';
 
 //import files
@@ -37,7 +38,7 @@ class _CardsState extends State<Cards> {
       ),
       //shadowColor: const Color.fromARGB(255, 138, 146, 166),
       shadowColor: Colors.grey.shade50,
-      elevation: 14,
+      elevation: userRole == 200? 14 : 5,
       child: Container(
         margin: const EdgeInsets.all(18),
         child: getWidget(),

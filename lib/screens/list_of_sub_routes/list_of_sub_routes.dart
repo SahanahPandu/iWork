@@ -62,7 +62,7 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
   Widget build(BuildContext context) {
     return InkWell(
       borderRadius:
-          userRole == 100 ? BorderRadius.circular(borderRadiusCircular) : null,
+          userRole == 200 ? null : BorderRadius.circular(borderRadiusCircular),
       onTap: () {
         if (widget.iconCondition == 1) {
           showListOfSubRoutes();
@@ -75,9 +75,9 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
         decoration: InputDecoration(
           filled: true,
           fillColor: widget.fillColor,
-          contentPadding: userRole == 100
-              ? const EdgeInsets.symmetric(vertical: 15, horizontal: 20)
-              : const EdgeInsets.all(8),
+          contentPadding: userRole == 200
+              ? const EdgeInsets.all(8)
+              : const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
           hintText: widget.hintText,
           hintStyle: TextStyle(
             fontSize: widget.fontSize,
@@ -87,7 +87,7 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
           suffixIcon: widget.iconCondition == 1
               ? Icon(
                   Icons.arrow_drop_down,
-                  size: userRole == 100 ? 25 : 30,
+                  size: userRole == 200 ? 30 : 25,
                   color: Colors.black87,
                 )
               : null,
@@ -108,10 +108,10 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
                     width: borderSideWidth,
                     color: _namaSubLaluan.text != '' &&
                             widget.iconCondition == 1
-                        ? (userRole == 100 ? grey100 : enabledBorderWithText)
-                        : (userRole == 100
-                            ? grey100
-                            : enabledBorderWithoutText),
+                        ? (userRole == 200 ? enabledBorderWithText : grey100)
+                        : (userRole == 200
+                            ? enabledBorderWithoutText
+                            : grey100),
                   ),
             borderRadius: BorderRadius.circular(borderRadiusCircular),
             gapPadding: 6.0,
@@ -146,16 +146,18 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
               children: [
                 Padding(
                   padding: EdgeInsets.only(
-                    top: userRole == 100 ? 30 : 25,
-                    left: userRole == 100 ? 30 : 25,
+                    top: userRole == 200 ? 25 : 30,
+                    left: userRole == 200 ? 25 : 30,
                     bottom: 10,
                   ),
                   child: Text(
                     "${totalSubLaluan.toString()} Senarai Sub Laluan",
                     style: TextStyle(
                       color: Colors.grey.shade500,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
+                      fontSize: userRole == 100 && userRole == 200 ? 16 : 14,
+                      fontWeight: userRole == 100 && userRole == 200
+                          ? FontWeight.w500
+                          : FontWeight.w600,
                     ),
                   ),
                 ),
@@ -181,14 +183,14 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
                               margin: const EdgeInsets.symmetric(
                                 horizontal: 10,
                               ),
-                              padding: userRole == 100
-                                  ? const EdgeInsets.symmetric(
-                                      horizontal: 20, vertical: 10)
-                                  : const EdgeInsets.all(6),
+                              padding: userRole == 200
+                                  ? const EdgeInsets.all(6)
+                                  : const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 10),
                               child: ListView.builder(
-                                physics: userRole == 100
-                                    ? const BouncingScrollPhysics()
-                                    : const ScrollPhysics(),
+                                physics: userRole == 200
+                                    ? const ScrollPhysics()
+                                    : const BouncingScrollPhysics(),
                                 shrinkWrap: true,
                                 itemCount: dataFuture!.length,
                                 itemBuilder: (context, index) {
@@ -202,30 +204,40 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
                                       });
                                     },
                                     child: Container(
-                                      margin: userRole == 100
-                                          ? null
-                                          : const EdgeInsets.symmetric(
-                                              vertical: 12),
-                                      padding: userRole == 100
+                                      margin: userRole == 200
                                           ? const EdgeInsets.symmetric(
-                                              vertical: 23, horizontal: 5)
-                                          : const EdgeInsets.all(6),
+                                              vertical: 12)
+                                          : null,
+                                      padding: userRole == 200
+                                          ? const EdgeInsets.all(6)
+                                          : (userRole == 100
+                                              ? const EdgeInsets.symmetric(
+                                                  vertical: 23, horizontal: 5)
+                                              : (const EdgeInsets.symmetric(
+                                                  vertical: 18,
+                                                  horizontal: 4))),
                                       decoration: BoxDecoration(
                                         border: Border(
                                           top: BorderSide.none,
                                           bottom: BorderSide(
                                             color: grey400,
-                                            width: userRole == 100 ? 0.3 : 0.9,
+                                            width: userRole == 200 ? 0.9 : 0.3,
                                             style: BorderStyle.solid,
                                           ),
                                         ),
                                       ),
                                       child: Text(
                                         dataFuture[index].namaSubLaluan,
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           color: Colors.black87,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500,
+                                          fontSize:
+                                              userRole == 100 && userRole == 200
+                                                  ? 16
+                                                  : 14,
+                                          fontWeight:
+                                              userRole == 100 && userRole == 200
+                                                  ? FontWeight.w500
+                                                  : FontWeight.w600,
                                         ),
                                       ),
                                     ),

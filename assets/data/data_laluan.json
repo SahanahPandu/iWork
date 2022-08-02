@@ -12,7 +12,13 @@
         "idJenisKutipan":1,
         "jenisKutipan":"KI (Kutipan Isi Rumah)",
         "mulaKerja":"--:--",
-        "tamatKerja":"--:--"
+        "tamatKerja":"--:--",
+        "isu": "kehadiran",
+        "senaraiStaf": {
+            "staf_1" : "Suhaimi",
+            "staf_2" : "Khairul",
+            "staf_3" : "Zam"
+        }
     },
     {
         "id": 2,
@@ -27,7 +33,13 @@
         "idJenisKutipan":1,
         "jenisKutipan":"KI (Kutipan Isi Rumah)",
         "mulaKerja":"--:--",
-        "tamatKerja":"--:--"
+        "tamatKerja":"--:--",
+        "isu": "belum",
+        "senaraiStaf": {
+            "staf_1" : "Ahmad",
+            "staf_2" : "Idris",
+            "staf_3" : "John"
+        }
     },
     {
         "id": 3,
@@ -42,6 +54,12 @@
         "idJenisKutipan":1,
         "jenisKutipan":"KI (Kutipan Isi Rumah)",
         "mulaKerja":"--:--",
-        "tamatKerja":"--:--"
+        "tamatKerja":"--:--",
+        "isu": "laporan",
+        "senaraiStaf": {
+            "staf_1" : "Razak",
+            "staf_2" : "Omar",
+            "staf_3" : "Yusuf"
+        }
     }
 ]
