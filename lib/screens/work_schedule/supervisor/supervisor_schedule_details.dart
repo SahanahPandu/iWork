@@ -75,7 +75,8 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
             ),
           ],
         ),
-        //Jenis Kutipan
+
+        //No. Kenderaan
         Padding(
           padding: const EdgeInsets.only(top: 20, bottom: 15),
           child: Row(
@@ -84,14 +85,14 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
               Row(
                 children: [
                   const Icon(
-                    Icons.grass,
+                    Icons.local_shipping,
                     size: 18,
                   ),
                   const SizedBox(
                     width: 8,
                   ),
                   Text(
-                    "Jenis Kutipan",
+                    "No. Kenderaan",
                     style: TextStyle(
                       fontSize: 13,
                       color: Colors.grey.shade800,
@@ -101,7 +102,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                 ],
               ),
               Text(
-                widget.data.jenisKutipan,
+                widget.data.noKenderaan,
                 style: const TextStyle(
                   fontSize: 13,
                   color: Colors.black45,
@@ -147,7 +148,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
             ],
           ),
         ),
-        //No. Kenderaan
+        //Jumlah Taman dan Jalan
         Padding(
           padding: const EdgeInsets.only(bottom: 15),
           child: Row(
@@ -156,14 +157,14 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
               Row(
                 children: [
                   const Icon(
-                    Icons.local_shipping,
+                    Icons.house,
                     size: 18,
                   ),
                   const SizedBox(
                     width: 8,
                   ),
                   Text(
-                    "No. Kenderaan",
+                    "Jumlah Taman/Jalan",
                     style: TextStyle(
                       fontSize: 13,
                       color: Colors.grey.shade800,
@@ -173,7 +174,43 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                 ],
               ),
               Text(
-                widget.data.noKenderaan,
+                "${widget.data.jumlahTaman}/${widget.data.jumlahJalan}",
+                style: const TextStyle(
+                  fontSize: 13,
+                  color: Colors.black45,
+                  fontWeight: FontWeight.w500,
+                ),
+              )
+            ],
+          ),
+        ),
+        //Jenis Kutipan
+        Padding(
+          padding: const EdgeInsets.only(bottom: 15),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  const Icon(
+                    Icons.grass,
+                    size: 18,
+                  ),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  Text(
+                    "Jenis Kutipan",
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: Colors.grey.shade800,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ],
+              ),
+              Text(
+                widget.data.jenisKutipan,
                 style: const TextStyle(
                   fontSize: 13,
                   color: Colors.black45,
@@ -220,42 +257,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
             ],
           ),
         ),
-        //Jumlah Taman dan Jalan
-        Padding(
-          padding: const EdgeInsets.only(bottom: 15),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  const Icon(
-                    Icons.house,
-                    size: 18,
-                  ),
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  Text(
-                    "Jumlah Taman/Jalan",
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: Colors.grey.shade800,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ],
-              ),
-              Text(
-                "${widget.data.jumlahTaman}/${widget.data.jumlahJalan}",
-                style: const TextStyle(
-                  fontSize: 13,
-                  color: Colors.black45,
-                  fontWeight: FontWeight.w500,
-                ),
-              )
-            ],
-          ),
-        ),
+
         //Senarai Staf
         Padding(
           padding: const EdgeInsets.only(bottom: 5),
