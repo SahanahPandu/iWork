@@ -51,7 +51,6 @@ class _ListOfParksState extends State<ListOfParks> {
         _namaTaman.text = widget.data;
       });
     }
-    print("current border condition: ${widget.borderCondition}");
   }
 
   @override
