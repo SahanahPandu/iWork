@@ -25,7 +25,7 @@ class CardListView extends StatefulWidget {
 }
 
 class _CardListViewState extends State<CardListView> {
-  ScrollController controller = ScrollController();
+  ScrollController controllerListview = ScrollController();
 
   getData(context) {
     Future<List<dynamic>>? list;
@@ -49,8 +49,18 @@ class _CardListViewState extends State<CardListView> {
   void initState() {
     super.initState();
     //if (widget.type == "Laluan") {
-    controller.addListener(() {
-      widget.topCardStatus(controller.offset > 50);
+    controllerListview.addListener(() {
+      //   if (controllerListview.offset > 50) {
+      //     widget.topCardStatus(true);
+      //     // } else if (controllerListview.offset < 50) {
+
+      //   }
+      //   else if(controllerListview.offset < 50){
+      //     widget.topCardStatus(false);
+      //     print("false");
+      //   }
+      //widget.topCardStatus(controllerListview.offset > 50);
+      // print("offset: ${controllerListview.offset.toString()}");
     });
     //}
   }
@@ -81,11 +91,13 @@ class _CardListViewState extends State<CardListView> {
                   ),
                   child: ListView.builder(
                     physics: userRole == 200
-                        ? const ScrollPhysics()
+                        ? const AlwaysScrollableScrollPhysics()
                         : const BouncingScrollPhysics(),
-                    controller: widget.type == "Laluan" && userRole != 300
-                        ? controller
-                        : null,
+                    // controller: widget.type == "Laluan" && userRole != 300
+                    //     ? controllerListview
+                    //     : null,
+                    //reverse: true,
+                    controller: controllerListview,
                     shrinkWrap: true,
                     itemCount: dataFuture!.length,
                     itemBuilder: (context, index) {
