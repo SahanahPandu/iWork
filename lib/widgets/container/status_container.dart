@@ -1,7 +1,7 @@
 // ignore_for_file: must_be_immutable
-
-import 'package:eswm/config/config.dart';
 import 'package:flutter/material.dart';
+
+import '../../config/config.dart';
 
 class StatusContainer extends StatefulWidget {
   Color boxColor;
