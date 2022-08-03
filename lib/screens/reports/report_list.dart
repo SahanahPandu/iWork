@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../config/config.dart';
-import '../../widgets/gridview/compactor_task/compactor_report_list.dart';
+import '../../widgets/gridview/compactor_panel/compactor_report_list.dart';
 import '../../widgets/listview/card_list_view.dart';
 
 class ReportList extends StatefulWidget {

@@ -366,29 +366,31 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
           ),
         ),
         widget.button == true
-            ? Container(
-                alignment: Alignment.center,
-                padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
-                width: _device.screenWidth(context) * 0.75,
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                      shadowColor: MaterialStateProperty.all(Colors.grey[300]),
-                      shape: MaterialStateProperty.all(
-                        RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                            side: BorderSide(color: red)),
-                      ),
-                      minimumSize: MaterialStateProperty.all(
-                          Size(_device.screenWidth(context), 42)),
-                      backgroundColor: MaterialStateProperty.all(white)),
-                  child: Text("Hubungi Pemandu",
-                      style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w600,
-                          color: red)),
-                  onPressed: () {
-                    // _filterTaskIssueAction(widget.data.isu);
-                  },
+            ? Center(
+                child: Container(
+                  padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
+                  width: _device.screenWidth(context) * 0.75,
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                        shadowColor:
+                            MaterialStateProperty.all(Colors.grey[300]),
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                              side: BorderSide(color: red)),
+                        ),
+                        minimumSize: MaterialStateProperty.all(
+                            Size(_device.screenWidth(context), 42)),
+                        backgroundColor: MaterialStateProperty.all(white)),
+                    child: Text("Hubungi Pemandu",
+                        style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w600,
+                            color: red)),
+                    onPressed: () {
+                      // _filterTaskIssueAction(widget.data.isu);
+                    },
+                  ),
                 ),
               )
             : const SizedBox(height: 4),

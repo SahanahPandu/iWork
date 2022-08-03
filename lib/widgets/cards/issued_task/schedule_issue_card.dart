@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../config/palette.dart';
 import '../../../models/laluan.dart';
+import '../../../screens/list_of_employees/list_of_employees.dart';
 import '../my_task/supervisor/supervisor_my_task_list_details.dart';
 import '../../listview/card_list_view.dart';
 import '../../../screens/work_schedule/supervisor/supervisor_schedule_details.dart';
@@ -96,9 +97,20 @@ class _ScheduleIssuedCardState extends State<ScheduleIssuedCard> {
             vertical: 5,
           ),
           //Change here for listing types
-          child: CardListView(type: "Laporan", topCardStatus: null),
+          child: _showBottomList(),
         ),
       ],
     );
+  }
+
+  _showBottomList() {
+    switch (widget.getIssue) {
+      case "kehadiran":
+        return const ListOfEmployees();
+      case "laporan":
+        return CardListView(type: "Laporan");
+      case "belum":
+        return const ListOfEmployees();
+    }
   }
 }

@@ -17,7 +17,7 @@ class _ListOfEmployeesState extends State<ListOfEmployees> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
+        /*Container(
           margin: const EdgeInsets.only(
             left: 10,
           ),
@@ -29,7 +29,7 @@ class _ListOfEmployeesState extends State<ListOfEmployees> {
               fontWeight: FontWeight.w500,
             ),
           ),
-        ),
+        ),*/
         const SizedBox(
           height: 8,
         ),

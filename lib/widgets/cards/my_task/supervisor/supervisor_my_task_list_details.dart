@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:eswm/screens/issues/attendance/attendance_issues.dart';
 import 'package:flutter/material.dart';
 
 //import files
@@ -71,28 +70,6 @@ class _SupervisorMyTaskListDetailsState
         return taskIssueText = "Laporan";
     }
     return taskIssueText;
-  }
-
-  _filterTaskIssueAction(String issue) {
-    switch (issue) {
-      case "kehadiran":
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const AttendanceIssues(),
-            ));
-        break;
-      case "belum":
-      case "laporan":
-        return Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) {
-            return ScheduleIssueMainScreen(
-                laluanData: widget.data, fromHome: true, issueType: issue);
-          }),
-        );
-    }
-    return null;
   }
 
   @override
@@ -257,7 +234,15 @@ class _SupervisorMyTaskListDetailsState
                           fontWeight: FontWeight.w600,
                           color: red)),
                   onPressed: () {
-                    _filterTaskIssueAction(widget.data.isu);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) {
+                        return ScheduleIssueMainScreen(
+                            laluanData: widget.data,
+                            fromHome: true,
+                            issueType: widget.data.isu);
+                      }),
+                    );
                   },
                 ),
               )
