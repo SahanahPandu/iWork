@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 //import files
+import 'ba/ba_today_task_details.dart';
 import 'compactor_panel/compactor_panel_today_task_details.dart';
+import 'eo/eo_today_task_details.dart';
 import 'supervisor/supervisor_today_task_details.dart';
 import 'pra/pra_today_task_details.dart';
 import '../../../config/config.dart';
@@ -95,6 +97,12 @@ class _TodayTaskCardState extends State<TodayTaskCard> {
             timeIn: timeIn, timeOut: timeOut, getTimeLog: getTimeLog);
       case 300:
         return SupervisorTodayTaskDetails(
+            timeIn: timeIn, timeOut: timeOut, getTimeLog: getTimeLog);
+      case 400:
+        return EOTodayTaskDetails(
+            timeIn: timeIn, timeOut: timeOut, getTimeLog: getTimeLog);
+      case 500:
+        return BATodayTaskDetails(
             timeIn: timeIn, timeOut: timeOut, getTimeLog: getTimeLog);
     }
     return Scaffold(

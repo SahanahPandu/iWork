@@ -63,6 +63,9 @@ class DrawerBuild extends StatelessWidget {
         return praDrawerList;
       case 300: //supervisor
         return svDrawerList;
+      case 400: //eo
+      case 500: //ba
+        return eoBaDrawerList;
     }
     return praDrawerList;
   }
@@ -120,7 +123,9 @@ class DrawerBuild extends StatelessWidget {
         }
         break;
 
-      case 300: //supervisor
+      case 300://supervisor
+      case 400://eo
+      case 500://ba
         switch (idx) {
           case 4: //report
             Navigator.pop(context);

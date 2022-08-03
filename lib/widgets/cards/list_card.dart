@@ -12,6 +12,8 @@ import '../../screens/reports/report_list_details.dart';
 import '../../screens/reports/reports.dart';
 import '../../screens/work_schedule/work_schedule.dart';
 import './my_task/pra/pra_my_task_list_details.dart';
+import 'my_task/ba/ba_my_task_list_details.dart';
+import 'my_task/eo/eo_my_task_list_details.dart';
 import 'my_task/supervisor/supervisor_my_task_list_details.dart';
 
 class ListCard extends StatefulWidget {
@@ -39,6 +41,10 @@ class _ListCardState extends State<ListCard> {
         return PraMyTaskListDetails(data: widget.data);
       } else if (userRole == 300) {
         return SupervisorMyTaskListDetails(data: widget.data);
+      } else if (userRole == 400) {
+        return EOMyTaskListDetails(data: widget.data);
+      } else if (userRole == 500) {
+        return BAMyTaskListDetails(data: widget.data);
       }
     } else if (widget.type == "Senarai Jalan") {
       return ListOfRoadDetails(data: widget.data, index: widget.listIndex);
