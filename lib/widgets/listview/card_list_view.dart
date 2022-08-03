@@ -52,10 +52,14 @@ class _CardListViewState extends State<CardListView> {
         if (widget.type == "Laluan") {
           if (scrollNotification is ScrollStartNotification ||
               scrollNotification is ScrollUpdateNotification) {
-            widget.topCardStatus!(true);
+            if (widget.topCardStatus != null) {
+              widget.topCardStatus!(true);
+            }
           }
           if (scrollNotification is OverscrollNotification) {
-            widget.topCardStatus!(false);
+            if (widget.topCardStatus != null) {
+              widget.topCardStatus!(false);
+            }
           }
         }
 
