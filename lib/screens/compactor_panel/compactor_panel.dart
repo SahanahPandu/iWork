@@ -97,7 +97,7 @@ class _CompactorPanelState extends State<CompactorPanel> {
             ),
           ),
         ),
-        CompactorTaskList(topCardStatus: getTopCardStatus),
+        const CompactorTaskList(isButton: true),
       ],
     );
   }

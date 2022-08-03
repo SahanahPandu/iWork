@@ -9,9 +9,10 @@ import '../../cards/my_task/compactor_panel/compactor_panel_my_task_list_details
 import '../../cards/my_task/compactor_panel/vehicle_checklist_card_details.dart';
 
 class CompactorTaskList extends StatefulWidget {
-  final dynamic topCardStatus;
+  final Function? topCardStatus;
+  final bool isButton;
 
-  const CompactorTaskList({Key? key, this.topCardStatus}) : super(key: key);
+  const CompactorTaskList({Key? key, this.topCardStatus, required this.isButton}) : super(key: key);
 
   @override
   State<CompactorTaskList> createState() => _CompactorTaskListState();
@@ -27,9 +28,6 @@ class _CompactorTaskListState extends State<CompactorTaskList> {
     super.initState();
     _loadLaluanData = LaluanApi.getLaluanData(context);
     _loadVcData = VehicleChecklistApi.getVehicleChecklistData(context);
-    controller.addListener(() {
-      widget.topCardStatus(controller.offset > 50);
-    });
   }
 
   @override
@@ -93,7 +91,7 @@ class _CompactorTaskListState extends State<CompactorTaskList> {
                       //print("index clicked ${i - 1}");
                     },
                     child: buildTabletCard(CompactorPanelMyTaskListDetails(
-                        data: laluanDataFuture[i - 1])),
+                        data: laluanDataFuture[i - 1], button: widget.isButton)),
                   );
                 },
               ),

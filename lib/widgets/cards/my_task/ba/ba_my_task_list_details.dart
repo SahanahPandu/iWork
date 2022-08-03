@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:eswm/screens/issues/attendance/attendance_issues.dart';
 import 'package:flutter/material.dart';
 
 //import files
@@ -11,21 +10,21 @@ import '../../../../screens/schedule_issue/schedule_issue_main.dart';
 import '../../../../utils/device.dart';
 import '../../../container/status_container.dart';
 
-class SupervisorMyTaskListDetails extends StatefulWidget {
+class BAMyTaskListDetails extends StatefulWidget {
   Laluan data;
   final bool? button;
 
-  SupervisorMyTaskListDetails(
+  BAMyTaskListDetails(
       {Key? key, required this.data, this.button = true})
       : super(key: key);
 
   @override
-  State<SupervisorMyTaskListDetails> createState() =>
-      _SupervisorMyTaskListDetailsState();
+  State<BAMyTaskListDetails> createState() =>
+      _BAMyTaskListDetailsState();
 }
 
-class _SupervisorMyTaskListDetailsState
-    extends State<SupervisorMyTaskListDetails> {
+class _BAMyTaskListDetailsState
+    extends State<BAMyTaskListDetails> {
   final Devices _device = Devices();
   late Color statusTextColor;
   late Color statusBoxColor;
@@ -76,12 +75,6 @@ class _SupervisorMyTaskListDetailsState
   _filterTaskIssueAction(String issue) {
     switch (issue) {
       case "kehadiran":
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const AttendanceIssues(),
-            ));
-        break;
       case "belum":
       case "laporan":
         return Navigator.push(

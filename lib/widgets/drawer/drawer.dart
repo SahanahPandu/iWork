@@ -7,6 +7,7 @@ import '../../config/string.dart';
 import '../../data/data_drawer.dart';
 import '../../screens/e_cuti/e_cuti.dart';
 import '../../screens/reports/reports.dart';
+import '../../screens/schedule_all/schedule_all_main.dart';
 import '../../screens/schedule_issue/schedule_issue_main.dart';
 import '../../utils/authentication/auth.dart';
 import '../../utils/device.dart';
@@ -75,6 +76,15 @@ class DrawerBuild extends StatelessWidget {
     switch (userRole) {
       case 100: //compactor
         switch (idx) {
+          case 1:
+            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) {
+                return const ScheduleAllMainScreen();
+              }),
+            );
+            break;
           case 2: //Laporan
             Navigator.push(
                 context,
@@ -104,6 +114,15 @@ class DrawerBuild extends StatelessWidget {
                           data: null,
                         )));
             break;
+          case 2:
+            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) {
+                return const ScheduleAllMainScreen();
+              }),
+            );
+            break;
           case 3: //Laporan
             Navigator.push(
                 context,
@@ -123,10 +142,19 @@ class DrawerBuild extends StatelessWidget {
         }
         break;
 
-      case 300://supervisor
-      case 400://eo
-      case 500://ba
+      case 300: //supervisor
+      case 400: //eo
+      case 500: //ba
         switch (idx) {
+          case 2:
+            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) {
+                return const ScheduleAllMainScreen();
+              }),
+            );
+            break;
           case 4: //report
             Navigator.pop(context);
             Navigator.push(

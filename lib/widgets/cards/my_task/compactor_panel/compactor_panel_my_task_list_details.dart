@@ -9,8 +9,10 @@ import '../../../../widgets/slide_bar/start_end_work_slide_bar.dart';
 
 class CompactorPanelMyTaskListDetails extends StatefulWidget {
   final Laluan data;
+  final bool button;
 
-  const CompactorPanelMyTaskListDetails({Key? key, required this.data})
+  const CompactorPanelMyTaskListDetails(
+      {Key? key, required this.data, required this.button})
       : super(key: key);
 
   @override
@@ -227,12 +229,14 @@ class CompactorPanelMyTaskListDetailsState
         Padding(
             padding: const EdgeInsets.only(
                 left: 10, right: 10, top: 10.0, bottom: 15),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const <Widget>[
-                StartEndWorkSlideBar(),
-              ],
-            ))
+            child: widget.button == true
+                ? Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const <Widget>[
+                      StartEndWorkSlideBar(),
+                    ],
+                  )
+                : null)
       ],
     );
   }
