@@ -49,7 +49,7 @@ class _CardListViewState extends State<CardListView> {
   Widget build(BuildContext context) {
     return NotificationListener<ScrollNotification>(
       onNotification: (ScrollNotification scrollNotification) {
-        if (widget.type == "Laluan" ) {
+        if (widget.type == "Laluan") {
           if (scrollNotification is ScrollStartNotification ||
               scrollNotification is ScrollUpdateNotification) {
             if (widget.topCardStatus != null) {

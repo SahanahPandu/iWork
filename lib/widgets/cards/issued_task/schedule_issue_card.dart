@@ -83,8 +83,7 @@ class _ScheduleIssuedCardState extends State<ScheduleIssuedCard> {
         ),
         Container(
           alignment: Alignment.centerLeft,
-          padding:
-              const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 5),
+          padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
           child: Text(
             listTitle,
             style: TextStyle(
@@ -94,7 +93,7 @@ class _ScheduleIssuedCardState extends State<ScheduleIssuedCard> {
         Container(
           margin: const EdgeInsets.symmetric(
             horizontal: 15,
-            vertical: 5,
+            //vertical: 5,
           ),
           //Change here for listing types
           child: _showBottomList(),
