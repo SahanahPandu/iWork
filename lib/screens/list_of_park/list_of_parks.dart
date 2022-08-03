@@ -154,8 +154,8 @@ class _ListOfParksState extends State<ListOfParks> {
                     "${totalTaman.toString()} Senarai Taman",
                     style: TextStyle(
                       color: Colors.grey.shade500,
-                      fontSize: userRole == 100 && userRole == 200 ? 16 : 14,
-                      fontWeight: userRole == 100 && userRole == 200
+                      fontSize: userRole == 100 || userRole == 200 ? 16 : 14,
+                      fontWeight: userRole == 100 || userRole == 200
                           ? FontWeight.w500
                           : FontWeight.w600,
                     ),
@@ -237,11 +237,11 @@ class _ListOfParksState extends State<ListOfParks> {
                                         style: TextStyle(
                                           color: Colors.black87,
                                           fontSize:
-                                              userRole == 100 && userRole == 200
+                                              userRole == 100 || userRole == 200
                                                   ? 16
                                                   : 14,
                                           fontWeight:
-                                              userRole == 100 && userRole == 200
+                                              userRole == 100 || userRole == 200
                                                   ? FontWeight.w500
                                                   : FontWeight.w600,
                                         ),

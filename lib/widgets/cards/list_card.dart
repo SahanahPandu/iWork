@@ -3,14 +3,17 @@
 import 'package:flutter/material.dart';
 
 //import files
-import 'package:eswm/screens/e_cuti/e_cuti.dart';
-import 'package:eswm/screens/work_schedule/work_schedule.dart';
 import '../../config/config.dart';
+import '../../config/palette.dart';
+import '../../screens/e_cuti/e_cuti.dart';
 import '../../screens/e_cuti/pra/pra_e_cuti_list_details.dart';
 import '../../screens/list_of_road/list_of_road_details.dart';
 import '../../screens/reports/report_list_details.dart';
 import '../../screens/reports/reports.dart';
+import '../../screens/work_schedule/work_schedule.dart';
 import './my_task/pra/pra_my_task_list_details.dart';
+import 'my_task/ba/ba_my_task_list_details.dart';
+import 'my_task/eo/eo_my_task_list_details.dart';
 import 'my_task/supervisor/supervisor_my_task_list_details.dart';
 
 class ListCard extends StatefulWidget {
@@ -38,6 +41,10 @@ class _ListCardState extends State<ListCard> {
         return PraMyTaskListDetails(data: widget.data);
       } else if (userRole == 300) {
         return SupervisorMyTaskListDetails(data: widget.data);
+      } else if (userRole == 400) {
+        return EOMyTaskListDetails(data: widget.data);
+      } else if (userRole == 500) {
+        return BAMyTaskListDetails(data: widget.data);
       }
     } else if (widget.type == "Senarai Jalan") {
       return ListOfRoadDetails(data: widget.data, index: widget.listIndex);
@@ -66,7 +73,8 @@ class _ListCardState extends State<ListCard> {
                   data: widget.data,
                   dataLaluan: null,
                 );
-              } else {
+              }
+              else {
                 return Container();
               }
             }),
@@ -76,7 +84,7 @@ class _ListCardState extends State<ListCard> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(userRole == 200 ? 15 : 10),
           ),
-          shadowColor: Colors.white,
+          shadowColor: userRole == 200 ? Colors.white : grey200,
           elevation: userRole == 200 ? 14 : 5,
           child: Padding(
             padding: const EdgeInsets.all(6),

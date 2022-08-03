@@ -2,9 +2,10 @@
 import 'package:flutter/material.dart';
 
 //import files
-import 'package:eswm/models/reports.dart';
+import '../../config/config.dart';
 import '../../config/font.dart';
 import '../../config/palette.dart';
+import '../../models/reports.dart';
 import '../../widgets/container/status_container.dart';
 
 class ReportListDetails extends StatefulWidget {
@@ -67,7 +68,7 @@ class _ReportListDetailsState extends State<ReportListDetails> {
               Text(
                 "Laporan ${widget.index + 1} - ${widget.data.namaLaluan}",
                 style: TextStyle(
-                  fontSize: 17,
+                  fontSize: userRole == 200 ? 17 : 15,
                   color: Colors.grey.shade800,
                   fontWeight: FontWeight.w900,
                 ),
@@ -99,7 +100,7 @@ class _ReportListDetailsState extends State<ReportListDetails> {
                   Text(
                     "Taman",
                     style: TextStyle(
-                      fontSize: 15,
+                      fontSize: userRole == 100 || userRole == 200 ? 15 : 13,
                       color: Colors.grey.shade800,
                       fontWeight: FontWeight.w600,
                     ),
@@ -109,7 +110,7 @@ class _ReportListDetailsState extends State<ReportListDetails> {
               Text(
                 widget.data.namaTaman,
                 style: TextStyle(
-                  fontSize: 15,
+                  fontSize: userRole == 100 || userRole == 200 ? 15 : 13,
                   color: Colors.grey.shade500,
                   fontWeight: FontWeight.w500,
                 ),
@@ -135,7 +136,7 @@ class _ReportListDetailsState extends State<ReportListDetails> {
                   Text(
                     "Jalan",
                     style: TextStyle(
-                      fontSize: 15,
+                      fontSize: userRole == 100 || userRole == 200 ? 15 : 13,
                       color: Colors.grey.shade800,
                       fontWeight: FontWeight.w600,
                     ),
@@ -145,7 +146,7 @@ class _ReportListDetailsState extends State<ReportListDetails> {
               Text(
                 widget.data.namaJalan,
                 style: TextStyle(
-                  fontSize: 15,
+                  fontSize: userRole == 100 || userRole == 200 ? 15 : 13,
                   color: Colors.grey.shade500,
                   fontWeight: FontWeight.w500,
                 ),
@@ -171,7 +172,7 @@ class _ReportListDetailsState extends State<ReportListDetails> {
                   Text(
                     "Jenis Halangan",
                     style: TextStyle(
-                      fontSize: 15,
+                      fontSize: userRole == 100 || userRole == 200 ? 15 : 13,
                       color: Colors.grey.shade800,
                       fontWeight: FontWeight.w600,
                     ),
@@ -181,7 +182,7 @@ class _ReportListDetailsState extends State<ReportListDetails> {
               Text(
                 widget.data.jenisHalangan,
                 style: TextStyle(
-                  fontSize: 15,
+                  fontSize: userRole == 100 || userRole == 200 ? 15 : 13,
                   color: Colors.grey.shade500,
                   fontWeight: FontWeight.w500,
                 ),

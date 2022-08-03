@@ -5,6 +5,8 @@ import 'package:eswm/screens/list_of_road/list_of_road_details.dart';
 import 'package:flutter/material.dart';
 
 //import files
+import '../../config/palette.dart';
+import '../../config/string.dart';
 import '../../providers/jalan_api.dart';
 
 class ListOfRoad extends StatefulWidget {
@@ -31,7 +33,7 @@ class _ListOfRoadState extends State<ListOfRoad> {
           child: Text(
             "Senarai Jalan",
             style: TextStyle(
-              fontSize: userRole == 100 && userRole == 200 ? 17 : 16,
+              fontSize: userRole == 100 || userRole == 200 ? 17 : 16,
               color: Colors.grey.shade400,
               fontWeight: FontWeight.w500,
             ),
@@ -60,7 +62,19 @@ class _ListOfRoadState extends State<ListOfRoad> {
                       newList.add(dataFuture[i]);
                     }
                   }
-
+                  if (newList.isEmpty) {
+                    return SizedBox(
+                      height: 50,
+                      child: Container(
+                        margin: const EdgeInsets.fromLTRB(25, 15, 25, 10),
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          notFoundStreet,
+                          style: TextStyle(color: grey400),
+                        ),
+                      ),
+                    );
+                  }
                   return Container(
                     margin: const EdgeInsets.symmetric(
                       horizontal: 15,

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
-import 'package:eswm/config/config.dart';
+import '../config/config.dart';
 import '../config/resource.dart';
 import '../config/string.dart';
+import 'ba/ba.dart';
 import 'compactor_panel/compactor_panel.dart';
+import 'eo/eo.dart';
 import 'pra/pra.dart';
 import 'supervisor/supervisor.dart';
 
@@ -35,6 +37,10 @@ class _ScreensState extends State<Screens> {
         return const Pra();
       case 300:
         return const Supervisor();
+      case 400:
+        return const EO();
+      case 500:
+        return const BA();
       default:
         return Scaffold(
           body: Center(
