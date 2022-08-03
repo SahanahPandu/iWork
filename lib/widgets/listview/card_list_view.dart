@@ -12,12 +12,12 @@ import '../../config/config.dart';
 
 class CardListView extends StatefulWidget {
   String type;
-  final dynamic topCardStatus;
+  final Function? topCardStatus;
 
   CardListView({
     Key? key,
     required this.type,
-    required this.topCardStatus,
+    this.topCardStatus,
   }) : super(key: key);
 
   @override
@@ -25,7 +25,7 @@ class CardListView extends StatefulWidget {
 }
 
 class _CardListViewState extends State<CardListView> {
-  ScrollController controllerListview = ScrollController();
+  final ScrollController _controller = ScrollController();
 
   getData(context) {
     Future<List<dynamic>>? list;
@@ -46,73 +46,64 @@ class _CardListViewState extends State<CardListView> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    //if (widget.type == "Laluan") {
-    controllerListview.addListener(() {
-      //   if (controllerListview.offset > 50) {
-      //     widget.topCardStatus(true);
-      //     // } else if (controllerListview.offset < 50) {
-
-      //   }
-      //   else if(controllerListview.offset < 50){
-      //     widget.topCardStatus(false);
-      //     print("false");
-      //   }
-      //widget.topCardStatus(controllerListview.offset > 50);
-      // print("offset: ${controllerListview.offset.toString()}");
-    });
-    //}
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List>(
-      future: getData(context),
-      builder: (context, snapshot) {
-        final dataFuture = snapshot.data;
-
-        switch (snapshot.connectionState) {
-          case ConnectionState.waiting:
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-
-          default:
-            if (snapshot.hasError) {
-              return const Center(
-                child: Text("Some error occurred!"),
-              );
-            } else {
-              return Expanded(
-                child: Container(
-                  margin: EdgeInsets.symmetric(
-                    horizontal: userRole == 200 ? 15 : 0,
-                  ),
-                  child: ListView.builder(
-                    physics: userRole == 200
-                        ? const AlwaysScrollableScrollPhysics()
-                        : const BouncingScrollPhysics(),
-                    // controller: widget.type == "Laluan" && userRole != 300
-                    //     ? controllerListview
-                    //     : null,
-                    //reverse: true,
-                    controller: controllerListview,
-                    shrinkWrap: true,
-                    itemCount: dataFuture!.length,
-                    itemBuilder: (context, index) {
-                      return ListCard(
-                        data: dataFuture[index],
-                        type: widget.type,
-                        listIndex: index,
-                      );
-                    },
-                  ),
-                ),
-              );
-            }
+    return NotificationListener<ScrollNotification>(
+      onNotification: (ScrollNotification scrollNotification) {
+        if (widget.type == "Laluan") {
+          if (scrollNotification is ScrollStartNotification ||
+              scrollNotification is ScrollUpdateNotification) {
+            widget.topCardStatus!(true);
+          }
+          if (scrollNotification is OverscrollNotification) {
+            widget.topCardStatus!(false);
+          }
         }
+
+        return true;
       },
+      child: FutureBuilder<List>(
+        future: getData(context),
+        builder: (context, snapshot) {
+          final dataFuture = snapshot.data;
+
+          switch (snapshot.connectionState) {
+            case ConnectionState.waiting:
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+
+            default:
+              if (snapshot.hasError) {
+                return const Center(
+                  child: Text("Some error occurred!"),
+                );
+              } else {
+                return Expanded(
+                  child: Container(
+                    margin: EdgeInsets.symmetric(
+                      horizontal: userRole == 200 ? 15 : 0,
+                    ),
+                    child: ListView.builder(
+                      physics: userRole == 200
+                          ? const AlwaysScrollableScrollPhysics()
+                          : const BouncingScrollPhysics(),
+                      controller: _controller,
+                      shrinkWrap: true,
+                      itemCount: dataFuture!.length,
+                      itemBuilder: (context, index) {
+                        return ListCard(
+                          data: dataFuture[index],
+                          type: widget.type,
+                          listIndex: index,
+                        );
+                      },
+                    ),
+                  ),
+                );
+              }
+          }
+        },
+      ),
     );
   }
 }

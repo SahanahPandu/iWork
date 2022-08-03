@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:eswm/widgets/cards/today_task/today_task_card.dart';
 
 import '../../widgets/listview/card_list_view.dart';
-import '../../widgets/listview/my_task/my_task_list.dart';
-// import 'package:eswm/widgets/listview/my_task/my_task_list.dart';
 
 class Pra extends StatefulWidget {
   const Pra({Key? key}) : super(key: key);
@@ -18,12 +16,9 @@ class _PraState extends State<Pra> {
   bool closeTopCard = false;
 
   void getTopCardStatus(status) {
-    //print("call this: ${status.toString()}");
-    //if (closeTopCard != status) {
     setState(() {
       closeTopCard = status;
     });
-    //}
   }
 
   @override
