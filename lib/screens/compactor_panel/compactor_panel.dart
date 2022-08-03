@@ -4,7 +4,7 @@ import 'package:eswm/config/string.dart';
 import 'package:eswm/utils/device.dart';
 import 'package:eswm/widgets/cards/today_task/today_task_card.dart';
 import '../../config/palette.dart';
-import '../../widgets/gridview/compactor_task/compactor_task_list.dart';
+import '../../widgets/gridview/compactor_panel/compactor_task_list.dart';
 
 class CompactorPanel extends StatefulWidget {
   const CompactorPanel({Key? key}) : super(key: key);

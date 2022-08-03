@@ -14,6 +14,7 @@
         "mulaKerja":"--:--",
         "tamatKerja":"--:--",
         "isu": "kehadiran",
+        "kehadiran":"3/3",
         "senaraiStaf": {
             "staf_1" : "Suhaimi",
             "staf_2" : "Khairul",
@@ -35,6 +36,7 @@
         "mulaKerja":"--:--",
         "tamatKerja":"--:--",
         "isu": "belum",
+        "kehadiran":"3/3",
         "senaraiStaf": {
             "staf_1" : "Ahmad",
             "staf_2" : "Idris",
@@ -56,6 +58,7 @@
         "mulaKerja":"--:--",
         "tamatKerja":"--:--",
         "isu": "laporan",
+        "kehadiran":"3/3",
         "senaraiStaf": {
             "staf_1" : "Razak",
             "staf_2" : "Omar",
