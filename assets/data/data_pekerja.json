@@ -1,0 +1,86 @@
+[
+    {
+        "id":"Emp01",
+        "name":"Jalal",
+        "designCat": "PRA",
+        "designation": "PRA Worker",
+        "idAttStatus":1,
+        "attStatus": "Hadir",
+        "skills": "Pemandu",
+        "timeIn": "07.03 pagi",
+        "timeOut": ""
+
+    },
+    {
+        "id":"Emp02",
+        "name":"Syafik",
+        "designCat": "PRA",
+        "designation": "PRA Worker",
+        "idAttStatus":2,
+        "attStatus": "Tidak Hadir",
+        "skills": "Kemahiran Asas",
+        "timeIn": "",
+        "timeOut": ""
+
+    },
+    {
+        "id":"Emp03",
+        "name":"Hafiz",
+        "designCat": "PRA",
+        "designation": "PRA Worker",
+        "idAttStatus":1,
+        "attStatus": "Hadir",
+        "skills": "Pemandu",
+        "timeIn": "07.15 pagi",
+        "timeOut": ""
+
+    },
+    {
+        "id":"Emp04",
+        "name":"Bahar",
+        "designCat": "PRA",
+        "designation": "PRA Worker",
+        "idAttStatus":1,
+        "attStatus": "Hadir",
+        "skills": "Pemandu",
+        "timeIn": "06.25 pagi",
+        "timeOut": ""
+
+    },
+    {
+        "id":"Emp05",
+        "name":"Awang",
+        "designCat": "PRA",
+        "designation": "PRA Worker",
+        "idAttStatus":1,
+        "attStatus": "Hadir",
+        "skills": "Kemahiran Asas",
+        "timeIn": "07.00 pagi",
+        "timeOut": ""
+
+    },
+    {
+        "id":"Emp06",
+        "name":"Faizal",
+        "designCat": "PRA",
+        "designation": "PRA Worker",
+        "idAttStatus":1,
+        "attStatus": "Hadir",
+        "skills": "Pemandu",
+        "timeIn": "06.43 pagi",
+        "timeOut": ""
+
+    },
+    {
+        "id":"Emp07",
+        "name":"Suhaimi Saad",
+        "designCat": "PRA",
+        "designation": "PRA Worker",
+        "idAttStatus":2,
+        "attStatus": "Tidak Hadir",
+        "skills": "Kemahiran Asas",
+        "timeIn": "",
+        "timeOut": ""
+
+    }
+]
