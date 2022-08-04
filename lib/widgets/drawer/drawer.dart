@@ -13,46 +13,202 @@ import '../../utils/authentication/auth.dart';
 import '../../utils/device.dart';
 import '../alert/alert_dialog.dart';
 
-class DrawerBuild extends StatelessWidget {
-  DrawerBuild({Key? key}) : super(key: key);
+class DrawerBuild extends StatefulWidget {
+  const DrawerBuild({Key? key}) : super(key: key);
 
+  @override
+  State<DrawerBuild> createState() => _DrawerBuildState();
+}
+
+class _DrawerBuildState extends State<DrawerBuild> {
   final Devices _device = Devices();
+  String name = "";
+  String role = "";
+  final List<bool> _isHighlighted = [
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserRole();
+  }
+
+  _loadUserRole() {
+    switch (userRole) {
+      case 100:
+        role = "Pemandu";
+        break;
+      case 200:
+        role = "PRA";
+        break;
+      case 300:
+        role = "Penyelia";
+        break;
+      case 400:
+        role = "Executive Officer";
+        break;
+      case 500:
+        role = "Branch Admin";
+        break;
+      case 600:
+        role = "SAM";
+        break;
+      case 700:
+        role = "ROM";
+        break;
+      case 800:
+        role = "Mechanic";
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      child: ListView(physics: const BouncingScrollPhysics(), children: [
-        Container(
-          alignment: Alignment.centerLeft,
-          height: 80.0,
-          child: DrawerHeader(
-              decoration: BoxDecoration(
-                color: transparent,
-              ),
-              child: Image.asset(headerImg)),
-        ),
-        SizedBox(
-            height: _device.screenHeight(context),
-            child: ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                padding: EdgeInsets.zero,
-                itemCount: _getList().length,
-                itemBuilder: (BuildContext context, int index) {
-                  return ListTile(
-                    leading: Icon(
-                      _getList()[index].iconName,
-                      color: _getList()[index].titleColor,
+    return ClipRRect(
+      borderRadius: const BorderRadius.only(
+          topRight: Radius.circular(22), bottomRight: Radius.circular(22)),
+      child: Drawer(
+        child: ListView(physics: const BouncingScrollPhysics(), children: [
+          Container(
+            alignment: Alignment.centerLeft,
+            height: _device.isLandscape(context) ? 80 : 110.0,
+            child: DrawerHeader(
+                decoration: BoxDecoration(
+                  color: transparent,
+                ),
+                child: Row(
+                  children: [
+                    Stack(
+                        clipBehavior: Clip.hardEdge,
+                        alignment: AlignmentDirectional.center,
+                        fit: StackFit.loose,
+                        children: <Widget>[
+                          Container(
+                            height: _device.isLandscape(context) ? 52 : 62,
+                            width: _device.isLandscape(context) ? 52 : 62,
+                            decoration: BoxDecoration(
+                                color: transparent,
+                                border: Border.all(color: Colors.grey.shade300),
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(10))),
+                          ),
+                          Padding(
+                            padding: _device.isLandscape(context)
+                                ? const EdgeInsets.all(2)
+                                : const EdgeInsets.all(0),
+                            child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: FittedBox(
+                                  fit: BoxFit.fill,
+                                  child: Image.asset(
+                                    userImg,
+                                    height:
+                                        _device.isLandscape(context) ? 50 : 58,
+                                    width:
+                                        _device.isLandscape(context) ? 50 : 58,
+                                  ),
+                                )),
+                          )
+                        ]),
+                    const SizedBox(
+                      width: 15,
                     ),
-                    title: Text(
-                      _getList()[index].title,
-                      style: TextStyle(color: _getList()[index].titleColor),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Muhammad Amiruddin...",
+                          style: TextStyle(
+                              color: black87,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w800),
+                        ),
+                        const SizedBox(height: 4),
+                        Row(
+                          children: [
+                            Text(
+                              "SWK2210020",
+                              style: TextStyle(
+                                  color: grey500,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                            const SizedBox(width: 10),
+                            Text(
+                              role,
+                              style: TextStyle(
+                                  color: grey500,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                    onTap: () {
-                      _getDrawerRoute(index, context);
-                    },
-                  );
-                }))
-      ]),
+                  ],
+                )),
+          ),
+          SizedBox(
+              height: _device.screenHeight(context) * 0.75,
+              child: ListView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  padding: EdgeInsets.zero,
+                  itemCount: _getList().length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return ListTile(
+                      tileColor: _isHighlighted[index]
+                          ? const Color(0x86E9F4FC)
+                          : null,
+                      leading: Icon(
+                        _getList()[index].iconName,
+                        color: _isHighlighted[index]
+                            ? Colors.blue.shade500
+                            : _getList()[index].titleColor,
+                      ),
+                      title: Text(
+                        _getList()[index].title,
+                        style: TextStyle(
+                            color: _isHighlighted[index]
+                                ? Colors.blue.shade500
+                                : _getList()[index].titleColor,
+                            fontWeight:
+                                _isHighlighted[index] ? FontWeight.w700 : null),
+                      ),
+                      onTap: () {
+                        for (int i = 0; i < _isHighlighted.length; i++) {
+                          setState(() {
+                            if (index == i) {
+                              _isHighlighted[index] = true;
+                            } else {
+                              _isHighlighted[i] = false;
+                            }
+                          });
+                        }
+                        _getDrawerRoute(index, context);
+                      },
+                    );
+                  })),
+          ListTile(
+            title: Text(
+              'Aplikasi V0.1',
+              style: (TextStyle(
+                  color: grey500, fontWeight: FontWeight.w500, fontSize: 12)),
+            ),
+            onTap: () {},
+          ),
+        ]),
+      ),
     );
   }
 
