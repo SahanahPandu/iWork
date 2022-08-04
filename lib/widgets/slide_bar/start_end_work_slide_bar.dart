@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:action_slider/action_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
@@ -103,27 +105,29 @@ class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
   void _switchWorkTime(BuildContext context) {
     statusTask == 3
         ? null
-        : (completedFirstVc? showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return  showAlertDialog(
-              context,
-              confirmation,
-              statusTask == 2 ? confirmEndWork : confirmStartWork,
-              statusTask == 2 ? endWorkText : startWorkText,
-              cancel);
-        }).then((actionText) {
-      if (actionText == startWorkText) {
-        _setTaskState(endWork, red, red, red, white, 2);
-        slidedStartTime = Date.getCurrentTime();
-        CompactorPanelMyTaskListDetails.of(context)
-            ?.setStartTime(slidedStartTime);
-      } else if (actionText == endWorkText) {
-        _setTaskState(
-            startWork, grey, transparent, transparent, grey300, 3);
-        slidedEndTime = Date.getCurrentTime();
-      }
-    }) : showErrorToast(context, doVcFirst));
+        : (completedFirstVc
+            ? showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return showAlertDialog(
+                      context,
+                      confirmation,
+                      statusTask == 2 ? confirmEndWork : confirmStartWork,
+                      statusTask == 2 ? endWorkText : startWorkText,
+                      cancel);
+                }).then((actionText) {
+                if (actionText == startWorkText) {
+                  _setTaskState(endWork, red, red, red, white, 2);
+                  slidedStartTime = Date.getCurrentTime();
+                  CompactorPanelMyTaskListDetails.of(context)
+                      ?.setStartTime(slidedStartTime);
+                } else if (actionText == endWorkText) {
+                  _setTaskState(
+                      startWork, grey, transparent, transparent, grey300, 3);
+                  slidedEndTime = Date.getCurrentTime();
+                }
+              })
+            : showErrorToast(context, doVcFirst));
   }
 
   void _setTaskState(String textP, Color textColorP, Color iconColorP,

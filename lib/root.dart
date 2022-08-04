@@ -1,3 +1,4 @@
+// ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 
@@ -21,7 +22,7 @@ class RootState extends State<Root> {
   void _isUserLoggedIn() async {
     String getInfo = await Auth.loadUserInfo();
     int getRole = await Roles.loadUserRole();
-   // print("_info = $info, _role = $role, userRole config: $userRole");
+    // print("_info = $info, _role = $role, userRole config: $userRole");
     if (getInfo == "" && getRole == 0) {
       Navigator.pushNamedAndRemoveUntil(
           context, '/login', ModalRoute.withName('/login'));
