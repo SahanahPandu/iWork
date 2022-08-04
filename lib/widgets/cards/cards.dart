@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 //import files
 import 'package:eswm/config/config.dart';
-import '../../screens/issues/attendance/attendance_issues_laluan_details.dart';
+//import '../../screens/issues/attendance/attendance_issues_laluan_details.dart';
 import '../../screens/work_schedule/compactor_panel/compactor_panel_schedule_details.dart';
 import '../../screens/work_schedule/pra/pra_work_schedule_details.dart';
 import '../../screens/work_schedule/supervisor/supervisor_schedule_details.dart';
@@ -27,10 +27,14 @@ class _CardsState extends State<Cards> {
       return CompactorPanelScheduleDetails(data: widget.data);
     } else if (widget.type == "SV Laluan Details") {
       return SupervisorScheduleDetails(data: widget.data);
-    } else if (widget.type == "Laluan Details") {
-      return const AttendanceIssuesLaluanDetails();
-    } else if (widget.type == "Senarai Pekerja") {
-      return const ListOfEmployeeDetails();
+    }
+    // else if (widget.type == "Laluan Details") {
+    //   return const AttendanceIssuesLaluanDetails();
+    // }
+    else if (widget.type == "Senarai Pekerja") {
+      return ListOfEmployeeDetails(
+        data: widget.data!,
+      );
     }
   }
 

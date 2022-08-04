@@ -1,12 +1,18 @@
+// ignore_for_file: must_be_immutable
+
 import "package:flutter/material.dart";
 
 //import files
+
+import 'package:eswm/models/pekerja.dart';
 import '../../config/font.dart';
 import '../../config/palette.dart';
 import '../../widgets/container/status_container.dart';
 
 class ListOfEmployeeDetails extends StatefulWidget {
-  const ListOfEmployeeDetails({Key? key}) : super(key: key);
+  Pekerja data;
+
+  ListOfEmployeeDetails({Key? key, required this.data}) : super(key: key);
 
   @override
   State<ListOfEmployeeDetails> createState() => _ListOfEmployeeDetailsState();
@@ -86,15 +92,15 @@ class _ListOfEmployeeDetailsState extends State<ListOfEmployeeDetails> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      "Suhaimi Saad",
-                      style: TextStyle(
+                    Text(
+                      widget.data.name,
+                      style: const TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 15,
                       ),
                     ),
                     Text(
-                      "PRA",
+                      widget.data.designation,
                       style: TextStyle(
                         color: Colors.grey.shade600,
                         fontWeight: FontWeight.w500,
@@ -108,7 +114,7 @@ class _ListOfEmployeeDetailsState extends State<ListOfEmployeeDetails> {
             //Status
             StatusContainer(
               boxColor: statusBoxColor,
-              status: "Tidak Hadir",
+              status: widget.data.attStatus,
               textColor: statusTextColor,
               fontWeight: statusFontWeight,
             ),
@@ -140,9 +146,9 @@ class _ListOfEmployeeDetailsState extends State<ListOfEmployeeDetails> {
                 ),
               ],
             ),
-            const Text(
-              "Kemahiran Asas",
-              style: TextStyle(
+            Text(
+              widget.data.skills,
+              style: const TextStyle(
                 fontSize: 15,
                 color: Colors.black45,
                 fontWeight: FontWeight.w500,
@@ -169,16 +175,22 @@ class _ListOfEmployeeDetailsState extends State<ListOfEmployeeDetails> {
                 Text(
                   "Masuk Kerja / Keluar Kerja",
                   style: TextStyle(
-                    fontSize: 15,
+                    fontSize: 13,
                     color: Colors.grey.shade800,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
               ],
             ),
-            const Text(
-              "--,-- / --,--",
-              style: TextStyle(
+            Text(
+              (widget.data.timeIn == "" && widget.data.timeOut == "")
+                  ? "--:-- / --:/--"
+                  : (widget.data.timeIn == "")
+                      ? "--:-- / ${widget.data.timeOut}"
+                      : (widget.data.timeOut == "")
+                          ? "${widget.data.timeIn} / --:--"
+                          : "${widget.data.timeIn} / ${widget.data.timeOut}",
+              style: const TextStyle(
                 fontSize: 15,
                 color: Colors.black45,
                 fontWeight: FontWeight.w500,

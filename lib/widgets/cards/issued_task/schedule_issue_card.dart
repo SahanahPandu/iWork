@@ -90,14 +90,7 @@ class _ScheduleIssuedCardState extends State<ScheduleIssuedCard> {
                 color: grey500, fontSize: 15, fontWeight: FontWeight.w600),
           ),
         ),
-        Container(
-          margin: const EdgeInsets.symmetric(
-            horizontal: 15,
-            //vertical: 5,
-          ),
-          //Change here for listing types
-          child: _showBottomList(),
-        ),
+        _showBottomList(),
       ],
     );
   }
@@ -105,11 +98,13 @@ class _ScheduleIssuedCardState extends State<ScheduleIssuedCard> {
   _showBottomList() {
     switch (widget.getIssue) {
       case "kehadiran":
-        return const ListOfEmployees();
+        return ListOfEmployees(
+          idPekerja: const ["Emp07"],
+        );
       case "laporan":
         return CardListView(type: "Laporan");
       case "belum":
-        return const ListOfEmployees();
+        return ListOfEmployees();
     }
   }
 }

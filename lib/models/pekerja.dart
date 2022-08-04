@@ -1,5 +1,5 @@
 class Pekerja {
-  final int id;
+  final String id;
   final String name;
   final String designCat;
   final String designation;
@@ -22,7 +22,7 @@ class Pekerja {
   });
 
   static Pekerja fromJson(json) => Pekerja(
-      id: json['id'] ?? 0,
+      id: json['id'] ?? "",
       name: json['name'] ?? "",
       designCat: json['designCat'] ?? "",
       designation: json['designation'] ?? "",

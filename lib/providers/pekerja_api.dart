@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import '../models/pekerja.dart';
 
 class PekerjaApi {
-  static Future<List<Pekerja>> getJalanData(BuildContext context) async {
+  static Future<List<Pekerja>> getPekerjaData(BuildContext context) async {
     final assetBundle = DefaultAssetBundle.of(context);
     final jsonData =
         await assetBundle.loadString('assets/data/data_pekerja.json');

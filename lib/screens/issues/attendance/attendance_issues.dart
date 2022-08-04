@@ -37,7 +37,7 @@ class _AttendanceIssuesState extends State<AttendanceIssues> {
             const SizedBox(
               height: 25,
             ),
-            const ListOfEmployees(),
+            ListOfEmployees(),
           ],
         ),
       ),

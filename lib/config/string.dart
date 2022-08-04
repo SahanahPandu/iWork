@@ -28,8 +28,10 @@ String confirmStartWork =
 String confirmEndWork =
     'Adakah anda ingin menamatkan tugasan untuk Laluan JHBP01-C02? Pastikan tugasan telah selesai';
 String endWork = 'Leretkan Ke Kiri Untuk Tamat Tugas';
-String doVcFirst = 'Pastikan anda mengisi borang semak kenderaan terlebih dahulu sebelum memulakan tugasan kerja';
-String notFoundStreet = 'Tiada senarai jalan dijumpa!';
+String doVcFirst =
+    'Pastikan anda mengisi borang semak kenderaan terlebih dahulu sebelum memulakan tugasan kerja';
+String notFoundStreet = 'Tiada senarai jalan dijumpai!';
+String noEmployeeFound = 'Tiada Senarai Pekerja dijumpai!';
 String fillUpVC =
     'Lengkapkan borang semakan kenderaan sebelum keluar di bawah :';
 String date = 'Tarikh';
