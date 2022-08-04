@@ -81,7 +81,7 @@ class _DrawerBuildState extends State<DrawerBuild> {
         child: ListView(physics: const BouncingScrollPhysics(), children: [
           Container(
             alignment: Alignment.centerLeft,
-            height: 140.0,
+            height: _device.isLandscape(context) ? 80 : 110.0,
             child: DrawerHeader(
                 decoration: BoxDecoration(
                   color: transparent,
@@ -94,24 +94,31 @@ class _DrawerBuildState extends State<DrawerBuild> {
                         fit: StackFit.loose,
                         children: <Widget>[
                           Container(
-                            height: 62,
-                            width: 62,
+                            height: _device.isLandscape(context) ? 52 : 62,
+                            width: _device.isLandscape(context) ? 52 : 62,
                             decoration: BoxDecoration(
                                 color: transparent,
                                 border: Border.all(color: Colors.grey.shade300),
                                 borderRadius: const BorderRadius.all(
                                     Radius.circular(10))),
                           ),
-                          ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: FittedBox(
-                                fit: BoxFit.fill,
-                                child: Image.asset(
-                                  userImg,
-                                  height: 58,
-                                  width: 58,
-                                ),
-                              ))
+                          Padding(
+                            padding: _device.isLandscape(context)
+                                ? const EdgeInsets.all(2)
+                                : const EdgeInsets.all(0),
+                            child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: FittedBox(
+                                  fit: BoxFit.fill,
+                                  child: Image.asset(
+                                    userImg,
+                                    height:
+                                        _device.isLandscape(context) ? 50 : 58,
+                                    width:
+                                        _device.isLandscape(context) ? 50 : 58,
+                                  ),
+                                )),
+                          )
                         ]),
                     const SizedBox(
                       width: 15,
@@ -153,15 +160,16 @@ class _DrawerBuildState extends State<DrawerBuild> {
                 )),
           ),
           SizedBox(
-              height: _device.screenHeight(context) * 0.8,
+              height: _device.screenHeight(context) * 0.75,
               child: ListView.builder(
                   physics: const BouncingScrollPhysics(),
                   padding: EdgeInsets.zero,
                   itemCount: _getList().length,
                   itemBuilder: (BuildContext context, int index) {
                     return ListTile(
-                      tileColor:
-                          _isHighlighted[index] ? const Color(0x86E9F4FC) : null,
+                      tileColor: _isHighlighted[index]
+                          ? const Color(0x86E9F4FC)
+                          : null,
                       leading: Icon(
                         _getList()[index].iconName,
                         color: _isHighlighted[index]
