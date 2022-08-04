@@ -1,4 +1,4 @@
-import 'package:eswm/models/senaraiStaf.dart';
+import 'package:eswm/models/senarai_staf.dart';
 
 class Laluan {
   final int id;
