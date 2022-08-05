@@ -1,11 +1,13 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 //import files
 import '../../../../config/palette.dart';
 import '../../../config/font.dart';
 import '../../../../models/laluan.dart';
+import '../../../utils/custom_icon.dart';
 import '../../../utils/device.dart';
 import '../../../widgets/container/status_container.dart';
 
@@ -88,12 +90,13 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
             children: [
               Row(
                 children: [
-                  const Icon(
-                    Icons.local_shipping,
+                  Icon(
+                    CustomIcon.truckFill,
                     size: 18,
+                    color: blue,
                   ),
                   const SizedBox(
-                    width: 8,
+                    width: 10,
                   ),
                   Text(
                     "No. Kenderaan",
@@ -124,15 +127,16 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
             children: [
               Row(
                 children: [
-                  const Icon(
-                    Icons.location_on,
+                  Icon(
+                    CustomIcon.roadFill,
                     size: 18,
+                    color: blue,
                   ),
                   const SizedBox(
-                    width: 8,
+                    width: 10,
                   ),
                   Text(
-                    "Sub Laluan",
+                    "Jumlah Sub Laluan",
                     style: TextStyle(
                       fontSize: 13,
                       color: Colors.grey.shade800,
@@ -160,12 +164,13 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
             children: [
               Row(
                 children: [
-                  const Icon(
-                    Icons.house,
+                  Icon(
+                    CustomIcon.tamanFill,
                     size: 18,
+                    color: blue,
                   ),
                   const SizedBox(
-                    width: 8,
+                    width: 10,
                   ),
                   Text(
                     "Jumlah Taman/Jalan",
@@ -196,12 +201,13 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
             children: [
               Row(
                 children: [
-                  const Icon(
+                  Icon(
                     Icons.grass,
                     size: 18,
+                    color: blue,
                   ),
                   const SizedBox(
-                    width: 8,
+                    width: 10,
                   ),
                   Text(
                     "Jenis Kutipan",
@@ -233,12 +239,13 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
             children: [
               Row(
                 children: [
-                  const Icon(
-                    Icons.schedule,
+                  Icon(
+                    CustomIcon.scheduleFill,
                     size: 18,
+                    color: blue
                   ),
                   const SizedBox(
-                    width: 8,
+                    width: 10,
                   ),
                   Text(
                     "Masuk kerja/Keluar Kerja",
@@ -271,12 +278,13 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
             children: [
               Row(
                 children: [
-                  const Icon(
-                    Icons.people_alt_rounded,
+                  Icon(
+                    CustomIcon.user,
                     size: 18,
+                    color: blue,
                   ),
                   const SizedBox(
-                    width: 8,
+                    width: 10,
                   ),
                   Text(
                     "Senarai Pekerja",
@@ -337,12 +345,13 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
             children: [
               Row(
                 children: [
-                  const Icon(
-                    Icons.menu_book_outlined,
+                  Icon(
+                    CustomIcon.truckFill,
                     size: 18,
+                    color: blue,
                   ),
                   const SizedBox(
-                    width: 8,
+                    width: 10,
                   ),
                   Text(
                     "Semakan Kenderaan",
@@ -372,8 +381,16 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                   width: _device.screenWidth(context) * 0.75,
                   child: ElevatedButton(
                     style: ButtonStyle(
-                        shadowColor:
-                            MaterialStateProperty.all(Colors.grey[300]),
+                        elevation: MaterialStateProperty.all(0),
+                        overlayColor:
+                            MaterialStateColor.resolveWith((states) => red),
+                        foregroundColor:
+                            MaterialStateColor.resolveWith((states) {
+                          if (states.contains(MaterialState.pressed)) {
+                            return white;
+                          }
+                          return red;
+                        }),
                         shape: MaterialStateProperty.all(
                           RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8.0),
@@ -382,13 +399,11 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                         minimumSize: MaterialStateProperty.all(
                             Size(_device.screenWidth(context), 42)),
                         backgroundColor: MaterialStateProperty.all(white)),
-                    child: Text("Hubungi Pemandu",
+                    child: const Text("Hubungi Pemandu",
                         style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w600,
-                            color: red)),
+                            fontSize: 13, fontWeight: FontWeight.w600)),
                     onPressed: () {
-                      // _filterTaskIssueAction(widget.data.isu);
+                      _callNumber(widget.data.leaderContact);
                     },
                   ),
                 ),
@@ -396,5 +411,14 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
             : const SizedBox(height: 4),
       ],
     );
+  }
+
+  _callNumber(String phoneNumber) async {
+    String url = 'tel:$phoneNumber';
+    if (await canLaunchUrl(Uri.parse(url))) {
+      await launchUrl(Uri.parse(url));
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }

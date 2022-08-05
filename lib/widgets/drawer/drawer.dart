@@ -166,37 +166,44 @@ class _DrawerBuildState extends State<DrawerBuild> {
                   padding: EdgeInsets.zero,
                   itemCount: _getList().length,
                   itemBuilder: (BuildContext context, int index) {
-                    return ListTile(
-                      tileColor: _isHighlighted[index]
-                          ? const Color(0x86E9F4FC)
-                          : null,
-                      leading: Icon(
-                        _getList()[index].iconName,
-                        color: _isHighlighted[index]
-                            ? Colors.blue.shade500
-                            : _getList()[index].titleColor,
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: ListTile(
+                        tileColor: _isHighlighted[index]
+                            ? const Color(0x86E9F4FC)
+                            : null,
+                        leading: Icon(
+                          _isHighlighted[index]
+                              ? _getList()[index].iconFill
+                              : _getList()[index].iconOutline,
+                          color: _isHighlighted[index]
+                              ? Colors.blue.shade500
+                              : _getList()[index].titleColor,
+                          size: 15,
+                        ),
+                        title: Text(
+                          _getList()[index].title,
+                          style: TextStyle(
+                              color: _isHighlighted[index]
+                                  ? Colors.blue.shade500
+                                  : _getList()[index].titleColor,
+                              fontWeight: _isHighlighted[index]
+                                  ? FontWeight.w700
+                                  : null),
+                        ),
+                        onTap: () {
+                          for (int i = 0; i < _isHighlighted.length; i++) {
+                            setState(() {
+                              if (index == i) {
+                                _isHighlighted[index] = true;
+                              } else {
+                                _isHighlighted[i] = false;
+                              }
+                            });
+                          }
+                          _getDrawerRoute(index, context);
+                        },
                       ),
-                      title: Text(
-                        _getList()[index].title,
-                        style: TextStyle(
-                            color: _isHighlighted[index]
-                                ? Colors.blue.shade500
-                                : _getList()[index].titleColor,
-                            fontWeight:
-                                _isHighlighted[index] ? FontWeight.w700 : null),
-                      ),
-                      onTap: () {
-                        for (int i = 0; i < _isHighlighted.length; i++) {
-                          setState(() {
-                            if (index == i) {
-                              _isHighlighted[index] = true;
-                            } else {
-                              _isHighlighted[i] = false;
-                            }
-                          });
-                        }
-                        _getDrawerRoute(index, context);
-                      },
                     );
                   })),
           ListTile(

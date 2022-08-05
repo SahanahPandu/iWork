@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:eswm/utils/custom_icon.dart';
 import 'package:flutter/material.dart';
 import '../../../../utils/date.dart';
 
@@ -89,7 +90,7 @@ class _PraTodayTaskDetailsState extends State<PraTodayTaskDetails> {
           children: [
             if (widget.timeIn != "")
               const Icon(
-                Icons.timer_outlined,
+                CustomIcon.timerFill,
                 color: Colors.white,
                 size: 18,
               ),

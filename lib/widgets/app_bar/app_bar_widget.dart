@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../config/palette.dart';
+import '../../utils/custom_icon.dart';
 
 class AppBarWidget extends StatefulWidget implements PreferredSizeWidget {
   @override
@@ -31,7 +32,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
           Navigator.pop(context);
         },
         icon: Icon(
-          Icons.arrow_back,
+          CustomIcon.arrowBack,
           color: Colors.grey.shade900,
         ),
       ),

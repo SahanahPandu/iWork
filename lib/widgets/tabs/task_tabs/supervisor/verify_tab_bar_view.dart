@@ -18,14 +18,13 @@ class _VarifyTabbarViewState extends State<VarifyTabbarView> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(height: 10),
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      child:
         ScheduleVerifyMain(
             isAttendanceList: attendanceMainCard,
             isEcutiList: eCutiMainCard,
             isReschedule: rescheduleMainCard),
-      ],
     );
   }
 }

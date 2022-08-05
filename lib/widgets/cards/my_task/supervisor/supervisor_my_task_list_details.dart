@@ -7,6 +7,7 @@ import '../../../../config/font.dart';
 import '../../../../config/palette.dart';
 import '../../../../models/laluan.dart';
 import '../../../../screens/schedule_issue/schedule_issue_main.dart';
+import '../../../../utils/custom_icon.dart';
 import '../../../../utils/device.dart';
 import '../../../container/status_container.dart';
 
@@ -109,29 +110,30 @@ class _SupervisorMyTaskListDetailsState
                 children: [
                   Row(
                     children: [
-                      const Icon(
-                        Icons.local_shipping,
+                      Icon(
+                        CustomIcon.truckFill,
                         size: 16,
+                        color: blue,
                       ),
                       const SizedBox(
-                        width: 8,
+                        width: 10,
                       ),
                       Text(
                         "No. Kenderaan",
                         style: TextStyle(
                           fontSize: 13,
-                          color: Colors.grey.shade800,
-                          fontWeight: FontWeight.w700,
+                          color: grey400,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                     ],
                   ),
                   Text(
                     widget.data.noKenderaan,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 13,
-                      color: Colors.black45,
-                      fontWeight: FontWeight.w500,
+                      color: black87,
+                      fontWeight: FontWeight.w700,
                     ),
                   )
                 ],
@@ -145,29 +147,30 @@ class _SupervisorMyTaskListDetailsState
                 children: [
                   Row(
                     children: [
-                      const Icon(
-                        Icons.location_on,
-                        size: 16,
+                      Icon(
+                        CustomIcon.roadFill,
+                        size: 18,
+                        color: blue,
                       ),
                       const SizedBox(
-                        width: 8,
+                        width: 10,
                       ),
                       Text(
-                        "Sub Laluan",
+                        "Jumlah Sub Laluan",
                         style: TextStyle(
                           fontSize: 13,
-                          color: Colors.grey.shade800,
-                          fontWeight: FontWeight.w700,
+                          color: grey400,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                     ],
                   ),
                   Text(
                     "${widget.data.jumSubLaluan}",
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 13,
-                      color: Colors.black45,
-                      fontWeight: FontWeight.w500,
+                      color: black87,
+                      fontWeight: FontWeight.w700,
                     ),
                   )
                 ],
@@ -182,9 +185,10 @@ class _SupervisorMyTaskListDetailsState
                 children: [
                   Row(
                     children: [
-                      const Icon(
-                        Icons.house,
-                        size: 16,
+                      Icon(
+                        CustomIcon.tamanFill,
+                        size: 18,
+                        color: blue,
                       ),
                       const SizedBox(
                         width: 8,
@@ -193,18 +197,18 @@ class _SupervisorMyTaskListDetailsState
                         "Jumlah Taman/Jalan",
                         style: TextStyle(
                           fontSize: 13,
-                          color: Colors.grey.shade800,
-                          fontWeight: FontWeight.w700,
+                          color: grey400,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                     ],
                   ),
                   Text(
                     "${widget.data.jumlahTaman}/${widget.data.jumlahJalan}",
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 13,
-                      color: Colors.black45,
-                      fontWeight: FontWeight.w500,
+                      color: black87,
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
                 ],
@@ -219,20 +223,21 @@ class _SupervisorMyTaskListDetailsState
                 width: _device.screenWidth(context) * 0.75,
                 child: ElevatedButton(
                   style: ButtonStyle(
-                      shadowColor: MaterialStateProperty.all(Colors.grey[300]),
+                      elevation: MaterialStateProperty.all(0),
                       shape: MaterialStateProperty.all(
                         RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                            side: BorderSide(color: red)),
+                            borderRadius: BorderRadius.circular(8.0)),
                       ),
+                      overlayColor: MaterialStateColor.resolveWith(
+                          (states) => Colors.red.shade900),
                       minimumSize: MaterialStateProperty.all(
                           Size(_device.screenWidth(context), 42)),
-                      backgroundColor: MaterialStateProperty.all(white)),
+                      backgroundColor: MaterialStateProperty.all(red)),
                   child: Text(taskIssueText,
                       style: TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.w600,
-                          color: red)),
+                          color: white)),
                   onPressed: () {
                     Navigator.push(
                       context,

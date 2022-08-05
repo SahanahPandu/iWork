@@ -7,6 +7,8 @@ import 'package:intl/intl.dart';
 //import files
 import 'package:eswm/config/palette.dart';
 
+import '../../utils/custom_icon.dart';
+
 class TimeLog extends StatefulWidget {
   final String btnText;
   final Color btnColor;
@@ -40,10 +42,8 @@ class _TimeLogState extends State<TimeLog> {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.grey.shade900,
-          ),
+          icon:
+              Icon(CustomIcon.arrowBack, color: Colors.grey.shade900, size: 18),
         ),
         title: Center(
           child: Text(

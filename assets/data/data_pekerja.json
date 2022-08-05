@@ -8,7 +8,8 @@
         "attStatus": "Hadir",
         "skills": "Pemandu",
         "timeIn": "07.03 pagi",
-        "timeOut": ""
+        "timeOut": "",
+        "reportsTo": "Ahmad"
 
     },
     {
@@ -20,7 +21,8 @@
         "attStatus": "Tidak Hadir",
         "skills": "Kemahiran Asas",
         "timeIn": "",
-        "timeOut": ""
+        "timeOut": "",
+        "reportsTo": "Jalil"
 
     },
     {
@@ -32,7 +34,8 @@
         "attStatus": "Hadir",
         "skills": "Pemandu",
         "timeIn": "07.15 pagi",
-        "timeOut": ""
+        "timeOut": "",
+        "reportsTo": "Ahmad"
 
     },
     {
@@ -44,7 +47,8 @@
         "attStatus": "Hadir",
         "skills": "Pemandu",
         "timeIn": "06.25 pagi",
-        "timeOut": ""
+        "timeOut": "",
+        "reportsTo": "Jalil"
 
     },
     {
@@ -56,7 +60,8 @@
         "attStatus": "Hadir",
         "skills": "Kemahiran Asas",
         "timeIn": "07.00 pagi",
-        "timeOut": ""
+        "timeOut": "",
+        "reportsTo": "Jalil"
 
     },
     {
@@ -68,7 +73,8 @@
         "attStatus": "Hadir",
         "skills": "Pemandu",
         "timeIn": "06.43 pagi",
-        "timeOut": ""
+        "timeOut": "",
+        "reportsTo": "Jalil"
 
     },
     {
@@ -80,7 +86,8 @@
         "attStatus": "Tidak Hadir",
         "skills": "Kemahiran Asas",
         "timeIn": "",
-        "timeOut": ""
+        "timeOut": "",
+        "reportsTo": "Jalil"
 
     }
 ]

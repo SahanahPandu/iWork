@@ -45,8 +45,8 @@ class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
         width:
             _device.isLandscape(context) ? 350 : _device.screenWidth(context),
         controller: _controller,
-        height: 45.0,
-        toggleWidth: 35.0,
+        height: _device.isLandscape(context)? 45 : 40,
+        toggleWidth: _device.isLandscape(context)? 35.0 : 31,
         sliderBehavior: SliderBehavior.stretch,
         foregroundChild: Container(
             decoration: BoxDecoration(
@@ -69,7 +69,7 @@ class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
                     child: Text(slideText,
                         style: TextStyle(
                             fontSize:
-                                _device.isLandscape(context) ? 14.0 : 12.0,
+                                _device.isLandscape(context) ? 14 : 11.5,
                             fontWeight: FontWeight.w500)),
                   ),
           ),

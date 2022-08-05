@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../../../config/font.dart';
+import '../../../../config/palette.dart';
 import '../../../../models/laluan.dart';
+import '../../../../utils/custom_icon.dart';
 import '../../../container/status_container.dart';
 
 class PraMyTaskListDetails extends StatefulWidget {
@@ -83,29 +85,30 @@ class _PraMyTaskListDetailsState extends State<PraMyTaskListDetails> {
             children: [
               Row(
                 children: [
-                  const Icon(
-                    Icons.local_shipping,
-                    size: 18,
+                  Icon(
+                    CustomIcon.truckFill,
+                    size: 16,
+                    color: blue,
                   ),
                   const SizedBox(
-                    width: 8,
+                    width: 10,
                   ),
                   Text(
                     "No. Kenderaan",
                     style: TextStyle(
-                      fontSize: 15,
-                      color: Colors.grey.shade800,
-                      fontWeight: FontWeight.w700,
+                      fontSize: 13,
+                      color: grey400,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                 ],
               ),
               Text(
                 widget.data.noKenderaan,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 15,
-                  color: Colors.black45,
-                  fontWeight: FontWeight.w500,
+                  color: black87,
+                  fontWeight: FontWeight.w700,
                 ),
               )
             ],
@@ -119,29 +122,30 @@ class _PraMyTaskListDetailsState extends State<PraMyTaskListDetails> {
             children: [
               Row(
                 children: [
-                  const Icon(
-                    Icons.location_on,
+                  Icon(
+                    CustomIcon.roadFill,
                     size: 18,
+                    color: blue,
                   ),
                   const SizedBox(
-                    width: 8,
+                    width: 10,
                   ),
                   Text(
-                    "Sub Laluan",
+                    "Jumlah Sub Laluan",
                     style: TextStyle(
-                      fontSize: 15,
-                      color: Colors.grey.shade800,
-                      fontWeight: FontWeight.w700,
+                      fontSize: 13,
+                      color: grey400,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                 ],
               ),
               Text(
                 "${widget.data.jumSubLaluan}",
-                style: const TextStyle(
-                  fontSize: 15,
-                  color: Colors.black45,
-                  fontWeight: FontWeight.w500,
+                style: TextStyle(
+                  fontSize: 13,
+                  color: black87,
+                  fontWeight: FontWeight.w700,
                 ),
               )
             ],
@@ -156,9 +160,10 @@ class _PraMyTaskListDetailsState extends State<PraMyTaskListDetails> {
             children: [
               Row(
                 children: [
-                  const Icon(
-                    Icons.house,
+                  Icon(
+                    CustomIcon.tamanFill,
                     size: 18,
+                    color: blue,
                   ),
                   const SizedBox(
                     width: 8,
@@ -166,19 +171,19 @@ class _PraMyTaskListDetailsState extends State<PraMyTaskListDetails> {
                   Text(
                     "Jumlah Taman/Jalan",
                     style: TextStyle(
-                      fontSize: 15,
-                      color: Colors.grey.shade800,
-                      fontWeight: FontWeight.w700,
+                      fontSize: 13,
+                      color: grey400,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                 ],
               ),
               Text(
                 "${widget.data.jumlahTaman}/${widget.data.jumlahJalan}",
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 15,
-                  color: Colors.black45,
-                  fontWeight: FontWeight.w500,
+                  color: black87,
+                  fontWeight: FontWeight.w700,
                 ),
               )
             ],

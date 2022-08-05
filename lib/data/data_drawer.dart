@@ -1,47 +1,75 @@
 import 'package:eswm/models/drawer.dart';
 import 'package:flutter/material.dart';
 
+import '../utils/custom_icon.dart';
+
 List compactorDrawerList = [
-  Drawers("Halaman Utama", Icons.home, "context"),
-  Drawers("Jadual Tugasan", Icons.schedule, "context"),
-  Drawers("Laporan", Icons.report_gmailerrorred_outlined, "context)"),
-  Drawers("Semakan Kenderaan", Icons.fire_truck, "context"),
-  Drawers("Manual Operasi", Icons.menu_book, "context"),
-  Drawers("Log Keluar", Icons.logout, "context", Colors.red),
+  Drawers(
+      "Halaman Utama", CustomIcon.homeOutline, CustomIcon.homeFill, "context"),
+  Drawers("Jadual Tugasan", CustomIcon.scheduleOutline, CustomIcon.scheduleFill,
+      "context"),
+  Drawers(
+      "Laporan", CustomIcon.reportOutline, CustomIcon.reportFill, "context)"),
+  Drawers("Semakan Kenderaan", CustomIcon.truckOutline, CustomIcon.truckFill,
+      "context"),
+  Drawers(
+      "Manual Operasi", CustomIcon.bookOutline, CustomIcon.bookFill, "context"),
+  Drawers("Log Keluar", CustomIcon.logOut, CustomIcon.logOut, "context",
+      Colors.red),
 ];
 
 List praDrawerList = [
-  Drawers("Halaman Utama", Icons.home, "context"),
-  Drawers("E-Cuti", Icons.pages, "context"),
-  Drawers("Jadual Tugasan", Icons.schedule, "context"),
-  Drawers("Laporan", Icons.report_gmailerrorred_outlined, "context"),
-  Drawers("Semakan Kenderaan", Icons.fire_truck, "context"),
-  Drawers("Manual Operasi", Icons.menu_book, "context"),
-  Drawers("Log Keluar", Icons.logout, "context", Colors.red),
+  Drawers(
+      "Halaman Utama", CustomIcon.homeOutline, CustomIcon.homeFill, "context"),
+  Drawers("E-Cuti", CustomIcon.formOutline, CustomIcon.formFill, "context"),
+  Drawers("Jadual Tugasan", CustomIcon.scheduleOutline, CustomIcon.scheduleFill,
+      "context"),
+  Drawers(
+      "Laporan", CustomIcon.reportOutline, CustomIcon.reportFill, "context"),
+  Drawers("Semakan Kenderaan", CustomIcon.truckOutline, CustomIcon.truckFill,
+      "context"),
+  Drawers(
+      "Manual Operasi", CustomIcon.bookOutline, CustomIcon.bookFill, "context"),
+  Drawers("Log Keluar", CustomIcon.logOut, CustomIcon.logOut, "context",
+      Colors.red),
 ];
 
 List svDrawerList = [
-  Drawers("Halaman Utama", Icons.home, "context"),
-  Drawers("E-Cuti", Icons.pages, "context"),
-  Drawers("Jadual Tugasan", Icons.schedule, "context"),
-  Drawers("Anjakan Jadual", Icons.recycling, "context"),
-  Drawers("Laporan", Icons.report_gmailerrorred_outlined, "context"),
-  Drawers("AKBK", Icons.newspaper, "context"),
-  Drawers("Semakan Kenderaan", Icons.fire_truck, "context"),
-  Drawers("Bengkel", Icons.car_repair, "context"),
-  Drawers("Manual Operasi", Icons.menu_book, "context"),
-  Drawers("Log Keluar", Icons.logout, "context", Colors.red),
+  Drawers(
+      "Halaman Utama", CustomIcon.homeOutline, CustomIcon.homeFill, "context"),
+  Drawers("E-Cuti", CustomIcon.formOutline, CustomIcon.formFill, "context"),
+  Drawers("Jadual Tugasan", CustomIcon.scheduleOutline, CustomIcon.scheduleFill,
+      "context"),
+  Drawers("Anjakan Jadual", Icons.recycling, Icons.recycling, "context"),
+  Drawers(
+      "Laporan", CustomIcon.reportOutline, CustomIcon.reportFill, "context"),
+  Drawers("AKBK", Icons.newspaper, Icons.newspaper, "context"),
+  Drawers("Semakan Kenderaan", CustomIcon.truckOutline, CustomIcon.truckFill,
+      "context"),
+  Drawers("Bengkel", CustomIcon.mechanicOutline, CustomIcon.mechanicFill,
+      "context"),
+  Drawers(
+      "Manual Operasi", CustomIcon.bookOutline, CustomIcon.bookFill, "context"),
+  Drawers("Log Keluar", CustomIcon.logOut, CustomIcon.logOut, "context",
+      Colors.red),
 ];
 
 List eoBaDrawerList = [
-  Drawers("Halaman Utama", Icons.home, "context"),
-  Drawers("E-Cuti", Icons.pages, "context"),
-  Drawers("Jadual Tugasan", Icons.schedule, "context"),
-  Drawers("Anjakan Jadual", Icons.recycling, "context"),
-  Drawers("Laporan", Icons.report_gmailerrorred_outlined, "context"),
-  Drawers("AKBK", Icons.newspaper, "context"),
-  Drawers("Semakan Kenderaan", Icons.fire_truck, "context"),
-  Drawers("Bengkel", Icons.car_repair, "context"),
-  Drawers("Manual Operasi", Icons.menu_book, "context"),
-  Drawers("Log Keluar", Icons.logout, "context", Colors.red),
+  Drawers(
+      "Halaman Utama", CustomIcon.homeOutline, CustomIcon.homeFill, "context"),
+  Drawers("E-Cuti", CustomIcon.formOutline, CustomIcon.formFill, "context"),
+  Drawers("Jadual Tugasan", CustomIcon.scheduleOutline, CustomIcon.scheduleFill,
+      "context"),
+  Drawers("Anjakan Jadual", Icons.recycling, Icons.recycling, "context"),
+  Drawers(
+      "Laporan", CustomIcon.reportOutline, CustomIcon.reportFill, "context"),
+  Drawers("AKBK", Icons.newspaper, Icons.newspaper, "context"),
+  Drawers("Semakan Kenderaan", CustomIcon.truckOutline, CustomIcon.truckFill,
+      "context"),
+  Drawers("Bengkel", CustomIcon.mechanicOutline, CustomIcon.mechanicFill,
+      "context"),
+  Drawers(
+      "Manual Operasi", CustomIcon.bookOutline, CustomIcon.bookFill, "context"),
+  Drawers("Log Keluar", CustomIcon.logOut, CustomIcon.logOut, "context",
+      Colors.red),
 ];

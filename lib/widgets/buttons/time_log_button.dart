@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:eswm/config/config.dart';
+import 'package:eswm/utils/custom_icon.dart';
 import 'package:flutter/material.dart';
 
 //import files
@@ -68,7 +69,7 @@ class _TimeLogButtonState extends State<TimeLogButton> {
           }
         },
         icon: Icon(
-          Icons.timer_outlined,
+          CustomIcon.timerOutline,
           //color: Colors.grey.shade800,
           color: buttonTextColor,
           size: 20,

@@ -8,18 +8,19 @@ class Pekerja {
   final String skills;
   final String timeIn;
   final String timeOut;
+  final String reportsTo;
 
-  Pekerja({
-    required this.id,
-    required this.name,
-    required this.designCat,
-    required this.designation,
-    required this.idAttStatus,
-    required this.attStatus,
-    required this.skills,
-    required this.timeIn,
-    required this.timeOut,
-  });
+  Pekerja(
+      {required this.id,
+      required this.name,
+      required this.designCat,
+      required this.designation,
+      required this.idAttStatus,
+      required this.attStatus,
+      required this.skills,
+      required this.timeIn,
+      required this.timeOut,
+      required this.reportsTo});
 
   static Pekerja fromJson(json) => Pekerja(
       id: json['id'] ?? "",
@@ -30,5 +31,6 @@ class Pekerja {
       attStatus: json['attStatus'] ?? "",
       skills: json['skills'] ?? "",
       timeIn: json['timeIn'] ?? "",
-      timeOut: json['timeOut'] ?? "");
+      timeOut: json['timeOut'] ?? "",
+      reportsTo: json['reportsTo'] ?? "");
 }

@@ -9,6 +9,8 @@ import '../../../../models/laluan.dart';
 import 'package:eswm/widgets/buttons/report_button.dart';
 import 'package:eswm/widgets/container/status_container.dart';
 
+import '../../../utils/custom_icon.dart';
+
 class PraWorkScheduleDetails extends StatefulWidget {
   Laluan data;
 
@@ -84,12 +86,13 @@ class _PraWorkScheduleDetailsState extends State<PraWorkScheduleDetails> {
             children: [
               Row(
                 children: [
-                  const Icon(
-                    Icons.local_shipping,
+                  Icon(
+                    CustomIcon.truckFill,
                     size: 18,
+                    color: blue,
                   ),
                   const SizedBox(
-                    width: 8,
+                    width: 10,
                   ),
                   Text(
                     "No. Kenderaan",
@@ -120,15 +123,16 @@ class _PraWorkScheduleDetailsState extends State<PraWorkScheduleDetails> {
             children: [
               Row(
                 children: [
-                  const Icon(
-                    Icons.location_on,
+                  Icon(
+                    CustomIcon.roadFill,
                     size: 18,
+                    color: blue,
                   ),
                   const SizedBox(
-                    width: 8,
+                    width: 10,
                   ),
                   Text(
-                    "Sub Laluan",
+                    "Jumlah Sub Laluan",
                     style: TextStyle(
                       fontSize: 15,
                       color: Colors.grey.shade800,
@@ -157,12 +161,13 @@ class _PraWorkScheduleDetailsState extends State<PraWorkScheduleDetails> {
             children: [
               Row(
                 children: [
-                  const Icon(
-                    Icons.house,
+                  Icon(
+                    CustomIcon.tamanFill,
                     size: 18,
+                    color: blue,
                   ),
                   const SizedBox(
-                    width: 8,
+                    width: 10,
                   ),
                   Text(
                     "Jumlah Taman/Jalan",
@@ -193,9 +198,10 @@ class _PraWorkScheduleDetailsState extends State<PraWorkScheduleDetails> {
             children: [
               Row(
                 children: [
-                  const Icon(
+                  Icon(
                     Icons.grass,
                     size: 18,
+                    color: blue,
                   ),
                   const SizedBox(
                     width: 8,

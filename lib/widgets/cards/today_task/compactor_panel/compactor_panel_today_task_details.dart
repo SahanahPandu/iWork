@@ -7,6 +7,7 @@ import 'package:eswm/widgets/buttons/ecuti_button.dart';
 import 'package:eswm/widgets/buttons/time_log_button.dart';
 
 import '../../../../config/string.dart';
+import '../../../../utils/custom_icon.dart';
 import '../../../../utils/date.dart';
 
 class CompactorPanelTodayTaskDetails extends StatefulWidget {
@@ -102,7 +103,7 @@ class _CompactorPanelTodayTaskDetailsState
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Icon(
-                  Icons.timer_outlined,
+                  CustomIcon.timerFill,
                   color: white,
                   size: 18,
                 ),

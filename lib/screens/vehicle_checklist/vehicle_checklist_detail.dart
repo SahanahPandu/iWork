@@ -6,6 +6,7 @@ import '../../config/dimen.dart';
 import '../../config/palette.dart';
 import '../../config/string.dart';
 import '../../models/vc/vc.dart';
+import '../../utils/custom_icon.dart';
 import '../../utils/date.dart';
 import '../../utils/device.dart';
 import '../../widgets/alert/alert_dialog.dart';
@@ -92,10 +93,8 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
               }
             });
           },
-          icon: Icon(
-            Icons.arrow_back,
-            color: grey900,
-          ),
+          icon:
+              Icon(CustomIcon.arrowBack, color: Colors.grey.shade900, size: 18),
         ),
         title: Center(
           child: Text(

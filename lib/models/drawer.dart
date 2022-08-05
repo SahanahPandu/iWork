@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 
 class Drawers {
   String title;
-  IconData iconName;
+  IconData iconOutline;
+  IconData iconFill;
   String context;
   Color titleColor;
 
-  Drawers(this.title, this.iconName, this.context, [this.titleColor = Colors.black87]);
+  Drawers(this.title, this.iconOutline, this.iconFill, this.context, [this.titleColor = Colors.black87]);
 }

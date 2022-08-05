@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../config/palette.dart';
 import '../../models/laluan.dart';
+import '../../utils/custom_icon.dart';
 import '../../widgets/cards/issued_task/schedule_issue_card.dart';
 import '../../widgets/listview/card_list_view.dart';
 
@@ -41,10 +42,8 @@ class _ScheduleIssueMainScreen extends State<ScheduleIssueMainScreen> {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.grey.shade900,
-          ),
+          icon:
+              Icon(CustomIcon.arrowBack, color: Colors.grey.shade900, size: 18),
         ),
         title: Center(
           child: Text(

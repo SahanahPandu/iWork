@@ -5,6 +5,7 @@ import '../../config/string.dart';
 import '../../config/palette.dart';
 import '../../config/resource.dart';
 import '../../utils/authentication/auth.dart';
+import '../../utils/custom_icon.dart';
 import '../../utils/device.dart';
 import '../../widgets/alert/toast.dart';
 import '../../widgets/alert/snackbar.dart';
@@ -124,9 +125,9 @@ class _LoginScreenState extends State<LoginScreen> {
           focusColor: green,
           border: const OutlineInputBorder(),
           errorStyle: const TextStyle(fontSize: 10, height: 0.3),
-          focusedErrorBorder:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide(color: green)),
+          focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide(color: green)),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide.none,
@@ -169,8 +170,9 @@ class _LoginScreenState extends State<LoginScreen> {
               borderSide: BorderSide.none,
             ),
             errorStyle: const TextStyle(fontSize: 10, height: 0.3),
-            focusedErrorBorder:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(10),borderSide: BorderSide(color: green)),
+            focusedErrorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(color: green)),
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: green),
               borderRadius: BorderRadius.circular(10),
@@ -179,8 +181,9 @@ class _LoginScreenState extends State<LoginScreen> {
             labelText: password,
             suffixIcon: IconButton(
               icon: Icon(
-                _isObscure ? Icons.visibility : Icons.visibility_off,
+                _isObscure ? CustomIcon.visibilityOn : CustomIcon.visibilityOff,
                 color: grey900,
+                size: 18,
               ),
               onPressed: () {
                 setState(() {
@@ -217,7 +220,8 @@ class _LoginScreenState extends State<LoginScreen> {
       },
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(green),
-        elevation: MaterialStateProperty.all(1),
+        elevation: MaterialStateProperty.all(0),
+        overlayColor: MaterialStateColor.resolveWith((states) => green800),
         shadowColor: MaterialStateProperty.all(grey900),
         minimumSize:
             MaterialStateProperty.all(Size(_device.screenWidth(context), 50)),
