@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 //import files
 import '../../../../config/palette.dart';
@@ -373,8 +374,8 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                   child: ElevatedButton(
                     style: ButtonStyle(
                         elevation: MaterialStateProperty.all(0),
-                        overlayColor: MaterialStateColor.resolveWith(
-                            (states) => red),
+                        overlayColor:
+                            MaterialStateColor.resolveWith((states) => red),
                         foregroundColor:
                             MaterialStateColor.resolveWith((states) {
                           if (states.contains(MaterialState.pressed)) {
@@ -394,7 +395,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                         style: TextStyle(
                             fontSize: 13, fontWeight: FontWeight.w600)),
                     onPressed: () {
-                      // _filterTaskIssueAction(widget.data.isu);
+                      _callNumber(widget.data.leaderContact);
                     },
                   ),
                 ),
@@ -402,5 +403,14 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
             : const SizedBox(height: 4),
       ],
     );
+  }
+
+  _callNumber(String phoneNumber) async {
+    String url = 'tel:$phoneNumber';
+    if (await canLaunchUrl(Uri.parse(url))) {
+      await launchUrl(Uri.parse(url));
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }
