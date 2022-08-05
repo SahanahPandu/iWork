@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../../config/font.dart';
 import '../../../config/palette.dart';
 import '../../../models/laluan.dart';
+import '../../../utils/custom_icon.dart';
 import '../../../utils/device.dart';
 import '../../../widgets/buttons/report_button.dart';
 import '../../../widgets/container/status_container.dart';
@@ -82,42 +83,6 @@ class _CompactorPanelScheduleDetailsState
               ],
             ),
           ),
-          //Sub Laluan
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.location_on,
-                      size: 18,
-                    ),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    Text(
-                      "Sub Laluan",
-                      style: TextStyle(
-                        fontSize: _device.isLandscape(context) ? 15.0 : 13.0,
-                        color: grey800,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ],
-                ),
-                Text(
-                  "${widget.data.jumSubLaluan}",
-                  style: TextStyle(
-                    fontSize: _device.isLandscape(context) ? 15.0 : 13.0,
-                    color: Colors.black45,
-                    fontWeight: FontWeight.w500,
-                  ),
-                )
-              ],
-            ),
-          ),
           //No Kenderaan
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
@@ -126,12 +91,13 @@ class _CompactorPanelScheduleDetailsState
               children: [
                 Row(
                   children: [
-                    const Icon(
-                      Icons.local_shipping,
+                    Icon(
+                      CustomIcon.truckFill,
                       size: 18,
+                      color: blue,
                     ),
                     const SizedBox(
-                      width: 8,
+                      width: 10,
                     ),
                     Text(
                       "No. Kenderaan",
@@ -154,6 +120,44 @@ class _CompactorPanelScheduleDetailsState
               ],
             ),
           ),
+          //Sub Laluan
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Icon(
+                      CustomIcon.roadFill,
+                      size: 18,
+                      color: blue,
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      "Sub Laluan",
+                      style: TextStyle(
+                        fontSize: _device.isLandscape(context) ? 15.0 : 13.0,
+                        color: grey800,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ],
+                ),
+                Text(
+                  "${widget.data.jumSubLaluan}",
+                  style: TextStyle(
+                    fontSize: _device.isLandscape(context) ? 15.0 : 13.0,
+                    color: Colors.black45,
+                    fontWeight: FontWeight.w500,
+                  ),
+                )
+              ],
+            ),
+          ),
+
           //Jumlah Taman/Jalan
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
@@ -162,12 +166,13 @@ class _CompactorPanelScheduleDetailsState
               children: [
                 Row(
                   children: [
-                    const Icon(
-                      Icons.house,
+                    Icon(
+                      CustomIcon.tamanFill,
                       size: 18,
+                      color: blue,
                     ),
                     const SizedBox(
-                      width: 8,
+                      width: 10,
                     ),
                     Text(
                       "Jumlah Taman/Jalan",
@@ -198,12 +203,13 @@ class _CompactorPanelScheduleDetailsState
               children: [
                 Row(
                   children: [
-                    const Icon(
-                      Icons.timer,
+                    Icon(
+                      CustomIcon.timerFill,
                       size: 18,
+                      color: blue,
                     ),
                     const SizedBox(
-                      width: 8,
+                      width: 10,
                     ),
                     Text(
                       "Mula Kerja/Tamat Kerja",

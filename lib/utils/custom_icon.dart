@@ -13,8 +13,15 @@ class CustomIcon {
   static const IconData visibilityOff = IconData(0xe909, fontFamily: _iWorkFontFam, fontPackage: null);
   static const IconData notificationFill = IconData(0xe917, fontFamily: _iWorkFontFam, fontPackage: null);
   static const IconData notificationOutline = IconData(0xe916, fontFamily: _iWorkFontFam, fontPackage: null);
+  static const IconData timerFill = IconData(0xe91e, fontFamily: _iWorkFontFam, fontPackage: null);
+  static const IconData timerOutline = IconData(0xe91d, fontFamily: _iWorkFontFam, fontPackage: null);
   static const IconData scheduleFill = IconData(0xe903, fontFamily: _iWorkFontFam, fontPackage: null);
   static const IconData scheduleOutline = IconData(0xe902, fontFamily: _iWorkFontFam, fontPackage: null);
+  static const IconData tamanFill = IconData(0xe91c, fontFamily: _iWorkFontFam, fontPackage: null);
+  static const IconData tamanOutline = IconData(0xe91b, fontFamily: _iWorkFontFam, fontPackage: null);
+  static const IconData user = IconData(0xe91f, fontFamily: _iWorkFontFam, fontPackage: null);
+  static const IconData roadFill = IconData(0xe91a, fontFamily: _iWorkFontFam, fontPackage: null);
+  static const IconData roadOutline = IconData(0xe919, fontFamily: _iWorkFontFam, fontPackage: null);
   static const IconData reportFill = IconData(0xe90b, fontFamily: _iWorkFontFam, fontPackage: null);
   static const IconData reportOutline = IconData(0xe90a, fontFamily: _iWorkFontFam, fontPackage: null);
   static const IconData truckFill = IconData(0xe905, fontFamily: _iWorkFontFam, fontPackage: null);
