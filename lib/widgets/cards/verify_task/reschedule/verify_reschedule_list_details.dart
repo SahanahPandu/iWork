@@ -42,7 +42,7 @@ class _VerifyRescheduleListDetailsState
                       fontSize: 14,
                       fontWeight: FontWeight.w600)),
               const SizedBox(height: 5),
-              Container(
+              SizedBox(
                 width: Devices().screenWidth(context) * 0.7,
                 child: Text(
                     "Penyelia ${widget.data!.reportsTo} ingin meminjam PRA ${widget.data!.name} di bawah seliaan anda untuk tugasan tertentu",
