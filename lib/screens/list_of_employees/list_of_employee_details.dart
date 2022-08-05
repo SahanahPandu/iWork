@@ -100,7 +100,7 @@ class _ListOfEmployeeDetailsState extends State<ListOfEmployeeDetails> {
                       ),
                     ),
                     Text(
-                      widget.data.designation,
+                      widget.data.designCat,
                       style: TextStyle(
                         color: Colors.grey.shade600,
                         fontWeight: FontWeight.w500,
