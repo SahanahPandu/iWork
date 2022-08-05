@@ -32,7 +32,12 @@ class _ReportListState extends State<ReportList> {
         ),
         userRole == 100
             ? const CompactorReportList()
-            : CardListView(type: "Laporan", topCardStatus: null),
+            : Expanded(
+                child: CardListView(
+                  type: "Laporan",
+                  topCardStatus: null,
+                ),
+              ),
       ],
     );
   }

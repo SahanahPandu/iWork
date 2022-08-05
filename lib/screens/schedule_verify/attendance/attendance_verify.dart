@@ -38,30 +38,28 @@ class _AttendanceVerifyState extends State<AttendanceVerify> {
                 child: Text("Some errors occurred!"),
               );
             } else {
-              return Expanded(
-                child: ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: dataFuture!.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 8, top: 5),
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) {
-                              return Container();
-                            }),
-                          );
-                        },
-                        child: VerifyAttendanceListDetails(
-                          data: dataFuture[index],
-                        ),
+              return ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: dataFuture!.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 8, top: 5),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) {
+                            return Container();
+                          }),
+                        );
+                      },
+                      child: VerifyAttendanceListDetails(
+                        data: dataFuture[index],
                       ),
-                    );
-                  },
-                ),
+                    ),
+                  );
+                },
               );
             }
         }

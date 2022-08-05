@@ -27,7 +27,9 @@ class _LeaveListState extends State<LeaveList> {
             ),
           ),
         ),
-        CardListView(type: "Cuti", topCardStatus: null),
+        Expanded(
+          child: CardListView(type: "Cuti", topCardStatus: null),
+        ),
       ],
     );
   }

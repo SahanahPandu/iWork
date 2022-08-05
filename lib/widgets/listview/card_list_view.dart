@@ -82,26 +82,29 @@ class _CardListViewState extends State<CardListView> {
                   child: Text("Some error occurred!"),
                 );
               } else {
-                return Expanded(
-                  child: Container(
-                    margin: EdgeInsets.symmetric(
-                      horizontal: userRole == 200 ? 15 : 0,
-                    ),
-                    child: ListView.builder(
-                      physics: userRole == 200
-                          ? const AlwaysScrollableScrollPhysics()
-                          : const BouncingScrollPhysics(),
-                      controller: _controller,
-                      shrinkWrap: true,
-                      itemCount: dataFuture!.length,
-                      itemBuilder: (context, index) {
-                        return ListCard(
-                          data: dataFuture[index],
-                          type: widget.type,
-                          listIndex: index,
-                        );
-                      },
-                    ),
+                return Container(
+                  margin: EdgeInsets.symmetric(
+                    horizontal: userRole == 200 ? 15 : 0,
+                  ),
+                  child: ListView.builder(
+                    physics: (widget.type == "Cuti" ||
+                            (widget.type == "Laporan" && userRole == 200))
+                        ? const BouncingScrollPhysics(
+                            parent: AlwaysScrollableScrollPhysics(),
+                          )
+                        : widget.type == "Laluan"
+                            ? const AlwaysScrollableScrollPhysics()
+                            : const NeverScrollableScrollPhysics(),
+                    controller: _controller,
+                    shrinkWrap: true,
+                    itemCount: dataFuture!.length,
+                    itemBuilder: (context, index) {
+                      return ListCard(
+                        data: dataFuture[index],
+                        type: widget.type,
+                        listIndex: index,
+                      );
+                    },
                   ),
                 );
               }

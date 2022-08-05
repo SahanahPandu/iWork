@@ -102,7 +102,12 @@ class _ScheduleIssuedCardState extends State<ScheduleIssuedCard> {
           idPekerja: const ["Emp07"],
         );
       case "laporan":
-        return CardListView(type: "Laporan");
+        return Container(
+          margin: const EdgeInsets.symmetric(
+            horizontal: 15,
+          ),
+          child: CardListView(type: "Laporan"),
+        );
       case "belum":
         return ListOfEmployees();
     }
