@@ -1,16 +1,9 @@
 // ignore_for_file: must_be_immutable
-import 'dart:developer';
-import 'dart:convert';
-
-import 'package:eswm/screens/list_of_employees/list_of_employee_details.dart';
 import 'package:flutter/material.dart';
 
 //import files
 import 'package:eswm/providers/pekerja_api.dart';
 import 'package:eswm/widgets/cards/cards.dart';
-
-import '../../config/palette.dart';
-import '../../config/string.dart';
 
 class ListOfEmployees extends StatefulWidget {
   dynamic idPekerja;
