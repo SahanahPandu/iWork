@@ -1,12 +1,12 @@
 // ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
 
-//import files
 import '../../config/palette.dart';
-import 'package:eswm/screens/e_cuti/leave_form.dart';
-import 'package:eswm/screens/e_cuti/leave_list.dart';
-import 'package:eswm/screens/reports/report_form.dart';
-import 'package:eswm/screens/reports/report_list.dart';
+import '../../screens/e_cuti/leave_form.dart';
+import '../../screens/e_cuti/leave_list.dart';
+import '../../screens/reports/report_form.dart';
+import '../../screens/reports/report_list.dart';
+import '../../utils/custom_icon.dart';
 
 class Tabs extends StatefulWidget {
   String screen;
@@ -89,10 +89,8 @@ class _TabsState extends State<Tabs> {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Icon(
-              Icons.arrow_back,
-              color: grey900,
-            ),
+            icon: Icon(CustomIcon.arrowBack,
+                color: Colors.grey.shade900, size: 18),
           ),
           bottom: TabBar(
             labelColor: grey900,

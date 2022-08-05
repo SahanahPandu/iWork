@@ -34,7 +34,7 @@ class StackOverTabsState extends State<StackOverTabs>
       child: Column(
         children: [
           Container(
-            height: 60,
+            height: 55,
             decoration: BoxDecoration(
               color: const Color(0xFFE2E2E3),
               borderRadius: BorderRadius.circular(

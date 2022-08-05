@@ -372,8 +372,16 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                   width: _device.screenWidth(context) * 0.75,
                   child: ElevatedButton(
                     style: ButtonStyle(
-                        shadowColor:
-                            MaterialStateProperty.all(Colors.grey[300]),
+                        elevation: MaterialStateProperty.all(0),
+                        overlayColor: MaterialStateColor.resolveWith(
+                            (states) => red),
+                        foregroundColor:
+                            MaterialStateColor.resolveWith((states) {
+                          if (states.contains(MaterialState.pressed)) {
+                            return white;
+                          }
+                          return red;
+                        }),
                         shape: MaterialStateProperty.all(
                           RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8.0),
@@ -382,11 +390,9 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                         minimumSize: MaterialStateProperty.all(
                             Size(_device.screenWidth(context), 42)),
                         backgroundColor: MaterialStateProperty.all(white)),
-                    child: Text("Hubungi Pemandu",
+                    child: const Text("Hubungi Pemandu",
                         style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w600,
-                            color: red)),
+                            fontSize: 13, fontWeight: FontWeight.w600)),
                     onPressed: () {
                       // _filterTaskIssueAction(widget.data.isu);
                     },

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../providers/laluan_api.dart';
 import '../../../widgets/cards/verify_task/attendance/verify_attendance_list_details.dart';
+import '../../work_schedule/work_schedule.dart';
 
 class AttendanceVerify extends StatefulWidget {
   const AttendanceVerify({Key? key}) : super(key: key);
@@ -38,30 +39,25 @@ class _AttendanceVerifyState extends State<AttendanceVerify> {
                 child: Text("Some errors occurred!"),
               );
             } else {
-              return Expanded(
-                child: ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: dataFuture!.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 8, top: 5),
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) {
-                              return Container();
-                            }),
-                          );
-                        },
-                        child: VerifyAttendanceListDetails(
-                          data: dataFuture[index],
-                        ),
-                      ),
-                    );
-                  },
-                ),
+              return ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: dataFuture!.length,
+                itemBuilder: (context, index) {
+                  return InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) {
+                          return WorkSchedule(data: dataFuture[index]);
+                        }),
+                      );
+                    },
+                    child: VerifyAttendanceListDetails(
+                      data: dataFuture[index],
+                    ),
+                  );
+                },
               );
             }
         }

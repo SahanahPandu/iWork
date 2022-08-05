@@ -7,8 +7,8 @@
         "status": "Dalam Proses",
         "tarikhMula": "15/05/2022",
         "tarikhTamat": "15/05/2022",
-        "lampiran": "mc20220520.jpg"
-
+        "lampiran": "mc20220520.jpg",
+        "pemohon": "Suhaimi"
     },
     {
         "id":2,
@@ -18,8 +18,8 @@
         "status": "Diluluskan Tanpa Lampiran",
         "tarikhMula": "23/05/2022",
         "tarikhTamat": "26/05/2022",
-        "lampiran": ""
-    
+        "lampiran": "",
+        "pemohon": "Suhaimi"
     },
     {
         "id":3,
@@ -29,8 +29,8 @@
         "status": "Diluluskan",
         "tarikhMula": "20/05/2022",
         "tarikhTamat": "21/05/2022",
-        "lampiran": ""
-    
+        "lampiran": "",
+        "pemohon": "Suhaimi"
     },
     {
         "id":4,
@@ -40,7 +40,7 @@
         "status": "Tidak Diluluskan",
         "tarikhMula": "20/05/2022",
         "tarikhTamat": "20/05/2022",
-        "lampiran": ""
-    
+        "lampiran": "",
+        "pemohon": "Suhaimi"
         }
 ]

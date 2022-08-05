@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../utils/custom_icon.dart';
 import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../../widgets/gridview/compactor_panel/compactor_task_list.dart';
@@ -31,10 +32,8 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.grey.shade900,
-          ),
+          icon:
+              Icon(CustomIcon.arrowBack, color: Colors.grey.shade900, size: 18),
         ),
         title: Center(
           child: Text(

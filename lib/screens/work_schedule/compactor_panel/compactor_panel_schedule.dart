@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../config/palette.dart';
+import '../../../utils/custom_icon.dart';
 import '../../../utils/device.dart';
 import '../../../widgets/cards/cards.dart';
 import '../../list_of_park/list_of_parks.dart';
@@ -44,7 +45,7 @@ class _CompactorPanelScheduleState extends State<CompactorPanelSchedule> {
             Navigator.pop(context);
           },
           icon: Icon(
-            Icons.arrow_back,
+            CustomIcon.arrowBack,
             color: grey900,
           ),
         ),

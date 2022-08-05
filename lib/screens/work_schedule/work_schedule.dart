@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../config/palette.dart';
+import '../../utils/custom_icon.dart';
 
 class WorkSchedule extends StatefulWidget {
   dynamic data;
@@ -43,10 +44,8 @@ class _WorkScheduleState extends State<WorkSchedule> {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.grey.shade900,
-          ),
+          icon:
+              Icon(CustomIcon.arrowBack, color: Colors.grey.shade900, size: 18),
         ),
         title: Center(
           child: Text(

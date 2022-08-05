@@ -30,7 +30,7 @@ String confirmEndWork =
 String endWork = 'Leretkan Ke Kiri Untuk Tamat Tugas';
 String doVcFirst =
     'Pastikan anda mengisi borang semak kenderaan terlebih dahulu sebelum memulakan tugasan kerja';
-String notFoundStreet = 'Tiada senarai jalan dijumpai!';
+String notFoundStreet = 'Tiada Senarai Jalan dijumpai!';
 String noEmployeeFound = 'Tiada Senarai Pekerja dijumpai!';
 String fillUpVC =
     'Lengkapkan borang semakan kenderaan sebelum keluar di bawah :';
@@ -65,4 +65,4 @@ String reminder = 'Peringatan!';
 String confirmation = 'Pengesahan';
 
 String confirmLogout = 'Adakah anda pasti untuk log keluar?';
-String tryAgain = "Cuba Semula";
+String tryAgain = "Sila Cuba Semula!";

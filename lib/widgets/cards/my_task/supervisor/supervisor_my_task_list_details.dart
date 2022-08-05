@@ -219,20 +219,21 @@ class _SupervisorMyTaskListDetailsState
                 width: _device.screenWidth(context) * 0.75,
                 child: ElevatedButton(
                   style: ButtonStyle(
-                      shadowColor: MaterialStateProperty.all(Colors.grey[300]),
+                      elevation: MaterialStateProperty.all(0),
                       shape: MaterialStateProperty.all(
                         RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                            side: BorderSide(color: red)),
+                            borderRadius: BorderRadius.circular(8.0)),
                       ),
+                      overlayColor: MaterialStateColor.resolveWith(
+                          (states) => Colors.red.shade900),
                       minimumSize: MaterialStateProperty.all(
                           Size(_device.screenWidth(context), 42)),
-                      backgroundColor: MaterialStateProperty.all(white)),
+                      backgroundColor: MaterialStateProperty.all(red)),
                   child: Text(taskIssueText,
                       style: TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.w600,
-                          color: red)),
+                          color: white)),
                   onPressed: () {
                     Navigator.push(
                       context,

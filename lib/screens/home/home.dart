@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../config/palette.dart';
+import '../../utils/custom_icon.dart';
 import '../../widgets/drawer/drawer.dart';
 import '../screens.dart';
 
@@ -19,8 +20,9 @@ class HomeScreen extends StatelessWidget {
           iconTheme: IconThemeData(color: black87),
           actions: [
             Icon(
-              Icons.notifications,
+              CustomIcon.notificationFill,
               color: black87,
+              size: 18,
             ),
             const SizedBox(
               width: 10,
