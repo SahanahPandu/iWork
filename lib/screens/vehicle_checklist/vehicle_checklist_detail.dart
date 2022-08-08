@@ -1505,11 +1505,13 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
             style: ButtonStyle(
                 shape: MaterialStateProperty.all(
                   RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                      side: BorderSide(color: green)),
+                      borderRadius: BorderRadius.circular(8.0)),
                 ),
+                elevation: MaterialStateProperty.all(0),
+                overlayColor: MaterialStateColor.resolveWith(
+                        (states) => green800),
                 minimumSize: MaterialStateProperty.all(
-                    Size(_device.screenWidth(context), 40)),
+                    Size(_device.screenWidth(context), 45)),
                 backgroundColor: MaterialStateProperty.all(green)),
             child: Text('Hantar',
                 style: TextStyle(

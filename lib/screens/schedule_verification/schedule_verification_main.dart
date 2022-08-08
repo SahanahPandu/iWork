@@ -1,24 +1,26 @@
 // ignore_for_file: file_names
+import 'package:eswm/screens/schedule_verification/attendance/attendance_detail/attendance_verification_list.dart';
 import 'package:flutter/material.dart';
 
 import '../../config/palette.dart';
 import '../../utils/device.dart';
-import 'attendance/attendance_verify.dart';
-import 'ecuti/ecuti_verify.dart';
-import 'reschedule/reschedule_verify.dart';
+import 'attendance/attendance_verification.dart';
+import 'ecuti/ecuti_verification.dart';
+import 'reschedule/reschedule_verification.dart';
 
-class ScheduleVerifyMain extends StatefulWidget {
+class ScheduleVerificationMain extends StatefulWidget {
   final bool? isAttendanceList, isEcutiList, isReschedule;
 
-  const ScheduleVerifyMain(
+  const ScheduleVerificationMain(
       {Key? key, this.isAttendanceList, this.isEcutiList, this.isReschedule})
       : super(key: key);
 
   @override
-  State<ScheduleVerifyMain> createState() => _ScheduleVerifyMainState();
+  State<ScheduleVerificationMain> createState() =>
+      _ScheduleVerificationMainState();
 }
 
-class _ScheduleVerifyMainState extends State<ScheduleVerifyMain> {
+class _ScheduleVerificationMainState extends State<ScheduleVerificationMain> {
   final Devices _device = Devices();
 
   @override
@@ -26,18 +28,28 @@ class _ScheduleVerifyMainState extends State<ScheduleVerifyMain> {
     return Column(
       children: [
         const SizedBox(height: 10),
-        _buildVerifyCard(context, widget.isAttendanceList, "Kehadiran",
-            "Sahkan Kehadiran", const AttendanceVerify()),
+        _buildVerifyCard(
+            context,
+            widget.isAttendanceList,
+            "Kehadiran",
+            "Sahkan Kehadiran",
+            const AttendanceVerification(),
+            const AttendanceVerificationList()),
         _buildVerifyCard(context, widget.isEcutiList, "E-Cuti", "Sahkan E-Cuti",
-            const EcutiVerify()),
-        _buildVerifyCard(context, widget.isReschedule, "Penjadualan Semula",
-            "Luluskan", const RescheduleVerify()),
+            const EcutiVerification(), const AttendanceVerificationList()),
+        _buildVerifyCard(
+            context,
+            widget.isReschedule,
+            "Penjadualan Semula",
+            "Luluskan",
+            const RescheduleVerification(),
+            const AttendanceVerificationList()),
       ],
     );
   }
 
   Padding _buildVerifyCard(BuildContext context, bool? isCardExist,
-      String? cardTitle, String? buttonTitle, redirect) {
+      String? cardTitle, String? buttonTitle, redirect, detailRedirect) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 5),
       child: isCardExist == true
@@ -91,7 +103,12 @@ class _ScheduleVerifyMainState extends State<ScheduleVerifyMain> {
                                   fontSize: 13,
                                   fontWeight: FontWeight.w600,
                                   color: white)),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return detailRedirect;
+                            }));
+                          },
                         ),
                       ),
                     ],

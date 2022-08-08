@@ -1,5 +1,3 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
 
 //import files
@@ -11,20 +9,17 @@ import '../../../../utils/device.dart';
 import '../../../container/status_container.dart';
 
 class EOMyTaskListDetails extends StatefulWidget {
-  Laluan data;
+  final Laluan data;
   final bool? button;
 
-  EOMyTaskListDetails(
-      {Key? key, required this.data, this.button = true})
+  const EOMyTaskListDetails({Key? key, required this.data, this.button = true})
       : super(key: key);
 
   @override
-  State<EOMyTaskListDetails> createState() =>
-      _EOMyTaskListDetailsState();
+  State<EOMyTaskListDetails> createState() => _EOMyTaskListDetailsState();
 }
 
-class _EOMyTaskListDetailsState
-    extends State<EOMyTaskListDetails> {
+class _EOMyTaskListDetailsState extends State<EOMyTaskListDetails> {
   final Devices _device = Devices();
   late Color statusTextColor;
   late Color statusBoxColor;

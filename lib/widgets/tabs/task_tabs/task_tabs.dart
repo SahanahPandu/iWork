@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../config/palette.dart';
 import 'supervisor/issue_tab_bar_view.dart';
-import 'supervisor/verify_tab_bar_view.dart';
+import 'supervisor/verification_tab_bar_view.dart';
 
 class StackOverTabs extends StatefulWidget {
   const StackOverTabs({Key? key}) : super(key: key);
@@ -58,7 +58,7 @@ class StackOverTabsState extends State<StackOverTabs>
                   ]),
               labelColor: black87,
               labelStyle:
-                  const TextStyle(fontWeight: FontWeight.w900, fontSize: 15),
+                  const TextStyle(fontWeight: FontWeight.w900, fontSize: 14),
               unselectedLabelStyle:
                   const TextStyle(fontWeight: FontWeight.w900, fontSize: 13),
               unselectedLabelColor: const Color(0xF5808691),

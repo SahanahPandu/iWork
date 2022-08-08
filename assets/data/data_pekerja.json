@@ -9,7 +9,9 @@
         "skills": "Pemandu",
         "timeIn": "07.03 pagi",
         "timeOut": "",
-        "reportsTo": "Ahmad"
+        "reportsTo": "Ahmad",
+        "tiedVehicle": "BLW7096",
+        "tiedLaluan": "JHBP01-C02"
 
     },
     {
@@ -22,7 +24,9 @@
         "skills": "Kemahiran Asas",
         "timeIn": "",
         "timeOut": "",
-        "reportsTo": "Jalil"
+        "reportsTo": "Jalil",
+        "tiedLaluan": "JHBP01-C02",
+        "tiedVehicle": "BLW7096"
 
     },
     {
@@ -35,7 +39,9 @@
         "skills": "Pemandu",
         "timeIn": "07.15 pagi",
         "timeOut": "",
-        "reportsTo": "Ahmad"
+        "reportsTo": "Ahmad",
+        "tiedLaluan": "JHBP01-C02",
+        "tiedVehicle": "BLW7096"
 
     },
     {
@@ -48,7 +54,9 @@
         "skills": "Pemandu",
         "timeIn": "06.25 pagi",
         "timeOut": "",
-        "reportsTo": "Jalil"
+        "reportsTo": "Jalil",
+        "tiedLaluan": "JHBP01-C03",
+        "tiedVehicle": "BLM8886"
 
     },
     {
@@ -61,7 +69,9 @@
         "skills": "Kemahiran Asas",
         "timeIn": "07.00 pagi",
         "timeOut": "",
-        "reportsTo": "Jalil"
+        "reportsTo": "Jalil",
+        "tiedLaluan": "JHBP01-C03",
+        "tiedVehicle": "BLM8886"
 
     },
     {
@@ -74,7 +84,9 @@
         "skills": "Pemandu",
         "timeIn": "06.43 pagi",
         "timeOut": "",
-        "reportsTo": "Jalil"
+        "reportsTo": "Jalil",
+        "tiedLaluan": "JHBP01-C03",
+        "tiedVehicle": "BLM8886"
 
     },
     {
@@ -87,7 +99,9 @@
         "skills": "Kemahiran Asas",
         "timeIn": "",
         "timeOut": "",
-        "reportsTo": "Jalil"
+        "reportsTo": "Jalil",
+        "tiedLaluan": "JHBP01-C04",
+        "tiedVehicle": "BLS7687"
 
     }
 ]

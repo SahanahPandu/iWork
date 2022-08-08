@@ -27,7 +27,7 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
       appBar: AppBar(
         backgroundColor: appBarBgColor,
         elevation: 1,
-        shadowColor: Colors.white,
+        shadowColor: white,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
@@ -40,7 +40,7 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
             "Jadual Tugasan",
             style: TextStyle(
               fontSize: 18,
-              color: Colors.grey.shade800,
+              color: grey800,
               fontWeight: FontWeight.w700,
             ),
           ),

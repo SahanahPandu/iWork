@@ -1,21 +1,18 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
 
-import 'package:eswm/config/palette.dart';
-import 'package:eswm/widgets/buttons/ecuti_button.dart';
-import 'package:eswm/widgets/buttons/time_log_button.dart';
-
+import '../../../../config/palette.dart';
 import '../../../../config/string.dart';
 import '../../../../utils/custom_icon.dart';
 import '../../../../utils/date.dart';
+import '../../../buttons/ecuti_button.dart';
+import '../../../buttons/time_log_button.dart';
 
 class CompactorPanelTodayTaskDetails extends StatefulWidget {
-  late String timeIn;
-  late String timeOut;
-  Function getTimeLog;
+  final String timeIn;
+  final String timeOut;
+  final Function getTimeLog;
 
-  CompactorPanelTodayTaskDetails(
+  const CompactorPanelTodayTaskDetails(
       {Key? key,
       required this.timeIn,
       required this.timeOut,

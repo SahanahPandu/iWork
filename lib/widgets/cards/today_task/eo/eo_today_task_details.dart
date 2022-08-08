@@ -1,19 +1,17 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
-import '../../../../utils/date.dart';
 
 //import files
-import 'package:eswm/widgets/buttons/time_log_button.dart';
 
+import '../../../../utils/date.dart';
 import '../../../buttons/enotis_button.dart';
+import '../../../buttons/time_log_button.dart';
 
 class EOTodayTaskDetails extends StatefulWidget {
-  late String timeIn;
-  late String timeOut;
-  Function getTimeLog;
+  final String timeIn;
+  final String timeOut;
+  final Function getTimeLog;
 
-  EOTodayTaskDetails(
+  const EOTodayTaskDetails(
       {Key? key,
       required this.timeIn,
       required this.timeOut,
@@ -21,12 +19,10 @@ class EOTodayTaskDetails extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<EOTodayTaskDetails> createState() =>
-      _EOTodayTaskDetailsState();
+  State<EOTodayTaskDetails> createState() => _EOTodayTaskDetailsState();
 }
 
-class _EOTodayTaskDetailsState
-    extends State<EOTodayTaskDetails> {
+class _EOTodayTaskDetailsState extends State<EOTodayTaskDetails> {
   String todayDate = "0";
 
   @override

@@ -1,5 +1,3 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
 
 import '../../../config/font.dart';
@@ -11,9 +9,9 @@ import '../../../widgets/buttons/report_button.dart';
 import '../../../widgets/container/status_container.dart';
 
 class CompactorPanelScheduleDetails extends StatefulWidget {
-  Laluan data;
+  final Laluan data;
 
-  CompactorPanelScheduleDetails({Key? key, required this.data})
+  const CompactorPanelScheduleDetails({Key? key, required this.data})
       : super(key: key);
 
   @override

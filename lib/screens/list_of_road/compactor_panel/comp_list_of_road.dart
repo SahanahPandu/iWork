@@ -1,5 +1,3 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
 
 import '../../../config/palette.dart';
@@ -8,10 +6,11 @@ import '../../../utils/device.dart';
 import '../list_of_road_details.dart';
 
 class CompListOfRoad extends StatefulWidget {
-  int idTaman;
-  String nameTaman;
+  final int idTaman;
+  final String nameTaman;
 
-  CompListOfRoad({Key? key, required this.idTaman, required this.nameTaman})
+  const CompListOfRoad(
+      {Key? key, required this.idTaman, required this.nameTaman})
       : super(key: key);
 
   @override

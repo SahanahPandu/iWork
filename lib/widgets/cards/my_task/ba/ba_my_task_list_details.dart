@@ -1,5 +1,3 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
 
 //import files
@@ -11,10 +9,10 @@ import '../../../../utils/device.dart';
 import '../../../container/status_container.dart';
 
 class BAMyTaskListDetails extends StatefulWidget {
-  Laluan data;
+  final Laluan data;
   final bool? button;
 
-  BAMyTaskListDetails(
+  const BAMyTaskListDetails(
       {Key? key, required this.data, this.button = true})
       : super(key: key);
 

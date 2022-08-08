@@ -1,28 +1,29 @@
 import 'package:flutter/material.dart';
 
-import '../../../providers/cuti_api.dart';
-import '../../../widgets/cards/verify_task/ecuti/verify_ecuti_list_details.dart';
+import '../../../providers/laluan_api.dart';
+import '../../../widgets/cards/verification_task/attendance/verify_attendance_list_details.dart';
+import '../../work_schedule/work_schedule.dart';
 
-class EcutiVerify extends StatefulWidget {
-  const EcutiVerify({Key? key}) : super(key: key);
+class AttendanceVerification extends StatefulWidget {
+  const AttendanceVerification({Key? key}) : super(key: key);
 
   @override
-  State<EcutiVerify> createState() => _EcutiVerifyState();
+  State<AttendanceVerification> createState() => _AttendanceVerificationState();
 }
 
-class _EcutiVerifyState extends State<EcutiVerify> {
-  late Future<List> _loadCutiData;
+class _AttendanceVerificationState extends State<AttendanceVerification> {
+  late Future<List> _loadLaluanData;
 
   @override
   void initState() {
     super.initState();
-    _loadCutiData = CutiApi.getCutiData(context);
+    _loadLaluanData = LaluanApi.getLaluanData(context);
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List>(
-      future: _loadCutiData,
+      future: _loadLaluanData,
       builder: (context, snapshot) {
         final dataFuture = snapshot.data;
 
@@ -48,11 +49,11 @@ class _EcutiVerifyState extends State<EcutiVerify> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) {
-                          return Container();
+                          return WorkSchedule(data: dataFuture[index]);
                         }),
                       );
                     },
-                    child: VerifyEcutiListDetails(
+                    child: VerifyAttendanceListDetails(
                       data: dataFuture[index],
                     ),
                   );

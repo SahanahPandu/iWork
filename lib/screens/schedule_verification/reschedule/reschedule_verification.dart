@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
 import '../../../providers/pekerja_api.dart';
-import '../../../widgets/cards/verify_task/reschedule/verify_reschedule_list_details.dart';
+import '../../../widgets/cards/verification_task/reschedule/verify_reschedule_list_details.dart';
 
-class RescheduleVerify extends StatefulWidget {
-  const RescheduleVerify({Key? key}) : super(key: key);
+class RescheduleVerification extends StatefulWidget {
+  const RescheduleVerification({Key? key}) : super(key: key);
 
   @override
-  State<RescheduleVerify> createState() => _RescheduleVerifyState();
+  State<RescheduleVerification> createState() => _RescheduleVerificationState();
 }
 
-class _RescheduleVerifyState extends State<RescheduleVerify> {
+class _RescheduleVerificationState extends State<RescheduleVerification> {
   late Future<List> _loadPekerjaData;
 
   @override

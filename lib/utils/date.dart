@@ -14,4 +14,10 @@ class Date {
     return formatter.format(now);
   }
 
+  static String getCurrentTimeInHHMM()  {
+    var now = DateTime.now();
+    var formatter = DateFormat("hh:mm");
+    return formatter.format(now);
+  }
+
 }

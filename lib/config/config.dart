@@ -20,3 +20,8 @@ int userRole = 0;
 /// ** VCStatus **
 bool completedFirstVc = false;
 bool completedSecondVc = false;
+
+/// ** Schedule Verification Status **
+bool attendanceMainCard = true;
+bool eCutiMainCard = true;
+bool rescheduleMainCard = true;

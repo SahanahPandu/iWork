@@ -1,5 +1,3 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -12,10 +10,11 @@ import '../../../utils/device.dart';
 import '../../../widgets/container/status_container.dart';
 
 class SupervisorScheduleDetails extends StatefulWidget {
-  Laluan data;
+  final Laluan data;
   final bool? button;
 
-  SupervisorScheduleDetails({Key? key, required this.data, this.button = false})
+  const SupervisorScheduleDetails(
+      {Key? key, required this.data, this.button = false})
       : super(key: key);
 
   @override
@@ -239,11 +238,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
             children: [
               Row(
                 children: [
-                  Icon(
-                    CustomIcon.scheduleFill,
-                    size: 18,
-                    color: blue
-                  ),
+                  Icon(CustomIcon.scheduleFill, size: 18, color: blue),
                   const SizedBox(
                     width: 10,
                   ),

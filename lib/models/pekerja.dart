@@ -9,6 +9,8 @@ class Pekerja {
   final String timeIn;
   final String timeOut;
   final String reportsTo;
+  final String tiedLaluan;
+  final String tiedVehicle;
 
   Pekerja(
       {required this.id,
@@ -20,17 +22,22 @@ class Pekerja {
       required this.skills,
       required this.timeIn,
       required this.timeOut,
-      required this.reportsTo});
+      required this.reportsTo,
+      required this.tiedLaluan,
+      required this.tiedVehicle});
 
   static Pekerja fromJson(json) => Pekerja(
-      id: json['id'] ?? "",
-      name: json['name'] ?? "",
-      designCat: json['designCat'] ?? "",
-      designation: json['designation'] ?? "",
-      idAttStatus: json['idAttStatus'] ?? 0,
-      attStatus: json['attStatus'] ?? "",
-      skills: json['skills'] ?? "",
-      timeIn: json['timeIn'] ?? "",
-      timeOut: json['timeOut'] ?? "",
-      reportsTo: json['reportsTo'] ?? "");
+        id: json['id'] ?? "",
+        name: json['name'] ?? "",
+        designCat: json['designCat'] ?? "",
+        designation: json['designation'] ?? "",
+        idAttStatus: json['idAttStatus'] ?? 0,
+        attStatus: json['attStatus'] ?? "",
+        skills: json['skills'] ?? "",
+        timeIn: json['timeIn'] ?? "",
+        timeOut: json['timeOut'] ?? "",
+        reportsTo: json['reportsTo'] ?? "",
+        tiedLaluan: json['tiedLaluan'] ?? "",
+        tiedVehicle: json['tiedVehicle'] ?? "",
+      );
 }

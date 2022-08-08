@@ -1,5 +1,3 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
 
 import '../../../config/palette.dart';
@@ -10,9 +8,10 @@ import '../../list_of_park/list_of_parks.dart';
 import '../../list_of_road/compactor_panel/comp_list_of_road.dart';
 
 class CompactorPanelSchedule extends StatefulWidget {
-  dynamic data;
+  final dynamic data;
 
-  CompactorPanelSchedule({Key? key, required this.data}) : super(key: key);
+  const CompactorPanelSchedule({Key? key, required this.data})
+      : super(key: key);
 
   @override
   State<CompactorPanelSchedule> createState() => _CompactorPanelScheduleState();
