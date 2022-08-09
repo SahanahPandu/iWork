@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../config/palette.dart';
 
-List statusList = ['Diluluskan', 'Ditolak'];
+List statusList = ['Diluluskan', 'Diluluskan tanpa lampiran', 'Ditolak'];
 
 @override
 Widget? showAcceptanceOptions(
@@ -18,7 +18,7 @@ Widget? showAcceptanceOptions(
       context: context,
       builder: (builder) {
         return SizedBox(
-          height: MediaQuery.of(context).size.height * 0.25,
+          height: MediaQuery.of(context).size.height * 0.31,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

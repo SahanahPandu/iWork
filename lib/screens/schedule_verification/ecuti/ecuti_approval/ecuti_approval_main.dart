@@ -262,12 +262,8 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
                   showDialog(
                       context: context,
                       builder: (BuildContext context) {
-                        return showAlertDialog(
-                            context,
-                            confirmation,
-                            "Sahkan borang E-Cuti ini?",
-                            cancel,
-                            "Sahkan");
+                        return showAlertDialog(context, confirmation,
+                            "Sahkan borang E-Cuti ini?", cancel, "Sahkan");
                       }).then((actionText) {
                     if (actionText == "Sahkan") {
                       Navigator.pop(context, 'refreshEcuti');

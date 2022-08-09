@@ -78,8 +78,8 @@ class _EcutiApprovalDetailState extends State<EcutiApprovalDetail> {
       child: TextFormField(
         textAlign: TextAlign.start,
         keyboardType: TextInputType.multiline,
-        minLines: 1,//Normal textInputField will be displayed
-        maxLines: textController == _remarks? 10 : 1,//
+        minLines: 1,
+        maxLines: textController == _remarks ? 10 : 1,
         controller: textController,
         readOnly: true,
         enabled: false,
@@ -88,7 +88,7 @@ class _EcutiApprovalDetailState extends State<EcutiApprovalDetail> {
           filled: true,
           fillColor: grey100,
           contentPadding:
-          const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+              const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
           labelText: label,
           labelStyle: TextStyle(
             fontSize: 12,
@@ -104,7 +104,6 @@ class _EcutiApprovalDetailState extends State<EcutiApprovalDetail> {
               color: grey500,
             ),
             borderRadius: BorderRadius.circular(borderRadiusCircular),
-            //gapPadding: 6.0,
           ),
         ),
       ),

@@ -6,6 +6,7 @@ import '../../config/resource.dart';
 import '../../config/string.dart';
 import '../../data/data_drawer.dart';
 import '../../screens/e_cuti/e_cuti.dart';
+import '../../screens/e_cuti/supervisor/supervisor_leave_list.dart';
 import '../../screens/reports/reports.dart';
 import '../../screens/schedule_all/schedule_all_main.dart';
 import '../../screens/schedule_issue/schedule_issue_main.dart';
@@ -312,8 +313,16 @@ class _DrawerBuildState extends State<DrawerBuild> {
       case 300: //supervisor
       case 400: //eo
       case 500: //ba
-
         switch (idx) {
+          case 1: // ECuti
+            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) {
+                return const SupervisorLeaveList();
+              }),
+            );
+            break;
           case 2: // Jadual tugasan
             Navigator.pop(context);
             Navigator.push(
