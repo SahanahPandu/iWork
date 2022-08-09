@@ -277,7 +277,7 @@ class _DrawerBuildState extends State<DrawerBuild> {
                           data: null,
                         )));
             break;
-          case 2:
+          case 2: //Jadual Tugasan
             Navigator.pop(context);
             Navigator.push(
               context,
@@ -310,7 +310,7 @@ class _DrawerBuildState extends State<DrawerBuild> {
       case 500: //ba
 
         switch (idx) {
-          case 2:
+          case 2: // Jadual tugasan
             Navigator.pop(context);
             Navigator.push(
               context,

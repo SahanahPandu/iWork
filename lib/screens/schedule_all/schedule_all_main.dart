@@ -63,7 +63,9 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
               ],
             )
           : SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(
+                parent: AlwaysScrollableScrollPhysics(),
+              ),
               child: Column(
                 children: [
                   Container(
@@ -78,9 +80,14 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                           fontWeight: FontWeight.w600),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: CardListView(type: "Laluan"),
+                  Container(
+                    margin: EdgeInsets.symmetric(
+                      horizontal: userRole != 200 ? 15 : 0,
+                    ),
+                    child: CardListView(
+                      type: "Laluan",
+                      screens: "drawer",
+                    ),
                   ),
                 ],
               )),
