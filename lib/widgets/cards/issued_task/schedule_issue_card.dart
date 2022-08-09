@@ -106,7 +106,7 @@ class _ScheduleIssuedCardState extends State<ScheduleIssuedCard> {
           margin: const EdgeInsets.symmetric(
             horizontal: 15,
           ),
-          child: CardListView(type: "Laporan"),
+          child: CardListView(type: "Laporan", screens: "isu"),
         );
       case "belum":
         return ListOfEmployees();

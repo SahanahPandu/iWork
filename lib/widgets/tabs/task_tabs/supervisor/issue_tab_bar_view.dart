@@ -13,7 +13,7 @@ class IssueTabbarView extends StatelessWidget {
       children: [
         const SizedBox(height: 10),
         Expanded(
-          child: CardListView(topCardStatus: null, type: 'Laluan'),
+          child: CardListView(type: 'Laluan'),
         ),
       ],
     );

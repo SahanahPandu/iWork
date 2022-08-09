@@ -308,6 +308,7 @@ class _DrawerBuildState extends State<DrawerBuild> {
       case 300: //supervisor
       case 400: //eo
       case 500: //ba
+
         switch (idx) {
           case 2:
             Navigator.pop(context);

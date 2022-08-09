@@ -13,11 +13,13 @@ import '../../config/config.dart';
 class CardListView extends StatefulWidget {
   String type;
   final Function? topCardStatus;
+  String? screens;
 
   CardListView({
     Key? key,
     required this.type,
     this.topCardStatus,
+    this.screens,
   }) : super(key: key);
 
   @override
@@ -88,7 +90,8 @@ class _CardListViewState extends State<CardListView> {
                   ),
                   child: ListView.builder(
                     physics: (widget.type == "Cuti" ||
-                            (widget.type == "Laporan" && userRole == 200))
+                            (widget.type == "Laporan" &&
+                                widget.screens != "isu")) //means from isu list
                         ? const BouncingScrollPhysics(
                             parent: AlwaysScrollableScrollPhysics(),
                           )
