@@ -8,7 +8,9 @@
         "tarikhMula": "15/05/2022",
         "tarikhTamat": "15/05/2022",
         "lampiran": "mc20220520.jpg",
-        "pemohon": "Suhaimi"
+        "catatan": "//testing for long text//testing for long text//testing for long text//testing for long text//testing for long text//testing for long text//testing for long text//",
+        "pemohon": "Suhaimi",
+        "approvalBy": "Ahmad"
     },
     {
         "id":2,
@@ -19,7 +21,9 @@
         "tarikhMula": "23/05/2022",
         "tarikhTamat": "26/05/2022",
         "lampiran": "",
-        "pemohon": "Suhaimi"
+        "catatan": "Kereta telah rosak",
+        "pemohon": "Suhaimi",
+        "approvalBy": "Ahmad"
     },
     {
         "id":3,
@@ -30,7 +34,9 @@
         "tarikhMula": "20/05/2022",
         "tarikhTamat": "21/05/2022",
         "lampiran": "",
-        "pemohon": "Suhaimi"
+        "catatan": "Urusan peribadi",
+        "pemohon": "Suhaimi",
+        "approvalBy": "Ahmad"
     },
     {
         "id":4,
@@ -41,6 +47,8 @@
         "tarikhMula": "20/05/2022",
         "tarikhTamat": "20/05/2022",
         "lampiran": "",
-        "pemohon": "Suhaimi"
-        }
+        "catatan": "",
+        "pemohon": "Suhaimi",
+        "approvalBy": "Ahmad"
+    }
 ]

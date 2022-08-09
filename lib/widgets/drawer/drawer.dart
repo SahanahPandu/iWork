@@ -163,7 +163,6 @@ class _DrawerBuildState extends State<DrawerBuild> {
               height: _device.screenHeight(context) * 0.75,
               child: ListView.builder(
                   physics: const BouncingScrollPhysics(),
-                  padding: EdgeInsets.zero,
                   itemCount: _getList().length,
                   itemBuilder: (BuildContext context, int index) {
                     return Padding(
@@ -172,14 +171,19 @@ class _DrawerBuildState extends State<DrawerBuild> {
                         tileColor: _isHighlighted[index]
                             ? const Color(0x86E9F4FC)
                             : null,
-                        leading: Icon(
-                          _isHighlighted[index]
-                              ? _getList()[index].iconFill
-                              : _getList()[index].iconOutline,
-                          color: _isHighlighted[index]
-                              ? Colors.blue.shade500
-                              : _getList()[index].titleColor,
-                          size: 15,
+                        leading: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              _isHighlighted[index]
+                                  ? _getList()[index].iconFill
+                                  : _getList()[index].iconOutline,
+                              color: _isHighlighted[index]
+                                  ? Colors.blue.shade500
+                                  : _getList()[index].titleColor,
+                              size: 16,
+                            ),
+                          ],
                         ),
                         title: Text(
                           _getList()[index].title,

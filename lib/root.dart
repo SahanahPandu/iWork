@@ -15,8 +15,8 @@ class Root extends StatefulWidget {
 class RootState extends State<Root> {
   @override
   void initState() {
-    super.initState();
     _isUserLoggedIn();
+    super.initState();
   }
 
   void _isUserLoggedIn() async {

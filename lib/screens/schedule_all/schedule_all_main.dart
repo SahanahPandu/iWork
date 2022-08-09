@@ -14,7 +14,6 @@ class ScheduleAllMainScreen extends StatefulWidget {
 }
 
 class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
-  String issueTypeStr = "";
 
   @override
   void initState() {
@@ -33,7 +32,7 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
             Navigator.pop(context);
           },
           icon:
-              Icon(CustomIcon.arrowBack, color: Colors.grey.shade900, size: 18),
+              Icon(CustomIcon.arrowBack, color: Colors.grey.shade900, size: 15),
         ),
         title: Center(
           child: Text(
