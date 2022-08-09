@@ -13,7 +13,7 @@ class Cards extends StatefulWidget {
   String type;
   dynamic data;
 
-  Cards({Key? key, required this.type, required this.data}) : super(key: key);
+  Cards({Key? key, required this.type, this.data}) : super(key: key);
 
   @override
   State<Cards> createState() => _CardsState();
@@ -27,11 +27,7 @@ class _CardsState extends State<Cards> {
       return CompactorPanelScheduleDetails(data: widget.data);
     } else if (widget.type == "SV Laluan Details") {
       return SupervisorScheduleDetails(data: widget.data);
-    }
-    // else if (widget.type == "Laluan Details") {
-    //   return const AttendanceIssuesLaluanDetails();
-    // }
-    else if (widget.type == "Senarai Pekerja") {
+    } else if (widget.type == "Senarai Pekerja") {
       return ListOfEmployeeDetails(
         data: widget.data!,
       );

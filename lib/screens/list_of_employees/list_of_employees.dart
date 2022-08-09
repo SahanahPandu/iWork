@@ -7,8 +7,9 @@ import 'package:eswm/widgets/cards/cards.dart';
 
 class ListOfEmployees extends StatefulWidget {
   dynamic idPekerja;
+  int? idStatus;
 
-  ListOfEmployees({Key? key, this.idPekerja}) : super(key: key);
+  ListOfEmployees({Key? key, this.idPekerja, this.idStatus}) : super(key: key);
 
   @override
   State<ListOfEmployees> createState() => _ListOfEmployeesState();
@@ -46,19 +47,21 @@ class _ListOfEmployeesState extends State<ListOfEmployees> {
                           (item) => !widget.idPekerja.contains(item.id));
                     }
 
-                    return Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 15),
-                      child: ListView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: dataFuture!.length,
-                          itemBuilder: (context, index) {
-                            return Cards(
-                              type: "Senarai Pekerja",
-                              data: dataFuture[index],
-                            );
-                          }),
-                    );
+                    if (widget.idStatus != null) {
+                      dataFuture!.removeWhere(
+                          (item) => item.idAttStatus != widget.idStatus);
+                    }
+
+                    return ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: dataFuture!.length,
+                        itemBuilder: (context, index) {
+                          return Cards(
+                            type: "Senarai Pekerja",
+                            data: dataFuture[index],
+                          );
+                        });
                   }
               }
             }),

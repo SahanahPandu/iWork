@@ -7,6 +7,7 @@ import "package:flutter/material.dart";
 import 'package:eswm/models/pekerja.dart';
 import '../../config/font.dart';
 import '../../config/palette.dart';
+import '../../widgets/buttons/ganti_pekerja_button.dart';
 import '../../widgets/container/status_container.dart';
 
 class ListOfEmployeeDetails extends StatefulWidget {
@@ -139,7 +140,7 @@ class _ListOfEmployeeDetailsState extends State<ListOfEmployeeDetails> {
                 Text(
                   "Kemahiran",
                   style: TextStyle(
-                    fontSize: 15,
+                    fontSize: 14,
                     color: Colors.grey.shade800,
                     fontWeight: FontWeight.w700,
                   ),
@@ -149,7 +150,7 @@ class _ListOfEmployeeDetailsState extends State<ListOfEmployeeDetails> {
             Text(
               widget.data.skills,
               style: const TextStyle(
-                fontSize: 15,
+                fontSize: 14,
                 color: Colors.black45,
                 fontWeight: FontWeight.w500,
               ),
@@ -182,22 +183,55 @@ class _ListOfEmployeeDetailsState extends State<ListOfEmployeeDetails> {
                 ),
               ],
             ),
-            Text(
-              (widget.data.timeIn == "" && widget.data.timeOut == "")
-                  ? "--:-- / --:/--"
-                  : (widget.data.timeIn == "")
-                      ? "--:-- / ${widget.data.timeOut}"
-                      : (widget.data.timeOut == "")
-                          ? "${widget.data.timeIn} / --:--"
-                          : "${widget.data.timeIn} / ${widget.data.timeOut}",
-              style: const TextStyle(
-                fontSize: 15,
-                color: Colors.black45,
-                fontWeight: FontWeight.w500,
+            if (widget.data.timeIn != "" && widget.data.timeOut != "")
+              const SizedBox(
+                width: 25,
               ),
-            )
+            (widget.data.timeIn != "" && widget.data.timeOut != "")
+                ? Expanded(
+                    flex: 2,
+                    child: Text(
+                      "${widget.data.timeIn} / ${widget.data.timeOut}",
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: Colors.black45,
+                        fontWeight: FontWeight.w500,
+                        overflow: (widget.data.timeIn != "" &&
+                                widget.data.timeOut != "")
+                            ? TextOverflow.visible
+                            : null,
+                      ),
+                    ),
+                  )
+                : Text(
+                    (widget.data.timeIn == "" && widget.data.timeOut == "")
+                        ? "--:-- / --:/--"
+                        : (widget.data.timeIn == "")
+                            ? "--:-- / ${widget.data.timeOut}"
+                            : (widget.data.timeOut == "")
+                                ? "${widget.data.timeIn} / --:--"
+                                : "${widget.data.timeIn} / ${widget.data.timeOut}",
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: Colors.black45,
+                      fontWeight: FontWeight.w500,
+                      overflow: (widget.data.timeIn != "" &&
+                              widget.data.timeOut != "")
+                          ? TextOverflow.visible
+                          : null,
+                    ),
+                  ),
           ],
         ),
+        const SizedBox(
+          height: 15,
+        ),
+        if (widget.data.idAttStatus == 2)
+          //Button Ganti Pekerja
+          SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: const GantiPekerjaButton(),
+          ),
       ],
     );
   }

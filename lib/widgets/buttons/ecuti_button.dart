@@ -28,7 +28,7 @@ class _EcutiButtonState extends State<EcutiButton> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(18),
           ),
-          elevation: userRole == 200? 5 : 1,
+          elevation: userRole == 200 ? 5 : 1,
         ),
         onPressed: () {
           Navigator.push(
@@ -49,7 +49,7 @@ class _EcutiButtonState extends State<EcutiButton> {
           "E-Cuti",
           style: TextStyle(
             color: Colors.orange,
-            fontSize: userRole == 200? 17 : 14,
+            fontSize: userRole == 200 ? 17 : 14,
             fontWeight: FontWeight.w600,
           ),
         ),
