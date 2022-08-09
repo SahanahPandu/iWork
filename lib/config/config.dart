@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 /// * GLOBAL VARIABLE LIST
 /// ** Task **
 /// '1' = belum dimulakan
@@ -22,6 +24,6 @@ bool completedFirstVc = false;
 bool completedSecondVc = false;
 
 /// ** Schedule Verification Status **
-bool attendanceMainCard = true;
-bool eCutiMainCard = true;
-bool rescheduleMainCard = true;
+ValueNotifier<bool> attendanceMainCard = ValueNotifier(true);
+ValueNotifier<bool> eCutiMainCard = ValueNotifier(true);
+ValueNotifier<bool> rescheduleMainCard = ValueNotifier(true);

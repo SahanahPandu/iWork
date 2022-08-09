@@ -1,8 +1,7 @@
-import 'package:eswm/config/config.dart';
-import 'package:eswm/config/string.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../config/palette.dart';
+import '../../../../config/string.dart';
 import '../../../../providers/pekerja_api.dart';
 import '../../../../utils/custom_icon.dart';
 import '../../../../utils/device.dart';
@@ -98,12 +97,15 @@ class _AttendanceVerificationListState
                             shrinkWrap: true,
                             itemCount: dataFuture!.length,
                             itemBuilder: (context, index) {
-                              return Container(
-                                color: white,
-                                child: AttendanceVerificationDetailList(
-                                  data: dataFuture[index],
-                                ),
-                              );
+                              if (dataFuture.length > 1) {
+                                return Container(
+                                  color: white,
+                                  child: AttendanceVerificationDetailList(
+                                    data: dataFuture[index],
+                                  ),
+                                );
+                              }
+                              return Container();
                             },
                           );
                         }
@@ -146,8 +148,7 @@ class _AttendanceVerificationListState
                           "Sahkan");
                     }).then((actionText) {
                   if (actionText == "Sahkan") {
-                    Navigator.pop(context);
-                    attendanceMainCard = false;
+                    Navigator.pop(context, 'refreshAttendance');
                   }
                 });
               },

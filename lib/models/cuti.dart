@@ -9,6 +9,7 @@ class Cuti {
   final String lampiran;
   final String catatan;
   final String pemohon;
+  final String approvalBy;
 
   const Cuti(
       {required this.id,
@@ -20,7 +21,8 @@ class Cuti {
       required this.tarikhTamat,
       required this.lampiran,
       required this.catatan,
-      required this.pemohon});
+      required this.pemohon,
+      required this.approvalBy});
 
   static Cuti fromJson(json) => Cuti(
       id: json['id'] ?? 0,
@@ -32,5 +34,6 @@ class Cuti {
       tarikhTamat: json['tarikhTamat'] ?? "",
       lampiran: json['lampiran'] ?? "",
       catatan: json['catatan'] ?? "",
-      pemohon: json['pemohon'] ?? "");
+      pemohon: json['pemohon'] ?? "",
+      approvalBy: json['approvalBy'] ?? "");
 }

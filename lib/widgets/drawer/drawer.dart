@@ -6,6 +6,7 @@ import '../../config/resource.dart';
 import '../../config/string.dart';
 import '../../data/data_drawer.dart';
 import '../../screens/e_cuti/e_cuti.dart';
+import '../../screens/e_cuti/supervisor/supervisor_leave_list.dart';
 import '../../screens/reports/reports.dart';
 import '../../screens/schedule_all/schedule_all_main.dart';
 import '../../screens/schedule_issue/schedule_issue_main.dart';
@@ -163,7 +164,6 @@ class _DrawerBuildState extends State<DrawerBuild> {
               height: _device.screenHeight(context) * 0.75,
               child: ListView.builder(
                   physics: const BouncingScrollPhysics(),
-                  padding: EdgeInsets.zero,
                   itemCount: _getList().length,
                   itemBuilder: (BuildContext context, int index) {
                     return Padding(
@@ -172,14 +172,19 @@ class _DrawerBuildState extends State<DrawerBuild> {
                         tileColor: _isHighlighted[index]
                             ? const Color(0x86E9F4FC)
                             : null,
-                        leading: Icon(
-                          _isHighlighted[index]
-                              ? _getList()[index].iconFill
-                              : _getList()[index].iconOutline,
-                          color: _isHighlighted[index]
-                              ? Colors.blue.shade500
-                              : _getList()[index].titleColor,
-                          size: 15,
+                        leading: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              _isHighlighted[index]
+                                  ? _getList()[index].iconFill
+                                  : _getList()[index].iconOutline,
+                              color: _isHighlighted[index]
+                                  ? Colors.blue.shade500
+                                  : _getList()[index].titleColor,
+                              size: 16,
+                            ),
+                          ],
                         ),
                         title: Text(
                           _getList()[index].title,
@@ -308,8 +313,16 @@ class _DrawerBuildState extends State<DrawerBuild> {
       case 300: //supervisor
       case 400: //eo
       case 500: //ba
-
         switch (idx) {
+          case 1: // ECuti
+            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) {
+                return const SupervisorLeaveList();
+              }),
+            );
+            break;
           case 2: // Jadual tugasan
             Navigator.pop(context);
             Navigator.push(

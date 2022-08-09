@@ -34,7 +34,7 @@ class _AttendanceVerificationDetailListState
       timeInColor = black45;
       return val = true;
     } else {
-      timeIn = "Tidak Masuk Kerja";
+      timeIn = "Tiada Rekod";
       timeInColor = red;
       return val = false;
     }
