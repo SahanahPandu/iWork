@@ -24,8 +24,8 @@ class _GantiPekerjaButtonState extends State<GantiPekerjaButton> {
             borderRadius: BorderRadius.circular(borderRadiusCircular),
           )),
       onPressed: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => EmployeeList()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const EmployeeList()));
       },
       child: const Text(
         "Ganti Pekerja",

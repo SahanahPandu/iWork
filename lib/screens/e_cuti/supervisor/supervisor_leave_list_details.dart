@@ -56,7 +56,6 @@ class _SupervisorLeaveListDetailsState
 
   @override
   void initState() {
-    // TODO: implement initState
     _filterData();
     super.initState();
   }
