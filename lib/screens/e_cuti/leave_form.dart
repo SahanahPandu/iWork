@@ -126,7 +126,9 @@ class _LeaveFormState extends State<LeaveForm> {
           Form(
             key: _formKey,
             child: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(
+                parent: AlwaysScrollableScrollPhysics(),
+              ),
               child: Container(
                 margin:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
