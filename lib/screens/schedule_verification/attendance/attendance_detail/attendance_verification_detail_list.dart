@@ -24,7 +24,6 @@ class _AttendanceVerificationDetailListState
 
   @override
   void initState() {
-    // TODO: implement initState
     _isClockedIn();
     super.initState();
   }
