@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 
 //import files
-import '../../../config/font.dart';
 import '../../../config/palette.dart';
-import '../../../widgets/container/status_container.dart';
 
 class AttendanceIssuesLaluanDetails extends StatefulWidget {
   const AttendanceIssuesLaluanDetails({Key? key}) : super(key: key);
