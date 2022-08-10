@@ -76,12 +76,13 @@ class _ReportApprovalDetailState extends State<ReportApprovalDetail> {
                 textFormBuild(_attachment, "Lampiran", isAttached),
                 InkWell(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ImageViewer(
-                              attachment: widget.data.lampiran,
-                              type: BoxFit.fitWidth)),
+                    Navigator.of(context).push(
+                      PageRouteBuilder(
+                        opaque: false,
+                        pageBuilder: (_, __, ___) => ImageViewer(
+                            attachment: widget.data.lampiran,
+                            type: BoxFit.fitWidth),
+                      ),
                     );
                   },
                   child: Hero(
@@ -89,15 +90,13 @@ class _ReportApprovalDetailState extends State<ReportApprovalDetail> {
                     child: Container(
                       height: 100,
                       width: 130,
-                    padding: const EdgeInsets.all(3),
-                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: white),
+                      padding: const EdgeInsets.all(5),
                       child: ClipRRect(
                           borderRadius: BorderRadius.circular(10),
                           child: Image.network(
                             widget.data.lampiran,
                             fit: BoxFit.fitWidth,
-                            loadingBuilder: (BuildContext context,
-                                Widget child,
+                            loadingBuilder: (BuildContext context, Widget child,
                                 ImageChunkEvent? loadingProgress) {
                               if (loadingProgress == null) return child;
                               return Center(
@@ -106,8 +105,7 @@ class _ReportApprovalDetailState extends State<ReportApprovalDetail> {
                                   color: green,
                                   value: loadingProgress.expectedTotalBytes !=
                                           null
-                                      ? loadingProgress
-                                              .cumulativeBytesLoaded /
+                                      ? loadingProgress.cumulativeBytesLoaded /
                                           loadingProgress.expectedTotalBytes!
                                       : null,
                                 ),
