@@ -68,7 +68,7 @@ class _CardListViewState extends State<CardListView> {
 
           return true;
         }
-        return true;
+        return false;
       },
       child: FutureBuilder<List>(
         future: getData(context),

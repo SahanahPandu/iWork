@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../../config/palette.dart';
 
-List statusList = ['Diluluskan', 'Diluluskan tanpa lampiran', 'Ditolak'];
-
 @override
 Widget? showAcceptanceOptions(
-    BuildContext context, TextEditingController? textController) {
+    BuildContext context, List statusList, TextEditingController? textController,) {
   showModalBottomSheet(
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
@@ -18,7 +16,7 @@ Widget? showAcceptanceOptions(
       context: context,
       builder: (builder) {
         return SizedBox(
-          height: MediaQuery.of(context).size.height * 0.31,
+          height: MediaQuery.of(context).size.height * 0.30,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

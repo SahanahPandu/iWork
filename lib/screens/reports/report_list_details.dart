@@ -68,9 +68,9 @@ class _ReportListDetailsState extends State<ReportListDetails> {
               Text(
                 "Laporan ${widget.index + 1} - ${widget.data.namaLaluan}",
                 style: TextStyle(
-                  fontSize: userRole == 200 ? 17 : 15,
-                  color: Colors.grey.shade800,
-                  fontWeight: FontWeight.w900,
+                  fontSize: userRole == 200 ? 17 : 14,
+                  color: userRole == 200 ? Colors.grey.shade800 : black87,
+                  fontWeight: userRole == 200 ? FontWeight.w900 : FontWeight.w600,
                 ),
               ),
               StatusContainer(
@@ -81,8 +81,8 @@ class _ReportListDetailsState extends State<ReportListDetails> {
               ),
             ],
           ),
-          const SizedBox(
-            height: 30,
+          SizedBox(
+            height: userRole == 200 ? 30 : 20,
           ),
           //Taman
           Row(
@@ -117,8 +117,8 @@ class _ReportListDetailsState extends State<ReportListDetails> {
               ),
             ],
           ),
-          const SizedBox(
-            height: 15,
+          SizedBox(
+            height: userRole == 200 ? 15 : 10,
           ),
           //Jalan
           Row(
@@ -153,8 +153,8 @@ class _ReportListDetailsState extends State<ReportListDetails> {
               ),
             ],
           ),
-          const SizedBox(
-            height: 15,
+          SizedBox(
+            height: userRole == 200 ? 15 : 10,
           ),
           //Jenis Halangan
           Row(
@@ -189,8 +189,8 @@ class _ReportListDetailsState extends State<ReportListDetails> {
               ),
             ],
           ),
-          const SizedBox(
-            height: 15,
+          SizedBox(
+            height: userRole == 200 ? 15 : 10,
           ),
         ],
       ),

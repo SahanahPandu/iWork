@@ -1,29 +1,29 @@
+import 'package:eswm/screens/schedule_issue/report/report_approval/report_approval_detail.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../config/string.dart';
-import '../../../../models/cuti.dart';
+import '../../../../models/reports.dart';
 import '../../../../utils/custom_icon.dart';
 import '../../../../utils/device.dart';
 import '../../../../widgets/alert/alert_dialog.dart';
 import '../../../../widgets/modal_bottom_sheet/acceptance_options.dart';
-import 'ecuti_approval_detail.dart';
 
-class EcutiApprovalMain extends StatefulWidget {
-  final Cuti data;
+class ReportApprovalMain extends StatefulWidget {
+  final Reports data;
 
-  const EcutiApprovalMain({Key? key, required this.data}) : super(key: key);
+  const ReportApprovalMain({Key? key, required this.data}) : super(key: key);
 
   @override
-  State<EcutiApprovalMain> createState() => _EcutiApprovalMain();
+  State<ReportApprovalMain> createState() => _ReportApprovalMainState();
 }
 
-class _EcutiApprovalMain extends State<EcutiApprovalMain> {
-  final ExpandableController _controller =
+class _ReportApprovalMainState extends State<ReportApprovalMain> {
+  final ExpandableController _reportController =
       ExpandableController(initialExpanded: false);
-  final TextEditingController _status = TextEditingController();
-  List leaveStatusList = ['Diluluskan', 'Diluluskan tanpa lampiran', 'Ditolak'];
+  final TextEditingController _rStatus = TextEditingController();
+  List reportStatusList = ['Diterima', 'Ditolak'];
   bool buttonVisibility = true;
   Color iconColor = grey500;
 
@@ -49,7 +49,7 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
           ),
           title: Center(
             child: Text(
-              "Perician",
+              "Laporan ${widget.data.id}",
               style: TextStyle(
                 fontSize: 18,
                 color: grey800,
@@ -71,7 +71,7 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
         body: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: ExpandableNotifier(
-            controller: _controller,
+            controller: _reportController,
             child: Container(
               margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
               child: Column(
@@ -80,24 +80,25 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
                   ExpandableButton(
                     child: InkWell(
                       onTap: () {
-                        _controller.toggle();
-                        _controller.expanded
+                        _reportController.toggle();
+                        _reportController.expanded
                             ? setState(() {
                                 iconColor = green;
                               })
                             : setState(() {
                                 iconColor = grey500;
-                              }); // to update _controller toggle
+                              }); // to update _controller toggle*/
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "Butiran Permohonan E-Cuti",
+                            widget.data.namaLaluan,
                             style: TextStyle(
-                              fontSize: 14,
-                              color: _controller.expanded ? green : grey500,
-                              fontWeight: FontWeight.w700,
+                              fontSize: 15,
+                              color:
+                                  _reportController.expanded ? green : black87,
+                              fontWeight: FontWeight.w800,
                             ),
                           ),
                           Container(
@@ -106,9 +107,9 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
                               shape: BoxShape.circle,
                             ),
                             child: Icon(
-                              _controller.expanded
-                                  ? Icons.arrow_drop_up
-                                  : Icons.arrow_drop_down,
+                              _reportController.expanded
+                                  ? Icons.arrow_drop_up :
+                                   Icons.arrow_drop_down,
                               size: 18,
                               color: white,
                             ),
@@ -120,26 +121,56 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
                   const SizedBox(
                     height: 15,
                   ),
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.local_shipping,
+                        size: 15,
+                      ),
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      Text(
+                        "No. Kenderaan",
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: grey800,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        widget.data.noKenderaan,
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: grey500,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
                   ScrollOnExpand(
                     scrollOnCollapse: false,
                     scrollOnExpand: false,
                     child: Expandable(
                       collapsed: Container(),
-                      expanded: EcutiApprovalDetail(
+                      expanded: ReportApprovalDetail(
                         data: widget.data,
                       ),
                     ),
                   ),
-                  const SizedBox(height: 5),
+                  const SizedBox(height: 15),
                   const Divider(height: 0.5),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 15),
-                        child: Text("Pengesahan Penyelia :",
+                        child: Text("Maklumbalas kepada PRA:",
                             style: TextStyle(
-                                color: _controller.expanded ? green : grey500,
+                                color: _reportController.expanded
+                                    ? green :
+                                     grey500,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w700)),
                       ),
@@ -149,10 +180,10 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
                           borderRadius: BorderRadius.circular(8),
                           onTap: () {
                             showAcceptanceOptions(
-                                context, leaveStatusList, _status);
+                                context, reportStatusList, _rStatus);
                           },
                           child: TextFormField(
-                            controller: _status,
+                            controller: _rStatus,
                             readOnly: true,
                             enabled: false,
                             style: TextStyle(color: grey700, fontSize: 14),
@@ -188,7 +219,7 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10),
                         child: SizedBox(
-                          height: 150,
+                          height: 200,
                           child: TextFormField(
                             cursorColor: green,
                             cursorHeight: 18,
@@ -202,7 +233,7 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
                               focusColor: green,
                               contentPadding: const EdgeInsets.symmetric(
                                   horizontal: 20, vertical: 10),
-                              labelText: "Catatan",
+                              labelText: "Isi maklumbalas di ruang ini",
                               labelStyle: TextStyle(
                                 fontSize: 14,
                                 color: grey,
@@ -265,7 +296,7 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
                       context: context,
                       builder: (BuildContext context) {
                         return showAlertDialog(context, confirmation,
-                            "Sahkan borang E-Cuti ini?", cancel, "Sahkan");
+                            "Sahkan borang laporan ini?", cancel, "Sahkan");
                       }).then((actionText) {
                     if (actionText == "Sahkan") {
                       Navigator.pop(context, 'refreshEcuti');
