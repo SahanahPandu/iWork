@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../../config/palette.dart';
 import '../../../../models/cuti.dart';
 import '../../../../utils/device.dart';
+import '../../../../widgets/image_viewer/image_viewer.dart';
 
 class EcutiApprovalDetail extends StatefulWidget {
   final Cuti data;
@@ -19,8 +20,10 @@ class _EcutiApprovalDetailState extends State<EcutiApprovalDetail> {
   final TextEditingController _leaveType = TextEditingController();
   final TextEditingController _startDate = TextEditingController();
   final TextEditingController _endDate = TextEditingController();
+  final TextEditingController _attachment = TextEditingController();
   final TextEditingController _remarks = TextEditingController();
   final Devices _device = Devices();
+  bool isAttached = false;
 
   @override
   void initState() {
@@ -38,6 +41,15 @@ class _EcutiApprovalDetailState extends State<EcutiApprovalDetail> {
         } else {
           _endDate.text = widget.data.tarikhMula;
         }
+
+        if (widget.data.lampiran != "") {
+          _attachment.text = " ";
+          isAttached = true;
+        } else {
+          _attachment.text = "Tiada Lampiran";
+          isAttached = false;
+        }
+
         if (widget.data.catatan != "") {
           _remarks.text = widget.data.catatan;
         } else {
@@ -51,7 +63,7 @@ class _EcutiApprovalDetailState extends State<EcutiApprovalDetail> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+      padding: const EdgeInsets.symmetric(vertical: 10),
       child: Column(children: [
         textFormBuild(_appliedBy, "Nama Pekerja"),
         textFormBuild(_leaveType, "Jenis Cuti"),
@@ -66,13 +78,59 @@ class _EcutiApprovalDetailState extends State<EcutiApprovalDetail> {
                 child: textFormBuild(_endDate, "Tarikh Tamat", true)),
           ],
         ),
+        isAttached
+            ? Stack(alignment: Alignment.center, children: [
+                textFormBuild(_attachment, "Lampiran", false, isAttached),
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      PageRouteBuilder(
+                        opaque: false,
+                        pageBuilder: (_, __, ___) => ImageViewer(
+                            attachment: widget.data.lampiran,
+                            type: BoxFit.fitWidth),
+                      ),
+                    );
+                  },
+                  child: Hero(
+                    tag: "demoTag",
+                    child: Container(
+                      height: 100,
+                      width: 130,
+                      padding: const EdgeInsets.all(5),
+                      child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.network(
+                            widget.data.lampiran,
+                            fit: BoxFit.fitWidth,
+                            loadingBuilder: (BuildContext context, Widget child,
+                                ImageChunkEvent? loadingProgress) {
+                              if (loadingProgress == null) return child;
+                              return Center(
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 3,
+                                  color: green,
+                                  value: loadingProgress.expectedTotalBytes !=
+                                          null
+                                      ? loadingProgress.cumulativeBytesLoaded /
+                                          loadingProgress.expectedTotalBytes!
+                                      : null,
+                                ),
+                              );
+                            },
+                          )),
+                    ),
+                  ),
+                )
+              ])
+            : textFormBuild(_attachment, "Lampiran", false, isAttached),
         textFormBuild(_remarks, "Catatan"),
       ]),
     );
   }
 
   Padding textFormBuild(TextEditingController textController, String label,
-      [bool? icon]) {
+      [bool? icon, bool? img]) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: TextFormField(
@@ -87,8 +145,9 @@ class _EcutiApprovalDetailState extends State<EcutiApprovalDetail> {
         decoration: InputDecoration(
           filled: true,
           fillColor: grey100,
-          contentPadding:
-              const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+          contentPadding: img == true
+              ? const EdgeInsets.symmetric(vertical: 50, horizontal: 10)
+              : const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
           labelText: label,
           labelStyle: TextStyle(
             fontSize: 12,
