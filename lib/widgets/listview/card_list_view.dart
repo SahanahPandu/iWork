@@ -51,20 +51,23 @@ class _CardListViewState extends State<CardListView> {
   Widget build(BuildContext context) {
     return NotificationListener<ScrollNotification>(
       onNotification: (ScrollNotification scrollNotification) {
-        if (widget.type == "Laluan") {
-          if (scrollNotification is ScrollStartNotification ||
-              scrollNotification is ScrollUpdateNotification) {
-            if (widget.topCardStatus != null) {
-              widget.topCardStatus!(true);
+        if (userRole == 200) {
+          if (widget.type == "Laluan") {
+            if (scrollNotification is ScrollStartNotification ||
+                scrollNotification is ScrollUpdateNotification) {
+              if (widget.topCardStatus != null) {
+                widget.topCardStatus!(true);
+              }
+            }
+            if (scrollNotification is OverscrollNotification) {
+              if (widget.topCardStatus != null) {
+                widget.topCardStatus!(false);
+              }
             }
           }
-          if (scrollNotification is OverscrollNotification) {
-            if (widget.topCardStatus != null) {
-              widget.topCardStatus!(false);
-            }
-          }
-        }
 
+          return true;
+        }
         return true;
       },
       child: FutureBuilder<List>(
@@ -89,24 +92,26 @@ class _CardListViewState extends State<CardListView> {
                     horizontal: userRole == 200 ? 15 : 0,
                   ),
                   child: ListView.builder(
-                    physics: (widget.type == "Cuti" ||
-                            (widget.type == "Laporan" &&
-                                widget.screens !=
-                                    "isu")) //means not from isu list
-                        ? const BouncingScrollPhysics(
-                            parent: AlwaysScrollableScrollPhysics(),
-                          )
-                        : (widget.type == "Laluan" &&
-                                (widget.screens == "drawer" ||
-                                    widget.screens == "isu"))
+                    physics: userRole == 200
+                        ? ((widget.type == "Cuti" ||
+                                (widget.type == "Laporan" &&
+                                    widget.screens !=
+                                        "isu")) //means not from isu list
                             ? const BouncingScrollPhysics(
                                 parent: AlwaysScrollableScrollPhysics(),
                               )
-                            : widget.type ==
-                                    "Laluan" // cannot add bouncing because , it makes the list cannot scroll down when blue card is hidden
-                                ? const AlwaysScrollableScrollPhysics()
-                                : const NeverScrollableScrollPhysics(),
-                    controller: _controller,
+                            : (widget.type == "Laluan" &&
+                                    (widget.screens == "drawer" ||
+                                        widget.screens == "isu"))
+                                ? const BouncingScrollPhysics(
+                                    parent: AlwaysScrollableScrollPhysics(),
+                                  )
+                                : widget.type ==
+                                        "Laluan" // cannot add bouncing because , it makes the list cannot scroll down when blue card is hidden
+                                    ? const AlwaysScrollableScrollPhysics()
+                                    : const NeverScrollableScrollPhysics())
+                        : const BouncingScrollPhysics(),
+                    controller: userRole == 200 ? _controller : null,
                     shrinkWrap: true,
                     itemCount: dataFuture!.length,
                     itemBuilder: (context, index) {

@@ -59,7 +59,7 @@ class _BATodayTaskDetailsState
                 icon: const Icon(
                   Icons.date_range,
                   color: Colors.white,
-                  size: 29,
+                  size: 25,
                 ),
                 onPressed: () {},
               ),
@@ -69,13 +69,13 @@ class _BATodayTaskDetailsState
         Text(
           todayDate,
           style: const TextStyle(
-            fontSize: 26,
+            fontSize: 24,
             fontWeight: FontWeight.w600,
             color: Colors.white,
           ),
         ),
         const SizedBox(
-          height: 15,
+          height: 10,
         ),
         Row(
           children: [
@@ -119,7 +119,7 @@ class _BATodayTaskDetailsState
           ],
         ),
         const SizedBox(
-          height: 25,
+          height: 20,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,

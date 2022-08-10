@@ -77,7 +77,7 @@ class StackOverTabsState extends State<StackOverTabs>
               controller: _tabController,
               children: const [
                 IssueTabbarView(),
-                VarifyTabbarView(),
+                VerifyTabbarView(),
               ],
             ),
           ),
