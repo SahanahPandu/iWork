@@ -40,10 +40,12 @@ class _AppBarWidgetState extends State<AppBarWidget> {
       title: Center(
         child: Text(
           widget.title,
-          style: TextStyle(
-            fontSize: 18,
-            color: Colors.grey.shade800,
-            fontWeight: FontWeight.w700,
+          style: const TextStyle(
+            //fontSize: 18,
+            fontSize: 15,
+            //color: Colors.grey.shade800,
+            color: Colors.black,
+            fontWeight: FontWeight.w400,
           ),
         ),
       ),
