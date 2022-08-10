@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../../config/font.dart';
-import '../../../../config/palette.dart';
 import '../../../../models/cuti.dart';
 import '../../../../widgets/container/status_container.dart';
 
@@ -18,45 +17,6 @@ class PraECutiListDetails extends StatefulWidget {
 }
 
 class _PraECutiListDetailsState extends State<PraECutiListDetails> {
-  Color statusTextColor = greyStatusText;
-  Color statusBoxColor = greyStatusBox;
-
-  filterData() {
-    Color textColor = greyStatusText;
-    Color boxColor = greyStatusBox;
-
-    if (widget.data.idStatus == 1) {
-      //Dalam Proses
-      textColor = blueStatusText;
-      boxColor = blueStatusBox;
-    } else if (widget.data.idStatus == 2) {
-      //Diluluskan Tanpa Lampiran
-      textColor = orangeStatusText;
-      boxColor = orangeStatusBox;
-    } else if (widget.data.idStatus == 3) {
-      //Diluluskan
-      textColor = greenStatusText;
-      boxColor = greenStatusBox;
-    } else if (widget.data.idStatus == 4) {
-      //Tidak Diluluskan
-      textColor = redStatusText;
-      boxColor = redStatusBox;
-    }
-
-    setState(() {
-      statusTextColor = textColor;
-      statusBoxColor = boxColor;
-    });
-  }
-
-  @override
-  void initState() {
-    // ignore: todo
-    // TODO: implement initState
-    super.initState();
-    filterData();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -79,9 +39,9 @@ class _PraECutiListDetailsState extends State<PraECutiListDetails> {
                 width: 2,
               ),
               StatusContainer(
-                boxColor: statusBoxColor,
+                type: "Cuti",
                 status: widget.data.status,
-                textColor: statusTextColor,
+                statusId: widget.data.idStatus,
                 fontWeight: statusFontWeight,
               ),
             ],

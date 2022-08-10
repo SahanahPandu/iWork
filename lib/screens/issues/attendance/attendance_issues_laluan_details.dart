@@ -63,12 +63,12 @@ class _AttendanceIssuesLaluanDetailsState
                 fontWeight: FontWeight.w900,
               ),
             ),
-            StatusContainer(
-              boxColor: statusBoxColor,
-              status: "Belum Mula",
-              textColor: statusTextColor,
-              fontWeight: statusFontWeight,
-            ),
+            // StatusContainer(
+            //   boxColor: statusBoxColor,
+            //   status: "Belum Mula",
+            //   textColor: statusTextColor,
+            //   fontWeight: statusFontWeight,
+            // ),
           ],
         ),
 

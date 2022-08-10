@@ -24,36 +24,6 @@ class SupervisorScheduleDetails extends StatefulWidget {
 
 class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
   final Devices _device = Devices();
-  Color statusTextColor = greyStatusText;
-  Color statusBoxColor = greyStatusBox;
-
-  _filterData() {
-    Color textColor = greyStatusText;
-    Color boxColor = greyStatusBox;
-
-    if (widget.data.idStatus == 2) {
-      //Sedang Bertugas
-
-      textColor = blueStatusText;
-      boxColor = blueStatusBox;
-    } else if (widget.data.idStatus == 3) {
-      //Tugasan Selesai
-
-      textColor = greenStatusText;
-      boxColor = greenStatusBox;
-    }
-
-    setState(() {
-      statusTextColor = textColor;
-      statusBoxColor = boxColor;
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _filterData();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,9 +43,9 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
               ),
             ),
             StatusContainer(
-              boxColor: statusBoxColor,
+              type: "Laluan",
               status: widget.data.status,
-              textColor: statusTextColor,
+              statusId: widget.data.idStatus,
               fontWeight: statusFontWeight,
             ),
           ],

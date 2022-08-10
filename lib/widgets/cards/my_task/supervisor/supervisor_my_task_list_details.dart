@@ -25,39 +25,39 @@ class SupervisorMyTaskListDetails extends StatefulWidget {
 class _SupervisorMyTaskListDetailsState
     extends State<SupervisorMyTaskListDetails> {
   final Devices _device = Devices();
-  late Color statusTextColor;
-  late Color statusBoxColor;
+  // late Color statusTextColor;
+  // late Color statusBoxColor;
   String taskIssueText = "";
 
   @override
   void initState() {
     super.initState();
-    _filterData();
+    // _filterData();
     _filterTaskIssueText(widget.data.isu);
   }
 
-  _filterData() {
-    //default status belum dimulakan
-    Color textColor = Colors.grey;
-    Color boxColor = Colors.grey.shade100;
+  // _filterData() {
+  //   //default status belum dimulakan
+  //   Color textColor = Colors.grey;
+  //   Color boxColor = Colors.grey.shade100;
 
-    if (widget.data.idStatus == 2) {
-      //Sedang Bertugas
+  //   if (widget.data.idStatus == 2) {
+  //     //Sedang Bertugas
 
-      textColor = Colors.blue.shade800;
-      boxColor = Colors.blue.shade100;
-    } else if (widget.data.idStatus == 3) {
-      //Tugasan Selesai
+  //     textColor = Colors.blue.shade800;
+  //     boxColor = Colors.blue.shade100;
+  //   } else if (widget.data.idStatus == 3) {
+  //     //Tugasan Selesai
 
-      textColor = Colors.green;
-      boxColor = const Color(0xffc9ffd7);
-    }
+  //     textColor = Colors.green;
+  //     boxColor = const Color(0xffc9ffd7);
+  //   }
 
-    setState(() {
-      statusTextColor = textColor;
-      statusBoxColor = boxColor;
-    });
-  }
+  //   setState(() {
+  //     statusTextColor = textColor;
+  //     statusBoxColor = boxColor;
+  //   });
+  // }
 
   _filterTaskIssueText(String issue) {
     switch (issue) {
@@ -92,9 +92,9 @@ class _SupervisorMyTaskListDetailsState
                         fontWeight: FontWeight.w900),
                   ),
                   StatusContainer(
-                    boxColor: statusBoxColor,
+                    type: "Laluan",
                     status: widget.data.status,
-                    textColor: statusTextColor,
+                    statusId: widget.data.idStatus,
                     fontWeight: statusFontWeight,
                   ),
                 ],

@@ -21,37 +21,6 @@ class PraWorkScheduleDetails extends StatefulWidget {
 }
 
 class _PraWorkScheduleDetailsState extends State<PraWorkScheduleDetails> {
-  Color statusTextColor = greyStatusText;
-  Color statusBoxColor = greyStatusBox;
-
-  filterData() {
-    Color textColor = greyStatusText;
-    Color boxColor = greyStatusBox;
-
-    if (widget.data.idStatus == 2) {
-      //Sedang Bertugas
-
-      textColor = blueStatusText;
-      boxColor = blueStatusBox;
-    } else if (widget.data.idStatus == 3) {
-      //Tugasan Selesai
-
-      textColor = greenStatusText;
-      boxColor = greenStatusBox;
-    }
-
-    setState(() {
-      statusTextColor = textColor;
-      statusBoxColor = boxColor;
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    filterData();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -70,9 +39,9 @@ class _PraWorkScheduleDetailsState extends State<PraWorkScheduleDetails> {
               ),
             ),
             StatusContainer(
-              boxColor: statusBoxColor,
+              type: "Laluan",
               status: widget.data.status,
-              textColor: statusTextColor,
+              statusId: widget.data.idStatus,
               fontWeight: statusFontWeight,
             ),
           ],

@@ -20,41 +20,6 @@ class ReportListDetails extends StatefulWidget {
 }
 
 class _ReportListDetailsState extends State<ReportListDetails> {
-  Color statusTextColor = greyStatusText;
-  Color statusBoxColor = greyStatusBox;
-
-  filterData() {
-    Color textColor = greyStatusText;
-    Color boxColor = greyStatusBox;
-
-    if (widget.data.idStatus == 1) {
-      //Baharu
-      textColor = blueStatusText;
-      boxColor = blueStatusBox;
-    } else if (widget.data.idStatus == 2) {
-      //Dalam Proses
-      textColor = orangeStatusText;
-      boxColor = orangeStatusBox;
-    } else if (widget.data.idStatus == 3) {
-      //Selesai
-      textColor = greenStatusText;
-      boxColor = greenStatusBox;
-    }
-
-    setState(() {
-      statusTextColor = textColor;
-      statusBoxColor = boxColor;
-    });
-  }
-
-  @override
-  void initState() {
-    // ignore: todo
-    // TODO: implement initState
-    super.initState();
-    filterData();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -74,9 +39,9 @@ class _ReportListDetailsState extends State<ReportListDetails> {
                 ),
               ),
               StatusContainer(
-                boxColor: statusBoxColor,
+                type: "Laporan",
                 status: widget.data.status,
-                textColor: statusTextColor,
+                statusId: widget.data.idStatus,
                 fontWeight: statusFontWeight,
               ),
             ],

@@ -18,38 +18,6 @@ class PraMyTaskListDetails extends StatefulWidget {
 }
 
 class _PraMyTaskListDetailsState extends State<PraMyTaskListDetails> {
-  late Color statusTextColor;
-  late Color statusBoxColor;
-
-  filterData() {
-    //default status belum dimulakan
-    Color textColor = Colors.grey;
-    Color boxColor = Colors.grey.shade100;
-
-    if (widget.data.idStatus == 2) {
-      //Sedang Bertugas
-
-      textColor = Colors.blue.shade800;
-      boxColor = Colors.blue.shade100;
-    } else if (widget.data.idStatus == 3) {
-      //Tugasan Selesai
-
-      textColor = Colors.green;
-      boxColor = const Color(0xffc9ffd7);
-    }
-
-    setState(() {
-      statusTextColor = textColor;
-      statusBoxColor = boxColor;
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    filterData();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -69,9 +37,9 @@ class _PraMyTaskListDetailsState extends State<PraMyTaskListDetails> {
                     fontWeight: FontWeight.w900),
               ),
               StatusContainer(
-                boxColor: statusBoxColor,
+                type: "Laluan",
                 status: widget.data.status,
-                textColor: statusTextColor,
+                statusId: widget.data.idStatus,
                 fontWeight: statusFontWeight,
               ),
             ],

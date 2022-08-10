@@ -20,45 +20,6 @@ class ListOfEmployeeDetails extends StatefulWidget {
 }
 
 class _ListOfEmployeeDetailsState extends State<ListOfEmployeeDetails> {
-  Color statusTextColor = greyStatusText;
-  Color statusBoxColor = greyStatusBox;
-
-  filterData() {
-    Color textColor = greyStatusText;
-    Color boxColor = greyStatusBox;
-
-    // if (widget.data.idStatus == 1) {
-    //   //Dalam Proses
-    //   textColor = blueStatusText;
-    //   boxColor = blueStatusBox;
-    // } else if (widget.data.idStatus == 2) {
-    //   //Diluluskan Tanpa Lampiran
-    //   textColor = orangeStatusText;
-    //   boxColor = orangeStatusBox;
-    // } else if (widget.data.idStatus == 3) {
-    //   //Diluluskan
-    //   textColor = greenStatusText;
-    //   boxColor = greenStatusBox;
-    // } else if (widget.data.idStatus == 4) {
-    //   //Tidak Diluluskan
-    //   textColor = redStatusText;
-    //   boxColor = redStatusBox;
-    // }
-
-    setState(() {
-      statusTextColor = textColor;
-      statusBoxColor = boxColor;
-    });
-  }
-
-  @override
-  void initState() {
-    // ignore: todo
-    // TODO: implement initState
-    super.initState();
-    filterData();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -114,9 +75,9 @@ class _ListOfEmployeeDetailsState extends State<ListOfEmployeeDetails> {
             ),
             //Status
             StatusContainer(
-              boxColor: statusBoxColor,
+              type: "Kehadiran",
               status: widget.data.attStatus,
-              textColor: statusTextColor,
+              statusId: widget.data.idAttStatus,
               fontWeight: statusFontWeight,
             ),
           ],

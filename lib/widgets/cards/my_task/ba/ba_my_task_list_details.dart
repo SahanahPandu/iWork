@@ -12,51 +12,48 @@ class BAMyTaskListDetails extends StatefulWidget {
   final Laluan data;
   final bool? button;
 
-  const BAMyTaskListDetails(
-      {Key? key, required this.data, this.button = true})
+  const BAMyTaskListDetails({Key? key, required this.data, this.button = true})
       : super(key: key);
 
   @override
-  State<BAMyTaskListDetails> createState() =>
-      _BAMyTaskListDetailsState();
+  State<BAMyTaskListDetails> createState() => _BAMyTaskListDetailsState();
 }
 
-class _BAMyTaskListDetailsState
-    extends State<BAMyTaskListDetails> {
+class _BAMyTaskListDetailsState extends State<BAMyTaskListDetails> {
   final Devices _device = Devices();
-  late Color statusTextColor;
-  late Color statusBoxColor;
+  // late Color statusTextColor;
+  // late Color statusBoxColor;
   String taskIssueText = "";
 
   @override
   void initState() {
     super.initState();
-    _filterData();
+    // _filterData();
     _filterTaskIssueText(widget.data.isu);
   }
 
-  _filterData() {
-    //default status belum dimulakan
-    Color textColor = Colors.grey;
-    Color boxColor = Colors.grey.shade100;
+  // _filterData() {
+  //   //default status belum dimulakan
+  //   Color textColor = Colors.grey;
+  //   Color boxColor = Colors.grey.shade100;
 
-    if (widget.data.idStatus == 2) {
-      //Sedang Bertugas
+  //   if (widget.data.idStatus == 2) {
+  //     //Sedang Bertugas
 
-      textColor = Colors.blue.shade800;
-      boxColor = Colors.blue.shade100;
-    } else if (widget.data.idStatus == 3) {
-      //Tugasan Selesai
+  //     textColor = Colors.blue.shade800;
+  //     boxColor = Colors.blue.shade100;
+  //   } else if (widget.data.idStatus == 3) {
+  //     //Tugasan Selesai
 
-      textColor = Colors.green;
-      boxColor = const Color(0xffc9ffd7);
-    }
+  //     textColor = Colors.green;
+  //     boxColor = const Color(0xffc9ffd7);
+  //   }
 
-    setState(() {
-      statusTextColor = textColor;
-      statusBoxColor = boxColor;
-    });
-  }
+  //   setState(() {
+  //     statusTextColor = textColor;
+  //     statusBoxColor = boxColor;
+  //   });
+  // }
 
   _filterTaskIssueText(String issue) {
     switch (issue) {
@@ -107,9 +104,9 @@ class _BAMyTaskListDetailsState
                         fontWeight: FontWeight.w900),
                   ),
                   StatusContainer(
-                    boxColor: statusBoxColor,
+                    type: "Laluan",
                     status: widget.data.status,
-                    textColor: statusTextColor,
+                    statusId: widget.data.idStatus,
                     fontWeight: statusFontWeight,
                   ),
                 ],

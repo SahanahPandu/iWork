@@ -22,36 +22,6 @@ class CompactorPanelScheduleDetails extends StatefulWidget {
 class _CompactorPanelScheduleDetailsState
     extends State<CompactorPanelScheduleDetails> {
   final Devices _device = Devices();
-  Color statusTextColor = greyStatusText;
-  Color statusBoxColor = greyStatusBox;
-
-  filterData() {
-    Color textColor = greyStatusText;
-    Color boxColor = greyStatusBox;
-
-    if (widget.data.idStatus == 2) {
-      //Sedang Bertugas
-
-      textColor = blueStatusText;
-      boxColor = blueStatusBox;
-    } else if (widget.data.idStatus == 3) {
-      //Tugasan Selesai
-
-      textColor = greenStatusText;
-      boxColor = greenStatusBox;
-    }
-
-    setState(() {
-      statusTextColor = textColor;
-      statusBoxColor = boxColor;
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    filterData();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,9 +43,9 @@ class _CompactorPanelScheduleDetailsState
                       fontWeight: FontWeight.w900),
                 ),
                 StatusContainer(
-                  boxColor: statusBoxColor,
+                  type: "Laluan",
                   status: widget.data.status,
-                  textColor: statusTextColor,
+                  statusId: widget.data.idStatus,
                   fontWeight: statusFontWeight,
                 ),
               ],
