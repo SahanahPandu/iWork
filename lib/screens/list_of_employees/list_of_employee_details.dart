@@ -7,13 +7,19 @@ import "package:flutter/material.dart";
 import 'package:eswm/models/pekerja.dart';
 import '../../config/font.dart';
 import '../../config/palette.dart';
+import '../../utils/custom_icon.dart';
 import '../../widgets/buttons/ganti_pekerja_button.dart';
 import '../../widgets/container/status_container.dart';
 
 class ListOfEmployeeDetails extends StatefulWidget {
-  Pekerja data;
+  Pekerja? data;
+  Function(dynamic)? assignedEmployee;
 
-  ListOfEmployeeDetails({Key? key, required this.data}) : super(key: key);
+  ListOfEmployeeDetails({
+    Key? key,
+    this.data,
+    this.assignedEmployee,
+  }) : super(key: key);
 
   @override
   State<ListOfEmployeeDetails> createState() => _ListOfEmployeeDetailsState();
@@ -55,14 +61,14 @@ class _ListOfEmployeeDetailsState extends State<ListOfEmployeeDetails> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      widget.data.name,
+                      widget.data!.name,
                       style: const TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 15,
                       ),
                     ),
                     Text(
-                      widget.data.designCat,
+                      widget.data!.designCat,
                       style: TextStyle(
                         color: Colors.grey.shade600,
                         fontWeight: FontWeight.w500,
@@ -76,8 +82,8 @@ class _ListOfEmployeeDetailsState extends State<ListOfEmployeeDetails> {
             //Status
             StatusContainer(
               type: "Kehadiran",
-              status: widget.data.attStatus,
-              statusId: widget.data.idAttStatus,
+              status: widget.data!.attStatus,
+              statusId: widget.data!.idAttStatus,
               fontWeight: statusFontWeight,
             ),
           ],
@@ -91,9 +97,11 @@ class _ListOfEmployeeDetailsState extends State<ListOfEmployeeDetails> {
           children: [
             Row(
               children: [
-                const Icon(
-                  Icons.psychology,
-                  size: 20,
+                Icon(
+                  //Icons.psychology,
+                  CustomIcon.psychology,
+                  size: 18,
+                  color: blue,
                 ),
                 const SizedBox(
                   width: 15,
@@ -102,18 +110,22 @@ class _ListOfEmployeeDetailsState extends State<ListOfEmployeeDetails> {
                   "Kemahiran",
                   style: TextStyle(
                     fontSize: 14,
-                    color: Colors.grey.shade800,
-                    fontWeight: FontWeight.w700,
+                    // color: Colors.grey.shade800,
+                    // fontWeight: FontWeight.w700,
+                    color: grey400,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ],
             ),
             Text(
-              widget.data.skills,
-              style: const TextStyle(
+              widget.data!.skills,
+              style: TextStyle(
                 fontSize: 14,
-                color: Colors.black45,
-                fontWeight: FontWeight.w500,
+                // color: Colors.black45,
+                // fontWeight: FontWeight.w500,
+                color: black87,
+                fontWeight: FontWeight.w700,
               ),
             )
           ],
@@ -127,57 +139,65 @@ class _ListOfEmployeeDetailsState extends State<ListOfEmployeeDetails> {
           children: [
             Row(
               children: [
-                const Icon(
-                  Icons.timer_outlined,
-                  size: 20,
+                Icon(
+                  //Icons.timer_outlined,
+                  CustomIcon.timerOutline,
+                  size: 18,
+                  color: blue,
                 ),
                 const SizedBox(
                   width: 15,
                 ),
                 Text(
-                  "Masuk Kerja / Keluar Kerja",
+                  "Masuk/Keluar Kerja",
                   style: TextStyle(
-                    fontSize: 13,
-                    color: Colors.grey.shade800,
-                    fontWeight: FontWeight.w700,
+                    fontSize: 15,
+                    // color: Colors.grey.shade800,
+                    // fontWeight: FontWeight.w700,
+                    color: grey400,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ],
             ),
-            if (widget.data.timeIn != "" && widget.data.timeOut != "")
+            if (widget.data!.timeIn != "" && widget.data!.timeOut != "")
               const SizedBox(
                 width: 25,
               ),
-            (widget.data.timeIn != "" && widget.data.timeOut != "")
+            (widget.data!.timeIn != "" && widget.data!.timeOut != "")
                 ? Expanded(
                     flex: 2,
                     child: Text(
-                      "${widget.data.timeIn} / ${widget.data.timeOut}",
+                      "${widget.data!.timeIn} / ${widget.data!.timeOut}",
                       style: TextStyle(
-                        fontSize: 13,
-                        color: Colors.black45,
-                        fontWeight: FontWeight.w500,
-                        overflow: (widget.data.timeIn != "" &&
-                                widget.data.timeOut != "")
+                        fontSize: 15,
+                        // color: Colors.black45,
+                        // fontWeight: FontWeight.w500,
+                        color: black87,
+                        fontWeight: FontWeight.w700,
+                        overflow: (widget.data!.timeIn != "" &&
+                                widget.data!.timeOut != "")
                             ? TextOverflow.visible
                             : null,
                       ),
                     ),
                   )
                 : Text(
-                    (widget.data.timeIn == "" && widget.data.timeOut == "")
+                    (widget.data!.timeIn == "" && widget.data!.timeOut == "")
                         ? "--:-- / --:/--"
-                        : (widget.data.timeIn == "")
-                            ? "--:-- / ${widget.data.timeOut}"
-                            : (widget.data.timeOut == "")
-                                ? "${widget.data.timeIn} / --:--"
-                                : "${widget.data.timeIn} / ${widget.data.timeOut}",
+                        : (widget.data!.timeIn == "")
+                            ? "--:-- / ${widget.data!.timeOut}"
+                            : (widget.data!.timeOut == "")
+                                ? "${widget.data!.timeIn} / --:--"
+                                : "${widget.data!.timeIn} / ${widget.data!.timeOut}",
                     style: TextStyle(
-                      fontSize: 13,
-                      color: Colors.black45,
-                      fontWeight: FontWeight.w500,
-                      overflow: (widget.data.timeIn != "" &&
-                              widget.data.timeOut != "")
+                      fontSize: 15,
+                      // color: Colors.black45,
+                      // fontWeight: FontWeight.w500,
+                      color: black87,
+                      fontWeight: FontWeight.w700,
+                      overflow: (widget.data!.timeIn != "" &&
+                              widget.data!.timeOut != "")
                           ? TextOverflow.visible
                           : null,
                     ),
@@ -187,11 +207,13 @@ class _ListOfEmployeeDetailsState extends State<ListOfEmployeeDetails> {
         const SizedBox(
           height: 15,
         ),
-        if (widget.data.idAttStatus == 2)
+        if (widget.data!.idAttStatus == 2)
           //Button Ganti Pekerja
           SizedBox(
             width: MediaQuery.of(context).size.width,
-            child: const GantiPekerjaButton(),
+            child: GantiPekerjaButton(
+              assignedEmployee: widget.assignedEmployee,
+            ),
           ),
       ],
     );

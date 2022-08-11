@@ -62,7 +62,8 @@ class _ScheduleIssueMainScreen extends State<ScheduleIssueMainScreen> {
         ],
       ),
       body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(
+            parent: AlwaysScrollableScrollPhysics()),
         child: widget.fromHome == true
             ? ScheduleIssuedCard(
                 getInfo: widget.laluanData!, getIssue: widget.issueType)

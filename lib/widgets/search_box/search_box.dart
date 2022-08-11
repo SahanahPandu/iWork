@@ -6,16 +6,23 @@ import 'package:eswm/config/palette.dart';
 
 class SearchBoxWidget extends StatefulWidget {
   String? labelText;
-  SearchBoxWidget({Key? key, this.labelText}) : super(key: key);
+  Function(dynamic)? searchedName;
+
+  SearchBoxWidget({Key? key, this.labelText, this.searchedName})
+      : super(key: key);
 
   @override
   State<SearchBoxWidget> createState() => _SearchBoxWidgetState();
 }
 
 class _SearchBoxWidgetState extends State<SearchBoxWidget> {
+  final TextEditingController _search = TextEditingController();
+  IconData searchboxIcon = Icons.search;
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: _search,
       decoration: InputDecoration(
         filled: true,
         fillColor: textFormFieldFillColor,
@@ -46,13 +53,28 @@ class _SearchBoxWidgetState extends State<SearchBoxWidget> {
           color: labelTextColor,
           fontWeight: textFormFieldLabelFontWeight,
         ),
-        suffixIcon: const Icon(
-          Icons.search,
-          size: 25,
-          color: Colors.black87,
-        ),
+        suffixIcon: InkWell(
+            onTap: () {
+              if (searchboxIcon == Icons.close) {
+                setState(() {
+                  widget.searchedName!("");
+                  _search.text = "";
+                  searchboxIcon = Icons.search;
+                });
+              }
+            },
+            child: Icon(
+              searchboxIcon,
+              size: 25,
+              color: Colors.black87,
+            )),
       ),
-      onChanged: (value) {},
+      onChanged: (value) {
+        widget.searchedName!(value);
+        setState(() {
+          searchboxIcon = Icons.close;
+        });
+      },
     );
   }
 }

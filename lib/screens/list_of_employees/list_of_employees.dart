@@ -8,8 +8,16 @@ import 'package:eswm/widgets/cards/cards.dart';
 class ListOfEmployees extends StatefulWidget {
   dynamic idPekerja;
   int? idStatus;
+  String? searchedName;
+  Function(dynamic)? assignedEmployee;
 
-  ListOfEmployees({Key? key, this.idPekerja, this.idStatus}) : super(key: key);
+  ListOfEmployees({
+    Key? key,
+    this.idPekerja,
+    this.idStatus,
+    this.searchedName,
+    this.assignedEmployee,
+  }) : super(key: key);
 
   @override
   State<ListOfEmployees> createState() => _ListOfEmployeesState();
@@ -27,7 +35,7 @@ class _ListOfEmployeesState extends State<ListOfEmployees> {
         FutureBuilder<List>(
             future: PekerjaApi.getPekerjaData(context),
             builder: (context, snapshot) {
-              final dataFuture = snapshot.data;
+              var dataFuture = snapshot.data;
               //List<dynamic> newList = [];
               switch (snapshot.connectionState) {
                 case ConnectionState.waiting:
@@ -47,9 +55,19 @@ class _ListOfEmployeesState extends State<ListOfEmployees> {
                           (item) => !widget.idPekerja.contains(item.id));
                     }
 
+                    //checking attendance id status
                     if (widget.idStatus != null) {
                       dataFuture!.removeWhere(
                           (item) => item.idAttStatus != widget.idStatus);
+                    }
+
+                    //checking searching string
+                    if (widget.searchedName != null) {
+                      dataFuture = dataFuture!
+                          .where((item) => item.name
+                              .toLowerCase()
+                              .contains(widget.searchedName!.toLowerCase()))
+                          .toList();
                     }
 
                     return ListView.builder(
@@ -59,7 +77,8 @@ class _ListOfEmployeesState extends State<ListOfEmployees> {
                         itemBuilder: (context, index) {
                           return Cards(
                             type: "Senarai Pekerja",
-                            data: dataFuture[index],
+                            data: dataFuture![index],
+                            assignedEmployee: widget.assignedEmployee,
                           );
                         });
                   }

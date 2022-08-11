@@ -1,10 +1,16 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:eswm/config/palette.dart';
 import 'package:flutter/material.dart';
 
 import '../../screens/employee_list/employee_list.dart';
 
 class GantiPekerjaButton extends StatefulWidget {
-  const GantiPekerjaButton({Key? key}) : super(key: key);
+  Function(dynamic)? assignedEmployee;
+  GantiPekerjaButton({
+    Key? key,
+    this.assignedEmployee,
+  }) : super(key: key);
 
   @override
   State<GantiPekerjaButton> createState() => _GantiPekerjaButtonState();
@@ -24,8 +30,12 @@ class _GantiPekerjaButtonState extends State<GantiPekerjaButton> {
             borderRadius: BorderRadius.circular(borderRadiusCircular),
           )),
       onPressed: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const EmployeeList()));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => EmployeeList(
+                      assignedEmployee: widget.assignedEmployee,
+                    )));
       },
       child: const Text(
         "Ganti Pekerja",

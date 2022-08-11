@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 
 //import files
@@ -7,13 +9,25 @@ import '../../widgets/search_box/search_box.dart';
 import 'package:eswm/screens/list_of_employees/list_of_employees.dart';
 
 class EmployeeList extends StatefulWidget {
-  const EmployeeList({Key? key}) : super(key: key);
+  Function(dynamic)? assignedEmployee;
+  EmployeeList({
+    Key? key,
+    this.assignedEmployee,
+  }) : super(key: key);
 
   @override
   State<EmployeeList> createState() => _EmployeeListState();
 }
 
 class _EmployeeListState extends State<EmployeeList> {
+  String? searchName;
+
+  void getSearchName(name) {
+    setState(() {
+      searchName = name;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,6 +53,7 @@ class _EmployeeListState extends State<EmployeeList> {
             children: [
               SearchBoxWidget(
                 labelText: 'Cari Pekerja',
+                searchedName: getSearchName,
               ),
               const SizedBox(
                 height: 20,
@@ -55,6 +70,8 @@ class _EmployeeListState extends State<EmployeeList> {
               ),
               ListOfEmployees(
                 idStatus: 1, // Hadir
+                searchedName: searchName,
+                assignedEmployee: widget.assignedEmployee,
               ),
             ],
           ),

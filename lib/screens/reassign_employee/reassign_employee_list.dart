@@ -5,16 +5,16 @@ import 'package:flutter/material.dart';
 
 import '../../providers/pekerja_api.dart';
 
-class ReassignEmployee extends StatefulWidget {
+class ReassignEmployeeList extends StatefulWidget {
   String? namaLaluan;
 
-  ReassignEmployee({Key? key, this.namaLaluan}) : super(key: key);
+  ReassignEmployeeList({Key? key, this.namaLaluan}) : super(key: key);
 
   @override
-  State<ReassignEmployee> createState() => _ReassignEmployeeState();
+  State<ReassignEmployeeList> createState() => _ReassignEmployeeListState();
 }
 
-class _ReassignEmployeeState extends State<ReassignEmployee> {
+class _ReassignEmployeeListState extends State<ReassignEmployeeList> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List>(
@@ -51,7 +51,7 @@ class _ReassignEmployeeState extends State<ReassignEmployee> {
                       itemCount: dataFuture!.length,
                       itemBuilder: (context, index) {
                         return Cards(
-                          type: "Senarai Pekerja",
+                          type: "Reassign Pekerja",
                           data: dataFuture[index],
                         );
                       }),
