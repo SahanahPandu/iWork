@@ -1,46 +1,39 @@
-import 'package:eswm/utils/custom_icon.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../config/palette.dart';
-import '../../../../models/cuti.dart';
-import '../../../../utils/device.dart';
+import '../../../../models/reports.dart';
 import '../../../../widgets/image_viewer/image_viewer.dart';
 
-class EcutiApprovalDetail extends StatefulWidget {
-  final Cuti data;
-
-  const EcutiApprovalDetail({Key? key, required this.data}) : super(key: key);
+class ReportApprovalDetail extends StatefulWidget {
+  final Reports data;
+  final int reportStatus;
+  const ReportApprovalDetail({Key? key, required this.data, required this.reportStatus}) : super(key: key);
 
   @override
-  State<EcutiApprovalDetail> createState() => _EcutiApprovalDetailState();
+  State<ReportApprovalDetail> createState() => _ReportApprovalDetailState();
 }
 
-class _EcutiApprovalDetailState extends State<EcutiApprovalDetail> {
-  final TextEditingController _appliedBy = TextEditingController();
-  final TextEditingController _leaveType = TextEditingController();
-  final TextEditingController _startDate = TextEditingController();
-  final TextEditingController _endDate = TextEditingController();
+class _ReportApprovalDetailState extends State<ReportApprovalDetail> {
+  final TextEditingController _subLaluan = TextEditingController();
+  final TextEditingController _taman = TextEditingController();
+  final TextEditingController _jalan = TextEditingController();
+  final TextEditingController _reportType = TextEditingController();
   final TextEditingController _attachment = TextEditingController();
   final TextEditingController _remarks = TextEditingController();
-  final Devices _device = Devices();
   bool isAttached = false;
 
   @override
   void initState() {
-    if (widget.data.pemohon != "" ||
-        widget.data.jenisCuti != "" ||
-        widget.data.tarikhMula != "" ||
+    if (widget.data.namaSubLaluan != "" ||
+        widget.data.namaTaman != "" ||
+        widget.data.namaJalan != "" ||
+        widget.data.jenisHalangan != "" ||
         widget.data.catatan != "") {
       setState(() {
-        _appliedBy.text = widget.data.pemohon;
-        _leaveType.text = widget.data.jenisCuti;
-        _startDate.text = widget.data.tarikhMula;
-
-        if (widget.data.tarikhTamat != "") {
-          _endDate.text = widget.data.tarikhTamat;
-        } else {
-          _endDate.text = widget.data.tarikhMula;
-        }
+        _subLaluan.text = widget.data.namaSubLaluan;
+        _taman.text = widget.data.namaTaman;
+        _jalan.text = widget.data.namaJalan;
+        _reportType.text = widget.data.jenisHalangan;
 
         if (widget.data.lampiran != "") {
           _attachment.text = " ";
@@ -63,24 +56,24 @@ class _EcutiApprovalDetailState extends State<EcutiApprovalDetail> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      child: Column(children: [
-        textFormBuild(_appliedBy, "Nama Pekerja"),
-        textFormBuild(_leaveType, "Jenis Cuti"),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            SizedBox(
-                width: _device.screenWidth(context) * 0.4,
-                child: textFormBuild(_startDate, "Tarikh Mula", true)),
-            SizedBox(
-                width: _device.screenWidth(context) * 0.4,
-                child: textFormBuild(_endDate, "Tarikh Tamat", true)),
-          ],
+      padding: const EdgeInsets.only(top: 15),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        const Divider(height: 0.5),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 15),
+          child: Text(
+            "Butiran laporan seperti di bawah:",
+            style: TextStyle(
+                fontSize: 14, color: grey500, fontWeight: FontWeight.w700),
+          ),
         ),
+        textFormBuild(_subLaluan, "Sub Laluan"),
+        textFormBuild(_taman, "Taman"),
+        textFormBuild(_jalan, "Jalan"),
+        textFormBuild(_reportType, "Jenis Halangan"),
         isAttached
             ? Stack(alignment: Alignment.center, children: [
-                textFormBuild(_attachment, "Lampiran", false, isAttached),
+                textFormBuild(_attachment, "Lampiran", isAttached),
                 InkWell(
                   onTap: () {
                     Navigator.of(context).push(
@@ -123,14 +116,14 @@ class _EcutiApprovalDetailState extends State<EcutiApprovalDetail> {
                   ),
                 )
               ])
-            : textFormBuild(_attachment, "Lampiran", false, isAttached),
+            : textFormBuild(_attachment, "Lampiran", isAttached),
         textFormBuild(_remarks, "Catatan"),
       ]),
     );
   }
 
   Padding textFormBuild(TextEditingController textController, String label,
-      [bool? icon, bool? img]) {
+      [bool? img]) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: TextFormField(
@@ -154,9 +147,6 @@ class _EcutiApprovalDetailState extends State<EcutiApprovalDetail> {
             color: grey,
             fontWeight: FontWeight.w300,
           ),
-          suffixIcon: icon == true
-              ? Icon(CustomIcon.scheduleOutline, color: grey500, size: 15)
-              : null,
           disabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
               width: 0.5,

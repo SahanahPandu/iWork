@@ -9,6 +9,7 @@ import '../../screens/e_cuti/supervisor/supervisor_leave_list_details.dart';
 import '../../screens/list_of_road/list_of_road_details.dart';
 import '../../screens/reports/report_list_details.dart';
 import '../../screens/reports/reports.dart';
+import '../../screens/schedule_issue/report/report_approval/report_approval_main.dart';
 import '../../screens/schedule_verification/ecuti/ecuti_approval/ecuti_approval_main.dart';
 import '../../screens/work_schedule/work_schedule.dart';
 import './my_task/pra/pra_my_task_list_details.dart';
@@ -90,11 +91,20 @@ class _ListCardState extends State<ListCard> {
               } else if (widget.type == "Laluan") {
                 return WorkSchedule(data: widget.data);
               } else if (widget.type == "Laporan") {
-                return ReportsPage(
-                  screen: "4",
-                  data: widget.data,
-                  dataLaluan: null,
-                );
+                if (userRole == 100 || userRole == 200) {
+                  // comp || pra
+                  return ReportsPage(
+                    screen: "4",
+                    data: widget.data,
+                    dataLaluan: null,
+                  );
+                } else if (userRole == 300) {
+                  // sv
+                  return ReportApprovalMain(data: widget.data);
+                } else {
+                  //others add later
+                  return ReportApprovalMain(data: widget.data);
+                }
               } else {
                 return Container();
               }

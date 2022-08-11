@@ -23,6 +23,7 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
   final ExpandableController _controller =
       ExpandableController(initialExpanded: false);
   final TextEditingController _status = TextEditingController();
+  List leaveStatusList = ['Diluluskan', 'Diluluskan tanpa lampiran', 'Ditolak'];
   bool buttonVisibility = true;
   Color iconColor = grey500;
 
@@ -147,7 +148,8 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
                         child: InkWell(
                           borderRadius: BorderRadius.circular(8),
                           onTap: () {
-                            showAcceptanceOptions(context, _status);
+                            showAcceptanceOptions(
+                                context, leaveStatusList, 0.31, _status);
                           },
                           child: TextFormField(
                             controller: _status,
@@ -186,7 +188,7 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10),
                         child: SizedBox(
-                          height: 150,
+                          height: 80,
                           child: TextFormField(
                             cursorColor: green,
                             cursorHeight: 18,

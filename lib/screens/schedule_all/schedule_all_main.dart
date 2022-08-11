@@ -62,9 +62,7 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
               ],
             )
           : SingleChildScrollView(
-              physics: const BouncingScrollPhysics(
-                parent: AlwaysScrollableScrollPhysics(),
-              ),
+              physics: const BouncingScrollPhysics(),
               child: Column(
                 children: [
                   Container(

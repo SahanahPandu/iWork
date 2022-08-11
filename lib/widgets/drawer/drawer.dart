@@ -10,6 +10,7 @@ import '../../screens/e_cuti/supervisor/supervisor_leave_list.dart';
 import '../../screens/reports/reports.dart';
 import '../../screens/schedule_all/schedule_all_main.dart';
 import '../../screens/schedule_issue/schedule_issue_main.dart';
+import '../../screens/schedule_shift/schedule_shift_main.dart';
 import '../../utils/authentication/auth.dart';
 import '../../utils/device.dart';
 import '../alert/alert_dialog.dart';
@@ -329,6 +330,15 @@ class _DrawerBuildState extends State<DrawerBuild> {
               context,
               MaterialPageRoute(builder: (context) {
                 return const ScheduleAllMainScreen();
+              }),
+            );
+            break;
+          case 3: // Anjakan Jadual
+            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) {
+                return const ScheduleShiftMain();
               }),
             );
             break;
