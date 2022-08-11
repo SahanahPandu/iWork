@@ -149,7 +149,7 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
                           borderRadius: BorderRadius.circular(8),
                           onTap: () {
                             showAcceptanceOptions(
-                                context, leaveStatusList, _status);
+                                context, leaveStatusList, 0.31, _status);
                           },
                           child: TextFormField(
                             controller: _status,
@@ -188,7 +188,7 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10),
                         child: SizedBox(
-                          height: 150,
+                          height: 80,
                           child: TextFormField(
                             cursorColor: green,
                             cursorHeight: 18,

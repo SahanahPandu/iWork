@@ -4,7 +4,11 @@ import '../../config/palette.dart';
 
 @override
 Widget? showAcceptanceOptions(
-    BuildContext context, List statusList, TextEditingController? textController,) {
+  BuildContext context,
+  List statusList,
+  double height,
+  TextEditingController? textController,
+) {
   showModalBottomSheet(
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
@@ -16,7 +20,7 @@ Widget? showAcceptanceOptions(
       context: context,
       builder: (builder) {
         return SizedBox(
-          height: MediaQuery.of(context).size.height * 0.30,
+          height: MediaQuery.of(context).size.height * height,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -52,7 +56,6 @@ Widget? showAcceptanceOptions(
                           Navigator.pop(context);
                           if (textController != null) {
                             textController.text = statusList[index];
-
                           }
                         },
                         child: Column(

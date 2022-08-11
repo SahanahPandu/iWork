@@ -93,7 +93,7 @@ class _EcutiApprovalDetailState extends State<EcutiApprovalDetail> {
                     );
                   },
                   child: Hero(
-                    tag: "demoTag",
+                    tag: "imgTag",
                     child: Container(
                       height: 100,
                       width: 130,

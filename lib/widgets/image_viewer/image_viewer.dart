@@ -21,7 +21,7 @@ class _ImageViewerState extends State<ImageViewer> {
             Navigator.pop(context);
           },
           child: Hero(
-            tag: "demoTag",
+            tag: "imgTag",
             child: InteractiveViewer(
               panEnabled: false,
               alignPanAxis: true,

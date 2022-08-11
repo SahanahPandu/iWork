@@ -6,8 +6,8 @@ import '../../../../widgets/image_viewer/image_viewer.dart';
 
 class ReportApprovalDetail extends StatefulWidget {
   final Reports data;
-
-  const ReportApprovalDetail({Key? key, required this.data}) : super(key: key);
+  final int reportStatus;
+  const ReportApprovalDetail({Key? key, required this.data, required this.reportStatus}) : super(key: key);
 
   @override
   State<ReportApprovalDetail> createState() => _ReportApprovalDetailState();
@@ -86,7 +86,7 @@ class _ReportApprovalDetailState extends State<ReportApprovalDetail> {
                     );
                   },
                   child: Hero(
-                    tag: "demoTag",
+                    tag: "imgTag",
                     child: Container(
                       height: 100,
                       width: 130,
