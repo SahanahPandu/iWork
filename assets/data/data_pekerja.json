@@ -1,7 +1,7 @@
 [
     {
         "id":"Emp01",
-        "name":"Jalal",
+        "name":"Abdul Jalal Bin Abdul Wahab",
         "designCat": "PRA",
         "designation": "PRA Worker",
         "idAttStatus":2,
@@ -16,7 +16,7 @@
     },
     {
         "id":"Emp02",
-        "name":"Syafik",
+        "name":"Muhammad Syafik Ahmad Bin Amin",
         "designCat": "PRA",
         "designation": "PRA Worker",
         "idAttStatus":2,
@@ -31,7 +31,7 @@
     },
     {
         "id":"Emp03",
-        "name":"Hafiz",
+        "name":"Muhd Hafizuddin Bin Taruddin",
         "designCat": "PRA",
         "designation": "PRA Worker",
         "idAttStatus":1,
@@ -46,7 +46,7 @@
     },
     {
         "id":"Emp04",
-        "name":"Bahar",
+        "name":"Baharuddin Bin Ahmad Faisal",
         "designCat": "PRA",
         "designation": "PRA Worker",
         "idAttStatus":1,
@@ -61,7 +61,7 @@
     },
     {
         "id":"Emp05",
-        "name":"Awang",
+        "name":"Awang Pendek Bin Lang AhmadLang AhmadLang AhmadLang AhmadLang AhmadLang Ahmad",
         "designCat": "PRA",
         "designation": "PRA Worker",
         "idAttStatus":1,
@@ -76,7 +76,7 @@
     },
     {
         "id":"Emp06",
-        "name":"Faizal",
+        "name":"Faizal Tahir Bin Saharuddin SaharuddinSaharuddin Saharuddin Saharuddin Saharuddin",
         "designCat": "PRA",
         "designation": "PRA Worker",
         "idAttStatus":1,
@@ -91,7 +91,7 @@
     },
     {
         "id":"Emp07",
-        "name":"Suhaimi Saad",
+        "name":"Suhaimi Saad Bin Isa",
         "designCat": "PRA",
         "designation": "PRA Worker",
         "idAttStatus":2,

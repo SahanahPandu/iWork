@@ -51,37 +51,48 @@ class _ReportListDetailsState extends State<ReportListDetails> {
             height: userRole == 200 ? 30 : 20,
           ),
           //Taman
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  const Icon(
-                    Icons.house,
-                    size: 18,
+          ClipRect(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  //flex: 0,
+                  child: Row(
+                    children: [
+                      const Icon(
+                        Icons.house,
+                        size: 18,
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        "Taman",
+                        style: TextStyle(
+                          fontSize:
+                              userRole == 100 || userRole == 200 ? 15 : 13,
+                          color: Colors.grey.shade800,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  Text(
-                    "Taman",
+                ),
+                Expanded(
+                  //flex: 3,
+                  child: Text(
+                    widget.data.namaTaman,
                     style: TextStyle(
                       fontSize: userRole == 100 || userRole == 200 ? 15 : 13,
-                      color: Colors.grey.shade800,
-                      fontWeight: FontWeight.w600,
+                      color: Colors.grey.shade500,
+                      fontWeight: FontWeight.w500,
                     ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                ],
-              ),
-              Text(
-                widget.data.namaTaman,
-                style: TextStyle(
-                  fontSize: userRole == 100 || userRole == 200 ? 15 : 13,
-                  color: Colors.grey.shade500,
-                  fontWeight: FontWeight.w500,
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           SizedBox(
             height: userRole == 200 ? 15 : 10,
