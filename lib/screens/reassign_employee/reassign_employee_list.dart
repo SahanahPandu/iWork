@@ -43,18 +43,34 @@ class _ReassignEmployeeListState extends State<ReassignEmployeeList> {
                       item.idAttStatus == 1); // removed employee that "Hadir"
                 }
 
-                return Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 15),
-                  child: ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: dataFuture!.length,
-                      itemBuilder: (context, index) {
-                        return Cards(
-                          type: "Reassign Pekerja",
-                          data: dataFuture[index],
-                        );
-                      }),
+                return Column(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 15),
+                      child: ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: dataFuture!.length,
+                          itemBuilder: (context, index) {
+                            return Column(
+                              children: [
+                                Cards(
+                                  type: "Reassign Pekerja",
+                                  data: dataFuture[index],
+                                ),
+                                const SizedBox(
+                                  height: 12,
+                                ),
+                              ],
+                            );
+                          }),
+                    ),
+                    //put this at the end of the column widget list ,
+                    //because to able scroll all item without being covered by the button at the bottom
+                    const SizedBox(
+                      height: 100,
+                    ),
+                  ],
                 );
               }
           }

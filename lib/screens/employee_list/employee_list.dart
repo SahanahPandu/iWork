@@ -10,6 +10,7 @@ import 'package:eswm/screens/list_of_employees/list_of_employees.dart';
 
 class EmployeeList extends StatefulWidget {
   Function(dynamic)? assignedEmployee;
+
   EmployeeList({
     Key? key,
     this.assignedEmployee,

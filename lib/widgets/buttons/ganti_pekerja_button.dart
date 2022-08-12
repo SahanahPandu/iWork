@@ -1,15 +1,18 @@
 // ignore_for_file: must_be_immutable
-
-import 'package:eswm/config/palette.dart';
 import 'package:flutter/material.dart';
 
+//import files
+import 'package:eswm/config/palette.dart';
 import '../../screens/employee_list/employee_list.dart';
 
 class GantiPekerjaButton extends StatefulWidget {
   Function(dynamic)? assignedEmployee;
+  String buttonText;
+
   GantiPekerjaButton({
     Key? key,
     this.assignedEmployee,
+    required this.buttonText,
   }) : super(key: key);
 
   @override
@@ -37,9 +40,9 @@ class _GantiPekerjaButtonState extends State<GantiPekerjaButton> {
                       assignedEmployee: widget.assignedEmployee,
                     )));
       },
-      child: const Text(
-        "Ganti Pekerja",
-        style: TextStyle(
+      child: Text(
+        widget.buttonText,
+        style: const TextStyle(
           color: Colors.red,
           fontSize: 15,
         ),
