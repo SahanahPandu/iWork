@@ -213,7 +213,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
                             "Sahkan borang laporan ini?", cancel, "Sahkan");
                       }).then((actionText) {
                     if (actionText == "Sahkan") {
-                      Navigator.pop(context, 'refreshEcuti');
+                      Navigator.pop(context);
                     }
                   });
                 },
@@ -343,11 +343,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
       ),
       Padding(
         padding: verticalPad10,
-        child: SizedBox(
-          height: 80,
-          child:
-              _buildActiveTextField(TextInputType.multiline, "Catatan", 1, 10),
-        ),
+        child: _buildActiveTextField(TextInputType.multiline, "Catatan", 1, 10),
       ),
     ]);
   }
@@ -458,11 +454,8 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
         ),
         Padding(
           padding: verticalPad10,
-          child: SizedBox(
-            height: 80,
-            child: _buildActiveTextField(
-                TextInputType.multiline, "Lain-lain Isu", 1, 10),
-          ),
+          child: _buildActiveTextField(
+              TextInputType.multiline, "Lain-lain Isu", 1, 10),
         ),
       ],
     );
@@ -492,11 +485,8 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
         ),
         Padding(
           padding: verticalPad10,
-          child: SizedBox(
-            height: 80,
-            child: _buildActiveTextField(
-                TextInputType.multiline, "Tindakan", 1, 10),
-          ),
+          child: _buildActiveTextField(
+              TextInputType.multiline, "Tindakan", 1, 10),
         ),
       ],
     );
@@ -539,11 +529,8 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
         ),
         Padding(
           padding: verticalPad10,
-          child: SizedBox(
-            height: 80,
-            child: _buildActiveTextField(
-                TextInputType.multiline, "Catatan", 1, 10),
-          ),
+          child: _buildActiveTextField(
+              TextInputType.multiline, "Catatan", 1, 10),
         ),
       ],
     );
@@ -614,11 +601,8 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),
-          child: SizedBox(
-            height: 80,
-            child: _buildActiveTextField(
-                TextInputType.multiline, "Isi maklumbalas di ruang ini", 1, 10),
-          ),
+          child: _buildActiveTextField(
+              TextInputType.multiline, "Isi maklumbalas di ruang ini", 1, 10),
         )
       ],
     );

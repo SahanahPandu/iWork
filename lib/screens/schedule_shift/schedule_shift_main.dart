@@ -43,6 +43,11 @@ class _ScheduleShiftMainState extends State<ScheduleShiftMain> {
               ),
             ),
           ),
+          actions: const [
+            SizedBox(
+              width: 50,
+            )
+          ],
         ),
         body: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),

@@ -14,6 +14,7 @@ import '../../screens/schedule_shift/schedule_shift_main.dart';
 import '../../utils/authentication/auth.dart';
 import '../../utils/device.dart';
 import '../alert/alert_dialog.dart';
+import '../tabs/akbk_tabs/akbk_tabs.dart';
 
 class DrawerBuild extends StatefulWidget {
   const DrawerBuild({Key? key}) : super(key: key);
@@ -351,6 +352,15 @@ class _DrawerBuildState extends State<DrawerBuild> {
                   fromHome: false,
                   issueType: 'laporan',
                 );
+              }),
+            );
+            break;
+          case 5: // AKBK form
+            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) {
+                return const AkbkMainTabs();
               }),
             );
             break;
