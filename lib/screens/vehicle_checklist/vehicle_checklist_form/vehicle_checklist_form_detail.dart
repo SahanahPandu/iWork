@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
-import '../../config/config.dart';
-import '../../config/dimen.dart';
-import '../../config/palette.dart';
-import '../../config/string.dart';
-import '../../models/vc/vc.dart';
-import '../../utils/custom_icon.dart';
-import '../../utils/date.dart';
-import '../../utils/device.dart';
-import '../../widgets/alert/alert_dialog.dart';
-import '../../widgets/alert/toast.dart';
+import '../../../config/config.dart';
+import '../../../config/dimen.dart';
+import '../../../config/palette.dart';
+import '../../../config/string.dart';
+import '../../../models/vc/vc.dart';
+import '../../../utils/custom_icon.dart';
+import '../../../utils/date.dart';
+import '../../../utils/device.dart';
+import '../../../widgets/alert/alert_dialog.dart';
+import '../../../widgets/alert/toast.dart';
 
 class VehicleChecklistDetail extends StatefulWidget {
   final VehicleChecklist data;

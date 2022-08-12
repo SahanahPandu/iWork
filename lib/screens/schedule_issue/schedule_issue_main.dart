@@ -50,7 +50,7 @@ class _ScheduleIssueMainScreen extends State<ScheduleIssueMainScreen> {
           child: Text(
             issueTypeStr,
             style: TextStyle(
-              fontSize: 18,
+              fontSize: 15,
               color: Colors.grey.shade800,
               fontWeight: FontWeight.w700,
             ),

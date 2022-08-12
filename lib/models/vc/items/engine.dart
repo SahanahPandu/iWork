@@ -19,22 +19,22 @@ class Engine {
     required this.remarks,
   });
 
-  int dipstikMinyakEnjin;
-  int parasMinyak;
-  int penutupMinyak;
-  int parasAirRadiator;
-  int parasExpansion;
-  int dipstikMintakTransmission;
-  int parasMinyakTransmission;
-  int parasMinyakSteering;
-  int parasMinyakBrek;
-  int sistemCengkamanSistemBrek;
-  int parasMinyakClutch;
-  int sistemClutch;
-  int parasAirWiper;
-  int keadaanWiper;
-  int parasAirBateri;
-  int asapEkzos;
+  String dipstikMinyakEnjin;
+  String parasMinyak;
+  String penutupMinyak;
+  String parasAirRadiator;
+  String parasExpansion;
+  String dipstikMintakTransmission;
+  String parasMinyakTransmission;
+  String parasMinyakSteering;
+  String parasMinyakBrek;
+  String sistemCengkamanSistemBrek;
+  String parasMinyakClutch;
+  String sistemClutch;
+  String parasAirWiper;
+  String keadaanWiper;
+  String parasAirBateri;
+  String asapEkzos;
   String remarks;
 
   static Engine fromJson(json) => Engine(

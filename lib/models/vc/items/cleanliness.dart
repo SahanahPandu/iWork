@@ -5,8 +5,8 @@ class Cleanliness {
     required this.remarks,
   });
 
-  int dalamKokpit;
-  int luarBadanTrak;
+  String dalamKokpit;
+  String luarBadanTrak;
   String remarks;
 
   static Cleanliness fromJson(json) => Cleanliness(

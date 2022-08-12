@@ -11,9 +11,11 @@ import '../../screens/reports/reports.dart';
 import '../../screens/schedule_all/schedule_all_main.dart';
 import '../../screens/schedule_issue/schedule_issue_main.dart';
 import '../../screens/schedule_shift/schedule_shift_main.dart';
+import '../../screens/vehicle_checklist/vehicle_checklist_approval/vehicle_checklist_approval_main.dart';
 import '../../utils/authentication/auth.dart';
 import '../../utils/device.dart';
 import '../alert/alert_dialog.dart';
+import '../tabs/akbk_tab/akbk_tab.dart';
 
 class DrawerBuild extends StatefulWidget {
   const DrawerBuild({Key? key}) : super(key: key);
@@ -351,6 +353,24 @@ class _DrawerBuildState extends State<DrawerBuild> {
                   fromHome: false,
                   issueType: 'laporan',
                 );
+              }),
+            );
+            break;
+          case 5: // AKBK form
+            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) {
+                return const AkbkMainTab();
+              }),
+            );
+            break;
+          case 6: // Vehicle Checklist Approval
+            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) {
+                return const VehicleChecklistApprovalMain();
               }),
             );
             break;

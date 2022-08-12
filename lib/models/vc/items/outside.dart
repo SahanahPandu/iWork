@@ -5,8 +5,8 @@ class Outside {
     required this.remarks,
   });
 
-  int cermin;
-  int hon;
+  String cermin;
+  String hon;
   String remarks;
 
   static Outside fromJson(json) => Outside(

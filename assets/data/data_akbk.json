@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "status": "Baharu",
+    "statusId": 1,
+    "vehicleNo": "BLW 7096",
+    "akbkNo": "A023C02",
+    "breakdownType": "Kenderaan",
+    "date": "24/06/2022"
+  },
+  {
+    "id": 2,
+    "status": "Dalam Proses",
+    "statusId": 2,
+    "vehicleNo": "BKH 1226",
+    "akbkNo": "A022C02",
+    "breakdownType": "Kenderaan",
+    "date": "13/06/2022"
+  },
+  {
+    "id": 3,
+    "status": "Selesai",
+    "statusId": 3,
+    "vehicleNo": "BLW 7034",
+    "akbkNo": "A021C02",
+    "breakdownType": "Tayar",
+    "date": "02/06/2022"
+  },
+  {
+    "id": 4,
+    "status": "Selesai",
+    "statusId": 3,
+    "vehicleNo": "BLW 7054",
+    "akbkNo": "A020C03",
+    "breakdownType": "Penyelenggaraan",
+    "date": "02/06/2022"
+  }
+]

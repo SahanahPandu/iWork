@@ -9,12 +9,12 @@ class Light {
     required this.remarks,
   });
 
-  int lampuUtama;
-  int lampuHenti;
-  int lampuIsyarat;
-  int lampuKecemasan;
-  int lampuBeacon;
-  int lampuPlet;
+  String lampuUtama;
+  String lampuHenti;
+  String lampuIsyarat;
+  String lampuKecemasan;
+  String lampuBeacon;
+  String lampuPlet;
   String remarks;
 
   static Light fromJson(json) => Light(

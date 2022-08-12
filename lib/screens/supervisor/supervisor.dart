@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 //import files
 
 import '../../widgets/cards/today_task/today_task_card.dart';
-import '../../widgets/tabs/task_tabs/task_tabs.dart';
+import '../../widgets/tabs/task_tab/task_tab.dart';
 
 class Supervisor extends StatefulWidget {
   const Supervisor({Key? key}) : super(key: key);
@@ -53,7 +53,7 @@ class _SupervisorState extends State<Supervisor> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const [
           SizedBox(height: 5),
-          Expanded(child: StackOverTabs()),
+          Expanded(child: TaskStackOverTab()),
         ],
       ),
     );

@@ -7,7 +7,7 @@ class Odometer {
   });
 
   int bacaanOdo;
-  int odoFungsi;
+  String odoFungsi;
   int totalKm;
   String noAkbk;
 

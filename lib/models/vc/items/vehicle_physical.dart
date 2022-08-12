@@ -5,8 +5,8 @@ class VehiclePhysical {
     required this.remarks,
   });
 
-  int sampah;
-  int kecacatan;
+  String sampah;
+  String kecacatan;
   String remarks;
 
   static VehiclePhysical fromJson(json) => VehiclePhysical(
