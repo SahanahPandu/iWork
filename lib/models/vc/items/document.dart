@@ -6,9 +6,9 @@ class Document {
     required this.remarks,
   });
 
-  int puspakomDisc;
-  int cukaiJalan;
-  int lesen;
+  String puspakomDisc;
+  String cukaiJalan;
+  String lesen;
   String remarks;
 
   static Document fromJson(json) => Document(

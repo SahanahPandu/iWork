@@ -66,7 +66,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
             child: Text(
               "Laporan ${widget.data.id}",
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 15,
                 color: grey800,
                 fontWeight: FontWeight.w700,
               ),

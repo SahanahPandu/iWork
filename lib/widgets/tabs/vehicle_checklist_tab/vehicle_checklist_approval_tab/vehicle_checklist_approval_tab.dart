@@ -1,18 +1,24 @@
+import 'package:eswm/widgets/tabs/vehicle_checklist_tab/vehicle_checklist_approval_tab/vehicle_checklist_approval_tab_bar_view/vehicle_checklist_approval_before_tab_bar_view.dart';
 import 'package:flutter/material.dart';
 
-import '../../../config/palette.dart';
-import '../../../utils/custom_icon.dart';
-import 'akbk_tab_bar_view/akbk_form_tab_bar_view.dart';
-import 'akbk_tab_bar_view/akbk_list_tab_bar_view.dart';
+import '../../../../config/palette.dart';
+import '../../../../models/vc/vc.dart';
+import '../../../../utils/custom_icon.dart';
+import 'vehicle_checklist_approval_tab_bar_view/vehicle_checklist_approval_after_tab_bar_view.dart';
 
-class AkbkMainTabs extends StatefulWidget {
-  const AkbkMainTabs({Key? key}) : super(key: key);
+class VehicleChecklistApprovalTab extends StatefulWidget {
+  final VehicleChecklist data;
+
+  const VehicleChecklistApprovalTab({Key? key, required this.data})
+      : super(key: key);
 
   @override
-  State<AkbkMainTabs> createState() => _AkbkMainTabsState();
+  State<VehicleChecklistApprovalTab> createState() =>
+      _VehicleChecklistApprovalTabState();
 }
 
-class _AkbkMainTabsState extends State<AkbkMainTabs>
+class _VehicleChecklistApprovalTabState
+    extends State<VehicleChecklistApprovalTab>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
@@ -45,11 +51,11 @@ class _AkbkMainTabsState extends State<AkbkMainTabs>
           ),
           title: Center(
             child: Text(
-              "AKBK",
+              "Semakan Kenderaan",
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 15,
                 color: grey800,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w700,
               ),
             ),
           ),
@@ -95,10 +101,10 @@ class _AkbkMainTabsState extends State<AkbkMainTabs>
                   unselectedLabelColor: const Color(0xF5808691),
                   tabs: const [
                     Tab(
-                      text: 'Borang',
+                      text: 'Sebelum',
                     ),
                     Tab(
-                      text: 'Rekod',
+                      text: 'Selepas',
                     ),
                   ],
                 ),
@@ -106,9 +112,9 @@ class _AkbkMainTabsState extends State<AkbkMainTabs>
               Expanded(
                 child: TabBarView(
                   controller: _tabController,
-                  children: const [
-                    AkbkFormTabbarView(),
-                    AkbkListTabbarView(),
+                  children: [
+                    VehicleChecklistApprovalBeforeTabbarView(data: widget.data),
+                    VehicleChecklistApprovalAfterTabbarView(data: widget.data),
                   ],
                 ),
               ),

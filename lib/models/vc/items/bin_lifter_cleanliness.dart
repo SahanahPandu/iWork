@@ -4,7 +4,7 @@ class BinLifterCleanliness {
     required this.remarks,
   });
 
-  int binDicuci;
+  String binDicuci;
   String remarks;
 
   static BinLifterCleanliness fromJson(json) => BinLifterCleanliness(

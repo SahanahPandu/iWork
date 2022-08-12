@@ -38,7 +38,7 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
           child: Text(
             "Jadual Tugasan",
             style: TextStyle(
-              fontSize: 18,
+              fontSize: 15,
               color: grey800,
               fontWeight: FontWeight.w700,
             ),

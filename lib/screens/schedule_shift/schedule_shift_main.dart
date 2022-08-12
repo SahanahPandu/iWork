@@ -37,7 +37,7 @@ class _ScheduleShiftMainState extends State<ScheduleShiftMain> {
             child: Text(
               "Anjakan Jadual",
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 15,
                 color: grey800,
                 fontWeight: FontWeight.w700,
               ),

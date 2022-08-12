@@ -6,9 +6,9 @@ class SafetyThings {
     required this.remarks,
   });
 
-  int penandaKecemasan;
-  int pemadamApi;
-  int kotakKecemasan;
+  String penandaKecemasan;
+  String pemadamApi;
+  String kotakKecemasan;
   String remarks;
 
   static SafetyThings fromJson(json) => SafetyThings(

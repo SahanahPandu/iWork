@@ -2,103 +2,105 @@
   {
     "id": 1,
     "tarikh": "22/07/2022",
-    "noLaluan": "JHBP01-C02",
-    "noKenderaan": "BLW7096",
-    "masaKeluar": "--:--",
-    "masaBalik": "--:--",
-    "status": "Belum Dimulakan",
+    "status": "Selesai",
+    "statusId": 2,
+    "noLaluan": "JHBP01-C01",
+    "noKenderaan": "BLW 7096",
+    "masaKeluar": "7:10 pagi",
+    "masaBalik": "05:15 petang",
+    "statusOperasi": "Belum Dimulakan",
     "sebelum": {
       "vcItem": {
         "odometer": {
-          "bacaanOdo": 0,
-          "odoFungsi": 0,
-          "totalKM": 0,
-          "noAkbk": "12345"
+          "bacaanOdo": 4322,
+          "odoFungsi": "Ya",
+          "totalKM": 50,
+          "noAkbk": "2322"
         },
         "fuel": {
-          "liter": 0,
-          "rm": 0,
-          "resit": 0,
-          "fleetCard": 0,
-          "noFleetCard": 0,
-          "fuelLevel": 0
+          "liter": 20,
+          "rm": 45,
+          "resit": 15,
+          "fleetCard": 2,
+          "noFleetCard": 12154,
+          "fuelLevel": 80
         },
         "document": {
-          "puspakomDisc": 0,
-          "cukaiJalan": 0,
-          "lesen": 0,
+          "puspakomDisc": "Ada",
+          "cukaiJalan": "Ada",
+          "lesen": "Ada",
           "remarks": ""
         },
         "tyre": {
-          "bungaTayar": 0,
-          "nutTayar": 0,
-          "tekananTayar": 0,
+          "bungaTayar": "Ya",
+          "nutTayar": "Ya",
+          "tekananTayar": "Ya",
           "remarks": ""
         },
         "mampatan": {
-          "sistemHidraulik": 0,
-          "ptd/pam": 0,
-          "allPenutup": 0,
-          "buangAir": 0,
-          "leachate": 0,
+          "sistemHidraulik": "Ya",
+          "ptd/pam": "Ya",
+          "allPenutup": "Ya",
+          "buangAir": "Ya",
+          "leachate": "Ya",
           "remarks": ""
         },
         "light": {
-          "lampuUtama": 0,
-          "lampuHenti": 0,
-          "lampuIsyarat": 0,
-          "lampuKecemasan": 0,
-          "lampuBeacon": 0,
-          "lampuPlet": 0,
+          "lampuUtama": "Ya",
+          "lampuHenti": "Ya",
+          "lampuIsyarat": "Ya",
+          "lampuKecemasan": "Ya",
+          "lampuBeacon": "Ya",
+          "lampuPlet": "Ya",
           "remarks": ""
         },
         "engine": {
-          "dipstikMinyakEnjin": 0,
-          "parasMinyak": 0,
-          "penutupMinyak": 0,
-          "parasAirRadiator": 0,
-          "parasExpansion": 0,
-          "dipstikMintakTransmission": 0,
-          "parasMinyakTransmission": 0,
-          "parasMinyakSteering": 0,
-          "parasMinyakBrek": 0,
-          "sistemCengkamanSistemBrek": 0,
-          "parasMinyakClutch": 0,
-          "sistemClutch": 0,
-          "parasAirWiper": 0,
-          "keadaanWiper": 0,
-          "parasAirBateri": 0,
-          "asapEkzos": 0,
+          "dipstikMinyakEnjin": "Ya",
+          "parasMinyak": "Ya",
+          "penutupMinyak": "Ya",
+          "parasAirRadiator": "Ya",
+          "parasExpansion": "Ya",
+          "dipstikMintakTransmission": "Ya",
+          "parasMinyakTransmission": "Ya",
+          "parasMinyakSteering": "Ya",
+          "parasMinyakBrek": "Ya",
+          "sistemCengkamanSistemBrek": "Ya",
+          "parasMinyakClutch": "Ya",
+          "sistemClutch": "Ya",
+          "parasAirWiper": "Ya",
+          "keadaanWiper": "Ya",
+          "parasAirBateri": "Ya",
+          "asapEkzos": "Ya",
           "remarks": ""
         },
         "outside": {
-          "cermin": 0,
-          "hon": 0,
+          "cermin": "Ya",
+          "hon": "Ya",
           "remarks": ""
         },
         "safetyThings": {
-          "penandaKecemasan": 0,
-          "pemadamApi": 0,
-          "kotakKecemasan": 0,
+          "penandaKecemasan": "Ya",
+          "pemadamApi": "Ya",
+          "kotakKecemasan": "Ya",
           "remarks": ""
         },
         "cleanliness": {
-          "dalamKokpit": 0,
-          "luarBadanTrak": 0,
+          "dalamKokpit": "Ya",
+          "luarBadanTrak": "Ya",
           "remarks": ""
         },
         "binLifterCleanliness": {
-          "binDicuci": 0,
+          "binDicuci": "Ya",
           "remarks": ""
         },
         "accident": {
-          "terlibatKemalangan": 0,
-          "noKenderaanPartiKetiga": 0,
+          "terlibatKemalangan": "Ya",
+          "noKenderaanPartiKetiga": "Ya",
           "remarks": ""
         },
         "vehiclePhysical": {
-          "sampah": 0,
-          "kecacatan": 0,
+          "sampah": "Ya",
+          "kecacatan": "Ya",
           "remarks": ""
         }
       }
@@ -106,95 +108,298 @@
     "selepas": {
       "vcItem": {
         "odometer": {
-          "bacaanOdo": 0,
-          "odoFungsi": 0,
-          "totalKM": 0,
-          "noAkbk": "12345"
+          "bacaanOdo": 4322,
+          "odoFungsi": "Ya",
+          "totalKM": 50,
+          "noAkbk": "2322"
         },
         "fuel": {
-          "liter": 0,
-          "rm": 0,
-          "resit": 0,
-          "fleetCard": 0,
-          "noFleetCard": 0,
-          "fuelLevel": 0
+          "liter": 20,
+          "rm": 45,
+          "resit": 15,
+          "fleetCard": 2,
+          "noFleetCard": 12154,
+          "fuelLevel": 80
         },
         "document": {
-          "puspakomDisc": 0,
-          "cukaiJalan": 0,
-          "lesen": 0,
+          "puspakomDisc": "Ada",
+          "cukaiJalan": "Ada",
+          "lesen": "Ada",
           "remarks": ""
         },
         "tyre": {
-          "bungaTayar": 0,
-          "nutTayar": 0,
-          "tekananTayar": 0,
+          "bungaTayar": "Ya",
+          "nutTayar": "Ya",
+          "tekananTayar": "Ya",
           "remarks": ""
         },
         "mampatan": {
-          "sistemHidraulik": 0,
-          "ptd/pam": 0,
-          "allPenutup": 0,
-          "buangAir": 0,
-          "leachate": 0,
+          "sistemHidraulik": "Ya",
+          "ptd/pam": "Ya",
+          "allPenutup": "Ya",
+          "buangAir": "Ya",
+          "leachate": "Ya",
           "remarks": ""
         },
         "light": {
-          "lampuUtama": 0,
-          "lampuHenti": 0,
-          "lampuIsyarat": 0,
-          "lampuKecemasan": 0,
-          "lampuBeacon": 0,
-          "lampuPlet": 0,
+          "lampuUtama": "Ya",
+          "lampuHenti": "Ya",
+          "lampuIsyarat": "Ya",
+          "lampuKecemasan": "Ya",
+          "lampuBeacon": "Ya",
+          "lampuPlet": "Ya",
           "remarks": ""
         },
         "engine": {
-          "dipstikMinyakEnjin": 0,
-          "parasMinyak": 0,
-          "penutupMinyak": 0,
-          "parasAirRadiator": 0,
-          "parasExpansion": 0,
-          "dipstikMintakTransmission": 0,
-          "parasMinyakTransmission": 0,
-          "parasMinyakSteering": 0,
-          "parasMinyakBrek": 0,
-          "sistemCengkamanSistemBrek": 0,
-          "parasMinyakClutch": 0,
-          "sistemClutch": 0,
-          "parasAirWiper": 0,
-          "keadaanWiper": 0,
-          "parasAirBateri": 0,
-          "asapEkzos": 0,
+          "dipstikMinyakEnjin": "Ya",
+          "parasMinyak": "Ya",
+          "penutupMinyak": "Ya",
+          "parasAirRadiator": "Ya",
+          "parasExpansion": "Ya",
+          "dipstikMintakTransmission": "Ya",
+          "parasMinyakTransmission": "Ya",
+          "parasMinyakSteering": "Ya",
+          "parasMinyakBrek": "Ya",
+          "sistemCengkamanSistemBrek": "Ya",
+          "parasMinyakClutch": "Ya",
+          "sistemClutch": "Ya",
+          "parasAirWiper": "Ya",
+          "keadaanWiper": "Ya",
+          "parasAirBateri": "Ya",
+          "asapEkzos": "Ya",
           "remarks": ""
         },
         "outside": {
-          "cermin": 0,
-          "hon": 0,
+          "cermin": "Ya",
+          "hon": "Ya",
           "remarks": ""
         },
         "safetyThings": {
-          "penandaKecemasan": 0,
-          "pemadamApi": 0,
-          "kotakKecemasan": 0,
+          "penandaKecemasan": "Ya",
+          "pemadamApi": "Ya",
+          "kotakKecemasan": "Ya",
           "remarks": ""
         },
         "cleanliness": {
-          "dalamKokpit": 0,
-          "luarBadanTrak": 0,
+          "dalamKokpit": "Ya",
+          "luarBadanTrak": "Ya",
           "remarks": ""
         },
         "binLifterCleanliness": {
-          "binDicuci": 0,
+          "binDicuci": "Ya",
           "remarks": ""
         },
         "accident": {
-          "terlibatKemalangan": 0,
-          "noKenderaanPartiKetiga": 0,
+          "terlibatKemalangan": "Ya",
+          "noKenderaanPartiKetiga": "Ya",
           "remarks": ""
         },
         "vehiclePhysical": {
-          "sampah": 0,
-          "kecacatan": 0,
+          "sampah": "Ya",
+          "kecacatan": "Ya",
+          "remarks": ""
+        }
+      }
+    }
+  },
+  {
+    "id": 2,
+    "tarikh": "22/07/2022",
+    "status": "Selesai",
+    "statusId": 2,
+    "noLaluan": "JHBP01-C02",
+    "noKenderaan": "BLK 7894",
+    "masaKeluar": "7:00 pagi",
+    "masaBalik": "05:00 petang",
+    "statusOperasi": "Belum Dimulakan",
+    "sebelum": {
+      "vcItem": {
+        "odometer": {
+          "bacaanOdo": 4322,
+          "odoFungsi": "Ya",
+          "totalKM": 50,
+          "noAkbk": "2322"
+        },
+        "fuel": {
+          "liter": 20,
+          "rm": 45,
+          "resit": 15,
+          "fleetCard": 2,
+          "noFleetCard": 12154,
+          "fuelLevel": 80
+        },
+        "document": {
+          "puspakomDisc": "Ada",
+          "cukaiJalan": "Ada",
+          "lesen": "Ada",
+          "remarks": ""
+        },
+        "tyre": {
+          "bungaTayar": "Ya",
+          "nutTayar": "Ya",
+          "tekananTayar": "Ya",
+          "remarks": ""
+        },
+        "mampatan": {
+          "sistemHidraulik": "Ya",
+          "ptd/pam": "Ya",
+          "allPenutup": "Ya",
+          "buangAir": "Ya",
+          "leachate": "Ya",
+          "remarks": ""
+        },
+        "light": {
+          "lampuUtama": "Ya",
+          "lampuHenti": "Ya",
+          "lampuIsyarat": "Ya",
+          "lampuKecemasan": "Ya",
+          "lampuBeacon": "Ya",
+          "lampuPlet": "Ya",
+          "remarks": ""
+        },
+        "engine": {
+          "dipstikMinyakEnjin": "Ya",
+          "parasMinyak": "Ya",
+          "penutupMinyak": "Ya",
+          "parasAirRadiator": "Ya",
+          "parasExpansion": "Ya",
+          "dipstikMintakTransmission": "Ya",
+          "parasMinyakTransmission": "Ya",
+          "parasMinyakSteering": "Ya",
+          "parasMinyakBrek": "Ya",
+          "sistemCengkamanSistemBrek": "Ya",
+          "parasMinyakClutch": "Ya",
+          "sistemClutch": "Ya",
+          "parasAirWiper": "Ya",
+          "keadaanWiper": "Ya",
+          "parasAirBateri": "Ya",
+          "asapEkzos": "Ya",
+          "remarks": ""
+        },
+        "outside": {
+          "cermin": "Ya",
+          "hon": "Ya",
+          "remarks": ""
+        },
+        "safetyThings": {
+          "penandaKecemasan": "Ya",
+          "pemadamApi": "Ya",
+          "kotakKecemasan": "Ya",
+          "remarks": ""
+        },
+        "cleanliness": {
+          "dalamKokpit": "Ya",
+          "luarBadanTrak": "Ya",
+          "remarks": ""
+        },
+        "binLifterCleanliness": {
+          "binDicuci": "Ya",
+          "remarks": ""
+        },
+        "accident": {
+          "terlibatKemalangan": "Ya",
+          "noKenderaanPartiKetiga": "Ya",
+          "remarks": ""
+        },
+        "vehiclePhysical": {
+          "sampah": "Ya",
+          "kecacatan": "Ya",
+          "remarks": ""
+        }
+      }
+    },
+    "selepas": {
+      "vcItem": {
+        "odometer": {
+          "bacaanOdo": 4322,
+          "odoFungsi": "Ya",
+          "totalKM": 50,
+          "noAkbk": "2322"
+        },
+        "fuel": {
+          "liter": 20,
+          "rm": 45,
+          "resit": 15,
+          "fleetCard": 2,
+          "noFleetCard": 12154,
+          "fuelLevel": 80
+        },
+        "document": {
+          "puspakomDisc": "Ada",
+          "cukaiJalan": "Ada",
+          "lesen": "Ada",
+          "remarks": ""
+        },
+        "tyre": {
+          "bungaTayar": "Ya",
+          "nutTayar": "Ya",
+          "tekananTayar": "Ya",
+          "remarks": ""
+        },
+        "mampatan": {
+          "sistemHidraulik": "Ya",
+          "ptd/pam": "Ya",
+          "allPenutup": "Ya",
+          "buangAir": "Ya",
+          "leachate": "Ya",
+          "remarks": ""
+        },
+        "light": {
+          "lampuUtama": "Ya",
+          "lampuHenti": "Ya",
+          "lampuIsyarat": "Ya",
+          "lampuKecemasan": "Ya",
+          "lampuBeacon": "Ya",
+          "lampuPlet": "Ya",
+          "remarks": ""
+        },
+        "engine": {
+          "dipstikMinyakEnjin": "Ya",
+          "parasMinyak": "Ya",
+          "penutupMinyak": "Ya",
+          "parasAirRadiator": "Ya",
+          "parasExpansion": "Ya",
+          "dipstikMintakTransmission": "Ya",
+          "parasMinyakTransmission": "Ya",
+          "parasMinyakSteering": "Ya",
+          "parasMinyakBrek": "Ya",
+          "sistemCengkamanSistemBrek": "Ya",
+          "parasMinyakClutch": "Ya",
+          "sistemClutch": "Ya",
+          "parasAirWiper": "Ya",
+          "keadaanWiper": "Ya",
+          "parasAirBateri": "Ya",
+          "asapEkzos": "Ya",
+          "remarks": ""
+        },
+        "outside": {
+          "cermin": "Ya",
+          "hon": "Ya",
+          "remarks": ""
+        },
+        "safetyThings": {
+          "penandaKecemasan": "Ya",
+          "pemadamApi": "Ya",
+          "kotakKecemasan": "Ya",
+          "remarks": ""
+        },
+        "cleanliness": {
+          "dalamKokpit": "Ya",
+          "luarBadanTrak": "Ya",
+          "remarks": ""
+        },
+        "binLifterCleanliness": {
+          "binDicuci": "Ya",
+          "remarks": ""
+        },
+        "accident": {
+          "terlibatKemalangan": "Ya",
+          "noKenderaanPartiKetiga": "Ya",
+          "remarks": ""
+        },
+        "vehiclePhysical": {
+          "sampah": "Ya",
+          "kecacatan": "Ya",
           "remarks": ""
         }
       }

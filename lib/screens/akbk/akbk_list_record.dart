@@ -56,14 +56,14 @@ class _AkbkListRecordState extends State<AkbkListRecord> {
                         shrinkWrap: true,
                         itemCount: dataFuture!.length,
                         itemBuilder: (context, index) {
-                          if (dataFuture.length > 1) {
+                          if (dataFuture.isNotEmpty) {
                             return GestureDetector(
                               onTap: () {},
                               child: Card(
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(15),
                                 ),
-                                shadowColor: grey700,
+                                shadowColor: grey400,
                                 elevation: 2,
                                 child: Padding(
                                   padding: const EdgeInsets.all(10),

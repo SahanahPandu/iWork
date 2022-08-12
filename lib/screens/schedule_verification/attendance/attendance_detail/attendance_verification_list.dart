@@ -45,7 +45,7 @@ class _AttendanceVerificationListState
             child: Text(
               "Pengesahan",
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 15,
                 color: grey800,
                 fontWeight: FontWeight.w700,
               ),

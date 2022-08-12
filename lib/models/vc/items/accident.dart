@@ -5,8 +5,8 @@ class Accident {
     required this.remarks,
   });
 
-  int terlibatKemalangan;
-  int noKenderaanPartiKetiga;
+  String terlibatKemalangan;
+  String noKenderaanPartiKetiga;
   String remarks;
 
   static Accident fromJson(json) => Accident(

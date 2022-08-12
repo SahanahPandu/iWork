@@ -8,11 +8,11 @@ class Mampatan {
     required this.remarks,
   });
 
-  int sistemHidraulik;
-  int ptdPam;
-  int allPenutup;
-  int buangAir;
-  int leachate;
+  String sistemHidraulik;
+  String ptdPam;
+  String allPenutup;
+  String buangAir;
+  String leachate;
   String remarks;
 
   static Mampatan fromJson(json) => Mampatan(

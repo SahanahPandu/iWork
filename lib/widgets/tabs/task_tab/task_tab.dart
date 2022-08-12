@@ -4,14 +4,14 @@ import '../../../config/palette.dart';
 import 'supervisor/issue_tab_bar_view.dart';
 import 'supervisor/verification_tab_bar_view.dart';
 
-class StackOverTabs extends StatefulWidget {
-  const StackOverTabs({Key? key}) : super(key: key);
+class TaskStackOverTab extends StatefulWidget {
+  const TaskStackOverTab({Key? key}) : super(key: key);
 
   @override
-  StackOverTabsState createState() => StackOverTabsState();
+  TaskStackOverTabState createState() => TaskStackOverTabState();
 }
 
-class StackOverTabsState extends State<StackOverTabs>
+class TaskStackOverTabState extends State<TaskStackOverTab>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 

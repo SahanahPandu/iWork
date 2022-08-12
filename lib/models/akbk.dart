@@ -19,7 +19,7 @@ class Akbk {
   static Akbk fromJson(json) => Akbk(
         id: json['id'],
         status: json['status'],
-    statusId: json['statusId'],
+        statusId: json['statusId'],
         vehicleNo: json['vehicleNo'],
         akbkNo: json['akbkNo'],
         breakdownType: json['breakdownType'],

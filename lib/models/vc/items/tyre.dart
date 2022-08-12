@@ -6,9 +6,9 @@ class Tyre {
     required this.remarks,
   });
 
-  int bungaTayar;
-  int nutTayar;
-  int tekananTayar;
+  String bungaTayar;
+  String nutTayar;
+  String tekananTayar;
   String remarks;
 
   static Tyre fromJson(json) => Tyre(

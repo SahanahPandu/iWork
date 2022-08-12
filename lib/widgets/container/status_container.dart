@@ -103,6 +103,16 @@ class _StatusContainerState extends State<StatusContainer> {
         textColor = greenStatusText;
         boxColor = greenStatusBox;
       }
+    } else if (widget.type == "vc") {
+      if (widget.statusId == 1) {
+        //Baharu
+        textColor = blueStatusText;
+        boxColor = blueStatusBox;
+      } else if (widget.statusId == 2) {
+        //Selesai
+        textColor = greenStatusText;
+        boxColor = greenStatusBox;
+      }
     }
 
     setState(() {

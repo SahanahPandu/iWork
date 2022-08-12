@@ -5,7 +5,7 @@ import '../../../../config/dimen.dart';
 import '../../../../config/palette.dart';
 import '../../../../config/string.dart';
 import '../../../../models/vc/vc.dart';
-import '../../../../screens/vehicle_checklist/vehicle_checklist_detail.dart';
+import '../../../../screens/vehicle_checklist/vehicle_checklist_form/vehicle_checklist_form_detail.dart';
 import '../../../../utils/device.dart';
 
 class VehicleChecklistCardDetails extends StatefulWidget {
