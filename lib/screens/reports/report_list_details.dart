@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 //import files
 import '../../config/config.dart';
 import '../../config/font.dart';
+import '../../config/palette.dart';
 import '../../models/reports.dart';
 import '../../widgets/container/status_container.dart';
 
@@ -34,7 +35,8 @@ class _ReportListDetailsState extends State<ReportListDetails> {
                 style: TextStyle(
                   fontSize: userRole == 200 ? 17 : 14,
                   color: userRole == 200 ? Colors.grey.shade800 : black87,
-                  fontWeight: userRole == 200 ? FontWeight.w900 : FontWeight.w600,
+                  fontWeight:
+                      userRole == 200 ? FontWeight.w900 : FontWeight.w600,
                 ),
               ),
               StatusContainer(
