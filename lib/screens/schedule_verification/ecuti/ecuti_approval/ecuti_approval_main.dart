@@ -237,42 +237,46 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
           ),
         ),
         bottomNavigationBar: Container(
-          color: white,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-            child: SizedBox(
-              height: 45,
-              width: 150,
-              child: ElevatedButton(
-                style: ButtonStyle(
-                    elevation: MaterialStateProperty.all(0),
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0)),
-                    ),
-                    overlayColor:
-                        MaterialStateColor.resolveWith((states) => green800),
-                    minimumSize: MaterialStateProperty.all(
-                        Size(Devices().screenWidth(context), 41)),
-                    backgroundColor: MaterialStateProperty.all(green)),
-                child: Text('Hantar',
-                    style: TextStyle(
-                        color: white,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w700)),
-                onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return showAlertDialog(context, confirmation,
-                            "Sahkan borang E-Cuti ini?", cancel, "Sahkan");
-                      }).then((actionText) {
-                    if (actionText == "Sahkan") {
-                      Navigator.pop(context, 'refreshEcuti');
-                    }
-                  });
-                },
-              ),
+          decoration: BoxDecoration(
+            color: white,
+            boxShadow: [
+              BoxShadow(
+                  color: Colors.grey.withOpacity(.3),
+                  blurRadius: 6,
+                  spreadRadius: 0.5)
+            ],
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+          child: SizedBox(
+            height: 45,
+            width: 150,
+            child: ElevatedButton(
+              style: ButtonStyle(
+                  elevation: MaterialStateProperty.all(0),
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0)),
+                  ),
+                  overlayColor:
+                      MaterialStateColor.resolveWith((states) => green800),
+                  minimumSize: MaterialStateProperty.all(
+                      Size(Devices().screenWidth(context), 41)),
+                  backgroundColor: MaterialStateProperty.all(green)),
+              child: Text('Hantar',
+                  style: TextStyle(
+                      color: white, fontSize: 14, fontWeight: FontWeight.w700)),
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return showAlertDialog(context, confirmation,
+                          "Sahkan borang E-Cuti ini?", cancel, "Sahkan");
+                    }).then((actionText) {
+                  if (actionText == "Sahkan") {
+                    Navigator.pop(context, 'refreshEcuti');
+                  }
+                });
+              },
             ),
           ),
         ));

@@ -1494,7 +1494,16 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                       ))),
             ]),
           )),
-      bottomNavigationBar: Padding(
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          color: white,
+          boxShadow: [
+            BoxShadow(
+                color: Colors.grey.withOpacity(.3),
+                blurRadius: 6,
+                spreadRadius: 0.5)
+          ],
+        ),
         padding: _device.isPortrait(context)
             ? const EdgeInsets.symmetric(horizontal: 220, vertical: 15)
             : const EdgeInsets.symmetric(horizontal: 400, vertical: 10),
@@ -1508,8 +1517,8 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                       borderRadius: BorderRadius.circular(8.0)),
                 ),
                 elevation: MaterialStateProperty.all(0),
-                overlayColor: MaterialStateColor.resolveWith(
-                        (states) => green800),
+                overlayColor:
+                    MaterialStateColor.resolveWith((states) => green800),
                 minimumSize: MaterialStateProperty.all(
                     Size(_device.screenWidth(context), 45)),
                 backgroundColor: MaterialStateProperty.all(green)),

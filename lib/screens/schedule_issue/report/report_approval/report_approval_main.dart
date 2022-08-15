@@ -182,42 +182,46 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
           ),
         ),
         bottomNavigationBar: Container(
-          color: white,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-            child: SizedBox(
-              height: 45,
-              width: 150,
-              child: ElevatedButton(
-                style: ButtonStyle(
-                    elevation: MaterialStateProperty.all(0),
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0)),
-                    ),
-                    overlayColor:
-                        MaterialStateColor.resolveWith((states) => green800),
-                    minimumSize: MaterialStateProperty.all(
-                        Size(Devices().screenWidth(context), 41)),
-                    backgroundColor: MaterialStateProperty.all(green)),
-                child: Text('Hantar',
-                    style: TextStyle(
-                        color: white,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w700)),
-                onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return showAlertDialog(context, confirmation,
-                            "Sahkan borang laporan ini?", cancel, "Sahkan");
-                      }).then((actionText) {
-                    if (actionText == "Sahkan") {
-                      Navigator.pop(context);
-                    }
-                  });
-                },
-              ),
+          decoration: BoxDecoration(
+            color: white,
+            boxShadow: [
+              BoxShadow(
+                  color: Colors.grey.withOpacity(.3),
+                  blurRadius: 6,
+                  spreadRadius: 0.5)
+            ],
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+          child: SizedBox(
+            height: 45,
+            width: 150,
+            child: ElevatedButton(
+              style: ButtonStyle(
+                  elevation: MaterialStateProperty.all(0),
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0)),
+                  ),
+                  overlayColor:
+                      MaterialStateColor.resolveWith((states) => green800),
+                  minimumSize: MaterialStateProperty.all(
+                      Size(Devices().screenWidth(context), 41)),
+                  backgroundColor: MaterialStateProperty.all(green)),
+              child: Text('Hantar',
+                  style: TextStyle(
+                      color: white, fontSize: 14, fontWeight: FontWeight.w700)),
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return showAlertDialog(context, confirmation,
+                          "Sahkan borang laporan ini?", cancel, "Sahkan");
+                    }).then((actionText) {
+                  if (actionText == "Sahkan") {
+                    Navigator.pop(context);
+                  }
+                });
+              },
             ),
           ),
         ));
@@ -485,8 +489,8 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
         ),
         Padding(
           padding: verticalPad10,
-          child: _buildActiveTextField(
-              TextInputType.multiline, "Tindakan", 1, 10),
+          child:
+              _buildActiveTextField(TextInputType.multiline, "Tindakan", 1, 10),
         ),
       ],
     );
@@ -529,8 +533,8 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
         ),
         Padding(
           padding: verticalPad10,
-          child: _buildActiveTextField(
-              TextInputType.multiline, "Catatan", 1, 10),
+          child:
+              _buildActiveTextField(TextInputType.multiline, "Catatan", 1, 10),
         ),
       ],
     );

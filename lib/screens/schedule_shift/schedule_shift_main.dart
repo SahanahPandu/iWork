@@ -22,6 +22,7 @@ class _ScheduleShiftMainState extends State<ScheduleShiftMain> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: white,
         appBar: AppBar(
           backgroundColor: appBarBgColor,
           elevation: 1,
@@ -225,49 +226,53 @@ class _ScheduleShiftMainState extends State<ScheduleShiftMain> {
               ],
             )),
         bottomNavigationBar: Container(
-          color: white,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-            child: SizedBox(
-              height: 45,
-              width: 150,
-              child: ElevatedButton(
-                style: ButtonStyle(
-                    elevation: MaterialStateProperty.all(0),
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0)),
-                    ),
-                    overlayColor:
-                        MaterialStateColor.resolveWith((states) => green800),
-                    minimumSize: MaterialStateProperty.all(
-                        Size(Devices().screenWidth(context), 41)),
-                    backgroundColor: MaterialStateProperty.all(green)),
-                child: Text('Hantar',
-                    style: TextStyle(
-                        color: white,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w700)),
-                onPressed: () {
-                  _startDateController.text != ""
-                      ? showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return showAlertDialog(
-                                context,
-                                confirmation,
-                                "Anjakan akan memberi kesan kepada semua hal berkaitan penjadualan. Anda pasti untuk sahkan Anjakan Jadual untuk tarikh ${_startDateController.text} kepada ${_endDateController.text}?",
-                                "Tidak",
-                                "Ya, Sahkan");
-                          }).then((actionText) {
-                          if (actionText == "Sahkan") {
-                            Navigator.pop(context);
-                          }
-                        })
-                      : showErrorToast(context,
-                          "Sila isikan borang terlebih dahulu sebelum Sahkan");
-                },
-              ),
+          decoration: BoxDecoration(
+            color: white,
+            boxShadow: [
+              BoxShadow(
+                  color: Colors.grey.withOpacity(.3),
+                  blurRadius: 6,
+                  spreadRadius: 0.5)
+            ],
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+          child: SizedBox(
+            height: 45,
+            width: 150,
+            child: ElevatedButton(
+              style: ButtonStyle(
+                  elevation: MaterialStateProperty.all(0),
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0)),
+                  ),
+                  overlayColor:
+                      MaterialStateColor.resolveWith((states) => green800),
+                  minimumSize: MaterialStateProperty.all(
+                      Size(Devices().screenWidth(context), 41)),
+                  backgroundColor: MaterialStateProperty.all(green)),
+              child: Text('Hantar',
+                  style: TextStyle(
+                      color: white, fontSize: 14, fontWeight: FontWeight.w700)),
+              onPressed: () {
+                _startDateController.text != ""
+                    ? showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return showAlertDialog(
+                              context,
+                              confirmation,
+                              "Anjakan akan memberi kesan kepada semua hal berkaitan penjadualan. Anda pasti untuk sahkan Anjakan Jadual untuk tarikh ${_startDateController.text} kepada ${_endDateController.text}?",
+                              "Tidak",
+                              "Ya, Sahkan");
+                        }).then((actionText) {
+                        if (actionText == "Sahkan") {
+                          Navigator.pop(context);
+                        }
+                      })
+                    : showErrorToast(context,
+                        "Sila isikan borang terlebih dahulu sebelum Sahkan");
+              },
             ),
           ),
         ));

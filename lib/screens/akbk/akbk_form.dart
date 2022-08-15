@@ -400,8 +400,17 @@ class _AkbkFormState extends State<AkbkForm> {
             ],
           ),
         ),
-        bottomNavigationBar: Padding(
+        bottomNavigationBar: Container(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+          decoration: BoxDecoration(
+            color: white,
+            boxShadow: [
+              BoxShadow(
+                  color: Colors.grey.withOpacity(.3),
+                  blurRadius: 6,
+                  spreadRadius: 0.5)
+            ],
+          ),
           child: SizedBox(
             height: 45,
             width: 150,

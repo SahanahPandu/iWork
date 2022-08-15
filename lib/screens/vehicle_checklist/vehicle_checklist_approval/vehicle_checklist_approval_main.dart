@@ -28,6 +28,7 @@ class _VehicleChecklistApprovalMainState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: white,
       appBar: AppBar(
         backgroundColor: appBarBgColor,
         elevation: 1,
@@ -43,7 +44,7 @@ class _VehicleChecklistApprovalMainState
           child: Text(
             "Semakan Kenderaan",
             style: TextStyle(
-              fontSize: 15,
+              fontSize: 16,
               color: grey800,
               fontWeight: FontWeight.w700,
             ),
@@ -66,7 +67,9 @@ class _VehicleChecklistApprovalMainState
               child: Text(
                 "Senarai Semakan Kenderaan :",
                 style: TextStyle(
-                    color: grey500, fontSize: 15, fontWeight: FontWeight.w600),
+                    color: secondaryTextColor,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400),
               ),
             ),
             Padding(
@@ -105,16 +108,28 @@ class _VehicleChecklistApprovalMainState
                                     }),
                                   );
                                 },
-                                child: Card(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15),
-                                  ),
-                                  shadowColor: grey400,
-                                  elevation: 2,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: VehicleChecklistApprovalDetails(
-                                      data: dataFuture[index],
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 8, horizontal: 10),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: white,
+                                      border: Border.all(color: borderColor),
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(12)),
+                                      boxShadow: [
+                                        BoxShadow(
+                                            color: Colors.grey.withOpacity(.3),
+                                            blurRadius: 8,
+                                            spreadRadius: 0.5,
+                                            offset: const Offset(0, 2))
+                                      ],
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(16),
+                                      child: VehicleChecklistApprovalDetails(
+                                        data: dataFuture[index],
+                                      ),
                                     ),
                                   ),
                                 ),

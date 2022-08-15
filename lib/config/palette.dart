@@ -36,6 +36,10 @@ Color blueGrey = const Color(0xFFAEAEBB);
 Color lightBlue = const Color(0xFFC2E8FF);
 Color blue = const Color(0xFF0C80E1);
 
+Color primaryTextColor = const Color.fromRGBO(35, 45, 66, 1);
+Color secondaryTextColor = const Color.fromRGBO(138, 146, 166, 1);
+Color borderColor = const Color(0xE0EFEFEF);
+
 //------Text Form Field--------------------------------------------------------
 Color textFormFieldFillColor = Colors.white;
 
