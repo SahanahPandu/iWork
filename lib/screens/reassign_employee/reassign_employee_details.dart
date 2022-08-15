@@ -24,9 +24,11 @@ class _ReassignEmployeeDetailsState extends State<ReassignEmployeeDetails> {
 
   getAssignedEmployeeDetails(dynamic data) {
     if (data != null) {
-      setState(() {
-        dataEmployee2 = data;
-      });
+      if (mounted) {
+        setState(() {
+          dataEmployee2 = data;
+        });
+      }
     }
   }
 

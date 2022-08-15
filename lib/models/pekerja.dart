@@ -6,6 +6,7 @@ class Pekerja {
   final int idAttStatus;
   final String attStatus;
   final String skills;
+  final String idSv;
   final String timeIn;
   final String timeOut;
   final String reportsTo;
@@ -20,6 +21,7 @@ class Pekerja {
       required this.idAttStatus,
       required this.attStatus,
       required this.skills,
+      required this.idSv,
       required this.timeIn,
       required this.timeOut,
       required this.reportsTo,
@@ -34,6 +36,7 @@ class Pekerja {
         idAttStatus: json['idAttStatus'] ?? 0,
         attStatus: json['attStatus'] ?? "",
         skills: json['skills'] ?? "",
+        idSv: json['idSv'] ?? "",
         timeIn: json['timeIn'] ?? "",
         timeOut: json['timeOut'] ?? "",
         reportsTo: json['reportsTo'] ?? "",

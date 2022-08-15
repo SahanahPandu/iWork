@@ -7,6 +7,7 @@ import 'package:eswm/widgets/cards/cards.dart';
 
 class ListOfEmployees extends StatefulWidget {
   dynamic idPekerja;
+  dynamic idSv;
   int? idStatus;
   String? searchedName;
   Function(dynamic)? assignedEmployee;
@@ -14,6 +15,7 @@ class ListOfEmployees extends StatefulWidget {
   ListOfEmployees({
     Key? key,
     this.idPekerja,
+    this.idSv,
     this.idStatus,
     this.searchedName,
     this.assignedEmployee,
@@ -53,6 +55,12 @@ class _ListOfEmployeesState extends State<ListOfEmployees> {
                     if (widget.idPekerja != null) {
                       dataFuture!.removeWhere(
                           (item) => !widget.idPekerja.contains(item.id));
+                    }
+
+                    //checking if there is idSv is passed, else show all
+                    if (widget.idSv.isNotEmpty) {
+                      dataFuture!.removeWhere(
+                          (item) => !widget.idSv.contains(item.idSv));
                     }
 
                     //checking attendance id status
