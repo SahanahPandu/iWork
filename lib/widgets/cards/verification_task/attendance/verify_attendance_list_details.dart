@@ -35,9 +35,19 @@ class _VerifyAttendanceListDetailsState
           Text(widget.data!.namaLaluan,
               style: TextStyle(
                   color: black87, fontSize: 14, fontWeight: FontWeight.w500)),
-          Text(widget.data!.kehadiran,
-              style: TextStyle(
-                  color: black87, fontSize: 14, fontWeight: FontWeight.w800))
+          Container(
+            width: 30,
+            height: 25,
+            decoration: BoxDecoration(
+              color: Colors.blue.shade50,
+              borderRadius:  const BorderRadius.all(Radius.circular(5))
+            ),
+            child: Center(
+              child: Text(widget.data!.kehadiran,
+                  style: TextStyle(
+                      color: Colors.blue.shade800, fontSize: 14, fontWeight: FontWeight.w700)),
+            ),
+          )
         ],
       ),
     );

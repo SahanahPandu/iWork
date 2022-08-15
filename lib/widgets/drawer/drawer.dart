@@ -345,7 +345,7 @@ class _DrawerBuildState extends State<DrawerBuild> {
               }),
             );
             break;
-          case 4: //report
+          case 4: // Report
             Navigator.pop(context);
             Navigator.push(
               context,
