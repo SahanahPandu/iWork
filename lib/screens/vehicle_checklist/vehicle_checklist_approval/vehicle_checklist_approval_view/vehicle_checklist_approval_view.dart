@@ -1,7 +1,7 @@
-import 'package:eswm/models/vc/vc.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../config/palette.dart';
+import '../../../../models/vc/vc.dart';
 
 class VehicleChecklistApprovalView extends StatefulWidget {
   final VehicleChecklist data;
