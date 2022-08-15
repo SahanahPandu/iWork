@@ -116,7 +116,17 @@ class _AttendanceVerificationListState
             ],
           ),
         ),
-        bottomNavigationBar: Padding(
+        bottomNavigationBar: Container(
+          decoration: BoxDecoration(
+            color: white,
+            boxShadow: [
+              BoxShadow(
+                  color: Colors.grey.withOpacity(.3),
+                  blurRadius: 6,
+                  spreadRadius: 0.5,
+                  offset: const Offset(0, 2))
+            ],
+          ),
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
           child: SizedBox(
             height: 45,

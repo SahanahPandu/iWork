@@ -12,6 +12,7 @@ import '../../screens/schedule_all/schedule_all_main.dart';
 import '../../screens/schedule_issue/schedule_issue_main.dart';
 import '../../screens/schedule_shift/schedule_shift_main.dart';
 import '../../screens/vehicle_checklist/vehicle_checklist_approval/vehicle_checklist_approval_main.dart';
+import '../../screens/workshop_vehicle/workshop_vehicle_main.dart';
 import '../../utils/authentication/auth.dart';
 import '../../utils/device.dart';
 import '../alert/alert_dialog.dart';
@@ -344,7 +345,7 @@ class _DrawerBuildState extends State<DrawerBuild> {
               }),
             );
             break;
-          case 4: //report
+          case 4: // Report
             Navigator.pop(context);
             Navigator.push(
               context,
@@ -371,6 +372,15 @@ class _DrawerBuildState extends State<DrawerBuild> {
               context,
               MaterialPageRoute(builder: (context) {
                 return const VehicleChecklistApprovalMain();
+              }),
+            );
+            break;
+          case 7: // Workshop Vehicle
+            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) {
+                return const WorkshopVehicleMain();
               }),
             );
             break;

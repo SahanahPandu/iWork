@@ -108,18 +108,18 @@
     "selepas": {
       "vcItem": {
         "odometer": {
-          "bacaanOdo": 4322,
+          "bacaanOdo": 6512,
           "odoFungsi": "Ya",
-          "totalKM": 50,
+          "totalKM": 150,
           "noAkbk": "2322"
         },
         "fuel": {
-          "liter": 20,
-          "rm": 45,
+          "liter": 70,
+          "rm": 50,
           "resit": 15,
           "fleetCard": 2,
           "noFleetCard": 12154,
-          "fuelLevel": 80
+          "fuelLevel": 20
         },
         "document": {
           "puspakomDisc": "Ada",
@@ -215,18 +215,18 @@
     "sebelum": {
       "vcItem": {
         "odometer": {
-          "bacaanOdo": 4322,
+          "bacaanOdo": 12455,
           "odoFungsi": "Ya",
-          "totalKM": 50,
-          "noAkbk": "2322"
+          "totalKM": 0,
+          "noAkbk": "222"
         },
         "fuel": {
-          "liter": 20,
-          "rm": 45,
-          "resit": 15,
-          "fleetCard": 2,
-          "noFleetCard": 12154,
-          "fuelLevel": 80
+          "liter": 50,
+          "rm": 65,
+          "resit": 65,
+          "fleetCard": 4,
+          "noFleetCard": 78452,
+          "fuelLevel": 90
         },
         "document": {
           "puspakomDisc": "Ada",
@@ -311,9 +311,9 @@
     "selepas": {
       "vcItem": {
         "odometer": {
-          "bacaanOdo": 4322,
+          "bacaanOdo": 13542,
           "odoFungsi": "Ya",
-          "totalKM": 50,
+          "totalKM": 89,
           "noAkbk": "2322"
         },
         "fuel": {

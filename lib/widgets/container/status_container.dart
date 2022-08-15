@@ -7,9 +7,11 @@ import '../../config/config.dart';
 
 class StatusContainer extends StatefulWidget {
   String type;
+
   //Color boxColor;
   String status;
   int statusId;
+
   //Color textColor;
   FontWeight fontWeight;
 
@@ -109,6 +111,16 @@ class _StatusContainerState extends State<StatusContainer> {
         textColor = blueStatusText;
         boxColor = blueStatusBox;
       } else if (widget.statusId == 2) {
+        //Selesai
+        textColor = greenStatusText;
+        boxColor = greenStatusBox;
+      }
+    } else if (widget.type == "workshopVehicle") {
+      if (widget.statusId == 1 || widget.statusId == 2) {
+        //Dalam Proses
+        textColor = blueStatusText;
+        boxColor = blueStatusBox;
+      } else if (widget.statusId == 3) {
         //Selesai
         textColor = greenStatusText;
         boxColor = greenStatusBox;

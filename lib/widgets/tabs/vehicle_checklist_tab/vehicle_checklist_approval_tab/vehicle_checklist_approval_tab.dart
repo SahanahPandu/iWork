@@ -2,8 +2,11 @@ import 'package:eswm/widgets/tabs/vehicle_checklist_tab/vehicle_checklist_approv
 import 'package:flutter/material.dart';
 
 import '../../../../config/palette.dart';
+import '../../../../config/string.dart';
 import '../../../../models/vc/vc.dart';
 import '../../../../utils/custom_icon.dart';
+import '../../../../utils/device.dart';
+import '../../../alert/alert_dialog.dart';
 import 'vehicle_checklist_approval_tab_bar_view/vehicle_checklist_approval_after_tab_bar_view.dart';
 
 class VehicleChecklistApprovalTab extends StatefulWidget {
@@ -66,7 +69,7 @@ class _VehicleChecklistApprovalTabState
           ],
         ),
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
           child: Column(
             children: [
               Container(
@@ -119,6 +122,54 @@ class _VehicleChecklistApprovalTabState
                 ),
               ),
             ],
+          ),
+        ),
+        bottomNavigationBar: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+          decoration: BoxDecoration(
+            color: white,
+            boxShadow: [
+              BoxShadow(
+                  color: Colors.grey.withOpacity(.3),
+                  blurRadius: 6,
+                  spreadRadius: 0.5)
+            ],
+          ),
+          child: SizedBox(
+            height: 45,
+            width: 150,
+            child: ElevatedButton(
+              style: ButtonStyle(
+                  elevation: MaterialStateProperty.all(0),
+                  shape: MaterialStateProperty.all(
+                    RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0)),
+                  ),
+                  overlayColor:
+                      MaterialStateColor.resolveWith((states) => green800),
+                  minimumSize: MaterialStateProperty.all(
+                      Size(Devices().screenWidth(context), 41)),
+                  backgroundColor: MaterialStateProperty.all(green)),
+              child: Text('Sahkan',
+                  style: TextStyle(
+                      color: white, fontSize: 14, fontWeight: FontWeight.w700)),
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return showAlertDialog(
+                          context,
+                          confirmation,
+                          "Anda pasti untuk sahkan borang Semakan Kenderaan ini?",
+                          "Tidak",
+                          "Ya, Sahkan");
+                    }).then((actionText) {
+                  if (actionText == "Sahkan") {
+                    Navigator.pop(context);
+                  }
+                });
+              },
+            ),
           ),
         ));
   }

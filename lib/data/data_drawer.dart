@@ -46,7 +46,7 @@ List svDrawerList = [
   Drawers("AKBK", Icons.newspaper, Icons.newspaper, "context"),
   Drawers("Semakan Kenderaan", CustomIcon.truckOutline, CustomIcon.truckFill,
       "context"),
-  Drawers("Bengkel", CustomIcon.mechanicOutline, CustomIcon.mechanicFill,
+  Drawers("Bengkel/Penyelenggaraan", CustomIcon.mechanicOutline, CustomIcon.mechanicFill,
       "context"),
   Drawers(
       "Manual Operasi", CustomIcon.bookOutline, CustomIcon.bookFill, "context"),
@@ -66,7 +66,7 @@ List eoBaDrawerList = [
   Drawers("AKBK", Icons.newspaper, Icons.newspaper, "context"),
   Drawers("Semakan Kenderaan", CustomIcon.truckOutline, CustomIcon.truckFill,
       "context"),
-  Drawers("Bengkel", CustomIcon.mechanicOutline, CustomIcon.mechanicFill,
+  Drawers("Bengkel/Penyelenggaraan", CustomIcon.mechanicOutline, CustomIcon.mechanicFill,
       "context"),
   Drawers(
       "Manual Operasi", CustomIcon.bookOutline, CustomIcon.bookFill, "context"),
