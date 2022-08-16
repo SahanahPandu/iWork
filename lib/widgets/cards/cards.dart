@@ -50,7 +50,6 @@ class _CardsState extends State<Cards> {
     return InkWell(
       onTap: () {
         if (widget.type == "Senarai Pekerja") {
-          print("masuk sini");
           widget.assignedEmployee!(widget.data!);
 
           Navigator.pop(context);
