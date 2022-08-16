@@ -112,7 +112,10 @@ class _ScheduleIssuedCardState extends State<ScheduleIssuedCard> {
           child: CardListView(type: "Laporan", screens: "isu"),
         );
       case "belum":
-        return ListOfEmployees();
+        return Container(
+          margin: const EdgeInsets.symmetric(horizontal: 15),
+          child: ListOfEmployees(),
+        );
     }
   }
 }

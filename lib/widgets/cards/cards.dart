@@ -50,9 +50,10 @@ class _CardsState extends State<Cards> {
     return InkWell(
       onTap: () {
         if (widget.type == "Senarai Pekerja") {
-          widget.assignedEmployee!(widget.data!);
-
-          Navigator.pop(context);
+          if (widget.assignedEmployee != null) {
+            widget.assignedEmployee!(widget.data!);
+            Navigator.pop(context);
+          }
         }
       },
       child: Card(

@@ -58,7 +58,7 @@ class _ListOfEmployeesState extends State<ListOfEmployees> {
                     }
 
                     //checking if there is idSv is passed, else show all
-                    if (widget.idSv.isNotEmpty) {
+                    if (widget.idSv != null && widget.idSv.isNotEmpty) {
                       dataFuture!.removeWhere(
                           (item) => !widget.idSv.contains(item.idSv));
                     }
