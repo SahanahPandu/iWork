@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../config/palette.dart';
 import '../../utils/custom_icon.dart';
 import '../../widgets/drawer/drawer.dart';
+import '../notifications/notifications.dart';
 import '../screens.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -19,10 +20,19 @@ class HomeScreen extends StatelessWidget {
           shadowColor: Colors.white,
           iconTheme: IconThemeData(color: black87),
           actions: [
-            Icon(
-              CustomIcon.notificationFill,
-              color: black87,
-              size: 18,
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (builder) => const Notifications(),
+                    ));
+              },
+              child: Icon(
+                CustomIcon.notificationFill,
+                color: black87,
+                size: 18,
+              ),
             ),
             const SizedBox(
               width: 10,

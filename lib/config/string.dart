@@ -66,3 +66,12 @@ String confirmation = 'Pengesahan';
 
 String confirmLogout = 'Adakah anda pasti untuk log keluar?';
 String tryAgain = "Sila Cuba Semula!";
+
+//Notifikasi
+String jadualDesc = "Penyelia telah menugaskan anda untuk bekerja pada ";
+String detailsDesct = "Lihat perincian";
+String kehadiranDesc = "Kehadiran anda pada ";
+String kehadiranDesc2 = "telah disahkan oleh penyelia";
+String ecutiDesc = "Pengesahan E-Cuti bagi ";
+String laporanDesc =
+    "  BA telah mengesahkan borang laporan halangan cuaca untuk ";

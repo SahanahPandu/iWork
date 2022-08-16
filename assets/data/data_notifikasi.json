@@ -3,29 +3,47 @@
         "id":1,
         "notiTypeId":1,
         "notiType":"Jadual",
+        "dataId":"01",
         "descId":1,
-        "description": "25/5/2022"
+        "description": "Penyelia telah menugaskan anda untuk bekerja pada 25/5/2022. Lihat perincian",
+        "readIdStatus":2
+    
     },
     {
         "id":2,
         "notiTypeId":2,
         "notiType":"Kehadiran",
+        "dataId":"01",
         "descId":1,
-        "description": "20/5/2022"
+        "description": "Kehadiran anda pada 20/5/2022 telah disahkan oleh penyelia.",
+        "readIdStatus":1
     },
     {
         "id":3,
         "notiTypeId":3,
         "notiType":"E-Cuti",
+        "dataId":1,
         "descId":1,
-        "description": "PRA Suhaimi"
+        "description": "Menunggu perngesahan bagi permohonanan E-Cuti - PRA Suhaimi.",
+        "readIdStatus":1
     }
     ,
     {
         "id":4,
         "notiTypeId":4,
         "notiType":"Laporan",
+        "dataId":3,
         "descId":1,
-        "description": "Laluan JHBP01-C02"
+        "description": "BA telah mengesahkan Laporan Halangan untuk Laluan JHBP01-C02",
+        "readIdStatus":1
+    },
+    {
+        "id":5,
+        "notiTypeId":5,
+        "notiType":"Tugasan",
+        "dataId":"01",
+        "descId":1,
+        "description": "Tugasan untuk Laluan JHBP01-C02 telah bermula pada 7.40 pagi.",
+        "readIdStatus":1
     }
 ]

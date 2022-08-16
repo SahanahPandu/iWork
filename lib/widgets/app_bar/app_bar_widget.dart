@@ -11,9 +11,10 @@ class AppBarWidget extends StatefulWidget implements PreferredSizeWidget {
   Size get preferredSize => const Size.fromHeight(50);
 
   String title;
-  List<Widget> listOfWidget;
+  List<Widget>?
+      listOfWidget; //pass list of widgets if there are icons to display on the right side of the app bar
 
-  AppBarWidget({Key? key, required this.title, required this.listOfWidget})
+  AppBarWidget({Key? key, required this.title, this.listOfWidget})
       : super(key: key);
 
   @override
@@ -41,15 +42,18 @@ class _AppBarWidgetState extends State<AppBarWidget> {
         child: Text(
           widget.title,
           style: const TextStyle(
-            //fontSize: 18,
             fontSize: 15,
-            //color: Colors.grey.shade800,
             color: Colors.black,
             fontWeight: FontWeight.w400,
           ),
         ),
       ),
-      actions: widget.listOfWidget,
+      actions: widget.listOfWidget ??
+          [
+            const SizedBox(
+              width: 50,
+            )
+          ],
     );
   }
 }
