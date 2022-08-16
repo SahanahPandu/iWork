@@ -30,30 +30,40 @@ class _VerifyRescheduleListDetailsState
           ),
         ),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(widget.data!.reportsTo,
-                  style: TextStyle(
-                      color: black87,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600)),
-              const SizedBox(height: 5),
               SizedBox(
-                width: Devices().screenWidth(context) * 0.7,
-                child: Text(
-                    "Penyelia ${widget.data!.reportsTo} ingin meminjam PRA ${widget.data!.name} di bawah seliaan anda untuk tugasan tertentu",
-                    textAlign: TextAlign.left,
+                width: 200,
+                child: Text(widget.data!.name,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                        color: grey400,
-                        fontSize: 12,
+                        color: primaryTextColor,
+                        fontSize: 14,
                         fontWeight: FontWeight.w500)),
               ),
+              Text("10/7/2022",
+                  style: TextStyle(
+                      color: primaryTextColor,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700)),
             ],
-          )
+          ),
+          const SizedBox(height: 5),
+          SizedBox(
+            width: Devices().screenWidth(context) * 0.75,
+            child: Text(
+                "Penyelia C ingin meminjam PRA ${widget.data!.name} di bawah seliaan anda untuk tugasan Laluan JHBP-C01 pada 10/07/2022",
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                    color: secondaryTextColor,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500)),
+          ),
         ],
       ),
     );

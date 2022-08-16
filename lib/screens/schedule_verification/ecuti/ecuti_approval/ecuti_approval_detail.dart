@@ -20,7 +20,6 @@ class _EcutiApprovalDetailState extends State<EcutiApprovalDetail> {
   final TextEditingController _leaveType = TextEditingController();
   final TextEditingController _startDate = TextEditingController();
   final TextEditingController _endDate = TextEditingController();
-  final TextEditingController _attachment = TextEditingController();
   final TextEditingController _remarks = TextEditingController();
   final Devices _device = Devices();
   bool isAttached = false;
@@ -43,17 +42,15 @@ class _EcutiApprovalDetailState extends State<EcutiApprovalDetail> {
         }
 
         if (widget.data.lampiran != "") {
-          _attachment.text = " ";
           isAttached = true;
         } else {
-          _attachment.text = "Tiada Lampiran";
           isAttached = false;
         }
 
         if (widget.data.catatan != "") {
           _remarks.text = widget.data.catatan;
         } else {
-          _remarks.text = "Tiada Catatan";
+          _remarks.text = "-";
         }
       });
     }
@@ -80,7 +77,6 @@ class _EcutiApprovalDetailState extends State<EcutiApprovalDetail> {
         ),
         isAttached
             ? Stack(alignment: Alignment.center, children: [
-                textFormBuild(_attachment, "Lampiran", false, isAttached),
                 InkWell(
                   onTap: () {
                     Navigator.of(context).push(
@@ -95,8 +91,7 @@ class _EcutiApprovalDetailState extends State<EcutiApprovalDetail> {
                   child: Hero(
                     tag: "imgTag",
                     child: Container(
-                      height: 100,
-                      width: 130,
+                      constraints: const BoxConstraints(maxHeight: 300),
                       padding: const EdgeInsets.all(5),
                       child: ClipRRect(
                           borderRadius: BorderRadius.circular(10),
@@ -123,14 +118,14 @@ class _EcutiApprovalDetailState extends State<EcutiApprovalDetail> {
                   ),
                 )
               ])
-            : textFormBuild(_attachment, "Lampiran", false, isAttached),
+            : Container(),
         textFormBuild(_remarks, "Catatan"),
       ]),
     );
   }
 
   Padding textFormBuild(TextEditingController textController, String label,
-      [bool? icon, bool? img]) {
+      [bool? icon]) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: TextFormField(
@@ -145,9 +140,8 @@ class _EcutiApprovalDetailState extends State<EcutiApprovalDetail> {
         decoration: InputDecoration(
           filled: true,
           fillColor: grey100,
-          contentPadding: img == true
-              ? const EdgeInsets.symmetric(vertical: 50, horizontal: 10)
-              : const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
           labelText: label,
           labelStyle: TextStyle(
             fontSize: 12,

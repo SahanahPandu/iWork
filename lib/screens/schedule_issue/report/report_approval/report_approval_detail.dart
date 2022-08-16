@@ -7,7 +7,10 @@ import '../../../../widgets/image_viewer/image_viewer.dart';
 class ReportApprovalDetail extends StatefulWidget {
   final Reports data;
   final int reportStatus;
-  const ReportApprovalDetail({Key? key, required this.data, required this.reportStatus}) : super(key: key);
+
+  const ReportApprovalDetail(
+      {Key? key, required this.data, required this.reportStatus})
+      : super(key: key);
 
   @override
   State<ReportApprovalDetail> createState() => _ReportApprovalDetailState();
@@ -18,7 +21,6 @@ class _ReportApprovalDetailState extends State<ReportApprovalDetail> {
   final TextEditingController _taman = TextEditingController();
   final TextEditingController _jalan = TextEditingController();
   final TextEditingController _reportType = TextEditingController();
-  final TextEditingController _attachment = TextEditingController();
   final TextEditingController _remarks = TextEditingController();
   bool isAttached = false;
 
@@ -36,17 +38,15 @@ class _ReportApprovalDetailState extends State<ReportApprovalDetail> {
         _reportType.text = widget.data.jenisHalangan;
 
         if (widget.data.lampiran != "") {
-          _attachment.text = " ";
           isAttached = true;
         } else {
-          _attachment.text = "Tiada Lampiran";
           isAttached = false;
         }
 
         if (widget.data.catatan != "") {
           _remarks.text = widget.data.catatan;
         } else {
-          _remarks.text = "Tiada Catatan";
+          _remarks.text = "-";
         }
       });
     }
@@ -73,7 +73,7 @@ class _ReportApprovalDetailState extends State<ReportApprovalDetail> {
         textFormBuild(_reportType, "Jenis Halangan"),
         isAttached
             ? Stack(alignment: Alignment.center, children: [
-                textFormBuild(_attachment, "Lampiran", isAttached),
+                // textFormBuild(_attachment, "Lampiran", isAttached),
                 InkWell(
                   onTap: () {
                     Navigator.of(context).push(
@@ -88,8 +88,7 @@ class _ReportApprovalDetailState extends State<ReportApprovalDetail> {
                   child: Hero(
                     tag: "imgTag",
                     child: Container(
-                      height: 100,
-                      width: 130,
+                      constraints: const BoxConstraints(maxHeight: 300),
                       padding: const EdgeInsets.all(5),
                       child: ClipRRect(
                           borderRadius: BorderRadius.circular(10),
@@ -116,14 +115,13 @@ class _ReportApprovalDetailState extends State<ReportApprovalDetail> {
                   ),
                 )
               ])
-            : textFormBuild(_attachment, "Lampiran", isAttached),
+            : Container(),
         textFormBuild(_remarks, "Catatan"),
       ]),
     );
   }
 
-  Padding textFormBuild(TextEditingController textController, String label,
-      [bool? img]) {
+  Padding textFormBuild(TextEditingController textController, String label) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: TextFormField(
@@ -138,9 +136,8 @@ class _ReportApprovalDetailState extends State<ReportApprovalDetail> {
         decoration: InputDecoration(
           filled: true,
           fillColor: grey100,
-          contentPadding: img == true
-              ? const EdgeInsets.symmetric(vertical: 50, horizontal: 10)
-              : const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
           labelText: label,
           labelStyle: TextStyle(
             fontSize: 12,

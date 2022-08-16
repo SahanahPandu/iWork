@@ -37,8 +37,8 @@ class _ScheduleVerificationMainState extends State<ScheduleVerificationMain> {
         _buildVerifyCard(
             context,
             rescheduleMainCard,
-            "Penjadualan Semula",
-            "Luluskan",
+            "Permohonan Pinjam Pekerja",
+            "Sahkan",
             const RescheduleVerification(),
             const AttendanceVerificationList()),
       ],
