@@ -1,0 +1,31 @@
+[
+    {
+        "id":1,
+        "notiTypeId":1,
+        "notiType":"Jadual",
+        "descId":1,
+        "description": "25/5/2022"
+    },
+    {
+        "id":2,
+        "notiTypeId":2,
+        "notiType":"Kehadiran",
+        "descId":1,
+        "description": "20/5/2022"
+    },
+    {
+        "id":3,
+        "notiTypeId":3,
+        "notiType":"E-Cuti",
+        "descId":1,
+        "description": "PRA Suhaimi"
+    }
+    ,
+    {
+        "id":4,
+        "notiTypeId":4,
+        "notiType":"Laporan",
+        "descId":1,
+        "description": "Laluan JHBP01-C02"
+    }
+]
