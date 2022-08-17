@@ -93,23 +93,16 @@ class _CardListViewState extends State<CardListView> {
                   ),
                   child: ListView.builder(
                     physics: userRole == 200
-                        ? ((widget.type == "Cuti" ||
-                                (widget.type == "Laporan" &&
-                                    widget.screens !=
-                                        "isu")) //means not from isu list
+                        ? ((widget.type == "Laluan" &&
+                                (widget.screens == "drawer" ||
+                                    widget.screens == "isu"))
                             ? const BouncingScrollPhysics(
                                 parent: AlwaysScrollableScrollPhysics(),
                               )
-                            : (widget.type == "Laluan" &&
-                                    (widget.screens == "drawer" ||
-                                        widget.screens == "isu"))
-                                ? const BouncingScrollPhysics(
-                                    parent: AlwaysScrollableScrollPhysics(),
-                                  )
-                                : widget.type ==
-                                        "Laluan" // cannot add bouncing because , it makes the list cannot scroll down when blue card is hidden
-                                    ? const AlwaysScrollableScrollPhysics()
-                                    : const NeverScrollableScrollPhysics())
+                            : widget.type ==
+                                    "Laluan" // cannot add bouncing because , it makes the list cannot scroll down when blue card is hidden
+                                ? const AlwaysScrollableScrollPhysics()
+                                : const NeverScrollableScrollPhysics())
                         : const BouncingScrollPhysics(),
                     controller: userRole == 200 ? _controller : null,
                     shrinkWrap: true,

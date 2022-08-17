@@ -19,7 +19,7 @@ class _NotificationsState extends State<Notifications> {
       appBar: AppBarWidget(
         title: "Notifikasi",
       ),
-      backgroundColor: const Color(0xffE5E5E5),
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(
           parent: AlwaysScrollableScrollPhysics(),

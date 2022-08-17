@@ -29,10 +29,10 @@ class _PraECutiListDetailsState extends State<PraECutiListDetails> {
             children: [
               Text(
                 widget.data.jenisCuti,
-                style: TextStyle(
-                  fontSize: 19,
-                  color: Colors.grey.shade800,
-                  fontWeight: FontWeight.w900,
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: Color(0xff232D42),
+                  fontWeight: FontWeight.w700,
                 ),
               ),
               const SizedBox(
@@ -56,12 +56,12 @@ class _PraECutiListDetailsState extends State<PraECutiListDetails> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
+                const Text(
                   "Tarikh Mula / Tamat",
                   style: TextStyle(
-                    fontSize: 15,
-                    color: Colors.grey.shade800,
-                    fontWeight: FontWeight.w600,
+                    fontSize: 14,
+                    color: Color(0xff232D42),
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
                 Text(
@@ -69,8 +69,8 @@ class _PraECutiListDetailsState extends State<PraECutiListDetails> {
                       ? "${widget.data.tarikhMula} - ${widget.data.tarikhTamat}"
                       : widget.data.tarikhMula,
                   style: const TextStyle(
-                    fontSize: 15,
-                    color: Colors.black45,
+                    fontSize: 14,
+                    color: Color(0xff8A92A6),
                     fontWeight: FontWeight.w500,
                   ),
                 )
@@ -93,20 +93,20 @@ class _PraECutiListDetailsState extends State<PraECutiListDetails> {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    Row(children: [
-                      const Icon(
+                    Row(children: const [
+                      Icon(
                         Icons.warning_amber,
-                        color: Colors.orange,
-                        size: 17,
+                        color: Color(0xffF6921E),
+                        size: 13,
                       ),
-                      const SizedBox(
-                        width: 5,
+                      SizedBox(
+                        width: 3,
                       ),
                       Text(
                         "Sila muat naik lampiran",
                         style: TextStyle(
-                          color: Colors.red.shade400,
-                          fontSize: 15,
+                          color: Color(0xffE04141),
+                          fontSize: 14,
                           fontWeight: FontWeight.w400,
                           fontStyle: FontStyle.italic,
                         ),
@@ -118,20 +118,28 @@ class _PraECutiListDetailsState extends State<PraECutiListDetails> {
                   ? Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          "Lampiran",
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.grey.shade800,
-                            fontWeight: FontWeight.w600,
+                        Expanded(
+                          flex: 2,
+                          child: Text(
+                            "Lampiran",
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.grey.shade800,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
-                        Text(
-                          widget.data.lampiran,
-                          style: const TextStyle(
-                            fontSize: 15,
-                            color: Colors.black45,
-                            fontWeight: FontWeight.w500,
+                        Expanded(
+                          flex: 3,
+                          child: Text(
+                            widget.data.lampiran,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: Color(0xff8A92A6),
+                              fontWeight: FontWeight.w500,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                           ),
                         )
                       ],

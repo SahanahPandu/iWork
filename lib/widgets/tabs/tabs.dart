@@ -1,24 +1,25 @@
 // ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
 
-import '../../config/palette.dart';
+//import files
 import '../../screens/e_cuti/leave_form.dart';
 import '../../screens/e_cuti/leave_list.dart';
 import '../../screens/reports/report_form.dart';
 import '../../screens/reports/report_list.dart';
-import '../../utils/custom_icon.dart';
+import '../../widgets/app_bar/app_bar_widget.dart';
+import '../../config/palette.dart';
 
 class Tabs extends StatefulWidget {
   String screen;
   dynamic data;
-  String tabTitle;
+  String title;
   dynamic dataLaluan;
 
   Tabs(
       {Key? key,
       required this.screen,
       required this.data,
-      required this.tabTitle,
+      required this.title,
       required this.dataLaluan})
       : super(key: key);
 
@@ -26,103 +27,110 @@ class Tabs extends StatefulWidget {
   State<Tabs> createState() => _TabsState();
 }
 
-class _TabsState extends State<Tabs> {
-  int tabInitialIndex = 0;
+class _TabsState extends State<Tabs> with SingleTickerProviderStateMixin {
+  late TabController _tabController;
 
   getTabView() {
     if (widget.screen == "1" || widget.screen == "2" || widget.screen == "5") {
       // e_cuti
       //screen = "1" - ecuti button , screen ="2" -  from leave list , screen ="5" -  E-cuti menu from drawer
 
-      return TabBarView(children: [
-        LeaveForm(screen: widget.screen, data: widget.data),
-        const LeaveList(),
-      ]);
+      return TabBarView(
+        controller: _tabController,
+        children: [
+          LeaveForm(screen: widget.screen, data: widget.data),
+          const LeaveList(),
+        ],
+      );
     } else if (widget.screen == "3" ||
         widget.screen == "4" ||
         widget.screen == "6") {
       //reports
       //screen = "3" - report button (work schedule), screen = "4" - from record list , screen ="6" -  Laporan menu from drawer
 
-      return TabBarView(children: [
-        ReportForm(
-          screen: widget.screen,
-          data: widget.data,
-          dataLaluan: widget.dataLaluan,
-        ),
-        const ReportList(),
-      ]);
+      return TabBarView(
+        controller: _tabController,
+        children: [
+          ReportForm(
+            screen: widget.screen,
+            data: widget.data,
+            dataLaluan: widget.dataLaluan,
+          ),
+          const ReportList(),
+        ],
+      );
     }
   }
 
   @override
   void initState() {
+    _tabController = TabController(length: 2, vsync: this);
     super.initState();
-    if (widget.screen == "5" || widget.screen == "6") {
-      // from drawer menu
-      setState(() {
-        tabInitialIndex = 1;
-      });
-    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _tabController.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      initialIndex: tabInitialIndex,
-      length: 2,
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: appBackgroundColor,
-          elevation: 4,
-          shadowColor: Colors.white,
-          centerTitle: true,
-          title: Text(
-            widget.tabTitle,
-            style: TextStyle(
-              fontSize: 18,
-              color: Colors.grey.shade800,
-              fontWeight: FontWeight.w700,
+    return Scaffold(
+      appBar: AppBarWidget(
+        title: widget.title,
+      ),
+      backgroundColor: Colors.white,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // const SizedBox(
+          //   height: 10,
+          // ),
+          Container(
+            margin: const EdgeInsets.all(15),
+            height: 54,
+            decoration: BoxDecoration(
+              color: const Color(0xFFF2F6FF),
+              borderRadius: BorderRadius.circular(
+                25.0,
+              ),
+            ),
+            child: TabBar(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+              controller: _tabController,
+              indicator: BoxDecoration(
+                  borderRadius: BorderRadius.circular(
+                    25.0,
+                  ),
+                  color: white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: grey400,
+                      blurRadius: 2,
+                      offset: const Offset(0.0, 2.0),
+                    ),
+                  ]),
+              labelColor: const Color(0xff2B2B2B),
+              labelStyle:
+                  const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+              unselectedLabelStyle:
+                  const TextStyle(fontWeight: FontWeight.w400, fontSize: 16),
+              unselectedLabelColor: const Color(0xff969696),
+              tabs: const [
+                Tab(
+                  text: 'Borang',
+                ),
+                Tab(
+                  text: 'Rekod',
+                ),
+              ],
             ),
           ),
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(CustomIcon.arrowBack,
-                color: Colors.grey.shade900, size: 18),
+          Expanded(
+            child: getTabView(),
           ),
-          bottom: TabBar(
-            labelColor: grey900,
-            unselectedLabelColor: Colors.black54,
-            indicator: const UnderlineTabIndicator(
-              borderSide: BorderSide(
-                width: 3,
-                color: Colors.green,
-              ),
-              insets: EdgeInsets.symmetric(horizontal: 16.0),
-            ),
-            tabs: const [
-              Tab(
-                child: Text(
-                  "Borang",
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-              Tab(
-                child: Text(
-                  "Rekod",
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-        body: getTabView(),
+        ],
       ),
     );
   }

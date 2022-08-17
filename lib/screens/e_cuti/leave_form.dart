@@ -53,7 +53,7 @@ class _LeaveFormState extends State<LeaveForm> {
     if (widget.screen == "2") {
       //from leave list
       setState(() {
-        textFieldFillColor = Colors.grey.shade300;
+        textFieldFillColor = const Color(0xffDDDFE2);
         focusBorderColor = Colors.grey.shade300;
         enableBorderWithTextColor = Colors.grey.shade300;
         iconCondition = 0;
@@ -130,17 +130,16 @@ class _LeaveFormState extends State<LeaveForm> {
                 parent: AlwaysScrollableScrollPhysics(),
               ),
               child: Container(
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+                margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       "Lengkapkan maklumat di bawah:",
                       style: TextStyle(
-                        color: Colors.grey.shade500,
-                        fontSize: 17,
-                        fontWeight: FontWeight.w500,
+                        color: Color(0xff8A92A6),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
                     SizedBox(
@@ -148,7 +147,7 @@ class _LeaveFormState extends State<LeaveForm> {
                     ),
                     //Jenis Cuti
                     ListOfLeaveType(
-                      hintText: 'Pilih Jenis Cuti',
+                      hintText: 'Jenis Cuti',
                       fontSize: 15,
                       borderCondition: borderCondition, // have border
                       fillColor: textFieldFillColor,
@@ -328,10 +327,10 @@ class _LeaveFormState extends State<LeaveForm> {
                                       ),
                                       Container(
                                         margin: const EdgeInsets.only(right: 6),
-                                        child: Icon(
+                                        child: const Icon(
                                           Icons.date_range,
                                           size: 30,
-                                          color: Colors.grey.shade800,
+                                          color: Color(0xff2B2B2B),
                                         ),
                                       ),
                                     ],
@@ -400,6 +399,7 @@ class _LeaveFormState extends State<LeaveForm> {
                     //Catatan
                     TextFormField(
                       controller: _catatan,
+                      minLines: 1,
                       maxLines: 5,
                       enabled: (widget.screen == "2") ? false : true,
                       cursorColor: green,

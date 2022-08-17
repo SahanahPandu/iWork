@@ -85,10 +85,10 @@ class _ListOfLeaveTypeState extends State<ListOfLeaveType> {
             fontWeight: textFormFieldLabelFontWeight,
           ),
           suffixIcon: widget.iconCondition == 1
-              ? Icon(
-                  Icons.arrow_drop_down,
-                  size: userRole == 100 ? 25 : 30,
-                  color: Colors.black87,
+              ? const Icon(
+                  Icons.expand_more,
+                  size: 20,
+                  color: Color(0xff2B2B2B),
                 )
               : null,
           labelText: widget.borderCondition == 1 && widget.iconCondition == 1
@@ -113,7 +113,7 @@ class _ListOfLeaveTypeState extends State<ListOfLeaveType> {
                             : enabledBorderWithoutText),
                   ),
             borderRadius: BorderRadius.circular(borderRadiusCircular),
-            gapPadding: 6.0,
+            //gapPadding: 6.0,
           ),
         ),
       ),
@@ -132,31 +132,42 @@ class _ListOfLeaveTypeState extends State<ListOfLeaveType> {
         constraints: userRole == 100
             ? (_device.isLandscape(context)
                 ? const BoxConstraints(maxWidth: 500, maxHeight: 400)
-                : const BoxConstraints(maxWidth: 500, maxHeight: 450))
+                : const BoxConstraints(
+                    maxWidth: 500,
+                    minHeight: 200,
+                    maxHeight: 450,
+                  ))
             : null,
         context: context,
         builder: (builder) {
           return SizedBox(
             height: userRole == 100
                 ? null
-                : MediaQuery.of(context).size.height * 0.5,
+                : MediaQuery.of(context).size.height * 0.3,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: EdgeInsets.only(
-                    top: userRole == 100 ? 30 : 25,
-                    left: userRole == 100 ? 30 : 25,
-                    bottom: 10,
+                Container(
+                  margin: const EdgeInsets.only(
+                    left: 25,
+                    top: 25,
+                    right: 25,
+                    bottom: 8,
                   ),
                   child: Text(
-                    "${totalJenisCuti.toString()} Senarai Jenis Cuti",
-                    style: TextStyle(
-                      color: Colors.grey.shade500,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
+                    "${totalJenisCuti.toString()} Jenis Cuti",
+                    style: const TextStyle(
+                      color: Color(0xff969696),
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
+                ),
+                const Divider(
+                  thickness: 1,
+                  color: Color(0xffE5E5E5),
+                  indent: 25,
+                  endIndent: 25,
                 ),
                 FutureBuilder<List>(
                   future: JenisCutiApi.getJenisCutiData(context),
@@ -204,27 +215,27 @@ class _ListOfLeaveTypeState extends State<ListOfLeaveType> {
                                       margin: userRole == 100
                                           ? null
                                           : const EdgeInsets.symmetric(
-                                              vertical: 12),
+                                              vertical: 5),
                                       padding: userRole == 100
                                           ? const EdgeInsets.symmetric(
                                               vertical: 23, horizontal: 5)
                                           : const EdgeInsets.all(6),
-                                      decoration: BoxDecoration(
-                                        border: Border(
-                                          top: BorderSide.none,
-                                          bottom: BorderSide(
-                                            color: grey400,
-                                            width: userRole == 100 ? 0.3 : 0.9,
-                                            style: BorderStyle.solid,
-                                          ),
-                                        ),
-                                      ),
+                                      // decoration: BoxDecoration(
+                                      //   border: Border(
+                                      //     top: BorderSide.none,
+                                      //     bottom: BorderSide(
+                                      //       color: grey400,
+                                      //       width: userRole == 100 ? 0.3 : 0.9,
+                                      //       style: BorderStyle.solid,
+                                      //     ),
+                                      //   ),
+                                      // ),
                                       child: Text(
                                         dataFuture[index].jenisCuti,
                                         style: const TextStyle(
-                                          color: Colors.black87,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500,
+                                          color: Color(0xff2B2B2B),
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w400,
                                         ),
                                       ),
                                     ),

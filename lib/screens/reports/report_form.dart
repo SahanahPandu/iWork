@@ -83,7 +83,7 @@ class _ReportFormState extends State<ReportForm> {
             controller: _controller,
             child: Container(
               margin: userRole != 100
-                  ? const EdgeInsets.symmetric(horizontal: 20, vertical: 30)
+                  ? const EdgeInsets.symmetric(horizontal: 20, vertical: 10)
                   : (userRole == 100 &&
                           _device.isLandscape(
                               context)) // condition for compactor panel

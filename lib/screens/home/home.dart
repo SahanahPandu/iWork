@@ -12,12 +12,12 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: appBackgroundColor,
+        backgroundColor: Colors.white,
         //extendBodyBehindAppBar: true,
         appBar: AppBar(
           backgroundColor: appBarBgColor,
-          elevation: 1,
-          shadowColor: Colors.white,
+          elevation: 2,
+          shadowColor: const Color(0xffF5F5F5),
           iconTheme: IconThemeData(color: black87),
           actions: [
             InkWell(

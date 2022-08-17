@@ -22,7 +22,7 @@ class _ECutiState extends State<ECuti> {
     return Tabs(
       screen: widget.screen,
       data: widget.data,
-      tabTitle: eCuti,
+      title: eCuti,
       dataLaluan: null,
     );
   }

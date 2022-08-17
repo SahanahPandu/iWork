@@ -10,12 +10,11 @@ class AppBarWidget extends StatefulWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => const Size.fromHeight(50);
 
-  String title;
+  String? title;
   List<Widget>?
       listOfWidget; //pass list of widgets if there are icons to display on the right side of the app bar
 
-  AppBarWidget({Key? key, required this.title, this.listOfWidget})
-      : super(key: key);
+  AppBarWidget({Key? key, this.title, this.listOfWidget}) : super(key: key);
 
   @override
   State<AppBarWidget> createState() => _AppBarWidgetState();
@@ -26,8 +25,8 @@ class _AppBarWidgetState extends State<AppBarWidget> {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: appBarBgColor,
-      elevation: 1,
-      shadowColor: Colors.white,
+      elevation: 2,
+      shadowColor: const Color(0xffF5F5F5),
       leading: IconButton(
         onPressed: () {
           Navigator.pop(context);
@@ -38,14 +37,14 @@ class _AppBarWidgetState extends State<AppBarWidget> {
           size: 18,
         ),
       ),
-      title: Center(
-        child: Text(
-          widget.title,
-          style: const TextStyle(
-            fontSize: 15,
-            color: Colors.black,
-            fontWeight: FontWeight.w400,
-          ),
+      iconTheme: IconThemeData(color: black87),
+      centerTitle: true,
+      title: Text(
+        widget.title ?? "",
+        style: const TextStyle(
+          fontSize: 15,
+          color: Color(0xff2B2B2B),
+          fontWeight: FontWeight.w400,
         ),
       ),
       actions: widget.listOfWidget ??

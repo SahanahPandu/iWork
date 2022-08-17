@@ -27,7 +27,7 @@ class _ReportsPageState extends State<ReportsPage> {
     return Tabs(
       screen: widget.screen,
       data: widget.data,
-      tabTitle: reports,
+      title: reports,
       dataLaluan: widget.dataLaluan,
     );
   }

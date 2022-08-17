@@ -13,24 +13,27 @@ class LeaveList extends StatefulWidget {
 class _LeaveListState extends State<LeaveList> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(20),
-          child: Text(
-            "Rekod permohonan cuti: ",
-            style: TextStyle(
-              color: Colors.grey.shade500,
-              fontSize: 17,
-              fontWeight: FontWeight.w500,
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(
+        parent: AlwaysScrollableScrollPhysics(),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+            child: Text(
+              "Rekod permohonan cuti: ",
+              style: TextStyle(
+                color: Color(0xff8A92A6),
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+              ),
             ),
           ),
-        ),
-        Expanded(
-          child: CardListView(type: "Cuti", topCardStatus: null),
-        ),
-      ],
+          CardListView(type: "Cuti", topCardStatus: null),
+        ],
+      ),
     );
   }
 }

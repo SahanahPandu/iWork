@@ -41,19 +41,20 @@ Color secondaryTextColor = const Color.fromRGBO(138, 146, 166, 1);
 Color borderColor = const Color(0xE0EFEFEF);
 
 //------Text Form Field--------------------------------------------------------
-Color textFormFieldFillColor = Colors.white;
+Color textFormFieldFillColor = const Color(0xffFBFBFB);
 
 //border setting
-double borderSideWidth = 1.5;
+//double borderSideWidth = 1.5;
+double borderSideWidth = 1;
 double borderRadiusCircular = 8;
 
 //border color
 Color focusedBorder = Colors.green;
 Color enabledBorderWithText = Colors.green;
-Color enabledBorderWithoutText = Colors.grey.shade400;
+Color enabledBorderWithoutText = const Color(0xffDDDFE2);
 
 //label
-Color labelTextColor = Colors.grey.shade500;
+Color labelTextColor = const Color(0xffA4A4A4);
 
 //------End of Text Form Field--------------------------------------------------------
 

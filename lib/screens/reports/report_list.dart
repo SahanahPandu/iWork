@@ -15,30 +15,33 @@ class ReportList extends StatefulWidget {
 class _ReportListState extends State<ReportList> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          margin:
-              const EdgeInsets.only(left: 20, top: 30, right: 20, bottom: 20),
-          child: Text(
-            "Rekod laporan: ",
-            style: TextStyle(
-              color: Colors.grey.shade500,
-              fontSize: 17,
-              fontWeight: FontWeight.w500,
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(
+        parent: AlwaysScrollableScrollPhysics(),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            margin:
+                const EdgeInsets.only(left: 20, top: 10, right: 20, bottom: 20),
+            child: Text(
+              "Rekod laporan: ",
+              style: TextStyle(
+                color: Colors.grey.shade500,
+                fontSize: 17,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
-        ),
-        userRole == 100
-            ? const CompactorReportList()
-            : Expanded(
-                child: CardListView(
+          userRole == 100
+              ? const CompactorReportList()
+              : CardListView(
                   type: "Laporan",
                   topCardStatus: null,
                 ),
-              ),
-      ],
+        ],
+      ),
     );
   }
 }
