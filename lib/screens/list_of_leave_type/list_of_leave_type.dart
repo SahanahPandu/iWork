@@ -147,6 +147,15 @@ class _ListOfLeaveTypeState extends State<ListOfLeaveType> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const SizedBox(
+                  height: 2,
+                ),
+                const Divider(
+                  thickness: 1,
+                  color: Color(0xff969696),
+                  indent: 170,
+                  endIndent: 170,
+                ),
                 Container(
                   margin: const EdgeInsets.only(
                     left: 25,
