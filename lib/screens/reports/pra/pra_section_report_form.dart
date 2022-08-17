@@ -105,10 +105,10 @@ class _PraSectionReportFormState extends State<PraSectionReportForm> {
       children: [
         Text(
           formTitleText,
-          style: TextStyle(
-            color: Colors.grey.shade500,
-            fontSize: 17,
-            fontWeight: FontWeight.w500,
+          style: const TextStyle(
+            color: Color(0xff2B2B2B),
+            fontSize: 15,
+            fontWeight: FontWeight.w400,
           ),
         ),
         SizedBox(
@@ -116,7 +116,7 @@ class _PraSectionReportFormState extends State<PraSectionReportForm> {
         ),
         //Sub Laluan
         ListOfSubRoutes(
-          hintText: 'Pilih Sub Laluan',
+          hintText: 'Sub Laluan',
           fontSize: 15,
           borderCondition: borderCondition, // have border
           fillColor: textFieldFillColor,
@@ -129,7 +129,7 @@ class _PraSectionReportFormState extends State<PraSectionReportForm> {
         //Taman
         ListOfParks(
           showSenaraiJalan: null,
-          hintText: 'Pilih Nama Taman',
+          hintText: 'Taman',
           fontSize: 15,
           borderCondition: borderCondition, // have border
           fillColor: textFieldFillColor,
@@ -142,7 +142,7 @@ class _PraSectionReportFormState extends State<PraSectionReportForm> {
         ),
         //Jalan
         ListOfRoadTextFormField(
-          text: 'Pilih Nama Jalan',
+          text: 'Jalan',
           fontSize: 15,
           borderCondition: borderCondition,
           fillColor: textFieldFillColor,
@@ -155,7 +155,7 @@ class _PraSectionReportFormState extends State<PraSectionReportForm> {
         ),
         //Jenis Halangan
         ListOfObstacles(
-          text: 'Pilih Jenis Halangan',
+          text: 'Jenis Halangan',
           fontSize: 15,
           borderCondition: borderCondition,
           fillColor: textFieldFillColor,
@@ -228,6 +228,7 @@ class _PraSectionReportFormState extends State<PraSectionReportForm> {
         //catatan
         TextFormField(
           controller: _catatan,
+          minLines: 1,
           maxLines: 3,
           enabled: (widget.screen == "4") ? false : true,
           cursorColor: green,

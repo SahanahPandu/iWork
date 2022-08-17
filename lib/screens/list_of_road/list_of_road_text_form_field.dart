@@ -81,10 +81,10 @@ class _ListOfRoadTextFormFieldState extends State<ListOfRoadTextFormField> {
               ? const EdgeInsets.symmetric(vertical: 15, horizontal: 20)
               : const EdgeInsets.all(10),
           suffixIcon: widget.iconCondition == 1
-              ? Icon(
-                  Icons.arrow_drop_down,
-                  size: userRole == 100 ? 25 : 30,
-                  color: Colors.black87,
+              ? const Icon(
+                  Icons.expand_more,
+                  size: 20,
+                  color: Color(0xff2B2B2B),
                 )
               : null,
           labelText: widget.iconCondition == 1 ? widget.text : null,

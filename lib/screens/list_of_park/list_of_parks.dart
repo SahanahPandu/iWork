@@ -86,10 +86,10 @@ class _ListOfParksState extends State<ListOfParks> {
             fontWeight: textFormFieldLabelFontWeight,
           ),
           suffixIcon: widget.iconCondition == 1
-              ? Icon(
-                  Icons.arrow_drop_down,
-                  size: userRole == 200 ? 30 : 25,
-                  color: Colors.black87,
+              ? const Icon(
+                  Icons.expand_more,
+                  size: 20,
+                  color: Color(0xff2B2B2B),
                 )
               : null,
           labelText: widget.borderCondition == 1 && widget.iconCondition == 1
@@ -114,7 +114,7 @@ class _ListOfParksState extends State<ListOfParks> {
                             : grey100),
                   ),
             borderRadius: BorderRadius.circular(borderRadiusCircular),
-            gapPadding: 6.0,
+            //gapPadding: 6.0,
           ),
         ),
       ),

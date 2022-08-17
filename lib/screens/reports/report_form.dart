@@ -83,7 +83,7 @@ class _ReportFormState extends State<ReportForm> {
             controller: _controller,
             child: Container(
               margin: userRole != 100
-                  ? const EdgeInsets.symmetric(horizontal: 20, vertical: 10)
+                  ? const EdgeInsets.symmetric(horizontal: 20, vertical: 5)
                   : (userRole == 100 &&
                           _device.isLandscape(
                               context)) // condition for compactor panel
@@ -108,9 +108,9 @@ class _ReportFormState extends State<ReportForm> {
                                 ? widget.data!.namaLaluan
                                 : namaLaluan,
                         style: TextStyle(
-                          fontSize: userRole == 100 ? 22 : 20,
-                          color: Colors.grey.shade800,
-                          fontWeight: FontWeight.w900,
+                          fontSize: userRole == 100 ? 22 : 15,
+                          color: const Color(0xff232D42),
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
                       if (widget.screen == "4")
@@ -145,17 +145,18 @@ class _ReportFormState extends State<ReportForm> {
                     children: [
                       const Icon(
                         Icons.local_shipping,
-                        size: 19,
+                        size: 15,
+                        color: Color(0xff232D42),
                       ),
                       SizedBox(
                         width: userRole == 100 ? 20 : 8,
                       ),
-                      Text(
+                      const Text(
                         "No. Kenderaan",
                         style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.grey.shade800,
-                          fontWeight: FontWeight.w700,
+                          fontSize: 14,
+                          color: Color(0xff232D42),
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                       SizedBox(
@@ -175,10 +176,10 @@ class _ReportFormState extends State<ReportForm> {
                                         "") // from report list
                                 ? widget.data!.noKenderaan
                                 : noKenderaan,
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.grey.shade500,
-                          fontWeight: FontWeight.w600,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Color(0xff8A92A6),
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                     ],
@@ -187,7 +188,7 @@ class _ReportFormState extends State<ReportForm> {
                     height: 15,
                   ),
                   Divider(
-                    color: userRole == 100 ? grey300 : Colors.grey.shade500,
+                    color: userRole == 100 ? grey300 : const Color(0xffD9D9D9),
                     thickness: userRole == 100 ? 0.5 : 1,
                   ),
                   SizedBox(
