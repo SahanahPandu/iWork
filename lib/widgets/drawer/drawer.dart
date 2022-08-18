@@ -171,34 +171,41 @@ class _DrawerBuildState extends State<DrawerBuild> {
                   itemCount: _getList().length,
                   itemBuilder: (BuildContext context, int index) {
                     return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: ListTile(
-                        tileColor: _isHighlighted[index]
-                            ? const Color(0x86E9F4FC)
-                            : null,
+                        minLeadingWidth: 25,
+                        tileColor:
+                            _isHighlighted[index] ? activeBoxColor : null,
                         leading: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(
-                              _isHighlighted[index]
-                                  ? _getList()[index].iconFill
-                                  : _getList()[index].iconOutline,
-                              color: _isHighlighted[index]
-                                  ? Colors.blue.shade500
-                                  : _getList()[index].titleColor,
-                              size: 16,
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10),
+                              child: Icon(
+                                _isHighlighted[index]
+                                    ? _getList()[index].iconFill
+                                    : _getList()[index].iconOutline,
+                                color: _isHighlighted[index]
+                                    ? activeListColor
+                                    : _getList()[index].titleColor,
+                                size: 16,
+                              ),
                             ),
                           ],
                         ),
-                        title: Text(
-                          _getList()[index].title,
-                          style: TextStyle(
-                              color: _isHighlighted[index]
-                                  ? Colors.blue.shade500
-                                  : _getList()[index].titleColor,
-                              fontWeight: _isHighlighted[index]
-                                  ? FontWeight.w700
-                                  : null),
+                        title: Container(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            _getList()[index].title,
+                            style: TextStyle(
+                                fontSize: 15,
+                                color: _isHighlighted[index]
+                                    ? activeListColor
+                                    : _getList()[index].titleColor,
+                                fontWeight: _isHighlighted[index]
+                                    ? FontWeight.w500
+                                    : FontWeight.w400),
+                          ),
                         ),
                         onTap: () {
                           for (int i = 0; i < _isHighlighted.length; i++) {
@@ -216,10 +223,13 @@ class _DrawerBuildState extends State<DrawerBuild> {
                     );
                   })),
           ListTile(
-            title: Text(
-              'Aplikasi V0.1',
-              style: (TextStyle(
-                  color: grey500, fontWeight: FontWeight.w500, fontSize: 12)),
+            title: Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: Text(
+                'Aplikasi V0.1',
+                style: (TextStyle(
+                    color: grey500, fontWeight: FontWeight.w500, fontSize: 12)),
+              ),
             ),
             onTap: () {},
           ),

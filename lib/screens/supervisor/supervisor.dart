@@ -52,7 +52,6 @@ class _SupervisorState extends State<Supervisor> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const [
-          SizedBox(height: 5),
           Expanded(child: TaskStackOverTab()),
         ],
       ),

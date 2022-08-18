@@ -70,11 +70,15 @@ class _StatusContainerState extends State<StatusContainer> {
         //Baharu
         textColor = blueStatusText;
         boxColor = blueStatusBox;
-      } else if (widget.statusId == 2) {
-        //Dalam Proses
+      } else if (widget.statusId == 2 || widget.statusId == 4) {
+        //Diterima SV || Disahkan BA
         textColor = orangeStatusText;
         boxColor = orangeStatusBox;
-      } else if (widget.statusId == 3) {
+      } else if (widget.statusId == 3 || widget.statusId == 5) {
+        //Ditolak SV || Ditolak BA
+        textColor = redStatusText;
+        boxColor = redStatusBox;
+      } else if (widget.statusId == 6) {
         //Selesai
         textColor = greenStatusText;
         boxColor = greenStatusBox;
@@ -142,15 +146,18 @@ class _StatusContainerState extends State<StatusContainer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(6),
+      padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         color: statusBoxColor,
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: widget.type == "Laluan"
+            ? const BorderRadius.only(
+                topLeft: Radius.circular(6), bottomLeft: Radius.circular(6))
+            : BorderRadius.circular(8),
       ),
       child: Text(
         widget.status,
         style: TextStyle(
-          fontSize: userRole == 200 ? null : 12,
+          fontSize: 12,
           color: statusTextColor,
           fontWeight: widget.fontWeight,
         ),

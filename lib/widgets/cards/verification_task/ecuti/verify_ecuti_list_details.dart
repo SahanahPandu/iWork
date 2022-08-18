@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../models/cuti.dart';
+import '../../../../utils/device.dart';
 
 class VerifyEcutiListDetails extends StatefulWidget {
   final Cuti? data;
@@ -22,49 +23,49 @@ class _VerifyEcutiListDetailsState extends State<VerifyEcutiListDetails> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 4),
+      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 2),
       decoration: BoxDecoration(
         border: Border(
           top: BorderSide.none,
           bottom: BorderSide(
-            color: grey400,
-            width: 0.3,
+            color: greyCustom,
+            width: 0.1,
             style: BorderStyle.solid,
           ),
         ),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          SizedBox(
+            width: Devices().screenWidth(context),
+            child: Text(widget.data!.pemohon,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                    color: blackCustom,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w400)),
+          ),
+          const SizedBox(height: 12),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(widget.data!.pemohon,
+              Text(widget.data!.jenisCuti,
                   style: TextStyle(
-                      color: black87,
+                      color: greyCustom,
                       fontSize: 14,
-                      fontWeight: FontWeight.w600)),
-              const SizedBox(height: 5),
+                      fontWeight: FontWeight.w400)),
               Text(
                   _isOneDay()
-                      ? "Pada ${widget.data!.tarikhMula}"
-                      : "Dari ${widget.data!.tarikhMula}",
+                      ? widget.data!.tarikhMula
+                      : "${widget.data!.tarikhMula} - ${widget.data!.tarikhTamat}",
                   style: TextStyle(
-                      color: grey400,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500)),
-              _isOneDay()
-                  ? const SizedBox(height: 1)
-                  : Text("hingga ${widget.data!.tarikhTamat}",
-                      style: TextStyle(
-                          color: grey400,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500)),
+                      color: greyCustom,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400)),
             ],
           ),
-          Text(widget.data!.jenisCuti,
-              style: TextStyle(
-                  color: black87, fontSize: 14, fontWeight: FontWeight.w800))
         ],
       ),
     );

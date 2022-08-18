@@ -38,45 +38,46 @@ class CompactorPanelMyTaskListDetailsState
         Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(15),
-              child: Row(
-                //Nama Laluan & Status
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
+            Row(
+              //Nama Laluan & Status
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(15),
+                  child: Text(
                     widget.data.namaLaluan,
                     style: TextStyle(
                         fontSize: 19,
                         color: grey800,
                         fontWeight: FontWeight.w900),
                   ),
-                  Container(
-                    width: 130,
-                    decoration: BoxDecoration(
-                      color: statusTask == 1
-                          ? orange100
-                          : (statusTask == 2 ? lightBlue : lighterGreen),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(6),
-                      child: Center(
-                        child: Text(
-                          statusTask == 1
-                              ? taskIdle
-                              : (statusTask == 2 ? taskStarted : taskEnded),
-                          style: TextStyle(
-                              color: statusTask == 1
-                                  ? orange700
-                                  : (statusTask == 2 ? blue : darkGreen),
-                              fontWeight: FontWeight.w500),
-                        ),
+                ),
+                Container(
+                  width: 130,
+                  decoration: BoxDecoration(
+                    color: statusTask == 1
+                        ? orange100
+                        : (statusTask == 2 ? lightBlue : lighterGreen),
+                    borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(6), bottomLeft: Radius.circular(6)),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(6),
+                    child: Center(
+                      child: Text(
+                        statusTask == 1
+                            ? taskIdle
+                            : (statusTask == 2 ? taskStarted : taskEnded),
+                        style: TextStyle(
+                            color: statusTask == 1
+                                ? orange700
+                                : (statusTask == 2 ? blue : darkGreen),
+                            fontWeight: FontWeight.w500),
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
 
             Padding(

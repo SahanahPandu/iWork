@@ -113,12 +113,14 @@ class _ListCardState extends State<ListCard> {
         },
         child: Card(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(userRole == 200 ? 15 : 10),
+            borderRadius: BorderRadius.circular(15),
           ),
-          shadowColor: userRole == 200 ? Colors.white : grey200,
+          shadowColor: userRole == 200 ? Colors.white : grey100,
           elevation: userRole == 200 ? 14 : 3,
           child: Padding(
-            padding: const EdgeInsets.all(6),
+            padding: widget.type == "Laluan"
+                ? const EdgeInsets.symmetric(vertical: 6)
+                : const EdgeInsets.all(6),
             child: getWidget(),
           ),
         ),

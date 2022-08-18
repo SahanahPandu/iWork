@@ -25,8 +25,7 @@ class SupervisorMyTaskListDetails extends StatefulWidget {
 class _SupervisorMyTaskListDetailsState
     extends State<SupervisorMyTaskListDetails> {
   final Devices _device = Devices();
-  // late Color statusTextColor;
-  // late Color statusBoxColor;
+
   String taskIssueText = "";
 
   @override
@@ -36,37 +35,14 @@ class _SupervisorMyTaskListDetailsState
     _filterTaskIssueText(widget.data.isu);
   }
 
-  // _filterData() {
-  //   //default status belum dimulakan
-  //   Color textColor = Colors.grey;
-  //   Color boxColor = Colors.grey.shade100;
-
-  //   if (widget.data.idStatus == 2) {
-  //     //Sedang Bertugas
-
-  //     textColor = Colors.blue.shade800;
-  //     boxColor = Colors.blue.shade100;
-  //   } else if (widget.data.idStatus == 3) {
-  //     //Tugasan Selesai
-
-  //     textColor = Colors.green;
-  //     boxColor = const Color(0xffc9ffd7);
-  //   }
-
-  //   setState(() {
-  //     statusTextColor = textColor;
-  //     statusBoxColor = boxColor;
-  //   });
-  // }
-
   _filterTaskIssueText(String issue) {
     switch (issue) {
       case "kehadiran":
-        return taskIssueText = "Kehadiran (2/3)";
+        return taskIssueText = "Kehadiran";
       case "belum":
         return taskIssueText = "Belum Mula Tugas";
       case "laporan":
-        return taskIssueText = "Laporan";
+        return taskIssueText = "Laporan Halangan Kerja";
     }
     return taskIssueText;
   }
@@ -78,31 +54,32 @@ class _SupervisorMyTaskListDetailsState
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              child: Row(
-                //Nama Laluan & Status
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
+            Row(
+              //Nama Laluan & Status
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                  child: Text(
                     widget.data.namaLaluan,
                     style: TextStyle(
                         fontSize: 16,
-                        color: Colors.grey.shade800,
-                        fontWeight: FontWeight.w900),
+                        color: blackCustom,
+                        fontWeight: FontWeight.w500),
                   ),
-                  StatusContainer(
-                    type: "Laluan",
-                    status: widget.data.status,
-                    statusId: widget.data.idStatus,
-                    fontWeight: statusFontWeight,
-                  ),
-                ],
-              ),
+                ),
+                StatusContainer(
+                  type: "Laluan",
+                  status: widget.data.status,
+                  statusId: widget.data.idStatus,
+                  fontWeight: statusFontWeight,
+                ),
+              ],
             ),
             //No Kenderaan
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -119,9 +96,9 @@ class _SupervisorMyTaskListDetailsState
                       Text(
                         "No. Kenderaan",
                         style: TextStyle(
-                          fontSize: 13,
-                          color: grey400,
-                          fontWeight: FontWeight.w600,
+                          fontSize: 15,
+                          color: greyCustom,
+                          fontWeight: FontWeight.w400,
                         ),
                       ),
                     ],
@@ -129,9 +106,9 @@ class _SupervisorMyTaskListDetailsState
                   Text(
                     widget.data.noKenderaan,
                     style: TextStyle(
-                      fontSize: 13,
-                      color: black87,
-                      fontWeight: FontWeight.w700,
+                      fontSize: 15,
+                      color: blackCustom,
+                      fontWeight: FontWeight.w600,
                     ),
                   )
                 ],
@@ -139,7 +116,7 @@ class _SupervisorMyTaskListDetailsState
             ),
             //Sub Laluan
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -147,7 +124,7 @@ class _SupervisorMyTaskListDetailsState
                     children: [
                       Icon(
                         CustomIcon.roadFill,
-                        size: 18,
+                        size: 16,
                         color: blue,
                       ),
                       const SizedBox(
@@ -156,9 +133,9 @@ class _SupervisorMyTaskListDetailsState
                       Text(
                         "Jumlah Sub Laluan",
                         style: TextStyle(
-                          fontSize: 13,
-                          color: grey400,
-                          fontWeight: FontWeight.w600,
+                          fontSize: 15,
+                          color: greyCustom,
+                          fontWeight: FontWeight.w400,
                         ),
                       ),
                     ],
@@ -166,9 +143,9 @@ class _SupervisorMyTaskListDetailsState
                   Text(
                     "${widget.data.jumSubLaluan}",
                     style: TextStyle(
-                      fontSize: 13,
-                      color: black87,
-                      fontWeight: FontWeight.w700,
+                      fontSize: 15,
+                      color: blackCustom,
+                      fontWeight: FontWeight.w600,
                     ),
                   )
                 ],
@@ -177,7 +154,7 @@ class _SupervisorMyTaskListDetailsState
 
             //Jumlah Taman/Jalan
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -185,18 +162,18 @@ class _SupervisorMyTaskListDetailsState
                     children: [
                       Icon(
                         CustomIcon.tamanFill,
-                        size: 18,
+                        size: 16,
                         color: blue,
                       ),
                       const SizedBox(
-                        width: 8,
+                        width: 10,
                       ),
                       Text(
                         "Jumlah Taman/Jalan",
                         style: TextStyle(
-                          fontSize: 13,
-                          color: grey400,
-                          fontWeight: FontWeight.w600,
+                          fontSize: 15,
+                          color: greyCustom,
+                          fontWeight: FontWeight.w400,
                         ),
                       ),
                     ],
@@ -204,9 +181,9 @@ class _SupervisorMyTaskListDetailsState
                   Text(
                     "${widget.data.jumlahTaman}/${widget.data.jumlahJalan}",
                     style: TextStyle(
-                      fontSize: 13,
-                      color: black87,
-                      fontWeight: FontWeight.w700,
+                      fontSize: 15,
+                      color: blackCustom,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                 ],
@@ -217,24 +194,24 @@ class _SupervisorMyTaskListDetailsState
         widget.button == true
             ? Container(
                 alignment: Alignment.center,
-                padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
-                width: _device.screenWidth(context) * 0.75,
+                padding: const EdgeInsets.all(18),
+                width: _device.screenWidth(context),
                 child: ElevatedButton(
                   style: ButtonStyle(
                       elevation: MaterialStateProperty.all(0),
                       shape: MaterialStateProperty.all(
                         RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0)),
+                            borderRadius: BorderRadius.circular(12)),
                       ),
                       overlayColor: MaterialStateColor.resolveWith(
                           (states) => Colors.red.shade900),
                       minimumSize: MaterialStateProperty.all(
                           Size(_device.screenWidth(context), 42)),
-                      backgroundColor: MaterialStateProperty.all(red)),
+                      backgroundColor: MaterialStateProperty.all(redCustom)),
                   child: Text(taskIssueText,
                       style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w600,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
                           color: white)),
                   onPressed: () {
                     Navigator.push(

@@ -23,31 +23,31 @@ class _PraMyTaskListDetailsState extends State<PraMyTaskListDetails> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.all(15),
-          child: Row(
-            //Nama Laluan & Status
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
+        Row(
+          //Nama Laluan & Status
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(15),
+              child: Text(
                 widget.data.namaLaluan,
                 style: TextStyle(
                     fontSize: 19,
                     color: Colors.grey.shade800,
                     fontWeight: FontWeight.w900),
               ),
-              StatusContainer(
-                type: "Laluan",
-                status: widget.data.status,
-                statusId: widget.data.idStatus,
-                fontWeight: statusFontWeight,
-              ),
-            ],
-          ),
+            ),
+            StatusContainer(
+              type: "Laluan",
+              status: widget.data.status,
+              statusId: widget.data.idStatus,
+              fontWeight: statusFontWeight,
+            ),
+          ],
         ),
         //No Kenderaan
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -84,7 +84,7 @@ class _PraMyTaskListDetailsState extends State<PraMyTaskListDetails> {
         ),
         //Sub Laluan
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -122,7 +122,7 @@ class _PraMyTaskListDetailsState extends State<PraMyTaskListDetails> {
 
         //Jumlah Taman/Jalan
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+          padding: const EdgeInsets.fromLTRB(20, 6, 20, 20),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

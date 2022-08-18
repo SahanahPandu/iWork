@@ -62,7 +62,7 @@ class CustomIcon {
   static const IconData formOutline =
       IconData(0xe906, fontFamily: _iWorkFontFam, fontPackage: null);
   static const IconData psychology =
-      IconData(0xf00c4, fontFamily: _iWorkFontFam, fontPackage: null);
+      IconData(0xe91f, fontFamily: _iWorkFontFam, fontPackage: null);
   static const IconData dateRange =
-      IconData(0xf692, fontFamily: _iWorkFontFam, fontPackage: null);
+      IconData(0xe902, fontFamily: _iWorkFontFam, fontPackage: null);
 }
