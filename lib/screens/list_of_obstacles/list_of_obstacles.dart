@@ -107,7 +107,6 @@ class _ListOfObstaclesState extends State<ListOfObstacles> {
                             : enabledBorderWithoutText),
                   ),
             borderRadius: BorderRadius.circular(borderRadiusCircular),
-            //gapPadding: 6.0,
           ),
         ),
       ),

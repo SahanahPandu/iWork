@@ -114,7 +114,6 @@ class _ListOfParksState extends State<ListOfParks> {
                             : grey100),
                   ),
             borderRadius: BorderRadius.circular(borderRadiusCircular),
-            //gapPadding: 6.0,
           ),
         ),
       ),

@@ -42,19 +42,19 @@ class _EcutiVerificationState extends State<EcutiVerification> {
               return ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: dataFuture!.length,
+                itemCount: 3,
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) {
-                          return EcutiApprovalMain(data: dataFuture[index]);
+                          return EcutiApprovalMain(data: dataFuture![index]);
                         }),
                       );
                     },
                     child: VerifyEcutiListDetails(
-                      data: dataFuture[index],
+                      data: dataFuture![index],
                     ),
                   );
                 },
