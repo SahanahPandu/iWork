@@ -191,7 +191,7 @@ class _SupervisorMyTaskListDetailsState
             ),
           ],
         ),
-        widget.button == true
+        widget.button == true && widget.data.isu != ""
             ? Container(
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(18),

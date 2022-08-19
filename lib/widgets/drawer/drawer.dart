@@ -186,7 +186,7 @@ class _DrawerBuildState extends State<DrawerBuild> {
                                     ? _getList()[index].iconFill
                                     : _getList()[index].iconOutline,
                                 color: _isHighlighted[index]
-                                    ? activeListColor
+                                    ? activeColor
                                     : _getList()[index].titleColor,
                                 size: 16,
                               ),
@@ -200,7 +200,7 @@ class _DrawerBuildState extends State<DrawerBuild> {
                             style: TextStyle(
                                 fontSize: 15,
                                 color: _isHighlighted[index]
-                                    ? activeListColor
+                                    ? activeColor
                                     : _getList()[index].titleColor,
                                 fontWeight: _isHighlighted[index]
                                     ? FontWeight.w500

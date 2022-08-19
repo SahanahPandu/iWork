@@ -499,8 +499,8 @@ class _AkbkFormState extends State<AkbkForm> {
         contentPadding:
             const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
         suffixIcon: Icon(
-          Icons.arrow_drop_down_rounded,
-          size: 18,
+          Icons.keyboard_arrow_down_rounded,
+          size: 16,
           color: black87,
         ),
         labelText: label,
@@ -514,7 +514,7 @@ class _AkbkFormState extends State<AkbkForm> {
             width: 0.5,
             color: grey500,
           ),
-          borderRadius: BorderRadius.circular(borderRadiusCircular),
+          borderRadius: BorderRadius.circular(4),
           //gapPadding: 6.0,
         ),
       ),

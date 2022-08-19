@@ -42,7 +42,7 @@ class _VehicleChecklistApprovalViewState
               boxShadow: [
                 BoxShadow(
                     color: Colors.grey.withOpacity(.3),
-                    blurRadius: 6,
+                    blurRadius: 3,
                     spreadRadius: 0.5,
                     offset: const Offset(0, 2))
               ],
@@ -93,7 +93,7 @@ class _VehicleChecklistApprovalViewState
               boxShadow: [
                 BoxShadow(
                     color: Colors.grey.withOpacity(.3),
-                    blurRadius: 6,
+                    blurRadius: 3,
                     spreadRadius: 0.5,
                     offset: const Offset(0, 2))
               ],
@@ -153,7 +153,7 @@ class _VehicleChecklistApprovalViewState
               boxShadow: [
                 BoxShadow(
                     color: Colors.grey.withOpacity(.3),
-                    blurRadius: 6,
+                    blurRadius: 3,
                     spreadRadius: 0.5,
                     offset: const Offset(0, 2))
               ],
@@ -208,7 +208,7 @@ class _VehicleChecklistApprovalViewState
               boxShadow: [
                 BoxShadow(
                     color: Colors.grey.withOpacity(.3),
-                    blurRadius: 6,
+                    blurRadius: 3,
                     spreadRadius: 0.5,
                     offset: const Offset(0, 2))
               ],
@@ -263,7 +263,7 @@ class _VehicleChecklistApprovalViewState
               boxShadow: [
                 BoxShadow(
                     color: Colors.grey.withOpacity(.3),
-                    blurRadius: 6,
+                    blurRadius: 3,
                     spreadRadius: 0.5,
                     offset: const Offset(0, 2))
               ],
@@ -336,7 +336,7 @@ class _VehicleChecklistApprovalViewState
               boxShadow: [
                 BoxShadow(
                     color: Colors.grey.withOpacity(.3),
-                    blurRadius: 6,
+                    blurRadius: 3,
                     spreadRadius: 0.5,
                     offset: const Offset(0, 2))
               ],
@@ -415,7 +415,7 @@ class _VehicleChecklistApprovalViewState
               boxShadow: [
                 BoxShadow(
                     color: Colors.grey.withOpacity(.3),
-                    blurRadius: 6,
+                    blurRadius: 3,
                     spreadRadius: 0.5,
                     offset: const Offset(0, 2))
               ],
@@ -588,7 +588,7 @@ class _VehicleChecklistApprovalViewState
               boxShadow: [
                 BoxShadow(
                     color: Colors.grey.withOpacity(.3),
-                    blurRadius: 6,
+                    blurRadius: 3,
                     spreadRadius: 0.5,
                     offset: const Offset(0, 2))
               ],
@@ -635,7 +635,7 @@ class _VehicleChecklistApprovalViewState
               boxShadow: [
                 BoxShadow(
                     color: Colors.grey.withOpacity(.3),
-                    blurRadius: 6,
+                    blurRadius: 3,
                     spreadRadius: 0.5,
                     offset: const Offset(0, 2))
               ],
@@ -695,7 +695,7 @@ class _VehicleChecklistApprovalViewState
               boxShadow: [
                 BoxShadow(
                     color: Colors.grey.withOpacity(.3),
-                    blurRadius: 6,
+                    blurRadius: 3,
                     spreadRadius: 0.5,
                     offset: const Offset(0, 2))
               ],
@@ -745,7 +745,7 @@ class _VehicleChecklistApprovalViewState
               boxShadow: [
                 BoxShadow(
                     color: Colors.grey.withOpacity(.3),
-                    blurRadius: 6,
+                    blurRadius: 3,
                     spreadRadius: 0.5,
                     offset: const Offset(0, 2))
               ],
@@ -786,7 +786,7 @@ class _VehicleChecklistApprovalViewState
               boxShadow: [
                 BoxShadow(
                     color: Colors.grey.withOpacity(.3),
-                    blurRadius: 6,
+                    blurRadius: 3,
                     spreadRadius: 0.5,
                     offset: const Offset(0, 2))
               ],
@@ -837,7 +837,7 @@ class _VehicleChecklistApprovalViewState
               boxShadow: [
                 BoxShadow(
                     color: Colors.grey.withOpacity(.3),
-                    blurRadius: 6,
+                    blurRadius: 3,
                     spreadRadius: 0.5,
                     offset: const Offset(0, 2))
               ],

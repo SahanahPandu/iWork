@@ -41,7 +41,7 @@ Color greyCustom = const Color.fromRGBO(150, 150, 150, 1);
 Color redCustom = const Color.fromRGBO(224, 65, 65, 1);
 Color greenCustom = const Color.fromRGBO(52, 168, 83, 1);
 
-Color activeListColor = const Color.fromRGBO(50, 105, 248, 1);
+Color activeColor = const Color.fromRGBO(50, 105, 248, 1);
 Color activeBoxColor = const Color.fromRGBO(238, 248, 255, 1);
 Color tabBoxColor = const Color.fromRGBO(242, 246, 255, 1);
 Color tabShadowColor = const Color.fromRGBO(7, 64, 173, 0.08);
