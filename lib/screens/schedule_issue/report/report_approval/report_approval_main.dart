@@ -35,6 +35,8 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
   final TextEditingController _endTime = TextEditingController();
   final TextEditingController _svStatus = TextEditingController();
   final TextEditingController _svFeedback = TextEditingController();
+  final TextEditingController _baStatus = TextEditingController();
+  final TextEditingController _baFeedback = TextEditingController();
   final verticalPad10 = const EdgeInsets.symmetric(vertical: 10);
   List reportStatusList = ['Diterima', 'Ditolak'];
   bool buttonVisibility = true;
@@ -51,6 +53,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
     _loadReportStatus(widget.data.idStatus, widget.data.jenisHalangan);
     _setMainReportText();
     _setSvFeedbackText();
+    _setBaFeedbackText();
     super.initState();
   }
 
@@ -79,6 +82,21 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
       });
     } else {
       _svFeedback.text = "-";
+    }
+  }
+
+  void _setBaFeedbackText() {
+    if (widget.data.statusBA != "") {
+      setState(() {
+        _baStatus.text = widget.data.statusBA;
+      });
+    }
+    if (widget.data.maklumbalasBA != "") {
+      setState(() {
+        _baFeedback.text = widget.data.maklumbalasBA;
+      });
+    } else {
+      _baFeedback.text = "-";
     }
   }
 
@@ -295,6 +313,29 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
       case 8:
       case 9:
         return _buildRescheduleForm(context);
+      case 13:
+      case 14:
+      case 15:
+        return _buildReportAcceptanceColumn(
+            context, "Maklumbalas kepada Penyelia:");
+      case 16:
+      case 17:
+      case 18:
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 15),
+              child: Text("Tindakan dari BA:",
+                  style: TextStyle(
+                      color: blackCustom,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400)),
+            ),
+            _buildTextForm(_baStatus, "Status"),
+            _buildTextForm(_baFeedback, "Maklumbalas Penyelia", true),
+          ],
+        );
       default:
         Container();
     }
@@ -322,7 +363,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
               const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
           labelText: label,
           labelStyle: TextStyle(
-            fontSize: 12,
+            fontSize: 14,
             color: labelColor,
             fontWeight: FontWeight.w400,
           ),
@@ -716,6 +757,8 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
         switch (userRole) {
           // sv -> need to accept/reject laluan/cuaca case from pra.
           case 300:
+          case 400:
+          case 500:
             switch (rptType) {
               // display: report by pra, sv -> acceptance option & feedback
               case "Cuaca":
@@ -729,25 +772,6 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
               // display: report by pra, sv -> acceptance option, feedback & akbk tayar
               case "Kerosakan Tayar":
                 condition = 3;
-                break;
-            }
-            break;
-          // eo/ba -> need to accept/reject laluan/cuaca case from sv.
-          case 400:
-          case 500:
-            switch (rptType) {
-              // display: report by pra, feedback by sv, eo/ba -> acceptance option & feedback
-              case "Cuaca":
-              case "Laluan":
-                condition = 13;
-                break;
-              // display: report by pra, feedback & akbk by sv, eo/ba -> acceptance option & feedback
-              case "Kerosakan Kenderaan":
-                condition = 14;
-                break;
-              // display: report by pra, feedback & akbk tayar by sv, eo/ba -> acceptance option & feedback
-              case "Kerosakan Tayar":
-                condition = 15;
                 break;
             }
             break;
@@ -771,6 +795,25 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
               // display: report by pra, feedback & akbk tayar by sv
               case "Kerosakan Tayar":
                 condition = 6;
+                break;
+            }
+            break;
+          // eo/ba -> need to accept/reject case from sv.
+          case 400:
+          case 500:
+            switch (rptType) {
+              // display: report by pra, feedback by sv, eo/ba -> acceptance option & feedback
+              case "Cuaca":
+              case "Laluan":
+                condition = 13;
+                break;
+              // display: report by pra, feedback & akbk by sv, eo/ba -> acceptance option & feedback
+              case "Kerosakan Kenderaan":
+                condition = 14;
+                break;
+              // display: report by pra, feedback & akbk tayar by sv, eo/ba -> acceptance option & feedback
+              case "Kerosakan Tayar":
+                condition = 15;
                 break;
             }
             break;

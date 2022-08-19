@@ -25,6 +25,8 @@ class _ReportApprovalDetailState extends State<ReportApprovalDetail> {
   final TextEditingController _remarks = TextEditingController();
   final TextEditingController _svStatus = TextEditingController();
   final TextEditingController _svFeedback = TextEditingController();
+  final TextEditingController _baStatus = TextEditingController();
+  final TextEditingController _baFeedback = TextEditingController();
 
   /*final TextEditingController _odoRead = TextEditingController();
   final TextEditingController _measureUnit = TextEditingController();
@@ -56,10 +58,34 @@ class _ReportApprovalDetailState extends State<ReportApprovalDetail> {
         _setSvFeedbackText();
         _setVehicleAkbkText();
         break;
+      case 7:
+      case 8:
+      case 9:
+      case 10:
+      case 11:
+      case 12:
+        _setSvFeedbackText();
+        _setBaFeedbackText();
+        break;
     }
   }
 
   void _setVehicleAkbkText() {}
+
+  void _setBaFeedbackText() {
+    if (widget.data.statusBA != "") {
+      setState(() {
+        _baStatus.text = widget.data.statusBA;
+      });
+    }
+    if (widget.data.maklumbalasBA != "") {
+      setState(() {
+        _baFeedback.text = widget.data.maklumbalasBA;
+      });
+    } else {
+      _baFeedback.text = "-";
+    }
+  }
 
   void _setSvFeedbackText() {
     if (widget.data.statusPenyelia != "") {
@@ -205,12 +231,40 @@ class _ReportApprovalDetailState extends State<ReportApprovalDetail> {
 
   Widget _getOtherWidget(BuildContext context, int condition) {
     switch (condition) {
-      case 5:
+      case 7:
+      case 8:
+      case 9:
+      case 10:
+      case 11:
+      case 12:
+        return Column(
+          children: [_getSvFeedback(), _getBaFeedback()],
+        );
     }
     return Container();
   }
 
-/* Column _getSvFeedback() {
+  Column _getBaFeedback() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 15),
+        const Divider(height: 0.5),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 15),
+          child: Text(
+            "Maklumbalas kepada Penyelia:",
+            style: TextStyle(
+                color: blackCustom, fontSize: 15, fontWeight: FontWeight.w400),
+          ),
+        ),
+        _buildTextForm(_baStatus, "Status Laporan (BA)"),
+        _buildTextForm(_baFeedback, "Maklumbalas BA", true),
+      ],
+    );
+  }
+
+  Column _getSvFeedback() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -221,12 +275,12 @@ class _ReportApprovalDetailState extends State<ReportApprovalDetail> {
           child: Text(
             "Maklumbalas kepada Pra:",
             style: TextStyle(
-                fontSize: 14, color: grey500, fontWeight: FontWeight.w700),
+                color: blackCustom, fontSize: 15, fontWeight: FontWeight.w400),
           ),
         ),
         _buildTextForm(_svStatus, "Status Laporan"),
         _buildTextForm(_svFeedback, "Maklumbalas Penyelia", true),
       ],
     );
-  }*/
+  }
 }
