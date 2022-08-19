@@ -106,8 +106,8 @@ class _LoginScreenState extends State<LoginScreen> {
   SizedBox idBox(String label) {
     return SizedBox(
       child: TextFormField(
+        textInputAction: TextInputAction.next,
         cursorColor: green,
-        autofocus: false,
         onSaved: (value) {
           _userIdInput = value!;
         },
@@ -121,7 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
         decoration: InputDecoration(
           hintMaxLines: 1,
           filled: true,
-          fillColor: grey200,
+          fillColor: white,
           focusColor: green,
           border: const OutlineInputBorder(),
           errorStyle: const TextStyle(fontSize: 10, height: 0.3),
@@ -130,7 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
               borderSide: BorderSide(color: green)),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide.none,
+            borderSide: BorderSide(color: borderTextColor),
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: green),
@@ -146,8 +146,8 @@ class _LoginScreenState extends State<LoginScreen> {
   SizedBox passwordBox() {
     return SizedBox(
       child: TextFormField(
+        textInputAction: TextInputAction.done,
         cursorColor: green,
-        autofocus: false,
         obscureText: _isObscure,
         onSaved: (val) {
           _passwordInput = val!;
@@ -162,12 +162,12 @@ class _LoginScreenState extends State<LoginScreen> {
         decoration: InputDecoration(
             hintMaxLines: 1,
             filled: true,
-            fillColor: grey200,
+            fillColor: white,
             focusColor: green,
             border: const OutlineInputBorder(),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide.none,
+              borderSide: BorderSide(color: borderTextColor),
             ),
             errorStyle: const TextStyle(fontSize: 10, height: 0.3),
             focusedErrorBorder: OutlineInputBorder(
