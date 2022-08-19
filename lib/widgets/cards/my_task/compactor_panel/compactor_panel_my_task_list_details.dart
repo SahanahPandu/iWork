@@ -4,6 +4,7 @@ import '../../../../config/config.dart';
 import '../../../../config/palette.dart';
 import '../../../../config/string.dart';
 import '../../../../models/laluan.dart';
+import '../../../../utils/custom_icon.dart';
 import '../../../../utils/device.dart';
 import '../../../../widgets/slide_bar/start_end_work_slide_bar.dart';
 
@@ -47,9 +48,9 @@ class CompactorPanelMyTaskListDetailsState
                   child: Text(
                     widget.data.namaLaluan,
                     style: TextStyle(
-                        fontSize: 19,
-                        color: grey800,
-                        fontWeight: FontWeight.w900),
+                        fontSize: 18,
+                        color: blackCustom,
+                        fontWeight: FontWeight.w800),
                   ),
                 ),
                 Container(
@@ -59,7 +60,8 @@ class CompactorPanelMyTaskListDetailsState
                         ? orange100
                         : (statusTask == 2 ? lightBlue : lighterGreen),
                     borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(6), bottomLeft: Radius.circular(6)),
+                        topLeft: Radius.circular(6),
+                        bottomLeft: Radius.circular(6)),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(6),
@@ -79,63 +81,28 @@ class CompactorPanelMyTaskListDetailsState
                 ),
               ],
             ),
-
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.location_on,
-                        size: 18,
-                      ),
-                      const SizedBox(
-                        width: 8,
-                      ),
-                      Text(
-                        "Sub Laluan",
-                        style: TextStyle(
-                          fontSize: _device.isLandscape(context) ? 15.0 : 13.0,
-                          color: grey800,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Text(
-                    "${widget.data.jumSubLaluan}",
-                    style: TextStyle(
-                      fontSize: _device.isLandscape(context) ? 15.0 : 13.0,
-                      color: Colors.black45,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  )
-                ],
-              ),
-            ),
             //No Kenderaan
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
                     children: [
-                      const Icon(
-                        Icons.local_shipping,
+                      Icon(
+                        CustomIcon.truckFill,
                         size: 18,
+                        color: blue,
                       ),
                       const SizedBox(
-                        width: 8,
+                        width: 12,
                       ),
                       Text(
                         "No. Kenderaan",
                         style: TextStyle(
-                          fontSize: _device.isLandscape(context) ? 15.0 : 13.0,
-                          color: grey800,
-                          fontWeight: FontWeight.w700,
+                          fontSize: _device.isLandscape(context) ? 15 : 14,
+                          color: greyCustom,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                     ],
@@ -143,8 +110,45 @@ class CompactorPanelMyTaskListDetailsState
                   Text(
                     widget.data.noKenderaan,
                     style: TextStyle(
-                      fontSize: _device.isLandscape(context) ? 15.0 : 13.0,
-                      color: Colors.black45,
+                      fontSize: _device.isLandscape(context) ? 15 : 14,
+                      color: blackCustom,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  )
+                ],
+              ),
+            ),
+            //Jumlah sub laluan
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Icon(
+                        CustomIcon.roadFill,
+                        size: 18,
+                        color: blue,
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        "Jumlah Sub Laluan",
+                        style: TextStyle(
+                          fontSize: _device.isLandscape(context) ? 15 : 14,
+                          color: greyCustom,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Text(
+                    "${widget.data.jumSubLaluan}",
+                    style: TextStyle(
+                      fontSize: _device.isLandscape(context) ? 15 : 14,
+                      color: blackCustom,
                       fontWeight: FontWeight.w500,
                     ),
                   )
@@ -153,25 +157,26 @@ class CompactorPanelMyTaskListDetailsState
             ),
             //Jumlah Taman/Jalan
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
                     children: [
-                      const Icon(
-                        Icons.house,
+                      Icon(
+                        CustomIcon.tamanFill,
                         size: 18,
+                        color: blue,
                       ),
                       const SizedBox(
-                        width: 8,
+                        width: 10,
                       ),
                       Text(
                         "Jumlah Taman/Jalan",
                         style: TextStyle(
-                          fontSize: _device.isLandscape(context) ? 15.0 : 13.0,
-                          color: grey800,
-                          fontWeight: FontWeight.w700,
+                          fontSize: _device.isLandscape(context) ? 15 : 14,
+                          color: greyCustom,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                     ],
@@ -179,8 +184,8 @@ class CompactorPanelMyTaskListDetailsState
                   Text(
                     "${widget.data.jumlahTaman}/${widget.data.jumlahJalan}",
                     style: TextStyle(
-                      fontSize: _device.isLandscape(context) ? 15.0 : 13.0,
-                      color: Colors.black45,
+                      fontSize: _device.isLandscape(context) ? 15 : 14,
+                      color: blackCustom,
                       fontWeight: FontWeight.w500,
                     ),
                   )
@@ -189,25 +194,26 @@ class CompactorPanelMyTaskListDetailsState
             ),
             //Mula Kerja/ Tamat Kerja
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 6),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
                     children: [
-                      const Icon(
-                        Icons.timer,
+                      Icon(
+                        CustomIcon.timerFill,
                         size: 18,
+                        color: blue,
                       ),
                       const SizedBox(
-                        width: 8,
+                        width: 10,
                       ),
                       Text(
-                        "Mula Kerja/Tamat Kerja",
+                        "Mula/Tamat Kerja",
                         style: TextStyle(
-                          fontSize: _device.isLandscape(context) ? 15.0 : 13.0,
-                          color: grey800,
-                          fontWeight: FontWeight.w700,
+                          fontSize: _device.isLandscape(context) ? 15 : 14,
+                          color: greyCustom,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                     ],
@@ -217,8 +223,8 @@ class CompactorPanelMyTaskListDetailsState
                         ? '--:-- / --:--'
                         : '$_startedTime/$_endedTime',
                     style: TextStyle(
-                      fontSize: _device.isLandscape(context) ? 15.0 : 13.0,
-                      color: black45,
+                      fontSize: _device.isLandscape(context) ? 15 : 14,
+                      color: blackCustom,
                       fontWeight: FontWeight.w500,
                     ),
                   )

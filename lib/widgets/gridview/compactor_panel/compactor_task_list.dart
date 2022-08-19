@@ -107,7 +107,7 @@ class _CompactorTaskListState extends State<CompactorTaskList> {
   SizedBox buildTabletCard(redirect) {
     return SizedBox(
       child: Padding(
-        padding: const EdgeInsets.all(15.0),
+        padding: const EdgeInsets.all(12),
         child: Card(
           //Tugasan Card
           shape: RoundedRectangleBorder(
@@ -115,7 +115,7 @@ class _CompactorTaskListState extends State<CompactorTaskList> {
           ),
           shadowColor: grey500,
           elevation: 5,
-          child: Padding(padding: const EdgeInsets.all(6), child: redirect),
+          child: Padding(padding: const EdgeInsets.symmetric(vertical: 6), child: redirect),
         ),
       ),
     );

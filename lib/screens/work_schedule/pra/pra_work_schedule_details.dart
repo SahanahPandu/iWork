@@ -30,12 +30,15 @@ class _PraWorkScheduleDetailsState extends State<PraWorkScheduleDetails> {
           //Nama Laluan & Status
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              widget.data.namaLaluan,
-              style: TextStyle(
-                fontSize: 19,
-                color: Colors.grey.shade800,
-                fontWeight: FontWeight.w900,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Text(
+                widget.data.namaLaluan,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: blackCustom,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
             StatusContainer(
@@ -49,7 +52,7 @@ class _PraWorkScheduleDetailsState extends State<PraWorkScheduleDetails> {
 
         //No. Kenderaan
         Padding(
-          padding: const EdgeInsets.only(top: 20, bottom: 15),
+          padding: const EdgeInsets.fromLTRB(15, 20, 15, 15),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -57,7 +60,7 @@ class _PraWorkScheduleDetailsState extends State<PraWorkScheduleDetails> {
                 children: [
                   Icon(
                     CustomIcon.truckFill,
-                    size: 18,
+                    size: 16,
                     color: blue,
                   ),
                   const SizedBox(
@@ -67,18 +70,18 @@ class _PraWorkScheduleDetailsState extends State<PraWorkScheduleDetails> {
                     "No. Kenderaan",
                     style: TextStyle(
                       fontSize: 15,
-                      color: Colors.grey.shade800,
-                      fontWeight: FontWeight.w700,
+                      color: greyCustom,
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
                 ],
               ),
               Text(
                 widget.data.noKenderaan,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 15,
-                  color: Colors.black45,
-                  fontWeight: FontWeight.w500,
+                  color: blackCustom,
+                  fontWeight: FontWeight.w600,
                 ),
               )
             ],
@@ -86,7 +89,7 @@ class _PraWorkScheduleDetailsState extends State<PraWorkScheduleDetails> {
         ),
         //Sub Laluan
         Padding(
-          padding: const EdgeInsets.only(bottom: 15),
+          padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -94,7 +97,7 @@ class _PraWorkScheduleDetailsState extends State<PraWorkScheduleDetails> {
                 children: [
                   Icon(
                     CustomIcon.roadFill,
-                    size: 18,
+                    size: 16,
                     color: blue,
                   ),
                   const SizedBox(
@@ -104,18 +107,18 @@ class _PraWorkScheduleDetailsState extends State<PraWorkScheduleDetails> {
                     "Jumlah Sub Laluan",
                     style: TextStyle(
                       fontSize: 15,
-                      color: Colors.grey.shade800,
-                      fontWeight: FontWeight.w700,
+                      color: greyCustom,
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
                 ],
               ),
               Text(
                 "${widget.data.jumSubLaluan}",
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 15,
-                  color: Colors.black45,
-                  fontWeight: FontWeight.w500,
+                  color: blackCustom,
+                  fontWeight: FontWeight.w600,
                 ),
               )
             ],
@@ -124,7 +127,7 @@ class _PraWorkScheduleDetailsState extends State<PraWorkScheduleDetails> {
 
         //Jumlah Taman dan Jalan
         Padding(
-          padding: const EdgeInsets.only(bottom: 15),
+          padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -132,7 +135,7 @@ class _PraWorkScheduleDetailsState extends State<PraWorkScheduleDetails> {
                 children: [
                   Icon(
                     CustomIcon.tamanFill,
-                    size: 18,
+                    size: 16,
                     color: blue,
                   ),
                   const SizedBox(
@@ -142,18 +145,18 @@ class _PraWorkScheduleDetailsState extends State<PraWorkScheduleDetails> {
                     "Jumlah Taman/Jalan",
                     style: TextStyle(
                       fontSize: 15,
-                      color: Colors.grey.shade800,
-                      fontWeight: FontWeight.w700,
+                      color: greyCustom,
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
                 ],
               ),
               Text(
                 "${widget.data.jumlahTaman}/${widget.data.jumlahJalan}",
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 15,
-                  color: Colors.black45,
-                  fontWeight: FontWeight.w500,
+                  color: blackCustom,
+                  fontWeight: FontWeight.w600,
                 ),
               )
             ],
@@ -161,7 +164,7 @@ class _PraWorkScheduleDetailsState extends State<PraWorkScheduleDetails> {
         ),
         //Jenis Kutipan
         Padding(
-          padding: const EdgeInsets.only(bottom: 35),
+          padding: const EdgeInsets.fromLTRB(15, 0, 15, 35),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -169,7 +172,7 @@ class _PraWorkScheduleDetailsState extends State<PraWorkScheduleDetails> {
                 children: [
                   Icon(
                     Icons.grass,
-                    size: 18,
+                    size: 16,
                     color: blue,
                   ),
                   const SizedBox(
@@ -179,18 +182,18 @@ class _PraWorkScheduleDetailsState extends State<PraWorkScheduleDetails> {
                     "Jenis Kutipan",
                     style: TextStyle(
                       fontSize: 15,
-                      color: Colors.grey.shade800,
-                      fontWeight: FontWeight.w700,
+                      color: greyCustom,
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
                 ],
               ),
               Text(
                 widget.data.jenisKutipan,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 15,
-                  color: Colors.black45,
-                  fontWeight: FontWeight.w500,
+                  color: blackCustom,
+                  fontWeight: FontWeight.w600,
                 ),
               )
             ],

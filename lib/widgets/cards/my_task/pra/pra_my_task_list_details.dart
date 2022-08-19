@@ -11,6 +11,7 @@ import '../../../container/status_container.dart';
 
 class PraMyTaskListDetails extends StatefulWidget {
   Laluan data;
+
   PraMyTaskListDetails({Key? key, required this.data}) : super(key: key);
 
   @override
@@ -32,9 +33,10 @@ class _PraMyTaskListDetailsState extends State<PraMyTaskListDetails> {
               child: Text(
                 widget.data.namaLaluan,
                 style: TextStyle(
-                    fontSize: 19,
-                    color: Colors.grey.shade800,
-                    fontWeight: FontWeight.w900),
+                  fontSize: 16,
+                  color: blackCustom,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
             StatusContainer(
@@ -64,9 +66,9 @@ class _PraMyTaskListDetailsState extends State<PraMyTaskListDetails> {
                   Text(
                     "No. Kenderaan",
                     style: TextStyle(
-                      fontSize: 13,
-                      color: grey400,
-                      fontWeight: FontWeight.w600,
+                      fontSize: 15,
+                      color: greyCustom,
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
                 ],
@@ -75,8 +77,8 @@ class _PraMyTaskListDetailsState extends State<PraMyTaskListDetails> {
                 widget.data.noKenderaan,
                 style: TextStyle(
                   fontSize: 15,
-                  color: black87,
-                  fontWeight: FontWeight.w700,
+                  color: blackCustom,
+                  fontWeight: FontWeight.w600,
                 ),
               )
             ],
@@ -92,7 +94,7 @@ class _PraMyTaskListDetailsState extends State<PraMyTaskListDetails> {
                 children: [
                   Icon(
                     CustomIcon.roadFill,
-                    size: 18,
+                    size: 16,
                     color: blue,
                   ),
                   const SizedBox(
@@ -101,9 +103,9 @@ class _PraMyTaskListDetailsState extends State<PraMyTaskListDetails> {
                   Text(
                     "Jumlah Sub Laluan",
                     style: TextStyle(
-                      fontSize: 13,
-                      color: grey400,
-                      fontWeight: FontWeight.w600,
+                      fontSize: 15,
+                      color: greyCustom,
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
                 ],
@@ -111,9 +113,9 @@ class _PraMyTaskListDetailsState extends State<PraMyTaskListDetails> {
               Text(
                 "${widget.data.jumSubLaluan}",
                 style: TextStyle(
-                  fontSize: 13,
-                  color: black87,
-                  fontWeight: FontWeight.w700,
+                  fontSize: 15,
+                  color: blackCustom,
+                  fontWeight: FontWeight.w600,
                 ),
               )
             ],
@@ -130,18 +132,18 @@ class _PraMyTaskListDetailsState extends State<PraMyTaskListDetails> {
                 children: [
                   Icon(
                     CustomIcon.tamanFill,
-                    size: 18,
+                    size: 16,
                     color: blue,
                   ),
                   const SizedBox(
-                    width: 8,
+                    width: 10,
                   ),
                   Text(
                     "Jumlah Taman/Jalan",
                     style: TextStyle(
-                      fontSize: 13,
-                      color: grey400,
-                      fontWeight: FontWeight.w600,
+                      fontSize: 15,
+                      color: greyCustom,
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
                 ],
@@ -150,8 +152,8 @@ class _PraMyTaskListDetailsState extends State<PraMyTaskListDetails> {
                 "${widget.data.jumlahTaman}/${widget.data.jumlahJalan}",
                 style: TextStyle(
                   fontSize: 15,
-                  color: black87,
-                  fontWeight: FontWeight.w700,
+                  color: blackCustom,
+                  fontWeight: FontWeight.w600,
                 ),
               )
             ],
