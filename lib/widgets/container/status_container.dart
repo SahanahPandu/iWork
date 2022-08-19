@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 //import files
 import 'package:eswm/config/palette.dart';
@@ -141,18 +142,24 @@ class _StatusContainerState extends State<StatusContainer> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(6),
-      decoration: BoxDecoration(
-        color: statusBoxColor,
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Text(
-        widget.status,
-        style: TextStyle(
-          fontSize: userRole == 200 ? null : 12,
-          color: statusTextColor,
-          fontWeight: widget.fontWeight,
+    return Flexible(
+      child: FittedBox(
+        fit: BoxFit.contain,
+        child: Container(
+          padding: const EdgeInsets.all(6),
+          decoration: BoxDecoration(
+            color: statusBoxColor,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: AutoSizeText(
+            widget.status,
+            style: TextStyle(
+              fontSize: userRole == 200 ? null : 12,
+              color: statusTextColor,
+              fontWeight: widget.fontWeight,
+            ),
+            maxLines: 1,
+          ),
         ),
       ),
     );

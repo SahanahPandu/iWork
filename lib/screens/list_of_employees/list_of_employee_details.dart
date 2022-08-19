@@ -5,7 +5,6 @@ import "package:flutter/material.dart";
 
 import 'package:eswm/models/pekerja.dart';
 import '../../config/palette.dart';
-import '../../utils/custom_icon.dart';
 
 class ListOfEmployeeDetails extends StatefulWidget {
   Pekerja? data;
@@ -100,7 +99,7 @@ class _ListOfEmployeeDetailsState extends State<ListOfEmployeeDetails> {
             Row(
               children: [
                 Icon(
-                  CustomIcon.psychology,
+                  Icons.psychology,
                   size: 18,
                   color: blue,
                 ),

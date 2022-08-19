@@ -2,6 +2,7 @@
 
 import 'dart:async';
 
+import 'package:eswm/utils/custom_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:intl/intl.dart';
@@ -240,8 +241,8 @@ class _LeaveFormState extends State<LeaveForm> {
                                       Container(
                                         margin: const EdgeInsets.only(right: 6),
                                         child: Icon(
-                                          Icons.date_range,
-                                          size: 30,
+                                          CustomIcon.scheduleOutline,
+                                          size: 16,
                                           color: Colors.grey.shade800,
                                         ),
                                       ),
@@ -328,8 +329,8 @@ class _LeaveFormState extends State<LeaveForm> {
                                       Container(
                                         margin: const EdgeInsets.only(right: 6),
                                         child: const Icon(
-                                          Icons.date_range,
-                                          size: 30,
+                                          CustomIcon.scheduleOutline,
+                                          size: 16,
                                           color: Color(0xff2B2B2B),
                                         ),
                                       ),
