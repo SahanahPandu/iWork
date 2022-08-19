@@ -91,77 +91,84 @@ class _DrawerBuildState extends State<DrawerBuild> {
                 decoration: BoxDecoration(
                   color: transparent,
                 ),
-                child: Row(
-                  children: [
-                    Stack(
-                        clipBehavior: Clip.hardEdge,
-                        alignment: AlignmentDirectional.center,
-                        fit: StackFit.loose,
-                        children: <Widget>[
-                          Container(
-                            height: _device.isLandscape(context) ? 52 : 62,
-                            width: _device.isLandscape(context) ? 52 : 62,
-                            decoration: BoxDecoration(
-                                color: transparent,
-                                border: Border.all(color: Colors.grey.shade300),
-                                borderRadius: const BorderRadius.all(
-                                    Radius.circular(10))),
+                child: SafeArea(
+                  child: Row(
+                    children: [
+                      Stack(
+                          clipBehavior: Clip.hardEdge,
+                          alignment: AlignmentDirectional.center,
+                          fit: StackFit.loose,
+                          children: <Widget>[
+                            Container(
+                              height: _device.isLandscape(context) ? 52 : 62,
+                              width: _device.isLandscape(context) ? 52 : 62,
+                              decoration: BoxDecoration(
+                                  color: transparent,
+                                  border:
+                                      Border.all(color: Colors.grey.shade300),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(10))),
+                            ),
+                            Padding(
+                              padding: _device.isLandscape(context)
+                                  ? const EdgeInsets.all(2)
+                                  : const EdgeInsets.all(0),
+                              child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: FittedBox(
+                                    fit: BoxFit.fill,
+                                    child: Image.asset(
+                                      userImg,
+                                      height: _device.isLandscape(context)
+                                          ? 50
+                                          : 58,
+                                      width: _device.isLandscape(context)
+                                          ? 50
+                                          : 58,
+                                    ),
+                                  )),
+                            )
+                          ]),
+                      const SizedBox(
+                        width: 15,
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '''Muhammad Amiruddin Bin \nAriffin''',
+                            overflow: TextOverflow.visible,
+                            maxLines: 2,
+                            style: TextStyle(
+                                color: blackCustom,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600),
                           ),
-                          Padding(
-                            padding: _device.isLandscape(context)
-                                ? const EdgeInsets.all(2)
-                                : const EdgeInsets.all(0),
-                            child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: FittedBox(
-                                  fit: BoxFit.fill,
-                                  child: Image.asset(
-                                    userImg,
-                                    height:
-                                        _device.isLandscape(context) ? 50 : 58,
-                                    width:
-                                        _device.isLandscape(context) ? 50 : 58,
-                                  ),
-                                )),
-                          )
-                        ]),
-                    const SizedBox(
-                      width: 15,
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Muhammad Amiruddin...",
-                          style: TextStyle(
-                              color: black87,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w800),
-                        ),
-                        const SizedBox(height: 4),
-                        Row(
-                          children: [
-                            Text(
-                              "SWK2210020",
-                              style: TextStyle(
-                                  color: grey500,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                            const SizedBox(width: 10),
-                            Text(
-                              role,
-                              style: TextStyle(
-                                  color: grey500,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
+                          const SizedBox(height: 4),
+                          Row(
+                            children: [
+                              Text(
+                                "SWK2210020  •",
+                                style: TextStyle(
+                                    color: greyCustom,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                              const SizedBox(width: 6),
+                              Text(
+                                role,
+                                style: TextStyle(
+                                    color: greyCustom,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 )),
           ),
           SizedBox(

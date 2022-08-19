@@ -54,7 +54,7 @@ class _ScheduleIssuedCardState extends State<ScheduleIssuedCard> {
         return SupervisorMyTaskListDetails(data: widget.getInfo, button: false);
       case "belum":
         return Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.symmetric(vertical: 10),
           child: SupervisorScheduleDetails(data: widget.getInfo, button: true),
         );
     }
@@ -78,7 +78,7 @@ class _ScheduleIssuedCardState extends State<ScheduleIssuedCard> {
             shadowColor: Colors.white,
             elevation: 5,
             child: Padding(
-              padding: const EdgeInsets.all(6),
+              padding: const EdgeInsets.symmetric(vertical: 6),
               child: _loadLaluanDetails(),
             ),
           ),
