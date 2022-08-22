@@ -19,7 +19,7 @@ class _UploadFilesButtonState extends State<UploadFilesButton> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        ElevatedButton.icon(
+        ElevatedButton(
           onPressed: () async {
             String getFileName = await FilePickerClass.getFilePathName();
 
@@ -27,25 +27,6 @@ class _UploadFilesButtonState extends State<UploadFilesButton> {
               widget.textLampiran = getFileName;
             });
           },
-          icon: (widget.textLampiran != "")
-              ? const Icon(
-                  Icons.check_circle,
-                  color: Colors.green,
-                  size: 28,
-                )
-              : const Icon(
-                  Icons.cloud_upload,
-                  size: 28,
-                ),
-          label: Text(
-            (widget.textLampiran != "")
-                ? widget.textLampiran
-                : "Muat Naik Lampiran",
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
           style: ElevatedButton.styleFrom(
             primary: const Color(0xff3269F8),
             padding: const EdgeInsets.all(8),
@@ -53,6 +34,25 @@ class _UploadFilesButtonState extends State<UploadFilesButton> {
               borderRadius: BorderRadius.circular(8),
             ),
             elevation: 5.0,
+          ),
+          // icon: (widget.textLampiran != "")
+          //     ? const Icon(
+          //         Icons.check_circle,
+          //         color: Colors.green,
+          //         size: 28,
+          //       )
+          //     : const Icon(
+          //         Icons.cloud_upload,
+          //         size: 28,
+          //       ),
+          child: Text(
+            (widget.textLampiran != "")
+                ? widget.textLampiran
+                : "Muat Naik Lampiran",
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ),
         const SizedBox(

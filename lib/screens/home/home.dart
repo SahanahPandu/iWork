@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../config/config.dart';
 import '../../utils/custom_icon.dart';
 import '../../widgets/drawer/drawer.dart';
 import '../notifications/notifications.dart';
@@ -48,7 +49,14 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
         drawer: const DrawerBuild(),
-        body: const Screens(),
+        body: userRole == 200
+            ? const SingleChildScrollView(
+                physics: BouncingScrollPhysics(
+                  parent: AlwaysScrollableScrollPhysics(),
+                ),
+                child: Screens(),
+              )
+            : const Screens(),
       ),
     );
   }

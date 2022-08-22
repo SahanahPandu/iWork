@@ -92,8 +92,8 @@ class _LeaveFormState extends State<LeaveForm> {
 
   @override
   void initState() {
-    _catatanFocusNode = FocusNode();
     super.initState();
+    _catatanFocusNode = FocusNode();
     var keyboardVisibilityController = KeyboardVisibilityController();
 
     // Subscribe
@@ -117,9 +117,9 @@ class _LeaveFormState extends State<LeaveForm> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        FocusScopeNode focus = FocusScope.of(context);
-        if (!focus.hasPrimaryFocus && focus.focusedChild != null) {
-          focus.focusedChild?.unfocus();
+        FocusScopeNode currentFocus = FocusScope.of(context);
+        if (!currentFocus.hasPrimaryFocus) {
+          currentFocus.unfocus();
         }
       },
       child: Stack(
@@ -406,7 +406,8 @@ class _LeaveFormState extends State<LeaveForm> {
                       cursorColor: green,
                       focusNode: _catatanFocusNode,
                       onTap: () {
-                        FocusScope.of(context).requestFocus(_catatanFocusNode);
+                        // FocusScope.of(context).requestFocus(_catatanFocusNode);
+                        _catatanFocusNode?.requestFocus();
                       },
                       decoration: InputDecoration(
                         filled: true,
