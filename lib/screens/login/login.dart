@@ -22,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final Devices _device = Devices();
   late PageController _pageController;
-  List<String> _images = [sliderImg_1, sliderImg_2, sliderImg_3];
+  final List<String> _images = [sliderImg_1, sliderImg_2, sliderImg_3];
 
   bool _isObscure = true;
   String _userIdInput = "";
@@ -137,6 +137,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  // ignore: unused_element
   _imageAnimation(PageController animation, images, pagePosition) {
     return AnimatedBuilder(
       animation: animation,

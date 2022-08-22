@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
+// import 'package:page_transition/page_transition.dart';
 import '../../config/config.dart';
 import '../../utils/custom_icon.dart';
+// import '../notifications/notifications.dart';
 import '../../widgets/drawer/drawer.dart';
-import '../notifications/notifications.dart';
 import '../screens.dart';
 
 class HomeScreen extends StatelessWidget {

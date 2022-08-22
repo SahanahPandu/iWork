@@ -150,7 +150,7 @@ class _DrawerBuildState extends State<DrawerBuild> {
                           Row(
                             children: [
                               Text(
-                                "SWK2210020  •",
+                                "SWK2210020  ï¿½",
                                 style: TextStyle(
                                     color: greyCustom,
                                     fontSize: 12,

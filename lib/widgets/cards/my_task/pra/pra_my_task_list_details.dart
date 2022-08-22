@@ -40,15 +40,16 @@ class _PraMyTaskListDetailsState extends State<PraMyTaskListDetails> {
                     color: Color(0xff2B2B2B),
                     fontWeight: FontWeight.w500),
               ),
-              StatusContainer(
-                type: "Laluan",
-                status: widget.data.status,
-                statusId: widget.data.idStatus,
-                fontWeight: statusFontWeight,
-              ),
-            ],
-          ),
+            ),
+            StatusContainer(
+              type: "Laluan",
+              status: widget.data.status,
+              statusId: widget.data.idStatus,
+              fontWeight: statusFontWeight,
+            ),
+          ],
         ),
+
         //No Kenderaan
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
