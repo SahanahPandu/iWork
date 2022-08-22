@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../../../config/font.dart';
 import '../../../config/palette.dart';
@@ -122,13 +123,12 @@ class _VehicleChecklistApprovalDetailsState
                       color: white, fontSize: 14, fontWeight: FontWeight.w700)),
               onPressed: () {
                 Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) {
-                    return VehicleChecklistApprovalTab(
-                      data: widget.data,
-                    );
-                  }),
-                );
+                    context,
+                    PageTransition(
+                        type: PageTransitionType.fade,
+                        child: VehicleChecklistApprovalTab(
+                          data: widget.data,
+                        )));
               },
             ))
       ],

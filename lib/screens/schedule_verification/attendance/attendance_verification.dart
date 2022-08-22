@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../../../providers/laluan_api.dart';
 import '../../../widgets/cards/verification_task/attendance/verify_attendance_list_details.dart';
@@ -47,11 +48,10 @@ class _AttendanceVerificationState extends State<AttendanceVerification> {
                   return InkWell(
                     onTap: () {
                       Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) {
-                          return WorkSchedule(data: dataFuture[index]);
-                        }),
-                      );
+                          context,
+                          PageTransition(
+                              type: PageTransitionType.fade,
+                              child: WorkSchedule(data: dataFuture[index])));
                     },
                     child: VerifyAttendanceListDetails(
                       data: dataFuture[index],

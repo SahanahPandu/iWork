@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 //import files
 import '../../../../config/font.dart';
@@ -47,12 +48,13 @@ class _BAMyTaskListDetailsState extends State<BAMyTaskListDetails> {
       case "belum":
       case "laporan":
         return Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) {
-            return ScheduleIssueMainScreen(
-                laluanData: widget.data, fromHome: true, issueType: issue);
-          }),
-        );
+            context,
+            PageTransition(
+                type: PageTransitionType.fade,
+                child: ScheduleIssueMainScreen(
+                    laluanData: widget.data,
+                    fromHome: true,
+                    issueType: issue)));
     }
     return null;
   }
@@ -69,7 +71,8 @@ class _BAMyTaskListDetailsState extends State<BAMyTaskListDetails> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   child: Text(
                     widget.data.namaLaluan,
                     style: TextStyle(

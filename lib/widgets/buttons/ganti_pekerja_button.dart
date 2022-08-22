@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 //import files
 import 'package:eswm/config/palette.dart';
+import 'package:page_transition/page_transition.dart';
 import '../../screens/employee_list/employee_list.dart';
 
 class GantiPekerjaButton extends StatefulWidget {
@@ -35,10 +36,11 @@ class _GantiPekerjaButtonState extends State<GantiPekerjaButton> {
       onPressed: () {
         Navigator.push(
             context,
-            MaterialPageRoute(
-                builder: (context) => EmployeeList(
-                      assignedEmployee: widget.assignedEmployee,
-                    )));
+            PageTransition(
+                type: PageTransitionType.fade,
+                child: EmployeeList(
+                  assignedEmployee: widget.assignedEmployee,
+                )));
       },
       child: Text(
         widget.buttonText,

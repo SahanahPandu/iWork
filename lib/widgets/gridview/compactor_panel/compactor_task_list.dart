@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../../../config/dimen.dart';
 import '../../../config/palette.dart';
@@ -12,7 +13,9 @@ class CompactorTaskList extends StatefulWidget {
   final Function? topCardStatus;
   final bool isButton;
 
-  const CompactorTaskList({Key? key, this.topCardStatus, required this.isButton}) : super(key: key);
+  const CompactorTaskList(
+      {Key? key, this.topCardStatus, required this.isButton})
+      : super(key: key);
 
   @override
   State<CompactorTaskList> createState() => _CompactorTaskListState();
@@ -82,16 +85,16 @@ class _CompactorTaskListState extends State<CompactorTaskList> {
                   return GestureDetector(
                     onTap: () {
                       Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) {
-                          return CompactorPanelSchedule(
-                              data: laluanDataFuture[i - 1]);
-                        }),
-                      );
+                          context,
+                          PageTransition(
+                              type: PageTransitionType.fade,
+                              child: CompactorPanelSchedule(
+                                  data: laluanDataFuture[i - 1])));
                       //print("index clicked ${i - 1}");
                     },
                     child: buildTabletCard(CompactorPanelMyTaskListDetails(
-                        data: laluanDataFuture[i - 1], button: widget.isButton)),
+                        data: laluanDataFuture[i - 1],
+                        button: widget.isButton)),
                   );
                 },
               ),
@@ -115,7 +118,9 @@ class _CompactorTaskListState extends State<CompactorTaskList> {
           ),
           shadowColor: grey500,
           elevation: 5,
-          child: Padding(padding: const EdgeInsets.symmetric(vertical: 6), child: redirect),
+          child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 6),
+              child: redirect),
         ),
       ),
     );

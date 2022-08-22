@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 //import files
 import '../../../../config/font.dart';
@@ -215,14 +216,13 @@ class _SupervisorMyTaskListDetailsState
                           color: white)),
                   onPressed: () {
                     Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) {
-                        return ScheduleIssueMainScreen(
-                            laluanData: widget.data,
-                            fromHome: true,
-                            issueType: widget.data.isu);
-                      }),
-                    );
+                        context,
+                        PageTransition(
+                            type: PageTransitionType.fade,
+                            child: ScheduleIssueMainScreen(
+                                laluanData: widget.data,
+                                fromHome: true,
+                                issueType: widget.data.isu)));
                   },
                 ),
               )

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../../config/palette.dart';
 import '../../utils/custom_icon.dart';
@@ -22,11 +23,9 @@ class HomeScreen extends StatelessWidget {
           actions: [
             InkWell(
               onTap: () {
-                Navigator.push(
+                Navigator.pushNamed(
                     context,
-                    MaterialPageRoute(
-                      builder: (builder) => const Notifications(),
-                    ));
+                    '/notification');
               },
               child: Icon(
                 CustomIcon.notificationFill,

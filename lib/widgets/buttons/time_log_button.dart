@@ -1,8 +1,9 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:eswm/config/config.dart';
 import 'package:eswm/utils/custom_icon.dart';
-import 'package:flutter/material.dart';
 
 //import files
 import 'package:eswm/screens/time_log/time_log.dart';
@@ -27,12 +28,12 @@ class _TimeLogButtonState extends State<TimeLogButton> {
   changeButtonColor() {
     Navigator.push(
         context,
-        MaterialPageRoute(
-          builder: (context) => TimeLog(
-            btnText: buttonText,
-            btnColor: buttonTextColor,
-          ),
-        )).then((actionText) {
+        PageTransition(
+            type: PageTransitionType.fade,
+            child: TimeLog(
+              btnText: buttonText,
+              btnColor: buttonTextColor,
+            ))).then((actionText) {
       widget.getTimeLog(actionText);
       if (actionText == "Masuk Kerja") {
         setState(() {
@@ -61,7 +62,7 @@ class _TimeLogButtonState extends State<TimeLogButton> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(18),
           ),
-          elevation: userRole == 200? 5.0 : 1,
+          elevation: userRole == 200 ? 5.0 : 1,
         ),
         onPressed: () {
           if (buttonTextColor != Colors.grey) {
@@ -78,7 +79,7 @@ class _TimeLogButtonState extends State<TimeLogButton> {
           buttonText,
           style: TextStyle(
             color: buttonTextColor,
-            fontSize: userRole == 200? 17 : 14,
+            fontSize: userRole == 200 ? 17 : 14,
             fontWeight: FontWeight.w700,
           ),
         ),

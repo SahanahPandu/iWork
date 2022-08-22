@@ -46,6 +46,8 @@ dependencies:
   image_picker: ^0.8.5+3
   expandable: ^5.0.1
   url_launcher: ^6.1.5
+  page_transition: "^2.0.9"
+  smooth_page_indicator: ^1.0.0+2
   
 dev_dependencies:
   flutter_test:
@@ -67,6 +69,13 @@ flutter_icons:
   android: true
   ios: true
 
+# The following section is specific to Flutter splash packages. 
+  flutter_native_splash: ^1.2.0
+
+flutter_native_splash:
+  color: "#FFFFFF"
+  image: assets/image/splash/splash.png
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -81,6 +90,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/image/
+    - assets/image/splash/
     - assets/data/
     
   #   - images/a_dot_burr.jpeg

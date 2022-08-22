@@ -19,7 +19,16 @@ double alertBoxPadding(BuildContext context) =>
 
 double loginPadding(BuildContext context) => _device.isPhone()
     ? (_device.isPortrait(context) ? 15.0 : 200.0)
-    : (_device.isPortrait(context) ? 180.0 : 340.0);
+    : (_device.isPortrait(context) ? 140.0 : 340.0);
+
+double sliderSize(BuildContext context) =>
+    _device.isPhone() ? 200.0 : (_device.isPortrait(context) ? 250.0 : 200.0);
+
+double logoHeight(BuildContext context) =>
+    _device.isPhone() ? 90.0 : (_device.isPortrait(context) ? 140.0 : 100.0);
+
+double logoWidth(BuildContext context) =>
+    _device.isPhone() ? 100.0 : (_device.isPortrait(context) ? 140.0 : 100.0);
 
 double buttonWidth(BuildContext context) => _device.isPhone()
     ? (_device.isPortrait(context) ? 0.40 : 0.30)
@@ -57,8 +66,8 @@ double columnSpaceVc(BuildContext context) =>
 double columnSpacing(BuildContext context) =>
     _device.isLandscape(context) ? 6 : 15;
 
-double axisSpacing (BuildContext context) => 
-    _device.isLandscape(context)? 10.0 : 0;
+double axisSpacing(BuildContext context) =>
+    _device.isLandscape(context) ? 10.0 : 0;
 
 Map<int, FlexColumnWidth> columnVC2Width(BuildContext context) =>
     _device.isLandscape(context)

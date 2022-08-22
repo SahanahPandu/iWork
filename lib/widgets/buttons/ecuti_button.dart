@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:eswm/screens/e_cuti/e_cuti.dart';
 import 'package:eswm/utils/device.dart';
+import 'package:page_transition/page_transition.dart';
 import '../../config/config.dart';
 import '../../config/dimen.dart';
 
@@ -33,12 +34,12 @@ class _EcutiButtonState extends State<EcutiButton> {
         onPressed: () {
           Navigator.push(
               context,
-              MaterialPageRoute(
-                builder: (context) => ECuti(
-                  screen: "1",
-                  data: null,
-                ),
-              ));
+              PageTransition(
+                  type: PageTransitionType.fade,
+                  child: ECuti(
+                    screen: "1",
+                    data: null,
+                  )));
         },
         icon: const Icon(
           Icons.add_box,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../../../providers/cuti_api.dart';
 import '../../../widgets/cards/verification_task/ecuti/verify_ecuti_list_details.dart';
@@ -47,11 +48,11 @@ class _EcutiVerificationState extends State<EcutiVerification> {
                   return InkWell(
                     onTap: () {
                       Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) {
-                          return EcutiApprovalMain(data: dataFuture![index]);
-                        }),
-                      );
+                          context,
+                          PageTransition(
+                              type: PageTransitionType.fade,
+                              child:
+                                  EcutiApprovalMain(data: dataFuture![index])));
                     },
                     child: VerifyEcutiListDetails(
                       data: dataFuture![index],

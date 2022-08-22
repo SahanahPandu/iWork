@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../../../providers/pekerja_api.dart';
 import '../../../widgets/cards/verification_task/reschedule/verify_reschedule_list_details.dart';
@@ -46,11 +47,10 @@ class _RescheduleVerificationState extends State<RescheduleVerification> {
                   return InkWell(
                     onTap: () {
                       Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) {
-                          return Container();
-                        }),
-                      );
+                          context,
+                          PageTransition(
+                              type: PageTransitionType.fade,
+                              child: Container()));
                     },
                     child: VerifyRescheduleListDetails(
                       data: dataFuture![index],

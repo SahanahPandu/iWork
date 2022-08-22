@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../../config/config.dart';
 import '../../config/palette.dart';
@@ -268,21 +269,21 @@ class _DrawerBuildState extends State<DrawerBuild> {
           case 1:
             Navigator.pop(context);
             Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) {
-                return const ScheduleAllMainScreen();
-              }),
-            );
+                context,
+                PageTransition(
+                    type: PageTransitionType.fade,
+                    child: const ScheduleAllMainScreen()));
             break;
           case 2: //Laporan
             Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => ReportsPage(
-                          screen: "6",
-                          data: null,
-                          dataLaluan: null,
-                        )));
+                PageTransition(
+                    type: PageTransitionType.fade,
+                    child: ReportsPage(
+                      screen: "6",
+                      data: null,
+                      dataLaluan: null,
+                    )));
             break;
 
           case 5: //logout
@@ -297,32 +298,32 @@ class _DrawerBuildState extends State<DrawerBuild> {
           case 1: //E-Cuti
             Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => ECuti(
-                          screen: "5",
-                          data: null,
-                        )));
+                PageTransition(
+                    type: PageTransitionType.fade,
+                    child: ECuti(
+                      screen: "5",
+                      data: null,
+                    )));
             break;
           case 2: //Jadual Tugasan
             Navigator.pop(context);
             Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) {
-                return const ScheduleAllMainScreen();
-              }),
-            );
+                context,
+                PageTransition(
+                    type: PageTransitionType.fade,
+                    child: const ScheduleAllMainScreen()));
             break;
           case 3: //Laporan
             Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => ReportsPage(
-                          screen: "6",
-                          data: null,
-                          dataLaluan: null,
-                        )));
+                PageTransition(
+                    type: PageTransitionType.fade,
+                    child: ReportsPage(
+                      screen: "6",
+                      data: null,
+                      dataLaluan: null,
+                    )));
             break;
-
           case 6: //logout
             _userLogout(context);
             break;
@@ -330,7 +331,6 @@ class _DrawerBuildState extends State<DrawerBuild> {
             Navigator.pop(context);
         }
         break;
-
       case 300: //supervisor
       case 400: //eo
       case 500: //ba
@@ -338,68 +338,60 @@ class _DrawerBuildState extends State<DrawerBuild> {
           case 1: // ECuti
             Navigator.pop(context);
             Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) {
-                return const SupervisorLeaveList();
-              }),
-            );
+                context,
+                PageTransition(
+                    type: PageTransitionType.fade,
+                    child: const SupervisorLeaveList()));
             break;
           case 2: // Jadual tugasan
             Navigator.pop(context);
             Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) {
-                return const ScheduleAllMainScreen();
-              }),
-            );
+                context,
+                PageTransition(
+                    type: PageTransitionType.fade,
+                    child: const ScheduleAllMainScreen()));
             break;
           case 3: // Anjakan Jadual
             Navigator.pop(context);
             Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) {
-                return const ScheduleShiftMain();
-              }),
-            );
+                context,
+                PageTransition(
+                    type: PageTransitionType.fade,
+                    child: const ScheduleShiftMain()));
             break;
           case 4: // Report
             Navigator.pop(context);
             Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) {
-                return const ScheduleIssueMainScreen(
-                  fromHome: false,
-                  issueType: 'laporan',
-                );
-              }),
-            );
+                context,
+                PageTransition(
+                    type: PageTransitionType.fade,
+                    child: const ScheduleIssueMainScreen(
+                      fromHome: false,
+                      issueType: 'laporan',
+                    )));
             break;
           case 5: // AKBK form
             Navigator.pop(context);
             Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) {
-                return const AkbkMainTab();
-              }),
-            );
+                context,
+                PageTransition(
+                    type: PageTransitionType.fade, child: const AkbkMainTab()));
             break;
           case 6: // Vehicle Checklist Approval
             Navigator.pop(context);
             Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) {
-                return const VehicleChecklistApprovalMain();
-              }),
-            );
+                context,
+                PageTransition(
+                    type: PageTransitionType.fade,
+                    child: const VehicleChecklistApprovalMain()));
             break;
           case 7: // Workshop Vehicle
             Navigator.pop(context);
             Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) {
-                return const WorkshopVehicleMain();
-              }),
-            );
+                context,
+                PageTransition(
+                    type: PageTransitionType.fade,
+                    child: const WorkshopVehicleMain()));
             break;
           case 9: //logout
             _userLogout(context);
@@ -420,7 +412,7 @@ class _DrawerBuildState extends State<DrawerBuild> {
       if (actionText == yes) {
         Auth.handleLogout();
         Navigator.pushNamedAndRemoveUntil(
-            context, '/login', ModalRoute.withName('/login'));
+            context, '/splash', ModalRoute.withName('/splash'));
       }
     });
   }

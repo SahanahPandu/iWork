@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../../../config/dimen.dart';
 import '../../../config/palette.dart';
@@ -45,29 +46,29 @@ class _CompactorReportListState extends State<CompactorReportList> {
                   margin: const EdgeInsets.all(10),
                   child: GridView.builder(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: axisSpacing(context),
-                        mainAxisSpacing: axisSpacing(context),
-                        childAspectRatio: gridRatio(context)),
+                    crossAxisCount: 2,
+                    crossAxisSpacing: axisSpacing(context),
+                    mainAxisSpacing: axisSpacing(context),
+                    childAspectRatio: gridRatio(context)),
                     physics: const BouncingScrollPhysics(),
                     itemCount: reportDataFuture!.length,
                     itemBuilder: (context, i) {
-                        return GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) {
-                              return ReportsPage(
-                                screen: "4",
-                                data: reportDataFuture[i],
-                                dataLaluan: null,
-                              );
-                            }),
-                          );
-                          //print("index clicked ${i - 1}");
-                        },
-                        child: buildTabletCard(ReportListDetails(index: i, data: reportDataFuture[i])));
-                    },
+                      return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                PageTransition(
+                                    type: PageTransitionType.fade,
+                                    child: ReportsPage(
+                                      screen: "4",
+                                      data: reportDataFuture[i],
+                                      dataLaluan: null,
+                                    )));
+                            //print("index clicked ${i - 1}");
+                          },
+                          child: buildTabletCard(ReportListDetails(
+                              index: i, data: reportDataFuture[i])));
+                      },
                   ),
                 ));
         }

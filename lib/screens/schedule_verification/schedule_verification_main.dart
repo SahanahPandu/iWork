@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../../config/config.dart';
 import '../../config/palette.dart';
@@ -131,7 +132,10 @@ class _ScheduleVerificationMainState extends State<ScheduleVerificationMain> {
 
   Future<void> _navigatePage(BuildContext context, detailRedirect) async {
     String refresh = await Navigator.push(
-        context, MaterialPageRoute(builder: (context) => detailRedirect));
+        context,
+        PageTransition(
+            type: PageTransitionType.fade,
+            child: detailRedirect));
     if (!mounted) return;
     switch (refresh) {
       case "refreshAttendance":
