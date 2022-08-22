@@ -74,41 +74,9 @@ class _ListCardState extends State<ListCard> {
       child: GestureDetector(
         onTap: () {
           Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) {
-              if (widget.type == "Cuti") {
-                if (userRole == 100 || userRole == 200) {
-                  //comp || pra
-                  return ECuti(screen: "2", data: widget.data);
-                } else if (userRole == 300) {
-                  //sv
-                  return EcutiApprovalMain(data: widget.data);
-                } else {
-                  //others add later
-                  return EcutiApprovalMain(data: widget.data);
-                }
-              } else if (widget.type == "Laluan") {
-                return WorkSchedule(data: widget.data);
-              } else if (widget.type == "Laporan") {
-                if (userRole == 100 || userRole == 200) {
-                  // comp || pra
-                  return ReportsPage(
-                    screen: "4",
-                    data: widget.data,
-                    dataLaluan: null,
-                  );
-                } else if (userRole == 300) {
-                  // sv
-                  return ReportApprovalMain(data: widget.data);
-                } else {
-                  //others add later
-                  return ReportApprovalMain(data: widget.data);
-                }
-              } else {
-                return Container();
-              }
-            }),
-          );
+              context,
+              PageTransition(
+                  child: _redirect(), type: PageTransitionType.fade));
         },
         child: Container(
           decoration: BoxDecoration(
@@ -139,5 +107,35 @@ class _ListCardState extends State<ListCard> {
         ),
       ),
     );
+  }
+
+  _redirect() {
+    if (widget.type == "Cuti") {
+      if (userRole == 100 || userRole == 200) {
+        //comp || pra
+        return ECuti(screen: "2", data: widget.data);
+      } else if (userRole == 300) {
+        //sv
+        return EcutiApprovalMain(data: widget.data);
+      } else {
+        //others add later
+        return EcutiApprovalMain(data: widget.data);
+      }
+    } else if (widget.type == "Laluan") {
+      return WorkSchedule(data: widget.data);
+    } else if (widget.type == "Laporan") {
+      if (userRole == 100 || userRole == 200) {
+        // comp || pra
+        return ReportsPage(screen: "4", data: widget.data, dataLaluan: null);
+      } else if (userRole == 300) {
+        // sv
+        return ReportApprovalMain(data: widget.data);
+      } else {
+        //others add later
+        return ReportApprovalMain(data: widget.data);
+      }
+    } else {
+      return Container();
+    }
   }
 }

@@ -34,12 +34,15 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
           //Nama Laluan & Status
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              widget.data.namaLaluan,
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey.shade800,
-                fontWeight: FontWeight.w900,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Text(
+                widget.data.namaLaluan,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: blackCustom,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
             StatusContainer(
@@ -53,7 +56,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
 
         //No. Kenderaan
         Padding(
-          padding: const EdgeInsets.only(top: 20, bottom: 15),
+          padding: const EdgeInsets.fromLTRB(15, 20, 15, 15),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -61,7 +64,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                 children: [
                   Icon(
                     CustomIcon.truckFill,
-                    size: 18,
+                    size: 16,
                     color: blue,
                   ),
                   const SizedBox(
@@ -70,27 +73,27 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                   Text(
                     "No. Kenderaan",
                     style: TextStyle(
-                      fontSize: 13,
-                      color: Colors.grey.shade800,
-                      fontWeight: FontWeight.w700,
+                      fontSize: 15,
+                      color: greyCustom,
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
                 ],
               ),
               Text(
                 widget.data.noKenderaan,
-                style: const TextStyle(
-                  fontSize: 13,
-                  color: Colors.black45,
-                  fontWeight: FontWeight.w500,
+                style: TextStyle(
+                  fontSize: 15,
+                  color: blackCustom,
+                  fontWeight: FontWeight.w600,
                 ),
               )
             ],
           ),
         ),
-        //Sub Laluan
+        //Jumlah Sub Laluan
         Padding(
-          padding: const EdgeInsets.only(bottom: 15),
+          padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -98,7 +101,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                 children: [
                   Icon(
                     CustomIcon.roadFill,
-                    size: 18,
+                    size: 16,
                     color: blue,
                   ),
                   const SizedBox(
@@ -107,19 +110,19 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                   Text(
                     "Jumlah Sub Laluan",
                     style: TextStyle(
-                      fontSize: 13,
-                      color: Colors.grey.shade800,
-                      fontWeight: FontWeight.w700,
+                      fontSize: 15,
+                      color: greyCustom,
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
                 ],
               ),
               Text(
                 "${widget.data.jumSubLaluan}",
-                style: const TextStyle(
-                  fontSize: 13,
-                  color: Colors.black45,
-                  fontWeight: FontWeight.w500,
+                style: TextStyle(
+                  fontSize: 15,
+                  color: blackCustom,
+                  fontWeight: FontWeight.w600,
                 ),
               )
             ],
@@ -127,7 +130,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
         ),
         //Jumlah Taman dan Jalan
         Padding(
-          padding: const EdgeInsets.only(bottom: 15),
+          padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -135,7 +138,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                 children: [
                   Icon(
                     CustomIcon.tamanFill,
-                    size: 18,
+                    size: 16,
                     color: blue,
                   ),
                   const SizedBox(
@@ -144,19 +147,19 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                   Text(
                     "Jumlah Taman/Jalan",
                     style: TextStyle(
-                      fontSize: 13,
-                      color: Colors.grey.shade800,
-                      fontWeight: FontWeight.w700,
+                      fontSize: 15,
+                      color: greyCustom,
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
                 ],
               ),
               Text(
                 "${widget.data.jumlahTaman}/${widget.data.jumlahJalan}",
-                style: const TextStyle(
-                  fontSize: 13,
-                  color: Colors.black45,
-                  fontWeight: FontWeight.w500,
+                style: TextStyle(
+                  fontSize: 15,
+                  color: blackCustom,
+                  fontWeight: FontWeight.w600,
                 ),
               )
             ],
@@ -164,7 +167,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
         ),
         //Jenis Kutipan
         Padding(
-          padding: const EdgeInsets.only(bottom: 15),
+          padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -172,28 +175,28 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                 children: [
                   Icon(
                     Icons.grass,
-                    size: 18,
+                    size: 16,
                     color: blue,
                   ),
                   const SizedBox(
-                    width: 10,
+                    width: 8,
                   ),
                   Text(
                     "Jenis Kutipan",
                     style: TextStyle(
-                      fontSize: 13,
-                      color: Colors.grey.shade800,
-                      fontWeight: FontWeight.w700,
+                      fontSize: 15,
+                      color: greyCustom,
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
                 ],
               ),
               Text(
                 widget.data.jenisKutipan,
-                style: const TextStyle(
-                  fontSize: 13,
-                  color: Colors.black45,
-                  fontWeight: FontWeight.w500,
+                style: TextStyle(
+                  fontSize: 15,
+                  color: blackCustom,
+                  fontWeight: FontWeight.w600,
                 ),
               )
             ],
@@ -202,32 +205,32 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
 
         //Masuk Kerja/Keluar Kerja
         Padding(
-          padding: const EdgeInsets.only(bottom: 15),
+          padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
                 children: [
-                  Icon(CustomIcon.scheduleFill, size: 18, color: blue),
+                  Icon(CustomIcon.scheduleFill, size: 16, color: blue),
                   const SizedBox(
                     width: 10,
                   ),
                   Text(
-                    "Masuk kerja/Keluar Kerja",
+                    "Masuk/Keluar Kerja",
                     style: TextStyle(
-                      fontSize: 13,
-                      color: Colors.grey.shade800,
-                      fontWeight: FontWeight.w700,
+                      fontSize: 15,
+                      color: greyCustom,
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
                 ],
               ),
               Text(
                 "${widget.data.mulaKerja} / ${widget.data.tamatKerja}",
-                style: const TextStyle(
-                  fontSize: 13,
-                  color: Colors.black45,
-                  fontWeight: FontWeight.w500,
+                style: TextStyle(
+                  fontSize: 15,
+                  color: blackCustom,
+                  fontWeight: FontWeight.w600,
                 ),
               )
             ],
@@ -236,7 +239,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
 
         //Senarai Staf
         Padding(
-          padding: const EdgeInsets.only(bottom: 5),
+          padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -245,7 +248,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                 children: [
                   Icon(
                     CustomIcon.user,
-                    size: 18,
+                    size: 16,
                     color: blue,
                   ),
                   const SizedBox(
@@ -254,9 +257,9 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                   Text(
                     "Senarai Pekerja",
                     style: TextStyle(
-                      fontSize: 13,
-                      color: Colors.grey.shade800,
-                      fontWeight: FontWeight.w700,
+                      fontSize: 15,
+                      color: greyCustom,
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
                 ],
@@ -268,10 +271,10 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                     padding: const EdgeInsets.symmetric(vertical: 3),
                     child: Text(
                       widget.data.senaraiStaf.staf_1,
-                      style: const TextStyle(
-                        fontSize: 13,
-                        color: Colors.black45,
-                        fontWeight: FontWeight.w500,
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: blackCustom,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
@@ -279,10 +282,10 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                     padding: const EdgeInsets.symmetric(vertical: 3),
                     child: Text(
                       widget.data.senaraiStaf.staf_2,
-                      style: const TextStyle(
-                        fontSize: 13,
-                        color: Colors.black45,
-                        fontWeight: FontWeight.w500,
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: blackCustom,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
@@ -290,10 +293,10 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                     padding: const EdgeInsets.symmetric(vertical: 3),
                     child: Text(
                       widget.data.senaraiStaf.staf_3,
-                      style: const TextStyle(
-                        fontSize: 13,
-                        color: Colors.black45,
-                        fontWeight: FontWeight.w500,
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: blackCustom,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
@@ -304,7 +307,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
         ),
         //Semakan Kenderaan
         Padding(
-          padding: const EdgeInsets.only(bottom: 15),
+          padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -312,7 +315,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                 children: [
                   Icon(
                     CustomIcon.truckFill,
-                    size: 18,
+                    size: 16,
                     color: blue,
                   ),
                   const SizedBox(
@@ -321,19 +324,19 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                   Text(
                     "Semakan Kenderaan",
                     style: TextStyle(
-                      fontSize: 13,
-                      color: Colors.grey.shade800,
-                      fontWeight: FontWeight.w700,
+                      fontSize: 15,
+                      color: greyCustom,
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
                 ],
               ),
-              const Text(
+              Text(
                 "Sebelum/Selepas",
                 style: TextStyle(
-                  fontSize: 13,
-                  color: Colors.black45,
-                  fontWeight: FontWeight.w500,
+                  fontSize: 15,
+                  color: blackCustom,
+                  fontWeight: FontWeight.w600,
                 ),
               )
             ],

@@ -39,6 +39,10 @@ Widget? showAcceptanceOptions(
                   ),
                 ),
               ),
+              const Padding(
+                padding: EdgeInsets.only(left: 26, right: 26, top: 8),
+                child:  Divider(height: 0.5),
+              ),
               Expanded(
                 child: Container(
                   margin: const EdgeInsets.symmetric(
@@ -72,8 +76,7 @@ Widget? showAcceptanceOptions(
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
-                            ),
-                            const Divider(height: 0.5)
+                            )
                           ],
                         ),
                       );

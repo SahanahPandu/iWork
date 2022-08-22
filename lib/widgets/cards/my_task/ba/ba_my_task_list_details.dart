@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 //import files
 import '../../../../config/font.dart';
@@ -21,39 +22,13 @@ class BAMyTaskListDetails extends StatefulWidget {
 
 class _BAMyTaskListDetailsState extends State<BAMyTaskListDetails> {
   final Devices _device = Devices();
-  // late Color statusTextColor;
-  // late Color statusBoxColor;
   String taskIssueText = "";
 
   @override
   void initState() {
     super.initState();
-    // _filterData();
     _filterTaskIssueText(widget.data.isu);
   }
-
-  // _filterData() {
-  //   //default status belum dimulakan
-  //   Color textColor = Colors.grey;
-  //   Color boxColor = Colors.grey.shade100;
-
-  //   if (widget.data.idStatus == 2) {
-  //     //Sedang Bertugas
-
-  //     textColor = Colors.blue.shade800;
-  //     boxColor = Colors.blue.shade100;
-  //   } else if (widget.data.idStatus == 3) {
-  //     //Tugasan Selesai
-
-  //     textColor = Colors.green;
-  //     boxColor = const Color(0xffc9ffd7);
-  //   }
-
-  //   setState(() {
-  //     statusTextColor = textColor;
-  //     statusBoxColor = boxColor;
-  //   });
-  // }
 
   _filterTaskIssueText(String issue) {
     switch (issue) {
@@ -73,12 +48,13 @@ class _BAMyTaskListDetailsState extends State<BAMyTaskListDetails> {
       case "belum":
       case "laporan":
         return Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) {
-            return ScheduleIssueMainScreen(
-                laluanData: widget.data, fromHome: true, issueType: issue);
-          }),
-        );
+            context,
+            PageTransition(
+                type: PageTransitionType.fade,
+                child: ScheduleIssueMainScreen(
+                    laluanData: widget.data,
+                    fromHome: true,
+                    issueType: issue)));
     }
     return null;
   }
@@ -90,27 +66,28 @@ class _BAMyTaskListDetailsState extends State<BAMyTaskListDetails> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              child: Row(
-                //Nama Laluan & Status
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
+            Row(
+              //Nama Laluan & Status
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  child: Text(
                     widget.data.namaLaluan,
                     style: TextStyle(
                         fontSize: 16,
                         color: Colors.grey.shade800,
                         fontWeight: FontWeight.w900),
                   ),
-                  StatusContainer(
-                    type: "Laluan",
-                    status: widget.data.status,
-                    statusId: widget.data.idStatus,
-                    fontWeight: statusFontWeight,
-                  ),
-                ],
-              ),
+                ),
+                StatusContainer(
+                  type: "Laluan",
+                  status: widget.data.status,
+                  statusId: widget.data.idStatus,
+                  fontWeight: statusFontWeight,
+                ),
+              ],
             ),
             //No Kenderaan
             Padding(

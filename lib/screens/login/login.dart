@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../config/dimen.dart';
 import '../../config/string.dart';
@@ -20,10 +21,19 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final Devices _device = Devices();
+  late PageController _pageController;
+  List<String> _images = [sliderImg_1, sliderImg_2, sliderImg_3];
 
   bool _isObscure = true;
   String _userIdInput = "";
   String _passwordInput = "";
+  int _activePage = 1;
+
+  @override
+  void initState() {
+    _pageController = PageController();
+    super.initState();
+  }
 
   //------------------------------------------------------
   // Validate user id & password.
@@ -49,65 +59,138 @@ class _LoginScreenState extends State<LoginScreen> {
   //------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: white,
-      resizeToAvoidBottomInset: true,
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: devicePadding(context),
-          child: Column(
-            children: <Widget>[
-              spaceBuild(context, 0.1),
-              imageBuild(context, 0, 0.2, 0.2, logoImg),
-              imageBuild(context, 0, 0.9, 0.25, operationImg),
-              spaceBuild(context, 0.03),
-              formBuild(context),
-              forgotPasswordButton(),
-              spaceBuild(context, 0.02),
-              loginButton(context),
-              spaceBuild(context, 0.1),
-            ],
-          ),
-        ),
+    return Padding(
+      padding: _devicePadding(context),
+      child: Column(
+        children: <Widget>[
+          _buildSliderColumn(context),
+          _buildSpace(context, 0.03),
+          _buildForm(context),
+          _forgotPasswordButton(),
+          _buildSpace(context, 0.01),
+          _loginButton(context),
+        ],
       ),
     );
   }
 
-  EdgeInsets devicePadding(BuildContext context) {
+  Column _buildSliderColumn(BuildContext context) {
+    return Column(
+      children: [
+        SizedBox(
+          width: _device.screenWidth(context),
+          height: sliderSize(context),
+          child: ScrollConfiguration(
+            behavior:
+                const MaterialScrollBehavior().copyWith(overscroll: false),
+            child: PageView.builder(
+                itemCount: _images.length,
+                pageSnapping: true,
+                controller: _pageController,
+                onPageChanged: (page) {
+                  setState(() {
+                    _activePage = page;
+                  });
+                },
+                itemBuilder: (context, pagePosition) {
+                  bool active = pagePosition == _activePage;
+                  return _slider(_images, pagePosition, active);
+                }),
+          ),
+        ),
+        Center(
+          child: Text(
+            "Lakukan tugasan dengan mudah \n melalui aplikasi",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                fontSize: 15,
+                height: 1.5,
+                fontWeight: FontWeight.w500,
+                color: blackCustom),
+          ),
+        ),
+        Center(
+          child: Padding(
+            padding: const EdgeInsets.only(top: 10, bottom: 10),
+            child: Text(
+              "Mula guna iWork",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 13, fontWeight: FontWeight.w400, color: greyCustom),
+            ),
+          ),
+        ),
+        _indicators(_images.length, _activePage),
+      ],
+    );
+  }
+
+  AnimatedContainer _slider(images, pagePosition, active) {
+    double margin = active ? 10 : 20;
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.easeInOutCubic,
+      margin: EdgeInsets.all(margin),
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage(images[pagePosition]), fit: BoxFit.fitHeight)),
+    );
+  }
+
+  _imageAnimation(PageController animation, images, pagePosition) {
+    return AnimatedBuilder(
+      animation: animation,
+      builder: (context, widget) {
+        return SizedBox(
+          width: 200,
+          height: 200,
+          child: widget,
+        );
+      },
+      child: Column(
+        children: [
+          Container(
+            margin: const EdgeInsets.all(10),
+            child: Image.asset(images[pagePosition]),
+          ),
+        ],
+      ),
+    );
+  }
+
+  SmoothPageIndicator _indicators(imagesLength, currentIndex) {
+    return SmoothPageIndicator(
+        controller: _pageController,
+        count: imagesLength,
+        effect: WormEffect(
+            dotHeight: 8,
+            dotWidth: 8,
+            dotColor: grey200,
+            activeDotColor: green),
+        onDotClicked: (currentIndex) {});
+  }
+
+  EdgeInsets _devicePadding(BuildContext context) {
     return EdgeInsets.symmetric(horizontal: loginPadding(context));
   }
 
-  Center imageBuild(BuildContext context, double top, double widthSz,
-      double heightSz, String image) {
-    return Center(
-        child: Container(
-            padding: EdgeInsets.only(
-                left: 0,
-                right: 0,
-                top: (_device.screenHeight(context) * top),
-                bottom: 0),
-            width: _device.screenWidth(context) * widthSz,
-            height: _device.screenHeight(context) * heightSz,
-            child: Image.asset(image)));
-  }
-
-  Form formBuild(BuildContext context) {
+  Form _buildForm(BuildContext context) {
     return Form(
         key: _formKey,
         child: Column(
           children: <Widget>[
-            idBox(_device.isTablet() ? compactorID : staffID),
-            spaceBuild(context, 0.02),
-            passwordBox(),
+            _idBox(_device.isTablet() ? compactorID : staffID),
+            _buildSpace(context, 0.03),
+            _passwordBox(),
           ],
         ));
   }
 
-  SizedBox idBox(String label) {
+  SizedBox _idBox(String label) {
     return SizedBox(
       child: TextFormField(
+        textInputAction: TextInputAction.next,
         cursorColor: green,
-        autofocus: false,
         onSaved: (value) {
           _userIdInput = value!;
         },
@@ -119,35 +202,39 @@ class _LoginScreenState extends State<LoginScreen> {
         },
         autovalidateMode: AutovalidateMode.onUserInteraction,
         decoration: InputDecoration(
-          hintMaxLines: 1,
-          filled: true,
-          fillColor: grey200,
-          focusColor: green,
-          border: const OutlineInputBorder(),
-          errorStyle: const TextStyle(fontSize: 10, height: 0.3),
-          focusedErrorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(color: green)),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide.none,
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: green),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          labelStyle: TextStyle(color: black87, fontSize: 14),
-          labelText: label,
-        ),
+            hintMaxLines: 1,
+            filled: true,
+            fillColor: white,
+            focusColor: green,
+            isDense: true,
+            border: const OutlineInputBorder(),
+            errorStyle: const TextStyle(fontSize: 10, height: 0.3),
+            errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide(color: red)),
+            focusedErrorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide(color: green)),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide(color: borderTextColor),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: green),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            labelStyle: TextStyle(
+                color: labelColor, fontSize: 15, fontWeight: FontWeight.w400),
+            labelText: label),
       ),
     );
   }
 
-  SizedBox passwordBox() {
+  SizedBox _passwordBox() {
     return SizedBox(
       child: TextFormField(
+        textInputAction: TextInputAction.done,
         cursorColor: green,
-        autofocus: false,
         obscureText: _isObscure,
         onSaved: (val) {
           _passwordInput = val!;
@@ -162,28 +249,33 @@ class _LoginScreenState extends State<LoginScreen> {
         decoration: InputDecoration(
             hintMaxLines: 1,
             filled: true,
-            fillColor: grey200,
+            fillColor: white,
+            isDense: true,
             focusColor: green,
             border: const OutlineInputBorder(),
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(8),
+              borderSide: BorderSide(color: borderTextColor),
             ),
             errorStyle: const TextStyle(fontSize: 10, height: 0.3),
+            errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: BorderSide(color: red)),
             focusedErrorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(8),
                 borderSide: BorderSide(color: green)),
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: green),
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(8),
             ),
-            labelStyle: TextStyle(color: black87, fontSize: 14),
+            labelStyle: TextStyle(
+                color: labelColor, fontSize: 15, fontWeight: FontWeight.w400),
             labelText: password,
             suffixIcon: IconButton(
               icon: Icon(
                 _isObscure ? CustomIcon.visibilityOn : CustomIcon.visibilityOff,
-                color: grey900,
-                size: 18,
+                color: blackCustom,
+                size: 16,
               ),
               onPressed: () {
                 setState(() {
@@ -195,23 +287,21 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Padding forgotPasswordButton() {
-    return Padding(
-      padding: const EdgeInsets.only(right: 10),
-      child: Align(
-        alignment: Alignment.centerRight,
-        child: TextButton(
-          onPressed: () {},
-          style: TextButton.styleFrom(
-            textStyle: const TextStyle(fontSize: 12),
-          ),
-          child: Text(forgotPassword),
+  Align _forgotPasswordButton() {
+    return Align(
+      alignment: Alignment.centerRight,
+      child: TextButton(
+        onPressed: () {},
+        style: TextButton.styleFrom(
+          primary: blackCustom,
+          textStyle: const TextStyle(fontSize: 13),
         ),
+        child: Text(forgotPassword),
       ),
     );
   }
 
-  ElevatedButton loginButton(BuildContext context) {
+  ElevatedButton _loginButton(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
         _handleSubmittedCredential(context);
@@ -219,23 +309,25 @@ class _LoginScreenState extends State<LoginScreen> {
         //  print("user password = $passwordInput");
       },
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(green),
+        backgroundColor: MaterialStateProperty.all(buttonColor),
         elevation: MaterialStateProperty.all(0),
         overlayColor: MaterialStateColor.resolveWith((states) => green800),
         shadowColor: MaterialStateProperty.all(grey900),
         minimumSize:
-            MaterialStateProperty.all(Size(_device.screenWidth(context), 50)),
+            MaterialStateProperty.all(Size(_device.screenWidth(context), 46)),
         shape: MaterialStateProperty.all(
           RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(6),
           ),
         ),
       ),
-      child: Text(login, style: TextStyle(fontSize: 16, color: white)),
+      child: Text(login,
+          style: TextStyle(
+              fontSize: 15, color: white, fontWeight: FontWeight.w600)),
     );
   }
 
-  SizedBox spaceBuild(BuildContext context, double size) {
+  SizedBox _buildSpace(BuildContext context, double size) {
     return SizedBox(
       height: _device.screenHeight(context) * size,
     );

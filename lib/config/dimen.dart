@@ -19,7 +19,16 @@ double alertBoxPadding(BuildContext context) =>
 
 double loginPadding(BuildContext context) => _device.isPhone()
     ? (_device.isPortrait(context) ? 15.0 : 200.0)
-    : (_device.isPortrait(context) ? 180.0 : 340.0);
+    : (_device.isPortrait(context) ? 140.0 : 340.0);
+
+double sliderSize(BuildContext context) =>
+    _device.isPhone() ? 200.0 : (_device.isPortrait(context) ? 250.0 : 200.0);
+
+double logoHeight(BuildContext context) =>
+    _device.isPhone() ? 90.0 : (_device.isPortrait(context) ? 140.0 : 100.0);
+
+double logoWidth(BuildContext context) =>
+    _device.isPhone() ? 100.0 : (_device.isPortrait(context) ? 140.0 : 100.0);
 
 double buttonWidth(BuildContext context) => _device.isPhone()
     ? (_device.isPortrait(context) ? 0.40 : 0.30)

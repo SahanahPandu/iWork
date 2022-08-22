@@ -1,9 +1,8 @@
-import 'package:eswm/providers/vehicle_checklist_api.dart';
 import 'package:flutter/material.dart';
 
 import '../../../config/palette.dart';
+import '../../../providers/vehicle_checklist_api.dart';
 import '../../../utils/custom_icon.dart';
-import '../../../widgets/tabs/vehicle_checklist_tab/vehicle_checklist_approval_tab/vehicle_checklist_approval_tab.dart';
 import 'vehicle_checklist_approval_details.dart';
 
 class VehicleChecklistApprovalMain extends StatefulWidget {
@@ -99,14 +98,6 @@ class _VehicleChecklistApprovalMainState
                             if (dataFuture.isNotEmpty) {
                               return GestureDetector(
                                 onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) {
-                                      return VehicleChecklistApprovalTab(
-                                        data: dataFuture[index],
-                                      );
-                                    }),
-                                  );
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
@@ -120,7 +111,7 @@ class _VehicleChecklistApprovalMainState
                                       boxShadow: [
                                         BoxShadow(
                                             color: Colors.grey.withOpacity(.3),
-                                            blurRadius: 8,
+                                            blurRadius: 3,
                                             spreadRadius: 0.5,
                                             offset: const Offset(0, 2))
                                       ],

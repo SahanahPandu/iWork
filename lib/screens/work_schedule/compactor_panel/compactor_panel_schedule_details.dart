@@ -29,31 +29,31 @@ class _CompactorPanelScheduleDetailsState
       Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(15),
-            child: Row(
-              //Nama Laluan & Status
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
+          Row(
+            //Nama Laluan & Status
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 18),
+                child: Text(
                   widget.data.namaLaluan,
                   style: TextStyle(
-                      fontSize: 19,
-                      color: grey800,
-                      fontWeight: FontWeight.w900),
+                      fontSize: 20,
+                      color: blackCustom,
+                      fontWeight: FontWeight.w800),
                 ),
-                StatusContainer(
-                  type: "Laluan",
-                  status: widget.data.status,
-                  statusId: widget.data.idStatus,
-                  fontWeight: statusFontWeight,
-                ),
-              ],
-            ),
+              ),
+              StatusContainer(
+                type: "Laluan",
+                status: widget.data.status,
+                statusId: widget.data.idStatus,
+                fontWeight: statusFontWeight,
+              ),
+            ],
           ),
           //No Kenderaan
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+            padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -65,14 +65,14 @@ class _CompactorPanelScheduleDetailsState
                       color: blue,
                     ),
                     const SizedBox(
-                      width: 10,
+                      width: 12,
                     ),
                     Text(
                       "No. Kenderaan",
                       style: TextStyle(
-                        fontSize: _device.isLandscape(context) ? 15.0 : 13.0,
-                        color: grey800,
-                        fontWeight: FontWeight.w700,
+                        fontSize: _device.isLandscape(context) ? 15 : 14,
+                        color: greyCustom,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ],
@@ -80,8 +80,8 @@ class _CompactorPanelScheduleDetailsState
                 Text(
                   widget.data.noKenderaan,
                   style: TextStyle(
-                    fontSize: _device.isLandscape(context) ? 15.0 : 13.0,
-                    color: Colors.black45,
+                    fontSize: _device.isLandscape(context) ? 15 : 14,
+                    color: blackCustom,
                     fontWeight: FontWeight.w500,
                   ),
                 )
@@ -90,7 +90,7 @@ class _CompactorPanelScheduleDetailsState
           ),
           //Sub Laluan
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+            padding: const EdgeInsets.fromLTRB(20, 5, 20, 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -105,11 +105,11 @@ class _CompactorPanelScheduleDetailsState
                       width: 10,
                     ),
                     Text(
-                      "Sub Laluan",
+                      "Jumlah Sub Laluan",
                       style: TextStyle(
-                        fontSize: _device.isLandscape(context) ? 15.0 : 13.0,
-                        color: grey800,
-                        fontWeight: FontWeight.w700,
+                        fontSize: _device.isLandscape(context) ? 15 : 14,
+                        color: greyCustom,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ],
@@ -117,18 +117,17 @@ class _CompactorPanelScheduleDetailsState
                 Text(
                   "${widget.data.jumSubLaluan}",
                   style: TextStyle(
-                    fontSize: _device.isLandscape(context) ? 15.0 : 13.0,
-                    color: Colors.black45,
+                    fontSize: _device.isLandscape(context) ? 15 : 14,
+                    color: blackCustom,
                     fontWeight: FontWeight.w500,
                   ),
                 )
               ],
             ),
           ),
-
           //Jumlah Taman/Jalan
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+            padding: const EdgeInsets.fromLTRB(20, 5, 20, 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -145,9 +144,9 @@ class _CompactorPanelScheduleDetailsState
                     Text(
                       "Jumlah Taman/Jalan",
                       style: TextStyle(
-                        fontSize: _device.isLandscape(context) ? 15.0 : 13.0,
-                        color: grey800,
-                        fontWeight: FontWeight.w700,
+                        fontSize: _device.isLandscape(context) ? 15 : 14,
+                        color: greyCustom,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ],
@@ -155,8 +154,8 @@ class _CompactorPanelScheduleDetailsState
                 Text(
                   "${widget.data.jumlahTaman}/${widget.data.jumlahJalan}",
                   style: TextStyle(
-                    fontSize: _device.isLandscape(context) ? 15.0 : 13.0,
-                    color: Colors.black45,
+                    fontSize: _device.isLandscape(context) ? 15 : 14,
+                    color: blackCustom,
                     fontWeight: FontWeight.w500,
                   ),
                 )
@@ -165,7 +164,7 @@ class _CompactorPanelScheduleDetailsState
           ),
           //Mula Kerja/ Tamat Kerja
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 6),
+            padding: const EdgeInsets.fromLTRB(20, 5, 20, 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -182,9 +181,9 @@ class _CompactorPanelScheduleDetailsState
                     Text(
                       "Mula Kerja/Tamat Kerja",
                       style: TextStyle(
-                        fontSize: _device.isLandscape(context) ? 15.0 : 13.0,
-                        color: grey800,
-                        fontWeight: FontWeight.w700,
+                        fontSize: _device.isLandscape(context) ? 15 : 14,
+                        color: greyCustom,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ],
@@ -192,8 +191,8 @@ class _CompactorPanelScheduleDetailsState
                 Text(
                   '--:-- / --:--',
                   style: TextStyle(
-                    fontSize: _device.isLandscape(context) ? 15.0 : 13.0,
-                    color: black45,
+                    fontSize: _device.isLandscape(context) ? 15 : 14,
+                    color: blackCustom,
                     fontWeight: FontWeight.w500,
                   ),
                 )
@@ -203,7 +202,7 @@ class _CompactorPanelScheduleDetailsState
         ],
       ),
       Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10.0),
+        padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
         child: Center(
           child: ReportButton(
             dataLaluan: widget.data,

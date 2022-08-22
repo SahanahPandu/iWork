@@ -1,7 +1,8 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:eswm/models/laluan.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:eswm/models/laluan.dart';
 
 //import files
 import '../../screens/reports/reports.dart';
@@ -33,13 +34,13 @@ class _ReportButtonState extends State<ReportButton> {
       onPressed: () {
         Navigator.push(
             context,
-            MaterialPageRoute(
-              builder: (context) => ReportsPage(
-                screen: "3",
-                data: null,
-                dataLaluan: widget.dataLaluan!,
-              ),
-            ));
+            PageTransition(
+                type: PageTransitionType.fade,
+                child: ReportsPage(
+                  screen: "3",
+                  data: null,
+                  dataLaluan: widget.dataLaluan!,
+                )));
       },
       icon: const Icon(
         Icons.error_outline,

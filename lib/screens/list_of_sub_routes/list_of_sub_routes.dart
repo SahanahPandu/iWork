@@ -114,7 +114,6 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
                             : grey100),
                   ),
             borderRadius: BorderRadius.circular(borderRadiusCircular),
-            //gapPadding: 6.0,
           ),
         ),
       ),

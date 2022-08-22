@@ -25,7 +25,7 @@ class RootState extends State<Root> {
     // print("_info = $info, _role = $role, userRole config: $userRole");
     if (getInfo == "" && getRole == 0) {
       Navigator.pushNamedAndRemoveUntil(
-          context, '/login', ModalRoute.withName('/login'));
+          context, '/splash', ModalRoute.withName('/splash'));
     } else {
       Navigator.pushNamedAndRemoveUntil(
           context, '/home', ModalRoute.withName('/home'));

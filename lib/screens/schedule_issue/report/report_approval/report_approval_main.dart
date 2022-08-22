@@ -25,12 +25,18 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
   final ExpandableController _reportController =
       ExpandableController(initialExpanded: false);
   final Devices _device = Devices();
+  final TextEditingController _laluan = TextEditingController();
+  final TextEditingController _vehicleNo = TextEditingController();
   final TextEditingController _rStatus = TextEditingController();
   final TextEditingController _unitUkur = TextEditingController();
   final TextEditingController _odometer = TextEditingController();
   final TextEditingController _kerosakan = TextEditingController();
   final TextEditingController _startTime = TextEditingController();
   final TextEditingController _endTime = TextEditingController();
+  final TextEditingController _svStatus = TextEditingController();
+  final TextEditingController _svFeedback = TextEditingController();
+  final TextEditingController _baStatus = TextEditingController();
+  final TextEditingController _baFeedback = TextEditingController();
   final verticalPad10 = const EdgeInsets.symmetric(vertical: 10);
   List reportStatusList = ['Diterima', 'Ditolak'];
   bool buttonVisibility = true;
@@ -44,13 +50,60 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
   @override
   void initState() {
     iconColor = grey500;
-    _loadReportStatus(widget.data.status, widget.data.jenisHalangan);
+    _loadReportStatus(widget.data.idStatus, widget.data.jenisHalangan);
+    _setMainReportText();
+    _setSvFeedbackText();
+    _setBaFeedbackText();
     super.initState();
+  }
+
+  void _setMainReportText() {
+    if (widget.data.namaLaluan != "") {
+      setState(() {
+        _laluan.text = widget.data.namaLaluan;
+      });
+    }
+    if (widget.data.noKenderaan != "") {
+      setState(() {
+        _vehicleNo.text = widget.data.noKenderaan;
+      });
+    }
+  }
+
+  void _setSvFeedbackText() {
+    if (widget.data.statusPenyelia != "") {
+      setState(() {
+        _svStatus.text = widget.data.statusPenyelia;
+      });
+    }
+    if (widget.data.maklumbalasPenyelia != "") {
+      setState(() {
+        _svFeedback.text = widget.data.maklumbalasPenyelia;
+      });
+    } else {
+      _svFeedback.text = "-";
+    }
+  }
+
+  void _setBaFeedbackText() {
+    if (widget.data.statusBA != "") {
+      setState(() {
+        _baStatus.text = widget.data.statusBA;
+      });
+    }
+    if (widget.data.maklumbalasBA != "") {
+      setState(() {
+        _baFeedback.text = widget.data.maklumbalasBA;
+      });
+    } else {
+      _baFeedback.text = "-";
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: white,
         appBar: AppBar(
           backgroundColor: appBarBgColor,
           elevation: 1,
@@ -68,19 +121,14 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
               style: TextStyle(
                 fontSize: 15,
                 color: grey800,
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeight.w400,
               ),
             ),
           ),
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.history,
-                color: grey800,
-                size: 18,
-              ),
-            ),
+          actions: const [
+            SizedBox(
+              width: 50,
+            )
           ],
         ),
         body: SingleChildScrollView(
@@ -88,10 +136,30 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
           child: ExpandableNotifier(
             controller: _reportController,
             child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 15),
+                    child: Text("Butiran maklumat laporan:",
+                        style: TextStyle(
+                            color: blackCustom,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400)),
+                  ),
+                  _buildTextForm(_laluan, "Laluan"),
+                  _buildTextForm(_vehicleNo, "No Kenderaan"),
+                  ScrollOnExpand(
+                    scrollOnCollapse: false,
+                    scrollOnExpand: true,
+                    child: Expandable(
+                      collapsed: Container(),
+                      expanded: ReportApprovalDetail(
+                          data: widget.data, reportStatus: condition),
+                    ),
+                  ),
+                  const SizedBox(height: 15),
                   ExpandableButton(
                     child: InkWell(
                       onTap: () {
@@ -102,78 +170,36 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
                               })
                             : setState(() {
                                 iconColor = grey500;
-                              }); // to update _controller toggle*/
+                              });
                       },
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Text(
-                            widget.data.namaLaluan,
+                            _reportController.expanded
+                                ? "Lihat lebih sikit"
+                                : "Lihat lebih banyak",
                             style: TextStyle(
-                              fontSize: 15,
+                              fontSize: 12,
                               color:
-                                  _reportController.expanded ? green : black87,
-                              fontWeight: FontWeight.w800,
+                                  _reportController.expanded ? green : darkBlue,
+                              fontWeight: FontWeight.w400,
                             ),
                           ),
-                          Container(
-                            decoration: BoxDecoration(
-                              color: iconColor,
-                              shape: BoxShape.circle,
-                            ),
-                            child: Icon(
-                              _reportController.expanded
-                                  ? Icons.arrow_drop_up
-                                  : Icons.arrow_drop_down,
-                              size: 18,
-                              color: white,
-                            ),
+                          const SizedBox(width: 10),
+                          Icon(
+                            _reportController.expanded
+                                ? Icons.keyboard_arrow_up_rounded
+                                : Icons.keyboard_arrow_down_rounded,
+                            size: 14,
+                            color:
+                                _reportController.expanded ? green : darkBlue,
                           ),
                         ],
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.local_shipping,
-                        size: 15,
-                      ),
-                      const SizedBox(
-                        width: 8,
-                      ),
-                      Text(
-                        "No. Kenderaan",
-                        style: TextStyle(
-                          fontSize: 13,
-                          color: grey800,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      Text(
-                        widget.data.noKenderaan,
-                        style: TextStyle(
-                          fontSize: 13,
-                          color: grey500,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
-                  ),
-                  ScrollOnExpand(
-                    scrollOnCollapse: false,
-                    scrollOnExpand: false,
-                    child: Expandable(
-                      collapsed: Container(),
-                      expanded: ReportApprovalDetail(
-                          data: widget.data, reportStatus: condition),
-                    ),
-                  ),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 25),
                   const Divider(height: 0.5),
                   _buildReportSections(context, condition),
                 ],
@@ -265,14 +291,92 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
             )
           ],
         );
+      case 4:
+      case 5:
+      case 6:
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 15),
+              child: Text("Tindakan dari Penyelia:",
+                  style: TextStyle(
+                      color: blackCustom,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400)),
+            ),
+            _buildTextForm(_svStatus, "Status"),
+            _buildTextForm(_svFeedback, "Maklumbalas Penyelia", true),
+          ],
+        );
       case 7:
       case 8:
       case 9:
         return _buildRescheduleForm(context);
+      case 13:
+      case 14:
+      case 15:
+        return _buildReportAcceptanceColumn(
+            context, "Maklumbalas kepada Penyelia:");
+      case 16:
+      case 17:
+      case 18:
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 15),
+              child: Text("Tindakan dari BA:",
+                  style: TextStyle(
+                      color: blackCustom,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400)),
+            ),
+            _buildTextForm(_baStatus, "Status"),
+            _buildTextForm(_baFeedback, "Maklumbalas Penyelia", true),
+          ],
+        );
       default:
         Container();
     }
     return Container();
+  }
+
+  Padding _buildTextForm(TextEditingController textController, String label,
+      [bool? flex = false]) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12),
+      child: TextFormField(
+        textAlign: TextAlign.start,
+        keyboardType: TextInputType.multiline,
+        minLines: 1,
+        maxLines: flex! ? 10 : 1,
+        controller: textController,
+        readOnly: true,
+        enabled: false,
+        style: TextStyle(
+            color: blackCustom, fontSize: 15, fontWeight: FontWeight.w400),
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: fillColor,
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+          labelText: label,
+          labelStyle: TextStyle(
+            fontSize: 14,
+            color: labelColor,
+            fontWeight: FontWeight.w400,
+          ),
+          disabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              width: 0.5,
+              color: borderTextColor,
+            ),
+            borderRadius: BorderRadius.circular(4),
+          ),
+        ),
+      ),
+    );
   }
 
   Column _buildRescheduleForm(BuildContext context) {
@@ -281,9 +385,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
         padding: const EdgeInsets.symmetric(vertical: 15),
         child: Text("Lengkapkan maklumat penjadualan semula di bawah:",
             style: TextStyle(
-                color: _reportController.expanded ? green : grey500,
-                fontSize: 14,
-                fontWeight: FontWeight.w700)),
+                color: blackCustom, fontSize: 15, fontWeight: FontWeight.w400)),
       ),
       Padding(
         padding: verticalPad10,
@@ -503,9 +605,9 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
           padding: const EdgeInsets.symmetric(vertical: 15),
           child: Text("Lengkapkan borang AKBK di bawah untuk pengesahan BA:",
               style: TextStyle(
-                  color: _reportController.expanded ? green : grey500,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700)),
+                  color: blackCustom,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w400)),
         ),
         Padding(
             padding: verticalPad10,
@@ -548,7 +650,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
       keyboardType: type,
       minLines: minLines,
       maxLines: maxLines,
-      style: TextStyle(color: grey700, fontSize: 14),
+      style: TextStyle(color: blackCustom, fontSize: 14),
       decoration: InputDecoration(
         filled: true,
         fillColor: white,
@@ -558,23 +660,23 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
         labelText: label,
         labelStyle: TextStyle(
           fontSize: 14,
-          color: grey,
+          color: labelColor,
           fontWeight: FontWeight.w300,
         ),
         border: const OutlineInputBorder(),
         focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(4),
             borderSide: BorderSide(color: green)),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: green),
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(4),
         ),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
             width: 0.5,
-            color: grey500,
+            color: borderTextColor,
           ),
-          borderRadius: BorderRadius.circular(borderRadiusCircular),
+          borderRadius: BorderRadius.circular(4),
           //gapPadding: 6.0,
         ),
       ),
@@ -586,12 +688,12 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 15),
+          padding: const EdgeInsets.symmetric(vertical: 20),
           child: Text(feedBackTo,
               style: TextStyle(
-                  color: _reportController.expanded ? green : grey500,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700)),
+                  color: blackCustom,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w400)),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),
@@ -619,7 +721,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
       controller: controller,
       readOnly: true,
       enabled: false,
-      style: TextStyle(color: grey700, fontSize: 14),
+      style: TextStyle(color: blackCustom, fontSize: 15),
       decoration: InputDecoration(
         filled: true,
         fillColor: white,
@@ -633,27 +735,30 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
         labelText: label,
         labelStyle: TextStyle(
           fontSize: 14,
-          color: grey,
-          fontWeight: FontWeight.w300,
+          color: labelColor,
+          fontWeight: FontWeight.w400,
         ),
         disabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
             width: 0.5,
-            color: grey500,
+            color: borderTextColor,
           ),
-          borderRadius: BorderRadius.circular(borderRadiusCircular),
+          borderRadius: BorderRadius.circular(4),
           //gapPadding: 6.0,
         ),
       ),
     );
   }
 
-  void _loadReportStatus(String rptStatus, String rptType) {
+  void _loadReportStatus(int rptStatus, String rptType) {
     switch (rptStatus) {
-      case "Baharu":
+      //Baharu
+      case 1:
         switch (userRole) {
           // sv -> need to accept/reject laluan/cuaca case from pra.
           case 300:
+          case 400:
+          case 500:
             switch (rptType) {
               // display: report by pra, sv -> acceptance option & feedback
               case "Cuaca":
@@ -670,7 +775,30 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
                 break;
             }
             break;
-          // eo/ba -> need to accept/reject laluan/cuaca case from sv.
+        }
+        break;
+      //Diterima sv
+      case 2:
+        switch (userRole) {
+          // sv -> wait eo/ba to accept/reject case
+          case 300:
+            switch (rptType) {
+              // display: report by pra, feedback by sv
+              case "Cuaca":
+              case "Laluan":
+                condition = 4;
+                break;
+              // display: report by pra, feedback & akbk by sv
+              case "Kerosakan Kenderaan":
+                condition = 5;
+                break;
+              // display: report by pra, feedback & akbk tayar by sv
+              case "Kerosakan Tayar":
+                condition = 6;
+                break;
+            }
+            break;
+          // eo/ba -> need to accept/reject case from sv.
           case 400:
           case 500:
             switch (rptType) {
@@ -691,31 +819,8 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
             break;
         }
         break;
-
-      case "Dalam Proses":
-        switch (userRole) {
-          // sv -> wait eo/ba to accept/reject case
-          case 300:
-            switch (rptType) {
-              // display: report by pra, feedback by sv
-              case "Cuaca":
-              case "Laluan":
-                condition = 4;
-                break;
-              // display: report by pra, feedback & akbk by sv
-              case "Kerosakan Kenderaan":
-                condition = 5;
-                break;
-              // display: report by pra, feedback & akbk tayar by sv
-              case "Kerosakan Tayar":
-                condition = 6;
-                break;
-            }
-            break;
-        }
-        break;
-
-      case "Disahkan":
+      //Disahkan ba
+      case 4:
         switch (userRole) {
           // sv -> need to reschedule case
           case 300:
@@ -756,8 +861,8 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
             break;
         }
         break;
-
-      case "Selesai":
+      //Selesai
+      case 6:
         switch (userRole) {
           // sv -> Penjadualan semula selesai and laporan ditutup
           case 300:

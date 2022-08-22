@@ -18,13 +18,13 @@ class _VerifyAttendanceListDetailsState
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 4),
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 4),
       decoration: BoxDecoration(
         border: Border(
           top: BorderSide.none,
           bottom: BorderSide(
-            color: grey400,
-            width: 0.3,
+            color: greyCustom,
+            width: 0.1,
             style: BorderStyle.solid,
           ),
         ),
@@ -34,18 +34,18 @@ class _VerifyAttendanceListDetailsState
         children: [
           Text(widget.data!.namaLaluan,
               style: TextStyle(
-                  color: black87, fontSize: 14, fontWeight: FontWeight.w500)),
+                  color: blackCustom, fontSize: 15, fontWeight: FontWeight.w400)),
           Container(
-            width: 30,
-            height: 25,
+            width: 38,
+            height: 32,
             decoration: BoxDecoration(
-              color: Colors.blue.shade50,
+              color: activeBoxColor,
               borderRadius:  const BorderRadius.all(Radius.circular(5))
             ),
             child: Center(
               child: Text(widget.data!.kehadiran,
                   style: TextStyle(
-                      color: Colors.blue.shade800, fontSize: 14, fontWeight: FontWeight.w700)),
+                      color: darkBlue, fontSize: 15, fontWeight: FontWeight.w600)),
             ),
           )
         ],

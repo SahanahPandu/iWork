@@ -109,7 +109,7 @@ class _WorkshopVehicleMainState extends State<WorkshopVehicleMain> {
                                             BoxShadow(
                                                 color:
                                                     Colors.grey.withOpacity(.3),
-                                                blurRadius: 8,
+                                                blurRadius: 3,
                                                 spreadRadius: 0.5,
                                                 offset: const Offset(0, 2))
                                           ],

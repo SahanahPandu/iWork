@@ -35,10 +35,24 @@ Color greenGrey = const Color(0xFF818C81);
 Color blueGrey = const Color(0xFFAEAEBB);
 Color lightBlue = const Color(0xFFC2E8FF);
 Color blue = const Color(0xFF0C80E1);
+Color darkBlue = const Color.fromRGBO(0, 91, 158, 1);
+Color blackCustom = const Color.fromRGBO(43, 43, 43, 1);
+Color greyCustom = const Color.fromRGBO(150, 150, 150, 1);
+Color redCustom = const Color.fromRGBO(224, 65, 65, 1);
+Color greenCustom = const Color.fromRGBO(52, 168, 83, 1);
 
+Color buttonColor = const Color.fromRGBO(82, 168, 83, 1);
+Color activeColor = const Color.fromRGBO(50, 105, 248, 1);
+Color activeBoxColor = const Color.fromRGBO(238, 248, 255, 1);
+Color tabBoxColor = const Color.fromRGBO(242, 246, 255, 1);
+Color tabShadowColor = const Color.fromRGBO(7, 64, 173, 0.08);
+Color cardShadowColor = const Color.fromRGBO(13, 46, 97, 0.1);
 Color primaryTextColor = const Color.fromRGBO(35, 45, 66, 1);
 Color secondaryTextColor = const Color.fromRGBO(138, 146, 166, 1);
 Color borderColor = const Color(0xE0EFEFEF);
+Color borderTextColor = const Color.fromRGBO(221, 223, 226, 1);
+Color labelColor = const Color.fromRGBO(164, 164, 164, 1);
+Color fillColor = const Color.fromRGBO(251, 251, 251, 1);
 
 //------Text Form Field--------------------------------------------------------
 Color textFormFieldFillColor = const Color(0xffFBFBFB);
@@ -62,14 +76,14 @@ Color labelTextColor = const Color(0xffA4A4A4);
 Color greyStatusText = const Color(0xff969696);
 Color greyStatusBox = const Color(0xffEFEFEF);
 
-Color blueStatusText = Colors.blue.shade800;
-Color blueStatusBox = Colors.blue.shade100;
+Color blueStatusText = const Color.fromRGBO(0, 91, 158, 1);
+Color blueStatusBox = const Color.fromRGBO(192, 228, 255, 1);
 
-Color orangeStatusText = Colors.orange;
-Color orangeStatusBox = Colors.orange.shade100;
+Color orangeStatusText = const Color.fromRGBO(246, 146, 30, 1);
+Color orangeStatusBox = const Color.fromRGBO(254, 227, 196, 1);
 
-Color greenStatusText = Colors.green;
-Color greenStatusBox = const Color(0xffc9ffd7);
+Color greenStatusText = const Color.fromRGBO(52, 168, 83, 1);
+Color greenStatusBox = const Color.fromRGBO(235, 255, 240, 1);
 
 Color redStatusText = Colors.red;
 Color redStatusBox = Colors.red.shade100;

@@ -113,7 +113,6 @@ class _ListOfLeaveTypeState extends State<ListOfLeaveType> {
                             : enabledBorderWithoutText),
                   ),
             borderRadius: BorderRadius.circular(borderRadiusCircular),
-            //gapPadding: 6.0,
           ),
         ),
       ),
@@ -229,16 +228,16 @@ class _ListOfLeaveTypeState extends State<ListOfLeaveType> {
                                           ? const EdgeInsets.symmetric(
                                               vertical: 23, horizontal: 5)
                                           : const EdgeInsets.all(6),
-                                      // decoration: BoxDecoration(
-                                      //   border: Border(
-                                      //     top: BorderSide.none,
-                                      //     bottom: BorderSide(
-                                      //       color: grey400,
-                                      //       width: userRole == 100 ? 0.3 : 0.9,
-                                      //       style: BorderStyle.solid,
-                                      //     ),
-                                      //   ),
-                                      // ),
+                                      /* decoration: BoxDecoration(
+                                         border: Border(
+                                           top: BorderSide.none,
+                                           bottom: BorderSide(
+                                             color: grey400,
+                                             width: userRole == 100 ? 0.3 : 0.9,
+                                             style: BorderStyle.solid,
+                                           ),
+                                         ),
+                                       ),*/
                                       child: Text(
                                         dataFuture[index].jenisCuti,
                                         style: const TextStyle(

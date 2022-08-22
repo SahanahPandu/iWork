@@ -30,38 +30,38 @@ class TaskStackOverTabState extends State<TaskStackOverTab>
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
       child: Column(
         children: [
           Container(
             height: 55,
             decoration: BoxDecoration(
-              color: const Color(0xFFE2E2E3),
+              color: tabBoxColor,
               borderRadius: BorderRadius.circular(
-                25.0,
+                46,
               ),
             ),
             child: TabBar(
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
               controller: _tabController,
               indicator: BoxDecoration(
                   borderRadius: BorderRadius.circular(
-                    25.0,
+                    46,
                   ),
                   color: white,
                   boxShadow: [
                     BoxShadow(
-                      color: grey400,
+                      color: tabShadowColor,
                       blurRadius: 2,
                       offset: const Offset(0.0, 2.0),
                     ),
                   ]),
-              labelColor: black87,
+              labelColor: blackCustom,
               labelStyle:
-                  const TextStyle(fontWeight: FontWeight.w900, fontSize: 14),
+                  const TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
               unselectedLabelStyle:
-                  const TextStyle(fontWeight: FontWeight.w900, fontSize: 13),
-              unselectedLabelColor: const Color(0xF5808691),
+                  const TextStyle(fontWeight: FontWeight.w400, fontSize: 14),
+              unselectedLabelColor: greyCustom,
               tabs: const [
                 Tab(
                   text: 'Isu',

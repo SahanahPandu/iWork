@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../../config/config.dart';
 import '../../config/palette.dart';
@@ -63,10 +64,10 @@ class _ScheduleVerificationMainState extends State<ScheduleVerificationMain> {
                     child: Card(
                       //Tugasan Card
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
+                        borderRadius: BorderRadius.circular(14),
                       ),
-                      shadowColor: white54,
-                      elevation: 5,
+                      shadowColor: grey100,
+                      elevation: 3,
                       child: Padding(
                         padding: const EdgeInsets.all(15),
                         child: Column(
@@ -74,12 +75,15 @@ class _ScheduleVerificationMainState extends State<ScheduleVerificationMain> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  cardTitle!,
-                                  style: TextStyle(
-                                      color: black87,
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 15),
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 8),
+                                  child: Text(
+                                    cardTitle!,
+                                    style: TextStyle(
+                                        color: blackCustom,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 16),
+                                  ),
                                 ),
                                 Padding(
                                     padding: const EdgeInsets.symmetric(
@@ -90,7 +94,7 @@ class _ScheduleVerificationMainState extends State<ScheduleVerificationMain> {
                             Container(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 10),
-                              width: _device.screenWidth(context) * 0.7,
+                              width: _device.screenWidth(context),
                               child: ElevatedButton(
                                 style: ButtonStyle(
                                     elevation: MaterialStateProperty.all(0),
@@ -100,16 +104,16 @@ class _ScheduleVerificationMainState extends State<ScheduleVerificationMain> {
                                     shape: MaterialStateProperty.all(
                                       RoundedRectangleBorder(
                                           borderRadius:
-                                              BorderRadius.circular(10)),
+                                              BorderRadius.circular(12)),
                                     ),
                                     minimumSize: MaterialStateProperty.all(
                                         Size(_device.screenWidth(context), 42)),
                                     backgroundColor:
-                                        MaterialStateProperty.all(green)),
+                                        MaterialStateProperty.all(greenCustom)),
                                 child: Text(buttonTitle!,
                                     style: TextStyle(
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w600,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500,
                                         color: white)),
                                 onPressed: () {
                                   _navigatePage(context, detailRedirect);
@@ -128,7 +132,10 @@ class _ScheduleVerificationMainState extends State<ScheduleVerificationMain> {
 
   Future<void> _navigatePage(BuildContext context, detailRedirect) async {
     String refresh = await Navigator.push(
-        context, MaterialPageRoute(builder: (context) => detailRedirect));
+        context,
+        PageTransition(
+            type: PageTransitionType.fade,
+            child: detailRedirect));
     if (!mounted) return;
     switch (refresh) {
       case "refreshAttendance":

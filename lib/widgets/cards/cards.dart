@@ -27,12 +27,17 @@ class Cards extends StatefulWidget {
 }
 
 class _CardsState extends State<Cards> {
+  bool _isScheduleDetailCard = false;
+
   getWidget() {
     if (widget.type == "PRA Laluan Details") {
+      _isScheduleDetailCard = true;
       return PraWorkScheduleDetails(data: widget.data);
     } else if (widget.type == "Comp Laluan Details") {
+      _isScheduleDetailCard = true;
       return CompactorPanelScheduleDetails(data: widget.data);
     } else if (widget.type == "SV Laluan Details") {
+      _isScheduleDetailCard = true;
       return SupervisorScheduleDetails(data: widget.data);
     } else if (widget.type == "Senarai Pekerja") {
       return ListOfEmployeeDetails(
@@ -43,6 +48,7 @@ class _CardsState extends State<Cards> {
         dataEmployee1: widget.data!,
       );
     }
+    _isScheduleDetailCard;
   }
 
   @override
@@ -64,8 +70,10 @@ class _CardsState extends State<Cards> {
         shadowColor: Colors.grey.shade50,
         elevation: userRole == 200 ? 14 : 5,
         child: Container(
-          margin: const EdgeInsets.all(18),
           child: getWidget(),
+          margin: _isScheduleDetailCard
+              ? const EdgeInsets.symmetric(vertical: 18)
+              : const EdgeInsets.all(18),
         ),
       ),
     );

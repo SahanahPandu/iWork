@@ -66,9 +66,9 @@ class _AkbkMainTabState extends State<AkbkMainTab>
               Container(
                 height: 55,
                 decoration: BoxDecoration(
-                  color: const Color.fromRGBO(242, 246, 255, 1),
+                  color: tabBoxColor,
                   borderRadius: BorderRadius.circular(
-                    25.0,
+                    46,
                   ),
                 ),
                 child: TabBar(
@@ -77,22 +77,22 @@ class _AkbkMainTabState extends State<AkbkMainTab>
                   controller: _tabController,
                   indicator: BoxDecoration(
                       borderRadius: BorderRadius.circular(
-                        25.0,
+                        46,
                       ),
                       color: white,
                       boxShadow: [
                         BoxShadow(
-                          color: grey300,
+                          color: tabShadowColor,
                           blurRadius: 1,
                           offset: const Offset(0.0, 2.0),
                         ),
                       ]),
-                  labelColor: black87,
-                  labelStyle: const TextStyle(
-                      fontWeight: FontWeight.w900, fontSize: 14),
-                  unselectedLabelStyle: const TextStyle(
-                      fontWeight: FontWeight.w900, fontSize: 13),
-                  unselectedLabelColor: const Color(0xF5808691),
+                  labelColor: blackCustom,
+                  labelStyle:
+                  const TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
+                  unselectedLabelStyle:
+                  const TextStyle(fontWeight: FontWeight.w400, fontSize: 14),
+                  unselectedLabelColor: greyCustom,
                   tabs: const [
                     Tab(
                       text: 'Borang',

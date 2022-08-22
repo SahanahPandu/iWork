@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../../../../config/config.dart';
 import '../../../../config/dimen.dart';
@@ -112,8 +113,7 @@ class _VehicleChecklistCardDetailsState
                 minimumSize: MaterialStateProperty.all(
                     Size(_device.screenWidth(context), 45)),
                 backgroundColor: MaterialStateProperty.all(white)),
-            child: Text(vc,
-                style: TextStyle(fontSize: 15, color: green)),
+            child: Text(vc, style: TextStyle(fontSize: 15, color: green)),
           ),
         ),
       ],
@@ -123,8 +123,9 @@ class _VehicleChecklistCardDetailsState
   Future<void> _navigateAndDisplaySelection(BuildContext context) async {
     bool refresh = await Navigator.push(
         context,
-        MaterialPageRoute(
-            builder: (context) => VehicleChecklistDetail(data: widget.data)));
+        PageTransition(
+            type: PageTransitionType.fade,
+            child: VehicleChecklistDetail(data: widget.data)));
     if (!mounted) return;
     if (refresh == true) {
       _changeStatus();

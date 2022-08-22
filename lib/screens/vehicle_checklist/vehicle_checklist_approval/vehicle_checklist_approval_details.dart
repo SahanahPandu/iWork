@@ -1,13 +1,13 @@
-import 'package:eswm/models/vc/vc.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../../../config/font.dart';
 import '../../../config/palette.dart';
-import '../../../config/string.dart';
+import '../../../models/vc/vc.dart';
 import '../../../utils/custom_icon.dart';
 import '../../../utils/device.dart';
-import '../../../widgets/alert/alert_dialog.dart';
 import '../../../widgets/container/status_container.dart';
+import '../../../widgets/tabs/vehicle_checklist_tab/vehicle_checklist_approval_tab/vehicle_checklist_approval_tab.dart';
 
 class VehicleChecklistApprovalDetails extends StatefulWidget {
   final VehicleChecklist data;
@@ -32,8 +32,8 @@ class _VehicleChecklistApprovalDetailsState
             Text(
               widget.data.noLaluan,
               style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  color: primaryTextColor,
+                  fontWeight: FontWeight.w500,
+                  color: blackCustom,
                   fontSize: 16),
             ),
             StatusContainer(
@@ -51,9 +51,10 @@ class _VehicleChecklistApprovalDetailsState
             children: [
               Row(
                 children: [
-                  const Icon(
+                  Icon(
                     CustomIcon.truckFill,
                     size: 15,
+                    color: activeColor,
                   ),
                   const SizedBox(
                     width: 8,
@@ -61,14 +62,14 @@ class _VehicleChecklistApprovalDetailsState
                   Text('No. Kenderaan',
                       style: TextStyle(
                           fontWeight: FontWeight.w500,
-                          color: primaryTextColor,
+                          color: greyCustom,
                           fontSize: 14)),
                 ],
               ),
               Text(widget.data.noKenderaan,
                   style: TextStyle(
                       fontWeight: FontWeight.w500,
-                      color: secondaryTextColor,
+                      color: blackCustom,
                       fontSize: 14)),
             ],
           ),
@@ -80,9 +81,10 @@ class _VehicleChecklistApprovalDetailsState
             children: [
               Row(
                 children: [
-                  const Icon(
+                  Icon(
                     CustomIcon.timerOutline,
                     size: 15,
+                    color: activeColor,
                   ),
                   const SizedBox(
                     width: 8,
@@ -90,14 +92,14 @@ class _VehicleChecklistApprovalDetailsState
                   Text('Keluar/Balik',
                       style: TextStyle(
                           fontWeight: FontWeight.w500,
-                          color: primaryTextColor,
+                          color: greyCustom,
                           fontSize: 14)),
                 ],
               ),
               Text('${widget.data.masaKeluar} / ${widget.data.masaBalik}',
                   style: TextStyle(
                       fontWeight: FontWeight.w500,
-                      color: secondaryTextColor,
+                      color: blackCustom,
                       fontSize: 14)),
             ],
           ),
@@ -120,20 +122,13 @@ class _VehicleChecklistApprovalDetailsState
                   style: TextStyle(
                       color: white, fontSize: 14, fontWeight: FontWeight.w700)),
               onPressed: () {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return showAlertDialog(
-                          context,
-                          confirmation,
-                          "Sahkan borang Semakan Kenderaan ini?",
-                          cancel,
-                          "Sahkan");
-                    }).then((actionText) {
-                  if (actionText == "Sahkan") {
-                    Navigator.pop(context);
-                  }
-                });
+                Navigator.push(
+                    context,
+                    PageTransition(
+                        type: PageTransitionType.fade,
+                        child: VehicleChecklistApprovalTab(
+                          data: widget.data,
+                        )));
               },
             ))
       ],
