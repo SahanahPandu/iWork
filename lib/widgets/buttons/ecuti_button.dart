@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:eswm/screens/e_cuti/e_cuti.dart';
 import 'package:eswm/utils/device.dart';
 import 'package:page_transition/page_transition.dart';
-import '../../config/config.dart';
 import '../../config/dimen.dart';
 
 class EcutiButton extends StatefulWidget {
