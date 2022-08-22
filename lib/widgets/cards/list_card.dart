@@ -71,7 +71,7 @@ class _ListCardState extends State<ListCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
+      padding: const EdgeInsets.symmetric(vertical: 8),
       child: GestureDetector(
         onTap: () {
           Navigator.push(
@@ -85,9 +85,10 @@ class _ListCardState extends State<ListCard> {
             shape: BoxShape.rectangle,
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.shade200,
+                color: Colors.grey.shade300,
+                //color: Color(0xff0D2E61),
                 blurRadius: 5,
-                offset: Offset.zero,
+                offset: const Offset(0, 4),
                 spreadRadius: 1,
                 blurStyle: BlurStyle.normal,
               ),
@@ -100,8 +101,8 @@ class _ListCardState extends State<ListCard> {
             // shadowColor: userRole == 200 ? const Color(0xff0D2E61) : grey200,
             // elevation: userRole == 200 ? 4 : 3,
             elevation: 0,
-            child: Padding(
-              padding: const EdgeInsets.all(6),
+            child: Container(
+              margin: const EdgeInsets.symmetric(vertical: 18),
               child: getWidget(),
             ),
           ),

@@ -153,12 +153,15 @@ class _StatusContainerState extends State<StatusContainer> {
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
             color: statusBoxColor,
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(6),
+              bottomLeft: Radius.circular(6),
+            ),
           ),
           child: AutoSizeText(
             widget.status,
             style: TextStyle(
-              fontSize: userRole == 200 ? null : 12,
+              fontSize: 12,
               color: statusTextColor,
               fontWeight: widget.fontWeight,
             ),

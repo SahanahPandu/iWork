@@ -32,7 +32,7 @@ class _PraMyTaskListDetailsState extends State<PraMyTaskListDetails> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Padding(
-              padding: const EdgeInsets.all(15),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
                 widget.data.namaLaluan,
                 style: const TextStyle(
@@ -49,10 +49,12 @@ class _PraMyTaskListDetailsState extends State<PraMyTaskListDetails> {
             ),
           ],
         ),
-
+        const SizedBox(
+          height: 37,
+        ),
         //No Kenderaan
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+          padding: const EdgeInsets.symmetric(horizontal: 18),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -87,9 +89,12 @@ class _PraMyTaskListDetailsState extends State<PraMyTaskListDetails> {
             ],
           ),
         ),
+        const SizedBox(
+          height: 16,
+        ),
         //Sub Laluan
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+          padding: const EdgeInsets.symmetric(horizontal: 18),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -125,9 +130,13 @@ class _PraMyTaskListDetailsState extends State<PraMyTaskListDetails> {
           ),
         ),
 
+        const SizedBox(
+          height: 16,
+        ),
         //Jumlah Taman/Jalan
         Padding(
-          padding: const EdgeInsets.fromLTRB(20, 6, 20, 20),
+          // padding: const EdgeInsets.fromLTRB(18, 6, 20, 20),
+          padding: const EdgeInsets.symmetric(horizontal: 18),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
