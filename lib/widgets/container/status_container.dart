@@ -4,7 +4,6 @@ import 'package:auto_size_text/auto_size_text.dart';
 
 //import files
 import 'package:eswm/config/palette.dart';
-import '../../config/config.dart';
 
 class StatusContainer extends StatefulWidget {
   String type;

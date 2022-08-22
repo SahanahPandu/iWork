@@ -71,7 +71,7 @@ class _ListCardState extends State<ListCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
+      padding: const EdgeInsets.only(bottom: 8),
       child: GestureDetector(
         onTap: () {
           Navigator.push(
@@ -102,7 +102,7 @@ class _ListCardState extends State<ListCard> {
             // elevation: userRole == 200 ? 4 : 3,
             elevation: 0,
             child: Container(
-              margin: const EdgeInsets.symmetric(vertical: 18),
+              margin: const EdgeInsets.only(top: 16, bottom: 24),
               child: getWidget(),
             ),
           ),
