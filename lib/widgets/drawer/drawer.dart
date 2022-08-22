@@ -80,19 +80,20 @@ class _DrawerBuildState extends State<DrawerBuild> {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: const BorderRadius.only(
-          topRight: Radius.circular(22), bottomRight: Radius.circular(22)),
-      child: Drawer(
-        child: ListView(physics: const BouncingScrollPhysics(), children: [
-          Container(
-            alignment: Alignment.centerLeft,
-            height: _device.isLandscape(context) ? 80 : 110.0,
-            child: DrawerHeader(
-                decoration: BoxDecoration(
-                  color: transparent,
-                ),
-                child: SafeArea(
+    return SafeArea(
+      child: ClipRRect(
+        borderRadius: const BorderRadius.only(
+            topRight: Radius.circular(14), bottomRight: Radius.circular(14)),
+        child: Drawer(
+          backgroundColor: white,
+          child: ListView(physics: const BouncingScrollPhysics(), children: [
+            Container(
+              alignment: Alignment.centerLeft,
+              height: _device.isLandscape(context) ? 80 : 110.0,
+              child: DrawerHeader(
+                  decoration: BoxDecoration(
+                    color: transparent,
+                  ),
                   child: Row(
                     children: [
                       Stack(
@@ -106,7 +107,7 @@ class _DrawerBuildState extends State<DrawerBuild> {
                               decoration: BoxDecoration(
                                   color: transparent,
                                   border:
-                                      Border.all(color: Colors.grey.shade300),
+                                      Border.all(color: grey300),
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(10))),
                             ),
@@ -150,7 +151,7 @@ class _DrawerBuildState extends State<DrawerBuild> {
                           Row(
                             children: [
                               Text(
-                                "SWK2210020  �",
+                                "SWK2210020  •",
                                 style: TextStyle(
                                     color: greyCustom,
                                     fontSize: 12,
@@ -169,79 +170,79 @@ class _DrawerBuildState extends State<DrawerBuild> {
                         ],
                       ),
                     ],
-                  ),
-                )),
-          ),
-          SizedBox(
-              height: _device.screenHeight(context) * 0.75,
-              child: ListView.builder(
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: _getList().length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: ListTile(
-                        minLeadingWidth: 25,
-                        tileColor:
-                            _isHighlighted[index] ? activeBoxColor : null,
-                        leading: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: Icon(
-                                _isHighlighted[index]
-                                    ? _getList()[index].iconFill
-                                    : _getList()[index].iconOutline,
-                                color: _isHighlighted[index]
-                                    ? activeColor
-                                    : _getList()[index].titleColor,
-                                size: 16,
-                              ),
-                            ),
-                          ],
-                        ),
-                        title: Container(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            _getList()[index].title,
-                            style: TextStyle(
-                                fontSize: 15,
-                                color: _isHighlighted[index]
-                                    ? activeColor
-                                    : _getList()[index].titleColor,
-                                fontWeight: _isHighlighted[index]
-                                    ? FontWeight.w500
-                                    : FontWeight.w400),
-                          ),
-                        ),
-                        onTap: () {
-                          for (int i = 0; i < _isHighlighted.length; i++) {
-                            setState(() {
-                              if (index == i) {
-                                _isHighlighted[index] = true;
-                              } else {
-                                _isHighlighted[i] = false;
-                              }
-                            });
-                          }
-                          _getDrawerRoute(index, context);
-                        },
-                      ),
-                    );
-                  })),
-          ListTile(
-            title: Padding(
-              padding: const EdgeInsets.only(left: 20),
-              child: Text(
-                'Aplikasi V0.1',
-                style: (TextStyle(
-                    color: grey500, fontWeight: FontWeight.w500, fontSize: 12)),
-              ),
+                  )),
             ),
-            onTap: () {},
-          ),
-        ]),
+            SizedBox(
+                height: _device.screenHeight(context) * 0.75,
+                child: ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: _getList().length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: ListTile(
+                          minLeadingWidth: 25,
+                          tileColor:
+                              _isHighlighted[index] ? activeBoxColor : null,
+                          leading: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 10),
+                                child: Icon(
+                                  _isHighlighted[index]
+                                      ? _getList()[index].iconFill
+                                      : _getList()[index].iconOutline,
+                                  color: _isHighlighted[index]
+                                      ? activeColor
+                                      : _getList()[index].titleColor,
+                                  size: 16,
+                                ),
+                              ),
+                            ],
+                          ),
+                          title: Container(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              _getList()[index].title,
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  color: _isHighlighted[index]
+                                      ? activeColor
+                                      : _getList()[index].titleColor,
+                                  fontWeight: _isHighlighted[index]
+                                      ? FontWeight.w500
+                                      : FontWeight.w400),
+                            ),
+                          ),
+                          onTap: () {
+                            for (int i = 0; i < _isHighlighted.length; i++) {
+                              setState(() {
+                                if (index == i) {
+                                  _isHighlighted[index] = true;
+                                } else {
+                                  _isHighlighted[i] = false;
+                                }
+                              });
+                            }
+                            _getDrawerRoute(index, context);
+                          },
+                        ),
+                      );
+                    })),
+            ListTile(
+              title: Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child: Text(
+                  'Aplikasi V0.1',
+                  style: (TextStyle(
+                      color: grey500, fontWeight: FontWeight.w500, fontSize: 12)),
+                ),
+              ),
+              onTap: () {},
+            ),
+          ]),
+        ),
       ),
     );
   }

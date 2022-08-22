@@ -137,8 +137,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  // ignore: unused_element
-  _imageAnimation(PageController animation, images, pagePosition) {
+/*_imageAnimation(PageController animation, images, pagePosition) {
     return AnimatedBuilder(
       animation: animation,
       builder: (context, widget) {
@@ -157,7 +156,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ],
       ),
     );
-  }
+  }*/
 
   SmoothPageIndicator _indicators(imagesLength, currentIndex) {
     return SmoothPageIndicator(

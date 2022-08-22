@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-// import 'package:page_transition/page_transition.dart';
+import 'package:flutter/services.dart';
+
 import '../../config/config.dart';
+import '../../config/palette.dart';
 import '../../utils/custom_icon.dart';
-// import '../notifications/notifications.dart';
 import '../../widgets/drawer/drawer.dart';
 import '../screens.dart';
 
@@ -24,9 +25,15 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       child: Scaffold(
+        extendBodyBehindAppBar: userRole != 200 ? true : false,
         backgroundColor: Colors.transparent,
         extendBody: true,
         appBar: AppBar(
+          systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: white,
+            statusBarIconBrightness: Brightness.dark, //android
+            statusBarBrightness: Brightness.light, //ios
+          ),
           backgroundColor: Colors.transparent,
           elevation: 0,
           actions: [
@@ -53,7 +60,10 @@ class HomeScreen extends StatelessWidget {
                 ),
                 child: Screens(),
               )
-            : const Screens(),
+            : ScrollConfiguration(
+                behavior:
+                    const MaterialScrollBehavior().copyWith(overscroll: false),
+                child: const Screens()),
       ),
     );
   }

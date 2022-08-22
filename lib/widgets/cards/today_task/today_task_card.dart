@@ -46,7 +46,7 @@ class _TodayTaskCardState extends State<TodayTaskCard> {
           ? 240
           : (userRole == 100
               ? (_device.isLandscape(context) ? 210 : 230)
-              : 200),
+              : 180),
       child: assignRoleTaskDetails(),
     );
   }

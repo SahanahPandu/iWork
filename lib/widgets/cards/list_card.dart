@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -33,7 +34,27 @@ class ListCard extends StatefulWidget {
   State<ListCard> createState() => _ListCardState();
 }
 
-class _ListCardState extends State<ListCard> {
+class _ListCardState extends State<ListCard> with TickerProviderStateMixin {
+  double squareScaleA = 1;
+  late AnimationController _controllerCard;
+
+  @override
+  void initState() {
+    _controllerCard = AnimationController(
+      vsync: this,
+      lowerBound: 0.99,
+      upperBound: 1,
+      value: 1,
+      duration: const Duration(milliseconds: 10),
+    );
+    _controllerCard.addListener(() {
+      setState(() {
+        squareScaleA = _controllerCard.value;
+      });
+    });
+    super.initState();
+  }
+
   Widget? getWidget() {
     if (widget.type == "Cuti") {
       if (userRole == 100 || userRole == 200) {
@@ -71,44 +92,57 @@ class _ListCardState extends State<ListCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
-      child: GestureDetector(
-        onTap: () {
-          Navigator.push(
-              context,
-              PageTransition(
-                  child: _redirect(), type: PageTransitionType.fade));
-        },
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(14),
-            shape: BoxShape.rectangle,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.shade300,
-                //color: Color(0xff0D2E61),
-                blurRadius: 5,
-                offset: const Offset(0, 4),
-                spreadRadius: 1,
-                blurStyle: BlurStyle.normal,
+        padding: const EdgeInsets.only(bottom: 8),
+        child: GestureDetector(
+            behavior: HitTestBehavior.translucent,
+            onTap: () {
+              _controllerCard.reverse();
+              Navigator.push(
+                  context,
+                  PageTransition(
+                      child: _redirect(), type: PageTransitionType.fade));
+            },
+            onTapDown: (dp) {
+              _controllerCard.reverse();
+            },
+            onTapUp: (dp) {
+              Timer(const Duration(milliseconds: 150), () {
+                _controllerCard.fling();
+              });
+            },
+            onTapCancel: () {
+              _controllerCard.fling();
+            },
+            child: Transform.scale(
+              scale: squareScaleA,
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(14),
+                  shape: BoxShape.rectangle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.shade300,
+                      blurRadius: 5,
+                      offset: const Offset(0, 4),
+                      spreadRadius: 1,
+                      blurStyle: BlurStyle.normal,
+                    ),
+                  ],
+                ),
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(14),
+                  ),
+                  elevation: 0,
+                  child: Container(
+                    margin: userRole == 200
+                        ? const EdgeInsets.only(top: 16, bottom: 24)
+                        : const EdgeInsets.symmetric(vertical: 5),
+                    child: getWidget(),
+                  ),
+                ),
               ),
-            ],
-          ),
-          child: Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(userRole == 200 ? 14 : 10),
-            ),
-            // shadowColor: userRole == 200 ? const Color(0xff0D2E61) : grey200,
-            // elevation: userRole == 200 ? 4 : 3,
-            elevation: 0,
-            child: Container(
-              margin: const EdgeInsets.only(top: 16, bottom: 24),
-              child: getWidget(),
-            ),
-          ),
-        ),
-      ),
-    );
+            )));
   }
 
   _redirect() {

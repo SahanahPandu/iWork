@@ -37,19 +37,19 @@ class _EcutiButtonState extends State<EcutiButton> {
                   )));
         },
         child: Row(
-          children: [
+          children: const [
             Text(
               "E-Cuti",
               style: TextStyle(
                 color: Colors.white,
-                fontSize: userRole == 200 ? 15 : 14,
+                fontSize: 15,
                 fontWeight: FontWeight.w600,
               ),
             ),
-            const SizedBox(
+            SizedBox(
               width: 6,
             ),
-            const Icon(
+            Icon(
               Icons.navigate_next,
               size: 25,
             ),
