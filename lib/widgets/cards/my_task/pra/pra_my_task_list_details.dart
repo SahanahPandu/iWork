@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../../../config/font.dart';
-import '../../../../config/palette.dart';
 import '../../../../models/laluan.dart';
 import '../../../../utils/custom_icon.dart';
 import '../../../container/status_container.dart';

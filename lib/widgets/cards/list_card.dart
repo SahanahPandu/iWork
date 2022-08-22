@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../config/config.dart';
-import '../../config/palette.dart';
 import '../../screens/e_cuti/e_cuti.dart';
 import '../../screens/e_cuti/pra/pra_e_cuti_list_details.dart';
 import '../../screens/e_cuti/supervisor/supervisor_leave_list_details.dart';
