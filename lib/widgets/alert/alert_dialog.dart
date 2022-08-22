@@ -5,6 +5,9 @@ import '../../config/dimen.dart';
 showAlertDialog(BuildContext context, String title, String detail,
     String action_1, String action_2) {
   return AlertDialog(
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(14),
+    ),
     title: Text(title,
         style: TextStyle(fontWeight: FontWeight.w800, color: black87)),
     content: Text(detail,

@@ -18,6 +18,10 @@ class PraMyTaskListDetails extends StatefulWidget {
 }
 
 class _PraMyTaskListDetailsState extends State<PraMyTaskListDetails> {
+  Color iconColor = const Color(0xff3269F8);
+  Color labelColor = const Color(0xff969696);
+  Color inputColor = const Color(0xff2B2B2B);
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -31,10 +35,10 @@ class _PraMyTaskListDetailsState extends State<PraMyTaskListDetails> {
             children: [
               Text(
                 widget.data.namaLaluan,
-                style: TextStyle(
-                    fontSize: 19,
-                    color: Colors.grey.shade800,
-                    fontWeight: FontWeight.w900),
+                style: const TextStyle(
+                    fontSize: 16,
+                    color: Color(0xff2B2B2B),
+                    fontWeight: FontWeight.w500),
               ),
               StatusContainer(
                 type: "Laluan",
@@ -56,7 +60,7 @@ class _PraMyTaskListDetailsState extends State<PraMyTaskListDetails> {
                   Icon(
                     CustomIcon.truckFill,
                     size: 16,
-                    color: blue,
+                    color: iconColor,
                   ),
                   const SizedBox(
                     width: 10,
@@ -64,9 +68,9 @@ class _PraMyTaskListDetailsState extends State<PraMyTaskListDetails> {
                   Text(
                     "No. Kenderaan",
                     style: TextStyle(
-                      fontSize: 13,
-                      color: grey400,
-                      fontWeight: FontWeight.w600,
+                      fontSize: 15,
+                      color: labelColor,
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
                 ],
@@ -75,8 +79,8 @@ class _PraMyTaskListDetailsState extends State<PraMyTaskListDetails> {
                 widget.data.noKenderaan,
                 style: TextStyle(
                   fontSize: 15,
-                  color: black87,
-                  fontWeight: FontWeight.w700,
+                  color: inputColor,
+                  fontWeight: FontWeight.w600,
                 ),
               )
             ],
@@ -92,8 +96,8 @@ class _PraMyTaskListDetailsState extends State<PraMyTaskListDetails> {
                 children: [
                   Icon(
                     CustomIcon.roadFill,
-                    size: 18,
-                    color: blue,
+                    size: 16,
+                    color: iconColor,
                   ),
                   const SizedBox(
                     width: 10,
@@ -101,9 +105,9 @@ class _PraMyTaskListDetailsState extends State<PraMyTaskListDetails> {
                   Text(
                     "Jumlah Sub Laluan",
                     style: TextStyle(
-                      fontSize: 13,
-                      color: grey400,
-                      fontWeight: FontWeight.w600,
+                      fontSize: 15,
+                      color: labelColor,
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
                 ],
@@ -111,9 +115,9 @@ class _PraMyTaskListDetailsState extends State<PraMyTaskListDetails> {
               Text(
                 "${widget.data.jumSubLaluan}",
                 style: TextStyle(
-                  fontSize: 13,
-                  color: black87,
-                  fontWeight: FontWeight.w700,
+                  fontSize: 15,
+                  color: inputColor,
+                  fontWeight: FontWeight.w600,
                 ),
               )
             ],
@@ -130,8 +134,8 @@ class _PraMyTaskListDetailsState extends State<PraMyTaskListDetails> {
                 children: [
                   Icon(
                     CustomIcon.tamanFill,
-                    size: 18,
-                    color: blue,
+                    size: 16,
+                    color: iconColor,
                   ),
                   const SizedBox(
                     width: 8,
@@ -139,9 +143,9 @@ class _PraMyTaskListDetailsState extends State<PraMyTaskListDetails> {
                   Text(
                     "Jumlah Taman/Jalan",
                     style: TextStyle(
-                      fontSize: 13,
-                      color: grey400,
-                      fontWeight: FontWeight.w600,
+                      fontSize: 15,
+                      color: labelColor,
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
                 ],
@@ -150,8 +154,8 @@ class _PraMyTaskListDetailsState extends State<PraMyTaskListDetails> {
                 "${widget.data.jumlahTaman}/${widget.data.jumlahJalan}",
                 style: TextStyle(
                   fontSize: 15,
-                  color: black87,
-                  fontWeight: FontWeight.w700,
+                  color: inputColor,
+                  fontWeight: FontWeight.w600,
                 ),
               )
             ],

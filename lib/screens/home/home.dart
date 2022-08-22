@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-import '../../config/palette.dart';
 import '../../utils/custom_icon.dart';
 import '../../widgets/drawer/drawer.dart';
 import '../notifications/notifications.dart';
@@ -11,14 +9,24 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.white,
-        //extendBodyBehindAppBar: true,
+    return Container(
+      height: MediaQuery.of(context).size.height,
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            Color(0xff3298F8),
+            Color(0xff4A39BE),
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.center,
+        ),
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        extendBody: true,
         appBar: AppBar(
-          backgroundColor: appBarBgColor,
-          elevation: 2,
-          shadowColor: const Color(0xffF5F5F5),
-          iconTheme: IconThemeData(color: black87),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
           actions: [
             InkWell(
               onTap: () {
@@ -28,9 +36,9 @@ class HomeScreen extends StatelessWidget {
                       builder: (builder) => const Notifications(),
                     ));
               },
-              child: Icon(
+              child: const Icon(
                 CustomIcon.notificationFill,
-                color: black87,
+                color: Colors.white,
                 size: 18,
               ),
             ),
@@ -40,6 +48,8 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
         drawer: const DrawerBuild(),
-        body: const Screens());
+        body: const Screens(),
+      ),
+    );
   }
 }

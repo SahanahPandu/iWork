@@ -87,34 +87,26 @@ class _CardListViewState extends State<CardListView> {
                   child: Text("Some error occurred!"),
                 );
               } else {
-                return Container(
-                  margin: EdgeInsets.symmetric(
-                    horizontal: userRole == 200 ? 15 : 0,
-                  ),
-                  child: ListView.builder(
-                    physics: userRole == 200
-                        ? ((widget.type == "Laluan" &&
-                                (widget.screens == "drawer" ||
-                                    widget.screens == "isu"))
-                            ? const BouncingScrollPhysics(
-                                parent: AlwaysScrollableScrollPhysics(),
-                              )
-                            : widget.type ==
-                                    "Laluan" // cannot add bouncing because , it makes the list cannot scroll down when blue card is hidden
-                                ? const AlwaysScrollableScrollPhysics()
-                                : const NeverScrollableScrollPhysics())
-                        : const BouncingScrollPhysics(),
-                    controller: userRole == 200 ? _controller : null,
-                    shrinkWrap: true,
-                    itemCount: dataFuture!.length,
-                    itemBuilder: (context, index) {
-                      return ListCard(
-                        data: dataFuture[index],
-                        type: widget.type,
-                        listIndex: index,
-                      );
-                    },
-                  ),
+                return ListView.builder(
+                  physics: userRole == 200
+                      ? ((widget.type == "Laluan" &&
+                              (widget.screens == "drawer" ||
+                                  widget.screens == "isu"))
+                          ? const BouncingScrollPhysics(
+                              parent: AlwaysScrollableScrollPhysics(),
+                            )
+                          : const NeverScrollableScrollPhysics())
+                      : const BouncingScrollPhysics(),
+                  controller: userRole == 200 ? _controller : null,
+                  shrinkWrap: true,
+                  itemCount: dataFuture!.length,
+                  itemBuilder: (context, index) {
+                    return ListCard(
+                      data: dataFuture[index],
+                      type: widget.type,
+                      listIndex: index,
+                    );
+                  },
                 );
               }
           }

@@ -57,8 +57,8 @@ double columnSpaceVc(BuildContext context) =>
 double columnSpacing(BuildContext context) =>
     _device.isLandscape(context) ? 6 : 15;
 
-double axisSpacing (BuildContext context) => 
-    _device.isLandscape(context)? 10.0 : 0;
+double axisSpacing(BuildContext context) =>
+    _device.isLandscape(context) ? 10.0 : 0;
 
 Map<int, FlexColumnWidth> columnVC2Width(BuildContext context) =>
     _device.isLandscape(context)

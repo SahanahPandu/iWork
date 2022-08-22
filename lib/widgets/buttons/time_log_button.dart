@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 
 //import files
 import 'package:eswm/screens/time_log/time_log.dart';
-import '../../config/dimen.dart';
-import '../../utils/device.dart';
+// import '../../config/dimen.dart';
+// import '../../utils/device.dart';
 
 class TimeLogButton extends StatefulWidget {
   Function getTimeLog;
@@ -19,9 +19,11 @@ class TimeLogButton extends StatefulWidget {
 }
 
 class _TimeLogButtonState extends State<TimeLogButton> {
-  final Devices _device = Devices();
+  //final Devices _device = Devices();
 
-  Color buttonTextColor = Colors.green;
+  Color buttonColor = const Color(0xff52A834);
+  Color buttonTextColor = Colors.white;
+  Color iconColor = Colors.white;
   String buttonText = "Masuk Kerja";
 
   changeButtonColor() {
@@ -30,19 +32,22 @@ class _TimeLogButtonState extends State<TimeLogButton> {
         MaterialPageRoute(
           builder: (context) => TimeLog(
             btnText: buttonText,
-            btnColor: buttonTextColor,
+            btnColor: buttonColor,
           ),
         )).then((actionText) {
       widget.getTimeLog(actionText);
       if (actionText == "Masuk Kerja") {
         setState(() {
           buttonText = "Tamat Kerja";
-          buttonTextColor = Colors.red;
+          buttonColor = const Color(0xffE04141);
         });
       } else if (actionText == "Tamat Kerja") {
         setState(() {
+          //disabled button
           buttonText = "Masuk Kerja";
-          buttonTextColor = Colors.grey;
+          buttonColor = const Color(0xffD9D9D9);
+          buttonTextColor = const Color(0xff969696);
+          iconColor = const Color(0xff969696);
         });
       }
     });
@@ -51,35 +56,33 @@ class _TimeLogButtonState extends State<TimeLogButton> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: _device.screenWidth(context) * (buttonWidth(context)),
-      height: _device.screenHeight(context) * (buttonHeight(context)),
-      //color: Colors.white,
+      width: 190,
+      height: 46,
       child: ElevatedButton.icon(
         style: ElevatedButton.styleFrom(
-          primary: Colors.white,
-          padding: const EdgeInsets.all(8),
+          primary: buttonColor,
+          padding: const EdgeInsets.all(13),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(18),
+            borderRadius: BorderRadius.circular(26),
           ),
-          elevation: userRole == 200? 5.0 : 1,
+          elevation: userRole == 200 ? 5.0 : 1,
         ),
         onPressed: () {
-          if (buttonTextColor != Colors.grey) {
+          if (buttonColor != const Color(0xffD9D9D9)) {
             changeButtonColor();
           }
         },
         icon: Icon(
           CustomIcon.timerOutline,
-          //color: Colors.grey.shade800,
-          color: buttonTextColor,
-          size: 20,
+          color: iconColor,
+          size: 15,
         ),
         label: Text(
           buttonText,
           style: TextStyle(
             color: buttonTextColor,
-            fontSize: userRole == 200? 17 : 14,
-            fontWeight: FontWeight.w700,
+            fontSize: userRole == 200 ? 15 : 14,
+            fontWeight: FontWeight.w600,
           ),
         ),
       ),

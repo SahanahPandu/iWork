@@ -59,8 +59,8 @@ Color labelTextColor = const Color(0xffA4A4A4);
 //------End of Text Form Field--------------------------------------------------------
 
 //-----Card Status--------------------------------------------------------------------
-Color greyStatusText = Colors.grey;
-Color greyStatusBox = Colors.grey.shade100;
+Color greyStatusText = const Color(0xff969696);
+Color greyStatusBox = const Color(0xffEFEFEF);
 
 Color blueStatusText = Colors.blue.shade800;
 Color blueStatusBox = Colors.blue.shade100;

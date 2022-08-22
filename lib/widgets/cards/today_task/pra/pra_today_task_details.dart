@@ -30,7 +30,7 @@ class _PraTodayTaskDetailsState extends State<PraTodayTaskDetails> {
   @override
   void initState() {
     super.initState();
-    todayDate = Date.getTodayDate();
+    todayDate = Date.getTodayDate2();
   }
 
   @override
@@ -38,60 +38,52 @@ class _PraTodayTaskDetailsState extends State<PraTodayTaskDetails> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Text(
-              "Tugasan Hari Ini",
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w500,
-                fontSize: 17,
-              ),
-            ),
-            Container(
-              decoration: const BoxDecoration(
-                color: Colors.black26,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(30),
-                ),
-              ),
-              child: IconButton(
-                icon: const Icon(
-                  Icons.date_range,
-                  color: Colors.white,
-                  size: 29,
-                ),
-                onPressed: () {},
-              ),
-            ),
-          ],
-        ),
-        Text(
-          todayDate,
-          style: const TextStyle(
-            fontSize: 35,
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
-          ),
+        const SizedBox(
+          height: 10,
         ),
         const Text(
-          "7 pagi - 12 tengahari",
+          "Tugasan Hari Ini (7.00 pg - 12.30 ptg)",
           style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
             color: Colors.white,
+            fontWeight: FontWeight.w400,
+            fontSize: 15,
           ),
         ),
         const SizedBox(
-          height: 15,
+          height: 8,
+        ),
+        Row(
+          children: [
+            Text(
+              todayDate,
+              style: const TextStyle(
+                fontSize: 36,
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
+              ),
+            ),
+            const SizedBox(
+              width: 5,
+            ),
+            IconButton(
+              icon: const Icon(
+                CustomIcon.scheduleFill,
+                color: Color(0xffA0FD57),
+                size: 20,
+              ),
+              onPressed: () {},
+            ),
+          ],
+        ),
+        const SizedBox(
+          height: 8,
         ),
         Row(
           children: [
             if (widget.timeIn != "")
               const Icon(
-                CustomIcon.timerFill,
-                color: Colors.white,
+                CustomIcon.timerOutline,
+                color: Color(0xffA0FD57),
                 size: 18,
               ),
             const SizedBox(
@@ -100,8 +92,8 @@ class _PraTodayTaskDetailsState extends State<PraTodayTaskDetails> {
             Text(
               widget.timeIn,
               style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
+                fontSize: 15,
+                fontWeight: FontWeight.w400,
                 color: Colors.white,
               ),
             ),
@@ -110,8 +102,8 @@ class _PraTodayTaskDetailsState extends State<PraTodayTaskDetails> {
             ),
             if (widget.timeOut != "")
               const Icon(
-                Icons.timer_outlined,
-                color: Colors.white,
+                CustomIcon.timerOutline,
+                color: Color(0xffA0FD57),
                 size: 18,
               ),
             const SizedBox(
@@ -120,8 +112,8 @@ class _PraTodayTaskDetailsState extends State<PraTodayTaskDetails> {
             Text(
               widget.timeOut,
               style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
+                fontSize: 15,
+                fontWeight: FontWeight.w400,
                 color: Colors.white,
               ),
             ),
@@ -133,11 +125,13 @@ class _PraTodayTaskDetailsState extends State<PraTodayTaskDetails> {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            const EcutiButton(),
-            const SizedBox(
-              width: 10,
-            ),
             TimeLogButton(getTimeLog: widget.getTimeLog),
+            const SizedBox(
+              width: 15,
+            ),
+            const Expanded(
+              child: EcutiButton(),
+            ),
           ],
         )
       ],

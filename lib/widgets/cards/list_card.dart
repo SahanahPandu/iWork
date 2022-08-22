@@ -71,7 +71,7 @@ class _ListCardState extends State<ListCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 3),
+      padding: const EdgeInsets.only(bottom: 8),
       child: GestureDetector(
         onTap: () {
           Navigator.push(
@@ -111,15 +111,31 @@ class _ListCardState extends State<ListCard> {
             }),
           );
         },
-        child: Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(userRole == 200 ? 15 : 10),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(14),
+            shape: BoxShape.rectangle,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.shade200,
+                blurRadius: 5,
+                offset: Offset.zero,
+                spreadRadius: 1,
+                blurStyle: BlurStyle.normal,
+              ),
+            ],
           ),
-          shadowColor: userRole == 200 ? Colors.white : grey200,
-          elevation: userRole == 200 ? 14 : 3,
-          child: Padding(
-            padding: const EdgeInsets.all(6),
-            child: getWidget(),
+          child: Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(userRole == 200 ? 14 : 10),
+            ),
+            // shadowColor: userRole == 200 ? const Color(0xff0D2E61) : grey200,
+            // elevation: userRole == 200 ? 4 : 3,
+            elevation: 0,
+            child: Padding(
+              padding: const EdgeInsets.all(6),
+              child: getWidget(),
+            ),
           ),
         ),
       ),

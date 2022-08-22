@@ -20,10 +20,15 @@ class _EcutiButtonState extends State<EcutiButton> {
     return SizedBox(
       width: _device.screenWidth(context) * (buttonEcutiWidth(context)),
       height: _device.screenHeight(context) * (buttonHeight(context)),
-      child: ElevatedButton(
+      //color: Colors.white,
+      child: ElevatedButton.icon(
         style: ElevatedButton.styleFrom(
-          primary: Colors.transparent,
-          elevation: 0,
+          primary: Colors.white,
+          padding: const EdgeInsets.all(8),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(18),
+          ),
+          elevation: userRole == 200 ? 5 : 1,
         ),
         onPressed: () {
           Navigator.push(
@@ -35,24 +40,18 @@ class _EcutiButtonState extends State<EcutiButton> {
                 ),
               ));
         },
-        child: Row(
-          children: [
-            Text(
-              "E-Cuti",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: userRole == 200 ? 15 : 14,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            const SizedBox(
-              width: 6,
-            ),
-            const Icon(
-              Icons.navigate_next,
-              size: 25,
-            ),
-          ],
+        icon: const Icon(
+          Icons.add_box,
+          color: Colors.orange,
+          size: 20,
+        ),
+        label: Text(
+          "E-Cuti",
+          style: TextStyle(
+            color: Colors.orange,
+            fontSize: userRole == 200 ? 17 : 14,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ),
     );

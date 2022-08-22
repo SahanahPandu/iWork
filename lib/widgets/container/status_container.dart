@@ -146,7 +146,7 @@ class _StatusContainerState extends State<StatusContainer> {
       child: FittedBox(
         fit: BoxFit.contain,
         child: Container(
-          padding: const EdgeInsets.all(6),
+          padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
             color: statusBoxColor,
             borderRadius: BorderRadius.circular(8),

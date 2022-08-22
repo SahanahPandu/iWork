@@ -8,6 +8,8 @@ import 'eo/eo_today_task_details.dart';
 import 'supervisor/supervisor_today_task_details.dart';
 import 'pra/pra_today_task_details.dart';
 import '../../../config/config.dart';
+import '../../../config/dimen.dart';
+import '../../../config/palette.dart';
 import '../../../config/resource.dart';
 import '../../../config/string.dart';
 import '../../../utils/device.dart';
@@ -40,13 +42,47 @@ class _TodayTaskCardState extends State<TodayTaskCard> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
+      //margin: const EdgeInsets.all(2),
+      padding: EdgeInsets.all(taskCardPadding),
       width: _device.screenWidth(context),
       height: userRole == 200
           ? 240
           : (userRole == 100
               ? (_device.isLandscape(context) ? 210 : 230)
               : 200),
+      decoration: BoxDecoration(
+        boxShadow: userRole == 200
+            ? [
+                BoxShadow(
+                  color: Colors.grey.shade400,
+                  blurRadius: 5,
+                  offset: const Offset(0.0, 8.0),
+                ),
+              ]
+            : [
+                BoxShadow(
+                  color: grey400,
+                  blurRadius: 2,
+                  offset: const Offset(0.0, 1.0),
+                ),
+              ],
+        borderRadius: userRole == 200
+            ? BorderRadius.circular(30)
+            : BorderRadius.circular(24),
+        gradient: const LinearGradient(
+          colors: [
+            //Color.fromARGB(225, 51, 102, 255),
+            //Color.fromARGB(235, 0, 204, 255),
+            Color.fromARGB(220, 51, 102, 255),
+            Color.fromARGB(200, 0, 220, 255),
+          ],
+          begin: FractionalOffset(0.0, 1.0),
+          end: FractionalOffset(1.0, 0.0),
+          stops: [0.0, 1.0],
+          tileMode: TileMode.decal,
+        ),
+      ),
       child: assignRoleTaskDetails(),
     );
   }

@@ -23,60 +23,70 @@ class _PraState extends State<Pra> {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
-    final double categoryHeight = size.height * 0.30;
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 30, top: 15),
-          child: Text(
-            "Hi, Suhaimi!",
-            style: TextStyle(
-              color: Colors.grey.shade800,
-              fontSize: 24,
-              fontWeight: FontWeight.w900,
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(
+        parent: AlwaysScrollableScrollPhysics(),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            margin: const EdgeInsets.symmetric(
+              horizontal: 20,
             ),
-          ),
-        ),
-        AnimatedOpacity(
-          duration: const Duration(milliseconds: 200),
-          opacity: closeTopCard ? 0 : 1,
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            width: size.width,
-            alignment: Alignment.topCenter,
-            height: closeTopCard ? 0 : categoryHeight,
-            child: SizedBox(
-              height: categoryHeight,
-              child: const FittedBox(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 13,
-                  ),
-                  child: TodayTaskCard(),
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              const Text(
+                "Hi, Suhaimi!",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
+              const SizedBox(
+                height: 20,
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.29,
+                child: const TodayTaskCard(),
+              ),
+            ]),
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(28),
+                topRight: Radius.circular(28),
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: const EdgeInsets.all(24),
+                  child: const Center(
+                    child: Text(
+                      "Tugas Saya",
+                      style: TextStyle(
+                        color: Color(0xff2B2B2B),
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 10),
+                    child: CardListView(
+                        type: "Laluan", topCardStatus: getTopCardStatus)),
+              ],
             ),
           ),
-        ),
-        Container(
-          margin: const EdgeInsets.only(left: 15, top: 10),
-          child: Text(
-            "Tugasan Saya",
-            style: TextStyle(
-              color: Colors.grey.shade500,
-              fontWeight: FontWeight.w500,
-              fontSize: 17,
-            ),
-          ),
-        ),
-        Expanded(
-            child:
-                CardListView(type: "Laluan", topCardStatus: getTopCardStatus)),
-        //MyTaskList(topCardStatus: getTopCardStatus),
-      ],
+        ],
+      ),
     );
   }
 }
