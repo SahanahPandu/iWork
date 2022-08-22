@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-//import files
-
+import '../../../../config/palette.dart';
+import '../../../../utils/custom_icon.dart';
 import '../../../../utils/date.dart';
 import '../../../buttons/enotis_button.dart';
 import '../../../buttons/time_log_button.dart';
@@ -30,7 +30,7 @@ class _SupervisorTodayTaskDetailsState
   @override
   void initState() {
     super.initState();
-    todayDate = Date.getTodayDate();
+    todayDate = Date.getTodayDate2();
   }
 
   @override
@@ -38,52 +38,49 @@ class _SupervisorTodayTaskDetailsState
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Text(
-              "Tugasan Hari Ini",
-              style: TextStyle(
-                color: Color(0xCBFCFCFC),
-                fontWeight: FontWeight.w500,
-                fontSize: 16,
-              ),
-            ),
-            Container(
-              decoration: const BoxDecoration(
-                color: Colors.black26,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(30),
-                ),
-              ),
-              child: IconButton(
-                icon: const Icon(
-                  Icons.date_range,
-                  color: Colors.white,
-                  size: 25,
-                ),
-                onPressed: () {},
-              ),
-            ),
-          ],
-        ),
         Text(
-          todayDate,
-          style: const TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
+          "Tugasan Hari Ini (9.00 pg - 5.00 ptg)",
+          style: TextStyle(
+            color: white,
+            fontWeight: FontWeight.w400,
+            fontSize: 15,
           ),
         ),
         const SizedBox(
-          height: 10,
+          height: 8,
+        ),
+        Row(
+          children: [
+            Text(
+              todayDate,
+              style: TextStyle(
+                fontSize: 36,
+                fontWeight: FontWeight.w600,
+                color: white,
+              ),
+            ),
+            const SizedBox(
+              width: 5,
+            ),
+            IconButton(
+              icon: const Icon(
+                CustomIcon.scheduleFill,
+                color: Color(0xffA0FD57),
+                size: 20,
+              ),
+              onPressed: () {},
+            ),
+          ],
+        ),
+        const SizedBox(
+          height: 8,
         ),
         Row(
           children: [
             if (widget.timeIn != "")
               const Icon(
-                Icons.timer_outlined,
-                color: Colors.white,
+                CustomIcon.timerOutline,
+                color: Color(0xffA0FD57),
                 size: 18,
               ),
             const SizedBox(
@@ -91,10 +88,10 @@ class _SupervisorTodayTaskDetailsState
             ),
             Text(
               widget.timeIn,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-                color: Colors.white,
+              style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w400,
+                color: white,
               ),
             ),
             const SizedBox(
@@ -102,8 +99,8 @@ class _SupervisorTodayTaskDetailsState
             ),
             if (widget.timeOut != "")
               const Icon(
-                Icons.timer_outlined,
-                color: Colors.white,
+                CustomIcon.timerOutline,
+                color: Color(0xffA0FD57),
                 size: 18,
               ),
             const SizedBox(
@@ -111,10 +108,10 @@ class _SupervisorTodayTaskDetailsState
             ),
             Text(
               widget.timeOut,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-                color: Colors.white,
+              style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w400,
+                color: white,
               ),
             ),
           ],
@@ -123,13 +120,10 @@ class _SupervisorTodayTaskDetailsState
           height: 20,
         ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const ENotisButton(),
-            const SizedBox(
-              width: 10,
-            ),
             TimeLogButton(getTimeLog: widget.getTimeLog),
+            const ENotisButton(),
           ],
         )
       ],

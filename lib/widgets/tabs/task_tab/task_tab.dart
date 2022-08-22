@@ -29,11 +29,11 @@ class TaskStackOverTabState extends State<TaskStackOverTab>
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
-      child: Column(
-        children: [
-          Container(
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
+          child: Container(
             height: 55,
             decoration: BoxDecoration(
               color: tabBoxColor,
@@ -72,17 +72,23 @@ class TaskStackOverTabState extends State<TaskStackOverTab>
               ],
             ),
           ),
-          Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              children: const [
-                IssueTabbarView(),
-                VerifyTabbarView(),
-              ],
-            ),
+        ),
+        Expanded(
+          child: TabBarView(
+            controller: _tabController,
+            children: const [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8.0),
+                child: IssueTabbarView(),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8.0),
+                child: VerifyTabbarView(),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
