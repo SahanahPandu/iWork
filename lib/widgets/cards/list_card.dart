@@ -150,13 +150,15 @@ class _ListCardState extends State<ListCard> with TickerProviderStateMixin {
                         color: white,
                         boxShadow: [
                           BoxShadow(
-                              color: Colors.grey.withOpacity(.3),
+                              color: cardShadowColor,
                               offset: const Offset(0, 2),
-                              blurRadius: 5,
-                              spreadRadius: 0.8)
+                              blurRadius: 10,
+                              spreadRadius: 0.5)
                         ],
                       ),
-                      child: getWidget()),
+                      child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 5),
+                          child: getWidget())),
             )));
   }
 
