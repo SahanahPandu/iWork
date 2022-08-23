@@ -46,10 +46,11 @@ dependencies:
   expandable: ^5.0.1
   url_launcher: ^6.1.5
   auto_size_text: ^3.0.0
-  page_transition: "^2.0.9"
+  page_transition: ^2.0.9
   smooth_page_indicator: ^1.0.0+2
+  lottie: ^1.2.1
   keyboard_dismisser: ^3.0.0
-  
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -93,6 +94,7 @@ flutter:
     - assets/image/
     - assets/image/splash/
     - assets/data/
+    - assets/lottie/
     
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg

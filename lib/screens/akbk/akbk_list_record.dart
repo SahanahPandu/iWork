@@ -30,10 +30,12 @@ class _AkbkListRecordState extends State<AkbkListRecord> {
               alignment: Alignment.centerLeft,
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
               child: Text("Senarai Laporan AKBK",
-                  style:
-                      TextStyle(color: grey500, fontWeight: FontWeight.w700))),
+                  style: TextStyle(
+                      color: blackCustom,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400))),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             child: FutureBuilder<List>(
               future: _loadAkbkData,
               builder: (context, snapshot) {
@@ -58,21 +60,30 @@ class _AkbkListRecordState extends State<AkbkListRecord> {
                         itemBuilder: (context, index) {
                           if (dataFuture.isNotEmpty) {
                             return GestureDetector(
-                              onTap: () {},
-                              child: Card(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                shadowColor: grey400,
-                                elevation: 2,
+                                onTap: () {},
                                 child: Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: AkbkListRecordDetails(
-                                    data: dataFuture[index],
-                                  ),
-                                ),
-                              ),
-                            );
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 10),
+                                  child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(14),
+                                        color: white,
+                                        boxShadow: [
+                                          BoxShadow(
+                                              color: cardShadowColor,
+                                              offset: const Offset(0, 2),
+                                              blurRadius: 10,
+                                              spreadRadius: 0.5)
+                                        ],
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 10),
+                                        child: AkbkListRecordDetails(
+                                          data: dataFuture[index],
+                                        ),
+                                      )),
+                                ));
                           } else {
                             Padding(
                                 padding: const EdgeInsets.symmetric(
