@@ -438,8 +438,12 @@ class _AkbkFormState extends State<AkbkForm> {
                       return showAlertDialog(context, confirmation,
                           "Hantar borang AKBK ini?", cancel, "Hantar");
                     }).then((actionText) {
-                  if (actionText == "Sahkan") {
-                    Navigator.pop(context);
+                  if (actionText == "Hantar") {
+                    Navigator.push(
+                        context,
+                        PageTransition(
+                            child: const CustomDialog(),
+                            type: PageTransitionType.fade));
                   }
                 });
               },
