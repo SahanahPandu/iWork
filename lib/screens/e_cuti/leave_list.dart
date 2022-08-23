@@ -31,7 +31,9 @@ class _LeaveListState extends State<LeaveList> {
               ),
             ),
           ),
-          CardListView(type: "Cuti", topCardStatus: null),
+          Container(
+              margin: const EdgeInsets.symmetric(horizontal: 16),
+              child: CardListView(type: "Cuti", topCardStatus: null)),
         ],
       ),
     );

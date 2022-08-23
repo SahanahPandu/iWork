@@ -50,8 +50,10 @@ class _StatusContainerState extends State<StatusContainer> {
     } else if (widget.type == "Cuti") {
       if (widget.statusId == 1) {
         //Dalam Proses
-        textColor = blueStatusText;
-        boxColor = blueStatusBox;
+        // textColor = blueStatusText;
+        // boxColor = blueStatusBox;
+        textColor = orangeStatusText;
+        boxColor = orangeStatusBox;
       } else if (widget.statusId == 2) {
         //Diluluskan Tanpa Lampiran
         textColor = orangeStatusText;
