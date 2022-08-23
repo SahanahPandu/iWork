@@ -17,7 +17,7 @@ class ENotisButton extends StatefulWidget {
 
 class _ENotisButtonState extends State<ENotisButton>
     with TickerProviderStateMixin {
-  double squareScaleA = 1;
+  double _scaleText = 1;
   late AnimationController _controllerText;
   final Devices _device = Devices();
   String todayDate = Date.getTodayDate();
@@ -29,11 +29,11 @@ class _ENotisButtonState extends State<ENotisButton>
       lowerBound: 0.97,
       upperBound: 1,
       value: 1,
-      duration: const Duration(milliseconds: 10),
+      duration: const Duration(milliseconds: 200),
     );
     _controllerText.addListener(() {
       setState(() {
-        squareScaleA = _controllerText.value;
+        _scaleText = _controllerText.value;
       });
     });
     super.initState();
@@ -73,7 +73,7 @@ class _ENotisButtonState extends State<ENotisButton>
           _controllerText.reverse();
         },
         onTapUp: (dp) {
-          Timer(const Duration(milliseconds: 100), () {
+          Timer(const Duration(milliseconds: 200), () {
             _controllerText.fling();
           });
         },
@@ -81,7 +81,7 @@ class _ENotisButtonState extends State<ENotisButton>
           _controllerText.fling();
         },
         child: Transform.scale(
-          scale: squareScaleA,
+          scale: _scaleText,
           child: Row(
             children: [
               Text(

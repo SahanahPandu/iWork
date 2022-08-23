@@ -4,6 +4,7 @@ import 'package:page_transition/page_transition.dart';
 
 //import files
 import '../../config/config.dart';
+import '../../config/palette.dart';
 import '../../screens/e_cuti/e_cuti.dart';
 import '../../screens/e_cuti/pra/pra_e_cuti_list_details.dart';
 import '../../screens/e_cuti/supervisor/supervisor_leave_list_details.dart';
@@ -35,21 +36,21 @@ class ListCard extends StatefulWidget {
 }
 
 class _ListCardState extends State<ListCard> with TickerProviderStateMixin {
-  double squareScaleA = 1;
+  double _scaleCard = 1;
   late AnimationController _controllerCard;
 
   @override
   void initState() {
     _controllerCard = AnimationController(
       vsync: this,
-      lowerBound: 0.99,
+      lowerBound: 0.98,
       upperBound: 1,
       value: 1,
-      duration: const Duration(milliseconds: 10),
+      duration: const Duration(milliseconds: 200),
     );
     _controllerCard.addListener(() {
       setState(() {
-        squareScaleA = _controllerCard.value;
+        _scaleCard = _controllerCard.value;
       });
     });
     super.initState();
@@ -92,7 +93,9 @@ class _ListCardState extends State<ListCard> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.only(bottom: 8),
+        padding: userRole == 200
+            ? const EdgeInsets.only(bottom: 8)
+            : const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
         child: GestureDetector(
             behavior: HitTestBehavior.translucent,
             onTap: () {
@@ -106,7 +109,7 @@ class _ListCardState extends State<ListCard> with TickerProviderStateMixin {
               _controllerCard.reverse();
             },
             onTapUp: (dp) {
-              Timer(const Duration(milliseconds: 150), () {
+              Timer(const Duration(milliseconds: 200), () {
                 _controllerCard.fling();
               });
             },
@@ -114,34 +117,46 @@ class _ListCardState extends State<ListCard> with TickerProviderStateMixin {
               _controllerCard.fling();
             },
             child: Transform.scale(
-              scale: squareScaleA,
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(14),
-                  shape: BoxShape.rectangle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.shade300,
-                      blurRadius: 5,
-                      offset: const Offset(0, 4),
-                      spreadRadius: 1,
-                      blurStyle: BlurStyle.normal,
-                    ),
-                  ],
-                ),
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(14),
-                  ),
-                  elevation: 0,
-                  child: Container(
-                    margin: userRole == 200
-                        ? const EdgeInsets.only(top: 16, bottom: 24)
-                        : const EdgeInsets.symmetric(vertical: 5),
-                    child: getWidget(),
-                  ),
-                ),
-              ),
+              scale: _scaleCard,
+              child: userRole == 200
+                  ? Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(14),
+                        shape: BoxShape.rectangle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.shade300,
+                            blurRadius: 5,
+                            offset: const Offset(0, 4),
+                            spreadRadius: 1,
+                            blurStyle: BlurStyle.normal,
+                          ),
+                        ],
+                      ),
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                        elevation: 0,
+                        child: Container(
+                          margin: const EdgeInsets.only(top: 16, bottom: 24),
+                          child: getWidget(),
+                        ),
+                      ),
+                    )
+                  : Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(14),
+                        color: white,
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.grey.withOpacity(.3),
+                              offset: const Offset(0, 2),
+                              blurRadius: 5,
+                              spreadRadius: 0.8)
+                        ],
+                      ),
+                      child: getWidget()),
             )));
   }
 
