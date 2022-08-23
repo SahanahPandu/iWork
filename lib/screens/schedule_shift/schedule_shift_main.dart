@@ -23,32 +23,48 @@ class _ScheduleShiftMainState extends State<ScheduleShiftMain> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: white,
-        appBar: AppBar(
-          backgroundColor: appBarBgColor,
-          elevation: 1,
-          shadowColor: white,
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(CustomIcon.arrowBack,
-                color: Colors.grey.shade900, size: 15),
-          ),
-          title: Center(
-            child: Text(
-              "Anjakan Jadual",
-              style: TextStyle(
-                fontSize: 15,
-                color: grey800,
-                fontWeight: FontWeight.w700,
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(kToolbarHeight),
+          child: Container(
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                color: barShadowColor,
+                offset: const Offset(0, 3),
+                blurRadius: 8,
+              )
+            ]),
+            child: AppBar(
+              backgroundColor: white,
+              elevation: 0,
+              leading: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(CustomIcon.arrowBack,
+                    color: blackCustom, size: 15),
               ),
+              title: Center(
+                child: Text(
+                  "Anjakan Tugasan",
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: blackCustom,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ),
+              actions: [
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.filter_alt_rounded,
+                    color: blackCustom,
+                    size: 18,
+                  ),
+                ),
+              ],
             ),
           ),
-          actions: const [
-            SizedBox(
-              width: 50,
-            )
-          ],
         ),
         body: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
@@ -61,9 +77,9 @@ class _ScheduleShiftMainState extends State<ScheduleShiftMain> {
                   child: Text(
                     "Anjakan Jadual",
                     style: TextStyle(
-                        color: grey500,
+                        color: blackCustom,
                         fontSize: 15,
-                        fontWeight: FontWeight.w600),
+                        fontWeight: FontWeight.w400),
                   ),
                 ),
                 Padding(

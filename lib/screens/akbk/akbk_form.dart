@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../../config/palette.dart';
 import '../../config/string.dart';
@@ -7,6 +8,7 @@ import '../../utils/date.dart';
 import '../../utils/device.dart';
 import '../../widgets/alert/alert_dialog.dart';
 import '../../widgets/modal_bottom_sheet/acceptance_options.dart';
+import '../dialog/custom_dialog.dart';
 
 class AkbkForm extends StatefulWidget {
   const AkbkForm({Key? key}) : super(key: key);
@@ -40,13 +42,13 @@ class _AkbkFormState extends State<AkbkForm> {
             children: [
               Padding(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                   child: Text(
                     "Arahan Kerja Baik Pulih",
                     style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        color: black87,
-                        fontSize: 14),
+                        fontWeight: FontWeight.w500,
+                        color: blackCustom,
+                        fontSize: 15),
                   )),
               Padding(
                 padding:
@@ -107,9 +109,9 @@ class _AkbkFormState extends State<AkbkForm> {
                   child: Text(
                     "Maklumat Operasi",
                     style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        color: black87,
-                        fontSize: 14),
+                        fontWeight: FontWeight.w500,
+                        color: blackCustom,
+                        fontSize: 15),
                   )),
               Padding(
                 padding:
@@ -259,9 +261,9 @@ class _AkbkFormState extends State<AkbkForm> {
                   child: Text(
                     "Odometer",
                     style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        color: black87,
-                        fontSize: 14),
+                        fontWeight: FontWeight.w500,
+                        color: blackCustom,
+                        fontSize: 15),
                   )),
               Padding(
                 padding:
@@ -314,9 +316,9 @@ class _AkbkFormState extends State<AkbkForm> {
                   child: Text(
                     "AKBK",
                     style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        color: black87,
-                        fontSize: 14),
+                        fontWeight: FontWeight.w500,
+                        color: blackCustom,
+                        fontSize: 15),
                   )),
               Padding(
                 padding:
@@ -348,9 +350,9 @@ class _AkbkFormState extends State<AkbkForm> {
                   child: Text(
                     "Butir-butir Kerosakan/Isu",
                     style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        color: black87,
-                        fontSize: 14),
+                        fontWeight: FontWeight.w500,
+                        color: blackCustom,
+                        fontSize: 15),
                   )),
               Padding(
                 padding:

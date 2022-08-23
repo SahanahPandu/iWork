@@ -35,32 +35,49 @@ class _ScheduleIssueMainScreen extends State<ScheduleIssueMainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: appBarBgColor,
-        elevation: 1,
-        shadowColor: Colors.white,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon:
-              Icon(CustomIcon.arrowBack, color: Colors.grey.shade900, size: 18),
-        ),
-        title: Center(
-          child: Text(
-            issueTypeStr,
-            style: TextStyle(
-              fontSize: 15,
-              color: Colors.grey.shade800,
-              fontWeight: FontWeight.w700,
+      backgroundColor: white,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(kToolbarHeight),
+        child: Container(
+          decoration: BoxDecoration(boxShadow: [
+            BoxShadow(
+              color: barShadowColor,
+              offset: const Offset(0, 3),
+              blurRadius: 8,
+            )
+          ]),
+          child: AppBar(
+            backgroundColor: white,
+            elevation: 0,
+            leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Icon(CustomIcon.arrowBack,
+                  color: blackCustom, size: 15),
             ),
+            title: Center(
+              child: Text(
+                issueTypeStr,
+                style: TextStyle(
+                  fontSize: 15,
+                  color: blackCustom,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ),
+            actions: [
+              IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.filter_alt_rounded,
+                  color: blackCustom,
+                  size: 18,
+                ),
+              ),
+            ],
           ),
         ),
-        actions: const [
-          SizedBox(
-            width: 50,
-          )
-        ],
       ),
       body: Stack(children: [
         SingleChildScrollView(
@@ -79,13 +96,13 @@ class _ScheduleIssueMainScreen extends State<ScheduleIssueMainScreen> {
                       child: Text(
                         "Senarai Laporan Hari Ini:",
                         style: TextStyle(
-                            color: grey500,
+                            color: blackCustom,
                             fontSize: 15,
-                            fontWeight: FontWeight.w600),
+                            fontWeight: FontWeight.w400),
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(10.0),
+                      padding: const EdgeInsets.all(10),
                       child: CardListView(type: "Laporan"),
                     ),
                   ],

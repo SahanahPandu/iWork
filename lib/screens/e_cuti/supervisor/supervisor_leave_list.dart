@@ -20,37 +20,48 @@ class _SupervisorLeaveList extends State<SupervisorLeaveList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: appBarBgColor,
-          elevation: 1,
-          shadowColor: white,
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(CustomIcon.arrowBack,
-                color: Colors.grey.shade900, size: 15),
-          ),
-          title: Center(
-            child: Text(
-              "E-Cuti",
-              style: TextStyle(
-                fontSize: 18,
-                color: grey800,
-                fontWeight: FontWeight.w700,
+        backgroundColor: white,
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(kToolbarHeight),
+          child: Container(
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                color: barShadowColor,
+                offset: const Offset(0, 3),
+                blurRadius: 8,
+              )
+            ]),
+            child: AppBar(
+              backgroundColor: white,
+              elevation: 0,
+              leading: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(CustomIcon.arrowBack, color: blackCustom, size: 15),
               ),
+              title: Center(
+                child: Text(
+                  "E-Cuti",
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: blackCustom,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ),
+              actions: [
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.filter_alt_rounded,
+                    color: blackCustom,
+                    size: 18,
+                  ),
+                ),
+              ],
             ),
           ),
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.filter_alt_rounded,
-                color: grey800,
-                size: 18,
-              ),
-            ),
-          ],
         ),
         body: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
@@ -62,11 +73,13 @@ class _SupervisorLeaveList extends State<SupervisorLeaveList> {
               child: Text(
                 "Rekod permohonan cuti PRA :",
                 style: TextStyle(
-                    color: grey500, fontSize: 15, fontWeight: FontWeight.w600),
+                    color: blackCustom,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w400),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(10),
               child: CardListView(type: "Cuti"),
             ),
           ]),

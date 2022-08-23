@@ -14,7 +14,6 @@ class ScheduleAllMainScreen extends StatefulWidget {
 }
 
 class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
-
   @override
   void initState() {
     super.initState();
@@ -23,37 +22,49 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: appBarBgColor,
-        elevation: 1,
-        shadowColor: white,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon:
-              Icon(CustomIcon.arrowBack, color: Colors.grey.shade900, size: 15),
-        ),
-        title: Center(
-          child: Text(
-            "Jadual Tugasan",
-            style: TextStyle(
-              fontSize: 15,
-              color: grey800,
-              fontWeight: FontWeight.w700,
+      backgroundColor: white,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(kToolbarHeight),
+        child: Container(
+          decoration: BoxDecoration(boxShadow: [
+            BoxShadow(
+              color: barShadowColor,
+              offset: const Offset(0, 3),
+              blurRadius: 8,
+            )
+          ]),
+          child: AppBar(
+            backgroundColor: white,
+            elevation: 0,
+            leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Icon(CustomIcon.arrowBack,
+                  color: blackCustom, size: 15),
             ),
+            title: Center(
+              child: Text(
+                "Jadual Tugasan",
+                style: TextStyle(
+                  fontSize: 15,
+                  color: blackCustom,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ),
+            actions: [
+              IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.filter_alt_rounded,
+                  color: blackCustom,
+                  size: 18,
+                ),
+              ),
+            ],
           ),
         ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.filter_alt_rounded,
-              color: grey800,
-              size: 22,
-            ),
-          ),
-        ],
       ),
       body: userRole == 100
           ? Column(
@@ -70,17 +81,15 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                     padding: const EdgeInsets.only(
                         left: 20, right: 20, top: 20, bottom: 10),
                     child: Text(
-                      "Senarai Laluan Tugasan Hari Ini:",
+                      "Senarai Laluan Tugasan :",
                       style: TextStyle(
-                          color: grey500,
+                          color: blackCustom,
                           fontSize: 15,
-                          fontWeight: FontWeight.w600),
+                          fontWeight: FontWeight.w400),
                     ),
                   ),
-                  Container(
-                    margin: EdgeInsets.symmetric(
-                      horizontal: userRole != 200 ? 15 : 0,
-                    ),
+                  Padding(
+                    padding: const EdgeInsets.all(10),
                     child: CardListView(
                       type: "Laluan",
                       screens: "drawer",
