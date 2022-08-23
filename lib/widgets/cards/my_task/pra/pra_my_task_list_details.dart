@@ -1,160 +1,179 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 
+//import files
+import '../../../../config/font.dart';
+import '../../../../models/laluan.dart';
+import '../../../../utils/custom_icon.dart';
+import '../../../container/status_container.dart';
+
 class PraMyTaskListDetails extends StatefulWidget {
-  const PraMyTaskListDetails({Key? key}) : super(key: key);
+  Laluan data;
+
+  PraMyTaskListDetails({Key? key, required this.data}) : super(key: key);
 
   @override
   State<PraMyTaskListDetails> createState() => _PraMyTaskListDetailsState();
 }
 
 class _PraMyTaskListDetailsState extends State<PraMyTaskListDetails> {
+  Color iconColor = const Color(0xff3269F8);
+  Color labelColor = const Color(0xff969696);
+  Color inputColor = const Color(0xff2B2B2B);
+
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.all(15),
-          child: Row(
-            //Nama Laluan & Status
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "JHBP01-C02",
-                style: TextStyle(
-                    fontSize: 19,
-                    color: Colors.grey.shade800,
-                    fontWeight: FontWeight.w900),
+        Row(
+          //Nama Laluan & Status
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Text(
+                widget.data.namaLaluan,
+                style: const TextStyle(
+                    fontSize: 16,
+                    color: Color(0xff2B2B2B),
+                    fontWeight: FontWeight.w500),
               ),
-              Container(
-                width: 130,
-                decoration: BoxDecoration(
-                  color: Colors.orange.shade100,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(6),
-                  child: Center(
-                    child: Text(
-                      "Belum Dimulakan",
-                      style: TextStyle(
-                          color: Colors.orange.shade700,
-                          fontWeight: FontWeight.w500),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
+            ),
+            StatusContainer(
+              type: "Laluan",
+              status: widget.data.status,
+              statusId: widget.data.idStatus,
+              fontWeight: statusFontWeight,
+            ),
+          ],
         ),
-        //Sub Laluan
-        Padding(
-          padding: const EdgeInsets.all(10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  const Icon(
-                    Icons.location_on,
-                    size: 18,
-                  ),
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  Text(
-                    "Sub Laluan",
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: Colors.grey.shade800,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ],
-              ),
-              const Text(
-                "JHBP01-C02-1",
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.black45,
-                  fontWeight: FontWeight.w500,
-                ),
-              )
-            ],
-          ),
+        const SizedBox(
+          height: 37,
         ),
         //No Kenderaan
         Padding(
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.symmetric(horizontal: 18),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
                 children: [
-                  const Icon(
-                    Icons.local_shipping,
-                    size: 18,
+                  Icon(
+                    CustomIcon.truckFill,
+                    size: 16,
+                    color: iconColor,
                   ),
                   const SizedBox(
-                    width: 8,
+                    width: 10,
                   ),
                   Text(
                     "No. Kenderaan",
                     style: TextStyle(
                       fontSize: 15,
-                      color: Colors.grey.shade800,
-                      fontWeight: FontWeight.w700,
+                      color: labelColor,
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
                 ],
               ),
-              const Text(
-                "BLW7096",
+              Text(
+                widget.data.noKenderaan,
                 style: TextStyle(
                   fontSize: 15,
-                  color: Colors.black45,
-                  fontWeight: FontWeight.w500,
+                  color: inputColor,
+                  fontWeight: FontWeight.w600,
                 ),
               )
             ],
           ),
         ),
-        //Jumlah Taman/Jalan
+        const SizedBox(
+          height: 16,
+        ),
+        //Sub Laluan
         Padding(
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.symmetric(horizontal: 18),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
                 children: [
-                  const Icon(
-                    Icons.house,
-                    size: 18,
+                  Icon(
+                    CustomIcon.roadFill,
+                    size: 16,
+                    color: iconColor,
                   ),
                   const SizedBox(
-                    width: 8,
+                    width: 10,
                   ),
                   Text(
-                    "Jumlah Taman/Jalan",
+                    "Jumlah Sub Laluan",
                     style: TextStyle(
                       fontSize: 15,
-                      color: Colors.grey.shade800,
-                      fontWeight: FontWeight.w700,
+                      color: labelColor,
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
                 ],
               ),
-              const Text(
-                "13/123",
+              Text(
+                "${widget.data.jumSubLaluan}",
                 style: TextStyle(
                   fontSize: 15,
-                  color: Colors.black45,
-                  fontWeight: FontWeight.w500,
+                  color: inputColor,
+                  fontWeight: FontWeight.w600,
                 ),
               )
             ],
           ),
         ),
+
+        const SizedBox(
+          height: 16,
+        ),
+        //Jumlah Taman/Jalan
+        Padding(
+          // padding: const EdgeInsets.fromLTRB(18, 6, 20, 20),
+          padding: const EdgeInsets.symmetric(horizontal: 18),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Icon(
+                    CustomIcon.tamanFill,
+                    size: 16,
+                    color: iconColor,
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    "Jumlah Taman/Jalan",
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: labelColor,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ],
+              ),
+              Text(
+                "${widget.data.jumlahTaman}/${widget.data.jumlahJalan}",
+                style: TextStyle(
+                  fontSize: 15,
+                  color: inputColor,
+                  fontWeight: FontWeight.w600,
+                ),
+              )
+            ],
+          ),
+        ),
+        // const SizedBox(
+        //   height: 16,
+        // ),
       ],
     );
   }

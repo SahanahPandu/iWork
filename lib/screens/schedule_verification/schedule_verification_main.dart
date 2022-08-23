@@ -1,0 +1,156 @@
+import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
+
+import '../../config/config.dart';
+import '../../config/palette.dart';
+import '../../utils/device.dart';
+import '../e_cuti/supervisor/supervisor_leave_list.dart';
+import 'attendance/attendance_detail/attendance_verification_list.dart';
+import 'attendance/attendance_verification.dart';
+import 'ecuti/ecuti_verification.dart';
+import 'reschedule/reschedule_verification.dart';
+
+class ScheduleVerificationMain extends StatefulWidget {
+  const ScheduleVerificationMain({Key? key}) : super(key: key);
+
+  @override
+  State<ScheduleVerificationMain> createState() =>
+      _ScheduleVerificationMainState();
+}
+
+class _ScheduleVerificationMainState extends State<ScheduleVerificationMain> {
+  final Devices _device = Devices();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        const SizedBox(height: 10),
+        _buildVerifyCard(
+            context,
+            attendanceMainCard,
+            "Kehadiran",
+            "Sahkan Kehadiran",
+            const AttendanceVerification(),
+            const AttendanceVerificationList()),
+        _buildVerifyCard(context, eCutiMainCard, "E-Cuti", "Sahkan E-Cuti",
+            const EcutiVerification(), const SupervisorLeaveList()),
+        _buildVerifyCard(
+            context,
+            rescheduleMainCard,
+            "Permohonan Pinjam Pekerja",
+            "Sahkan",
+            const RescheduleVerification(),
+            const AttendanceVerificationList()),
+      ],
+    );
+  }
+
+  ValueListenableBuilder _buildVerifyCard(
+      BuildContext context,
+      ValueNotifier<bool> isCardExist,
+      String? cardTitle,
+      String? buttonTitle,
+      redirect,
+      detailRedirect) {
+    return ValueListenableBuilder(
+        valueListenable: isCardExist,
+        builder: (BuildContext context, value, Widget? child) {
+          return Padding(
+            padding: const EdgeInsets.only(bottom: 5),
+            child: value == true
+                ? SizedBox(
+                    width: _device.screenWidth(context),
+                    child: Card(
+                      //Tugasan Card
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14),
+                      ),
+                      shadowColor: grey100,
+                      elevation: 3,
+                      child: Padding(
+                        padding: const EdgeInsets.all(15),
+                        child: Column(
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 8),
+                                  child: Text(
+                                    cardTitle!,
+                                    style: TextStyle(
+                                        color: blackCustom,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 16),
+                                  ),
+                                ),
+                                Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 3, horizontal: 5),
+                                    child: redirect),
+                              ],
+                            ),
+                            Container(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              width: _device.screenWidth(context),
+                              child: ElevatedButton(
+                                style: ButtonStyle(
+                                    elevation: MaterialStateProperty.all(0),
+                                    overlayColor:
+                                        MaterialStateColor.resolveWith(
+                                            (states) => green800),
+                                    shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(12)),
+                                    ),
+                                    minimumSize: MaterialStateProperty.all(
+                                        Size(_device.screenWidth(context), 42)),
+                                    backgroundColor:
+                                        MaterialStateProperty.all(greenCustom)),
+                                child: Text(buttonTitle!,
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500,
+                                        color: white)),
+                                onPressed: () {
+                                  _navigatePage(context, detailRedirect);
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  )
+                : null,
+          );
+        });
+  }
+
+  Future<void> _navigatePage(BuildContext context, detailRedirect) async {
+    String refresh = await Navigator.push(
+        context,
+        PageTransition(
+            type: PageTransitionType.fade,
+            child: detailRedirect));
+    if (!mounted) return;
+    switch (refresh) {
+      case "refreshAttendance":
+        _verifiedTask(attendanceMainCard);
+        break;
+      case "refreshEcuti":
+        _verifiedTask(eCutiMainCard);
+        break;
+      case "refreshReschedule":
+        _verifiedTask(rescheduleMainCard);
+        break;
+    }
+  }
+
+  void _verifiedTask(ValueNotifier<bool> isMainCard) {
+    isMainCard.value = false;
+  }
+}

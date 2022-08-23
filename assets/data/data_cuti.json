@@ -1,0 +1,54 @@
+[
+    {
+        "id":1,
+        "idJenisCuti": 1,
+        "jenisCuti": "Cuti Sakit",
+        "idStatus": 1,
+        "status": "Dalam Proses",
+        "tarikhMula": "15/05/2022",
+        "tarikhTamat": "15/05/2022",
+        "lampiran": "https://cf.shopee.com.my/file/695ae124861d9ba77cfc8b0b72263910",
+        "catatan": "//testing for long text//testing for long text//testing for long text//testing for long text//testing for long text//testing for long text//testing for long text//",
+        "pemohon": "Suhaimi ",
+        "approvalBy": "Ahmad"
+    },
+    {
+        "id":2,
+        "idJenisCuti": 2,
+        "jenisCuti": "Cuti Kecemasan",
+        "idStatus": 2,
+        "status": "Diluluskan Tanpa Lampiran",
+        "tarikhMula": "23/05/2022",
+        "tarikhTamat": "26/05/2022",
+        "lampiran": "",
+        "catatan": "Kereta telah rosak",
+        "pemohon": "Suhaimi",
+        "approvalBy": "Ahmad"
+    },
+    {
+        "id":3,
+        "idJenisCuti": 3,
+        "jenisCuti": "Cuti Terancang",
+        "idStatus": 3,
+        "status": "Diluluskan",
+        "tarikhMula": "20/05/2022",
+        "tarikhTamat": "21/05/2022",
+        "lampiran": "",
+        "catatan": "Urusan peribadi",
+        "pemohon": "Suhaimi",
+        "approvalBy": "Ahmad"
+    },
+    {
+        "id":4,
+        "idJenisCuti": 4,
+        "jenisCuti": "Cuti Terancang",
+        "idStatus": 4,
+        "status": "Tidak Diluluskan",
+        "tarikhMula": "20/05/2022",
+        "tarikhTamat": "20/05/2022",
+        "lampiran": "",
+        "catatan": "",
+        "pemohon": "Suhaimi",
+        "approvalBy": "Ahmad"
+    }
+]

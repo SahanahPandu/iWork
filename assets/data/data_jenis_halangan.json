@@ -1,0 +1,27 @@
+[
+    {
+        "id":1,
+        "namaHalangan": "Cuaca"
+        
+    },
+    {
+        "id":2,
+        "namaHalangan": "Laluan"
+        
+    },
+    {
+        "id":3,
+        "namaHalangan": "Kerosakan Kenderaan"
+        
+    },
+    {
+        "id":4,
+        "namaHalangan": "Kerosakan Tayar"
+        
+    },
+    {
+        "id":5,
+        "namaHalangan": "Kerosakan Tong"
+        
+    }
+]

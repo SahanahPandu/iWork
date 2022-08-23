@@ -29,15 +29,32 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-
-  # The following adds the Cupertino Icons font to your application.
+    
+  # The following adds the Cupertino Icons fonts to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  fluttertoast: ^8.0.9
+  simple_ripple_animation: ^0.0.3
+  flutter_device_type: ^0.4.0
+  intl: ^0.17.0
+  action_slider: ^0.6.0
+  shimmer: ^2.0.0
+  expansion_tile_card: ^2.0.0
+  file_picker: ^4.6.1
+  shared_preferences: ^2.0.15
+  image_picker: ^0.8.5+3
+  expandable: ^5.0.1
+  url_launcher: ^6.1.5
+  auto_size_text: ^3.0.0
+  page_transition: ^2.0.9
+  smooth_page_indicator: ^1.0.0+2
+  lottie: ^1.2.1
+  keyboard_dismisser: ^3.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+    
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -45,6 +62,21 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  
+# The following section is specific to Flutter launcher icons. 
+  flutter_launcher_icons: ^0.10.0
+
+flutter_icons:
+  image_path: assets/icon/launcher/iwork.png
+  android: true
+  ios: true
+
+# The following section is specific to Flutter splash packages. 
+  flutter_native_splash: ^1.2.0
+
+flutter_native_splash:
+  color: "#FFFFFF"
+  image: assets/image/splash/splash.png
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -52,13 +84,18 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 flutter:
 
-  # The following line ensures that the Material Icons font is
+  # The following line ensures that the Material Icons fonts is
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
+  assets:
+    - assets/image/
+    - assets/image/splash/
+    - assets/data/
+    - assets/lottie/
+    
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
@@ -70,13 +107,13 @@ flutter:
 
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
-  # "family" key with the font family name, and a "fonts" key with a
-  # list giving the asset and other descriptors for the font. For
+  # "family" key with the fonts family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the fonts. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+      - family: IworkIcon
+        fonts:
+          - asset: assets/fonts/IworkIcon.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

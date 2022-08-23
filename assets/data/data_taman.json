@@ -1,0 +1,26 @@
+[
+    {
+        "id":1,
+        "namaTaman":"Pekan Bukit Pasir"
+    },
+    {
+        "id":2,
+        "namaTaman":"Taman Cemerlang Indah"
+    },
+    {
+        "id":3,
+        "namaTaman":"Taman Cemerlang Jaya"
+    },
+    {
+        "id":4,
+        "namaTaman":"Taman Cemerlang Ria"
+    },
+    {
+        "id":5,
+        "namaTaman":"Taman Desa"
+    },
+    {
+        "id":6,
+        "namaTaman":"Taman Permainan"
+    }
+]

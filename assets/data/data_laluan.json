@@ -1,0 +1,71 @@
+[
+    {
+        "id": 1,
+        "namaLaluan": "JHBP01-C02",
+        "jumSubLaluan": 7,
+        "idStatus": 1,
+        "status": "Belum Mula",
+        "idKenderaan":1,
+        "noKenderaan": "BLW7096",
+        "jumlahTaman": 13,
+        "jumlahJalan":123,
+        "idJenisKutipan":1,
+        "jenisKutipan":"KI (Kutipan Isi Rumah)",
+        "mulaKerja":"--:--",
+        "tamatKerja":"--:--",
+        "isu": "kehadiran",
+        "kehadiran":"3/3",
+        "leaderContact": "+60142612967",
+        "senaraiStaf": {
+            "staf_1" : "Suhaimi",
+            "staf_2" : "Khairul",
+            "staf_3" : "Zam"
+        }
+    },
+    {
+        "id": 2,
+        "namaLaluan": "JHBP01-C03",
+        "jumSubLaluan": 6,
+        "idStatus": 2,
+        "status": "Sedang Bertugas",
+        "idKenderaan":2,
+        "noKenderaan": "BLM8886",
+        "jumlahTaman": 12,
+        "jumlahJalan":132,
+        "idJenisKutipan":1,
+        "jenisKutipan":"KI (Kutipan Isi Rumah)",
+        "mulaKerja":"--:--",
+        "tamatKerja":"--:--",
+        "isu": "belum",
+        "kehadiran":"3/3",
+        "leaderContact": "+60142612967",
+        "senaraiStaf": {
+            "staf_1" : "Ahmad",
+            "staf_2" : "Idris",
+            "staf_3" : "John"
+        }
+    },
+    {
+        "id": 3,
+        "namaLaluan": "JHBP01-C04",
+        "jumSubLaluan": 5,
+        "idStatus": 3,
+        "status": "Tugasan Selesai",
+        "idKenderaan":3,
+        "noKenderaan": "BLS7687",
+        "jumlahTaman": 9,
+        "jumlahJalan":70,
+        "idJenisKutipan":1,
+        "jenisKutipan":"KI (Kutipan Isi Rumah)",
+        "mulaKerja":"--:--",
+        "tamatKerja":"--:--",
+        "isu": "laporan",
+        "kehadiran":"3/3",
+        "leaderContact": "+60142612967",
+        "senaraiStaf": {
+            "staf_1" : "Razak",
+            "staf_2" : "Omar",
+            "staf_3" : "Yusuf"
+        }
+    }
+]

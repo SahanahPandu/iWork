@@ -1,7 +1,29 @@
 import 'package:flutter/material.dart';
 
-Color appBackgroundColor = Colors.grey.shade200;
-Color appBarBgColor = Colors.grey.shade200;
+/// * GLOBAL VARIABLE LIST
+/// ** Task **
+/// '1' = belum dimulakan
+/// '2' = sedang bertugas
+/// '3' = tugasan selesai'
+int statusTask = 1;
 
-//global variables
-int userRole = 1;//PRA
+/// ** UserRole **
+/// '0' = unknown
+/// '100' = compactor
+/// '200' = pra
+/// '300' = supervisor
+/// '400' = eo
+/// '500' = ba
+/// '600' = sam
+/// '700' = rom
+/// '800' = mech
+int userRole = 0;
+
+/// ** VCStatus **
+bool completedFirstVc = false;
+bool completedSecondVc = false;
+
+/// ** Schedule Verification Status **
+ValueNotifier<bool> attendanceMainCard = ValueNotifier(true);
+ValueNotifier<bool> eCutiMainCard = ValueNotifier(true);
+ValueNotifier<bool> rescheduleMainCard = ValueNotifier(true);

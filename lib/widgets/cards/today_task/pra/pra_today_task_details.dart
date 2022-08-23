@@ -1,133 +1,136 @@
+// ignore_for_file: must_be_immutable
+
+import 'package:eswm/utils/custom_icon.dart';
 import 'package:flutter/material.dart';
+import '../../../../utils/date.dart';
 
 //import files
 import 'package:eswm/widgets/buttons/ecuti_button.dart';
+import 'package:eswm/widgets/buttons/time_log_button.dart';
 
 class PraTodayTaskDetails extends StatefulWidget {
-  const PraTodayTaskDetails({Key? key}) : super(key: key);
+  late String timeIn;
+  late String timeOut;
+  Function getTimeLog;
+
+  PraTodayTaskDetails(
+      {Key? key,
+      required this.timeIn,
+      required this.timeOut,
+      required this.getTimeLog})
+      : super(key: key);
 
   @override
   State<PraTodayTaskDetails> createState() => _PraTodayTaskDetailsState();
 }
 
 class _PraTodayTaskDetailsState extends State<PraTodayTaskDetails> {
+  String todayDate = "0";
+
+  @override
+  void initState() {
+    super.initState();
+    todayDate = Date.getTodayDate2();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Text(
-              "Tugasan Hari Ini",
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w500,
-                fontSize: 17,
-              ),
-            ),
-            Container(
-              decoration: const BoxDecoration(
-                color: Colors.black26,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(30),
-                ),
-              ),
-              child: IconButton(
-                icon: const Icon(
-                  Icons.date_range,
-                  color: Colors.white,
-                  size: 29,
-                ),
-                onPressed: () {},
-              ),
-            ),
-          ],
+        const SizedBox(
+          height: 10,
         ),
         const Text(
-          "22/5/2022",
+          "Tugasan Hari Ini (7.00 pg - 12.30 ptg)",
           style: TextStyle(
-              fontSize: 38, fontWeight: FontWeight.w600, color: Colors.white),
+            color: Colors.white,
+            fontWeight: FontWeight.w400,
+            fontSize: 15,
+          ),
         ),
         const SizedBox(
           height: 8,
         ),
-        const Text(
-          "7 pagi - 12 tengahari",
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-            color: Colors.white,
-          ),
+        Row(
+          children: [
+            Text(
+              todayDate,
+              style: const TextStyle(
+                fontSize: 36,
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
+              ),
+            ),
+            const SizedBox(
+              width: 5,
+            ),
+            IconButton(
+              icon: const Icon(
+                CustomIcon.scheduleFill,
+                color: Color(0xffA0FD57),
+                size: 20,
+              ),
+              onPressed: () {},
+            ),
+          ],
         ),
         const SizedBox(
-          height: 10,
+          height: 8,
         ),
         Row(
-          children: const [
-            Icon(
-              Icons.timer_outlined,
-              color: Colors.white,
-              size: 18,
-            ),
-            SizedBox(
-              width: 10,
+          children: [
+            if (widget.timeIn != "")
+              const Icon(
+                CustomIcon.timerOutline,
+                color: Color(0xffA0FD57),
+                size: 18,
+              ),
+            const SizedBox(
+              width: 6,
             ),
             Text(
-              "7:05 pagi",
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
+              widget.timeIn,
+              style: const TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w400,
+                color: Colors.white,
+              ),
+            ),
+            const SizedBox(
+              width: 25,
+            ),
+            if (widget.timeOut != "")
+              const Icon(
+                CustomIcon.timerOutline,
+                color: Color(0xffA0FD57),
+                size: 18,
+              ),
+            const SizedBox(
+              width: 6,
+            ),
+            Text(
+              widget.timeOut,
+              style: const TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w400,
                 color: Colors.white,
               ),
             ),
           ],
         ),
         const SizedBox(
-          height: 50,
+          height: 20,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            const EcutiButton(),
+            TimeLogButton(getTimeLog: widget.getTimeLog),
             const SizedBox(
-              width: 10,
+              width: 15,
             ),
-            Container(
-              width: 150,
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.white,
-                ),
-                color: Colors.white,
-                borderRadius: const BorderRadius.all(Radius.circular(18)),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 6,
-                ),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.timer_outlined,
-                      color: Colors.grey.shade800,
-                    ),
-                    const SizedBox(
-                      width: 6,
-                    ),
-                    Text(
-                      "Masuk Kerja",
-                      style: TextStyle(
-                        color: Colors.grey.shade800,
-                        fontSize: 17,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+            const Expanded(
+              child: EcutiButton(),
             ),
           ],
         )
