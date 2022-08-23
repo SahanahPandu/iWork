@@ -50,7 +50,7 @@ class _AkbkMainTabState extends State<AkbkMainTab>
                   Navigator.pop(context);
                 },
                 icon: Icon(CustomIcon.arrowBack,
-                    color: blackCustom, size: 15),
+                    color: blackCustom, size: 22),
               ),
               title: Center(
                 child: Text(

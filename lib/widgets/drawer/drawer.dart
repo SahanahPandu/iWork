@@ -106,8 +106,7 @@ class _DrawerBuildState extends State<DrawerBuild> {
                               width: _device.isLandscape(context) ? 52 : 62,
                               decoration: BoxDecoration(
                                   color: transparent,
-                                  border:
-                                      Border.all(color: grey300),
+                                  border: Border.all(color: grey300),
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(10))),
                             ),
@@ -236,7 +235,9 @@ class _DrawerBuildState extends State<DrawerBuild> {
                 child: Text(
                   'Aplikasi V0.1',
                   style: (TextStyle(
-                      color: grey500, fontWeight: FontWeight.w500, fontSize: 12)),
+                      color: grey500,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 12)),
                 ),
               ),
               onTap: () {},

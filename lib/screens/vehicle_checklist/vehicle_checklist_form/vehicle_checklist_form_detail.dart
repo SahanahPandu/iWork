@@ -94,7 +94,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
             });
           },
           icon:
-              Icon(CustomIcon.arrowBack, color: Colors.grey.shade900, size: 18),
+              Icon(CustomIcon.arrowBack, color: blackCustom, size: 22),
         ),
         title: Center(
           child: Text(
@@ -110,9 +110,9 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
           IconButton(
             onPressed: () {},
             icon: Icon(
-              Icons.history,
-              color: grey800,
-              size: 28,
+              CustomIcon.history,
+              color: blackCustom,
+              size: 18,
             ),
           ),
         ],

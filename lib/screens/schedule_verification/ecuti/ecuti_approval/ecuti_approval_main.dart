@@ -44,8 +44,7 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Icon(CustomIcon.arrowBack,
-                color: Colors.grey.shade900, size: 15),
+            icon: Icon(CustomIcon.arrowBack, color: blackCustom, size: 22),
           ),
           title: Center(
             child: Text(
@@ -57,15 +56,10 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
               ),
             ),
           ),
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.history,
-                color: grey800,
-                size: 18,
-              ),
-            ),
+          actions: const [
+            SizedBox(
+              width: 50,
+            )
           ],
         ),
         body: SingleChildScrollView(

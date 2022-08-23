@@ -43,18 +43,15 @@ class _CompactorPanelScheduleState extends State<CompactorPanelSchedule> {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(
-            CustomIcon.arrowBack,
-            color: grey900,
-          ),
+          icon: Icon(CustomIcon.arrowBack, color: blackCustom, size: 22),
         ),
         title: Center(
           child: Text(
             "Tugasan",
             style: TextStyle(
-              fontSize: 18,
-              color: grey500,
-              fontWeight: FontWeight.w700,
+              fontSize: 15,
+              color: blackCustom,
+              fontWeight: FontWeight.w400,
             ),
           ),
         ),

@@ -8,12 +8,11 @@ List compactorDrawerList = [
       "Halaman Utama", CustomIcon.homeOutline, CustomIcon.homeFill, "context"),
   Drawers("Jadual Tugasan", CustomIcon.scheduleOutline, CustomIcon.scheduleFill,
       "context"),
-  Drawers(
-      "Laporan", CustomIcon.reportOutline, CustomIcon.reportFill, "context)"),
+  Drawers("Laporan", CustomIcon.formOutline, CustomIcon.formFill, "context)"),
   Drawers("Semakan Kenderaan", CustomIcon.truckOutline, CustomIcon.truckFill,
       "context"),
-  Drawers(
-      "Manual Operasi", CustomIcon.bookOutline, CustomIcon.bookFill, "context"),
+  Drawers("Manual Operasi", CustomIcon.manualOutline, CustomIcon.manualFill,
+      "context"),
   Drawers("Log Keluar", CustomIcon.logOut, CustomIcon.logOut, "context",
       Colors.red),
 ];
@@ -21,15 +20,14 @@ List compactorDrawerList = [
 List praDrawerList = [
   Drawers(
       "Halaman Utama", CustomIcon.homeOutline, CustomIcon.homeFill, "context"),
-  Drawers("E-Cuti", CustomIcon.formOutline, CustomIcon.formFill, "context"),
+  Drawers("E-Cuti", CustomIcon.eCutiOutline, CustomIcon.eCutiFill, "context"),
   Drawers("Jadual Tugasan", CustomIcon.scheduleOutline, CustomIcon.scheduleFill,
       "context"),
-  Drawers(
-      "Laporan", CustomIcon.reportOutline, CustomIcon.reportFill, "context"),
+  Drawers("Laporan", CustomIcon.formOutline, CustomIcon.formFill, "context"),
   Drawers("Semakan Kenderaan", CustomIcon.truckOutline, CustomIcon.truckFill,
       "context"),
-  Drawers(
-      "Manual Operasi", CustomIcon.bookOutline, CustomIcon.bookFill, "context"),
+  Drawers("Manual Operasi", CustomIcon.manualOutline, CustomIcon.manualFill,
+      "context"),
   Drawers("Log Keluar", CustomIcon.logOut, CustomIcon.logOut, "context",
       Colors.red),
 ];
@@ -37,19 +35,20 @@ List praDrawerList = [
 List svDrawerList = [
   Drawers(
       "Halaman Utama", CustomIcon.homeOutline, CustomIcon.homeFill, "context"),
-  Drawers("E-Cuti", CustomIcon.formOutline, CustomIcon.formFill, "context"),
+  Drawers("E-Cuti", CustomIcon.eCutiOutline, CustomIcon.eCutiFill, "context"),
   Drawers("Jadual Tugasan", CustomIcon.scheduleOutline, CustomIcon.scheduleFill,
       "context"),
-  Drawers("Anjakan Jadual", Icons.recycling, Icons.recycling, "context"),
+  Drawers("Anjakan Jadual", CustomIcon.calendarEditOutline,
+      CustomIcon.calendarEditFill, "context"),
+  Drawers("Laporan", CustomIcon.formOutline, CustomIcon.formFill, "context"),
   Drawers(
-      "Laporan", CustomIcon.reportOutline, CustomIcon.reportFill, "context"),
-  Drawers("AKBK", Icons.newspaper, Icons.newspaper, "context"),
+      "AKBK", CustomIcon.ballotOutline, CustomIcon.ballotOutline, "context"),
   Drawers("Semakan Kenderaan", CustomIcon.truckOutline, CustomIcon.truckFill,
       "context"),
-  Drawers("Bengkel/Penyelenggaraan", CustomIcon.mechanicOutline, CustomIcon.mechanicFill,
+  Drawers("Bengkel/Penyelenggaraan", CustomIcon.mechanicOutline,
+      CustomIcon.mechanicFill, "context"),
+  Drawers("Manual Operasi", CustomIcon.manualOutline, CustomIcon.manualFill,
       "context"),
-  Drawers(
-      "Manual Operasi", CustomIcon.bookOutline, CustomIcon.bookFill, "context"),
   Drawers("Log Keluar", CustomIcon.logOut, CustomIcon.logOut, "context",
       Colors.red),
 ];
@@ -57,19 +56,20 @@ List svDrawerList = [
 List eoBaDrawerList = [
   Drawers(
       "Halaman Utama", CustomIcon.homeOutline, CustomIcon.homeFill, "context"),
-  Drawers("E-Cuti", CustomIcon.formOutline, CustomIcon.formFill, "context"),
+  Drawers("E-Cuti", CustomIcon.eCutiOutline, CustomIcon.eCutiFill, "context"),
   Drawers("Jadual Tugasan", CustomIcon.scheduleOutline, CustomIcon.scheduleFill,
       "context"),
-  Drawers("Anjakan Jadual", Icons.recycling, Icons.recycling, "context"),
+  Drawers("Anjakan Jadual", CustomIcon.calendarEditOutline,
+      CustomIcon.calendarEditFill, "context"),
+  Drawers("Laporan", CustomIcon.formOutline, CustomIcon.formFill, "context"),
   Drawers(
-      "Laporan", CustomIcon.reportOutline, CustomIcon.reportFill, "context"),
-  Drawers("AKBK", Icons.newspaper, Icons.newspaper, "context"),
+      "AKBK", CustomIcon.ballotOutline, CustomIcon.ballotOutline, "context"),
   Drawers("Semakan Kenderaan", CustomIcon.truckOutline, CustomIcon.truckFill,
       "context"),
-  Drawers("Bengkel/Penyelenggaraan", CustomIcon.mechanicOutline, CustomIcon.mechanicFill,
+  Drawers("Bengkel/Penyelenggaraan", CustomIcon.mechanicOutline,
+      CustomIcon.mechanicFill, "context"),
+  Drawers("Manual Operasi", CustomIcon.manualOutline, CustomIcon.manualFill,
       "context"),
-  Drawers(
-      "Manual Operasi", CustomIcon.bookOutline, CustomIcon.bookFill, "context"),
   Drawers("Log Keluar", CustomIcon.logOut, CustomIcon.logOut, "context",
       Colors.red),
 ];

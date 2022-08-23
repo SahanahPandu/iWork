@@ -112,8 +112,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Icon(CustomIcon.arrowBack,
-                color: Colors.grey.shade900, size: 15),
+            icon: Icon(CustomIcon.arrowBack, color: blackCustom, size: 22),
           ),
           title: Center(
             child: Text(

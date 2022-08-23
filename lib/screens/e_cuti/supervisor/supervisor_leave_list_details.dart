@@ -18,40 +18,23 @@ class SupervisorLeaveListDetails extends StatefulWidget {
 
 class _SupervisorLeaveListDetailsState
     extends State<SupervisorLeaveListDetails> {
-  // Color statusTextColor = greyStatusText;
-  // Color statusBoxColor = greyStatusBox;
   String statusText = "";
 
   _filterData() {
-    // Color textColor = greyStatusText;
-    // Color boxColor = greyStatusBox;
 
     if (widget.data.idStatus == 1) {
       //Baharu
       statusText = "Baharu";
-      // textColor = blueStatusText;
-      // boxColor = blueStatusBox;
     } else if (widget.data.idStatus == 2) {
       //Diluluskan Tanpa Lampiran
       statusText = "Diluluskan Tanpa Lampiran";
-      // textColor = orangeStatusText;
-      // boxColor = orangeStatusBox;
     } else if (widget.data.idStatus == 3) {
       //Diluluskan
       statusText = "Diluluskan";
-      // textColor = greenStatusText;
-      // boxColor = greenStatusBox;
     } else if (widget.data.idStatus == 4) {
       //Tidak Diluluskan
       statusText = "Tidak Diluluskan";
-      // textColor = redStatusText;
-      // boxColor = redStatusBox;
     }
-
-    // setState(() {
-    //   statusTextColor = textColor;
-    //   statusBoxColor = boxColor;
-    // });
   }
 
   @override

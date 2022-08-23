@@ -45,15 +45,15 @@ class _WorkScheduleState extends State<WorkSchedule> {
             Navigator.pop(context);
           },
           icon:
-              Icon(CustomIcon.arrowBack, color: Colors.grey.shade900, size: 18),
+              Icon(CustomIcon.arrowBack, color: blackCustom, size: 22),
         ),
         title: Center(
           child: Text(
             "Tugasan",
             style: TextStyle(
-              fontSize: 18,
-              color: Colors.grey.shade800,
-              fontWeight: FontWeight.w700,
+              fontSize: 15,
+              color: blackCustom,
+              fontWeight: FontWeight.w400,
             ),
           ),
         ),

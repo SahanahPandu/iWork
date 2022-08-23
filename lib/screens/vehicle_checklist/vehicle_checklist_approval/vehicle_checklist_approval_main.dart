@@ -46,7 +46,7 @@ class _VehicleChecklistApprovalMainState
                 Navigator.pop(context);
               },
               icon: Icon(CustomIcon.arrowBack,
-                  color: blackCustom, size: 15),
+                  color: blackCustom, size: 22),
             ),
             title: Center(
               child: Text(
@@ -62,9 +62,9 @@ class _VehicleChecklistApprovalMainState
               IconButton(
                 onPressed: () {},
                 icon: Icon(
-                  Icons.filter_alt_rounded,
+                  CustomIcon.filter,
                   color: blackCustom,
-                  size: 18,
+                  size: 13,
                 ),
               ),
             ],

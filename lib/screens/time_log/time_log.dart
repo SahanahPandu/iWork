@@ -43,7 +43,7 @@ class _TimeLogState extends State<TimeLog> {
             Navigator.pop(context);
           },
           icon:
-              Icon(CustomIcon.arrowBack, color: Colors.grey.shade900, size: 18),
+              Icon(CustomIcon.arrowBack, color: blackCustom, size: 22),
         ),
         title: Center(
           child: Text(
@@ -59,9 +59,9 @@ class _TimeLogState extends State<TimeLog> {
           IconButton(
             onPressed: () {},
             icon: Icon(
-              Icons.history,
-              color: Colors.grey.shade800,
-              size: 28,
+              CustomIcon.history,
+              color: blackCustom,
+              size: 18,
             ),
           ),
         ],

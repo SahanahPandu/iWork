@@ -89,8 +89,7 @@ class _TabsState extends State<Tabs> {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Icon(CustomIcon.arrowBack,
-                color: Colors.grey.shade900, size: 18),
+            icon: Icon(CustomIcon.arrowBack, color: blackCustom, size: 22),
           ),
           bottom: TabBar(
             labelColor: grey900,

@@ -39,7 +39,7 @@ class _AttendanceVerificationListState
               Navigator.pop(context);
             },
             icon: Icon(CustomIcon.arrowBack,
-                color: Colors.grey.shade900, size: 18),
+                color: blackCustom, size: 22),
           ),
           title: Center(
             child: Text(
@@ -55,9 +55,9 @@ class _AttendanceVerificationListState
             IconButton(
               onPressed: () {},
               icon: Icon(
-                Icons.filter_alt_rounded,
-                color: grey800,
-                size: 22,
+                CustomIcon.filter,
+                color: blackCustom,
+                size: 13,
               ),
             ),
           ],

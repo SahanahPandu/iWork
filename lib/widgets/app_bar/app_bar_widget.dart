@@ -33,8 +33,8 @@ class _AppBarWidgetState extends State<AppBarWidget> {
         },
         icon: Icon(
           CustomIcon.arrowBack,
-          color: Colors.grey.shade900,
-          size: 18,
+          color: blackCustom,
+          size: 22,
         ),
       ),
       iconTheme: IconThemeData(color: black87),
