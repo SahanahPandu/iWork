@@ -233,7 +233,7 @@ class _DrawerBuildState extends State<DrawerBuild> {
               title: Padding(
                 padding: const EdgeInsets.only(left: 20),
                 child: Text(
-                  'Aplikasi V0.1',
+                  'Aplikasi V0.2',
                   style: (TextStyle(
                       color: grey500,
                       fontWeight: FontWeight.w500,
