@@ -1,12 +1,11 @@
 // ignore_for_file: must_be_immutable
 
 import 'dart:io';
-
-import 'package:eswm/screens/list_of_sub_routes/list_of_sub_routes.dart';
 import 'package:flutter/material.dart';
+import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 //import files
-import 'package:eswm/models/reports.dart';
+import '../../../models/reports.dart';
 import '../../../config/config.dart';
 import '../../../config/font.dart';
 import '../../../config/palette.dart';
@@ -15,12 +14,15 @@ import '../../../widgets/buttons/upload_image_button.dart';
 import '../../list_of_obstacles/list_of_obstacles.dart';
 import '../../list_of_park/list_of_parks.dart';
 import '../../list_of_road/list_of_road_text_form_field.dart';
+import '../../../screens/list_of_sub_routes/list_of_sub_routes.dart';
 
 class PraSectionReportForm extends StatefulWidget {
   String screen;
   Reports? data;
+  Function? updateButton;
 
-  PraSectionReportForm({Key? key, required this.screen, required this.data})
+  PraSectionReportForm(
+      {Key? key, required this.screen, this.data, this.updateButton})
       : super(key: key);
 
   @override
@@ -30,7 +32,7 @@ class PraSectionReportForm extends StatefulWidget {
 class _PraSectionReportFormState extends State<PraSectionReportForm> {
   final Devices _device = Devices();
   final TextEditingController _catatan = TextEditingController();
-  late FocusNode? _catatanFocusNode;
+  final FocusNode _catatanFocusNode = FocusNode();
 
   Color textFieldFillColor = textFormFieldFillColor;
   Color focusBorderColor = focusedBorder;
@@ -87,191 +89,201 @@ class _PraSectionReportFormState extends State<PraSectionReportForm> {
 
   @override
   void initState() {
-    _catatanFocusNode = FocusNode();
     super.initState();
     loadData();
   }
 
   @override
-  void dispose() {
-    _catatanFocusNode!.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          formTitleText,
-          style: const TextStyle(
-            color: Color(0xff2B2B2B),
-            fontSize: 15,
-            fontWeight: FontWeight.w400,
-          ),
-        ),
-        SizedBox(
-          height: userRole == 100 ? 30 : 15,
-        ),
-        //Sub Laluan
-        ListOfSubRoutes(
-          hintText: 'Sub Laluan',
-          fontSize: 15,
-          borderCondition: borderCondition, // have border
-          fillColor: textFieldFillColor,
-          iconCondition: iconCondition,
-          data: subLaluan,
-        ),
-        SizedBox(
-          height: spacingHeight,
-        ),
-        //Taman
-        ListOfParks(
-          showSenaraiJalan: null,
-          hintText: 'Taman',
-          fontSize: 15,
-          borderCondition: borderCondition, // have border
-          fillColor: textFieldFillColor,
-          iconCondition: iconCondition,
-          data: namaTaman,
-        ),
-
-        SizedBox(
-          height: spacingHeight,
-        ),
-        //Jalan
-        ListOfRoadTextFormField(
-          text: 'Jalan',
-          fontSize: 15,
-          borderCondition: borderCondition,
-          fillColor: textFieldFillColor,
-          iconCondition: iconCondition,
-          data: namaJalan,
-        ),
-
-        SizedBox(
-          height: spacingHeight,
-        ),
-        //Jenis Halangan
-        ListOfObstacles(
-          text: 'Jenis Halangan',
-          fontSize: 15,
-          borderCondition: borderCondition,
-          fillColor: textFieldFillColor,
-          iconCondition: iconCondition,
-          data: jenisHalangan,
-        ),
-
-        SizedBox(
-          height: spacingHeight,
-        ),
-        //Gambar
-        if (gambarLampiran == null && widget.screen == "3")
-          SizedBox(
-            width: _device.screenWidth(context),
-            child: UploadImageButton(getImageName: getImageName),
-          ),
-        //Display selected image
-        if (gambarLampiran != null || widget.screen == "4")
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: 200,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(
-                Radius.circular(borderRadiusCircular),
-              ),
-              color: Colors.lightBlue.shade100,
-            ),
-            child: gambarLampiran != null
-                ? Center(
-                    child: Container(
-                      margin: const EdgeInsets.all(8),
-                      padding: const EdgeInsets.all(1),
-                      width: 200,
-                      height: 150,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.white,
-                          width: 2,
-                        ),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(borderRadiusCircular),
-                        ),
-                        color: Colors.white,
-                        boxShadow: const [
-                          BoxShadow(
-                            color: Colors.white,
-                            blurStyle: BlurStyle.outer,
-                          )
-                        ],
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.all(
-                            Radius.circular(borderRadiusCircular)),
-                        child: Image.file(
-                          gambarLampiran!,
-                          width: double.infinity,
-                          height: double.infinity,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    ),
-                  )
-                : const Center(
-                    child: Text("No Image"),
-                  ),
-          ),
-        SizedBox(
-          height: spacingHeight,
-        ),
-        //catatan
-        TextFormField(
-          controller: _catatan,
-          minLines: 1,
-          maxLines: 3,
-          enabled: (widget.screen == "4") ? false : true,
-          cursorColor: green,
-          focusNode: _catatanFocusNode,
-          onTap: () {
-            FocusScope.of(context).requestFocus(_catatanFocusNode);
-          },
-          decoration: InputDecoration(
-            filled: true,
-            fillColor: textFieldFillColor,
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                width: borderSideWidth,
-                color: focusBorderColor,
-              ),
-              borderRadius: BorderRadius.circular(borderRadiusCircular),
-            ),
-            enabledBorder: _catatan.text != ''
-                ? OutlineInputBorder(
-                    borderSide: BorderSide(
-                      width: borderSideWidth,
-                      color: enableBorderWithTextColor,
-                    ),
-                    borderRadius: BorderRadius.circular(borderRadiusCircular),
-                  )
-                : OutlineInputBorder(
-                    borderSide: BorderSide(
-                      width: borderSideWidth,
-                      color: enabledBorderWithoutText,
-                    ),
-                    borderRadius: BorderRadius.circular(borderRadiusCircular),
-                  ),
-            labelText: _catatan.text == '' ? 'Catatan' : null,
-            labelStyle: _catatan.text == ''
-                ? TextStyle(
-                    color: labelTextColor,
-                    fontWeight: textFormFieldLabelFontWeight,
-                  )
-                : null,
-            contentPadding: const EdgeInsets.all(15),
-          ),
-        ),
+    return KeyboardDismisser(
+      gestures: const [
+        GestureType.onTap,
+        GestureType.onVerticalDragDown,
       ],
+      child: GestureDetector(
+        onTap: () {
+          widget.updateButton!(true);
+        },
+        onVerticalDragDown: (DragDownDetails details) {
+          widget.updateButton!(true);
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              formTitleText,
+              style: const TextStyle(
+                color: Color(0xff2B2B2B),
+                fontSize: 15,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+            SizedBox(
+              height: userRole == 100 ? 30 : 15,
+            ),
+            //Sub Laluan
+            ListOfSubRoutes(
+              hintText: 'Sub Laluan',
+              fontSize: 15,
+              borderCondition: borderCondition, // have border
+              fillColor: textFieldFillColor,
+              iconCondition: iconCondition,
+              data: subLaluan,
+            ),
+            SizedBox(
+              height: spacingHeight,
+            ),
+            //Taman
+            ListOfParks(
+              showSenaraiJalan: null,
+              hintText: 'Taman',
+              fontSize: 15,
+              borderCondition: borderCondition, // have border
+              fillColor: textFieldFillColor,
+              iconCondition: iconCondition,
+              data: namaTaman,
+            ),
+
+            SizedBox(
+              height: spacingHeight,
+            ),
+            //Jalan
+            ListOfRoadTextFormField(
+              text: 'Jalan',
+              fontSize: 15,
+              borderCondition: borderCondition,
+              fillColor: textFieldFillColor,
+              iconCondition: iconCondition,
+              data: namaJalan,
+            ),
+
+            SizedBox(
+              height: spacingHeight,
+            ),
+            //Jenis Halangan
+            ListOfObstacles(
+              text: 'Jenis Halangan',
+              fontSize: 15,
+              borderCondition: borderCondition,
+              fillColor: textFieldFillColor,
+              iconCondition: iconCondition,
+              data: jenisHalangan,
+            ),
+
+            SizedBox(
+              height: spacingHeight,
+            ),
+            //Gambar
+            if (gambarLampiran == null && widget.screen == "3")
+              SizedBox(
+                width: _device.screenWidth(context),
+                child: UploadImageButton(getImageName: getImageName),
+              ),
+            //Display selected image
+            if (gambarLampiran != null || widget.screen == "4")
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: 200,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(borderRadiusCircular),
+                  ),
+                  color: Colors.lightBlue.shade100,
+                ),
+                child: gambarLampiran != null
+                    ? Center(
+                        child: Container(
+                          margin: const EdgeInsets.all(8),
+                          padding: const EdgeInsets.all(1),
+                          width: 200,
+                          height: 150,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.white,
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(borderRadiusCircular),
+                            ),
+                            color: Colors.white,
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Colors.white,
+                                blurStyle: BlurStyle.outer,
+                              )
+                            ],
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.all(
+                                Radius.circular(borderRadiusCircular)),
+                            child: Image.file(
+                              gambarLampiran!,
+                              width: double.infinity,
+                              height: double.infinity,
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                        ),
+                      )
+                    : const Center(
+                        child: Text("No Image"),
+                      ),
+              ),
+            SizedBox(
+              height: spacingHeight,
+            ),
+            //catatan
+            TextFormField(
+              controller: _catatan,
+              minLines: 1,
+              maxLines: 3,
+              enabled: (widget.screen == "4") ? false : true,
+              cursorColor: green,
+              focusNode: _catatanFocusNode,
+              onTap: () {
+                FocusScope.of(context).requestFocus(_catatanFocusNode);
+                widget.updateButton!(false);
+              },
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: textFieldFillColor,
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    width: borderSideWidth,
+                    color: focusBorderColor,
+                  ),
+                  borderRadius: BorderRadius.circular(borderRadiusCircular),
+                ),
+                enabledBorder: _catatan.text != ''
+                    ? OutlineInputBorder(
+                        borderSide: BorderSide(
+                          width: borderSideWidth,
+                          color: enableBorderWithTextColor,
+                        ),
+                        borderRadius:
+                            BorderRadius.circular(borderRadiusCircular),
+                      )
+                    : OutlineInputBorder(
+                        borderSide: BorderSide(
+                          width: borderSideWidth,
+                          color: enabledBorderWithoutText,
+                        ),
+                        borderRadius:
+                            BorderRadius.circular(borderRadiusCircular),
+                      ),
+                labelText: _catatan.text == '' ? 'Catatan' : null,
+                labelStyle: _catatan.text == ''
+                    ? TextStyle(
+                        color: labelTextColor,
+                        fontWeight: textFormFieldLabelFontWeight,
+                      )
+                    : null,
+                contentPadding: const EdgeInsets.all(15),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

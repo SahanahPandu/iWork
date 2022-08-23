@@ -1,9 +1,6 @@
 // ignore_for_file: must_be_immutable
-
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:expandable/expandable.dart';
-import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
 //import files
 import '../../config/palette.dart';
@@ -32,7 +29,7 @@ class ReportForm extends StatefulWidget {
 
 class _ReportFormState extends State<ReportForm> {
   final Devices _device = Devices();
-  late StreamSubscription<bool> keyboardSubscription;
+  //late StreamSubscription<bool> keyboardSubscription;
   final ExpandableController _controller =
       ExpandableController(initialExpanded: true);
   String namaLaluan = "Laluan";
@@ -52,25 +49,25 @@ class _ReportFormState extends State<ReportForm> {
     }
   }
 
-  @override
-  void initState() {
-    super.initState();
-    var keyboardVisibilityController = KeyboardVisibilityController();
-
-    // Subscribe
-    keyboardSubscription =
-        keyboardVisibilityController.onChange.listen((bool visible) {
-      setState(() {
-        buttonVisibility =
-            !visible; // button Hantar and keyboard  condition are vice versa
-      });
+  updateButtonVisibility(visible) {
+    setState(() {
+      buttonVisibility = visible;
     });
   }
 
   @override
-  void dispose() {
-    keyboardSubscription.cancel();
-    super.dispose();
+  void initState() {
+    super.initState();
+    // var keyboardVisibilityController = KeyboardVisibilityController();
+
+    // // Subscribe
+    // keyboardSubscription =
+    //     keyboardVisibilityController.onChange.listen((bool visible) {
+    //   setState(() {
+    //     buttonVisibility =
+    //         !visible; // button Hantar and keyboard  condition are vice versa
+    //   });
+    // });
   }
 
   @override
@@ -78,7 +75,9 @@ class _ReportFormState extends State<ReportForm> {
     return Stack(
       children: [
         SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(
+            parent: AlwaysScrollableScrollPhysics(),
+          ),
           child: ExpandableNotifier(
             controller: _controller,
             child: Container(
@@ -202,6 +201,7 @@ class _ReportFormState extends State<ReportForm> {
                       expanded: PraSectionReportForm(
                         screen: widget.screen,
                         data: widget.data,
+                        updateButton: updateButtonVisibility,
                       ),
                     ),
                   ),
