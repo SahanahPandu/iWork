@@ -69,11 +69,6 @@ class _ListOfLeaveTypeState extends State<ListOfLeaveType> {
         }
       },
       child: TextFormField(
-        style: const TextStyle(
-          fontSize: 15,
-          color: Color(0xff2B2B2B),
-          fontWeight: FontWeight.w400,
-        ),
         controller: _jenisCuti,
         readOnly: true,
         enabled: false,
@@ -98,6 +93,7 @@ class _ListOfLeaveTypeState extends State<ListOfLeaveType> {
               : null,
           label: Container(
             color: Colors.white,
+            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
             child: Text(widget.hintText),
           ),
           labelStyle: TextStyle(
@@ -106,12 +102,16 @@ class _ListOfLeaveTypeState extends State<ListOfLeaveType> {
             fontWeight: textFormFieldLabelFontWeight,
           ),
           disabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              width: borderSideWidth,
-              color: _jenisCuti.text != '' && widget.iconCondition == 1
-                  ? (userRole == 100 ? grey100 : enabledBorderWithText)
-                  : (userRole == 100 ? grey100 : enabledBorderWithoutText),
-            ),
+            borderSide: widget.borderCondition == 0
+                ? BorderSide.none
+                : BorderSide(
+                    width: borderSideWidth,
+                    color: _jenisCuti.text != '' && widget.iconCondition == 1
+                        ? (userRole == 100 ? grey100 : enabledBorderWithText)
+                        : (userRole == 100
+                            ? grey100
+                            : enabledBorderWithoutText),
+                  ),
             borderRadius: BorderRadius.circular(borderRadiusCircular),
           ),
         ),
