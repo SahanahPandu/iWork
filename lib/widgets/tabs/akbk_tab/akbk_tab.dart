@@ -50,8 +50,7 @@ class _AkbkMainTabState extends State<AkbkMainTab>
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                icon: Icon(CustomIcon.arrowBack,
-                    color: blackCustom, size: 22),
+                icon: Icon(CustomIcon.arrowBack, color: blackCustom, size: 22),
               ),
               title: Center(
                 child: Text(
@@ -105,10 +104,10 @@ class _AkbkMainTabState extends State<AkbkMainTab>
                         ),
                       ]),
                   labelColor: blackCustom,
-                  labelStyle:
-                  const TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
-                  unselectedLabelStyle:
-                  const TextStyle(fontWeight: FontWeight.w400, fontSize: 14),
+                  labelStyle: const TextStyle(
+                      fontWeight: FontWeight.w600, fontSize: 15),
+                  unselectedLabelStyle: const TextStyle(
+                      fontWeight: FontWeight.w400, fontSize: 14),
                   unselectedLabelColor: greyCustom,
                   tabs: const [
                     Tab(
@@ -120,13 +119,17 @@ class _AkbkMainTabState extends State<AkbkMainTab>
                   ],
                 ),
               ),
-              Expanded(
-                child: TabBarView(
-                  controller: _tabController,
-                  children: const [
-                    AkbkFormTabbarView(),
-                    AkbkListTabbarView(),
-                  ],
+              ScrollConfiguration(
+                behavior:
+                    const MaterialScrollBehavior().copyWith(overscroll: false),
+                child: Expanded(
+                  child: TabBarView(
+                    controller: _tabController,
+                    children: const [
+                      AkbkFormTabbarView(),
+                      AkbkListTabbarView(),
+                    ],
+                  ),
                 ),
               ),
             ],

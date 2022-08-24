@@ -46,8 +46,7 @@ class _VehicleChecklistApprovalMainState
               onPressed: () {
                 Navigator.pop(context);
               },
-              icon: Icon(CustomIcon.arrowBack,
-                  color: blackCustom, size: 22),
+              icon: Icon(CustomIcon.arrowBack, color: blackCustom, size: 22),
             ),
             title: Center(
               child: Text(
@@ -114,33 +113,30 @@ class _VehicleChecklistApprovalMainState
                           itemBuilder: (context, index) {
                             if (dataFuture.isNotEmpty) {
                               return GestureDetector(
-                                onTap: () {
-                                },
+                                onTap: () {},
                                 child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 8, horizontal: 10),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: white,
-                                      border: Border.all(color: borderColor),
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(12)),
-                                      boxShadow: [
-                                        BoxShadow(
-                                            color: Colors.grey.withOpacity(.3),
-                                            blurRadius: 3,
-                                            spreadRadius: 0.5,
-                                            offset: const Offset(0, 2))
-                                      ],
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(16),
-                                      child: VehicleChecklistApprovalDetails(
-                                        data: dataFuture[index],
-                                      ),
-                                    ),
-                                  ),
-                                ),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 8, horizontal: 10),
+                                    child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(14),
+                                          color: white,
+                                          boxShadow: [
+                                            BoxShadow(
+                                                color: cardShadowColor,
+                                                offset: const Offset(0, 2),
+                                                blurRadius: 10,
+                                                spreadRadius: 0.5)
+                                          ],
+                                        ),
+                                        child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 16),
+                                            child:
+                                                VehicleChecklistApprovalDetails(
+                                              data: dataFuture[index],
+                                            )))),
                               );
                             } else {
                               Padding(

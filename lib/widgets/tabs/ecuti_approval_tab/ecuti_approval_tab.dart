@@ -127,15 +127,19 @@ class _EcutiApprovalTabState extends State<EcutiApprovalTab>
                   ],
                 ),
               ),
-              Expanded(
-                child: TabBarView(
-                  controller: _tabController,
-                  children: const [
-                    EcutiApprovalAllTabBarView(),
-                    EcutiApprovalNewTabBarView(),
-                    EcutiApprovalCompletedTabBarView(),
-                    EcutiApprovalRejectedTabBarView(),
-                  ],
+              ScrollConfiguration(
+                behavior:
+                    const MaterialScrollBehavior().copyWith(overscroll: false),
+                child: Expanded(
+                  child: TabBarView(
+                    controller: _tabController,
+                    children: const [
+                      EcutiApprovalAllTabBarView(),
+                      EcutiApprovalNewTabBarView(),
+                      EcutiApprovalCompletedTabBarView(),
+                      EcutiApprovalRejectedTabBarView(),
+                    ],
+                  ),
                 ),
               ),
             ],

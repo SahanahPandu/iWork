@@ -131,13 +131,19 @@ class _VehicleChecklistApprovalTabState
                   ],
                 ),
               ),
-              Expanded(
-                child: TabBarView(
-                  controller: _tabController,
-                  children: [
-                    VehicleChecklistApprovalBeforeTabbarView(data: widget.data),
-                    VehicleChecklistApprovalAfterTabbarView(data: widget.data),
-                  ],
+              ScrollConfiguration(
+                behavior:
+                    const MaterialScrollBehavior().copyWith(overscroll: false),
+                child: Expanded(
+                  child: TabBarView(
+                    controller: _tabController,
+                    children: [
+                      VehicleChecklistApprovalBeforeTabbarView(
+                          data: widget.data),
+                      VehicleChecklistApprovalAfterTabbarView(
+                          data: widget.data),
+                    ],
+                  ),
                 ),
               ),
             ],
