@@ -101,8 +101,8 @@ class _ScheduleIssueMainScreen extends State<ScheduleIssueMainScreen> {
                             fontWeight: FontWeight.w400),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(10),
+                    const Padding(
+                      padding: EdgeInsets.all(10),
                       child: CardListView(type: "Laporan"),
                     ),
                   ],
