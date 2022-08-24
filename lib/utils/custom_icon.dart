@@ -54,11 +54,11 @@ class CustomIcon {
   static const IconData eCutiOutline =
       IconData(0xe90e, fontFamily: _iWorkFontFam, fontPackage: null);
   static const IconData ballotFill =
-      IconData(0xe903, fontFamily: _iWorkFontFam, fontPackage: null);
+      IconData(0xe917, fontFamily: _iWorkFontFam, fontPackage: null);
   static const IconData ballotOutline =
-      IconData(0xe903, fontFamily: _iWorkFontFam, fontPackage: null);
+      IconData(0xe906, fontFamily: _iWorkFontFam, fontPackage: null);
   static const IconData calendarEditFill =
-      IconData(0xe907, fontFamily: _iWorkFontFam, fontPackage: null);
+      IconData(0xe91a, fontFamily: _iWorkFontFam, fontPackage: null);
   static const IconData calendarEditOutline =
       IconData(0xe907, fontFamily: _iWorkFontFam, fontPackage: null);
 
@@ -101,5 +101,5 @@ class CustomIcon {
   static const IconData history =
       IconData(0xe903, fontFamily: _iWorkFontFam, fontPackage: null);
   static const IconData bullet =
-      IconData(0xe917, fontFamily: _iWorkFontFam, fontPackage: null);
+      IconData(0xe933, fontFamily: _iWorkFontFam, fontPackage: null);
 }
