@@ -34,37 +34,48 @@ class _TimeLogState extends State<TimeLog> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: appBarBgColor,
-        elevation: 4,
-        shadowColor: Colors.white,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon:
-              Icon(CustomIcon.arrowBack, color: blackCustom, size: 22),
-        ),
-        title: Center(
-          child: Text(
-            "Log Masa",
-            style: TextStyle(
-              fontSize: 18,
-              color: Colors.grey.shade800,
-              fontWeight: FontWeight.w700,
+      backgroundColor: white,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(kToolbarHeight),
+        child: Container(
+          decoration: BoxDecoration(boxShadow: [
+            BoxShadow(
+              color: barShadowColor,
+              offset: const Offset(0, 3),
+              blurRadius: 8,
+            )
+          ]),
+          child: AppBar(
+            backgroundColor: white,
+            elevation: 0,
+            leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Icon(CustomIcon.arrowBack, color: blackCustom, size: 22),
             ),
+            title: Center(
+              child: Text(
+                "Log Masa",
+                style: TextStyle(
+                  fontSize: 15,
+                  color: blackCustom,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ),
+            actions: [
+              IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  CustomIcon.history,
+                  color: blackCustom,
+                  size: 15,
+                ),
+              ),
+            ],
           ),
         ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              CustomIcon.history,
-              color: blackCustom,
-              size: 18,
-            ),
-          ),
-        ],
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 100),

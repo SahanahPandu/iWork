@@ -4,7 +4,9 @@ import 'package:lottie/lottie.dart';
 import '../../config/palette.dart';
 
 class CustomDialog extends StatefulWidget {
-  const CustomDialog({Key? key}) : super(key: key);
+  final Widget? text;
+
+  const CustomDialog({Key? key, this.text}) : super(key: key);
 
   @override
   State<CustomDialog> createState() => _CustomDialogState();
@@ -59,17 +61,14 @@ class _CustomDialogState extends State<CustomDialog>
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 15),
-            child: Text(
-                "Borang AKBK telah berjaya dihantar kepada Mekanik untuk tindakan seterusnya",
-                style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w400,
-                    color: greyCustom,
-                    height: 1.5),
-                textAlign: TextAlign.center),
+            child: _textBuilder(),
           )
         ],
       )),
     );
+  }
+
+  Widget? _textBuilder() {
+    return widget.text;
   }
 }
