@@ -1,22 +1,20 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
 
 //import files
-import 'package:eswm/config/config.dart';
+import '../../config/config.dart';
 import '../../config/palette.dart';
+import '../../screens/list_of_employees/list_of_employee_details.dart';
 import '../../screens/reassign_employee/reassign_employee_details.dart';
 import '../../screens/work_schedule/compactor_panel/compactor_panel_schedule_details.dart';
 import '../../screens/work_schedule/pra/pra_work_schedule_details.dart';
 import '../../screens/work_schedule/supervisor/supervisor_schedule_details.dart';
-import 'package:eswm/screens/list_of_employees/list_of_employee_details.dart';
 
 class Cards extends StatefulWidget {
-  String type;
-  dynamic data;
-  Function(dynamic)? assignedEmployee;
+  final String type;
+  final dynamic data;
+  final Function(dynamic)? assignedEmployee;
 
-  Cards({
+  const Cards({
     Key? key,
     required this.type,
     this.data,

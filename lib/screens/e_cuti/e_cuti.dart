@@ -1,5 +1,3 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
 
 //import files
@@ -7,10 +5,10 @@ import 'package:eswm/widgets/tabs/tabs.dart';
 import 'package:eswm/config/string.dart';
 
 class ECuti extends StatefulWidget {
-  String screen;
-  dynamic data;
+  final String screen;
+  final dynamic data;
 
-  ECuti({Key? key, required this.screen, required this.data}) : super(key: key);
+  const ECuti({Key? key, required this.screen, required this.data}) : super(key: key);
 
   @override
   State<ECuti> createState() => _ECutiState();

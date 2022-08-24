@@ -1,9 +1,6 @@
 // ignore_for_file: file_names
 import 'package:flutter/material.dart';
 
-//import files
-//import 'package:eswm/widgets/cards/my_task/pra/pra_my_task_list_details.dart';
-
 class MyTaskCard extends StatefulWidget {
   const MyTaskCard({Key? key}) : super(key: key);
 

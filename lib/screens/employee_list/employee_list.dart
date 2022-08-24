@@ -1,19 +1,16 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
 
 //import files
 import '../../config/palette.dart';
 import '../../widgets/app_bar/app_bar_widget.dart';
 import '../../widgets/search_box/search_box.dart';
-import 'package:eswm/screens/list_of_employees/list_of_employees.dart';
-
+import '../list_of_employees/list_of_employees.dart';
 import '../list_of_supervisor/list_of_supervisor.dart';
 
 class EmployeeList extends StatefulWidget {
-  Function(dynamic)? assignedEmployee;
+  final Function(dynamic)? assignedEmployee;
 
-  EmployeeList({
+  const EmployeeList({
     Key? key,
     this.assignedEmployee,
   }) : super(key: key);

@@ -4,6 +4,7 @@ import 'package:action_slider/action_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
+//import files
 import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../../config/string.dart';

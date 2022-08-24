@@ -1,16 +1,14 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:eswm/models/laluan.dart';
 
 //import files
+import '../../models/laluan.dart';
 import '../../screens/reports/reports.dart';
 
 class ReportButton extends StatefulWidget {
-  Laluan? dataLaluan;
+  final Laluan? dataLaluan;
 
-  ReportButton({Key? key, required this.dataLaluan}) : super(key: key);
+  const ReportButton({Key? key, required this.dataLaluan}) : super(key: key);
 
   @override
   State<ReportButton> createState() => _ReportButtonState();

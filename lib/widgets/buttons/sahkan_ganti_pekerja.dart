@@ -1,5 +1,7 @@
-import 'package:eswm/config/palette.dart';
 import 'package:flutter/material.dart';
+
+//import files
+import '../../config/palette.dart';
 
 class SahkanGantiPekerjaButton extends StatefulWidget {
   const SahkanGantiPekerjaButton({Key? key}) : super(key: key);

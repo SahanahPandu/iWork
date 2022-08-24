@@ -1,4 +1,3 @@
-// ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
 
 //import files
@@ -6,13 +5,13 @@ import 'package:eswm/providers/pekerja_api.dart';
 import 'package:eswm/widgets/cards/cards.dart';
 
 class ListOfEmployees extends StatefulWidget {
-  dynamic idPekerja;
-  dynamic idSv;
-  int? idStatus;
-  String? searchedName;
-  Function(dynamic)? assignedEmployee;
+  final dynamic idPekerja;
+  final dynamic idSv;
+  final int? idStatus;
+  final String? searchedName;
+  final Function(dynamic)? assignedEmployee;
 
-  ListOfEmployees({
+  const ListOfEmployees({
     Key? key,
     this.idPekerja,
     this.idSv,

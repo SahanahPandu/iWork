@@ -1,16 +1,15 @@
-// ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 //import files
-import 'package:eswm/config/palette.dart';
-import 'package:page_transition/page_transition.dart';
+import '../../config/palette.dart';
 import '../../screens/employee_list/employee_list.dart';
 
 class GantiPekerjaButton extends StatefulWidget {
-  Function(dynamic)? assignedEmployee;
-  String buttonText;
+  final Function(dynamic)? assignedEmployee;
+  final String buttonText;
 
-  GantiPekerjaButton({
+  const GantiPekerjaButton({
     Key? key,
     this.assignedEmployee,
     required this.buttonText,

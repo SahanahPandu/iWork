@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'package:eswm/config/string.dart';
-import 'package:eswm/utils/device.dart';
-import 'package:eswm/widgets/cards/today_task/today_task_card.dart';
+//import files
 import '../../config/palette.dart';
+import '../../config/string.dart';
+import '../../utils/device.dart';
+import '../../widgets/cards/today_task/today_task_card.dart';
 import '../../widgets/gridview/compactor_panel/compactor_task_list.dart';
 
 class CompactorPanel extends StatefulWidget {

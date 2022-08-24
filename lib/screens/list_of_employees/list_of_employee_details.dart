@@ -1,16 +1,14 @@
-// ignore_for_file: must_be_immutable
 import "package:flutter/material.dart";
 
 //import files
-
-import 'package:eswm/models/pekerja.dart';
 import '../../config/palette.dart';
+import '../../models/pekerja.dart';
 
 class ListOfEmployeeDetails extends StatefulWidget {
-  Pekerja? data;
-  Function(dynamic)? assignedEmployee;
+  final Pekerja? data;
+  final Function(dynamic)? assignedEmployee;
 
-  ListOfEmployeeDetails({
+  const ListOfEmployeeDetails({
     Key? key,
     this.data,
     this.assignedEmployee,

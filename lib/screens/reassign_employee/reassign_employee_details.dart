@@ -1,5 +1,3 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
 
 //import files
@@ -7,9 +5,9 @@ import '../../widgets/buttons/ganti_pekerja_button.dart';
 import '../list_of_employees/list_of_employee_details.dart';
 
 class ReassignEmployeeDetails extends StatefulWidget {
-  dynamic dataEmployee1; //absence employee
+  final dynamic dataEmployee1; //absence employee
 
-  ReassignEmployeeDetails({
+  const ReassignEmployeeDetails({
     Key? key,
     required this.dataEmployee1,
   }) : super(key: key);

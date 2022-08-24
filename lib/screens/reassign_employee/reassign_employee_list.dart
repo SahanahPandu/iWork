@@ -1,14 +1,13 @@
-// ignore_for_file: must_be_immutable
-
-import 'package:eswm/widgets/cards/cards.dart';
 import 'package:flutter/material.dart';
 
+//import files
 import '../../providers/pekerja_api.dart';
+import '../../widgets/cards/cards.dart';
 
 class ReassignEmployeeList extends StatefulWidget {
-  String? namaLaluan;
+  final String? namaLaluan;
 
-  ReassignEmployeeList({Key? key, this.namaLaluan}) : super(key: key);
+  const ReassignEmployeeList({Key? key, this.namaLaluan}) : super(key: key);
 
   @override
   State<ReassignEmployeeList> createState() => _ReassignEmployeeListState();

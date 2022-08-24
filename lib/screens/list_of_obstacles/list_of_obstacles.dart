@@ -1,4 +1,3 @@
-// ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
 
 //import files
@@ -9,14 +8,14 @@ import '../../providers/halangan_api.dart';
 import '../../utils/device.dart';
 
 class ListOfObstacles extends StatefulWidget {
-  String text;
-  double fontSize;
-  Color fillColor;
-  int borderCondition;
-  int iconCondition;
-  String data;
+  final String text;
+  final double fontSize;
+  final Color fillColor;
+  final int borderCondition;
+  final int iconCondition;
+  final String data;
 
-  ListOfObstacles(
+  const ListOfObstacles(
       {Key? key,
       required this.text,
       required this.fontSize,

@@ -1,8 +1,5 @@
-// ignore_for_file: must_be_immutable
-
 import 'dart:async';
 
-import 'package:eswm/utils/custom_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
@@ -10,6 +7,7 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 //import files
 import '../../config/config.dart';
 import '../../screens/list_of_leave_type/list_of_leave_type.dart';
+import '../../utils/custom_icon.dart';
 import '../../widgets/buttons/upload_files_button.dart';
 import '../../config/palette.dart';
 import '../../utils/device.dart';
@@ -18,10 +16,10 @@ import '../../models/cuti.dart';
 import '../../widgets/buttons/hantar_button.dart';
 
 class LeaveForm extends StatefulWidget {
-  String screen;
-  Cuti? data;
+  final String screen;
+  final Cuti? data;
 
-  LeaveForm({Key? key, required this.screen, this.data}) : super(key: key);
+  const LeaveForm({Key? key, required this.screen, this.data}) : super(key: key);
 
   @override
   State<LeaveForm> createState() => _LeaveFormState();

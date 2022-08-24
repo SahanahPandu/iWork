@@ -1,4 +1,3 @@
-// ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
 
 import '../../config/palette.dart';
@@ -9,12 +8,12 @@ import '../../screens/reports/report_list.dart';
 import '../../utils/custom_icon.dart';
 
 class Tabs extends StatefulWidget {
-  String screen;
-  dynamic data;
-  String tabTitle;
-  dynamic dataLaluan;
+  final String screen;
+  final dynamic data;
+  final String tabTitle;
+  final dynamic dataLaluan;
 
-  Tabs(
+  const Tabs(
       {Key? key,
       required this.screen,
       required this.data,

@@ -1,4 +1,3 @@
-// ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
 
 //import files
@@ -9,10 +8,10 @@ import '../../models/reports.dart';
 import '../../widgets/container/status_container.dart';
 
 class ReportListDetails extends StatefulWidget {
-  Reports data;
-  int index;
+  final Reports data;
+  final int index;
 
-  ReportListDetails({Key? key, required this.data, required this.index})
+  const ReportListDetails({Key? key, required this.data, required this.index})
       : super(key: key);
 
   @override

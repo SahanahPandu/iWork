@@ -1,11 +1,13 @@
 import 'dart:async';
-import 'package:eswm/config/string.dart';
+
 import 'package:flutter/material.dart';
 
-import 'package:eswm/utils/device.dart';
+//import files
 import '../../config/dimen.dart';
 import '../../config/palette.dart';
+import '../../config/string.dart';
 import '../../utils/date.dart';
+import '../../utils/device.dart';
 import '../alert/alert_dialog.dart';
 
 class ENotisButton extends StatefulWidget {

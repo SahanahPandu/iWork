@@ -1,6 +1,3 @@
-// ignore_for_file: must_be_immutable
-
-import 'package:eswm/widgets/buttons/time_log_ripple_button.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -8,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:eswm/config/palette.dart';
 
 import '../../utils/custom_icon.dart';
+import '../../widgets/buttons/time_log_ripple_button.dart';
 
 class TimeLog extends StatefulWidget {
   final String btnText;

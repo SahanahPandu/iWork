@@ -1,14 +1,12 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
 
-// import '../../config/string.dart';
+//import files
 import '../../models/notifikasi.dart';
 
 class NotificationDetails extends StatefulWidget {
-  Notifikasi data;
+  final Notifikasi data;
 
-  NotificationDetails({Key? key, required this.data}) : super(key: key);
+  const NotificationDetails({Key? key, required this.data}) : super(key: key);
 
   @override
   State<NotificationDetails> createState() => _NotificationDetailsState();

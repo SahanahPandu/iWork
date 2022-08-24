@@ -1,22 +1,21 @@
-// ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
 
 //import files
 import '../../config/config.dart';
 import '../../config/font.dart';
 import '../../config/palette.dart';
-import 'package:eswm/providers/sub_laluan_api.dart';
+import '../../providers/sub_laluan_api.dart';
 import '../../utils/device.dart';
 
 class ListOfSubRoutes extends StatefulWidget {
-  String hintText;
-  double fontSize;
-  int borderCondition;
-  Color fillColor;
-  int iconCondition;
-  String data;
+  final String hintText;
+  final double fontSize;
+  final int borderCondition;
+  final Color fillColor;
+  final int iconCondition;
+  final String data;
 
-  ListOfSubRoutes(
+  const ListOfSubRoutes(
       {Key? key,
       required this.hintText,
       required this.fontSize,

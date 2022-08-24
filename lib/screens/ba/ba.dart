@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 //import files
-
 import '../../widgets/cards/today_task/today_task_card.dart';
 import '../../widgets/tabs/task_tab/task_tab.dart';
 

@@ -1,7 +1,9 @@
-import 'package:eswm/config/palette.dart';
-import 'package:eswm/config/string.dart';
 import 'package:flutter/material.dart';
+
+//import files
 import '../../config/dimen.dart';
+import '../../config/palette.dart';
+import '../../config/string.dart';
 
 showAlertDialog(BuildContext context, String title, String detail,
     String action_1, String action_2) {

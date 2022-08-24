@@ -1,27 +1,24 @@
-// ignore_for_file: must_be_immutable
-
-import 'package:eswm/config/config.dart';
-import 'package:eswm/screens/list_of_park/list_of_parks.dart';
-import 'package:eswm/screens/list_of_road/list_of_road.dart';
-import 'package:eswm/screens/list_of_sub_routes/list_of_sub_routes.dart';
-import 'package:eswm/widgets/cards/cards.dart';
 import 'package:flutter/material.dart';
 
 //import files
+import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../../utils/custom_icon.dart';
+import '../../widgets/cards/cards.dart';
+import '../list_of_park/list_of_parks.dart';
+import '../list_of_road/list_of_road.dart';
+import '../list_of_sub_routes/list_of_sub_routes.dart';
 
 class WorkSchedule extends StatefulWidget {
-  dynamic data;
+  final dynamic data;
 
-  WorkSchedule({Key? key, required this.data}) : super(key: key);
+  const WorkSchedule({Key? key, required this.data}) : super(key: key);
 
   @override
   State<WorkSchedule> createState() => _WorkScheduleState();
 }
 
 class _WorkScheduleState extends State<WorkSchedule> {
-  // ignore: unused_field
   bool _showSenaraiJalan = false;
   int idTaman = 0;
   int iconCondition = 1;

@@ -1,4 +1,3 @@
-// ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
 
 //import files
@@ -11,11 +10,11 @@ import 'package:eswm/providers/reports_api.dart';
 import '../../config/config.dart';
 
 class CardListView extends StatefulWidget {
-  String type;
+  final String type;
   final Function? topCardStatus;
-  String? screens;
+  final String? screens;
 
-  CardListView({
+  const CardListView({
     Key? key,
     required this.type,
     this.topCardStatus,

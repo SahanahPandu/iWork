@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+//import files
 import '../../config/dimen.dart';
 import '../../config/string.dart';
 import '../../config/palette.dart';

@@ -1,7 +1,9 @@
 import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+//import files
 import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../../utils/device.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 //import files
-import 'package:eswm/widgets/listview/card_list_view.dart';
+import '../../widgets/listview/card_list_view.dart';
 
 class LeaveList extends StatefulWidget {
   const LeaveList({Key? key}) : super(key: key);
@@ -33,7 +33,7 @@ class _LeaveListState extends State<LeaveList> {
           ),
           Container(
               margin: const EdgeInsets.symmetric(horizontal: 16),
-              child: CardListView(type: "Cuti", topCardStatus: null)),
+              child: const CardListView(type: "Cuti", topCardStatus: null)),
         ],
       ),
     );
