@@ -8,7 +8,6 @@ import '../../config/resource.dart';
 import '../../config/string.dart';
 import '../../data/data_drawer.dart';
 import '../../screens/e_cuti/e_cuti.dart';
-import '../../screens/e_cuti/supervisor/supervisor_leave_list.dart';
 import '../../screens/reports/reports.dart';
 import '../../screens/schedule_all/schedule_all_main.dart';
 import '../../screens/schedule_issue/schedule_issue_main.dart';
@@ -19,6 +18,7 @@ import '../../utils/authentication/auth.dart';
 import '../../utils/device.dart';
 import '../alert/alert_dialog.dart';
 import '../tabs/akbk_tab/akbk_tab.dart';
+import '../tabs/ecuti_approval_tab/ecuti_approval_tab.dart';
 
 class DrawerBuild extends StatefulWidget {
   const DrawerBuild({Key? key}) : super(key: key);
@@ -282,7 +282,7 @@ class _DrawerBuildState extends State<DrawerBuild> {
                 context,
                 PageTransition(
                     type: PageTransitionType.fade,
-                    child: ReportsPage(
+                    child: const ReportsPage(
                       screen: "6",
                       data: null,
                       dataLaluan: null,
@@ -303,7 +303,7 @@ class _DrawerBuildState extends State<DrawerBuild> {
                 context,
                 PageTransition(
                     type: PageTransitionType.fade,
-                    child: ECuti(
+                    child: const ECuti(
                       screen: "5",
                       data: null,
                     )));
@@ -321,7 +321,7 @@ class _DrawerBuildState extends State<DrawerBuild> {
                 context,
                 PageTransition(
                     type: PageTransitionType.fade,
-                    child: ReportsPage(
+                    child: const ReportsPage(
                       screen: "6",
                       data: null,
                       dataLaluan: null,
@@ -344,7 +344,7 @@ class _DrawerBuildState extends State<DrawerBuild> {
                 context,
                 PageTransition(
                     type: PageTransitionType.fade,
-                    child: const SupervisorLeaveList()));
+                    child: const EcutiApprovalTab()));
             break;
           case 2: // Jadual tugasan
             Navigator.pop(context);

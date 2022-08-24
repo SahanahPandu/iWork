@@ -5,7 +5,7 @@ import 'package:page_transition/page_transition.dart';
 import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../../utils/device.dart';
-import '../e_cuti/supervisor/supervisor_leave_list.dart';
+import '../../widgets/tabs/ecuti_approval_tab/ecuti_approval_tab.dart';
 import 'attendance/attendance_detail/attendance_verification_list.dart';
 import 'attendance/attendance_verification.dart';
 import 'ecuti/ecuti_verification.dart';
@@ -35,7 +35,7 @@ class _ScheduleVerificationMainState extends State<ScheduleVerificationMain> {
             const AttendanceVerification(),
             const AttendanceVerificationList()),
         _buildVerifyCard(context, eCutiMainCard, "E-Cuti", "Sahkan E-Cuti",
-            const EcutiVerification(), const SupervisorLeaveList()),
+            const EcutiVerification(), const EcutiApprovalTab()),
         _buildVerifyCard(
             context,
             rescheduleMainCard,
