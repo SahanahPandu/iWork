@@ -36,32 +36,43 @@ class _WorkScheduleState extends State<WorkSchedule> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: appBarBgColor,
-        elevation: 1,
-        shadowColor: Colors.white,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon:
-              Icon(CustomIcon.arrowBack, color: blackCustom, size: 22),
-        ),
-        title: Center(
-          child: Text(
-            "Tugasan",
-            style: TextStyle(
-              fontSize: 15,
-              color: blackCustom,
-              fontWeight: FontWeight.w400,
+      backgroundColor: white,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(kToolbarHeight),
+        child: Container(
+          decoration: BoxDecoration(boxShadow: [
+            BoxShadow(
+              color: barShadowColor,
+              offset: const Offset(0, 3),
+              blurRadius: 8,
+            )
+          ]),
+          child: AppBar(
+            backgroundColor: white,
+            elevation: 0,
+            leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Icon(CustomIcon.arrowBack, color: blackCustom, size: 22),
             ),
+            title: Center(
+              child: Text(
+                "Perincian Tugasan",
+                style: TextStyle(
+                  fontSize: 15,
+                  color: blackCustom,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ),
+            actions: const [
+              SizedBox(
+                width: 50,
+              )
+            ],
           ),
         ),
-        actions: const [
-          SizedBox(
-            width: 50,
-          )
-        ],
       ),
       body: SingleChildScrollView(
         physics: userRole == 200
@@ -92,7 +103,7 @@ class _WorkScheduleState extends State<WorkSchedule> {
                 vertical: userRole == 200 ? 10 : 5,
               ),
               child: Card(
-                elevation: userRole == 200 ? 5 : 2,
+                elevation: userRole == 200 ? 5 : 0,
                 shadowColor: userRole == 200
                     ? Colors.grey.shade50
                     : Colors.grey.shade200,
@@ -101,7 +112,8 @@ class _WorkScheduleState extends State<WorkSchedule> {
                   fontSize: userRole == 200 ? 18 : 15,
                   borderCondition: userRole == 200 ? 0 : 1,
                   //no border
-                  fillColor: textFormFieldFillColor,
+                  fillColor:
+                      userRole == 200 ? textFormFieldFillColor : fillColor,
                   iconCondition: iconCondition,
                   data: "",
                 ),
@@ -113,7 +125,7 @@ class _WorkScheduleState extends State<WorkSchedule> {
                 vertical: userRole == 200 ? 10 : 5,
               ),
               child: Card(
-                elevation: userRole == 200 ? 5 : 2,
+                elevation: userRole == 200 ? 5 : 0,
                 shadowColor: userRole == 200
                     ? Colors.grey.shade50
                     : Colors.grey.shade200,
@@ -123,7 +135,8 @@ class _WorkScheduleState extends State<WorkSchedule> {
                   fontSize: userRole == 200 ? 18 : 15,
                   borderCondition: userRole == 200 ? 0 : 1,
                   //no border
-                  fillColor: textFormFieldFillColor,
+                  fillColor:
+                      userRole == 200 ? textFormFieldFillColor : fillColor,
                   iconCondition: iconCondition,
                   data: "",
                 ),

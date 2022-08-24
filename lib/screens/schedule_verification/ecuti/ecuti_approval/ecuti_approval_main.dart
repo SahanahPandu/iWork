@@ -36,31 +36,48 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: appBarBgColor,
-          elevation: 1,
-          shadowColor: white,
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(CustomIcon.arrowBack, color: blackCustom, size: 22),
-          ),
-          title: Center(
-            child: Text(
-              "Perician",
-              style: TextStyle(
-                fontSize: 15,
-                color: grey800,
-                fontWeight: FontWeight.w700,
+        backgroundColor: white,
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(kToolbarHeight),
+          child: Container(
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                color: barShadowColor,
+                offset: const Offset(0, 3),
+                blurRadius: 8,
+              )
+            ]),
+            child: AppBar(
+              backgroundColor: white,
+              elevation: 0,
+              leading: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(CustomIcon.arrowBack, color: blackCustom, size: 22),
               ),
+              title: Center(
+                child: Text(
+                  "Perincian",
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: blackCustom,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ),
+              actions: [
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    CustomIcon.filter,
+                    color: blackCustom,
+                    size: 13,
+                  ),
+                ),
+              ],
             ),
           ),
-          actions: const [
-            SizedBox(
-              width: 50,
-            )
-          ],
         ),
         body: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
@@ -89,9 +106,9 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
                           Text(
                             "Butiran Permohonan E-Cuti",
                             style: TextStyle(
-                              fontSize: 14,
-                              color: _controller.expanded ? green : grey500,
-                              fontWeight: FontWeight.w700,
+                              fontSize: 15,
+                              color: _controller.expanded ? green : blackCustom,
+                              fontWeight: FontWeight.w400,
                             ),
                           ),
                           Container(
@@ -133,9 +150,10 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
                         padding: const EdgeInsets.symmetric(vertical: 15),
                         child: Text("Pengesahan Penyelia :",
                             style: TextStyle(
-                                color: _controller.expanded ? green : grey500,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w700)),
+                                color:
+                                    _controller.expanded ? green : blackCustom,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w400)),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10),
