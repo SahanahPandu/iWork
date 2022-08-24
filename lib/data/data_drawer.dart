@@ -1,6 +1,7 @@
-import 'package:eswm/models/drawer.dart';
 import 'package:flutter/material.dart';
 
+//import files
+import '../models/drawer.dart';
 import '../utils/custom_icon.dart';
 
 List compactorDrawerList = [
@@ -41,8 +42,7 @@ List svDrawerList = [
   Drawers("Anjakan Jadual", CustomIcon.calendarEditOutline,
       CustomIcon.calendarEditFill, "context"),
   Drawers("Laporan", CustomIcon.formOutline, CustomIcon.formFill, "context"),
-  Drawers(
-      "AKBK", CustomIcon.ballotOutline, CustomIcon.ballotOutline, "context"),
+  Drawers("AKBK", CustomIcon.ballotOutline, CustomIcon.ballotFill, "context"),
   Drawers("Semakan Kenderaan", CustomIcon.truckOutline, CustomIcon.truckFill,
       "context"),
   Drawers("Bengkel/Penyelenggaraan", CustomIcon.mechanicOutline,
@@ -62,8 +62,7 @@ List eoBaDrawerList = [
   Drawers("Anjakan Jadual", CustomIcon.calendarEditOutline,
       CustomIcon.calendarEditFill, "context"),
   Drawers("Laporan", CustomIcon.formOutline, CustomIcon.formFill, "context"),
-  Drawers(
-      "AKBK", CustomIcon.ballotOutline, CustomIcon.ballotOutline, "context"),
+  Drawers("AKBK", CustomIcon.ballotOutline, CustomIcon.ballotFill, "context"),
   Drawers("Semakan Kenderaan", CustomIcon.truckOutline, CustomIcon.truckFill,
       "context"),
   Drawers("Bengkel/Penyelenggaraan", CustomIcon.mechanicOutline,

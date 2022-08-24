@@ -1,5 +1,3 @@
-// ignore_for_file: must_be_immutable
-
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
@@ -17,11 +15,11 @@ import '../../list_of_road/list_of_road_text_form_field.dart';
 import '../../../screens/list_of_sub_routes/list_of_sub_routes.dart';
 
 class PraSectionReportForm extends StatefulWidget {
-  String screen;
-  Reports? data;
-  Function? updateButton;
+  final String screen;
+  final Reports? data;
+  final Function? updateButton;
 
-  PraSectionReportForm(
+  const PraSectionReportForm(
       {Key? key, required this.screen, this.data, this.updateButton})
       : super(key: key);
 

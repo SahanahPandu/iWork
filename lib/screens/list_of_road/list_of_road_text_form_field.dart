@@ -1,23 +1,21 @@
-// ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
 
 //import files
 import '../../config/config.dart';
 import '../../config/font.dart';
 import '../../config/palette.dart';
-import 'package:eswm/providers/jalan_api.dart';
-
+import '../../providers/jalan_api.dart';
 import '../../utils/device.dart';
 
 class ListOfRoadTextFormField extends StatefulWidget {
-  String text;
-  double fontSize;
-  Color fillColor;
-  int borderCondition;
-  int iconCondition;
-  String data;
+  final String text;
+  final double fontSize;
+  final Color fillColor;
+  final int borderCondition;
+  final int iconCondition;
+  final String data;
 
-  ListOfRoadTextFormField(
+  const ListOfRoadTextFormField(
       {Key? key,
       required this.text,
       required this.fontSize,

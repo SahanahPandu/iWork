@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 //import files
-import 'package:eswm/widgets/cards/today_task/today_task_card.dart';
-
+import '../../widgets/cards/today_task/today_task_card.dart';
 import '../../widgets/listview/card_list_view.dart';
 
 class Pra extends StatefulWidget {

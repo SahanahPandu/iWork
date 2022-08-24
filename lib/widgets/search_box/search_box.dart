@@ -1,14 +1,13 @@
-// ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
 
-import 'package:eswm/config/font.dart';
-import 'package:eswm/config/palette.dart';
+import '../../config/font.dart';
+import '../../config/palette.dart';
 
 class SearchBoxWidget extends StatefulWidget {
-  String? labelText;
-  Function(dynamic)? searchedName;
+  final String? labelText;
+  final Function(dynamic)? searchedName;
 
-  SearchBoxWidget({Key? key, this.labelText, this.searchedName})
+  const SearchBoxWidget({Key? key, this.labelText, this.searchedName})
       : super(key: key);
 
   @override

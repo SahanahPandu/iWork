@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 
+//import files
 import '../../config/palette.dart';
 import '../../config/string.dart';
 import '../../utils/date.dart';
@@ -442,7 +444,7 @@ class _AkbkFormState extends State<AkbkForm> {
                     Navigator.push(
                         context,
                         PageTransition(
-                            child: const CustomDialog(),
+                            child: CustomDialog(text: _textBuilder()),
                             type: PageTransitionType.fade));
                   }
                 });
@@ -562,5 +564,30 @@ class _AkbkFormState extends State<AkbkForm> {
             ),
           );
         });
+  }
+
+  RichText _textBuilder() {
+    return RichText(
+        textAlign: TextAlign.center,
+        text: TextSpan(
+            text: "Borang AKBK anda pada",
+            style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w400,
+                color: greyCustom,
+                height: 1.5),
+            children: <TextSpan>[
+              TextSpan(
+                  text:
+                      " ${DateFormat("dd MMMM yyyy", 'ms').format(DateTime.now())} \n",
+                  style: TextStyle(
+                      fontSize: 15, fontWeight: FontWeight.w400, color: green)),
+              TextSpan(
+                  text: " telah berjaya dihantar kepada pihak mekanik",
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      color: greyCustom))
+            ]));
   }
 }

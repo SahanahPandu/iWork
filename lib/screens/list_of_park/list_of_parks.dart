@@ -1,4 +1,3 @@
-// ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
 
 import '../../config/config.dart';
@@ -8,15 +7,15 @@ import '../../providers/taman_api.dart';
 import '../../utils/device.dart';
 
 class ListOfParks extends StatefulWidget {
-  Function(dynamic, dynamic)? showSenaraiJalan;
-  String hintText;
-  double fontSize;
-  int borderCondition;
-  Color fillColor;
-  int iconCondition;
-  String data;
+  final Function(dynamic, dynamic)? showSenaraiJalan;
+  final String hintText;
+  final double fontSize;
+  final int borderCondition;
+  final Color fillColor;
+  final int iconCondition;
+  final String data;
 
-  ListOfParks(
+  const ListOfParks(
       {Key? key,
       required this.showSenaraiJalan,
       required this.hintText,

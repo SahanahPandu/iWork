@@ -1,21 +1,20 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
 
 //import files
-import 'package:eswm/config/config.dart';
+import '../../config/config.dart';
+import '../../config/palette.dart';
+import '../../screens/list_of_employees/list_of_employee_details.dart';
 import '../../screens/reassign_employee/reassign_employee_details.dart';
 import '../../screens/work_schedule/compactor_panel/compactor_panel_schedule_details.dart';
 import '../../screens/work_schedule/pra/pra_work_schedule_details.dart';
 import '../../screens/work_schedule/supervisor/supervisor_schedule_details.dart';
-import 'package:eswm/screens/list_of_employees/list_of_employee_details.dart';
 
 class Cards extends StatefulWidget {
-  String type;
-  dynamic data;
-  Function(dynamic)? assignedEmployee;
+  final String type;
+  final dynamic data;
+  final Function(dynamic)? assignedEmployee;
 
-  Cards({
+  const Cards({
     Key? key,
     required this.type,
     this.data,
@@ -62,20 +61,50 @@ class _CardsState extends State<Cards> {
           }
         }
       },
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
-        ),
-        //shadowColor: const Color.fromARGB(255, 138, 146, 166),
-        shadowColor: Colors.grey.shade50,
-        elevation: userRole == 200 ? 14 : 5,
-        child: Container(
-          child: getWidget(),
-          margin: _isScheduleDetailCard
-              ? const EdgeInsets.symmetric(vertical: 18)
-              : const EdgeInsets.all(18),
-        ),
-      ),
+      child: userRole == 200
+          ? Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+              ),
+              shadowColor: Colors.grey.shade50,
+              elevation: 14,
+              child: Container(
+                child: getWidget(),
+                margin: _isScheduleDetailCard
+                    ? const EdgeInsets.symmetric(vertical: 18)
+                    : const EdgeInsets.all(18),
+              ),
+            )
+          : (widget.type == "SV Laluan Details" ||
+                  widget.type == "Comp Laluan Details"
+              ? Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(14),
+                    color: white,
+                    boxShadow: [
+                      BoxShadow(
+                          color: cardShadowColor,
+                          offset: const Offset(0, 2),
+                          blurRadius: 10,
+                          spreadRadius: 0.5)
+                    ],
+                  ),
+                  child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 15),
+                      child: getWidget()))
+              : Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  shadowColor: Colors.grey.shade50,
+                  elevation: 14,
+                  child: Container(
+                    child: getWidget(),
+                    margin: _isScheduleDetailCard
+                        ? const EdgeInsets.symmetric(vertical: 18)
+                        : const EdgeInsets.all(18),
+                  ),
+                )),
     );
   }
 }

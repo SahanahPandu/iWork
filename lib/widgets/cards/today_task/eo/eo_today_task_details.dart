@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 //import files
-
 import '../../../../utils/date.dart';
 import '../../../buttons/enotis_button.dart';
 import '../../../buttons/time_log_button.dart';

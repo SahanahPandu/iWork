@@ -1,6 +1,8 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
+//import files
 import '../../../../config/palette.dart';
 import '../../../../config/string.dart';
 import '../../../../models/cuti.dart';
@@ -8,6 +10,7 @@ import '../../../../utils/custom_icon.dart';
 import '../../../../utils/device.dart';
 import '../../../../widgets/alert/alert_dialog.dart';
 import '../../../../widgets/modal_bottom_sheet/acceptance_options.dart';
+import '../../../dialog/custom_dialog.dart';
 import 'ecuti_approval_detail.dart';
 
 class EcutiApprovalMain extends StatefulWidget {
@@ -20,9 +23,13 @@ class EcutiApprovalMain extends StatefulWidget {
 }
 
 class _EcutiApprovalMain extends State<EcutiApprovalMain> {
-  final ExpandableController _controller =
+  final ExpandableController _eCutiController =
       ExpandableController(initialExpanded: false);
   final TextEditingController _status = TextEditingController();
+  final TextEditingController _by = TextEditingController();
+  final TextEditingController _leaveType = TextEditingController();
+  final TextEditingController _startDate = TextEditingController();
+  final TextEditingController _endDate = TextEditingController();
   List leaveStatusList = ['Diluluskan', 'Diluluskan tanpa lampiran', 'Ditolak'];
   bool buttonVisibility = true;
   Color iconColor = grey500;
@@ -30,93 +37,101 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
   @override
   void initState() {
     iconColor = grey500;
+    _setMainEcutiText();
     super.initState();
+  }
+
+  void _setMainEcutiText() {
+    if (widget.data.pemohon != "") {
+      setState(() {
+        _by.text = widget.data.pemohon;
+      });
+    }
+    if (widget.data.jenisCuti != "") {
+      setState(() {
+        _leaveType.text = widget.data.jenisCuti;
+      });
+    }
+    if (widget.data.tarikhMula != "") {
+      setState(() {
+        _startDate.text = widget.data.tarikhMula;
+      });
+    }
+    if (widget.data.tarikhTamat != "") {
+      setState(() {
+        _endDate.text = widget.data.tarikhTamat;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: appBarBgColor,
-          elevation: 1,
-          shadowColor: white,
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(CustomIcon.arrowBack, color: blackCustom, size: 22),
-          ),
-          title: Center(
-            child: Text(
-              "Perician",
-              style: TextStyle(
-                fontSize: 15,
-                color: grey800,
-                fontWeight: FontWeight.w700,
+        backgroundColor: white,
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(kToolbarHeight),
+          child: Container(
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                color: barShadowColor,
+                offset: const Offset(0, 3),
+                blurRadius: 8,
+              )
+            ]),
+            child: AppBar(
+              backgroundColor: white,
+              elevation: 0,
+              leading: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(CustomIcon.arrowBack, color: blackCustom, size: 22),
               ),
+              title: Center(
+                child: Text(
+                  "Perincian e-Cuti",
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: blackCustom,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ),
+              actions: [
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    CustomIcon.filter,
+                    color: blackCustom,
+                    size: 13,
+                  ),
+                ),
+              ],
             ),
           ),
-          actions: const [
-            SizedBox(
-              width: 50,
-            )
-          ],
         ),
         body: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: ExpandableNotifier(
-            controller: _controller,
+            controller: _eCutiController,
             child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ExpandableButton(
-                    child: InkWell(
-                      onTap: () {
-                        _controller.toggle();
-                        _controller.expanded
-                            ? setState(() {
-                                iconColor = green;
-                              })
-                            : setState(() {
-                                iconColor = grey500;
-                              }); // to update _controller toggle
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Butiran Permohonan E-Cuti",
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: _controller.expanded ? green : grey500,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                              color: iconColor,
-                              shape: BoxShape.circle,
-                            ),
-                            child: Icon(
-                              _controller.expanded
-                                  ? Icons.arrow_drop_up
-                                  : Icons.arrow_drop_down,
-                              size: 18,
-                              color: white,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 15),
+                    child: Text("Butiran Permohonan E-Cuti:",
+                        style: TextStyle(
+                            color: blackCustom,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400)),
                   ),
-                  const SizedBox(
-                    height: 15,
-                  ),
+                  _buildTextForm(_by, "Pemohon"),
+                  _buildTextForm(_leaveType, "Jenis Cuti"),
                   ScrollOnExpand(
                     scrollOnCollapse: false,
-                    scrollOnExpand: false,
+                    scrollOnExpand: true,
                     child: Expandable(
                       collapsed: Container(),
                       expanded: EcutiApprovalDetail(
@@ -124,7 +139,46 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 5),
+                  const SizedBox(height: 15),
+                  ExpandableButton(
+                    child: InkWell(
+                      onTap: () {
+                        _eCutiController.toggle();
+                        _eCutiController.expanded
+                            ? setState(() {
+                                iconColor = green;
+                              })
+                            : setState(() {
+                                iconColor = grey500;
+                              });
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            _eCutiController.expanded
+                                ? "Lihat lebih sikit"
+                                : "Lihat lebih banyak",
+                            style: TextStyle(
+                              fontSize: 12,
+                              color:
+                                  _eCutiController.expanded ? green : darkBlue,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          Icon(
+                            _eCutiController.expanded
+                                ? Icons.keyboard_arrow_up_rounded
+                                : Icons.keyboard_arrow_down_rounded,
+                            size: 14,
+                            color: _eCutiController.expanded ? green : darkBlue,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 25),
                   const Divider(height: 0.5),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -133,9 +187,11 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
                         padding: const EdgeInsets.symmetric(vertical: 15),
                         child: Text("Pengesahan Penyelia :",
                             style: TextStyle(
-                                color: _controller.expanded ? green : grey500,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w700)),
+                                color: _eCutiController.expanded
+                                    ? green
+                                    : blackCustom,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w400)),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10),
@@ -256,7 +312,7 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
                   minimumSize: MaterialStateProperty.all(
                       Size(Devices().screenWidth(context), 41)),
                   backgroundColor: MaterialStateProperty.all(green)),
-              child: Text('Hantar',
+              child: Text('Sahkan',
                   style: TextStyle(
                       color: white, fontSize: 14, fontWeight: FontWeight.w700)),
               onPressed: () {
@@ -268,11 +324,65 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
                     }).then((actionText) {
                   if (actionText == "Sahkan") {
                     Navigator.pop(context, 'refreshEcuti');
+                    Navigator.push(
+                        context,
+                        PageTransition(
+                            child: CustomDialog(text: _textBuilder()),
+                            type: PageTransitionType.fade));
                   }
                 });
               },
             ),
           ),
         ));
+  }
+
+  Padding _buildTextForm(TextEditingController textController, String label,
+      [bool? flex = false]) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12),
+      child: TextFormField(
+        textAlign: TextAlign.start,
+        keyboardType: TextInputType.multiline,
+        minLines: 1,
+        maxLines: flex! ? 10 : 1,
+        controller: textController,
+        readOnly: true,
+        enabled: false,
+        style: TextStyle(
+            color: blackCustom, fontSize: 15, fontWeight: FontWeight.w400),
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: fillColor,
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+          labelText: label,
+          labelStyle: TextStyle(
+            fontSize: 14,
+            color: labelColor,
+            fontWeight: FontWeight.w400,
+          ),
+          disabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              width: 0.5,
+              color: borderTextColor,
+            ),
+            borderRadius: BorderRadius.circular(4),
+          ),
+        ),
+      ),
+    );
+  }
+
+  RichText _textBuilder() {
+    return RichText(
+        textAlign: TextAlign.center,
+        text: TextSpan(
+            text: "Borang e-Cuti ini telah berjaya disahkan oleh anda",
+            style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w400,
+                color: greyCustom,
+                height: 1.5)));
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//import files
 import '../../../config/font.dart';
 import '../../../config/palette.dart';
 import '../../../models/cuti.dart';
@@ -21,7 +22,6 @@ class _SupervisorLeaveListDetailsState
   String statusText = "";
 
   _filterData() {
-
     if (widget.data.idStatus == 1) {
       //Baharu
       statusText = "Baharu";
@@ -45,24 +45,23 @@ class _SupervisorLeaveListDetailsState
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(8),
-      child: Column(
-        children: [
-          //Jenis dan Status Cuti
-          Row(
+    return Column(
+      children: [
+        //Jenis dan Status Cuti
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                widget.data.pemohon,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: grey800,
-                  fontWeight: FontWeight.w900,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Text(
+                  widget.data.pemohon,
+                  style: TextStyle(
+                      fontSize: 16,
+                      color: blackCustom,
+                      fontWeight: FontWeight.w500),
                 ),
-              ),
-              const SizedBox(
-                width: 2,
               ),
               StatusContainer(
                 type: "Cuti",
@@ -72,91 +71,91 @@ class _SupervisorLeaveListDetailsState
               ),
             ],
           ),
+        ),
 
-          //Penyelia
-          Padding(
-            padding: const EdgeInsets.only(top: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Penyelia",
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: black87,
-                    fontWeight: FontWeight.w600,
-                  ),
+        //Penyelia
+        Padding(
+          padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Penyelia",
+                style: TextStyle(
+                  fontSize: 15,
+                  color: greyCustom,
+                  fontWeight: FontWeight.w400,
                 ),
-                Text(
-                  widget.data.approvalBy,
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: grey500,
-                    fontWeight: FontWeight.w500,
-                  ),
-                )
-              ],
-            ),
+              ),
+              Text(
+                widget.data.approvalBy,
+                style: TextStyle(
+                  fontSize: 15,
+                  color: blackCustom,
+                  fontWeight: FontWeight.w600,
+                ),
+              )
+            ],
           ),
+        ),
 
-          //Jenis Cuti
-          Padding(
-            padding: const EdgeInsets.only(top: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Jenis Cuti",
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: black87,
-                    fontWeight: FontWeight.w600,
-                  ),
+        //Jenis Cuti
+        Padding(
+            padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Jenis Cuti",
+                style: TextStyle(
+                  fontSize: 15,
+                  color: greyCustom,
+                  fontWeight: FontWeight.w400,
                 ),
-                Text(
-                  widget.data.jenisCuti,
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: grey500,
-                    fontWeight: FontWeight.w500,
-                  ),
-                )
-              ],
-            ),
+              ),
+              Text(
+                widget.data.jenisCuti,
+                style: TextStyle(
+                  fontSize: 15,
+                  color: blackCustom,
+                  fontWeight: FontWeight.w600,
+                ),
+              )
+            ],
           ),
+        ),
 
-          //Tarikh Mula/Tamat
-          Padding(
-            padding: const EdgeInsets.only(top: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Tarikh Mula / Tamat",
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: black87,
-                    fontWeight: FontWeight.w600,
-                  ),
+        //Tarikh Mula/Tamat
+        Padding(
+          padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Mula/Tamat",
+                style: TextStyle(
+                  fontSize: 15,
+                  color: greyCustom,
+                  fontWeight: FontWeight.w400,
                 ),
-                Text(
-                  (widget.data.tarikhMula != widget.data.tarikhTamat)
-                      ? "${widget.data.tarikhMula} - ${widget.data.tarikhTamat}"
-                      : widget.data.tarikhMula,
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: grey500,
-                    fontWeight: FontWeight.w500,
-                  ),
-                )
-              ],
-            ),
+              ),
+              Text(
+                (widget.data.tarikhMula != widget.data.tarikhTamat)
+                    ? "${widget.data.tarikhMula} - ${widget.data.tarikhTamat}"
+                    : widget.data.tarikhMula,
+                style: TextStyle(
+                  fontSize: 15,
+                  color: blackCustom,
+                  fontWeight: FontWeight.w600,
+                ),
+              )
+            ],
           ),
-          const SizedBox(
-            height: 10,
-          ),
-        ],
-      ),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+      ],
     );
   }
 }

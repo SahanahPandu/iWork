@@ -1,4 +1,3 @@
-// ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
 import 'package:expandable/expandable.dart';
 
@@ -12,11 +11,11 @@ import '../../models/reports.dart';
 import '../../screens/reports/pra/pra_section_report_form.dart';
 
 class ReportForm extends StatefulWidget {
-  String screen;
-  Reports? data;
-  Laluan? dataLaluan;
+  final String screen;
+  final Reports? data;
+  final Laluan? dataLaluan;
 
-  ReportForm(
+  const ReportForm(
       {Key? key,
       required this.screen,
       required this.data,

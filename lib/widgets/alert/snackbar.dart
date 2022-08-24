@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//import files
 import '../../config/palette.dart';
 
 Future showSnackBar(BuildContext context, String message, Duration time, [Color? barColor]) async {

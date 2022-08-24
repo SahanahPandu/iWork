@@ -1,13 +1,17 @@
-import 'package:eswm/widgets/tabs/vehicle_checklist_tab/vehicle_checklist_approval_tab/vehicle_checklist_approval_tab_bar_view/vehicle_checklist_approval_before_tab_bar_view.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:page_transition/page_transition.dart';
 
+//import files
 import '../../../../config/palette.dart';
 import '../../../../config/string.dart';
 import '../../../../models/vc/vc.dart';
+import '../../../../screens/dialog/custom_dialog.dart';
 import '../../../../utils/custom_icon.dart';
 import '../../../../utils/device.dart';
 import '../../../alert/alert_dialog.dart';
 import 'vehicle_checklist_approval_tab_bar_view/vehicle_checklist_approval_after_tab_bar_view.dart';
+import 'vehicle_checklist_approval_tab_bar_view/vehicle_checklist_approval_before_tab_bar_view.dart';
 
 class VehicleChecklistApprovalTab extends StatefulWidget {
   final VehicleChecklist data;
@@ -127,13 +131,19 @@ class _VehicleChecklistApprovalTabState
                   ],
                 ),
               ),
-              Expanded(
-                child: TabBarView(
-                  controller: _tabController,
-                  children: [
-                    VehicleChecklistApprovalBeforeTabbarView(data: widget.data),
-                    VehicleChecklistApprovalAfterTabbarView(data: widget.data),
-                  ],
+              ScrollConfiguration(
+                behavior:
+                    const MaterialScrollBehavior().copyWith(overscroll: false),
+                child: Expanded(
+                  child: TabBarView(
+                    controller: _tabController,
+                    children: [
+                      VehicleChecklistApprovalBeforeTabbarView(
+                          data: widget.data),
+                      VehicleChecklistApprovalAfterTabbarView(
+                          data: widget.data),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -179,13 +189,60 @@ class _VehicleChecklistApprovalTabState
                           "Tidak",
                           "Ya, Sahkan");
                     }).then((actionText) {
-                  if (actionText == "Sahkan") {
+                  if (actionText == "Ya, Sahkan") {
                     Navigator.pop(context);
+                    Navigator.push(
+                        context,
+                        PageTransition(
+                            child: CustomDialog(text: _textBuilder()),
+                            type: PageTransitionType.fade));
                   }
                 });
               },
             ),
           ),
         ));
+  }
+
+  RichText _textBuilder() {
+    return RichText(
+        textAlign: TextAlign.center,
+        text: TextSpan(
+            text: "Borang semakan pada ",
+            style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w400,
+                color: greyCustom,
+                height: 1.5),
+            children: <TextSpan>[
+              TextSpan(
+                  text: DateFormat("dd MMMM yyyy", 'ms').format(DateTime.now()),
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      color: green,
+                      height: 1.5)),
+              TextSpan(
+                  text: "\n bagi kenderaan",
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      color: greyCustom,
+                      height: 1.5)),
+              TextSpan(
+                  text: " ${widget.data.noKenderaan} ",
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      color: green,
+                      height: 1.5)),
+              TextSpan(
+                  text: "telah \nberjaya disahkan oleh anda",
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      color: greyCustom,
+                      height: 1.5))
+            ]));
   }
 }

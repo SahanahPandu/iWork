@@ -1,18 +1,16 @@
-// ignore_for_file: must_be_immutable
-
-import 'package:eswm/config/config.dart';
-import 'package:eswm/screens/list_of_road/list_of_road_details.dart';
 import 'package:flutter/material.dart';
 
 //import files
+import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../../config/string.dart';
 import '../../providers/jalan_api.dart';
+import 'list_of_road_details.dart';
 
 class ListOfRoad extends StatefulWidget {
-  int idTaman;
+  final int idTaman;
 
-  ListOfRoad({Key? key, required this.idTaman}) : super(key: key);
+  const ListOfRoad({Key? key, required this.idTaman}) : super(key: key);
 
   @override
   State<ListOfRoad> createState() => _ListOfRoadState();

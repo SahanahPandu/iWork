@@ -1,23 +1,21 @@
-// ignore_for_file: must_be_immutable
-
-import 'package:eswm/providers/jenis_cuti_api.dart';
 import 'package:flutter/material.dart';
 
 //import files
 import '../../config/config.dart';
 import '../../config/font.dart';
 import '../../config/palette.dart';
+import '../../providers/jenis_cuti_api.dart';
 import '../../utils/device.dart';
 
 class ListOfLeaveType extends StatefulWidget {
-  String hintText;
-  double fontSize;
-  int borderCondition;
-  Color fillColor;
-  int iconCondition;
-  String data;
+  final String hintText;
+  final double fontSize;
+  final int borderCondition;
+  final Color fillColor;
+  final int iconCondition;
+  final String data;
 
-  ListOfLeaveType(
+  const ListOfLeaveType(
       {Key? key,
       required this.hintText,
       required this.fontSize,

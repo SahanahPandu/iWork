@@ -1,13 +1,13 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
 
 //import files
 import '../modal_bottom_sheet/upload_image_options.dart';
 
 class UploadImageButton extends StatefulWidget {
-  Function? getImageName;
-  UploadImageButton({Key? key, required this.getImageName}) : super(key: key);
+  final Function? getImageName;
+
+  const UploadImageButton({Key? key, required this.getImageName})
+      : super(key: key);
 
   @override
   State<UploadImageButton> createState() => _UploadImageButtonState();

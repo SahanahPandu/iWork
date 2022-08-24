@@ -35,13 +35,13 @@ class _ScheduleIssuedCardState extends State<ScheduleIssuedCard> {
   void _loadListTile() {
     switch (widget.getIssue) {
       case "kehadiran":
-        listTitle = "Senarai Pekerja";
+        listTitle = "Senarai Pekerja :";
         break;
       case "laporan":
-        listTitle = "Senarai Laporan";
+        listTitle = "Senarai Laporan :";
         break;
       case "belum":
-        listTitle = "Senarai Pekerja";
+        listTitle = "Senarai Pekerja :";
         break;
     }
   }
@@ -71,25 +71,29 @@ class _ScheduleIssuedCardState extends State<ScheduleIssuedCard> {
             right: 15,
             bottom: 10,
           ),
-          child: Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            shadowColor: Colors.white,
-            elevation: 5,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 6),
-              child: _loadLaluanDetails(),
-            ),
-          ),
+          child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(14),
+                color: white,
+                boxShadow: [
+                  BoxShadow(
+                      color: cardShadowColor,
+                      offset: const Offset(0, 2),
+                      blurRadius: 10,
+                      spreadRadius: 0.5)
+                ],
+              ),
+              child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 5),
+                  child: _loadLaluanDetails())),
         ),
         Container(
           alignment: Alignment.centerLeft,
-          padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
           child: Text(
             listTitle,
             style: TextStyle(
-                color: grey500, fontSize: 15, fontWeight: FontWeight.w600),
+                color: blackCustom, fontSize: 15, fontWeight: FontWeight.w400),
           ),
         ),
         _showBottomList(),
@@ -101,20 +105,17 @@ class _ScheduleIssuedCardState extends State<ScheduleIssuedCard> {
     switch (widget.getIssue) {
       case "kehadiran":
         return ReassignEmployeeList(namaLaluan: widget.getInfo.namaLaluan);
-      // ListOfEmployees(
-      //   idPekerja: const ["Emp07"],
-      // );
       case "laporan":
         return Container(
           margin: const EdgeInsets.symmetric(
-            horizontal: 15,
+            horizontal: 10,
           ),
-          child: CardListView(type: "Laporan", screens: "isu"),
+          child: const CardListView(type: "Laporan", screens: "isu"),
         );
       case "belum":
         return Container(
           margin: const EdgeInsets.symmetric(horizontal: 15),
-          child: ListOfEmployees(),
+          child: const ListOfEmployees(),
         );
     }
   }

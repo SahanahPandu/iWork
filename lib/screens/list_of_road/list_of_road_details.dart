@@ -1,4 +1,3 @@
-// ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
 
 //import files
@@ -8,10 +7,10 @@ import '../../models/jalan.dart';
 import '../../widgets/modal_bottom_sheet/navigation_options.dart';
 
 class ListOfRoadDetails extends StatefulWidget {
-  Jalan data;
-  int index;
+  final Jalan data;
+  final int index;
 
-  ListOfRoadDetails({Key? key, required this.data, required this.index})
+  const ListOfRoadDetails({Key? key, required this.data, required this.index})
       : super(key: key);
 
   @override

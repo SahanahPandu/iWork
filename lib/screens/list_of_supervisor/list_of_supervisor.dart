@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 //import files
-import 'package:eswm/providers/penyelia_api.dart';
 import '../../config/config.dart';
 import '../../config/palette.dart';
+import '../../providers/penyelia_api.dart';
 
 void showListOfSupervisor(passContext, updateSvNameList) {
   showModalBottomSheet(

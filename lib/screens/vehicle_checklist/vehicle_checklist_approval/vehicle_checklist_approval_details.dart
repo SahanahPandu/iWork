@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
+//import files
 import '../../../config/font.dart';
 import '../../../config/palette.dart';
 import '../../../models/vc/vc.dart';
@@ -29,12 +30,15 @@ class _VehicleChecklistApprovalDetailsState
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              widget.data.noLaluan,
-              style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  color: blackCustom,
-                  fontSize: 16),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+              child: Text(
+                widget.data.noLaluan,
+                style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    color: blackCustom,
+                    fontSize: 16),
+              ),
             ),
             StatusContainer(
               type: "vc",
@@ -45,7 +49,7 @@ class _VehicleChecklistApprovalDetailsState
           ],
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -75,7 +79,7 @@ class _VehicleChecklistApprovalDetailsState
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -105,7 +109,7 @@ class _VehicleChecklistApprovalDetailsState
           ),
         ),
         Padding(
-            padding: const EdgeInsets.only(top: 18, left: 10, right: 10),
+            padding: const EdgeInsets.only(top: 18, left: 16, right: 16),
             child: ElevatedButton(
               style: ButtonStyle(
                   elevation: MaterialStateProperty.all(0),

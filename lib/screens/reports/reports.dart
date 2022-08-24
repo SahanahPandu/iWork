@@ -1,16 +1,15 @@
-// ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
 
 //import files
-import 'package:eswm/config/string.dart';
-import 'package:eswm/widgets/tabs/tabs.dart';
+import '../../config/string.dart';
+import '../../widgets/tabs/tabs.dart';
 
 class ReportsPage extends StatefulWidget {
-  String screen;
-  dynamic data;
-  dynamic dataLaluan;
+  final String screen;
+  final dynamic data;
+  final dynamic dataLaluan;
 
-  ReportsPage(
+  const ReportsPage(
       {Key? key,
       required this.screen,
       required this.data,

@@ -1,5 +1,3 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
 
 //import files
@@ -9,9 +7,9 @@ import '../../../../utils/custom_icon.dart';
 import '../../../container/status_container.dart';
 
 class PraMyTaskListDetails extends StatefulWidget {
-  Laluan data;
+  final Laluan data;
 
-  PraMyTaskListDetails({Key? key, required this.data}) : super(key: key);
+  const PraMyTaskListDetails({Key? key, required this.data}) : super(key: key);
 
   @override
   State<PraMyTaskListDetails> createState() => _PraMyTaskListDetailsState();

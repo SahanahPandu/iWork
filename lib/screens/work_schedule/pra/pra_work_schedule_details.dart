@@ -1,20 +1,17 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
 
 //import files
 import '../../../../config/palette.dart';
 import '../../../config/font.dart';
 import '../../../../models/laluan.dart';
-import 'package:eswm/widgets/buttons/report_button.dart';
-import 'package:eswm/widgets/container/status_container.dart';
-
 import '../../../utils/custom_icon.dart';
+import '../../../widgets/buttons/report_button.dart';
+import '../../../widgets/container/status_container.dart';
 
 class PraWorkScheduleDetails extends StatefulWidget {
-  Laluan data;
+  final Laluan data;
 
-  PraWorkScheduleDetails({Key? key, required this.data}) : super(key: key);
+  const PraWorkScheduleDetails({Key? key, required this.data}) : super(key: key);
 
   @override
   State<PraWorkScheduleDetails> createState() => _PraWorkScheduleDetailsState();

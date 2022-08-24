@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:page_transition/page_transition.dart';
 
+//import files
 import '../../../../config/palette.dart';
 import '../../../../config/string.dart';
 import '../../../../providers/pekerja_api.dart';
 import '../../../../utils/custom_icon.dart';
 import '../../../../utils/device.dart';
 import '../../../../widgets/alert/alert_dialog.dart';
+import '../../../dialog/custom_dialog.dart';
 import 'attendance_verification_detail_list.dart';
 
 class AttendanceVerificationList extends StatefulWidget {
@@ -30,37 +34,48 @@ class _AttendanceVerificationListState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: appBarBgColor,
-          elevation: 1,
-          shadowColor: white,
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(CustomIcon.arrowBack,
-                color: blackCustom, size: 22),
-          ),
-          title: Center(
-            child: Text(
-              "Pengesahan",
-              style: TextStyle(
-                fontSize: 15,
-                color: grey800,
-                fontWeight: FontWeight.w700,
+        backgroundColor: white,
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(kToolbarHeight),
+          child: Container(
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                color: barShadowColor,
+                offset: const Offset(0, 3),
+                blurRadius: 8,
+              )
+            ]),
+            child: AppBar(
+              backgroundColor: white,
+              elevation: 0,
+              leading: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(CustomIcon.arrowBack, color: blackCustom, size: 22),
               ),
+              title: Center(
+                child: Text(
+                  "Pengesahan Kehadiran",
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: blackCustom,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ),
+              actions: [
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    CustomIcon.filter,
+                    color: blackCustom,
+                    size: 13,
+                  ),
+                ),
+              ],
             ),
           ),
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: Icon(
-                CustomIcon.filter,
-                color: blackCustom,
-                size: 13,
-              ),
-            ),
-          ],
         ),
         body: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
@@ -72,7 +87,9 @@ class _AttendanceVerificationListState
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                   child: Text("Senarai Pekerja",
                       style: TextStyle(
-                          color: grey500, fontWeight: FontWeight.w700))),
+                          color: blackCustom,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w400))),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: FutureBuilder<List>(
@@ -159,11 +176,41 @@ class _AttendanceVerificationListState
                     }).then((actionText) {
                   if (actionText == "Sahkan") {
                     Navigator.pop(context, 'refreshAttendance');
+                    Navigator.push(
+                        context,
+                        PageTransition(
+                            child: CustomDialog(text: _textBuilder()),
+                            type: PageTransitionType.fade));
                   }
                 });
               },
             ),
           ),
         ));
+  }
+
+  RichText _textBuilder() {
+    return RichText(
+        textAlign: TextAlign.center,
+        text: TextSpan(
+            text: "Kehadiran pekerja subordinat anda \npada",
+            style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w400,
+                color: greyCustom,
+                height: 1.5),
+            children: <TextSpan>[
+              TextSpan(
+                  text:
+                      " ${DateFormat("dd MMMM yyyy", 'ms').format(DateTime.now())}",
+                  style: TextStyle(
+                      fontSize: 15, fontWeight: FontWeight.w400, color: green)),
+              TextSpan(
+                  text: " telah berjaya disahkan",
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      color: greyCustom))
+            ]));
   }
 }

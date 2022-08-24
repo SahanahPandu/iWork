@@ -1,5 +1,3 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
 
 //import files
@@ -10,11 +8,12 @@ class AppBarWidget extends StatefulWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => const Size.fromHeight(50);
 
-  String? title;
-  List<Widget>?
+  final String? title;
+  final List<Widget>?
       listOfWidget; //pass list of widgets if there are icons to display on the right side of the app bar
 
-  AppBarWidget({Key? key, this.title, this.listOfWidget}) : super(key: key);
+  const AppBarWidget({Key? key, this.title, this.listOfWidget})
+      : super(key: key);
 
   @override
   State<AppBarWidget> createState() => _AppBarWidgetState();

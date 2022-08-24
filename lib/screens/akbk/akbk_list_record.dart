@@ -1,8 +1,9 @@
-import 'package:eswm/providers/akbk_api.dart';
-import 'package:eswm/screens/akbk/akbk_list_record_details.dart';
 import 'package:flutter/material.dart';
 
+//import files
 import '../../config/palette.dart';
+import '../../providers/akbk_api.dart';
+import 'akbk_list_record_details.dart';
 
 class AkbkListRecord extends StatefulWidget {
   const AkbkListRecord({Key? key}) : super(key: key);

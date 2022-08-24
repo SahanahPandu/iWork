@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
 
-//import files
 import '../../../config/palette.dart';
 import '../../../utils/custom_icon.dart';
-import 'akbk_tab_bar_view/akbk_form_tab_bar_view.dart';
-import 'akbk_tab_bar_view/akbk_list_tab_bar_view.dart';
+import 'ecuti_approval_tab_bar_view/ecuti_approval_all_tab_bar_view.dart';
+import 'ecuti_approval_tab_bar_view/ecuti_approval_completed_tab_bar_view.dart';
+import 'ecuti_approval_tab_bar_view/ecuti_approval_new_tab_bar_view.dart';
+import 'ecuti_approval_tab_bar_view/ecuti_approval_rejected_tab_bar_view.dart';
 
-class AkbkMainTab extends StatefulWidget {
-  const AkbkMainTab({Key? key}) : super(key: key);
+class EcutiApprovalTab extends StatefulWidget {
+  const EcutiApprovalTab({Key? key}) : super(key: key);
 
   @override
-  State<AkbkMainTab> createState() => _AkbkMainTabState();
+  State<EcutiApprovalTab> createState() => _EcutiApprovalTabState();
 }
 
-class _AkbkMainTabState extends State<AkbkMainTab>
+class _EcutiApprovalTabState extends State<EcutiApprovalTab>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
   void initState() {
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 4, vsync: this);
     super.initState();
   }
 
@@ -54,7 +55,7 @@ class _AkbkMainTabState extends State<AkbkMainTab>
               ),
               title: Center(
                 child: Text(
-                  "AKBK",
+                  "E-Cuti",
                   style: TextStyle(
                     fontSize: 15,
                     color: blackCustom,
@@ -88,6 +89,7 @@ class _AkbkMainTabState extends State<AkbkMainTab>
                   ),
                 ),
                 child: TabBar(
+                  isScrollable: true,
                   padding:
                       const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                   controller: _tabController,
@@ -111,10 +113,16 @@ class _AkbkMainTabState extends State<AkbkMainTab>
                   unselectedLabelColor: greyCustom,
                   tabs: const [
                     Tab(
-                      text: 'Borang',
+                      text: 'Semua',
                     ),
                     Tab(
-                      text: 'Rekod',
+                      text: 'Baharu',
+                    ),
+                    Tab(
+                      text: 'Diluluskan',
+                    ),
+                    Tab(
+                      text: 'Ditolak',
                     ),
                   ],
                 ),
@@ -126,8 +134,10 @@ class _AkbkMainTabState extends State<AkbkMainTab>
                   child: TabBarView(
                     controller: _tabController,
                     children: const [
-                      AkbkFormTabbarView(),
-                      AkbkListTabbarView(),
+                      EcutiApprovalAllTabBarView(),
+                      EcutiApprovalNewTabBarView(),
+                      EcutiApprovalCompletedTabBarView(),
+                      EcutiApprovalRejectedTabBarView(),
                     ],
                   ),
                 ),

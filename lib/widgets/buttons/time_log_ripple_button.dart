@@ -1,20 +1,20 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:simple_ripple_animation/simple_ripple_animation.dart';
 
 //import files
-import "package:eswm/widgets/alert/alert_dialog.dart";
+import '../../config/palette.dart';
+import '../../screens/dialog/custom_dialog.dart';
+import '../alert/alert_dialog.dart';
 
 class TimeLogRippleButton extends StatefulWidget {
-  late String btnText;
-  late Color btnColor;
+  final String btnText;
+  final Color btnColor;
 
-  TimeLogRippleButton({
-    Key? key,
-    required this.btnText,
-    required this.btnColor,
-  }) : super(key: key);
+  const TimeLogRippleButton(
+      {Key? key, required this.btnText, required this.btnColor})
+      : super(key: key);
 
   @override
   State<TimeLogRippleButton> createState() => _TimeLogRippleButtonState();
@@ -44,8 +44,18 @@ class _TimeLogRippleButtonState extends State<TimeLogRippleButton> {
               }).then((actionText) {
             if (actionText == "Masuk Kerja") {
               Navigator.pop(context, actionText);
+              Navigator.push(
+                  context,
+                  PageTransition(
+                      child: CustomDialog(text: _textBuilder()),
+                      type: PageTransitionType.fade));
             } else if (actionText == "Tamat Kerja") {
               Navigator.pop(context, actionText);
+              Navigator.push(
+                  context,
+                  PageTransition(
+                      child: CustomDialog(text: _textBuilder()),
+                      type: PageTransitionType.fade));
             }
           });
         },
@@ -68,5 +78,37 @@ class _TimeLogRippleButtonState extends State<TimeLogRippleButton> {
         ),
       ),
     );
+  }
+
+  RichText _textBuilder() {
+    return RichText(
+        textAlign: TextAlign.center,
+        text: TextSpan(
+            text: widget.btnText == "Masuk Kerja"
+                ? "Tahniah! Anda berjaya masuk kerja \nuntuk"
+                : "Jumpa lagi! Anda telah tamat kerja \nuntuk",
+            style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w400,
+                color: greyCustom,
+                height: 1.5),
+            children: <TextSpan>[
+              TextSpan(
+                  text:
+                      " ${DateFormat("dd MMMM yyyy", 'ms').format(DateTime.now())}",
+                  style: TextStyle(
+                      fontSize: 15, fontWeight: FontWeight.w400, color: green)),
+              TextSpan(
+                  text: " pada jam",
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      color: greyCustom)),
+              TextSpan(
+                  text:
+                      " ${DateFormat("hh:mm a", 'ms').format(DateTime.now())}",
+                  style: TextStyle(
+                      fontSize: 15, fontWeight: FontWeight.w400, color: green))
+            ]));
   }
 }
