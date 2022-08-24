@@ -80,9 +80,10 @@ class _LeaveListState extends State<LeaveList> {
               ),
             ),
             Container(
-              margin: const EdgeInsets.symmetric(horizontal: 16),
-              child: const CardListView(type: "Cuti", topCardStatus: null)),
-        ],
+                margin: const EdgeInsets.symmetric(horizontal: 16),
+                child: const CardListView(type: "Cuti", topCardStatus: null)),
+          ],
+        ),
       ),
     );
   }
