@@ -1,11 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:page_transition/page_transition.dart';
 
 //import files
 import '../../config/dimen.dart';
 import '../../config/palette.dart';
 import '../../config/string.dart';
+import '../../screens/dialog/custom_dialog.dart';
 import '../../utils/date.dart';
 import '../../utils/device.dart';
 import '../alert/alert_dialog.dart';
@@ -40,7 +43,7 @@ class _ENotisButtonState extends State<ENotisButton>
     });
     super.initState();
   }
-  
+
   @override
   void dispose() {
     _controllerText.dispose();
@@ -67,7 +70,11 @@ class _ENotisButtonState extends State<ENotisButton>
                     yes);
               }).then((actionText) {
             if (actionText == yes) {
-              // Navigator.pop(context);
+              Navigator.push(
+                  context,
+                  PageTransition(
+                      child: CustomDialog(text: _textBuilder()),
+                      type: PageTransitionType.fade));
             }
           });
         },
@@ -105,5 +112,30 @@ class _ENotisButtonState extends State<ENotisButton>
         ),
       ),
     );
+  }
+
+  RichText _textBuilder() {
+    return RichText(
+        textAlign: TextAlign.center,
+        text: TextSpan(
+            text: "Peringatan e-Notis anda pada \n",
+            style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w400,
+                color: greyCustom,
+                height: 1.5),
+            children: <TextSpan>[
+              TextSpan(
+                  text:
+                      " ${DateFormat("dd MMMM yyyy", 'ms').format(DateTime.now())}",
+                  style: TextStyle(
+                      fontSize: 15, fontWeight: FontWeight.w400, color: green)),
+              TextSpan(
+                  text: " berjaya dihantar kepada BA",
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      color: greyCustom))
+            ]));
   }
 }

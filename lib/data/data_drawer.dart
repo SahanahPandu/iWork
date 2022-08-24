@@ -1,6 +1,7 @@
-import 'package:eswm/models/drawer.dart';
 import 'package:flutter/material.dart';
 
+//import files
+import '../models/drawer.dart';
 import '../utils/custom_icon.dart';
 
 List compactorDrawerList = [
