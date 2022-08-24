@@ -11,8 +11,8 @@ class IssueTabbarView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [
-        const SizedBox(height: 10),
+      children: const [
+        SizedBox(height: 10),
         Expanded(
           child: CardListView(
             type: 'Laluan',

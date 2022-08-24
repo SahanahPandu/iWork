@@ -38,7 +38,7 @@ class _ReportListState extends State<ReportList> {
               ? const CompactorReportList()
               : Container(
                   margin: const EdgeInsets.symmetric(horizontal: 10),
-                  child: CardListView(
+                  child: const CardListView(
                     type: "Laporan",
                     topCardStatus: null,
                   ),

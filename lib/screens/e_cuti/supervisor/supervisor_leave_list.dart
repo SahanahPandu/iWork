@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../../config/palette.dart';
-import '../../../utils/custom_icon.dart';
 import '../../../widgets/listview/card_list_view.dart';
 
 class SupervisorLeaveList extends StatefulWidget {
@@ -22,7 +21,7 @@ class _SupervisorLeaveList extends State<SupervisorLeaveList> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: white,
-          body: SingleChildScrollView(
+        body: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Column(children: [
             Container(

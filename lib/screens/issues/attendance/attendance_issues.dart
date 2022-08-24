@@ -17,9 +17,9 @@ class _AttendanceIssuesState extends State<AttendanceIssues> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarWidget(
+      appBar: const AppBarWidget(
         title: "Kehadiran",
-        listOfWidget: const [
+        listOfWidget: [
           SizedBox(
             width: 50,
           )
@@ -29,12 +29,12 @@ class _AttendanceIssuesState extends State<AttendanceIssues> {
         margin: pagesMargin,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+          children: const [
             Cards(
               type: "Laluan Details",
               data: null,
             ),
-            const SizedBox(
+            SizedBox(
               height: 25,
             ),
             ListOfEmployees(),
