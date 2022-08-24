@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 //import files
-import '../../config/config.dart';
 import '../../config/font.dart';
 import '../../config/palette.dart';
 import '../../models/reports.dart';
+import '../../utils/custom_icon.dart';
 import '../../widgets/container/status_container.dart';
 
 class ReportListDetails extends StatefulWidget {
@@ -21,100 +21,139 @@ class ReportListDetails extends StatefulWidget {
 class _ReportListDetailsState extends State<ReportListDetails> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(8),
-      child: Column(
-        children: [
-          //laluan and status
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Laporan ${widget.index + 1} - ${widget.data.namaLaluan}",
+    return Column(
+      children: [
+        //laluan and status
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+              child: Text(
+                "L${widget.index + 1} - ${widget.data.namaLaluan}",
                 style: TextStyle(
-                  fontSize: userRole == 200 ? 17 : 14,
-                  color: userRole == 200 ? Colors.grey.shade800 : black87,
-                  fontWeight:
-                      userRole == 200 ? FontWeight.w900 : FontWeight.w600,
+                  fontSize: 16,
+                  color: blackCustom,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
-              StatusContainer(
-                type: "Laporan",
-                status: widget.data.status,
-                statusId: widget.data.idStatus,
-                fontWeight: statusFontWeight,
-              ),
-            ],
-          ),
-          SizedBox(
-            height: userRole == 200 ? 30 : 20,
-          ),
-          //Taman
-          ClipRect(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  //flex: 0,
-                  child: Row(
-                    children: [
-                      const Icon(
-                        Icons.house,
-                        size: 18,
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        "Taman",
-                        style: TextStyle(
-                          fontSize:
-                              userRole == 100 || userRole == 200 ? 15 : 13,
-                          color: Colors.grey.shade800,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  //flex: 3,
-                  child: Text(
-                    widget.data.namaTaman,
-                    style: TextStyle(
-                      fontSize: userRole == 100 || userRole == 200 ? 15 : 13,
-                      color: Colors.grey.shade500,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-              ],
             ),
-          ),
-          SizedBox(
-            height: userRole == 200 ? 15 : 10,
-          ),
-          //Jalan
-          Row(
+            StatusContainer(
+              type: "Laporan",
+              status: widget.data.status,
+              statusId: widget.data.idStatus,
+              fontWeight: statusFontWeight,
+            ),
+          ],
+        ),
+        //Taman
+        Padding(
+          padding: const EdgeInsets.fromLTRB(15, 10, 15, 8),
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
                 children: [
-                  const Icon(
-                    Icons.assistant_direction,
+                  Icon(
+                    CustomIcon.timerFill,
                     size: 18,
+                    color: blue,
                   ),
                   const SizedBox(
-                    width: 5,
+                    width: 10,
+                  ),
+                  Text(
+                    "Tarikh & Masa",
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: greyCustom,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                width: 160,
+                child: Text(
+                  widget.data.tarikhMasa,
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: blackCustom,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  textAlign: TextAlign.right,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
+          ),
+        ),
+        //Taman
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Icon(
+                    CustomIcon.tamanFill,
+                    size: 18,
+                    color: blue,
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    "Taman",
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: greyCustom,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                width: 160,
+                child: Text(
+                  widget.data.namaTaman,
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: blackCustom,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  textAlign: TextAlign.right,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
+          ),
+        ),
+        //Jalan
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Icon(
+                    CustomIcon.roadFill,
+                    size: 18,
+                    color: blue,
+                  ),
+                  const SizedBox(
+                    width: 10,
                   ),
                   Text(
                     "Jalan",
                     style: TextStyle(
-                      fontSize: userRole == 100 || userRole == 200 ? 15 : 13,
-                      color: Colors.grey.shade800,
-                      fontWeight: FontWeight.w600,
+                      fontSize: 15,
+                      color: greyCustom,
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
                 ],
@@ -122,35 +161,36 @@ class _ReportListDetailsState extends State<ReportListDetails> {
               Text(
                 widget.data.namaJalan,
                 style: TextStyle(
-                  fontSize: userRole == 100 || userRole == 200 ? 15 : 13,
-                  color: Colors.grey.shade500,
-                  fontWeight: FontWeight.w500,
+                  fontSize: 15,
+                  color: blackCustom,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ],
           ),
-          SizedBox(
-            height: userRole == 200 ? 15 : 10,
-          ),
-          //Jenis Halangan
-          Row(
+        ),
+        //Jenis Halangan
+        Padding(
+          padding: const EdgeInsets.fromLTRB(15, 8, 15, 10),
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
                 children: [
-                  const Icon(
-                    Icons.error_outline,
+                  Icon(
+                    CustomIcon.exclamation,
                     size: 18,
+                    color: blue,
                   ),
                   const SizedBox(
-                    width: 5,
+                    width: 10,
                   ),
                   Text(
                     "Jenis Halangan",
                     style: TextStyle(
-                      fontSize: userRole == 100 || userRole == 200 ? 15 : 13,
-                      color: Colors.grey.shade800,
-                      fontWeight: FontWeight.w600,
+                      fontSize: 15,
+                      color: greyCustom,
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
                 ],
@@ -158,18 +198,15 @@ class _ReportListDetailsState extends State<ReportListDetails> {
               Text(
                 widget.data.jenisHalangan,
                 style: TextStyle(
-                  fontSize: userRole == 100 || userRole == 200 ? 15 : 13,
-                  color: Colors.grey.shade500,
-                  fontWeight: FontWeight.w500,
+                  fontSize: 15,
+                  color: blackCustom,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ],
           ),
-          SizedBox(
-            height: userRole == 200 ? 15 : 10,
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
