@@ -11,30 +11,114 @@ class LeaveList extends StatefulWidget {
 }
 
 class _LeaveListState extends State<LeaveList> {
+  dynamic idStatus;
+
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      physics: const BouncingScrollPhysics(
-        parent: AlwaysScrollableScrollPhysics(),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-            child: Text(
-              "Rekod permohonan cuti: ",
-              style: TextStyle(
-                color: Color(0xff8A92A6),
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
+    return DefaultTabController(
+      length: 4,
+      initialIndex: 0,
+      child: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(
+          parent: AlwaysScrollableScrollPhysics(),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              margin: const EdgeInsets.only(left: 16, right: 14, bottom: 17),
+              child: TabBar(
+                indicatorPadding: const EdgeInsets.symmetric(vertical: 6),
+                indicator: const UnderlineTabIndicator(
+                  borderSide: BorderSide(
+                    width: 2.0,
+                    color: Color(0xff34A853),
+                  ),
+                ),
+                indicatorSize: TabBarIndicatorSize.label,
+                labelPadding: const EdgeInsets.symmetric(horizontal: 8),
+                labelColor: const Color(0xff34A853),
+                labelStyle: const TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
+                ),
+                unselectedLabelColor: const Color(0xffA4A4A4),
+                unselectedLabelStyle: const TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w400,
+                ),
+                isScrollable: true,
+                tabs: const [
+                  Tab(
+                    text: "Semua",
+                  ),
+                  Tab(
+                    text: "Dalam Proses",
+                  ),
+                  Tab(
+                    text: "Diluluskan",
+                  ),
+                  Tab(
+                    text: "Ditolak",
+                  ),
+                ],
+                onTap: (index) {
+                  dynamic status;
+
+                  index == 1
+                      ? status = [1, 2]
+                      : index == 2
+                          ? status = [3]
+                          : index == 3
+                              ? status = [4]
+                              : status = null;
+
+                  setState(() {
+                    idStatus = status;
+                  });
+                },
               ),
             ),
-          ),
-          Container(
+            Container(
               margin: const EdgeInsets.symmetric(horizontal: 16),
-              child: CardListView(type: "Cuti", topCardStatus: null)),
-        ],
+              child: CardListView(
+                type: "Cuti",
+                cutiStatus: idStatus,
+              ),
+            ),
+            // Expanded(
+            //   child: TabBarView(
+            //     children: [
+            //       Container(
+            //         margin: const EdgeInsets.symmetric(horizontal: 16),
+            //         child: CardListView(type: "Cuti"),
+            //       ),
+            //       Container(
+            //         margin: const EdgeInsets.symmetric(horizontal: 16),
+            //         child: CardListView(
+            //           type: "Cuti",
+            //           cutiStatus: const [1, 2],
+            //         ),
+            //       ),
+            //       Container(
+            //         margin: const EdgeInsets.symmetric(horizontal: 16),
+            //         child: CardListView(
+            //           type: "Cuti",
+            //           cutiStatus: 3,
+            //         ),
+            //       ),
+            //       Container(
+            //         margin: const EdgeInsets.symmetric(horizontal: 16),
+            //         child: CardListView(
+            //           type: "Cuti",
+            //           cutiStatus: 4,
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
+          ],
+        ),
       ),
     );
   }

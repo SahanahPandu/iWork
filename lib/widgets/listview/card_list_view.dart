@@ -14,12 +14,14 @@ class CardListView extends StatefulWidget {
   String type;
   final Function? topCardStatus;
   String? screens;
+  dynamic cutiStatus;
 
   CardListView({
     Key? key,
     required this.type,
     this.topCardStatus,
     this.screens,
+    this.cutiStatus,
   }) : super(key: key);
 
   @override
@@ -87,6 +89,12 @@ class _CardListViewState extends State<CardListView> {
                   child: Text("Some error occurred!"),
                 );
               } else {
+                //Filtering based on Cuti Status (if any)
+                if (widget.type == "Cuti" && widget.cutiStatus != null) {
+                  dataFuture!.removeWhere(
+                      (item) => !widget.cutiStatus.contains(item.idStatus));
+                }
+
                 return ListView.builder(
                   physics: userRole == 200
                       ? ((widget.type == "Laluan" &&

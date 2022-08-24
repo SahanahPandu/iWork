@@ -84,9 +84,6 @@ class _TabsState extends State<Tabs> with SingleTickerProviderStateMixin {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // const SizedBox(
-          //   height: 10,
-          // ),
           Container(
             margin: const EdgeInsets.all(15),
             height: 54,
@@ -97,7 +94,7 @@ class _TabsState extends State<Tabs> with SingleTickerProviderStateMixin {
               ),
             ),
             child: TabBar(
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+              padding: const EdgeInsets.all(10),
               controller: _tabController,
               indicator: BoxDecoration(
                   borderRadius: BorderRadius.circular(
