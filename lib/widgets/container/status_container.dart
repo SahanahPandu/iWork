@@ -74,8 +74,10 @@ class _StatusContainerState extends State<StatusContainer> {
         boxColor = blueStatusBox;
       } else if (widget.statusId == 2 || widget.statusId == 4) {
         //Diterima SV || Disahkan BA
-        textColor = orangeStatusText;
-        boxColor = orangeStatusBox;
+        // textColor = orangeStatusText;
+        // boxColor = orangeStatusBox;
+        textColor = greenStatusText;
+        boxColor = greenStatusBox;
       } else if (widget.statusId == 3 || widget.statusId == 5) {
         //Ditolak SV || Ditolak BA
         textColor = redStatusText;

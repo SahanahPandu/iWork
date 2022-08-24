@@ -24,21 +24,24 @@ class _ReportListState extends State<ReportList> {
         children: [
           Container(
             margin:
-                const EdgeInsets.only(left: 20, top: 10, right: 20, bottom: 20),
-            child: Text(
-              "Rekod laporan: ",
+                const EdgeInsets.only(left: 16, top: 9, right: 16, bottom: 24),
+            child: const Text(
+              "Senarai laporan: ",
               style: TextStyle(
-                color: Colors.grey.shade500,
-                fontSize: 17,
-                fontWeight: FontWeight.w500,
+                color: Color(0xff2B2B2B),
+                fontSize: 15,
+                fontWeight: FontWeight.w400,
               ),
             ),
           ),
           userRole == 100
               ? const CompactorReportList()
-              : CardListView(
-                  type: "Laporan",
-                  topCardStatus: null,
+              : Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 10),
+                  child: CardListView(
+                    type: "Laporan",
+                    topCardStatus: null,
+                  ),
                 ),
         ],
       ),

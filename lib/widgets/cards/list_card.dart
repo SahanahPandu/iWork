@@ -93,9 +93,12 @@ class _ListCardState extends State<ListCard> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: userRole == 200
-            ? const EdgeInsets.only(bottom: 8)
-            : const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+        padding: userRole == 200 &&
+                (widget.type == "Laluan" || widget.type == "Laporan")
+            ? const EdgeInsets.only(bottom: 16)
+            : userRole == 200 && widget.type == "Cuti"
+                ? const EdgeInsets.only(bottom: 24)
+                : const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
         child: GestureDetector(
             behavior: HitTestBehavior.translucent,
             onTap: () {
@@ -118,47 +121,24 @@ class _ListCardState extends State<ListCard> with TickerProviderStateMixin {
             },
             child: Transform.scale(
               scale: _scaleCard,
-              child: userRole == 200
-                  ? Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(14),
-                        shape: BoxShape.rectangle,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.shade300,
-                            blurRadius: 5,
-                            offset: const Offset(0, 4),
-                            spreadRadius: 1,
-                            blurStyle: BlurStyle.normal,
-                          ),
-                        ],
-                      ),
-                      child: Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(14),
-                        ),
-                        elevation: 0,
-                        child: Container(
-                          margin: const EdgeInsets.only(top: 16, bottom: 24),
-                          child: getWidget(),
-                        ),
-                      ),
-                    )
-                  : Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(14),
-                        color: white,
-                        boxShadow: [
-                          BoxShadow(
-                              color: cardShadowColor,
-                              offset: const Offset(0, 2),
-                              blurRadius: 10,
-                              spreadRadius: 0.5)
-                        ],
-                      ),
-                      child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 5),
-                          child: getWidget())),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(14),
+                  color: white,
+                  boxShadow: [
+                    BoxShadow(
+                        color: cardShadowColor,
+                        offset: const Offset(0, 2),
+                        blurRadius: 10,
+                        spreadRadius: 0.5)
+                  ],
+                ),
+                child: userRole != 200
+                    ? Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5),
+                        child: getWidget())
+                    : getWidget(),
+              ),
             )));
   }
 
