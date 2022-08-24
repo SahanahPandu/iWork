@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -27,7 +29,33 @@ class _TimeLogState extends State<TimeLog> {
   String date = DateFormat("d", 'ms').format(DateTime.now());
   String month = DateFormat("MMMM", 'ms').format(DateTime.now());
   late String today = "   $date  $month ";
-  String currentTime = DateFormat("HH:mm:ss").format(DateTime.now());
+  String currentTime = DateFormat("hh:mm:ss").format(DateTime.now());
+  late dynamic _timer;
+
+  @override
+  void initState() {
+    _loadLiveTime();
+    super.initState();
+  }
+
+  void _loadLiveTime() {
+    _timer =
+        Timer.periodic(const Duration(seconds: 1), (Timer time) => _getTime());
+  }
+
+  void _getTime() {
+    final String formattedDateTime =
+        DateFormat('hh:mm:ss').format(DateTime.now()).toString();
+    setState(() {
+      currentTime = formattedDateTime;
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,9 +114,9 @@ class _TimeLogState extends State<TimeLog> {
                   Text(
                     day,
                     style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.grey.shade400,
-                      fontWeight: FontWeight.w500,
+                      fontSize: 15,
+                      color: greyCustom,
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
                   const SizedBox(
@@ -97,7 +125,7 @@ class _TimeLogState extends State<TimeLog> {
                   Icon(
                     Icons.fiber_manual_record,
                     size: 5,
-                    color: Colors.grey.shade400,
+                    color: greyCustom,
                   ),
                   const SizedBox(
                     width: 5,
@@ -105,9 +133,9 @@ class _TimeLogState extends State<TimeLog> {
                   Text(
                     today,
                     style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.grey.shade400,
-                      fontWeight: FontWeight.w500,
+                      fontSize: 15,
+                      color: greyCustom,
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
                 ],
@@ -115,15 +143,12 @@ class _TimeLogState extends State<TimeLog> {
               const SizedBox(
                 height: 13,
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Text(
-                  currentTime,
-                  style: TextStyle(
-                    fontSize: 40,
-                    color: Colors.grey.shade900,
-                    fontWeight: FontWeight.w600,
-                  ),
+              Text(
+                currentTime,
+                style: TextStyle(
+                  fontSize: 32,
+                  color: blackCustom,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
               Padding(

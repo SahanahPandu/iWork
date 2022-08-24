@@ -106,7 +106,7 @@ class _TimeLogRippleButtonState extends State<TimeLogRippleButton> {
                       color: greyCustom)),
               TextSpan(
                   text:
-                      " ${DateFormat("HH:mm a", 'ms').format(DateTime.now())}",
+                      " ${DateFormat("hh:mm a", 'ms').format(DateTime.now())}",
                   style: TextStyle(
                       fontSize: 15, fontWeight: FontWeight.w400, color: green))
             ]));
