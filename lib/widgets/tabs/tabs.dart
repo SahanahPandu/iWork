@@ -30,7 +30,7 @@ class _TabsState extends State<Tabs> with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   getTabView() {
-    if (widget.screen == "1" || widget.screen == "2" || widget.screen == "5") {
+    if (widget.screen == "1" || widget.screen == "5") {
       // e_cuti
       //screen = "1" - ecuti button , screen ="2" -  from leave list , screen ="5" -  E-cuti menu from drawer
 

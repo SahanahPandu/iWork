@@ -57,7 +57,7 @@ Color labelColor = const Color.fromRGBO(164, 164, 164, 1);
 Color fillColor = const Color.fromRGBO(251, 251, 251, 1);
 
 //------Text Form Field--------------------------------------------------------
-Color textFormFieldFillColor = const Color(0xffFBFBFB);
+Color textFormFieldFillColor = const Color(0x33DDDFE2);
 
 //border setting
 //double borderSideWidth = 1.5;

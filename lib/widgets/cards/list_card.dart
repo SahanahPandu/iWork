@@ -1,11 +1,12 @@
 import 'dart:async';
+import 'package:eswm/widgets/app_bar/app_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
 //import files
 import '../../config/config.dart';
 import '../../config/palette.dart';
-import '../../screens/e_cuti/e_cuti.dart';
+import '../../screens/e_cuti/leave_form.dart';
 import '../../screens/e_cuti/pra/pra_e_cuti_list_details.dart';
 import '../../screens/e_cuti/supervisor/supervisor_leave_list_details.dart';
 import '../../screens/list_of_road/list_of_road_details.dart';
@@ -146,7 +147,11 @@ class _ListCardState extends State<ListCard> with TickerProviderStateMixin {
     if (widget.type == "Cuti") {
       if (userRole == 100 || userRole == 200) {
         //comp || pra
-        return ECuti(screen: "2", data: widget.data);
+        //return ECuti(screen: "2", data: widget.data);
+        //print("sini");
+        return Scaffold(
+            appBar: const AppBarWidget(title: "E-Cuti"),
+            body: LeaveForm(screen: "2", data: widget.data));
       } else if (userRole == 300) {
         //sv
         return EcutiApprovalMain(data: widget.data);

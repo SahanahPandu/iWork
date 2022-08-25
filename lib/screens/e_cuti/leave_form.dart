@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:eswm/utils/custom_icon.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -36,12 +34,13 @@ class _LeaveFormState extends State<LeaveForm> {
   final Devices _device = Devices();
   final TextEditingController _tarikhMula = TextEditingController();
   final TextEditingController _tarikhTamat = TextEditingController();
-  final TextEditingController _lampiran = TextEditingController();
   final TextEditingController _catatan = TextEditingController();
+  final TextEditingController _statusPenyelia = TextEditingController();
+  final TextEditingController _maklumbalasPenyelia = TextEditingController();
 
   final FocusNode _catatanFocusNode = FocusNode();
 
-  Color textFieldFillColor = textFormFieldFillColor;
+  Color textFieldFillColor = Colors.white;
   Color focusBorderColor = focusedBorder;
   Color enableBorderWithTextColor = enabledBorderWithText;
   bool _lampiranVisibility = true;
@@ -52,24 +51,38 @@ class _LeaveFormState extends State<LeaveForm> {
   int iconCondition = 1;
   int borderCondition = 1;
   String formTitle = "Lengkapkan maklumat di bawah:";
+  Color svRemarksBorder = enabledBorderWithText;
+  String lampiran = "";
 
   loadData() {
     // ignore: unnecessary_null_comparison
     if (widget.screen == "2") {
       //from leave list
+      // print("masuk sini");
       setState(() {
-        if (widget.data?.idStatus != 2) {
-          _expandController = ExpandableController(initialExpanded: false);
-        }
         formTitle = "Butiran permohonan E-Cuti: ";
         iconCondition = 2; //to disable click
+        _statusPenyelia.text = widget.data!.status;
+        textFieldFillColor = textFormFieldFillColor;
+
+        if (widget.data?.idStatus != 2) {
+          _expandController = ExpandableController(initialExpanded: false);
+        } else if (widget.data?.idStatus == 2) {
+          _expandController = ExpandableController(initialExpanded: true);
+        }
+
         if ((widget.data!.idStatus == 4 || widget.data!.idStatus == 3) &&
             widget.data!.lampiran == "") {
+          // status 3 - Dilluluskan, status 4 - Ditolak , and no attachment
           _lampiranVisibility = false;
           _lampiranDetailsVisibility = false;
+          buttonVisibility = false;
         } else if (widget.data!.idStatus != 2) {
           _lampiranVisibility = false;
           _lampiranDetailsVisibility = true;
+          buttonVisibility = false;
+        } else if (widget.data!.idStatus == 2) {
+          buttonVisibility = true;
         }
 
         if (widget.data!.jenisCuti != "") {
@@ -83,11 +96,18 @@ class _LeaveFormState extends State<LeaveForm> {
         }
 
         if (widget.data!.lampiran != "") {
-          _lampiran.text = widget.data!.lampiran;
+          lampiran = widget.data!.lampiran;
         }
 
         if (widget.data!.catatan != "") {
           _catatan.text = widget.data!.catatan;
+        }
+
+        if (widget.data!.maklumbalasSV != "") {
+          _maklumbalasPenyelia.text = widget.data!.maklumbalasSV;
+        } else {
+          _maklumbalasPenyelia.text = "-";
+          svRemarksBorder = enabledBorderWithoutText;
         }
       });
     } else {
@@ -110,14 +130,19 @@ class _LeaveFormState extends State<LeaveForm> {
       ],
       child: GestureDetector(
         onTap: () {
-          setState(() {
-            buttonVisibility = true;
-          });
+          if (widget.data?.idStatus == null || widget.data?.idStatus == 2) {
+            // only applicable for new form or leave status 2 - Diluluskan Tanpa Lampiran
+            setState(() {
+              buttonVisibility = true;
+            });
+          }
         },
-        onVerticalDragDown: (DragDownDetails details) {
-          setState(() {
-            buttonVisibility = true;
-          });
+        onVerticalDragDown: (details) {
+          if (widget.data?.idStatus == null || widget.data?.idStatus == 2) {
+            setState(() {
+              buttonVisibility = true;
+            });
+          }
         },
         child: ExpandableNotifier(
           controller: _expandController,
@@ -135,6 +160,10 @@ class _LeaveFormState extends State<LeaveForm> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        if (widget.screen == "2")
+                          const SizedBox(
+                            height: 24,
+                          ),
                         Text(
                           formTitle,
                           style: const TextStyle(
@@ -211,6 +240,9 @@ class _LeaveFormState extends State<LeaveForm> {
                                       fontSize: 15,
                                       color: labelTextColor,
                                       fontWeight: textFormFieldLabelFontWeight,
+                                    ),
+                                    floatingLabelStyle: const TextStyle(
+                                      fontSize: 10,
                                     ),
                                     disabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
@@ -354,7 +386,7 @@ class _LeaveFormState extends State<LeaveForm> {
                           collapsed: Container(width: 0),
                           expanded: expandableContainer(),
                         ),
-                        if (widget.screen == "2" && widget.data?.idStatus != 2)
+                        if (widget.screen == "2")
                           //expand button
                           ExpandableButton(
                             child: InkWell(
@@ -364,6 +396,9 @@ class _LeaveFormState extends State<LeaveForm> {
                                 },
                                 child: expandButton()),
                           ),
+
+                        //Supervisor sections
+                        if (widget.screen == "2") supervisorSection(),
 
                         const SizedBox(
                           height: 100,
@@ -376,8 +411,9 @@ class _LeaveFormState extends State<LeaveForm> {
               //button
               if (buttonVisibility &&
                   (widget.screen == "1" ||
+                      widget.screen == "5" ||
                       widget.screen ==
-                          "5")) // screen 1-from ecuti button and screen 5: from drawer menu
+                          "2")) // screen 1-from ecuti button and screen 5: from drawer menu
                 Positioned(
                   bottom: 0,
                   child: Material(
@@ -414,47 +450,31 @@ class _LeaveFormState extends State<LeaveForm> {
         if (_lampiranVisibility)
           SizedBox(
             width: _device.screenWidth(context),
-            child: UploadFilesButton(textLampiran: _lampiran.text),
+            child: UploadFilesButton(textLampiran: lampiran),
           ),
 
         //Detail Lampiran
         if (_lampiranDetailsVisibility)
-          SizedBox(
+          Container(
             width: _device.screenWidth(context),
-            child: TextFormField(
-              style: const TextStyle(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+                color: const Color(0xffD9D9D9),
+                borderRadius: BorderRadius.circular(12)),
+            child: Text(
+              lampiran,
+              style: TextStyle(
                 fontSize: 16,
-                color: Color(0xff2B2B2B),
+                color: blackCustom,
                 fontWeight: FontWeight.w500,
                 fontStyle: FontStyle.italic,
               ),
-              controller: _lampiran,
-              readOnly: true,
-              enabled: false,
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: const Color(0xffD9D9D9),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    width: borderSideWidth,
-                    color: focusBorderColor,
-                  ),
-                  borderRadius: BorderRadius.circular(borderRadiusCircular),
-                ),
-                disabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    width: borderSideWidth,
-                    color: _lampiran.text != '' && iconCondition == 1
-                        ? (userRole == 100 ? grey100 : enabledBorderWithText)
-                        : (userRole == 100
-                            ? grey100
-                            : enabledBorderWithoutText),
-                  ),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
             ),
           ),
+
         SizedBox(
           height: spaceHeight,
         ),
@@ -508,9 +528,7 @@ class _LeaveFormState extends State<LeaveForm> {
               disabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(
                   width: borderSideWidth,
-                  color: _catatan.text != '' && iconCondition == 1
-                      ? (userRole == 100 ? grey100 : enabledBorderWithText)
-                      : (userRole == 100 ? grey100 : enabledBorderWithoutText),
+                  color: userRole == 100 ? grey100 : enabledBorderWithoutText,
                 ),
                 borderRadius: BorderRadius.circular(borderRadiusCircular),
               ),
@@ -558,6 +576,111 @@ class _LeaveFormState extends State<LeaveForm> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget supervisorSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Divider(
+          thickness: 1,
+          color: Color(0xffE5E5E5),
+        ),
+        const SizedBox(
+          height: 32,
+        ),
+        Text(
+          "Pengesahan dari Penyelia: ",
+          style: TextStyle(
+            fontSize: 15,
+            color: blackCustom,
+            fontWeight: FontWeight.w400,
+          ),
+        ),
+        const SizedBox(
+          height: 24,
+        ),
+        //status permohonan
+        TextFormField(
+          style: TextStyle(
+            fontSize: 15,
+            color: blackCustom,
+            fontWeight: FontWeight.w400,
+          ),
+          controller: _statusPenyelia,
+          readOnly: true,
+          enabled: false,
+          decoration: InputDecoration(
+            filled: true,
+            fillColor: textFieldFillColor,
+            contentPadding: userRole == 100
+                ? const EdgeInsets.symmetric(vertical: 15, horizontal: 20)
+                : const EdgeInsets.all(8),
+            label: Container(
+              color: Colors.white,
+              child: const Text("Status Permohonan"),
+            ),
+            labelStyle: TextStyle(
+              fontSize: 15,
+              color: labelTextColor,
+              fontWeight: textFormFieldLabelFontWeight,
+            ),
+            floatingLabelStyle: TextStyle(
+              fontSize: 10,
+              color: labelTextColor,
+              fontWeight: FontWeight.w400,
+            ),
+            disabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                width: borderSideWidth,
+                color: enabledBorderWithoutText,
+              ),
+              borderRadius: BorderRadius.circular(borderRadiusCircular),
+            ),
+          ),
+        ),
+
+        const SizedBox(
+          height: 24,
+        ),
+        //Maklumbalas penyelia
+        TextFormField(
+          style: TextStyle(
+            fontSize: 15,
+            color: blackCustom,
+            fontWeight: FontWeight.w400,
+          ),
+          controller: _maklumbalasPenyelia,
+          readOnly: true,
+          enabled: false,
+          minLines: 1,
+          maxLines: 5,
+          decoration: InputDecoration(
+            filled: true,
+            fillColor: textFieldFillColor,
+            contentPadding: userRole == 100
+                ? const EdgeInsets.symmetric(vertical: 15, horizontal: 20)
+                : const EdgeInsets.all(8),
+            label: Container(
+              color: Colors.white,
+              child: const Text("Maklumbalas Penyelia"),
+            ),
+            labelStyle: TextStyle(
+              fontSize: 15,
+              color: labelTextColor,
+              fontWeight: textFormFieldLabelFontWeight,
+            ),
+            disabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                width: borderSideWidth,
+                color: enabledBorderWithoutText,
+              ),
+              borderRadius: BorderRadius.circular(borderRadiusCircular),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
