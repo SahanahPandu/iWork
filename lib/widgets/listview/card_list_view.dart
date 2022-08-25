@@ -12,8 +12,8 @@ import '../../config/config.dart';
 class CardListView extends StatefulWidget {
   final String type;
   final Function? topCardStatus;
-  String? screens;
-  dynamic cutiStatus;
+  final String? screens;
+  final dynamic cutiStatus;
 
   const CardListView({
     Key? key,
