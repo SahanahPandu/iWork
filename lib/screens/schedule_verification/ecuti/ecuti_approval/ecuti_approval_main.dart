@@ -187,98 +187,12 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
                         padding: const EdgeInsets.symmetric(vertical: 15),
                         child: Text("Pengesahan Penyelia :",
                             style: TextStyle(
-                                color: _eCutiController.expanded
-                                    ? green
-                                    : blackCustom,
+                                color: blackCustom,
                                 fontSize: 15,
                                 fontWeight: FontWeight.w400)),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: InkWell(
-                          borderRadius: BorderRadius.circular(8),
-                          onTap: () {
-                            showAcceptanceOptions(
-                                context, leaveStatusList, 0.31, _status);
-                          },
-                          child: TextFormField(
-                            controller: _status,
-                            readOnly: true,
-                            enabled: false,
-                            style: TextStyle(color: grey700, fontSize: 14),
-                            decoration: InputDecoration(
-                              filled: true,
-                              fillColor: white,
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 15, horizontal: 20),
-                              suffixIcon: Icon(
-                                Icons.arrow_drop_down,
-                                size: 18,
-                                color: black87,
-                              ),
-                              labelText: "Pilih Status",
-                              labelStyle: TextStyle(
-                                fontSize: 14,
-                                color: grey,
-                                fontWeight: FontWeight.w300,
-                              ),
-                              disabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  width: 0.5,
-                                  color: grey500,
-                                ),
-                                borderRadius:
-                                    BorderRadius.circular(borderRadiusCircular),
-                                //gapPadding: 6.0,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: SizedBox(
-                          height: 80,
-                          child: TextFormField(
-                            cursorColor: green,
-                            cursorHeight: 18,
-                            keyboardType: TextInputType.multiline,
-                            minLines: 1,
-                            maxLines: 10,
-                            style: TextStyle(color: grey700, fontSize: 14),
-                            decoration: InputDecoration(
-                              filled: true,
-                              fillColor: white,
-                              focusColor: green,
-                              contentPadding: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 10),
-                              labelText: "Catatan",
-                              labelStyle: TextStyle(
-                                fontSize: 14,
-                                color: grey,
-                                fontWeight: FontWeight.w300,
-                              ),
-                              border: const OutlineInputBorder(),
-                              focusedErrorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                  borderSide: BorderSide(color: green)),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: green),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  width: 0.5,
-                                  color: grey500,
-                                ),
-                                borderRadius:
-                                    BorderRadius.circular(borderRadiusCircular),
-                                //gapPadding: 6.0,
-                              ),
-                            ),
-                          ),
-                        ),
-                      )
+                      _getSvStatus(context),
+                      _getSvComment()
                     ],
                   ),
                 ],
@@ -335,6 +249,95 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
             ),
           ),
         ));
+  }
+
+  Padding _getSvComment() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: SizedBox(
+        height: 80,
+        child: TextFormField(
+          cursorColor: green,
+          cursorHeight: 18,
+          keyboardType: TextInputType.multiline,
+          minLines: 1,
+          maxLines: 10,
+          style: TextStyle(color: grey700, fontSize: 14),
+          decoration: InputDecoration(
+            filled: true,
+            fillColor: white,
+            focusColor: green,
+            contentPadding:
+                const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            labelText: "Catatan",
+            labelStyle: TextStyle(
+              fontSize: 14,
+              color: labelColor,
+              fontWeight: FontWeight.w400,
+            ),
+            border: const OutlineInputBorder(),
+            focusedErrorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(color: green)),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: green),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                width: 0.5,
+                color: borderTextColor,
+              ),
+              borderRadius: BorderRadius.circular(4),
+              //gapPadding: 6.0,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Padding _getSvStatus(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(8),
+        onTap: () {
+          showAcceptanceOptions(context, leaveStatusList, 0.32, _status);
+        },
+        child: TextFormField(
+          controller: _status,
+          readOnly: true,
+          enabled: false,
+          style: TextStyle(color: grey700, fontSize: 14),
+          decoration: InputDecoration(
+            filled: true,
+            fillColor: white,
+            contentPadding:
+                const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+            suffixIcon: Icon(
+              CustomIcon.dropdown,
+              size: 16,
+              color: blackCustom,
+            ),
+            labelText: "Pilih Status",
+            labelStyle: TextStyle(
+              fontSize: 14,
+              color: labelColor,
+              fontWeight: FontWeight.w400,
+            ),
+            disabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                width: 0.5,
+                color: borderTextColor,
+              ),
+              borderRadius: BorderRadius.circular(4),
+              //gapPadding: 6.0,
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
   Padding _buildTextForm(TextEditingController textController, String label,

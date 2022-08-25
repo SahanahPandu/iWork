@@ -41,7 +41,8 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
               onPressed: () {
                 Navigator.pop(context);
               },
-              icon: Icon(CustomIcon.arrowBack, color: blackCustom, size: 22),
+              icon: Icon(CustomIcon.arrowBack,
+                  color: blackCustom, size: 22),
             ),
             title: Center(
               child: Text(

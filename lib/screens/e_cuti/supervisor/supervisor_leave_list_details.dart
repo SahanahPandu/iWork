@@ -24,7 +24,7 @@ class _SupervisorLeaveListDetailsState
   _filterData() {
     if (widget.data.idStatus == 1) {
       //Baharu
-      statusText = "Baharu";
+      statusText = "Baru";
     } else if (widget.data.idStatus == 2) {
       //Diluluskan Tanpa Lampiran
       statusText = "Diluluskan Tanpa Lampiran";
@@ -32,8 +32,8 @@ class _SupervisorLeaveListDetailsState
       //Diluluskan
       statusText = "Diluluskan";
     } else if (widget.data.idStatus == 4) {
-      //Tidak Diluluskan
-      statusText = "Tidak Diluluskan";
+      //Ditolak
+      statusText = "Ditolak";
     }
   }
 
@@ -101,7 +101,7 @@ class _SupervisorLeaveListDetailsState
 
         //Jenis Cuti
         Padding(
-            padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
+          padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

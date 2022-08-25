@@ -21,7 +21,12 @@ class _EcutiApprovalTabState extends State<EcutiApprovalTab>
   @override
   void initState() {
     _tabController = TabController(length: 4, vsync: this);
+    _tabController.addListener(_setActiveTabIndex);
     super.initState();
+  }
+
+  int _setActiveTabIndex() {
+    return _tabController.index;
   }
 
   @override
@@ -77,7 +82,7 @@ class _EcutiApprovalTabState extends State<EcutiApprovalTab>
           ),
         ),
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          padding: const EdgeInsets.all(10),
           child: Column(
             children: [
               Container(
@@ -116,7 +121,7 @@ class _EcutiApprovalTabState extends State<EcutiApprovalTab>
                       text: 'Semua',
                     ),
                     Tab(
-                      text: 'Baharu',
+                      text: 'Baru',
                     ),
                     Tab(
                       text: 'Diluluskan',

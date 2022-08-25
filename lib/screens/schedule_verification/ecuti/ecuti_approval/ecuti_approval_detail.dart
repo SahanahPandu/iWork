@@ -63,17 +63,15 @@ class _EcutiApprovalDetailState extends State<EcutiApprovalDetail> {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Column(children: [
-        textFormBuild(_appliedBy, "Nama Pekerja"),
-        textFormBuild(_leaveType, "Jenis Cuti"),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SizedBox(
-                width: _device.screenWidth(context) * 0.4,
-                child: textFormBuild(_startDate, "Tarikh Mula", true)),
+                width: _device.screenWidth(context) * 0.42,
+                child: _buildTextForm(_startDate, "Tarikh Mula")),
             SizedBox(
-                width: _device.screenWidth(context) * 0.4,
-                child: textFormBuild(_endDate, "Tarikh Tamat", true)),
+                width: _device.screenWidth(context) * 0.42,
+                child: _buildTextForm(_endDate, "Tarikh Tamat")),
           ],
         ),
         isAttached
@@ -120,12 +118,12 @@ class _EcutiApprovalDetailState extends State<EcutiApprovalDetail> {
                 )
               ])
             : Container(),
-        textFormBuild(_remarks, "Catatan"),
+        _buildTextForm(_remarks, "Catatan"),
       ]),
     );
   }
 
-  Padding textFormBuild(TextEditingController textController, String label,
+  Padding _buildTextForm(TextEditingController textController, String label,
       [bool? icon]) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
@@ -137,17 +135,18 @@ class _EcutiApprovalDetailState extends State<EcutiApprovalDetail> {
         controller: textController,
         readOnly: true,
         enabled: false,
-        style: TextStyle(color: grey700, fontSize: 14),
+        style: TextStyle(
+            color: blackCustom, fontSize: 15, fontWeight: FontWeight.w400),
         decoration: InputDecoration(
           filled: true,
-          fillColor: grey100,
+          fillColor: fillColor,
           contentPadding:
               const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
           labelText: label,
           labelStyle: TextStyle(
-            fontSize: 12,
-            color: grey,
-            fontWeight: FontWeight.w300,
+            fontSize: 14,
+            color: labelColor,
+            fontWeight: FontWeight.w400,
           ),
           suffixIcon: icon == true
               ? Icon(CustomIcon.scheduleOutline, color: grey500, size: 15)
@@ -155,9 +154,9 @@ class _EcutiApprovalDetailState extends State<EcutiApprovalDetail> {
           disabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
               width: 0.5,
-              color: grey500,
+              color: borderTextColor,
             ),
-            borderRadius: BorderRadius.circular(borderRadiusCircular),
+            borderRadius: BorderRadius.circular(4),
           ),
         ),
       ),
