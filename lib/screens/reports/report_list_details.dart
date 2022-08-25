@@ -22,9 +22,9 @@ class ReportListDetails extends StatefulWidget {
 class _ReportListDetailsState extends State<ReportListDetails> {
   double horizontalPadding = 16;
   Color iconColor = const Color(0xff3269F8);
-  Color labelColor = const Color(0xff969696);
-  Color inputColor = const Color(0xff2B2B2B);
-  double gapHeight = userRole == 200 ? 16 : 10;
+  Color labelColor = greyCustom;
+  Color inputColor = blackCustom;
+  double gapHeight = 16;
 
   @override
   Widget build(BuildContext context) {
@@ -41,10 +41,9 @@ class _ReportListDetailsState extends State<ReportListDetails> {
                 child: Text(
                   "L${widget.index + 1} - ${widget.data.namaLaluan}",
                   style: TextStyle(
-                    fontSize: userRole == 200 ? 16 : 14,
-                    color: userRole == 200 ? const Color(0xff2B2B2B) : black87,
-                    fontWeight:
-                        userRole == 200 ? FontWeight.w500 : FontWeight.w600,
+                    fontSize: 16,
+                    color: inputColor,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ),
@@ -80,8 +79,7 @@ class _ReportListDetailsState extends State<ReportListDetails> {
                         Text(
                           "Tarikh & Masa",
                           style: TextStyle(
-                            fontSize:
-                                userRole == 100 || userRole == 200 ? 15 : 13,
+                            fontSize: 15,
                             color: labelColor,
                             fontWeight: FontWeight.w400,
                           ),
@@ -93,7 +91,7 @@ class _ReportListDetailsState extends State<ReportListDetails> {
                     child: Text(
                       "${widget.data.tarikh},${widget.data.masa}",
                       style: TextStyle(
-                        fontSize: userRole == 100 || userRole == 200 ? 15 : 13,
+                        fontSize: 15,
                         color: inputColor,
                         fontWeight: FontWeight.w600,
                       ),
@@ -130,8 +128,7 @@ class _ReportListDetailsState extends State<ReportListDetails> {
                         Text(
                           "Taman",
                           style: TextStyle(
-                            fontSize:
-                                userRole == 100 || userRole == 200 ? 15 : 13,
+                            fontSize: 15,
                             color: labelColor,
                             fontWeight: FontWeight.w400,
                           ),
@@ -144,7 +141,7 @@ class _ReportListDetailsState extends State<ReportListDetails> {
                       textAlign: TextAlign.end,
                       widget.data.namaTaman,
                       style: TextStyle(
-                        fontSize: userRole == 100 || userRole == 200 ? 15 : 13,
+                        fontSize: 15,
                         color: inputColor,
                         fontWeight: FontWeight.w600,
                       ),
@@ -180,8 +177,7 @@ class _ReportListDetailsState extends State<ReportListDetails> {
                         Text(
                           "Jalan",
                           style: TextStyle(
-                            fontSize:
-                                userRole == 100 || userRole == 200 ? 15 : 13,
+                            fontSize: 15,
                             color: labelColor,
                             fontWeight: FontWeight.w400,
                           ),
@@ -194,7 +190,7 @@ class _ReportListDetailsState extends State<ReportListDetails> {
                       textAlign: TextAlign.end,
                       widget.data.namaJalan,
                       style: TextStyle(
-                        fontSize: userRole == 100 || userRole == 200 ? 15 : 13,
+                        fontSize: 15,
                         color: inputColor,
                         fontWeight: FontWeight.w600,
                       ),
@@ -228,7 +224,7 @@ class _ReportListDetailsState extends State<ReportListDetails> {
                     Text(
                       "Jenis Halangan",
                       style: TextStyle(
-                        fontSize: userRole == 100 || userRole == 200 ? 15 : 13,
+                        fontSize: 15,
                         color: labelColor,
                         fontWeight: FontWeight.w400,
                       ),
@@ -239,7 +235,7 @@ class _ReportListDetailsState extends State<ReportListDetails> {
                   textAlign: TextAlign.end,
                   widget.data.jenisHalangan,
                   style: TextStyle(
-                    fontSize: userRole == 100 || userRole == 200 ? 15 : 13,
+                    fontSize: 15,
                     color: inputColor,
                     fontWeight: FontWeight.w600,
                   ),
