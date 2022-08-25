@@ -30,7 +30,7 @@ class _EcutiButtonState extends State<EcutiButton> {
               context,
               PageTransition(
                   type: PageTransitionType.fade,
-                  child: ECuti(
+                  child: const ECuti(
                     screen: "1",
                     data: null,
                   )));
