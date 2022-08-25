@@ -5,7 +5,9 @@ import '../../../config/palette.dart';
 import '../../../widgets/listview/card_list_view.dart';
 
 class SupervisorLeaveList extends StatefulWidget {
-  const SupervisorLeaveList({Key? key}) : super(key: key);
+  final List<int>? status;
+
+  const SupervisorLeaveList({Key? key, this.status}) : super(key: key);
 
   @override
   State<SupervisorLeaveList> createState() => _SupervisorLeaveList();
@@ -36,9 +38,9 @@ class _SupervisorLeaveList extends State<SupervisorLeaveList> {
                     fontWeight: FontWeight.w400),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 10),
-              child: CardListView(type: "Cuti"),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: CardListView(type: "Cuti", cutiStatus: widget.status),
             ),
           ]),
         ));

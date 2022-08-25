@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../config/palette.dart';
+import '../../utils/device.dart';
 
 @override
 Widget? showAcceptanceOptions(
@@ -21,21 +22,30 @@ Widget? showAcceptanceOptions(
       context: context,
       builder: (builder) {
         return SizedBox(
-          height: MediaQuery.of(context).size.height * height,
+          height: Devices().screenHeight(context) * height,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const SizedBox(
+                height: 3,
+              ),
+              Divider(
+                thickness: 0.5,
+                color: greyCustom,
+                indent: 160,
+                endIndent: 160,
+              ),
               Padding(
                 padding: const EdgeInsets.only(
-                  top: 30,
+                  top: 20,
                   left: 30,
                   bottom: 10,
                 ),
                 child: Text(
                   "Pilih Status",
                   style: TextStyle(
-                    color: Colors.grey.shade500,
-                    fontSize: 14,
+                    color: greyCustom,
+                    fontSize: 15,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -50,7 +60,7 @@ Widget? showAcceptanceOptions(
                     horizontal: 10,
                   ),
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      const EdgeInsets.symmetric(horizontal: 20),
                   child: ListView.builder(
                     physics: const BouncingScrollPhysics(),
                     shrinkWrap: true,
@@ -72,9 +82,9 @@ Widget? showAcceptanceOptions(
                               child: Text(
                                 statusList[index],
                                 style: TextStyle(
-                                  color: black87,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
+                                  color: blackCustom,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w400,
                                 ),
                               ),
                             )
