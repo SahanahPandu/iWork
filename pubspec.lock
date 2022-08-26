@@ -282,6 +282,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.0"
+  keyboard_visibility_pro:
+    dependency: "direct main"
+    description:
+      name: keyboard_visibility_pro
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.1"
   lints:
     dependency: transitive
     description:

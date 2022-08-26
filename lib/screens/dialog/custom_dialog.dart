@@ -26,7 +26,7 @@ class _CustomDialogState extends State<CustomDialog>
 
     _lottieController.addStatusListener((status) async {
       if (status == AnimationStatus.completed) {
-        Future.delayed(const Duration(seconds: 6), () {
+        Future.delayed(const Duration(milliseconds: 200), () {
           Navigator.pop(context);
           _lottieController.reset();
         });

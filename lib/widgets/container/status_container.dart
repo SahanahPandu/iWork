@@ -48,7 +48,8 @@ class _StatusContainerState extends State<StatusContainer> {
       }
     } else if (widget.type == "Cuti") {
       if (widget.statusId == 1) {
-        //Dalam Proses
+        //Dalam Proses (PRA)
+        //Baru (SV)
         // textColor = blueStatusText;
         // boxColor = blueStatusBox;
         textColor = orangeStatusText;
@@ -68,9 +69,11 @@ class _StatusContainerState extends State<StatusContainer> {
       }
     } else if (widget.type == "Laporan") {
       if (widget.statusId == 1) {
-        //Baharu
-        textColor = blueStatusText;
-        boxColor = blueStatusBox;
+        //Dalam Proses
+        // textColor = blueStatusText;
+        // boxColor = blueStatusBox;
+        textColor = orangeStatusText;
+        boxColor = orangeStatusBox;
       } else if (widget.statusId == 2 || widget.statusId == 4) {
         //Diterima SV || Disahkan BA
         // textColor = orangeStatusText;
@@ -97,6 +100,10 @@ class _StatusContainerState extends State<StatusContainer> {
 
         textColor = greenStatusText;
         boxColor = greenStatusBox;
+      } else if (widget.statusId == 3) {
+        //Tunda
+        textColor = redStatusText;
+        boxColor = redStatusBox;
       }
     } else if (widget.type == "Akbk") {
       if (widget.statusId == 1) {
