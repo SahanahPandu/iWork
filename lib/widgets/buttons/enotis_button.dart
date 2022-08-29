@@ -1,17 +1,15 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:page_transition/page_transition.dart';
 
 //import files
 import '../../config/dimen.dart';
 import '../../config/palette.dart';
 import '../../config/string.dart';
-import '../../screens/dialog/custom_dialog.dart';
 import '../../utils/date.dart';
 import '../../utils/device.dart';
 import '../alert/alert_dialog.dart';
+import '../alert/lottie_alert_dialog.dart';
 
 class ENotisButton extends StatefulWidget {
   const ENotisButton({Key? key}) : super(key: key);
@@ -70,11 +68,16 @@ class _ENotisButtonState extends State<ENotisButton>
                     yes);
               }).then((actionText) {
             if (actionText == yes) {
-              Navigator.push(
-                  context,
-                  PageTransition(
-                      child: CustomDialog(text: _textBuilder()),
-                      type: PageTransitionType.fade));
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return showLottieAlertDialog(context, _textBuilder());
+                  });
+              // Navigator.push(
+              //     context,
+              //     PageTransition(
+              //         child: CustomDialog(text: _textBuilder()),
+              //         type: PageTransitionType.fade));
             }
           });
         },

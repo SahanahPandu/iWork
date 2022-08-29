@@ -410,7 +410,7 @@ class _DrawerBuildState extends State<DrawerBuild> {
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return showAlertDialog(context, reminder, confirmLogout, yes, cancel);
+          return showAlertDialog(context, reminder, confirmLogout, cancel, yes);
         }).then((actionText) {
       if (actionText == yes) {
         Auth.handleLogout();

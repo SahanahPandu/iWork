@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:simple_ripple_animation/simple_ripple_animation.dart';
 
 //import files
 import '../../config/palette.dart';
-import '../../screens/dialog/custom_dialog.dart';
 import '../alert/alert_dialog.dart';
+import '../alert/lottie_alert_dialog.dart';
 
 class TimeLogRippleButton extends StatefulWidget {
   final String btnText;
@@ -44,18 +43,28 @@ class _TimeLogRippleButtonState extends State<TimeLogRippleButton> {
               }).then((actionText) {
             if (actionText == "Masuk Kerja") {
               Navigator.pop(context, actionText);
-              Navigator.push(
-                  context,
-                  PageTransition(
-                      child: CustomDialog(text: _textBuilder()),
-                      type: PageTransitionType.fade));
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return showLottieAlertDialog(context, _textBuilder());
+                  });
+              // Navigator.push(
+              //     context,
+              //     PageTransition(
+              //         child: CustomDialog(text: _textBuilder()),
+              //         type: PageTransitionType.fade));
             } else if (actionText == "Tamat Kerja") {
               Navigator.pop(context, actionText);
-              Navigator.push(
-                  context,
-                  PageTransition(
-                      child: CustomDialog(text: _textBuilder()),
-                      type: PageTransitionType.fade));
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return showLottieAlertDialog(context, _textBuilder());
+                  });
+              // Navigator.push(
+              //     context,
+              //     PageTransition(
+              //         child: CustomDialog(text: _textBuilder()),
+              //         type: PageTransitionType.fade));
             }
           });
         },

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:page_transition/page_transition.dart';
 
 //import files
 import '../../../../config/palette.dart';
@@ -9,7 +8,7 @@ import '../../../../providers/pekerja_api.dart';
 import '../../../../utils/custom_icon.dart';
 import '../../../../utils/device.dart';
 import '../../../../widgets/alert/alert_dialog.dart';
-import '../../../dialog/custom_dialog.dart';
+import '../../../../widgets/alert/lottie_alert_dialog.dart';
 import 'attendance_verification_detail_list.dart';
 
 class AttendanceVerificationList extends StatefulWidget {
@@ -176,11 +175,16 @@ class _AttendanceVerificationListState
                     }).then((actionText) {
                   if (actionText == "Sahkan") {
                     Navigator.pop(context, 'refreshAttendance');
-                    Navigator.push(
-                        context,
-                        PageTransition(
-                            child: CustomDialog(text: _textBuilder()),
-                            type: PageTransitionType.fade));
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return showLottieAlertDialog(context, _textBuilder());
+                        });
+                    // Navigator.push(
+                    //     context,
+                    //     PageTransition(
+                    //         child: CustomDialog(text: _textBuilder()),
+                    //         type: PageTransitionType.fade));
                   }
                 });
               },

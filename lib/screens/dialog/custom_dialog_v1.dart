@@ -44,33 +44,30 @@ class _CustomDialogState extends State<CustomDialog>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: white,
-      body: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(
-              child: LottieBuilder.asset(
-                'assets/lottie/lottie_success.json',
-                repeat: true,
-                height: 100,
-                width: 100,
-                controller: _lottieController,
-                onLoaded: (composition) {
-                  _lottieController.duration = composition.duration;
-                  _lottieController.repeat();
-                },
-              ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(
+            child: LottieBuilder.asset(
+              'assets/lottie/lottie_success.json',
+              repeat: true,
+              height: 160,
+              width: 160,
+              controller: _lottieController,
+              onLoaded: (composition) {
+                _lottieController.duration = composition.duration;
+                _lottieController.repeat();
+              },
             ),
-            const SizedBox(
-              height: 32,
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 15),
+              child: _textBuilder(),
             ),
-            Expanded(
-              child: SizedBox(
-                child: _textBuilder(),
-              ),
-            )
-          ],
-        ),
+          )
+        ],
       ),
     );
   }

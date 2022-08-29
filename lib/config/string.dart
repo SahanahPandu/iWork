@@ -58,6 +58,7 @@ String has = 'Ada';
 String yes = 'Ya';
 String no = 'Tiada';
 String cancel = 'Batal';
+String submit = 'Hantar';
 String confirmBack = 'Adakah anda pasti untuk kembali?';
 String fillVc =
     'Pastikan anda mengisi borang semak kenderaan terlebih dahulu sebelum memulakan tugasan kerja.';

@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:page_transition/page_transition.dart';
 
 //import files
 import '../../config/palette.dart';
@@ -9,8 +8,8 @@ import '../../config/string.dart';
 import '../../utils/date.dart';
 import '../../utils/device.dart';
 import '../../widgets/alert/alert_dialog.dart';
+import '../../widgets/alert/lottie_alert_dialog.dart';
 import '../../widgets/modal_bottom_sheet/acceptance_options.dart';
-import '../dialog/custom_dialog.dart';
 
 class AkbkForm extends StatefulWidget {
   const AkbkForm({Key? key}) : super(key: key);
@@ -438,14 +437,19 @@ class _AkbkFormState extends State<AkbkForm> {
                     context: context,
                     builder: (BuildContext context) {
                       return showAlertDialog(context, confirmation,
-                          "Hantar borang AKBK ini?", cancel, "Hantar");
+                          "Hantar borang AKBK ini?", cancel, submit);
                     }).then((actionText) {
-                  if (actionText == "Hantar") {
-                    Navigator.push(
-                        context,
-                        PageTransition(
-                            child: CustomDialog(text: _textBuilder()),
-                            type: PageTransitionType.fade));
+                  if (actionText == submit) {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return showLottieAlertDialog(context, _textBuilder());
+                        });
+                    // Navigator.push(
+                    //     context,
+                    //     PageTransition(
+                    //         child: CustomDialog(text: _textBuilder()),
+                    //         type: PageTransitionType.fade));
                   }
                 });
               },

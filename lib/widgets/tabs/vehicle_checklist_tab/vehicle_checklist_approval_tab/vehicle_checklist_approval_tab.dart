@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:page_transition/page_transition.dart';
 
 //import files
 import '../../../../config/palette.dart';
 import '../../../../config/string.dart';
 import '../../../../models/vc/vc.dart';
-import '../../../../screens/dialog/custom_dialog.dart';
 import '../../../../utils/custom_icon.dart';
 import '../../../../utils/device.dart';
 import '../../../alert/alert_dialog.dart';
+import '../../../alert/lottie_alert_dialog.dart';
 import 'vehicle_checklist_approval_tab_bar_view/vehicle_checklist_approval_after_tab_bar_view.dart';
 import 'vehicle_checklist_approval_tab_bar_view/vehicle_checklist_approval_before_tab_bar_view.dart';
 
@@ -191,11 +190,16 @@ class _VehicleChecklistApprovalTabState
                     }).then((actionText) {
                   if (actionText == "Ya, Sahkan") {
                     Navigator.pop(context);
-                    Navigator.push(
-                        context,
-                        PageTransition(
-                            child: CustomDialog(text: _textBuilder()),
-                            type: PageTransitionType.fade));
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return showLottieAlertDialog(context, _textBuilder());
+                        });
+                    // Navigator.push(
+                    //     context,
+                    //     PageTransition(
+                    //         child: CustomDialog(text: _textBuilder()),
+                    //         type: PageTransitionType.fade));
                   }
                 });
               },
@@ -223,7 +227,7 @@ class _VehicleChecklistApprovalTabState
                       color: green,
                       height: 1.5)),
               TextSpan(
-                  text: "\n bagi kenderaan",
+                  text: " \nbagi kenderaan",
                   style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,

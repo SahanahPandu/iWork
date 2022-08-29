@@ -1,6 +1,5 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
 
 //import files
 import '../../../../config/palette.dart';
@@ -9,8 +8,8 @@ import '../../../../models/cuti.dart';
 import '../../../../utils/custom_icon.dart';
 import '../../../../utils/device.dart';
 import '../../../../widgets/alert/alert_dialog.dart';
+import '../../../../widgets/alert/lottie_alert_dialog.dart';
 import '../../../../widgets/modal_bottom_sheet/acceptance_options.dart';
-import '../../../dialog/custom_dialog.dart';
 import 'ecuti_approval_detail.dart';
 
 class EcutiApprovalMain extends StatefulWidget {
@@ -238,11 +237,16 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
                     }).then((actionText) {
                   if (actionText == "Sahkan") {
                     Navigator.pop(context, 'refreshEcuti');
-                    Navigator.push(
-                        context,
-                        PageTransition(
-                            child: CustomDialog(text: _textBuilder()),
-                            type: PageTransitionType.fade));
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return showLottieAlertDialog(context, _textBuilder());
+                        });
+                    // Navigator.push(
+                    //     context,
+                    //     PageTransition(
+                    //         child: CustomDialog(text: _textBuilder()),
+                    //         type: PageTransitionType.fade));
                   }
                 });
               },
