@@ -11,7 +11,10 @@ import '../../widgets/alert/alert_dialog.dart';
 import '../alert/lottie_alert_dialog.dart';
 
 class HantarButton extends StatefulWidget {
-  const HantarButton({Key? key}) : super(key: key);
+  final GlobalKey<FormState>? formKey;
+  final String? data;
+
+  const HantarButton({Key? key, this.formKey, this.data}) : super(key: key);
 
   @override
   State<HantarButton> createState() => _HantarButtonState();
@@ -29,25 +32,29 @@ class _HantarButtonState extends State<HantarButton> {
             borderRadius: BorderRadius.circular(borderRadiusCircular),
           )),
       onPressed: () {
-        showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return showAlertDialog(
-                context,
-                confirmation,
-                "Borang E-Cuti anda akan dihantar untuk pengesahan. Pastikan maklumat diisi adalah tepat.",
-                cancel,
-                submit,
-              );
-            }).then((actionText) {
-          if (actionText == submit) {
+        if (widget.formKey != null) {
+          if (widget.formKey!.currentState!.validate()) {
             showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return showLottieAlertDialog(context, _textBuilder());
-                });
+                  return showAlertDialog(
+                    context,
+                    confirmation,
+                    "Borang E-Cuti anda akan dihantar untuk pengesahan. Pastikan maklumat diisi adalah tepat.",
+                    cancel,
+                    submit,
+                  );
+                }).then((actionText) {
+              if (actionText == submit) {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return showLottieAlertDialog(context, _textBuilder());
+                    });
+              }
+            });
           }
-        });
+        }
       },
       child: const Text(
         "Hantar Laporan",
@@ -73,7 +80,8 @@ class _HantarButtonState extends State<HantarButton> {
             children: <TextSpan>[
               TextSpan(
                   text:
-                      " ${DateFormat("dd MMMM yyyy", 'ms').format(DateTime.now())}",
+                      //" ${DateFormat("dd MMMM yyyy", 'ms').format(DateTime.now())}",
+                      widget.data,
                   style: TextStyle(
                       fontSize: 15, fontWeight: FontWeight.w400, color: green)),
               TextSpan(

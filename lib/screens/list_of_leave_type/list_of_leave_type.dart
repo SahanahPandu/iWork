@@ -103,6 +103,11 @@ class _ListOfLeaveTypeState extends State<ListOfLeaveType> {
             color: labelTextColor,
             fontWeight: textFormFieldLabelFontWeight,
           ),
+          errorStyle: const TextStyle(height: 0),
+          errorBorder: OutlineInputBorder(
+            borderSide: BorderSide(width: borderSideWidth, color: Colors.red),
+            borderRadius: BorderRadius.circular(borderRadiusCircular),
+          ),
           disabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
               width: borderSideWidth,
@@ -113,6 +118,13 @@ class _ListOfLeaveTypeState extends State<ListOfLeaveType> {
             borderRadius: BorderRadius.circular(borderRadiusCircular),
           ),
         ),
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return '';
+          }
+
+          return null;
+        },
       ),
     );
   }

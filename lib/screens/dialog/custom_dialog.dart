@@ -57,7 +57,7 @@ class _CustomDialogState extends State<CustomDialog>
                 controller: _lottieController,
                 onLoaded: (composition) {
                   _lottieController.duration = composition.duration;
-                  _lottieController.repeat();
+                  _lottieController.forward();
                 },
               ),
             ),

@@ -9,6 +9,7 @@ import 'package:keyboard_visibility_pro/keyboard_visibility_pro.dart';
 import '../../config/config.dart';
 import '../../screens/list_of_leave_type/list_of_leave_type.dart';
 import '../../utils/custom_icon.dart';
+import '../../utils/date.dart';
 import '../../widgets/buttons/upload_files_button.dart';
 import '../../config/palette.dart';
 import '../../utils/device.dart';
@@ -54,6 +55,7 @@ class _LeaveFormState extends State<LeaveForm> {
   String formTitle = "Lengkapkan maklumat di bawah:";
   Color svRemarksBorder = enabledBorderWithText;
   String lampiran = "";
+  String leaveDate = Date.getTodayDate();
 
   loadData() {
     // ignore: unnecessary_null_comparison
@@ -169,15 +171,16 @@ class _LeaveFormState extends State<LeaveForm> {
             controller: _expandController,
             child: Stack(
               children: [
-                Form(
-                  key: _formKey,
-                  child: SingleChildScrollView(
-                    physics: const BouncingScrollPhysics(
-                      parent: AlwaysScrollableScrollPhysics(),
-                    ),
-                    child: Container(
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 5),
+                SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(
+                    parent: AlwaysScrollableScrollPhysics(),
+                  ),
+                  child: Container(
+                    margin:
+                        const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                    child: Form(
+                      key: _formKey,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -236,10 +239,23 @@ class _LeaveFormState extends State<LeaveForm> {
                                     DateTime? getStartDate =
                                         await datePicker(context);
                                     if (getStartDate != null) {
+                                      String fullDate =
+                                          DateFormat("dd MMMM yyyy")
+                                              .format(getStartDate);
+                                      String actualDate = "";
+
+                                      if (leaveDate == "") {
+                                        actualDate = fullDate;
+                                      } else {
+                                        actualDate =
+                                            "$fullDate - ${_tarikhTamat.text}";
+                                      }
+
                                       setState(() {
                                         _tarikhMula.text =
                                             DateFormat("dd/MM/yyyy")
                                                 .format(getStartDate);
+                                        leaveDate = actualDate;
                                       });
                                     }
                                   }
@@ -294,6 +310,14 @@ class _LeaveFormState extends State<LeaveForm> {
                                         borderRadius: BorderRadius.circular(
                                             borderRadiusCircular),
                                       ),
+                                      errorStyle: const TextStyle(height: 0),
+                                      errorBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            width: borderSideWidth,
+                                            color: Colors.red),
+                                        borderRadius: BorderRadius.circular(
+                                            borderRadiusCircular),
+                                      ),
                                       suffixIcon: iconCondition == 1
                                           ? IntrinsicHeight(
                                               child: Row(
@@ -322,6 +346,13 @@ class _LeaveFormState extends State<LeaveForm> {
                                             )
                                           : null,
                                     ),
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return '';
+                                      }
+
+                                      return null;
+                                    },
                                   ),
                                 ),
                               ),
@@ -332,10 +363,26 @@ class _LeaveFormState extends State<LeaveForm> {
                                     DateTime? getEndDate =
                                         await datePicker(context);
                                     if (getEndDate != null) {
+                                      String theDate = DateFormat("dd/MM/yyyy")
+                                          .format(getEndDate);
+                                      String fullDate =
+                                          DateFormat("dd MMMM yyyy")
+                                              .format(getEndDate);
+                                      String actualDate = "";
+
+                                      if (_tarikhMula.text == theDate) {
+                                        actualDate = fullDate;
+                                      } else if (leaveDate != "") {
+                                        actualDate = "$leaveDate - $fullDate";
+                                      } else {
+                                        actualDate = fullDate;
+                                      }
+
                                       setState(() {
                                         _tarikhTamat.text =
                                             DateFormat("dd/MM/yyyy")
                                                 .format(getEndDate);
+                                        leaveDate = actualDate;
                                       });
                                     }
                                   }
@@ -390,6 +437,14 @@ class _LeaveFormState extends State<LeaveForm> {
                                         borderRadius: BorderRadius.circular(
                                             borderRadiusCircular),
                                       ),
+                                      errorStyle: const TextStyle(height: 0),
+                                      errorBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            width: borderSideWidth,
+                                            color: Colors.red),
+                                        borderRadius: BorderRadius.circular(
+                                            borderRadiusCircular),
+                                      ),
                                       suffixIcon: iconCondition == 1
                                           ? IntrinsicHeight(
                                               child: Row(
@@ -417,6 +472,13 @@ class _LeaveFormState extends State<LeaveForm> {
                                             )
                                           : null,
                                     ),
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return '';
+                                      }
+
+                                      return null;
+                                    },
                                   ),
                                 ),
                               ),
@@ -455,7 +517,8 @@ class _LeaveFormState extends State<LeaveForm> {
                           child: SizedBox(
                             width: MediaQuery.of(context).size.width * 0.8,
                             height: MediaQuery.of(context).size.height * 0.06,
-                            child: const HantarButton(),
+                            child: HantarButton(
+                                formKey: _formKey, data: leaveDate),
                           ),
                         ),
                       ),
