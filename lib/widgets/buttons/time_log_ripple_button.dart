@@ -46,7 +46,7 @@ class _TimeLogRippleButtonState extends State<TimeLogRippleButton> {
               showDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    return showLottieAlertDialog(context, _textBuilder());
+                    return showLottieAlertDialog(context, _textBuilder(), null);
                   });
               // Navigator.push(
               //     context,
@@ -58,7 +58,7 @@ class _TimeLogRippleButtonState extends State<TimeLogRippleButton> {
               showDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    return showLottieAlertDialog(context, _textBuilder());
+                    return showLottieAlertDialog(context, _textBuilder(), null);
                   });
               // Navigator.push(
               //     context,

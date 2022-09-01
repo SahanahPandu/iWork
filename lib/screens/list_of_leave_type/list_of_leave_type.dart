@@ -13,7 +13,7 @@ class ListOfLeaveType extends StatefulWidget {
   final int borderCondition;
   final Color fillColor;
   final int iconCondition;
-  final String data;
+  final dynamic data;
 
   const ListOfLeaveType(
       {Key? key,
@@ -30,7 +30,6 @@ class ListOfLeaveType extends StatefulWidget {
 }
 
 class _ListOfLeaveTypeState extends State<ListOfLeaveType> {
-  final TextEditingController _jenisCuti = TextEditingController();
   final Devices _device = Devices();
   int totalJenisCuti = 0;
 
@@ -43,11 +42,11 @@ class _ListOfLeaveTypeState extends State<ListOfLeaveType> {
       }
     });
 
-    if (widget.data != "") {
-      setState(() {
-        _jenisCuti.text = widget.data;
-      });
-    }
+    // if (widget.data != "") {
+    //   setState(() {
+    //     _jenisCuti.text = widget.data;
+    //   });
+    // }
   }
 
   @override
@@ -72,7 +71,7 @@ class _ListOfLeaveTypeState extends State<ListOfLeaveType> {
           color: Color(0xff2B2B2B),
           fontWeight: FontWeight.w400,
         ),
-        controller: _jenisCuti,
+        controller: widget.data,
         readOnly: true,
         enabled: false,
         decoration: InputDecoration(
@@ -111,7 +110,7 @@ class _ListOfLeaveTypeState extends State<ListOfLeaveType> {
           disabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
               width: borderSideWidth,
-              color: _jenisCuti.text != '' && widget.iconCondition == 1
+              color: widget.data.text != '' && widget.iconCondition == 1
                   ? (userRole == 100 ? grey100 : enabledBorderWithText)
                   : (userRole == 100 ? grey100 : enabledBorderWithoutText),
             ),
@@ -223,7 +222,7 @@ class _ListOfLeaveTypeState extends State<ListOfLeaveType> {
                                   return InkWell(
                                     onTap: () {
                                       setState(() {
-                                        _jenisCuti.text =
+                                        widget.data.text =
                                             dataFuture[index].jenisCuti;
 
                                         Navigator.pop(context);

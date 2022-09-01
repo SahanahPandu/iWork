@@ -8,12 +8,15 @@ import '../../config/palette.dart';
 // import '../../screens/dialog/custom_dialog.dart';
 import '../../widgets/alert/alert_dialog.dart';
 import '../alert/lottie_alert_dialog.dart';
+import '../alert/snackbar.dart';
 
 class HantarButton extends StatefulWidget {
   final GlobalKey<FormState>? formKey;
   final String? data;
+  final Function? clearForm;
 
-  const HantarButton({Key? key, this.formKey, this.data}) : super(key: key);
+  const HantarButton({Key? key, this.formKey, this.data, this.clearForm})
+      : super(key: key);
 
   @override
   State<HantarButton> createState() => _HantarButtonState();
@@ -45,13 +48,24 @@ class _HantarButtonState extends State<HantarButton> {
                   );
                 }).then((actionText) {
               if (actionText == submit) {
+                widget.clearForm!();
+
                 showDialog(
+                    barrierDismissible: false,
                     context: context,
                     builder: (BuildContext context) {
-                      return showLottieAlertDialog(context, _textBuilder());
+                      return showLottieAlertDialog(
+                          context, _textBuilder(), widget.clearForm!);
                     });
               }
             });
+          } else {
+            showSnackBar(
+              context,
+              "Sila lengkapkan borang E-Cuti di atas",
+              const Duration(seconds: 3),
+              Colors.red,
+            );
           }
         }
       },

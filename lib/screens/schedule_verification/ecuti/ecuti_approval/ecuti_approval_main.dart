@@ -240,7 +240,8 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
                     showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return showLottieAlertDialog(context, _textBuilder());
+                          return showLottieAlertDialog(
+                              context, _textBuilder(), null);
                         });
                     // Navigator.push(
                     //     context,

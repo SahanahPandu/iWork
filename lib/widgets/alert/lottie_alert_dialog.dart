@@ -5,10 +5,11 @@ import '../../config/palette.dart';
 import '../../screens/dialog/custom_dialog.dart';
 import '../../utils/custom_icon.dart';
 
-showLottieAlertDialog(BuildContext context, contents) {
+showLottieAlertDialog(BuildContext context, contents, Function? clearForm) {
   return AlertDialog(
     title: InkWell(
       onTap: () {
+        clearForm!();
         Navigator.pop(context);
       },
       child: Align(
