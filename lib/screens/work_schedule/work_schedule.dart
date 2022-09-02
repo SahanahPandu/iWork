@@ -23,6 +23,13 @@ class _WorkScheduleState extends State<WorkSchedule> {
   bool _showSenaraiJalan = false;
   int idTaman = 0;
   int iconCondition = 1;
+  int idSubLaluan = 0;
+
+  updateSenaraiTaman(id) {
+    setState(() {
+      idSubLaluan = id;
+    });
+  }
 
   updateShowSenaraiJalan(id, [name]) {
     setState(() {
@@ -114,52 +121,35 @@ class _WorkScheduleState extends State<WorkSchedule> {
                 children: [
                   //Sub Laluan
                   Container(
-                    margin: EdgeInsets.symmetric(
-                      horizontal: 15,
-                      vertical: userRole == 200 ? 10 : 5,
-                    ),
-                    child: Card(
-                      elevation: userRole == 200 ? 5 : 0,
-                      shadowColor: userRole == 200
-                          ? Colors.grey.shade50
-                          : Colors.grey.shade200,
-                      child: ListOfSubRoutes(
-                        hintText: 'Senarai Sub Laluan',
-                        fontSize: userRole == 200 ? 18 : 15,
-                        borderCondition: userRole == 200 ? 0 : 1,
-                        //no border
-                        fillColor: userRole == 200
-                            ? textFormFieldFillColor
-                            : fillColor,
-                        iconCondition: iconCondition,
-                        data: "",
-                      ),
+                    margin: const EdgeInsets.fromLTRB(15, 24, 17, 16),
+                    child: ListOfSubRoutes(
+                      hintText: 'Sub-Laluan',
+                      fontSize: 15,
+                      borderCondition: 1,
+                      fillColor: userRole == 200 ? Colors.white : fillColor,
+                      iconCondition: iconCondition,
+                      data: "",
+                      screen: "Work Schedule",
+                      getSubLaluanId: updateSenaraiTaman,
                     ),
                   ),
 
                   //Taman
                   Container(
-                    margin: EdgeInsets.symmetric(
-                      horizontal: 15,
-                      vertical: userRole == 200 ? 10 : 5,
+                    margin: const EdgeInsets.only(
+                      left: 15,
+                      right: 17,
                     ),
-                    child: Card(
-                      elevation: userRole == 200 ? 5 : 0,
-                      shadowColor: userRole == 200
-                          ? Colors.grey.shade50
-                          : Colors.grey.shade200,
-                      child: ListOfParks(
-                        showSenaraiJalan: updateShowSenaraiJalan,
-                        hintText: 'Senarai Taman',
-                        fontSize: userRole == 200 ? 18 : 15,
-                        borderCondition: userRole == 200 ? 0 : 1,
-                        //no border
-                        fillColor: userRole == 200
-                            ? textFormFieldFillColor
-                            : fillColor,
-                        iconCondition: iconCondition,
-                        data: "",
-                      ),
+                    child: ListOfParks(
+                      subRoutesId: idSubLaluan,
+                      showSenaraiJalan: updateShowSenaraiJalan,
+                      hintText: 'Senarai Taman',
+                      fontSize: 15,
+                      borderCondition: 1,
+                      fillColor: userRole == 200 ? Colors.white : fillColor,
+                      iconCondition: iconCondition,
+                      data: "",
+                      screen: "Work Schedule",
                     ),
                   ),
 

@@ -14,16 +14,20 @@ class ListOfSubRoutes extends StatefulWidget {
   final Color fillColor;
   final int iconCondition;
   final String data;
+  final String? screen;
+  final Function(dynamic)? getSubLaluanId;
 
-  const ListOfSubRoutes(
-      {Key? key,
-      required this.hintText,
-      required this.fontSize,
-      required this.borderCondition,
-      required this.fillColor,
-      required this.iconCondition,
-      required this.data})
-      : super(key: key);
+  const ListOfSubRoutes({
+    Key? key,
+    required this.hintText,
+    required this.fontSize,
+    required this.borderCondition,
+    required this.fillColor,
+    required this.iconCondition,
+    required this.data,
+    this.screen,
+    this.getSubLaluanId,
+  }) : super(key: key);
 
   @override
   State<ListOfSubRoutes> createState() => _ListOfSubRoutesState();
@@ -33,16 +37,16 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
   final TextEditingController _namaSubLaluan = TextEditingController();
   final Devices _device = Devices();
 
-  int totalSubLaluan = 0;
+  // int totalSubLaluan = 0;
 
   getTotalData() {
-    SubLaluanApi.getSubLaluanData(context).then((value) {
-      if (value.isNotEmpty) {
-        setState(() {
-          totalSubLaluan = value.length;
-        });
-      }
-    });
+    // SubLaluanApi.getSubLaluanData(context).then((value) {
+    //   if (value.isNotEmpty) {
+    //     setState(() {
+    //       totalSubLaluan = value.length;
+    //     });
+    //   }
+    // });
 
     if (widget.data != "") {
       setState(() {
@@ -106,7 +110,8 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
                 : BorderSide(
                     width: borderSideWidth,
                     color: _namaSubLaluan.text != '' &&
-                            widget.iconCondition == 1
+                            widget.iconCondition == 1 &&
+                            widget.screen == null
                         ? (userRole == 200 ? enabledBorderWithText : grey100)
                         : (userRole == 200
                             ? enabledBorderWithoutText
@@ -142,22 +147,36 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const SizedBox(
+                  height: 2,
+                ),
+                const Divider(
+                  thickness: 1,
+                  color: Color(0xff969696),
+                  indent: 170,
+                  endIndent: 170,
+                ),
                 Padding(
                   padding: EdgeInsets.only(
-                    top: userRole == 200 ? 25 : 30,
-                    left: userRole == 200 ? 25 : 30,
-                    bottom: 10,
+                    top: userRole == 200 ? 24 : 30,
+                    left: userRole == 200 ? 24 : 30,
+                    bottom: userRole == 200 ? 16 : 10,
                   ),
                   child: Text(
-                    "${totalSubLaluan.toString()} Senarai Sub Laluan",
+                    //"${totalSubLaluan.toString()} Senarai Sub Laluan",
+                    "Pilih Sub-Laluan",
                     style: TextStyle(
-                      color: Colors.grey.shade500,
-                      fontSize: userRole == 100 || userRole == 200 ? 16 : 14,
-                      fontWeight: userRole == 100 || userRole == 200
-                          ? FontWeight.w500
-                          : FontWeight.w600,
+                      color: const Color(0xff969696),
+                      fontSize: userRole == 100 || userRole == 200 ? 15 : 14,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
+                ),
+                const Divider(
+                  thickness: 1,
+                  color: Color(0xffE5E5E5),
+                  indent: 25,
+                  endIndent: 25,
                 ),
                 FutureBuilder<List>(
                   future: SubLaluanApi.getSubLaluanData(context),
@@ -178,9 +197,8 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
                         } else {
                           return Expanded(
                             child: Container(
-                              margin: const EdgeInsets.symmetric(
-                                horizontal: 10,
-                              ),
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 10),
                               padding: userRole == 200
                                   ? const EdgeInsets.all(6)
                                   : const EdgeInsets.symmetric(
@@ -195,6 +213,10 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
                                   return InkWell(
                                     onTap: () {
                                       setState(() {
+                                        widget.getSubLaluanId != null
+                                            ? widget.getSubLaluanId!(
+                                                dataFuture[index].id)
+                                            : null;
                                         _namaSubLaluan.text =
                                             dataFuture[index].namaSubLaluan;
 
@@ -206,35 +228,17 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
                                           ? const EdgeInsets.symmetric(
                                               vertical: 12)
                                           : null,
-                                      padding: userRole == 200
-                                          ? const EdgeInsets.all(6)
-                                          : (userRole == 100
-                                              ? const EdgeInsets.symmetric(
-                                                  vertical: 23, horizontal: 5)
-                                              : (const EdgeInsets.symmetric(
-                                                  vertical: 18,
-                                                  horizontal: 4))),
-                                      decoration: BoxDecoration(
-                                        border: Border(
-                                          top: BorderSide.none,
-                                          bottom: BorderSide(
-                                            color: grey400,
-                                            width: userRole == 200 ? 0.9 : 0.3,
-                                            style: BorderStyle.solid,
-                                          ),
-                                        ),
-                                      ),
                                       child: Text(
                                         dataFuture[index].namaSubLaluan,
                                         style: TextStyle(
-                                          color: Colors.black87,
+                                          color: blackCustom,
                                           fontSize:
                                               userRole == 100 || userRole == 200
-                                                  ? 16
+                                                  ? 15
                                                   : 14,
                                           fontWeight:
                                               userRole == 100 || userRole == 200
-                                                  ? FontWeight.w500
+                                                  ? FontWeight.w400
                                                   : FontWeight.w600,
                                         ),
                                       ),

@@ -24,18 +24,16 @@ class _ListOfRoadState extends State<ListOfRoad> {
       children: [
         Container(
           margin: const EdgeInsets.only(
-            top: 24,
+            top: 15,
+            left: 22,
+            bottom: 8,
           ),
-          color: const Color(0xffF7FBFF),
-          padding: const EdgeInsets.symmetric(vertical: 16),
-          child: Center(
-            child: Text(
-              "Senarai Jalan",
-              style: TextStyle(
-                fontSize: userRole == 100 || userRole == 200 ? 15 : 16,
-                color: blackCustom,
-                fontWeight: FontWeight.w600,
-              ),
+          child: Text(
+            "Senarai Jalan",
+            style: TextStyle(
+              fontSize: userRole == 100 || userRole == 200 ? 17 : 16,
+              color: Colors.grey.shade400,
+              fontWeight: FontWeight.w500,
             ),
           ),
         ),

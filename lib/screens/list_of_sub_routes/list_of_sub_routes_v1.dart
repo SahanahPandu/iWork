@@ -1,57 +1,52 @@
 import 'package:flutter/material.dart';
 
+//import files
 import '../../config/config.dart';
 import '../../config/font.dart';
 import '../../config/palette.dart';
-import '../../providers/taman_api.dart';
+import '../../providers/sub_laluan_api.dart';
 import '../../utils/device.dart';
 
-class ListOfParks extends StatefulWidget {
-  final int? subRoutesId;
-  final Function(dynamic, dynamic)? showSenaraiJalan;
+class ListOfSubRoutes extends StatefulWidget {
   final String hintText;
   final double fontSize;
   final int borderCondition;
   final Color fillColor;
   final int iconCondition;
   final String data;
-  final String? screen;
 
-  const ListOfParks(
+  const ListOfSubRoutes(
       {Key? key,
-      this.subRoutesId,
-      required this.showSenaraiJalan,
       required this.hintText,
       required this.fontSize,
       required this.borderCondition,
       required this.fillColor,
       required this.iconCondition,
-      required this.data,
-      this.screen})
+      required this.data})
       : super(key: key);
 
   @override
-  State<ListOfParks> createState() => _ListOfParksState();
+  State<ListOfSubRoutes> createState() => _ListOfSubRoutesState();
 }
 
-class _ListOfParksState extends State<ListOfParks> {
-  final TextEditingController _namaTaman = TextEditingController();
+class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
+  final TextEditingController _namaSubLaluan = TextEditingController();
   final Devices _device = Devices();
 
-  // int totalTaman = 0;
+  int totalSubLaluan = 0;
 
   getTotalData() {
-    // TamanApi.getTamanData(context).then((value) {
-    //   if (value.isNotEmpty) {
-    //     setState(() {
-    //       totalTaman = value.length;
-    //     });
-    //   }
-    // });
+    SubLaluanApi.getSubLaluanData(context).then((value) {
+      if (value.isNotEmpty) {
+        setState(() {
+          totalSubLaluan = value.length;
+        });
+      }
+    });
 
     if (widget.data != "") {
       setState(() {
-        _namaTaman.text = widget.data;
+        _namaSubLaluan.text = widget.data;
       });
     }
   }
@@ -69,11 +64,11 @@ class _ListOfParksState extends State<ListOfParks> {
           userRole == 200 ? null : BorderRadius.circular(borderRadiusCircular),
       onTap: () {
         if (widget.iconCondition == 1) {
-          showListOfParks();
+          showListOfSubRoutes();
         }
       },
       child: TextFormField(
-        controller: _namaTaman,
+        controller: _namaSubLaluan,
         readOnly: true,
         enabled: false,
         decoration: InputDecoration(
@@ -110,9 +105,8 @@ class _ListOfParksState extends State<ListOfParks> {
                 ? BorderSide.none
                 : BorderSide(
                     width: borderSideWidth,
-                    color: _namaTaman.text != '' &&
-                            widget.iconCondition == 1 &&
-                            widget.screen == null
+                    color: _namaSubLaluan.text != '' &&
+                            widget.iconCondition == 1
                         ? (userRole == 200 ? enabledBorderWithText : grey100)
                         : (userRole == 200
                             ? enabledBorderWithoutText
@@ -125,7 +119,7 @@ class _ListOfParksState extends State<ListOfParks> {
     );
   }
 
-  Widget? showListOfParks() {
+  Widget? showListOfSubRoutes() {
     showModalBottomSheet(
         isScrollControlled: true,
         shape: const RoundedRectangleBorder(
@@ -148,39 +142,25 @@ class _ListOfParksState extends State<ListOfParks> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(
-                  height: 2,
-                ),
-                const Divider(
-                  thickness: 1,
-                  color: Color(0xff969696),
-                  indent: 170,
-                  endIndent: 170,
-                ),
                 Padding(
                   padding: EdgeInsets.only(
-                    top: userRole == 200 ? 24 : 30,
-                    left: userRole == 200 ? 24 : 30,
-                    bottom: userRole == 200 ? 16 : 10,
+                    top: userRole == 200 ? 25 : 30,
+                    left: userRole == 200 ? 25 : 30,
+                    bottom: 10,
                   ),
                   child: Text(
-                    //"${totalTaman.toString()} Senarai Taman",
-                    "Pilih Taman",
+                    "${totalSubLaluan.toString()} Senarai Sub Laluan",
                     style: TextStyle(
-                      color: const Color(0xff969696),
-                      fontSize: userRole == 100 || userRole == 200 ? 15 : 14,
-                      fontWeight: FontWeight.w600,
+                      color: Colors.grey.shade500,
+                      fontSize: userRole == 100 || userRole == 200 ? 16 : 14,
+                      fontWeight: userRole == 100 || userRole == 200
+                          ? FontWeight.w500
+                          : FontWeight.w600,
                     ),
                   ),
                 ),
-                const Divider(
-                  thickness: 1,
-                  color: Color(0xffE5E5E5),
-                  indent: 25,
-                  endIndent: 25,
-                ),
                 FutureBuilder<List>(
-                  future: TamanApi.getTamanData(context),
+                  future: SubLaluanApi.getSubLaluanData(context),
                   builder: (context, snapshot) {
                     final dataFuture = snapshot.data;
 
@@ -196,13 +176,6 @@ class _ListOfParksState extends State<ListOfParks> {
                             child: Text("Some error occured!"),
                           );
                         } else {
-                          //checking if there is sub laluan id is passed, else show all
-                          if (widget.subRoutesId != null &&
-                              widget.subRoutesId != 0) {
-                            dataFuture!.removeWhere((item) =>
-                                item.idSubLaluan != widget.subRoutesId);
-                          }
-
                           return Expanded(
                             child: Container(
                               margin: const EdgeInsets.symmetric(
@@ -221,15 +194,9 @@ class _ListOfParksState extends State<ListOfParks> {
                                 itemBuilder: (context, index) {
                                   return InkWell(
                                     onTap: () {
-                                      if (widget.showSenaraiJalan != null) {
-                                        widget.showSenaraiJalan!(
-                                            dataFuture[index].id,
-                                            dataFuture[index].namaTaman);
-                                      }
-
                                       setState(() {
-                                        _namaTaman.text =
-                                            dataFuture[index].namaTaman;
+                                        _namaSubLaluan.text =
+                                            dataFuture[index].namaSubLaluan;
 
                                         Navigator.pop(context);
                                       });
@@ -239,17 +206,35 @@ class _ListOfParksState extends State<ListOfParks> {
                                           ? const EdgeInsets.symmetric(
                                               vertical: 12)
                                           : null,
+                                      padding: userRole == 200
+                                          ? const EdgeInsets.all(6)
+                                          : (userRole == 100
+                                              ? const EdgeInsets.symmetric(
+                                                  vertical: 23, horizontal: 5)
+                                              : (const EdgeInsets.symmetric(
+                                                  vertical: 18,
+                                                  horizontal: 4))),
+                                      decoration: BoxDecoration(
+                                        border: Border(
+                                          top: BorderSide.none,
+                                          bottom: BorderSide(
+                                            color: grey400,
+                                            width: userRole == 200 ? 0.9 : 0.3,
+                                            style: BorderStyle.solid,
+                                          ),
+                                        ),
+                                      ),
                                       child: Text(
-                                        dataFuture[index].namaTaman,
+                                        dataFuture[index].namaSubLaluan,
                                         style: TextStyle(
-                                          color: blackCustom,
+                                          color: Colors.black87,
                                           fontSize:
                                               userRole == 100 || userRole == 200
-                                                  ? 15
+                                                  ? 16
                                                   : 14,
                                           fontWeight:
                                               userRole == 100 || userRole == 200
-                                                  ? FontWeight.w400
+                                                  ? FontWeight.w500
                                                   : FontWeight.w600,
                                         ),
                                       ),
