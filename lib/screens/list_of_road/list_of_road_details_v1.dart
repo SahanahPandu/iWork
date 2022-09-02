@@ -1,4 +1,3 @@
-import 'package:eswm/utils/custom_icon.dart';
 import 'package:flutter/material.dart';
 
 //import files
@@ -79,51 +78,78 @@ class _ListOfRoadDetailsState extends State<ListOfRoadDetails> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        //left side
+        Row(
           children: [
             Text(
-              widget.data.namaJalan,
+              "${(widget.index + 1)}. ${widget.data.namaJalan}",
               style: TextStyle(
-                  color: blackCustom,
-                  fontSize: userRole == 200 ? 15 : 14,
+                  color: Colors.grey.shade800,
+                  fontSize: userRole == 200 ? 16 : 14,
                   fontWeight:
-                      userRole == 200 ? FontWeight.w400 : FontWeight.w600),
+                      userRole == 200 ? FontWeight.w500 : FontWeight.w600),
             ),
             const SizedBox(
-              height: 6,
+              width: 10,
             ),
+            SizedBox(
+              width: userRole == 200 ? 28 : 20,
+              height: userRole == 200 ? 28 : 20,
+              child: ElevatedButton(
+                onPressed: () {
+                  showNavigationOptions(context);
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: const Color(0xffc9ffd7),
+                  padding: const EdgeInsets.all(0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                ),
+                child: Icon(
+                  Icons.near_me_rounded,
+                  color: Colors.green,
+                  size: userRole == 200 ? 20 : 16,
+                ),
+              ),
+            )
+          ],
+        ),
+        //right side
+        Row(
+          children: [
             Text(
-              "${widget.data.jumlahTong} tong",
+              "Jumlah Tong",
               style: TextStyle(
-                fontSize: userRole == 200 ? 13 : 14,
-                color: const Color(0xff969696),
-                fontWeight: userRole == 200 ? FontWeight.w400 : FontWeight.w600,
+                color: Colors.grey.shade400,
+                fontSize: userRole == 200 ? 16 : 14,
+                fontWeight: userRole == 200 ? FontWeight.w500 : FontWeight.w600,
+              ),
+            ),
+            const SizedBox(
+              width: 7,
+            ),
+            Container(
+              width: userRole == 200 ? 28 : 20,
+              height: userRole == 200 ? 25 : 18,
+              decoration: const BoxDecoration(
+                color: Color.fromARGB(255, 204, 220, 255),
+                borderRadius: BorderRadius.all(Radius.circular(5)),
+              ),
+              child: Center(
+                child: Text(
+                  "${widget.data.jumlahTong}",
+                  style: TextStyle(
+                    fontSize: userRole == 200 ? 17 : 14,
+                    color: Colors.black87,
+                    fontWeight:
+                        userRole == 200 ? FontWeight.w700 : FontWeight.w600,
+                  ),
+                ),
               ),
             ),
           ],
-        ),
-        SizedBox(
-          width: userRole == 200 ? 28 : 20,
-          height: userRole == 200 ? 28 : 20,
-          child: ElevatedButton(
-            onPressed: () {
-              showNavigationOptions(context);
-            },
-            style: ElevatedButton.styleFrom(
-              primary: const Color(0xffc9ffd7),
-              padding: const EdgeInsets.all(0),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(50),
-              ),
-            ),
-            child: Icon(
-              CustomIcon.navigation,
-              color: Colors.green,
-              size: userRole == 200 ? 24 : 16,
-            ),
-          ),
-        ),
+        )
       ],
     );
   }

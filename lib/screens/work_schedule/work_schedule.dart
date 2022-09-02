@@ -25,6 +25,7 @@ class _WorkScheduleState extends State<WorkSchedule> {
   int idTaman = 0;
   int iconCondition = 1;
   int idSubLaluan = 0;
+  String namaTaman = "";
 
   updateSenaraiTaman(id) {
     setState(() {
@@ -37,6 +38,7 @@ class _WorkScheduleState extends State<WorkSchedule> {
     setState(() {
       _showSenaraiJalan = true;
       idTaman = id;
+      namaTaman = name;
     });
   }
 
@@ -157,15 +159,24 @@ class _WorkScheduleState extends State<WorkSchedule> {
                     ),
 
                   //Senarai Jalan
-                  if (_showSenaraiJalan) ListOfRoad(idTaman: idTaman),
+                  if (_showSenaraiJalan)
+                    ListOfRoad(
+                      idTaman: idTaman,
+                      namaTaman: namaTaman,
+                    ),
                 ],
               ),
             ),
           ],
         ),
       ),
-      floatingActionButton:
-          userRole == 200 ? ReportButton(dataLaluan: widget.data) : null,
+      floatingActionButton: userRole == 200
+          ? Container(
+              margin: _showSenaraiJalan
+                  ? const EdgeInsets.only(right: 45, bottom: 10)
+                  : const EdgeInsets.all(0),
+              child: ReportButton(dataLaluan: widget.data))
+          : null,
     );
   }
 }
