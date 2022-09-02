@@ -195,59 +195,68 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
                             child: Text("Some error occured!"),
                           );
                         } else {
-                          return Expanded(
-                            child: Container(
-                              margin:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                              padding: userRole == 200
-                                  ? const EdgeInsets.all(6)
-                                  : const EdgeInsets.symmetric(
-                                      horizontal: 20, vertical: 10),
-                              child: ListView.builder(
-                                physics: userRole == 200
-                                    ? const ScrollPhysics()
-                                    : const BouncingScrollPhysics(),
-                                shrinkWrap: true,
-                                itemCount: dataFuture!.length,
-                                itemBuilder: (context, index) {
-                                  return InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        widget.getSubLaluanId != null
-                                            ? widget.getSubLaluanId!(
-                                                dataFuture[index].id)
-                                            : null;
-                                        _namaSubLaluan.text =
-                                            dataFuture[index].namaSubLaluan;
+                          if (dataFuture!.isEmpty) {
+                            return Center(
+                              child: Container(
+                                margin: const EdgeInsets.all(20),
+                                child: const Text("Tiada data"),
+                              ),
+                            );
+                          } else {
+                            return Expanded(
+                              child: Container(
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 10),
+                                padding: userRole == 200
+                                    ? const EdgeInsets.all(6)
+                                    : const EdgeInsets.symmetric(
+                                        horizontal: 20, vertical: 10),
+                                child: ListView.builder(
+                                  physics: userRole == 200
+                                      ? const ScrollPhysics()
+                                      : const BouncingScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemCount: dataFuture.length,
+                                  itemBuilder: (context, index) {
+                                    return InkWell(
+                                      onTap: () {
+                                        setState(() {
+                                          widget.getSubLaluanId != null
+                                              ? widget.getSubLaluanId!(
+                                                  dataFuture[index].id)
+                                              : null;
+                                          _namaSubLaluan.text =
+                                              dataFuture[index].namaSubLaluan;
 
-                                        Navigator.pop(context);
-                                      });
-                                    },
-                                    child: Container(
-                                      margin: userRole == 200
-                                          ? const EdgeInsets.symmetric(
-                                              vertical: 12)
-                                          : null,
-                                      child: Text(
-                                        dataFuture[index].namaSubLaluan,
-                                        style: TextStyle(
-                                          color: blackCustom,
-                                          fontSize:
-                                              userRole == 100 || userRole == 200
-                                                  ? 15
-                                                  : 14,
-                                          fontWeight:
-                                              userRole == 100 || userRole == 200
-                                                  ? FontWeight.w400
-                                                  : FontWeight.w600,
+                                          Navigator.pop(context);
+                                        });
+                                      },
+                                      child: Container(
+                                        margin: userRole == 200
+                                            ? const EdgeInsets.symmetric(
+                                                vertical: 12)
+                                            : null,
+                                        child: Text(
+                                          dataFuture[index].namaSubLaluan,
+                                          style: TextStyle(
+                                            color: blackCustom,
+                                            fontSize: userRole == 100 ||
+                                                    userRole == 200
+                                                ? 15
+                                                : 14,
+                                            fontWeight: userRole == 100 ||
+                                                    userRole == 200
+                                                ? FontWeight.w400
+                                                : FontWeight.w600,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  );
-                                },
+                                    );
+                                  },
+                                ),
                               ),
-                            ),
-                          );
+                            );
+                          }
                         }
                     }
                   },

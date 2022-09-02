@@ -203,62 +203,71 @@ class _ListOfParksState extends State<ListOfParks> {
                                 item.idSubLaluan != widget.subRoutesId);
                           }
 
-                          return Expanded(
-                            child: Container(
-                              margin: const EdgeInsets.symmetric(
-                                horizontal: 10,
+                          if (dataFuture!.isEmpty) {
+                            return Center(
+                              child: Container(
+                                margin: const EdgeInsets.all(20),
+                                child: const Text("Tiada data"),
                               ),
-                              padding: userRole == 200
-                                  ? const EdgeInsets.all(6)
-                                  : const EdgeInsets.symmetric(
-                                      horizontal: 20, vertical: 10),
-                              child: ListView.builder(
-                                physics: userRole == 200
-                                    ? const ScrollPhysics()
-                                    : const BouncingScrollPhysics(),
-                                shrinkWrap: true,
-                                itemCount: dataFuture!.length,
-                                itemBuilder: (context, index) {
-                                  return InkWell(
-                                    onTap: () {
-                                      if (widget.showSenaraiJalan != null) {
-                                        widget.showSenaraiJalan!(
-                                            dataFuture[index].id,
-                                            dataFuture[index].namaTaman);
-                                      }
+                            );
+                          } else {
+                            return Expanded(
+                              child: Container(
+                                margin: const EdgeInsets.symmetric(
+                                  horizontal: 10,
+                                ),
+                                padding: userRole == 200
+                                    ? const EdgeInsets.all(6)
+                                    : const EdgeInsets.symmetric(
+                                        horizontal: 20, vertical: 10),
+                                child: ListView.builder(
+                                  physics: userRole == 200
+                                      ? const ScrollPhysics()
+                                      : const BouncingScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemCount: dataFuture.length,
+                                  itemBuilder: (context, index) {
+                                    return InkWell(
+                                      onTap: () {
+                                        if (widget.showSenaraiJalan != null) {
+                                          widget.showSenaraiJalan!(
+                                              dataFuture[index].id,
+                                              dataFuture[index].namaTaman);
+                                        }
 
-                                      setState(() {
-                                        _namaTaman.text =
-                                            dataFuture[index].namaTaman;
+                                        setState(() {
+                                          _namaTaman.text =
+                                              dataFuture[index].namaTaman;
 
-                                        Navigator.pop(context);
-                                      });
-                                    },
-                                    child: Container(
-                                      margin: userRole == 200
-                                          ? const EdgeInsets.symmetric(
-                                              vertical: 12)
-                                          : null,
-                                      child: Text(
-                                        dataFuture[index].namaTaman,
-                                        style: TextStyle(
-                                          color: blackCustom,
-                                          fontSize:
-                                              userRole == 100 || userRole == 200
-                                                  ? 15
-                                                  : 14,
-                                          fontWeight:
-                                              userRole == 100 || userRole == 200
-                                                  ? FontWeight.w400
-                                                  : FontWeight.w600,
+                                          Navigator.pop(context);
+                                        });
+                                      },
+                                      child: Container(
+                                        margin: userRole == 200
+                                            ? const EdgeInsets.symmetric(
+                                                vertical: 12)
+                                            : null,
+                                        child: Text(
+                                          dataFuture[index].namaTaman,
+                                          style: TextStyle(
+                                            color: blackCustom,
+                                            fontSize: userRole == 100 ||
+                                                    userRole == 200
+                                                ? 15
+                                                : 14,
+                                            fontWeight: userRole == 100 ||
+                                                    userRole == 200
+                                                ? FontWeight.w400
+                                                : FontWeight.w600,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  );
-                                },
+                                    );
+                                  },
+                                ),
                               ),
-                            ),
-                          );
+                            );
+                          }
                         }
                     }
                   },
