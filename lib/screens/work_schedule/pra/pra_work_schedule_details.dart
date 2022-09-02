@@ -5,13 +5,13 @@ import '../../../../config/palette.dart';
 import '../../../config/font.dart';
 import '../../../../models/laluan.dart';
 import '../../../utils/custom_icon.dart';
-import '../../../widgets/buttons/report_button.dart';
 import '../../../widgets/container/status_container.dart';
 
 class PraWorkScheduleDetails extends StatefulWidget {
   final Laluan data;
 
-  const PraWorkScheduleDetails({Key? key, required this.data}) : super(key: key);
+  const PraWorkScheduleDetails({Key? key, required this.data})
+      : super(key: key);
 
   @override
   State<PraWorkScheduleDetails> createState() => _PraWorkScheduleDetailsState();
@@ -195,9 +195,6 @@ class _PraWorkScheduleDetailsState extends State<PraWorkScheduleDetails> {
               )
             ],
           ),
-        ),
-        Center(
-          child: ReportButton(dataLaluan: widget.data),
         ),
       ],
     );

@@ -1,4 +1,3 @@
-import 'package:eswm/utils/custom_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -18,11 +17,17 @@ class ReportButton extends StatefulWidget {
 class _ReportButtonState extends State<ReportButton> {
   @override
   Widget build(BuildContext context) {
-    return FloatingActionButton(
-      backgroundColor: const Color(0xffE04141),
-      child: const Icon(
-        CustomIcon.exclamation,
-        size: 24,
+    return ElevatedButton.icon(
+      style: ElevatedButton.styleFrom(
+        primary: Colors.white,
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        shape: RoundedRectangleBorder(
+          side: const BorderSide(
+            color: Colors.red,
+            width: 1.4,
+          ),
+          borderRadius: BorderRadius.circular(25),
+        ),
       ),
       onPressed: () {
         Navigator.push(
@@ -35,6 +40,18 @@ class _ReportButtonState extends State<ReportButton> {
                   dataLaluan: widget.dataLaluan!,
                 )));
       },
+      icon: const Icon(
+        Icons.error_outline,
+        color: Colors.red,
+        size: 20,
+      ),
+      label: const Text(
+        "Lapor Isu",
+        style: TextStyle(
+          fontSize: 17,
+          color: Colors.red,
+        ),
+      ),
     );
   }
 }
