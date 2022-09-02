@@ -20,6 +20,7 @@ class WorkSchedule extends StatefulWidget {
 }
 
 class _WorkScheduleState extends State<WorkSchedule> {
+  bool _showSenaraiTaman = false;
   bool _showSenaraiJalan = false;
   int idTaman = 0;
   int iconCondition = 1;
@@ -27,6 +28,7 @@ class _WorkScheduleState extends State<WorkSchedule> {
 
   updateSenaraiTaman(id) {
     setState(() {
+      _showSenaraiTaman = true;
       idSubLaluan = id;
     });
   }
@@ -135,23 +137,24 @@ class _WorkScheduleState extends State<WorkSchedule> {
                   ),
 
                   //Taman
-                  Container(
-                    margin: const EdgeInsets.only(
-                      left: 15,
-                      right: 17,
+                  if (_showSenaraiTaman)
+                    Container(
+                      margin: const EdgeInsets.only(
+                        left: 15,
+                        right: 17,
+                      ),
+                      child: ListOfParks(
+                        subRoutesId: idSubLaluan,
+                        showSenaraiJalan: updateShowSenaraiJalan,
+                        hintText: 'Senarai Taman',
+                        fontSize: 15,
+                        borderCondition: 1,
+                        fillColor: userRole == 200 ? Colors.white : fillColor,
+                        iconCondition: iconCondition,
+                        data: "",
+                        screen: "Work Schedule",
+                      ),
                     ),
-                    child: ListOfParks(
-                      subRoutesId: idSubLaluan,
-                      showSenaraiJalan: updateShowSenaraiJalan,
-                      hintText: 'Senarai Taman',
-                      fontSize: 15,
-                      borderCondition: 1,
-                      fillColor: userRole == 200 ? Colors.white : fillColor,
-                      iconCondition: iconCondition,
-                      data: "",
-                      screen: "Work Schedule",
-                    ),
-                  ),
 
                   //Senarai Jalan
                   if (_showSenaraiJalan) ListOfRoad(idTaman: idTaman),
