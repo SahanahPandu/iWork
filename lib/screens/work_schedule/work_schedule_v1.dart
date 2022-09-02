@@ -79,9 +79,11 @@ class _WorkScheduleState extends State<WorkSchedule> {
         child: Column(
           children: [
             Container(
-              margin: const EdgeInsets.symmetric(
-                horizontal: 10,
-                vertical: 16,
+              margin: const EdgeInsets.only(
+                left: 15,
+                top: 20,
+                right: 15,
+                bottom: 10,
               ),
               child: userRole == 200
                   ? Cards(
@@ -95,7 +97,6 @@ class _WorkScheduleState extends State<WorkSchedule> {
             ),
             Container(
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: const BorderRadius.only(

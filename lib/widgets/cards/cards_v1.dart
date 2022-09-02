@@ -62,34 +62,18 @@ class _CardsState extends State<Cards> {
         }
       },
       child: userRole == 200
-          ?
-          // Card(
-          //     shape: RoundedRectangleBorder(
-          //       borderRadius: BorderRadius.circular(15),
-          //     ),
-          //     shadowColor: Colors.grey.shade50,
-          //     elevation: 14,
-          //     child: Container(
-          //       child: getWidget(),
-          //       margin: _isScheduleDetailCard
-          //           ? const EdgeInsets.symmetric(vertical: 18)
-          //           : const EdgeInsets.all(18),
-          //     ),
-          //   )
-
-          Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(14),
-                color: white,
-                boxShadow: [
-                  BoxShadow(
-                      color: cardShadowColor,
-                      offset: const Offset(0, 2),
-                      blurRadius: 10,
-                      spreadRadius: 0.5)
-                ],
+          ? Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
               ),
-              child: getWidget(),
+              shadowColor: Colors.grey.shade50,
+              elevation: 14,
+              child: Container(
+                child: getWidget(),
+                margin: _isScheduleDetailCard
+                    ? const EdgeInsets.symmetric(vertical: 18)
+                    : const EdgeInsets.all(18),
+              ),
             )
           : (widget.type == "SV Laluan Details" ||
                   widget.type == "Comp Laluan Details"
@@ -106,7 +90,9 @@ class _CardsState extends State<Cards> {
                     ],
                   ),
                   child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 15),
+                      padding: widget.type == "PRA Laluan Details"
+                          ? const EdgeInsets.all(0)
+                          : const EdgeInsets.symmetric(vertical: 15),
                       child: getWidget()))
               : Card(
                   shape: RoundedRectangleBorder(
