@@ -55,6 +55,7 @@ Color borderColor = const Color(0xE0EFEFEF);
 Color borderTextColor = const Color.fromRGBO(221, 223, 226, 1);
 Color labelColor = const Color.fromRGBO(164, 164, 164, 1);
 Color fillColor = const Color.fromRGBO(251, 251, 251, 1);
+Color dividerColor = const Color.fromRGBO(229, 229, 229, 1);
 
 //------Text Form Field--------------------------------------------------------
 Color textFormFieldFillColor = const Color(0x33DDDFE2);

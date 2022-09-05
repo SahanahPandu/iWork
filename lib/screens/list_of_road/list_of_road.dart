@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 //import files
-import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../../config/string.dart';
 import '../../providers/jalan_api.dart';
@@ -39,7 +38,7 @@ class _ListOfRoadState extends State<ListOfRoad> {
                 Text(
                   "jalan bawah ",
                   style: TextStyle(
-                    fontSize: userRole == 100 || userRole == 200 ? 15 : 16,
+                    fontSize: 15,
                     color: blackCustom,
                     fontWeight: FontWeight.w500,
                   ),
@@ -47,7 +46,7 @@ class _ListOfRoadState extends State<ListOfRoad> {
                 Text(
                   widget.namaTaman,
                   style: TextStyle(
-                    fontSize: userRole == 100 || userRole == 200 ? 15 : 16,
+                    fontSize: 15,
                     color: blackCustom,
                     fontWeight: FontWeight.bold,
                   ),
@@ -97,8 +96,9 @@ class _ListOfRoadState extends State<ListOfRoad> {
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     separatorBuilder: (context, index) {
-                      return const Divider(
-                        thickness: 1,
+                      return Divider(
+                        thickness: 0.5,
+                        color: dividerColor,
                       );
                     },
                     itemCount: newList.length,

@@ -104,23 +104,24 @@ class _ListOfRoadDetailsState extends State<ListOfRoadDetails> {
           ],
         ),
         SizedBox(
-          width: userRole == 200 ? 28 : 20,
-          height: userRole == 200 ? 28 : 20,
+          width: 28,
+          height: 28,
           child: ElevatedButton(
             onPressed: () {
               showNavigationOptions(context);
             },
             style: ElevatedButton.styleFrom(
+              elevation: 0,
               primary: const Color(0xffc9ffd7),
               padding: const EdgeInsets.all(0),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(50),
               ),
             ),
-            child: Icon(
+            child: const Icon(
               CustomIcon.navigation,
               color: Colors.green,
-              size: userRole == 200 ? 24 : 16,
+              size: 24,
             ),
           ),
         ),

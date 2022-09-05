@@ -65,8 +65,6 @@ class _ListOfParksState extends State<ListOfParks> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      borderRadius:
-          userRole == 200 ? null : BorderRadius.circular(borderRadiusCircular),
       onTap: () {
         if (widget.iconCondition == 1) {
           showListOfParks();
@@ -79,9 +77,8 @@ class _ListOfParksState extends State<ListOfParks> {
         decoration: InputDecoration(
           filled: true,
           fillColor: widget.fillColor,
-          contentPadding: userRole == 200
-              ? const EdgeInsets.all(8)
-              : const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
           hintText: widget.hintText,
           hintStyle: TextStyle(
             fontSize: widget.fontSize,
@@ -113,10 +110,8 @@ class _ListOfParksState extends State<ListOfParks> {
                     color: _namaTaman.text != '' &&
                             widget.iconCondition == 1 &&
                             widget.screen == null
-                        ? (userRole == 200 ? enabledBorderWithText : grey100)
-                        : (userRole == 200
-                            ? enabledBorderWithoutText
-                            : grey100),
+                        ? (enabledBorderWithText)
+                        : (enabledBorderWithoutText),
                   ),
             borderRadius: BorderRadius.circular(borderRadiusCircular),
           ),
@@ -157,18 +152,18 @@ class _ListOfParksState extends State<ListOfParks> {
                   indent: 170,
                   endIndent: 170,
                 ),
-                Padding(
+                const Padding(
                   padding: EdgeInsets.only(
-                    top: userRole == 200 ? 24 : 30,
-                    left: userRole == 200 ? 24 : 30,
-                    bottom: userRole == 200 ? 16 : 10,
+                    top: 24,
+                    left: 24,
+                    bottom: 16,
                   ),
                   child: Text(
                     //"${totalTaman.toString()} Senarai Taman",
                     "Pilih Taman",
                     style: TextStyle(
-                      color: const Color(0xff969696),
-                      fontSize: userRole == 100 || userRole == 200 ? 15 : 14,
+                      color: Color(0xff969696),
+                      fontSize: 15,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -216,14 +211,10 @@ class _ListOfParksState extends State<ListOfParks> {
                                 margin: const EdgeInsets.symmetric(
                                   horizontal: 10,
                                 ),
-                                padding: userRole == 200
-                                    ? const EdgeInsets.all(6)
-                                    : const EdgeInsets.symmetric(
-                                        horizontal: 20, vertical: 10),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 10),
                                 child: ListView.builder(
-                                  physics: userRole == 200
-                                      ? const ScrollPhysics()
-                                      : const BouncingScrollPhysics(),
+                                  physics: const BouncingScrollPhysics(),
                                   shrinkWrap: true,
                                   itemCount: dataFuture.length,
                                   itemBuilder: (context, index) {
@@ -243,22 +234,14 @@ class _ListOfParksState extends State<ListOfParks> {
                                         });
                                       },
                                       child: Container(
-                                        margin: userRole == 200
-                                            ? const EdgeInsets.symmetric(
-                                                vertical: 12)
-                                            : null,
+                                        margin: const EdgeInsets.symmetric(
+                                            vertical: 12),
                                         child: Text(
                                           dataFuture[index].namaTaman,
                                           style: TextStyle(
                                             color: blackCustom,
-                                            fontSize: userRole == 100 ||
-                                                    userRole == 200
-                                                ? 15
-                                                : 14,
-                                            fontWeight: userRole == 100 ||
-                                                    userRole == 200
-                                                ? FontWeight.w400
-                                                : FontWeight.w600,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w400,
                                           ),
                                         ),
                                       ),

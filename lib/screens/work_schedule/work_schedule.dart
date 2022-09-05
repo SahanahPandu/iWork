@@ -106,7 +106,6 @@ class _WorkScheduleState extends State<WorkSchedule> {
             ),
             Container(
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: const BorderRadius.only(
@@ -115,9 +114,9 @@ class _WorkScheduleState extends State<WorkSchedule> {
                 ),
                 boxShadow: [
                   BoxShadow(
-                      color: cardShadowColor,
-                      offset: const Offset(0, 2),
-                      blurRadius: 10,
+                      color: grey100,
+                      offset: const Offset(0, -5),
+                      blurRadius: 5,
                       spreadRadius: 0.5)
                 ],
               ),
@@ -130,7 +129,7 @@ class _WorkScheduleState extends State<WorkSchedule> {
                       hintText: 'Sub-Laluan',
                       fontSize: 15,
                       borderCondition: 1,
-                      fillColor: userRole == 200 ? Colors.white : fillColor,
+                      fillColor: Colors.white,
                       iconCondition: iconCondition,
                       data: "",
                       screen: "Work Schedule",
@@ -151,7 +150,7 @@ class _WorkScheduleState extends State<WorkSchedule> {
                         hintText: 'Senarai Taman',
                         fontSize: 15,
                         borderCondition: 1,
-                        fillColor: userRole == 200 ? Colors.white : fillColor,
+                        fillColor: Colors.white,
                         iconCondition: iconCondition,
                         data: "",
                         screen: "Work Schedule",
