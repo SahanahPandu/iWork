@@ -93,6 +93,10 @@ class _CardListViewState extends State<CardListView> {
                   dataFuture!.removeWhere(
                       (item) => !widget.cutiStatus.contains(item.idStatus));
                 }
+                //Filtering based on issued laluan cards
+                if (widget.type == "Laluan" && widget.screens == "isu") {
+                  dataFuture!.removeWhere((item) => "".contains(item.isu));
+                }
 
                 return ListView.builder(
                   physics: userRole == 200
