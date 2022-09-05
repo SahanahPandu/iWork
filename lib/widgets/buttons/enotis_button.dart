@@ -29,10 +29,10 @@ class _ENotisButtonState extends State<ENotisButton>
   void initState() {
     _controllerText = AnimationController(
       vsync: this,
-      lowerBound: 0.97,
+      lowerBound: 0.96,
       upperBound: 1,
       value: 1,
-      duration: const Duration(milliseconds: 200),
+      duration: const Duration(milliseconds: 300),
     );
     _controllerText.addListener(() {
       setState(() {
@@ -56,7 +56,11 @@ class _ENotisButtonState extends State<ENotisButton>
       child: GestureDetector(
         behavior: HitTestBehavior.translucent,
         onTap: () {
-          _controllerText.reverse();
+          if (_controllerText.isCompleted) {
+            _controllerText.reverse();
+          } else {
+            _controllerText.forward(from: 0.5);
+          }
           showDialog(
               context: context,
               builder: (BuildContext context) {

@@ -44,10 +44,10 @@ class _ListCardState extends State<ListCard> with TickerProviderStateMixin {
   void initState() {
     _controllerCard = AnimationController(
       vsync: this,
-      lowerBound: 0.98,
+      lowerBound: 0.97,
       upperBound: 1,
       value: 1,
-      duration: const Duration(milliseconds: 200),
+      duration: const Duration(milliseconds: 250),
     );
     _controllerCard.addListener(() {
       setState(() {
@@ -104,6 +104,11 @@ class _ListCardState extends State<ListCard> with TickerProviderStateMixin {
             behavior: HitTestBehavior.translucent,
             onTap: () {
               _controllerCard.reverse();
+              if (_controllerCard.isCompleted) {
+                _controllerCard.reverse();
+              } else {
+                _controllerCard.forward(from: 0);
+              }
               Navigator.push(
                   context,
                   PageTransition(
@@ -113,7 +118,7 @@ class _ListCardState extends State<ListCard> with TickerProviderStateMixin {
               _controllerCard.reverse();
             },
             onTapUp: (dp) {
-              Timer(const Duration(milliseconds: 200), () {
+              Timer(const Duration(milliseconds: 250), () {
                 _controllerCard.fling();
               });
             },
