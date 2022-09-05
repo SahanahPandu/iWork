@@ -120,11 +120,38 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 15),
-                    child: Text("Butiran Permohonan E-Cuti:",
-                        style: TextStyle(
-                            color: blackCustom,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w400)),
+                    child: ExpandableButton(
+                      child: InkWell(
+                        highlightColor: white,
+                        onTap: () {
+                          _eCutiController.toggle();
+                          _eCutiController.expanded
+                              ? setState(() {
+                                  iconColor = green;
+                                })
+                              : setState(() {
+                                  iconColor = grey500;
+                                });
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Butiran Permohonan E-Cuti:",
+                                style: TextStyle(
+                                    color: blackCustom,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w400)),
+                            Icon(
+                              _eCutiController.expanded
+                                  ? CustomIcon.expand
+                                  : CustomIcon.collapse,
+                              size: 16,
+                              color: activeColor,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
                   _buildTextForm(_by, "Pemohon"),
                   _buildTextForm(_leaveType, "Jenis Cuti"),
@@ -139,45 +166,6 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
                     ),
                   ),
                   const SizedBox(height: 15),
-                  ExpandableButton(
-                    child: InkWell(
-                      onTap: () {
-                        _eCutiController.toggle();
-                        _eCutiController.expanded
-                            ? setState(() {
-                                iconColor = green;
-                              })
-                            : setState(() {
-                                iconColor = grey500;
-                              });
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Text(
-                            _eCutiController.expanded
-                                ? "Lihat lebih sikit"
-                                : "Lihat lebih banyak",
-                            style: TextStyle(
-                              fontSize: 12,
-                              color:
-                                  _eCutiController.expanded ? green : darkBlue,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          const SizedBox(width: 10),
-                          Icon(
-                            _eCutiController.expanded
-                                ? Icons.keyboard_arrow_up_rounded
-                                : Icons.keyboard_arrow_down_rounded,
-                            size: 14,
-                            color: _eCutiController.expanded ? green : darkBlue,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 25),
                   const Divider(height: 0.5),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

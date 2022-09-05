@@ -143,11 +143,38 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 15),
-                    child: Text("Butiran maklumat laporan:",
-                        style: TextStyle(
-                            color: blackCustom,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w400)),
+                    child: ExpandableButton(
+                      child: InkWell(
+                        highlightColor: white,
+                        onTap: () {
+                          _reportController.toggle();
+                          _reportController.expanded
+                              ? setState(() {
+                                  iconColor = green;
+                                })
+                              : setState(() {
+                                  iconColor = grey500;
+                                });
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Butiran maklumat laporan:",
+                                style: TextStyle(
+                                    color: blackCustom,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w400)),
+                            Icon(
+                              _reportController.expanded
+                                  ? CustomIcon.expand
+                                  : CustomIcon.collapse,
+                              size: 16,
+                              color: activeColor,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
                   _buildTextForm(_laluan, "Laluan"),
                   _buildTextForm(_vehicleNo, "No Kenderaan"),
@@ -161,46 +188,6 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
                     ),
                   ),
                   const SizedBox(height: 15),
-                  ExpandableButton(
-                    child: InkWell(
-                      onTap: () {
-                        _reportController.toggle();
-                        _reportController.expanded
-                            ? setState(() {
-                                iconColor = green;
-                              })
-                            : setState(() {
-                                iconColor = grey500;
-                              });
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Text(
-                            _reportController.expanded
-                                ? "Lihat lebih sikit"
-                                : "Lihat lebih banyak",
-                            style: TextStyle(
-                              fontSize: 12,
-                              color:
-                                  _reportController.expanded ? green : darkBlue,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          const SizedBox(width: 10),
-                          Icon(
-                            _reportController.expanded
-                                ? Icons.keyboard_arrow_up_rounded
-                                : Icons.keyboard_arrow_down_rounded,
-                            size: 14,
-                            color:
-                                _reportController.expanded ? green : darkBlue,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 25),
                   const Divider(height: 0.5),
                   _buildReportSections(context, condition),
                 ],
@@ -740,7 +727,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
 
   TextFormField _buildInactiveTextField(
       TextEditingController controller, String label,
-      [IconData? icon = Icons.arrow_drop_down]) {
+      [IconData? icon = CustomIcon.dropdown]) {
     return TextFormField(
       controller: controller,
       readOnly: true,
@@ -753,7 +740,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
             const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
         suffixIcon: Icon(
           icon,
-          size: 18,
+          size: 16,
           color: black87,
         ),
         labelText: label,

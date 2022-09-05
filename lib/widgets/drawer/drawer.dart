@@ -93,7 +93,7 @@ class _DrawerBuildState extends State<DrawerBuild> {
               height: _device.isLandscape(context) ? 80 : 110.0,
               child: DrawerHeader(
                   decoration: BoxDecoration(
-                    color: transparent,
+                    color: white,
                   ),
                   child: Row(
                     children: [
@@ -231,6 +231,7 @@ class _DrawerBuildState extends State<DrawerBuild> {
                       );
                     })),
             ListTile(
+              visualDensity: const VisualDensity(vertical: -4),
               title: Padding(
                 padding: const EdgeInsets.only(left: 20),
                 child: Text(

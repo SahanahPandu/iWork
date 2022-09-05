@@ -26,9 +26,9 @@ class CustomIcon {
   static const IconData scheduleOutline =
       IconData(0xe904, fontFamily: _iWorkFontFam, fontPackage: null);
   static const IconData tamanFill =
-      IconData(0xe92e, fontFamily: _iWorkFontFam, fontPackage: null);
+      IconData(0xe936, fontFamily: _iWorkFontFam, fontPackage: null);
   static const IconData tamanOutline =
-      IconData(0xe92d, fontFamily: _iWorkFontFam, fontPackage: null);
+      IconData(0xe935, fontFamily: _iWorkFontFam, fontPackage: null);
   static const IconData roadFill =
       IconData(0xe927, fontFamily: _iWorkFontFam, fontPackage: null);
   static const IconData roadOutline =
@@ -38,25 +38,25 @@ class CustomIcon {
   static const IconData formOutline =
       IconData(0xe915, fontFamily: _iWorkFontFam, fontPackage: null);
   static const IconData truckFill =
-      IconData(0xe90b, fontFamily: _iWorkFontFam, fontPackage: null);
+      IconData(0xe90e, fontFamily: _iWorkFontFam, fontPackage: null);
   static const IconData truckOutline =
-      IconData(0xe90a, fontFamily: _iWorkFontFam, fontPackage: null);
+      IconData(0xe90c, fontFamily: _iWorkFontFam, fontPackage: null);
   static const IconData mechanicFill =
       IconData(0xe920, fontFamily: _iWorkFontFam, fontPackage: null);
   static const IconData mechanicOutline =
-      IconData(0xe91f, fontFamily: _iWorkFontFam, fontPackage: null);
+      IconData(0xe92d, fontFamily: _iWorkFontFam, fontPackage: null);
   static const IconData manualFill =
-      IconData(0xe91d, fontFamily: _iWorkFontFam, fontPackage: null);
+      IconData(0xe92e, fontFamily: _iWorkFontFam, fontPackage: null);
   static const IconData manualOutline =
       IconData(0xe91c, fontFamily: _iWorkFontFam, fontPackage: null);
   static const IconData eCutiFill =
-      IconData(0xe90f, fontFamily: _iWorkFontFam, fontPackage: null);
+      IconData(0xe91f, fontFamily: _iWorkFontFam, fontPackage: null);
   static const IconData eCutiOutline =
-      IconData(0xe90e, fontFamily: _iWorkFontFam, fontPackage: null);
+      IconData(0xe91e, fontFamily: _iWorkFontFam, fontPackage: null);
   static const IconData ballotFill =
       IconData(0xe917, fontFamily: _iWorkFontFam, fontPackage: null);
   static const IconData ballotOutline =
-      IconData(0xe906, fontFamily: _iWorkFontFam, fontPackage: null);
+      IconData(0xe909, fontFamily: _iWorkFontFam, fontPackage: null);
   static const IconData calendarEditFill =
       IconData(0xe91a, fontFamily: _iWorkFontFam, fontPackage: null);
   static const IconData calendarEditOutline =
@@ -65,19 +65,23 @@ class CustomIcon {
   static const IconData menu =
       IconData(0xe921, fontFamily: _iWorkFontFam, fontPackage: null);
   static const IconData arrowRight =
-      IconData(0xe901, fontFamily: _iWorkFontFam, fontPackage: null);
+      IconData(0xe906, fontFamily: _iWorkFontFam, fontPackage: null);
   static const IconData arrowBack =
-      IconData(0xe902, fontFamily: _iWorkFontFam, fontPackage: null);
+      IconData(0xe908, fontFamily: _iWorkFontFam, fontPackage: null);
   static const IconData user =
       IconData(0xe931, fontFamily: _iWorkFontFam, fontPackage: null);
   static const IconData logOut =
       IconData(0xe91b, fontFamily: _iWorkFontFam, fontPackage: null);
   static const IconData check =
-      IconData(0xe908, fontFamily: _iWorkFontFam, fontPackage: null);
+      IconData(0xe90a, fontFamily: _iWorkFontFam, fontPackage: null);
+  static const IconData checkBoxEmpty =
+      IconData(0xe934, fontFamily: _iWorkFontFam, fontPackage: null);
+  static const IconData checkedBox =
+      IconData(0xe90b, fontFamily: _iWorkFontFam, fontPackage: null);
   static const IconData cross =
-      IconData(0xe90c, fontFamily: _iWorkFontFam, fontPackage: null);
+      IconData(0xe90f, fontFamily: _iWorkFontFam, fontPackage: null);
   static const IconData dropdown =
-      IconData(0xe90d, fontFamily: _iWorkFontFam, fontPackage: null);
+      IconData(0xe91d, fontFamily: _iWorkFontFam, fontPackage: null);
   static const IconData edit =
       IconData(0xe910, fontFamily: _iWorkFontFam, fontPackage: null);
   static const IconData exclamation =
@@ -85,7 +89,7 @@ class CustomIcon {
   static const IconData filter =
       IconData(0xe914, fontFamily: _iWorkFontFam, fontPackage: null);
   static const IconData marker =
-      IconData(0xe91e, fontFamily: _iWorkFontFam, fontPackage: null);
+      IconData(0xe92c, fontFamily: _iWorkFontFam, fontPackage: null);
   static const IconData navigation =
       IconData(0xe922, fontFamily: _iWorkFontFam, fontPackage: null);
   static const IconData refresh =
@@ -102,4 +106,10 @@ class CustomIcon {
       IconData(0xe903, fontFamily: _iWorkFontFam, fontPackage: null);
   static const IconData bullet =
       IconData(0xe933, fontFamily: _iWorkFontFam, fontPackage: null);
+  static const IconData collapse =
+      IconData(0xe90d, fontFamily: _iWorkFontFam, fontPackage: null);
+  static const IconData expand =
+      IconData(0xe901, fontFamily: _iWorkFontFam, fontPackage: null);
+  static const IconData recycle =
+      IconData(0xe900, fontFamily: _iWorkFontFam, fontPackage: null);
 }
