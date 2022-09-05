@@ -8,8 +8,9 @@ import '../../utils/custom_icon.dart';
 showLottieAlertDialog(BuildContext context, contents, Function? clearForm) {
   return AlertDialog(
     title: InkWell(
+      highlightColor: white,
       onTap: () {
-        clearForm!();
+        clearForm != null ? clearForm() : null;
         Navigator.pop(context);
       },
       child: Align(
