@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -35,6 +34,8 @@ class _AkbkFormState extends State<AkbkForm> {
   final TextEditingController _driverController = TextEditingController();
   final TextEditingController _dateTimeController = TextEditingController();
   DateTime startInitialDayTime = DateTime(2022);
+
+  late DateTime pickedDate;
 
   @override
   void initState() {
@@ -102,8 +103,7 @@ class _AkbkFormState extends State<AkbkForm> {
                     ],
                   )),
               Padding(
-                padding:
-                    const EdgeInsets.all(15),
+                padding: const EdgeInsets.all(15),
                 child: Column(
                   children: [
                     _buildInactiveTextField(_appliedByController, "Nama"),
@@ -595,39 +595,83 @@ class _AkbkFormState extends State<AkbkForm> {
 
   Future<dynamic> _showDateTime(
       BuildContext context, TextEditingController timeController) {
-    return showModalBottomSheet(
-        isScrollControlled: true,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
-        ),
-        context: context,
-        builder: (builder) {
-          return Container(
-            height: Devices().screenHeight(context) * 0.35,
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Center(
-              child: SizedBox(
-                height: 160,
-                child: CupertinoDatePicker(
-                  minimumDate: DateTime.now().subtract(const Duration(days: 4)),
-                  mode: CupertinoDatePickerMode.dateAndTime,
-                  initialDateTime: _dateTimeController.text != ""
-                      ? startInitialDayTime
-                      : null,
-                  onDateTimeChanged: (DateTime newDateTime) {
-                    setState(() {
-                      startInitialDayTime = newDateTime;
-                      _dateTimeController.text = startInitialDayTime.toString();
-                    });
-                  },
-                ),
+    return showDatePicker(
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: const ColorScheme.light(
+              primary: Colors.green,
+              onPrimary: Colors.white,
+              onSurface: Colors.black45,
+            ),
+            dialogTheme: DialogTheme(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
               ),
             ),
-          );
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                primary: darkGreen,
+              ),
+            ),
+          ),
+          child: child!,
+        );
+      },
+      context: context,
+      locale: const Locale('ms'),
+      initialDate: DateTime.now(),
+      firstDate: DateTime(DateTime.now().year),
+      lastDate: DateTime(DateTime.now().year + 1),
+      initialEntryMode: DatePickerEntryMode.calendarOnly,
+      confirmText: "SETERUSNYA",
+    ).then((date) {
+      if (date != null) {
+        setState(() {
+          pickedDate = date;
         });
+        showTimePicker(
+          context: context,
+          builder: (context, child) {
+            return MediaQuery(
+              data:
+                  MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
+              child: Theme(
+                data: Theme.of(context).copyWith(
+                  colorScheme: const ColorScheme.light(
+                    primary: Colors.green,
+                    onBackground: Colors.green,
+                    onPrimary: Colors.white,
+                  ),
+                  dialogTheme: DialogTheme(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                  ),
+                  textButtonTheme: TextButtonThemeData(
+                    style: TextButton.styleFrom(
+                      primary: darkGreen,
+                    ),
+                  ),
+                ),
+                child: child!,
+              ),
+            );
+          },
+          initialTime: TimeOfDay.now(),
+          cancelText: "BATAL",
+          helpText: "PILIH MASA",
+          confirmText: "OK",
+        ).then((time) {
+          if (time != null) {
+            setState(() {
+              _dateTimeController.text =
+                  '${DateFormat("dd/MM/yyyy").format(pickedDate)} ${time.format(context)}';
+            });
+          }
+        });
+      }
+    });
   }
 
   RichText _textBuilder() {
