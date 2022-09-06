@@ -7,17 +7,17 @@ import '../../utils/custom_icon.dart';
 
 showLottieAlertDialog(BuildContext context, contents, Function? clearForm) {
   return AlertDialog(
-    title: InkWell(
-      highlightColor: white,
-      onTap: () {
-        clearForm != null ? clearForm() : null;
-        Navigator.pop(context);
-      },
-      child: Align(
-        alignment: Alignment.topRight,
+    title: Align(
+      alignment: Alignment.topRight,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(12),
+        onTap: () {
+          clearForm != null ? clearForm() : null;
+          Navigator.pop(context);
+        },
         child: Icon(
           CustomIcon.cross,
-          size: 20,
+          size: 22,
           color: blackCustom,
         ),
       ),
@@ -33,6 +33,6 @@ showLottieAlertDialog(BuildContext context, contents, Function? clearForm) {
       height: MediaQuery.of(context).size.height * 0.3,
       child: CustomDialog(text: contents),
     ),
-    contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+    contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
   );
 }

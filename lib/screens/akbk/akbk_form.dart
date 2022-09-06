@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 //import files
 import '../../config/palette.dart';
 import '../../config/string.dart';
-import '../../utils/date.dart';
+import '../../utils/custom_icon.dart';
 import '../../utils/device.dart';
 import '../../widgets/alert/alert_dialog.dart';
 import '../../widgets/alert/lottie_alert_dialog.dart';
@@ -19,6 +19,10 @@ class AkbkForm extends StatefulWidget {
 }
 
 class _AkbkFormState extends State<AkbkForm> {
+  final TextEditingController _appliedByController = TextEditingController();
+  final TextEditingController _monthYearController = TextEditingController();
+  final TextEditingController _currentDateTimeController =
+      TextEditingController();
   final TextEditingController _stateController = TextEditingController();
 
   final TextEditingController _districtController = TextEditingController();
@@ -33,6 +37,22 @@ class _AkbkFormState extends State<AkbkForm> {
   DateTime startInitialDayTime = DateTime(2022);
 
   @override
+  void initState() {
+    _setMainAkbkText();
+    super.initState();
+  }
+
+  void _setMainAkbkText() {
+    setState(() {
+      _appliedByController.text = "Muhammad Zamzuri Bin Khairuddin M...";
+      _monthYearController.text =
+          DateFormat("MMMM / yyyy", 'ms').format(DateTime.now());
+      _currentDateTimeController.text =
+          DateFormat("yyyy-MM-dd / hh:mm:ss", "ms").format(DateTime.now());
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: white,
@@ -43,80 +63,93 @@ class _AkbkFormState extends State<AkbkForm> {
             children: [
               Padding(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
                   child: Text(
-                    "Arahan Kerja Baik Pulih",
+                    "Lengkapkan maklumat AKBK:",
                     style: TextStyle(
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w400,
                         color: blackCustom,
                         fontSize: 15),
                   )),
               Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Row(
+                    children: [
+                      Container(
+                        height: 18,
+                        width: 16,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4),
+                            color: activeColor),
+                        child: Center(
+                          child: Text(
+                            "1",
+                            style: TextStyle(
+                                color: white,
+                                fontSize: 13,
+                                fontWeight: FontWeight.w600),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Text(
+                        "Arahan Kerja Baik Pulih",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            color: blackCustom,
+                            fontSize: 13),
+                      ),
+                    ],
+                  )),
+              Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: Table(
-                  defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                  columnWidths: const {
-                    0: FlexColumnWidth(0.4),
-                    1: FlexColumnWidth(0.6),
-                  },
+                    const EdgeInsets.all(15),
+                child: Column(
                   children: [
-                    TableRow(children: [
-                      Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: Text("Nama",
-                            style: TextStyle(color: grey500, fontSize: 13)),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: Text("Ahmad",
-                            style: TextStyle(color: black87, fontSize: 13)),
-                      ),
-                    ]),
-                    TableRow(children: [
-                      Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: Text("Bulan / Tahun",
-                            style: TextStyle(color: grey500, fontSize: 13)),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: Text("June / 2022",
-                            style: TextStyle(color: black87, fontSize: 13)),
-                      ),
-                    ]),
-                    TableRow(children: [
-                      Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: Text("Tarikh / Masa",
-                            style: TextStyle(color: grey500, fontSize: 13)),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(5),
-                        child: Text(Date.getTodayDate(),
-                            style: TextStyle(color: black87, fontSize: 13)),
-                      ),
-                    ]),
+                    _buildInactiveTextField(_appliedByController, "Nama"),
+                    const SizedBox(height: 20),
+                    _buildInactiveTextField(
+                        _monthYearController, "Bulan / Tahun"),
+                    const SizedBox(height: 20),
+                    _buildInactiveTextField(
+                        _currentDateTimeController, "Tarikh / Masa"),
                   ],
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Divider(height: 0.6),
-              ),
               Padding(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: Text(
-                    "Maklumat Operasi",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        color: blackCustom,
-                        fontSize: 15),
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                  child: Row(
+                    children: [
+                      Container(
+                        height: 18,
+                        width: 16,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4),
+                            color: activeColor),
+                        child: Center(
+                          child: Text(
+                            "2",
+                            style: TextStyle(
+                                color: white,
+                                fontSize: 13,
+                                fontWeight: FontWeight.w600),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Text(
+                        "Maklumat Operasi",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            color: blackCustom,
+                            fontSize: 13),
+                      ),
+                    ],
                   )),
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                 child: InkWell(
                   borderRadius: BorderRadius.circular(8),
                   onTap: () {
@@ -126,12 +159,12 @@ class _AkbkFormState extends State<AkbkForm> {
                         0.4,
                         _stateController);
                   },
-                  child: _buildInactiveTextForm(_stateController, "Negeri"),
+                  child: _buildInactiveTextDropdown(_stateController, "Negeri"),
                 ),
               ),
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                 child: InkWell(
                   borderRadius: BorderRadius.circular(8),
                   onTap: () {
@@ -141,12 +174,13 @@ class _AkbkFormState extends State<AkbkForm> {
                         0.4,
                         _stateController);
                   },
-                  child: _buildInactiveTextForm(_districtController, "Daerah"),
+                  child:
+                      _buildInactiveTextDropdown(_districtController, "Daerah"),
                 ),
               ),
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                 child: InkWell(
                   borderRadius: BorderRadius.circular(8),
                   onTap: () {
@@ -156,13 +190,13 @@ class _AkbkFormState extends State<AkbkForm> {
                         0.4,
                         _serviceAreaController);
                   },
-                  child: _buildInactiveTextForm(
+                  child: _buildInactiveTextDropdown(
                       _serviceAreaController, "Kawasan Servis"),
                 ),
               ),
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                 child: InkWell(
                   borderRadius: BorderRadius.circular(8),
                   onTap: () {
@@ -172,13 +206,13 @@ class _AkbkFormState extends State<AkbkForm> {
                         0.4,
                         _repairStationController);
                   },
-                  child: _buildInactiveTextForm(
+                  child: _buildInactiveTextDropdown(
                       _repairStationController, "Stesen Kerja Pembaikan"),
                 ),
               ),
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                 child: InkWell(
                   borderRadius: BorderRadius.circular(8),
                   onTap: () {
@@ -188,39 +222,39 @@ class _AkbkFormState extends State<AkbkForm> {
                         0.4,
                         _vehicleNoController);
                   },
-                  child: _buildInactiveTextForm(
+                  child: _buildInactiveTextDropdown(
                       _vehicleNoController, "No. Pendaftaran Kenderaan"),
                 ),
               ),
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                 child: InkWell(
                   borderRadius: BorderRadius.circular(8),
                   onTap: () {
                     showAcceptanceOptions(context, ['1.3cc', '1.5cc', '1.8cc'],
                         0.4, _vehicleTypeController);
                   },
-                  child: _buildInactiveTextForm(
+                  child: _buildInactiveTextDropdown(
                       _vehicleTypeController, "Jenis Kenderaan"),
                 ),
               ),
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                 child: InkWell(
                   borderRadius: BorderRadius.circular(8),
                   onTap: () {
                     showAcceptanceOptions(
                         context, ['Hicom'], 0.4, _vehicleModelController);
                   },
-                  child: _buildInactiveTextForm(
+                  child: _buildInactiveTextDropdown(
                       _vehicleModelController, "Model Kenderaan"),
                 ),
               ),
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                 child: InkWell(
                   borderRadius: BorderRadius.circular(8),
                   onTap: () {
@@ -230,64 +264,81 @@ class _AkbkFormState extends State<AkbkForm> {
                         0.4,
                         _driverController);
                   },
-                  child:
-                      _buildInactiveTextForm(_driverController, "Nama Pemandu"),
+                  child: _buildInactiveTextDropdown(
+                      _driverController, "Nama Pemandu"),
                 ),
               ),
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                 child: InkWell(
                   borderRadius: BorderRadius.circular(8),
                   onTap: () {
                     _showDateTime(context, _dateTimeController);
                   },
-                  child: _buildInactiveTextForm(
+                  child: _buildInactiveTextDropdown(
                       _dateTimeController, "Masa & Tarikh Kejadian"),
                 ),
               ),
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                 child: _buildActiveTextForm(
                     TextInputType.multiline, 10, "Catatan"),
               ),
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Divider(height: 0.6),
-              ),
               Padding(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: Text(
-                    "Odometer",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        color: blackCustom,
-                        fontSize: 15),
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                  child: Row(
+                    children: [
+                      Container(
+                        height: 18,
+                        width: 16,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4),
+                            color: activeColor),
+                        child: Center(
+                          child: Text(
+                            "3",
+                            style: TextStyle(
+                                color: white,
+                                fontSize: 13,
+                                fontWeight: FontWeight.w600),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Text(
+                        "Odometer",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            color: blackCustom,
+                            fontSize: 15),
+                      ),
+                    ],
                   )),
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                 child: _buildActiveTextForm(
                     TextInputType.multiline, 1, "Bacaan semasa Breakdown"),
               ),
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                 child: InkWell(
                   borderRadius: BorderRadius.circular(8),
                   onTap: () {
                     showAcceptanceOptions(context, ['cm', 'inch', 'm', 'km'],
                         0.4, _driverController);
                   },
-                  child:
-                      _buildInactiveTextForm(_driverController, "Unit Ukuran"),
+                  child: _buildInactiveTextDropdown(
+                      _driverController, "Unit Ukuran"),
                 ),
               ),
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                 child: InkWell(
                   borderRadius: BorderRadius.circular(8),
                   onTap: () {
@@ -297,33 +348,50 @@ class _AkbkFormState extends State<AkbkForm> {
                         0.4,
                         _driverController);
                   },
-                  child: _buildInactiveTextForm(
+                  child: _buildInactiveTextDropdown(
                       _driverController, "Keadaan Odometer"),
                 ),
               ),
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                 child: _buildActiveTextForm(
-                    TextInputType.multiline, 10, "Catatan (jika rosak)"),
-              ),
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Divider(height: 0.6),
+                    TextInputType.multiline, 10, "Catatan"),
               ),
               Padding(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: Text(
-                    "AKBK",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        color: blackCustom,
-                        fontSize: 15),
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                  child: Row(
+                    children: [
+                      Container(
+                        height: 18,
+                        width: 16,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4),
+                            color: activeColor),
+                        child: Center(
+                          child: Text(
+                            "4",
+                            style: TextStyle(
+                                color: white,
+                                fontSize: 13,
+                                fontWeight: FontWeight.w600),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Text(
+                        "Butiran Kerosakan",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            color: blackCustom,
+                            fontSize: 15),
+                      ),
+                    ],
                   )),
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                 child: InkWell(
                   borderRadius: BorderRadius.circular(8),
                   onTap: () {
@@ -337,47 +405,13 @@ class _AkbkFormState extends State<AkbkForm> {
                         0.4,
                         _driverController);
                   },
-                  child: _buildInactiveTextForm(
-                      _driverController, "Jenis Kerosakan"),
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Divider(height: 0.6),
-              ),
-              Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: Text(
-                    "Butir-butir Kerosakan/Isu",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        color: blackCustom,
-                        fontSize: 15),
-                  )),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(8),
-                  onTap: () {
-                    showAcceptanceOptions(
-                        context,
-                        [
-                          'Kerosakan Kenderaan',
-                          'Penyelenggaraan Kenderaan',
-                          'Kerosakan Tayar'
-                        ],
-                        0.4,
-                        _driverController);
-                  },
-                  child: _buildInactiveTextForm(
+                  child: _buildInactiveTextDropdown(
                       _driverController, "Jenis Kerosakan"),
                 ),
               ),
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                 child: InkWell(
                   borderRadius: BorderRadius.circular(8),
                   onTap: () {
@@ -391,12 +425,12 @@ class _AkbkFormState extends State<AkbkForm> {
                         0.4,
                         _driverController);
                   },
-                  child: _buildInactiveTextForm(_driverController, "Kod"),
+                  child: _buildInactiveTextDropdown(_driverController, "Kod"),
                 ),
               ),
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                 child: _buildActiveTextForm(
                     TextInputType.multiline, 10, "Catatan (jika rosak)"),
               ),
@@ -404,7 +438,7 @@ class _AkbkFormState extends State<AkbkForm> {
           ),
         ),
         bottomNavigationBar: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
           decoration: BoxDecoration(
             color: white,
             boxShadow: [
@@ -429,7 +463,7 @@ class _AkbkFormState extends State<AkbkForm> {
                   minimumSize: MaterialStateProperty.all(
                       Size(Devices().screenWidth(context), 41)),
                   backgroundColor: MaterialStateProperty.all(green)),
-              child: Text('Hantar',
+              child: Text('Hantar Borang',
                   style: TextStyle(
                       color: white, fontSize: 14, fontWeight: FontWeight.w700)),
               onPressed: () {
@@ -446,11 +480,6 @@ class _AkbkFormState extends State<AkbkForm> {
                           return showLottieAlertDialog(
                               context, _textBuilder(), null);
                         });
-                    // Navigator.push(
-                    //     context,
-                    //     PageTransition(
-                    //         child: CustomDialog(text: _textBuilder()),
-                    //         type: PageTransitionType.fade));
                   }
                 });
               },
@@ -482,24 +511,54 @@ class _AkbkFormState extends State<AkbkForm> {
         ),
         border: const OutlineInputBorder(),
         focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(4),
             borderSide: BorderSide(color: green)),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: green),
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(4),
         ),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
             width: 0.5,
             color: grey500,
           ),
-          borderRadius: BorderRadius.circular(borderRadiusCircular),
+          borderRadius: BorderRadius.circular(4),
         ),
       ),
     );
   }
 
-  TextFormField _buildInactiveTextForm(
+  TextFormField _buildInactiveTextField(
+      TextEditingController controller, String label) {
+    return TextFormField(
+      controller: controller,
+      readOnly: true,
+      enabled: false,
+      style: TextStyle(
+          color: blackCustom, fontSize: 15, fontWeight: FontWeight.w400),
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: fillColor,
+        contentPadding:
+            const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+        labelText: label,
+        labelStyle: TextStyle(
+          fontSize: 14,
+          color: labelColor,
+          fontWeight: FontWeight.w400,
+        ),
+        disabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            width: 0.5,
+            color: borderTextColor,
+          ),
+          borderRadius: BorderRadius.circular(4),
+        ),
+      ),
+    );
+  }
+
+  TextFormField _buildInactiveTextDropdown(
       TextEditingController controller, String label) {
     return TextFormField(
       controller: controller,
@@ -512,9 +571,9 @@ class _AkbkFormState extends State<AkbkForm> {
         contentPadding:
             const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
         suffixIcon: Icon(
-          Icons.keyboard_arrow_down_rounded,
+          CustomIcon.dropdown,
           size: 16,
-          color: black87,
+          color: blackCustom,
         ),
         labelText: label,
         labelStyle: TextStyle(
@@ -584,11 +643,11 @@ class _AkbkFormState extends State<AkbkForm> {
             children: <TextSpan>[
               TextSpan(
                   text:
-                      " ${DateFormat("dd MMMM yyyy", 'ms').format(DateTime.now())} \n",
+                      "\n ${DateFormat("dd MMMM yyyy", 'ms').format(DateTime.now())}",
                   style: TextStyle(
                       fontSize: 15, fontWeight: FontWeight.w400, color: green)),
               TextSpan(
-                  text: " telah berjaya dihantar kepada pihak mekanik",
+                  text: " telah berjaya dihantar \nkepada pihak mekanik.",
                   style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
