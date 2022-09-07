@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 
 //import files
-import '../../config/font.dart';
-import '../../config/palette.dart';
-import '../../models/akbk.dart';
-import '../../widgets/container/status_container.dart';
+import '../../../config/font.dart';
+import '../../../config/palette.dart';
+import '../../../models/akbk.dart';
+import '../../../widgets/container/status_container.dart';
 
-class AkbkListRecordDetails extends StatefulWidget {
+class AkbkRecordListDetails extends StatefulWidget {
   final Akbk data;
 
-  const AkbkListRecordDetails({Key? key, required this.data}) : super(key: key);
+  const AkbkRecordListDetails({Key? key, required this.data}) : super(key: key);
 
   @override
-  State<AkbkListRecordDetails> createState() => _AkbkListRecordDetailsState();
+  State<AkbkRecordListDetails> createState() => _AkbkRecordListDetailsState();
 }
 
-class _AkbkListRecordDetailsState extends State<AkbkListRecordDetails> {
+class _AkbkRecordListDetailsState extends State<AkbkRecordListDetails> {
   @override
   Widget build(BuildContext context) {
     return Column(
