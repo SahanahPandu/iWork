@@ -20,8 +20,8 @@
         "fuel": {
           "liter": 20,
           "rm": 45,
-          "resit": 15,
-          "fleetCard": 2,
+          "resit": "Ya",
+          "fleetCard": "Ya",
           "noFleetCard": 12154,
           "fuelLevel": 80
         },
@@ -116,8 +116,8 @@
         "fuel": {
           "liter": 70,
           "rm": 50,
-          "resit": 15,
-          "fleetCard": 2,
+          "resit": "Ya",
+          "fleetCard": "Ya",
           "noFleetCard": 12154,
           "fuelLevel": 20
         },
@@ -223,8 +223,8 @@
         "fuel": {
           "liter": 50,
           "rm": 65,
-          "resit": 65,
-          "fleetCard": 4,
+          "resit": "Ya",
+          "fleetCard": "Ya",
           "noFleetCard": 78452,
           "fuelLevel": 90
         },
@@ -319,8 +319,8 @@
         "fuel": {
           "liter": 20,
           "rm": 45,
-          "resit": 15,
-          "fleetCard": 2,
+          "resit": "Ya",
+          "fleetCard": "Ya",
           "noFleetCard": 12154,
           "fuelLevel": 80
         },

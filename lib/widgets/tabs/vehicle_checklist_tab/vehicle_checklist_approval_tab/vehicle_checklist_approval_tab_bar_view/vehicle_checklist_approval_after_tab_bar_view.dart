@@ -6,8 +6,8 @@ import '../../../../../screens/vehicle_checklist/vehicle_checklist_approval/vehi
 
 class VehicleChecklistApprovalAfterTabbarView extends StatefulWidget {
   final VehicleChecklist data;
-  const VehicleChecklistApprovalAfterTabbarView(
-      {Key? key, required this.data})
+
+  const VehicleChecklistApprovalAfterTabbarView({Key? key, required this.data})
       : super(key: key);
 
   @override

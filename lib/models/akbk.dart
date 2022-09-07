@@ -3,10 +3,12 @@ class Akbk {
   final String status;
   final int statusId;
   final int reportId;
+  final String laluan;
   final String vehicleNo;
   final String akbkNo;
   final String breakdownType;
   final String date;
+  final String time;
   final String odoReading;
   final String unitMeasure;
   final String odoCondition;
@@ -33,10 +35,12 @@ class Akbk {
       required this.status,
       required this.statusId,
       required this.reportId,
+      required this.laluan,
       required this.vehicleNo,
       required this.akbkNo,
       required this.breakdownType,
       required this.date,
+      required this.time,
       required this.odoReading,
       required this.unitMeasure,
       required this.odoCondition,
@@ -63,10 +67,12 @@ class Akbk {
         status: json['status'],
         statusId: json['statusId'],
         reportId: json['reportId'],
+        laluan: json['laluan'],
         vehicleNo: json['vehicleNo'],
         akbkNo: json['akbkNo'],
         breakdownType: json['breakdownType'],
         date: json['date'],
+        time: json['time'],
         odoReading: json['odoReading'],
         unitMeasure: json['unitMeasure'],
         odoCondition: json['odoCondition'],

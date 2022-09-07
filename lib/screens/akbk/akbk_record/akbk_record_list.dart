@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
 //import files
-import '../../config/palette.dart';
-import '../../providers/akbk_api.dart';
-import 'akbk_list_record_details.dart';
+import '../../../config/palette.dart';
+import '../../../providers/akbk_api.dart';
+import 'akbk_record_list_details.dart';
 
-class AkbkListRecord extends StatefulWidget {
-  const AkbkListRecord({Key? key}) : super(key: key);
+class AkbkRecordList extends StatefulWidget {
+  const AkbkRecordList({Key? key}) : super(key: key);
 
   @override
-  State<AkbkListRecord> createState() => _AkbkListRecordState();
+  State<AkbkRecordList> createState() => _AkbkRecordListState();
 }
 
-class _AkbkListRecordState extends State<AkbkListRecord> {
+class _AkbkRecordListState extends State<AkbkRecordList> {
   late Future<List> _loadAkbkData;
 
   @override
@@ -80,7 +80,7 @@ class _AkbkListRecordState extends State<AkbkListRecord> {
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
                                             vertical: 10),
-                                        child: AkbkListRecordDetails(
+                                        child: AkbkRecordListDetails(
                                           data: dataFuture[index],
                                         ),
                                       )),

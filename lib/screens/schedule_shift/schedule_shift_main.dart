@@ -7,6 +7,7 @@ import '../../config/string.dart';
 import '../../utils/custom_icon.dart';
 import '../../utils/device.dart';
 import '../../widgets/alert/alert_dialog.dart';
+import '../../widgets/alert/lottie_alert_dialog.dart';
 import '../../widgets/alert/toast.dart';
 
 class ScheduleShiftMain extends StatefulWidget {
@@ -312,17 +313,50 @@ class _ScheduleShiftMainState extends State<ScheduleShiftMain> {
                               confirmation,
                               "Anjakan akan memberi kesan kepada semua hal berkaitan penjadualan. Anda pasti untuk sahkan Anjakan Jadual untuk tarikh ${_startDateController.text} kepada ${_endDateController.text}?",
                               "Tidak",
-                              "Ya, Sahkan");
+                              "Hantar");
                         }).then((actionText) {
-                        if (actionText == "Sahkan") {
-                          Navigator.pop(context);
+                        if (actionText == "Hantar") {
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return showLottieAlertDialog(
+                                    context, _textBuilder(), null);
+                              });
                         }
                       })
                     : showErrorToast(context,
-                        "Sila isikan borang terlebih dahulu sebelum Sahkan");
+                        "Sila isikan borang terlebih dahulu sebelum hantar");
               },
             ),
           ),
         ));
+  }
+
+  RichText _textBuilder() {
+    return RichText(
+        textAlign: TextAlign.center,
+        text: TextSpan(
+            text: "Anjakan Tugasan anda pada",
+            style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w400,
+                color: greyCustom,
+                height: 1.5),
+            children: <TextSpan>[
+              TextSpan(
+                  text: "\n ${_startDateController.text}",
+                  style: TextStyle(
+                      fontSize: 15, fontWeight: FontWeight.w400, color: green)),
+              TextSpan(
+                  text: " telah berjaya dianjakkan \npada ",
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      color: greyCustom)),
+              TextSpan(
+                  text: _endDateController.text,
+                  style: TextStyle(
+                      fontSize: 15, fontWeight: FontWeight.w400, color: green))
+            ]));
   }
 }
