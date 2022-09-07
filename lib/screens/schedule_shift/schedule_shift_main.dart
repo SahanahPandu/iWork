@@ -41,8 +41,7 @@ class _ScheduleShiftMainState extends State<ScheduleShiftMain> {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                icon: Icon(CustomIcon.arrowBack,
-                    color: blackCustom, size: 22),
+                icon: Icon(CustomIcon.arrowBack, color: blackCustom, size: 22),
               ),
               title: Center(
                 child: Text(
@@ -76,7 +75,7 @@ class _ScheduleShiftMainState extends State<ScheduleShiftMain> {
                   padding: const EdgeInsets.only(
                       left: 20, right: 20, top: 20, bottom: 10),
                   child: Text(
-                    "Anjakan Jadual",
+                    "Lengkapkan borang Anjakan Jadual:",
                     style: TextStyle(
                         color: blackCustom,
                         fontSize: 15,
@@ -89,22 +88,38 @@ class _ScheduleShiftMainState extends State<ScheduleShiftMain> {
                   child: InkWell(
                     borderRadius: BorderRadius.circular(8),
                     onTap: () async {
-                      DateTime? startDate = await showDatePicker(
-                        cancelText: "Batal",
-                        confirmText: "Ya",
-                        helpText: "Pilih Tarikh",
+                      showDatePicker(
+                        builder: (context, child) {
+                          return Theme(
+                            data: Theme.of(context).copyWith(
+                              colorScheme: ColorScheme.light(
+                                primary: green,
+                                onPrimary: white,
+                                onSurface: black45,
+                              ),
+                              textButtonTheme: TextButtonThemeData(
+                                style: TextButton.styleFrom(
+                                  primary: darkGreen, // button text color
+                                ),
+                              ),
+                            ),
+                            child: child!,
+                          );
+                        },
                         context: context,
+                        locale: const Locale('ms'),
                         initialDate: DateTime.now(),
                         firstDate: DateTime(DateTime.now().year),
                         lastDate: DateTime(DateTime.now().year + 1),
                         initialEntryMode: DatePickerEntryMode.calendarOnly,
-                      );
-                      if (startDate != null) {
-                        setState(() {
-                          _startDateController.text =
-                              DateFormat("dd/MM/yyyy").format(startDate);
-                        });
-                      }
+                      ).then((value) {
+                        if (value != null) {
+                          setState(() {
+                            _startDateController.text =
+                                DateFormat("dd/MM/yyyy").format(value);
+                          });
+                        }
+                      });
                     },
                     child: TextFormField(
                       controller: _startDateController,
@@ -145,22 +160,38 @@ class _ScheduleShiftMainState extends State<ScheduleShiftMain> {
                   child: InkWell(
                     borderRadius: BorderRadius.circular(8),
                     onTap: () async {
-                      DateTime? endDate = await showDatePicker(
-                        cancelText: "Batal",
-                        confirmText: "Ya",
-                        helpText: "Pilih Tarikh",
+                      showDatePicker(
+                        builder: (context, child) {
+                          return Theme(
+                            data: Theme.of(context).copyWith(
+                              colorScheme: ColorScheme.light(
+                                primary: green,
+                                onPrimary: white,
+                                onSurface: black45,
+                              ),
+                              textButtonTheme: TextButtonThemeData(
+                                style: TextButton.styleFrom(
+                                  primary: darkGreen, // button text color
+                                ),
+                              ),
+                            ),
+                            child: child!,
+                          );
+                        },
                         context: context,
+                        locale: const Locale('ms'),
                         initialDate: DateTime.now(),
                         firstDate: DateTime(DateTime.now().year),
                         lastDate: DateTime(DateTime.now().year + 1),
                         initialEntryMode: DatePickerEntryMode.calendarOnly,
-                      );
-                      if (endDate != null) {
-                        setState(() {
-                          _endDateController.text =
-                              DateFormat("dd/MM/yyyy").format(endDate);
-                        });
-                      }
+                      ).then((value) {
+                        if (value != null) {
+                          setState(() {
+                            _endDateController.text =
+                                DateFormat("dd/MM/yyyy").format(value);
+                          });
+                        }
+                      });
                     },
                     child: TextFormField(
                       controller: _endDateController,
