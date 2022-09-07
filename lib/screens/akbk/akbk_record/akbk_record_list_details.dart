@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../config/font.dart';
 import '../../../config/palette.dart';
 import '../../../models/akbk.dart';
+import '../../../utils/custom_icon.dart';
 import '../../../widgets/container/status_container.dart';
 
 class AkbkRecordListDetails extends StatefulWidget {
@@ -24,7 +25,7 @@ class _AkbkRecordListDetailsState extends State<AkbkRecordListDetails> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+              padding: const EdgeInsets.all(15),
               child: Text(
                 widget.data.vehicleNo,
                 style: TextStyle(
@@ -42,16 +43,74 @@ class _AkbkRecordListDetailsState extends State<AkbkRecordListDetails> {
           ],
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('No. AKBK',
+              Row(
+                children: [
+                  Icon(CustomIcon.timerFill, color: activeColor, size: 16),
+                  const SizedBox(width: 10),
+                  Text('Tarikh & Masa',
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: greyCustom,
+                        fontWeight: FontWeight.w400,
+                      )),
+                ],
+              ),
+              Text('${widget.data.date}, ${widget.data.time}',
                   style: TextStyle(
                     fontSize: 15,
-                    color: greyCustom,
-                    fontWeight: FontWeight.w400,
+                    color: blackCustom,
+                    fontWeight: FontWeight.w600,
                   )),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Icon(CustomIcon.tamanFill, color: activeColor, size: 16),
+                  const SizedBox(width: 10),
+                  Text('Laluan',
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: greyCustom,
+                        fontWeight: FontWeight.w400,
+                      )),
+                ],
+              ),
+              Text(widget.data.laluan,
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: blackCustom,
+                    fontWeight: FontWeight.w600,
+                  )),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Icon(CustomIcon.roadFill, color: activeColor, size: 16),
+                  const SizedBox(width: 10),
+                  Text('No. AKBK',
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: greyCustom,
+                        fontWeight: FontWeight.w400,
+                      )),
+                ],
+              ),
               Text(widget.data.akbkNo,
                   style: TextStyle(
                     fontSize: 15,
@@ -62,37 +121,23 @@ class _AkbkRecordListDetailsState extends State<AkbkRecordListDetails> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+          padding: const EdgeInsets.fromLTRB(15, 8, 15, 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Jenis Kerosakan',
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: greyCustom,
-                    fontWeight: FontWeight.w400,
-                  )),
+              Row(
+                children: [
+                  Icon(CustomIcon.exclamation, color: activeColor, size: 16),
+                  const SizedBox(width: 10),
+                  Text('Jenis Kerosakan',
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: greyCustom,
+                        fontWeight: FontWeight.w400,
+                      )),
+                ],
+              ),
               Text(widget.data.breakdownType,
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: blackCustom,
-                    fontWeight: FontWeight.w600,
-                  )),
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(15, 5, 15, 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('Tarikh',
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: greyCustom,
-                    fontWeight: FontWeight.w400,
-                  )),
-              Text(widget.data.date,
                   style: TextStyle(
                     fontSize: 15,
                     color: blackCustom,
