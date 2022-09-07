@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import '../../config/config.dart';
 import '../../config/font.dart';
 import '../../config/palette.dart';
-import '../../providers/halangan_api.dart';
+import '../../providers/jalan_api.dart';
 import '../../utils/device.dart';
 
-class ListOfObstacles extends StatefulWidget {
+class ListOfRoadTextFormField extends StatefulWidget {
   final String text;
   final String hintText;
   final double fontSize;
@@ -16,7 +16,7 @@ class ListOfObstacles extends StatefulWidget {
   final String data;
   final String? screen;
 
-  const ListOfObstacles(
+  const ListOfRoadTextFormField(
       {Key? key,
       required this.text,
       required this.hintText,
@@ -28,28 +28,28 @@ class ListOfObstacles extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<ListOfObstacles> createState() => _ListOfObstaclesState();
+  State<ListOfRoadTextFormField> createState() =>
+      _ListOfRoadTextFormFieldState();
 }
 
-class _ListOfObstaclesState extends State<ListOfObstacles> {
-  final TextEditingController _jenisHalangan = TextEditingController();
+class _ListOfRoadTextFormFieldState extends State<ListOfRoadTextFormField> {
+  final TextEditingController _namaJalan = TextEditingController();
   final Devices _device = Devices();
 
-  int totalHalangan = 0;
+  int totalJalan = 0;
 
   getTotalData() {
-    HalanganApi.getHalanganData(context).then((value) {
+    JalanApi.getJalanData(context).then((value) {
       if (value.isNotEmpty) {
         setState(() {
-          totalHalangan = value.length;
+          totalJalan = value.length;
         });
       }
     });
 
     if (widget.data != "") {
-      // this is for get data from list and pass to form , to show pass data in text field
       setState(() {
-        _jenisHalangan.text = widget.data;
+        _namaJalan.text = widget.data;
       });
     }
   }
@@ -67,7 +67,7 @@ class _ListOfObstaclesState extends State<ListOfObstacles> {
           userRole == 100 ? BorderRadius.circular(borderRadiusCircular) : null,
       onTap: () {
         if (widget.iconCondition == 1) {
-          showListOfObstacles();
+          showListOfRoads();
         }
       },
       child: TextFormField(
@@ -76,7 +76,7 @@ class _ListOfObstaclesState extends State<ListOfObstacles> {
           color: Color(0xff2B2B2B),
           fontWeight: FontWeight.w400,
         ),
-        controller: _jenisHalangan,
+        controller: _namaJalan,
         readOnly: true,
         enabled: false,
         decoration: InputDecoration(
@@ -100,7 +100,7 @@ class _ListOfObstaclesState extends State<ListOfObstacles> {
               : null,
           label: Container(
             color: Colors.white,
-            child: const Text('Halangan'),
+            child: const Text('Jalan'),
           ),
           labelStyle: TextStyle(
             fontSize: widget.fontSize,
@@ -110,20 +110,21 @@ class _ListOfObstaclesState extends State<ListOfObstacles> {
           disabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
               width: borderSideWidth,
-              color: _jenisHalangan.text != '' &&
+              color: _namaJalan.text != '' &&
                       widget.iconCondition == 1 &&
                       widget.screen == null
                   ? (userRole == 100 ? grey100 : enabledBorderWithText)
                   : (userRole == 100 ? grey100 : enabledBorderWithoutText),
             ),
             borderRadius: BorderRadius.circular(borderRadiusCircular),
+            gapPadding: 6.0,
           ),
         ),
       ),
     );
   }
 
-  Widget? showListOfObstacles() {
+  Widget? showListOfRoads() {
     showModalBottomSheet(
         isScrollControlled: true,
         shape: const RoundedRectangleBorder(
@@ -146,38 +147,23 @@ class _ListOfObstaclesState extends State<ListOfObstacles> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(
-                  height: 2,
-                ),
-                const Divider(
-                  thickness: 1,
-                  color: Color(0xff969696),
-                  indent: 170,
-                  endIndent: 170,
-                ),
-                const Padding(
+                Padding(
                   padding: EdgeInsets.only(
-                    top: 24,
-                    left: 24,
-                    bottom: 16,
+                    top: userRole == 100 ? 30 : 25,
+                    left: userRole == 100 ? 30 : 25,
+                    bottom: 10,
                   ),
                   child: Text(
-                    "Pilih  Halangan",
+                    "${totalJalan.toString()} Senarai Jalan",
                     style: TextStyle(
-                      color: Color(0xff969696),
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
+                      color: Colors.grey.shade500,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),
-                const Divider(
-                  thickness: 1,
-                  color: Color(0xffE5E5E5),
-                  indent: 25,
-                  endIndent: 25,
-                ),
                 FutureBuilder<List>(
-                  future: HalanganApi.getHalanganData(context),
+                  future: JalanApi.getJalanData(context),
                   builder: (context, snapshot) {
                     final dataFuture = snapshot.data;
 
@@ -193,55 +179,64 @@ class _ListOfObstaclesState extends State<ListOfObstacles> {
                             child: Text("Some error occured!"),
                           );
                         } else {
-                          if (dataFuture!.isEmpty) {
-                            return Center(
-                              child: Container(
-                                margin: const EdgeInsets.all(20),
-                                child: const Text("Tiada data"),
+                          return Expanded(
+                            child: Container(
+                              margin: const EdgeInsets.symmetric(
+                                horizontal: 10,
                               ),
-                            );
-                          } else {
-                            return Expanded(
-                              child: Container(
-                                margin: const EdgeInsets.symmetric(
-                                  horizontal: 10,
-                                ),
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 10),
-                                child: ListView.builder(
-                                  physics: userRole == 100
-                                      ? const BouncingScrollPhysics()
-                                      : const ScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemCount: dataFuture.length,
-                                  itemBuilder: (context, index) {
-                                    return InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          _jenisHalangan.text =
-                                              dataFuture[index].namaHalangan;
+                              padding: userRole == 100
+                                  ? const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 10)
+                                  : const EdgeInsets.all(6),
+                              child: ListView.builder(
+                                physics: userRole == 100
+                                    ? const BouncingScrollPhysics()
+                                    : const ScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: dataFuture!.length,
+                                itemBuilder: (context, index) {
+                                  return InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        _namaJalan.text =
+                                            dataFuture[index].namaJalan;
 
-                                          Navigator.pop(context);
-                                        });
-                                      },
-                                      child: Container(
-                                        margin: const EdgeInsets.symmetric(
-                                            vertical: 12),
-                                        child: Text(
-                                          dataFuture[index].namaHalangan,
-                                          style: TextStyle(
-                                            color: blackCustom,
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.w400,
+                                        Navigator.pop(context);
+                                      });
+                                    },
+                                    child: Container(
+                                      margin: userRole == 100
+                                          ? null
+                                          : const EdgeInsets.symmetric(
+                                              vertical: 12),
+                                      padding: userRole == 100
+                                          ? const EdgeInsets.symmetric(
+                                              vertical: 23, horizontal: 5)
+                                          : const EdgeInsets.all(6),
+                                      decoration: BoxDecoration(
+                                        border: Border(
+                                          top: BorderSide.none,
+                                          bottom: BorderSide(
+                                            color: grey400,
+                                            width: userRole == 100 ? 0.3 : 0.9,
+                                            style: BorderStyle.solid,
                                           ),
                                         ),
                                       ),
-                                    );
-                                  },
-                                ),
+                                      child: Text(
+                                        dataFuture[index].namaJalan,
+                                        style: const TextStyle(
+                                          color: Colors.black87,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
                               ),
-                            );
-                          }
+                            ),
+                          );
                         }
                     }
                   },

@@ -706,7 +706,7 @@ class _LeaveFormState extends State<LeaveForm> {
             controller: _catatan,
             minLines: 1,
             maxLines: 5,
-            enabled: (widget.screen == "2") ? false : true,
+            enabled: false,
             cursorColor: green,
             focusNode: _catatanFocusNode,
             onTap: () {

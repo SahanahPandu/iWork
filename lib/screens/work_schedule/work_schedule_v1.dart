@@ -127,8 +127,6 @@ class _WorkScheduleState extends State<WorkSchedule> {
                       child: ListOfSubRoutes(
                         hintText: 'Senarai Sub Laluan',
                         fontSize: userRole == 200 ? 18 : 15,
-                        borderCondition: userRole == 200 ? 0 : 1,
-                        //no border
                         fillColor: userRole == 200
                             ? textFormFieldFillColor
                             : fillColor,
@@ -153,8 +151,6 @@ class _WorkScheduleState extends State<WorkSchedule> {
                         showSenaraiJalan: updateShowSenaraiJalan,
                         hintText: 'Senarai Taman',
                         fontSize: userRole == 200 ? 18 : 15,
-                        borderCondition: userRole == 200 ? 0 : 1,
-                        //no border
                         fillColor: userRole == 200
                             ? textFormFieldFillColor
                             : fillColor,

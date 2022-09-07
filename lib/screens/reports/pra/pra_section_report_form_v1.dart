@@ -36,22 +36,25 @@ class _PraSectionReportFormState extends State<PraSectionReportForm> {
   Color focusBorderColor = focusedBorder;
   Color enableBorderWithTextColor = enabledBorderWithText;
   int iconCondition = 1;
+  int borderCondition = 1;
   String namaTaman = "";
   String namaJalan = "";
   String jenisHalangan = "";
   String subLaluan = "";
   File? gambarLampiran;
-
+  String formTitleText = "Sila isikan laporan di bawah";
   double spacingHeight = userRole == 100 ? 25 : 20;
 
   loadData() {
     if (widget.screen == "4") {
       //from report list
       setState(() {
+        formTitleText = "Butiran Laporan";
         textFieldFillColor = textFormFieldFillColor;
         focusBorderColor = Colors.grey.shade300;
         enableBorderWithTextColor = Colors.grey.shade300;
         iconCondition = 0;
+        borderCondition = 0;
 
         if (widget.data!.namaSubLaluan != "") {
           subLaluan = widget.data!.namaSubLaluan;
@@ -97,22 +100,24 @@ class _PraSectionReportFormState extends State<PraSectionReportForm> {
       ],
       child: GestureDetector(
         onTap: () {
-          if (widget.screen != "4") {
-            // only applicable for new form
-            widget.updateButton!(true);
-          }
+          widget.updateButton!(true);
         },
         onVerticalDragDown: (DragDownDetails details) {
-          if (widget.screen != "4") {
-            // only applicable for new form
-            widget.updateButton!(true);
-          }
+          widget.updateButton!(true);
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Text(
+              formTitleText,
+              style: const TextStyle(
+                color: Color(0xff2B2B2B),
+                fontSize: 15,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
             SizedBox(
-              height: spacingHeight,
+              height: userRole == 100 ? 30 : 15,
             ),
             //Sub Laluan
             ListOfSubRoutes(
@@ -224,68 +229,52 @@ class _PraSectionReportFormState extends State<PraSectionReportForm> {
               height: spacingHeight,
             ),
             //catatan
-            Padding(
-              padding: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).viewInsets.bottom),
-              child: TextFormField(
-                controller: _catatan,
-                minLines: 1,
-                maxLines: 3,
-                enabled: (widget.screen == "4") ? false : true,
-                cursorColor: green,
-                focusNode: _catatanFocusNode,
-                onTap: () {
-                  FocusScope.of(context).requestFocus(_catatanFocusNode);
-                  widget.updateButton!(false);
-                },
-                textInputAction: TextInputAction.done,
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: textFieldFillColor,
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      width: borderSideWidth,
-                      color: focusBorderColor,
-                    ),
-                    borderRadius: BorderRadius.circular(borderRadiusCircular),
+            TextFormField(
+              controller: _catatan,
+              minLines: 1,
+              maxLines: 3,
+              enabled: (widget.screen == "4") ? false : true,
+              cursorColor: green,
+              focusNode: _catatanFocusNode,
+              onTap: () {
+                FocusScope.of(context).requestFocus(_catatanFocusNode);
+                widget.updateButton!(false);
+              },
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: textFieldFillColor,
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    width: borderSideWidth,
+                    color: focusBorderColor,
                   ),
-                  enabledBorder: _catatan.text != ''
-                      ? OutlineInputBorder(
-                          borderSide: BorderSide(
-                            width: borderSideWidth,
-                            color: enableBorderWithTextColor,
-                          ),
-                          borderRadius:
-                              BorderRadius.circular(borderRadiusCircular),
-                        )
-                      : OutlineInputBorder(
-                          borderSide: BorderSide(
-                            width: borderSideWidth,
-                            color: enabledBorderWithoutText,
-                          ),
-                          borderRadius:
-                              BorderRadius.circular(borderRadiusCircular),
-                        ),
-                  disabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      width: borderSideWidth,
-                      color:
-                          userRole == 100 ? grey100 : enabledBorderWithoutText,
-                    ),
-                    borderRadius: BorderRadius.circular(borderRadiusCircular),
-                  ),
-                  alignLabelWithHint: true,
-                  floatingLabelAlignment: FloatingLabelAlignment.start,
-                  label: Container(
-                    color: Colors.white,
-                    child: const Text("Catatan"),
-                  ),
-                  labelStyle: TextStyle(
-                    fontSize: 15,
-                    color: labelTextColor,
-                    fontWeight: textFormFieldLabelFontWeight,
-                  ),
+                  borderRadius: BorderRadius.circular(borderRadiusCircular),
                 ),
+                enabledBorder: _catatan.text != ''
+                    ? OutlineInputBorder(
+                        borderSide: BorderSide(
+                          width: borderSideWidth,
+                          color: enableBorderWithTextColor,
+                        ),
+                        borderRadius:
+                            BorderRadius.circular(borderRadiusCircular),
+                      )
+                    : OutlineInputBorder(
+                        borderSide: BorderSide(
+                          width: borderSideWidth,
+                          color: enabledBorderWithoutText,
+                        ),
+                        borderRadius:
+                            BorderRadius.circular(borderRadiusCircular),
+                      ),
+                labelText: _catatan.text == '' ? 'Catatan' : null,
+                labelStyle: _catatan.text == ''
+                    ? TextStyle(
+                        color: labelTextColor,
+                        fontWeight: textFormFieldLabelFontWeight,
+                      )
+                    : null,
+                contentPadding: const EdgeInsets.all(15),
               ),
             ),
           ],

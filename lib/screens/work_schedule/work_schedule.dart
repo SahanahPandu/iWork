@@ -128,7 +128,6 @@ class _WorkScheduleState extends State<WorkSchedule> {
                     child: ListOfSubRoutes(
                       hintText: 'Sub-Laluan',
                       fontSize: 15,
-                      borderCondition: 1,
                       fillColor: Colors.white,
                       iconCondition: iconCondition,
                       data: "",
@@ -149,7 +148,6 @@ class _WorkScheduleState extends State<WorkSchedule> {
                         showSenaraiJalan: updateShowSenaraiJalan,
                         hintText: 'Senarai Taman',
                         fontSize: 15,
-                        borderCondition: 1,
                         fillColor: Colors.white,
                         iconCondition: iconCondition,
                         data: "",

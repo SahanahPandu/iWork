@@ -10,7 +10,6 @@ import '../../utils/device.dart';
 class ListOfSubRoutes extends StatefulWidget {
   final String hintText;
   final double fontSize;
-  final int borderCondition;
   final Color fillColor;
   final int iconCondition;
   final String data;
@@ -21,7 +20,6 @@ class ListOfSubRoutes extends StatefulWidget {
     Key? key,
     required this.hintText,
     required this.fontSize,
-    required this.borderCondition,
     required this.fillColor,
     required this.iconCondition,
     required this.data,
@@ -70,14 +68,20 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
         }
       },
       child: TextFormField(
+        style: const TextStyle(
+          fontSize: 15,
+          color: Color(0xff2B2B2B),
+          fontWeight: FontWeight.w400,
+        ),
         controller: _namaSubLaluan,
         readOnly: true,
         enabled: false,
         decoration: InputDecoration(
           filled: true,
           fillColor: widget.fillColor,
-          contentPadding:
-              const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+          contentPadding: userRole == 100
+              ? const EdgeInsets.symmetric(vertical: 15, horizontal: 20)
+              : const EdgeInsets.all(8),
           hintText: widget.hintText,
           hintStyle: TextStyle(
             fontSize: widget.fontSize,
@@ -91,27 +95,24 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
                   color: Color(0xff2B2B2B),
                 )
               : null,
-          labelText: widget.borderCondition == 1 && widget.iconCondition == 1
-              ? widget.hintText
-              : null,
-          labelStyle: widget.borderCondition == 1 && widget.iconCondition == 1
-              ? TextStyle(
-                  fontSize: widget.fontSize,
-                  color: labelTextColor,
-                  fontWeight: textFormFieldLabelFontWeight,
-                )
-              : null,
+          label: Container(
+            color: Colors.white,
+            child: const Text('Sub-Laluan'),
+          ),
+          labelStyle: TextStyle(
+            fontSize: widget.fontSize,
+            color: labelTextColor,
+            fontWeight: textFormFieldLabelFontWeight,
+          ),
           disabledBorder: OutlineInputBorder(
-            borderSide: widget.borderCondition == 0
-                ? BorderSide.none
-                : BorderSide(
-                    width: borderSideWidth,
-                    color: _namaSubLaluan.text != '' &&
-                            widget.iconCondition == 1 &&
-                            widget.screen == null
-                        ? (enabledBorderWithText)
-                        : (enabledBorderWithoutText),
-                  ),
+            borderSide: BorderSide(
+              width: borderSideWidth,
+              color: _namaSubLaluan.text != '' &&
+                      widget.iconCondition == 1 &&
+                      widget.screen == null
+                  ? (userRole == 100 ? grey100 : enabledBorderWithText)
+                  : (userRole == 100 ? grey100 : enabledBorderWithoutText),
+            ),
             borderRadius: BorderRadius.circular(borderRadiusCircular),
           ),
         ),
