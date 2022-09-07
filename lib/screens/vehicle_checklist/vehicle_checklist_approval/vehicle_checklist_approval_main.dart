@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 //import files
 import '../../../config/palette.dart';
 import '../../../providers/vehicle_checklist_api.dart';
 import '../../../utils/custom_icon.dart';
+import '../../../widgets/tabs/vehicle_checklist_tab/vehicle_checklist_approval_tab/vehicle_checklist_approval_tab.dart';
 import 'vehicle_checklist_approval_details.dart';
 
 class VehicleChecklistApprovalMain extends StatefulWidget {
@@ -113,7 +115,15 @@ class _VehicleChecklistApprovalMainState
                           itemBuilder: (context, index) {
                             if (dataFuture.isNotEmpty) {
                               return GestureDetector(
-                                onTap: () {},
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      PageTransition(
+                                          type: PageTransitionType.fade,
+                                          child: VehicleChecklistApprovalTab(
+                                            data: dataFuture[index],
+                                          )));
+                                },
                                 child: Padding(
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 8, horizontal: 10),
