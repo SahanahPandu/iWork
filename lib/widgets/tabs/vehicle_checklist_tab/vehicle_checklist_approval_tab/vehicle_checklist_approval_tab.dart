@@ -87,47 +87,50 @@ class _VehicleChecklistApprovalTabState
           ),
         ),
         body: Padding(
-          padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
+          padding: const EdgeInsets.only(top: 10),
           child: Column(
             children: [
-              Container(
-                height: 55,
-                decoration: BoxDecoration(
-                  color: tabBoxColor,
-                  borderRadius: BorderRadius.circular(
-                    46,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Container(
+                  height: 55,
+                  decoration: BoxDecoration(
+                    color: tabBoxColor,
+                    borderRadius: BorderRadius.circular(
+                      46,
+                    ),
                   ),
-                ),
-                child: TabBar(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                  controller: _tabController,
-                  indicator: BoxDecoration(
-                      borderRadius: BorderRadius.circular(
-                        46,
-                      ),
-                      color: white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: tabShadowColor,
-                          blurRadius: 1,
-                          offset: const Offset(0.0, 2.0),
+                  child: TabBar(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 10),
+                    controller: _tabController,
+                    indicator: BoxDecoration(
+                        borderRadius: BorderRadius.circular(
+                          46,
                         ),
-                      ]),
-                  labelColor: blackCustom,
-                  labelStyle: const TextStyle(
-                      fontWeight: FontWeight.w600, fontSize: 15),
-                  unselectedLabelStyle: const TextStyle(
-                      fontWeight: FontWeight.w400, fontSize: 14),
-                  unselectedLabelColor: greyCustom,
-                  tabs: const [
-                    Tab(
-                      text: 'Sebelum',
-                    ),
-                    Tab(
-                      text: 'Selepas',
-                    ),
-                  ],
+                        color: white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: tabShadowColor,
+                            blurRadius: 1,
+                            offset: const Offset(0.0, 2.0),
+                          ),
+                        ]),
+                    labelColor: blackCustom,
+                    labelStyle: const TextStyle(
+                        fontWeight: FontWeight.w600, fontSize: 15),
+                    unselectedLabelStyle: const TextStyle(
+                        fontWeight: FontWeight.w400, fontSize: 14),
+                    unselectedLabelColor: greyCustom,
+                    tabs: const [
+                      Tab(
+                        text: 'Sebelum',
+                      ),
+                      Tab(
+                        text: 'Selepas',
+                      ),
+                    ],
+                  ),
                 ),
               ),
               ScrollConfiguration(

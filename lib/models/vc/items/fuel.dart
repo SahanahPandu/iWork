@@ -10,8 +10,8 @@ class Fuel {
 
   int liter;
   int rm;
-  int resit;
-  int fleetCard;
+  String resit;
+  String fleetCard;
   int noFleetCard;
   int fuelLevel;
 
