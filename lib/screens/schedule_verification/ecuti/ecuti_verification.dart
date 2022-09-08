@@ -56,7 +56,7 @@ class _EcutiVerificationState extends State<EcutiVerification> {
                                   EcutiApprovalMain(data: dataFuture![index])));
                     },
                     child: VerifyEcutiListDetails(
-                      data: dataFuture![index],
+                      data: dataFuture![index], index: index,
                     ),
                   );
                 },
