@@ -15,7 +15,7 @@ import '../../config/palette.dart';
 import '../../utils/device.dart';
 import '../../config/font.dart';
 import '../../models/cuti.dart';
-import '../../widgets/buttons/hantar_button.dart';
+import '../../widgets/buttons/ecuti_submit_button.dart';
 
 class LeaveForm extends StatefulWidget {
   String screen;
@@ -475,7 +475,7 @@ class _LeaveFormState extends State<LeaveForm> {
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width * 0.8,
                         height: MediaQuery.of(context).size.height * 0.06,
-                        child: const HantarButton(),
+                        child: const EcutiSubmitButton(),
                       ),
                     ),
                   ),

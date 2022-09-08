@@ -10,19 +10,19 @@ import '../../widgets/alert/alert_dialog.dart';
 import '../alert/lottie_alert_dialog.dart';
 import '../alert/snackbar.dart';
 
-class HantarButton extends StatefulWidget {
+class EcutiSubmitButton extends StatefulWidget {
   final GlobalKey<FormState>? formKey;
   final String? data;
   final Function? clearForm;
 
-  const HantarButton({Key? key, this.formKey, this.data, this.clearForm})
+  const EcutiSubmitButton({Key? key, this.formKey, this.data, this.clearForm})
       : super(key: key);
 
   @override
-  State<HantarButton> createState() => _HantarButtonState();
+  State<EcutiSubmitButton> createState() => _EcutiSubmitButtonState();
 }
 
-class _HantarButtonState extends State<HantarButton> {
+class _EcutiSubmitButtonState extends State<EcutiSubmitButton> {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -70,7 +70,7 @@ class _HantarButtonState extends State<HantarButton> {
         }
       },
       child: const Text(
-        "Hantar Laporan",
+        "Hantar Borang",
         style: TextStyle(
           color: Colors.white,
           fontSize: 16,

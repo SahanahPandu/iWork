@@ -1,3 +1,4 @@
+import 'package:eswm/screens/reports/report_list.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -15,8 +16,10 @@ import '../../screens/schedule_shift/schedule_shift_main.dart';
 import '../../screens/vehicle_checklist/vehicle_checklist_approval/vehicle_checklist_approval_main.dart';
 import '../../screens/workshop_vehicle/workshop_vehicle_main.dart';
 import '../../utils/authentication/auth.dart';
+import '../../utils/custom_icon.dart';
 import '../../utils/device.dart';
 import '../alert/alert_dialog.dart';
+import '../app_bar/app_bar_widget.dart';
 import '../tabs/akbk_tab/akbk_tab.dart';
 import '../tabs/ecuti_approval_tab/ecuti_approval_tab.dart';
 
@@ -319,14 +322,33 @@ class _DrawerBuildState extends State<DrawerBuild> {
             break;
           case 3: //Laporan
             Navigator.push(
-                context,
-                PageTransition(
-                    type: PageTransitionType.fade,
-                    child: const ReportsPage(
-                      screen: "6",
-                      data: null,
-                      dataLaluan: null,
-                    )));
+              context,
+              PageTransition(
+                type: PageTransitionType.fade,
+                child: const Scaffold(
+                  appBar: AppBarWidget(
+                    title: "Laporan",
+                    listOfWidget: [
+                      Icon(
+                        CustomIcon.filter,
+                        size: 15,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                    ],
+                  ),
+                  body: ReportList(
+                    screen: "6",
+                  ),
+                ),
+              ),
+            );
+            // const ReportsPage(
+            //   screen: "6",
+            //   data: null,
+            //   dataLaluan: null,
+            // )));
             break;
           case 6: //logout
             _userLogout(context);

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:eswm/screens/reports/report_form.dart';
 import 'package:eswm/widgets/app_bar/app_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
@@ -11,7 +12,7 @@ import '../../screens/e_cuti/pra/pra_e_cuti_list_details.dart';
 import '../../screens/e_cuti/supervisor/supervisor_leave_list_details.dart';
 import '../../screens/list_of_road/list_of_road_details.dart';
 import '../../screens/reports/report_list_details.dart';
-import '../../screens/reports/reports.dart';
+// import '../../screens/reports/reports.dart';
 import '../../screens/schedule_issue/report/report_approval/report_approval_main.dart';
 import '../../screens/schedule_verification/ecuti/ecuti_approval/ecuti_approval_main.dart';
 import '../../screens/work_schedule/work_schedule.dart';
@@ -152,11 +153,11 @@ class _ListCardState extends State<ListCard> with TickerProviderStateMixin {
     if (widget.type == "Cuti") {
       if (userRole == 100 || userRole == 200) {
         //comp || pra
-        //return ECuti(screen: "2", data: widget.data);
-        //print("sini");
+
         return Scaffold(
-            appBar: const AppBarWidget(title: "E-Cuti"),
-            body: LeaveForm(screen: "2", data: widget.data));
+          appBar: const AppBarWidget(title: "E-Cuti"),
+          body: LeaveForm(screen: "2", data: widget.data),
+        );
       } else if (userRole == 300) {
         //sv
         return EcutiApprovalMain(data: widget.data);
@@ -169,7 +170,11 @@ class _ListCardState extends State<ListCard> with TickerProviderStateMixin {
     } else if (widget.type == "Laporan") {
       if (userRole == 100 || userRole == 200) {
         // comp || pra
-        return ReportsPage(screen: "4", data: widget.data, dataLaluan: null);
+        //return ReportsPage(screen: "4", data: widget.data, dataLaluan: null);
+        return Scaffold(
+          appBar: AppBarWidget(title: "L${widget.data.id}"),
+          body: ReportForm(screen: "4", data: widget.data, dataLaluan: null),
+        );
       } else if (userRole == 300) {
         // sv
         return ReportApprovalMain(data: widget.data);

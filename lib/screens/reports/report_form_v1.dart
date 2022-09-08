@@ -6,9 +6,9 @@ import '../../config/palette.dart';
 import '../../models/laluan.dart';
 import '../../config/config.dart';
 import '../../utils/device.dart';
-import '../../widgets/buttons/hantar_button.dart';
 import '../../models/reports.dart';
 import '../../screens/reports/pra/pra_section_report_form.dart';
+import '../../widgets/buttons/ecuti_submit_button.dart';
 
 class ReportForm extends StatefulWidget {
   final String screen;
@@ -232,7 +232,7 @@ class _ReportFormState extends State<ReportForm> {
                   child: SizedBox(
                     width: MediaQuery.of(context).size.width * 0.8,
                     height: MediaQuery.of(context).size.height * 0.06,
-                    child: const HantarButton(),
+                    child: const EcutiSubmitButton(),
                   ),
                 ),
               ),

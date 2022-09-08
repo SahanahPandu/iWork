@@ -100,7 +100,7 @@ class _ListOfObstaclesState extends State<ListOfObstacles> {
               : null,
           label: Container(
             color: Colors.white,
-            child: const Text('Halangan'),
+            child: const Text('Jenis Halangan'),
           ),
           labelStyle: TextStyle(
             fontSize: widget.fontSize,
@@ -162,7 +162,7 @@ class _ListOfObstaclesState extends State<ListOfObstacles> {
                     bottom: 16,
                   ),
                   child: Text(
-                    "Pilih  Halangan",
+                    "Pilih  Jenis Halangan",
                     style: TextStyle(
                       color: Color(0xff969696),
                       fontSize: 15,

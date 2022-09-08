@@ -6,7 +6,9 @@ import '../../widgets/gridview/compactor_panel/compactor_report_list.dart';
 import '../../widgets/listview/card_list_view.dart';
 
 class ReportList extends StatefulWidget {
-  const ReportList({Key? key}) : super(key: key);
+  final String? screen;
+
+  const ReportList({Key? key, this.screen}) : super(key: key);
 
   @override
   State<ReportList> createState() => _ReportListState();
@@ -23,8 +25,11 @@ class _ReportListState extends State<ReportList> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            margin:
-                const EdgeInsets.only(left: 16, top: 9, right: 16, bottom: 24),
+            margin: EdgeInsets.only(
+                left: 16,
+                top: widget.screen != null ? 24 : 9,
+                right: 16,
+                bottom: 24),
             child: const Text(
               "Senarai laporan: ",
               style: TextStyle(

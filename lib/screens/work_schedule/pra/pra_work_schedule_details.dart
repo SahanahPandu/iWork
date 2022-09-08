@@ -194,7 +194,7 @@ class _PraWorkScheduleDetailsState extends State<PraWorkScheduleDetails> {
                 Row(
                   children: [
                     Icon(
-                      Icons.grass,
+                      CustomIcon.recycle,
                       size: 16,
                       color: blue,
                     ),
