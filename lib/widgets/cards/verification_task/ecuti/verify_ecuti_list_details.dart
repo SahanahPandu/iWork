@@ -26,7 +26,7 @@ class _VerifyEcutiListDetailsState extends State<VerifyEcutiListDetails> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 2),
+      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 4),
       decoration: BoxDecoration(
         border: widget.index != 2
             ? Border(

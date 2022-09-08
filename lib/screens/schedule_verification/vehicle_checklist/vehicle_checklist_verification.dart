@@ -26,51 +26,48 @@ class _VehicleChecklistVerificationState
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-      child: FutureBuilder<List>(
-        future: _loadVehicleChecklistData,
-        builder: (context, snapshot) {
-          final dataFuture = snapshot.data;
+    return FutureBuilder<List>(
+      future: _loadVehicleChecklistData,
+      builder: (context, snapshot) {
+        final dataFuture = snapshot.data;
 
-          switch (snapshot.connectionState) {
-            case ConnectionState.waiting:
+        switch (snapshot.connectionState) {
+          case ConnectionState.waiting:
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+
+          default:
+            if (snapshot.hasError) {
               return const Center(
-                child: CircularProgressIndicator(),
+                child: Text("Some errors occurred!"),
               );
-
-            default:
-              if (snapshot.hasError) {
-                return const Center(
-                  child: Text("Some errors occurred!"),
-                );
-              } else {
-                return ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: dataFuture?.length,
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            PageTransition(
-                                type: PageTransitionType.fade,
-                                child: VehicleChecklistApprovalTab(
-                                  data: dataFuture![index],
-                                )));
-                      },
-                      child: VehicleChecklistVerificationDetailList(
-                        data: dataFuture![index],
-                        index: index,
-                      ),
-                    );
-                  },
-                );
-              }
-          }
-        },
-      ),
+            } else {
+              return ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: dataFuture?.length,
+                itemBuilder: (context, index) {
+                  return InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          PageTransition(
+                              type: PageTransitionType.fade,
+                              child: VehicleChecklistApprovalTab(
+                                data: dataFuture![index],
+                              )));
+                    },
+                    child: VehicleChecklistVerificationDetailList(
+                      data: dataFuture![index],
+                      index: index,
+                    ),
+                  );
+                },
+              );
+            }
+        }
+      },
     );
   }
 }
