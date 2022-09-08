@@ -7,8 +7,10 @@ import '../../../../utils/device.dart';
 
 class VerifyEcutiListDetails extends StatefulWidget {
   final Cuti? data;
+  final int? index;
 
-  const VerifyEcutiListDetails({Key? key, this.data}) : super(key: key);
+  const VerifyEcutiListDetails({Key? key, this.data, this.index})
+      : super(key: key);
 
   @override
   State<VerifyEcutiListDetails> createState() => _VerifyEcutiListDetailsState();
@@ -26,14 +28,16 @@ class _VerifyEcutiListDetailsState extends State<VerifyEcutiListDetails> {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 2),
       decoration: BoxDecoration(
-        border: Border(
-          top: BorderSide.none,
-          bottom: BorderSide(
-            color: greyCustom,
-            width: 0.1,
-            style: BorderStyle.solid,
-          ),
-        ),
+        border: widget.index != 2
+            ? Border(
+                top: BorderSide.none,
+                bottom: BorderSide(
+                  color: greyCustom,
+                  width: 0.1,
+                  style: BorderStyle.solid,
+                ),
+              )
+            : null,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

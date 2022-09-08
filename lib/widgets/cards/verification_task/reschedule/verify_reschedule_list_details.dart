@@ -7,8 +7,10 @@ import '../../../../utils/device.dart';
 
 class VerifyRescheduleListDetails extends StatefulWidget {
   final Pekerja? data;
+  final int? index;
 
-  const VerifyRescheduleListDetails({Key? key, this.data}) : super(key: key);
+  const VerifyRescheduleListDetails({Key? key, this.data, this.index})
+      : super(key: key);
 
   @override
   State<VerifyRescheduleListDetails> createState() =>
@@ -22,14 +24,16 @@ class _VerifyRescheduleListDetailsState
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 4),
       decoration: BoxDecoration(
-        border: Border(
-          top: BorderSide.none,
-          bottom: BorderSide(
-            color: greyCustom,
-            width: 0.1,
-            style: BorderStyle.solid,
-          ),
-        ),
+        border: widget.index != 1
+            ? Border(
+                top: BorderSide.none,
+                bottom: BorderSide(
+                  color: greyCustom,
+                  width: 0.1,
+                  style: BorderStyle.solid,
+                ),
+              )
+            : null,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

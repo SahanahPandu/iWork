@@ -54,7 +54,7 @@ class _RescheduleVerificationState extends State<RescheduleVerification> {
                               child: Container()));
                     },
                     child: VerifyRescheduleListDetails(
-                      data: dataFuture![index],
+                      data: dataFuture![index], index: index,
                     ),
                   );
                 },

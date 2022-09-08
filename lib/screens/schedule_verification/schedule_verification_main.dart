@@ -6,10 +6,12 @@ import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../../utils/device.dart';
 import '../../widgets/tabs/ecuti_approval_tab/ecuti_approval_tab.dart';
+import '../vehicle_checklist/vehicle_checklist_approval/vehicle_checklist_approval_main.dart';
 import 'attendance/attendance_detail/attendance_verification_list.dart';
 import 'attendance/attendance_verification.dart';
 import 'ecuti/ecuti_verification.dart';
 import 'reschedule/reschedule_verification.dart';
+import 'vehicle_checklist/vehicle_checklist_verification.dart';
 
 class ScheduleVerificationMain extends StatefulWidget {
   const ScheduleVerificationMain({Key? key}) : super(key: key);
@@ -34,6 +36,13 @@ class _ScheduleVerificationMainState extends State<ScheduleVerificationMain> {
             "Sahkan Kehadiran",
             const AttendanceVerification(),
             const AttendanceVerificationList()),
+        _buildVerifyCard(
+            context,
+            attendanceMainCard,
+            "Semakan Kenderaan",
+            "Sahkan Semakan Kenderaan",
+            const VehicleChecklistVerification(),
+            const VehicleChecklistApprovalMain()),
         _buildVerifyCard(context, eCutiMainCard, "E-Cuti", "Sahkan E-Cuti",
             const EcutiVerification(), const EcutiApprovalTab()),
         _buildVerifyCard(
@@ -143,6 +152,9 @@ class _ScheduleVerificationMainState extends State<ScheduleVerificationMain> {
     switch (refresh) {
       case "refreshAttendance":
         _verifiedTask(attendanceMainCard);
+        break;
+      case "refreshVc":
+        _verifiedTask(vcMainCard);
         break;
       case "refreshEcuti":
         _verifiedTask(eCutiMainCard);

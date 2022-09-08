@@ -56,6 +56,7 @@ class _AttendanceVerificationState extends State<AttendanceVerification> {
                     },
                     child: VerifyAttendanceListDetails(
                       data: dataFuture[index],
+                      index: index,
                     ),
                   );
                 },

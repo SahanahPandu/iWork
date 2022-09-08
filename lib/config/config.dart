@@ -25,5 +25,6 @@ bool completedSecondVc = false;
 
 /// ** Schedule Verification Status **
 ValueNotifier<bool> attendanceMainCard = ValueNotifier(true);
+ValueNotifier<bool> vcMainCard = ValueNotifier(true);
 ValueNotifier<bool> eCutiMainCard = ValueNotifier(true);
 ValueNotifier<bool> rescheduleMainCard = ValueNotifier(true);
