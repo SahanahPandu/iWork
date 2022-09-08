@@ -72,22 +72,25 @@ class _AttendanceVerificationDetailListState
                       ClipRRect(
                           borderRadius: BorderRadius.circular(10),
                           child: Image.network(
-                            height: 56,
-                            width: 56,
+                            height: 55,
+                            width: 55,
                             fit: BoxFit.fill,
                             widget.data.displayPicture,
                             loadingBuilder: (BuildContext context, Widget child,
                                 ImageChunkEvent? loadingProgress) {
                               if (loadingProgress == null) return child;
-                              return Center(
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2.5,
-                                  color: green,
-                                  value: loadingProgress.expectedTotalBytes !=
-                                          null
-                                      ? loadingProgress.cumulativeBytesLoaded /
-                                          loadingProgress.expectedTotalBytes!
-                                      : null,
+                              return Padding(
+                                padding: const EdgeInsets.all(20),
+                                child: Center(
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2.5,
+                                    color: green,
+                                    value: loadingProgress.expectedTotalBytes !=
+                                            null
+                                        ? loadingProgress.cumulativeBytesLoaded /
+                                            loadingProgress.expectedTotalBytes!
+                                        : null,
+                                  ),
                                 ),
                               );
                             },
