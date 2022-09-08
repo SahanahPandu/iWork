@@ -23,6 +23,8 @@ class _AttendanceVerificationListState
     extends State<AttendanceVerificationList> {
   final Devices _device = Devices();
   late Future<List> _loadPekerjaData;
+  IconData icon = CustomIcon.checkBoxEmpty;
+  Color iconColor = grey600;
 
   @override
   void initState() {
@@ -76,57 +78,106 @@ class _AttendanceVerificationListState
             ),
           ),
         ),
-        body: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
+        body: Padding(
+          padding: const EdgeInsets.only(top: 15),
           child: Column(
             children: [
               Container(
-                  alignment: Alignment.centerLeft,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: white,
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                      topRight: Radius.circular(30),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: grey200,
+                          offset: const Offset(0, -4),
+                          blurRadius: 10,
+                          spreadRadius: 0.5)
+                    ],
+                  ),
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                   child: Text("Senarai Pekerja",
                       style: TextStyle(
                           color: blackCustom,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400))),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: FutureBuilder<List>(
-                  future: _loadPekerjaData,
-                  builder: (context, snapshot) {
-                    final dataFuture = snapshot.data;
-
-                    switch (snapshot.connectionState) {
-                      case ConnectionState.waiting:
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-
-                      default:
-                        if (snapshot.hasError) {
-                          return const Center(
-                            child: Text("Some errors occurred!"),
-                          );
-                        } else {
-                          return ListView.builder(
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: dataFuture!.length,
-                            itemBuilder: (context, index) {
-                              if (dataFuture.length > 1) {
-                                return Container(
-                                  color: white,
-                                  child: AttendanceVerificationDetailList(
-                                    data: dataFuture[index],
-                                  ),
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600))),
+              Expanded(
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 10),
+                          child: Row(
+                            children: [
+                              InkWell(
+                                  onTap: () {
+                                    setState (() {
+                                      icon = CustomIcon.checkedBox;
+                                      iconColor = greenCustom;
+                                    });
+                                  },
+                                  child: Icon(icon,
+                                      color: iconColor, size: 18)),
+                              const SizedBox(width: 10),
+                              Text(
+                                "Pilih semua",
+                                style: TextStyle(
+                                    color: blackCustom,
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 15),
+                              )
+                            ],
+                          ),
+                        ),
+                        FutureBuilder<List>(
+                          future: _loadPekerjaData,
+                          builder: (context, snapshot) {
+                            final dataFuture = snapshot.data;
+                            switch (snapshot.connectionState) {
+                              case ConnectionState.waiting:
+                                return const Center(
+                                  child: CircularProgressIndicator(),
                                 );
-                              }
-                              return Container();
-                            },
-                          );
-                        }
-                    }
-                  },
+                              default:
+                                if (snapshot.hasError) {
+                                  return const Center(
+                                    child: Text("Some errors occurred!"),
+                                  );
+                                } else {
+                                  return ListView.builder(
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemCount: dataFuture!.length,
+                                    itemBuilder: (context, index) {
+                                      if (dataFuture.length > 1) {
+                                        return Container(
+                                          color: white,
+                                          child:
+                                              AttendanceVerificationDetailList(
+                                            data: dataFuture[index],
+                                            index: index,
+                                          ),
+                                        );
+                                      }
+                                      return Container();
+                                    },
+                                  );
+                                }
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               )
             ],
@@ -169,7 +220,7 @@ class _AttendanceVerificationListState
                       return showAlertDialog(
                           context,
                           confirmation,
-                          "Sahkan kehadiran untuk pekerja yang hadir?",
+                          "Sahkan kehadiran pekerja yang hadir pada hari ini?",
                           cancel,
                           "Sahkan");
                     }).then((actionText) {
