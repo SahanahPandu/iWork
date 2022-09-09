@@ -119,13 +119,13 @@ class _AttendanceVerificationListState
                             children: [
                               InkWell(
                                   onTap: () {
-                                    setState (() {
+                                    setState(() {
                                       icon = CustomIcon.checkedBox;
                                       iconColor = greenCustom;
                                     });
                                   },
-                                  child: Icon(icon,
-                                      color: iconColor, size: 18)),
+                                  child:
+                                      Icon(icon, color: iconColor, size: 18)),
                               const SizedBox(width: 10),
                               Text(
                                 "Pilih semua",
