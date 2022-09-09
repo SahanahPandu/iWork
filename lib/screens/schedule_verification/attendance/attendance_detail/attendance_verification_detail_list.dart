@@ -65,12 +65,12 @@ class _AttendanceVerificationDetailListState
                         width: 62,
                         decoration: BoxDecoration(
                             color: transparent,
-                            border: Border.all(color: grey300),
+                            border: Border.all(color: grey200),
                             borderRadius:
-                                const BorderRadius.all(Radius.circular(10))),
+                                const BorderRadius.all(Radius.circular(4))),
                       ),
                       ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(4),
                           child: Image.network(
                             height: 55,
                             width: 55,

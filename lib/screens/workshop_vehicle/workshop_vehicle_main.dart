@@ -117,24 +117,18 @@ class _WorkshopVehicleMainState extends State<WorkshopVehicleMain> {
                                       child: Container(
                                         decoration: BoxDecoration(
                                           color: white,
-                                          border:
-                                              Border.all(color: borderColor),
                                           borderRadius: const BorderRadius.all(
                                               Radius.circular(12)),
                                           boxShadow: [
                                             BoxShadow(
-                                                color:
-                                                    Colors.grey.withOpacity(.3),
-                                                blurRadius: 3,
-                                                spreadRadius: 0.5,
-                                                offset: const Offset(0, 2))
+                                                color: cardShadowColor,
+                                                offset: const Offset(0, 2),
+                                                blurRadius: 10,
+                                                spreadRadius: 0.5)
                                           ],
                                         ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(16),
-                                          child: WorkshopVehicleDetails(
-                                            data: dataFuture[index],
-                                          ),
+                                        child: WorkshopVehicleDetails(
+                                          data: dataFuture[index],
                                         ),
                                       ),
                                     ),
