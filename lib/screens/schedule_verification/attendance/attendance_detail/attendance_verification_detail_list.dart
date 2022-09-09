@@ -117,7 +117,7 @@ class _AttendanceVerificationDetailListState
                     Row(
                       children: [
                         Text(
-                          "${widget.data.designCat}  •",
+                          "${widget.data.designCat}  ï¿½",
                           style: TextStyle(
                               color: greyCustom,
                               fontSize: 13,

@@ -5,17 +5,16 @@ import '../../config/string.dart';
 import '../../config/palette.dart';
 import '../../widgets/alert/alert_dialog.dart';
 import '../alert/lottie_alert_dialog.dart';
+import '../alert/snackbar.dart';
 // import '../alert/snackbar.dart';
 
 class ReportSubmitButton extends StatefulWidget {
   final GlobalKey<FormState>? formKey;
-  // final String? data;
   final Function? clearForm;
 
   const ReportSubmitButton({
     Key? key,
     this.formKey,
-    // this.data,
     this.clearForm,
   }) : super(key: key);
 
@@ -35,40 +34,40 @@ class _ReportSubmitButtonState extends State<ReportSubmitButton> {
             borderRadius: BorderRadius.circular(borderRadiusCircular),
           )),
       onPressed: () {
-        //if (widget.formKey != null) {
-        //if (widget.formKey!.currentState!.validate()) {
-        showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return showAlertDialog(
-                context,
-                confirmation,
-                "Borang Laporan akan dihantar kepada penyelia. Pastikan maklumat diisi adalah tepat.",
-                cancel,
-                submit,
-              );
-            }).then((actionText) {
-          if (actionText == submit) {
-            //widget.clearForm!();
-
+        if (widget.formKey != null) {
+          if (widget.formKey!.currentState!.validate()) {
             showDialog(
-                barrierDismissible: false,
                 context: context,
                 builder: (BuildContext context) {
-                  return showLottieAlertDialog(context, _textBuilder(), null);
-                });
+                  return showAlertDialog(
+                    context,
+                    confirmation,
+                    "Borang Laporan akan dihantar kepada penyelia. Pastikan maklumat diisi adalah tepat.",
+                    cancel,
+                    submit,
+                  );
+                }).then((actionText) {
+              if (actionText == submit) {
+                widget.clearForm!();
+
+                showDialog(
+                    barrierDismissible: false,
+                    context: context,
+                    builder: (BuildContext context) {
+                      return showLottieAlertDialog(
+                          context, _textBuilder(), null);
+                    });
+              }
+            });
+          } else {
+            showSnackBar(
+              context,
+              "Sila lengkapkan borang Laporan di atas",
+              const Duration(seconds: 3),
+              Colors.red,
+            );
           }
-        });
-        //}
-        // else {
-        //   showSnackBar(
-        //     context,
-        //     "Sila lengkapkan borang Laporan di atas",
-        //     const Duration(seconds: 3),
-        //     Colors.red,
-        //   );
-        // }
-        // }
+        }
       },
       child: const Text(
         "Hantar Laporan",

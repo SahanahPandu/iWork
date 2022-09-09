@@ -36,6 +36,7 @@ class _ReportFormState extends State<ReportForm> {
   // ignore: prefer_final_fields
   ExpandableController _expandController =
       ExpandableController(initialExpanded: true);
+  final _reportFormKey = GlobalKey<FormState>();
   final TextEditingController _namaLaluan = TextEditingController();
   final TextEditingController _noKenderaan = TextEditingController();
   final TextEditingController _maklumbalasPenyelia = TextEditingController();
@@ -48,7 +49,6 @@ class _ReportFormState extends State<ReportForm> {
   bool buttonVisibility = true;
   int iconCondition = 1;
   int borderCondition = 1;
-
   void onClick() {
     if (_height == 500) {
       setState(() {
@@ -102,6 +102,10 @@ class _ReportFormState extends State<ReportForm> {
                 : _noKenderaan.text = noKenderaan;
       });
     }
+  }
+
+  clearForm() {
+    _reportFormKey.currentState!.reset();
   }
 
   @override
@@ -164,166 +168,168 @@ class _ReportFormState extends State<ReportForm> {
                             ? const EdgeInsets.fromLTRB(100, 80, 100, 150)
                             : const EdgeInsets.symmetric(
                                 horizontal: 80, vertical: 60),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        if (widget.screen == "4")
-                          const SizedBox(
-                            height: 24,
+                    child: Form(
+                      key: _reportFormKey,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          if (widget.screen == "4")
+                            const SizedBox(
+                              height: 24,
+                            ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              //form title
+                              Text(
+                                formTitleText,
+                                style: const TextStyle(
+                                  color: Color(0xff2B2B2B),
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              if (widget.screen == "4")
+                                //expand button
+                                ExpandableButton(
+                                  child: InkWell(
+                                      onTap: () {
+                                        _expandController.toggle();
+                                        setState(() {});
+                                      },
+                                      child: expandButton()),
+                                ),
+                            ],
                           ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            //form title
-                            Text(
-                              formTitleText,
-                              style: const TextStyle(
-                                color: Color(0xff2B2B2B),
+                          SizedBox(
+                            height: userRole == 100 ? 30 : 33,
+                          ),
+                          //nama laluan
+                          TextFormField(
+                            style: const TextStyle(
+                              fontSize: 15,
+                              color: Color(0xff2B2B2B),
+                              fontWeight: FontWeight.w400,
+                            ),
+                            controller: _namaLaluan,
+                            readOnly: true,
+                            enabled: false,
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: textFormFieldFillColor,
+                              contentPadding: userRole == 100
+                                  ? const EdgeInsets.symmetric(
+                                      vertical: 15, horizontal: 20)
+                                  : const EdgeInsets.all(8),
+                              hintText: "Laluan",
+                              hintStyle: TextStyle(
                                 fontSize: 15,
-                                fontWeight: FontWeight.w400,
+                                color: labelTextColor,
+                                fontWeight: textFormFieldLabelFontWeight,
                               ),
-                            ),
-                            if (widget.screen == "4")
-                              //expand button
-                              ExpandableButton(
-                                child: InkWell(
-                                    onTap: () {
-                                      _expandController.toggle();
-                                      setState(() {});
-                                    },
-                                    child: expandButton()),
+                              suffixIcon: iconCondition == 1
+                                  ? const Icon(
+                                      Icons.expand_more,
+                                      size: 20,
+                                      color: Color(0xff2B2B2B),
+                                    )
+                                  : null,
+                              label: Container(
+                                color: Colors.white,
+                                child: const Text('Laluan'),
                               ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: userRole == 100 ? 30 : 33,
-                        ),
-                        //nama laluan
-                        TextFormField(
-                          style: const TextStyle(
-                            fontSize: 15,
-                            color: Color(0xff2B2B2B),
-                            fontWeight: FontWeight.w400,
-                          ),
-                          controller: _namaLaluan,
-                          readOnly: true,
-                          enabled: false,
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: textFormFieldFillColor,
-                            contentPadding: userRole == 100
-                                ? const EdgeInsets.symmetric(
-                                    vertical: 15, horizontal: 20)
-                                : const EdgeInsets.all(8),
-                            hintText: "Laluan",
-                            hintStyle: TextStyle(
-                              fontSize: 15,
-                              color: labelTextColor,
-                              fontWeight: textFormFieldLabelFontWeight,
-                            ),
-                            suffixIcon: iconCondition == 1
-                                ? const Icon(
-                                    Icons.expand_more,
-                                    size: 20,
-                                    color: Color(0xff2B2B2B),
-                                  )
-                                : null,
-                            label: Container(
-                              color: Colors.white,
-                              child: const Text('Laluan'),
-                            ),
-                            labelStyle: TextStyle(
-                              fontSize: 15,
-                              color: labelTextColor,
-                              fontWeight: textFormFieldLabelFontWeight,
-                            ),
-                            disabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                width: borderSideWidth,
-                                color: enabledBorderWithoutText,
+                              labelStyle: TextStyle(
+                                fontSize: 15,
+                                color: labelTextColor,
+                                fontWeight: textFormFieldLabelFontWeight,
                               ),
-                              borderRadius:
-                                  BorderRadius.circular(borderRadiusCircular),
+                              disabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  width: borderSideWidth,
+                                  color: enabledBorderWithoutText,
+                                ),
+                                borderRadius:
+                                    BorderRadius.circular(borderRadiusCircular),
+                              ),
                             ),
                           ),
-                        ),
 
-                        SizedBox(
-                          height: userRole == 100 ? 30 : 24,
-                        ),
-                        //no kenderaan
-                        TextFormField(
-                          style: const TextStyle(
-                            fontSize: 15,
-                            color: Color(0xff2B2B2B),
-                            fontWeight: FontWeight.w400,
+                          SizedBox(
+                            height: userRole == 100 ? 30 : 24,
                           ),
-                          controller: _noKenderaan,
-                          readOnly: true,
-                          enabled: false,
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: textFormFieldFillColor,
-                            contentPadding: userRole == 100
-                                ? const EdgeInsets.symmetric(
-                                    vertical: 15, horizontal: 20)
-                                : const EdgeInsets.all(8),
-                            hintText: "No Kenderaan",
-                            hintStyle: TextStyle(
+                          //no kenderaan
+                          TextFormField(
+                            style: const TextStyle(
                               fontSize: 15,
-                              color: labelTextColor,
-                              fontWeight: textFormFieldLabelFontWeight,
+                              color: Color(0xff2B2B2B),
+                              fontWeight: FontWeight.w400,
                             ),
-                            suffixIcon: iconCondition == 1
-                                ? const Icon(
-                                    Icons.expand_more,
-                                    size: 20,
-                                    color: Color(0xff2B2B2B),
-                                  )
-                                : null,
-                            label: Container(
-                              color: Colors.white,
-                              child: const Text('No. Kenderaan'),
-                            ),
-                            labelStyle: TextStyle(
-                              fontSize: 15,
-                              color: labelTextColor,
-                              fontWeight: textFormFieldLabelFontWeight,
-                            ),
-                            disabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                width: borderSideWidth,
-                                color: enabledBorderWithoutText,
+                            controller: _noKenderaan,
+                            readOnly: true,
+                            enabled: false,
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: textFormFieldFillColor,
+                              contentPadding: userRole == 100
+                                  ? const EdgeInsets.symmetric(
+                                      vertical: 15, horizontal: 20)
+                                  : const EdgeInsets.all(8),
+                              hintText: "No Kenderaan",
+                              hintStyle: TextStyle(
+                                fontSize: 15,
+                                color: labelTextColor,
+                                fontWeight: textFormFieldLabelFontWeight,
                               ),
-                              borderRadius:
-                                  BorderRadius.circular(borderRadiusCircular),
+                              suffixIcon: iconCondition == 1
+                                  ? const Icon(
+                                      Icons.expand_more,
+                                      size: 20,
+                                      color: Color(0xff2B2B2B),
+                                    )
+                                  : null,
+                              label: Container(
+                                color: Colors.white,
+                                child: const Text('No. Kenderaan'),
+                              ),
+                              labelStyle: TextStyle(
+                                fontSize: 15,
+                                color: labelTextColor,
+                                fontWeight: textFormFieldLabelFontWeight,
+                              ),
+                              disabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  width: borderSideWidth,
+                                  color: enabledBorderWithoutText,
+                                ),
+                                borderRadius:
+                                    BorderRadius.circular(borderRadiusCircular),
+                              ),
                             ),
                           ),
-                        ),
-
-// print(object)
-                        SizedBox(
-                          height: userRole == 100 ? 30 : 0,
-                        ),
-                        Expandable(
-                          collapsed: Container(
-                            width: 0,
+                          SizedBox(
+                            height: userRole == 100 ? 30 : 0,
                           ),
-                          expanded: PraSectionReportForm(
-                            screen: widget.screen,
-                            data: widget.data,
-                            updateButton: updateButtonVisibility,
+                          Expandable(
+                            collapsed: Container(
+                              width: 0,
+                            ),
+                            expanded: PraSectionReportForm(
+                              screen: widget.screen,
+                              data: widget.data,
+                              updateButton: updateButtonVisibility,
+                            ),
                           ),
-                        ),
 
-                        //Supervisor sections
-                        if (widget.screen == "4") supervisorSection(),
-                        //put this at the end of the column widget list ,
-                        //because to able scroll all item without being covered by the button at the bottom
-                        const SizedBox(
-                          height: 100,
-                        ),
-                      ],
+                          //Supervisor sections
+                          if (widget.screen == "4") supervisorSection(),
+                          //put this at the end of the column widget list ,
+                          //because to able scroll all item without being covered by the button at the bottom
+                          const SizedBox(
+                            height: 100,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -342,7 +348,10 @@ class _ReportFormState extends State<ReportForm> {
                           child: SizedBox(
                             width: MediaQuery.of(context).size.width * 0.8,
                             height: MediaQuery.of(context).size.height * 0.06,
-                            child: const ReportSubmitButton(),
+                            child: ReportSubmitButton(
+                              formKey: _reportFormKey,
+                              clearForm: clearForm,
+                            ),
                           ),
                         ),
                       ),

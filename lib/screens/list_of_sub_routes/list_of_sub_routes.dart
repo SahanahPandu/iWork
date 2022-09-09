@@ -115,7 +115,19 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
             ),
             borderRadius: BorderRadius.circular(borderRadiusCircular),
           ),
+          errorStyle: const TextStyle(height: 0),
+          errorBorder: OutlineInputBorder(
+            borderSide: BorderSide(width: borderSideWidth, color: Colors.red),
+            borderRadius: BorderRadius.circular(borderRadiusCircular),
+          ),
         ),
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return '';
+          }
+
+          return null;
+        },
       ),
     );
   }
