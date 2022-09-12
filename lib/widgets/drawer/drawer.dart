@@ -154,11 +154,17 @@ class _DrawerBuildState extends State<DrawerBuild> {
                           Row(
                             children: [
                               Text(
-                                "SWK2210020  •",
+                                "SWK2210020",
                                 style: TextStyle(
                                     color: greyCustom,
                                     fontSize: 12,
                                     fontWeight: FontWeight.w400),
+                              ),
+                              const SizedBox(width: 6),
+                              Icon(
+                                Icons.fiber_manual_record,
+                                size: 5,
+                                color: greyCustom,
                               ),
                               const SizedBox(width: 6),
                               Text(

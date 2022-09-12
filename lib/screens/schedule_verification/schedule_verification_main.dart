@@ -146,26 +146,29 @@ class _ScheduleVerificationMainState extends State<ScheduleVerificationMain> {
   }
 
   Future<void> _navigatePage(BuildContext context, detailRedirect) async {
-    String refresh = await Navigator.push(context,
+    Navigator.push(context,
+        PageTransition(type: PageTransitionType.fade, child: detailRedirect));
+  ///Once completed api integration, will enable this method
+  /*  String refresh = await Navigator.push(context,
         PageTransition(type: PageTransitionType.fade, child: detailRedirect));
     if (!mounted) return;
     switch (refresh) {
       case "refreshAttendance":
-        // _verifiedTask(attendanceMainCard);
+        _verifiedTask(attendanceMainCard);
         break;
       case "refreshVc":
-        //  _verifiedTask(vcMainCard);
+        _verifiedTask(vcMainCard);
         break;
       case "refreshEcuti":
-        //  _verifiedTask(eCutiMainCard);
+        _verifiedTask(eCutiMainCard);
         break;
       case "refreshReschedule":
-        //  _verifiedTask(rescheduleMainCard);
+        _verifiedTask(rescheduleMainCard);
         break;
-    }
+    }*/
   }
 
-  ///Once completed api integration, Will enable back
+  ///Once completed api integration, will enable this method
 /*
   void _verifiedTask(ValueNotifier<bool> isMainCard) {
     isMainCard.value = false;

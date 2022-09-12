@@ -20,6 +20,7 @@ class _AttendanceLogMainState extends State<AttendanceLogMain> {
     _loadAttendanceLogData = AttendanceLogApi.getAttendanceLogData(context);
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

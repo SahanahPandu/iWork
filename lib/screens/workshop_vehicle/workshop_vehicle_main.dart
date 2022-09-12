@@ -127,8 +127,11 @@ class _WorkshopVehicleMainState extends State<WorkshopVehicleMain> {
                                                 spreadRadius: 0.5)
                                           ],
                                         ),
-                                        child: WorkshopVehicleDetails(
-                                          data: dataFuture[index],
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(vertical: 5),
+                                          child: WorkshopVehicleDetails(
+                                            data: dataFuture[index],
+                                          ),
                                         ),
                                       ),
                                     ),

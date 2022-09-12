@@ -117,11 +117,17 @@ class _AttendanceVerificationDetailListState
                     Row(
                       children: [
                         Text(
-                          "${widget.data.designCat}  �",
+                          widget.data.designCat,
                           style: TextStyle(
                               color: greyCustom,
                               fontSize: 13,
                               fontWeight: FontWeight.w400),
+                        ),
+                        const SizedBox(width: 6),
+                        Icon(
+                          Icons.fiber_manual_record,
+                          size: 5,
+                          color: greyCustom,
                         ),
                         const SizedBox(width: 6),
                         Text(
