@@ -2,12 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:page_transition/page_transition.dart';
 
 //import files
-import 'package:eswm/config/palette.dart';
-
+import '../../config/palette.dart';
 import '../../utils/custom_icon.dart';
 import '../../widgets/buttons/time_log_ripple_button.dart';
+import '../attendance_log/attendance_log_main.dart';
 
 class TimeLog extends StatefulWidget {
   final String btnText;
@@ -92,7 +93,13 @@ class _TimeLogState extends State<TimeLog> {
             ),
             actions: [
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      PageTransition(
+                          child: const AttendanceLogMain(),
+                          type: PageTransitionType.fade));
+                },
                 icon: Icon(
                   CustomIcon.history,
                   color: blackCustom,
