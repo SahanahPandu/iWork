@@ -151,21 +151,24 @@ class _ScheduleVerificationMainState extends State<ScheduleVerificationMain> {
     if (!mounted) return;
     switch (refresh) {
       case "refreshAttendance":
-        _verifiedTask(attendanceMainCard);
+        // _verifiedTask(attendanceMainCard);
         break;
       case "refreshVc":
-        _verifiedTask(vcMainCard);
+        //  _verifiedTask(vcMainCard);
         break;
       case "refreshEcuti":
-        _verifiedTask(eCutiMainCard);
+        //  _verifiedTask(eCutiMainCard);
         break;
       case "refreshReschedule":
-        _verifiedTask(rescheduleMainCard);
+        //  _verifiedTask(rescheduleMainCard);
         break;
     }
   }
 
+  ///Once completed api integration, Will enable back
+/*
   void _verifiedTask(ValueNotifier<bool> isMainCard) {
     isMainCard.value = false;
   }
+  */
 }

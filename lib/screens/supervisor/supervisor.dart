@@ -25,33 +25,35 @@ class _SupervisorState extends State<Supervisor> {
               backgroundColor: transparent,
               expandedHeight: 260,
               flexibleSpace: FlexibleSpaceBar(
-                background: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(left: 20, top: 15, bottom: 5),
-                      child: Text(
-                        "Hi, Suhaimi!",
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          color: white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
+                background: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(left: 20, top: 15, bottom: 5),
+                        child: Text(
+                          "Hi, Suhaimi!",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            color: white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: SizedBox(
-                        height: Devices().screenHeight(context) * 0.26,
-                        child: const TodayTaskCard(),
+                      const SizedBox(
+                        height: 20,
                       ),
-                    ),
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: SizedBox(
+                          height: Devices().screenHeight(context) * 0.26,
+                          child: const TodayTaskCard(),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
