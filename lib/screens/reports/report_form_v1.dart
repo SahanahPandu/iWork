@@ -35,6 +35,7 @@ class _ReportFormState extends State<ReportForm> {
   String noKenderaan = "No Kenderaan";
   double _height = 500;
   bool buttonVisibility = true;
+  bool buttonStatus = false;
 
   void onClick() {
     if (_height == 500) {
@@ -200,7 +201,7 @@ class _ReportFormState extends State<ReportForm> {
                       expanded: PraSectionReportForm(
                         screen: widget.screen,
                         data: widget.data,
-                        updateButton: updateButtonVisibility,
+                        //updateButton: updateButtonVisibility,
                       ),
                     ),
                   ),

@@ -12,22 +12,27 @@ import '../../list_of_obstacles/list_of_obstacles.dart';
 import '../../list_of_park/list_of_parks.dart';
 import '../../list_of_road/list_of_road_text_form_field.dart';
 import '../../../screens/list_of_sub_routes/list_of_sub_routes.dart';
+import '../../list_of_sub_routes/list_of_sub_routes_text_form_field.dart';
 
 class PraSectionReportForm extends StatefulWidget {
   final String screen;
   final Reports? data;
   final Function? updateButton;
 
-  const PraSectionReportForm(
-      {Key? key, required this.screen, this.data, this.updateButton})
-      : super(key: key);
+  const PraSectionReportForm({
+    Key? key,
+    required this.screen,
+    this.data,
+    this.updateButton,
+  }) : super(key: key);
 
   @override
-  State<PraSectionReportForm> createState() => _PraSectionReportFormState();
+  PraSectionReportFormState createState() => PraSectionReportFormState();
 }
 
-class _PraSectionReportFormState extends State<PraSectionReportForm> {
+class PraSectionReportFormState extends State<PraSectionReportForm> {
   final Devices _device = Devices();
+  final TextEditingController namaSubLaluan = TextEditingController();
   final TextEditingController _catatan = TextEditingController();
   final FocusNode _catatanFocusNode = FocusNode();
 
@@ -96,12 +101,85 @@ class _PraSectionReportFormState extends State<PraSectionReportForm> {
           height: spacingHeight,
         ),
         //Sub Laluan
-        ListOfSubRoutes(
-          hintText: 'Sub Laluan',
+        // InkWell(
+        //   onTap: () {
+        //     if (iconCondition == 1) {
+        //       showListOfSubRoutes(context).then((selSubRoute) {
+        //         setState(() {
+        //           namaSubLaluan.text = selSubRoute;
+        //         });
+        //       });
+        //     }
+        //   },
+        //   child: TextFormField(
+        //     ///initialValue: "Sub-Laluan",
+        //     style: const TextStyle(
+        //       fontSize: 15,
+        //       color: Color(0xff2B2B2B),
+        //       fontWeight: FontWeight.w400,
+        //     ),
+        //     controller: namaSubLaluan,
+        //     readOnly: true,
+        //     enabled: false,
+        //     decoration: InputDecoration(
+        //       filled: true,
+        //       fillColor: fillColor,
+        //       contentPadding: userRole == 100
+        //           ? const EdgeInsets.symmetric(vertical: 15, horizontal: 20)
+        //           : const EdgeInsets.all(8),
+        //       hintText: "Sub-Laluan",
+        //       hintStyle: TextStyle(
+        //         fontSize: 15,
+        //         color: labelTextColor,
+        //         fontWeight: textFormFieldLabelFontWeight,
+        //       ),
+        //       suffixIcon: iconCondition == 1
+        //           ? const Icon(
+        //               Icons.expand_more,
+        //               size: 20,
+        //               color: Color(0xff2B2B2B),
+        //             )
+        //           : null,
+        //       label: Container(
+        //         color: Colors.white,
+        //         child: const Text('Sub-Laluan'),
+        //       ),
+        //       labelStyle: TextStyle(
+        //         fontSize: 15,
+        //         color: labelTextColor,
+        //         fontWeight: textFormFieldLabelFontWeight,
+        //       ),
+        //       disabledBorder: OutlineInputBorder(
+        //         borderSide: BorderSide(
+        //           width: borderSideWidth,
+        //           color: namaSubLaluan.text != '' && iconCondition == 1
+        //               ? (userRole == 100 ? grey100 : enabledBorderWithText)
+        //               : (userRole == 100 ? grey100 : enabledBorderWithoutText),
+        //         ),
+        //         borderRadius: BorderRadius.circular(borderRadiusCircular),
+        //       ),
+        //       errorStyle: const TextStyle(height: 0),
+        //       errorBorder: OutlineInputBorder(
+        //         borderSide:
+        //             BorderSide(width: borderSideWidth, color: Colors.red),
+        //         borderRadius: BorderRadius.circular(borderRadiusCircular),
+        //       ),
+        //     ),
+        //     validator: (value) {
+        //       if (value == null || value.isEmpty) {
+        //         return '';
+        //       }
+
+        //       return null;
+        //     },
+        //   ),
+        // ),
+        ListOfSubRoutesTextFormField(
+          hintText: "Sub-Laluan",
           fontSize: 15,
           fillColor: textFieldFillColor,
           iconCondition: iconCondition,
-          data: subLaluan,
+          data: namaSubLaluan.text,
         ),
         SizedBox(
           height: spacingHeight,

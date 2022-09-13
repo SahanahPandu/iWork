@@ -13,6 +13,8 @@ import '../../utils/device.dart';
 import '../../models/reports.dart';
 import '../../screens/reports/pra/pra_section_report_form.dart';
 import '../../widgets/buttons/report_submit_button.dart';
+import '../list_of_sub_routes/list_of_sub_routes_text_form_field.dart';
+import '../list_of_sub_routes/list_of_sub_routes_v1.dart';
 
 class ReportForm extends StatefulWidget {
   final String screen;
@@ -31,6 +33,8 @@ class ReportForm extends StatefulWidget {
 }
 
 class _ReportFormState extends State<ReportForm> {
+  final praSectionKey = GlobalKey<PraSectionReportFormState>();
+  final namaSubLaluanKey = GlobalKey<ListOfSubRoutesTextFormFieldState>();
   final Devices _device = Devices();
   //late StreamSubscription<bool> keyboardSubscription;
   // ignore: prefer_final_fields
@@ -106,6 +110,8 @@ class _ReportFormState extends State<ReportForm> {
 
   clearForm() {
     _reportFormKey.currentState!.reset();
+    namaSubLaluanKey.currentState!.namaSubLaluan.clear();
+    setState(() {});
   }
 
   @override
@@ -315,6 +321,7 @@ class _ReportFormState extends State<ReportForm> {
                               width: 0,
                             ),
                             expanded: PraSectionReportForm(
+                              key: praSectionKey,
                               screen: widget.screen,
                               data: widget.data,
                               updateButton: updateButtonVisibility,

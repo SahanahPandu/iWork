@@ -55,7 +55,7 @@ class _ReportSubmitButtonState extends State<ReportSubmitButton> {
                     context: context,
                     builder: (BuildContext context) {
                       return showLottieAlertDialog(
-                          context, _textBuilder(), null);
+                          context, _textBuilder(), widget.clearForm!);
                     });
               }
             });

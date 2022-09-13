@@ -10,7 +10,7 @@ import '../../utils/device.dart';
 class ListOfSubRoutes extends StatefulWidget {
   final String hintText;
   final double fontSize;
-  final int borderCondition;
+  final int? borderCondition;
   final Color fillColor;
   final int iconCondition;
   final String data;
@@ -19,18 +19,18 @@ class ListOfSubRoutes extends StatefulWidget {
       {Key? key,
       required this.hintText,
       required this.fontSize,
-      required this.borderCondition,
+      this.borderCondition,
       required this.fillColor,
       required this.iconCondition,
       required this.data})
       : super(key: key);
 
   @override
-  State<ListOfSubRoutes> createState() => _ListOfSubRoutesState();
+  ListOfSubRoutesState createState() => ListOfSubRoutesState();
 }
 
-class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
-  final TextEditingController _namaSubLaluan = TextEditingController();
+class ListOfSubRoutesState extends State<ListOfSubRoutes> {
+  final TextEditingController namaSubLaluan = TextEditingController();
   final Devices _device = Devices();
 
   int totalSubLaluan = 0;
@@ -46,7 +46,7 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
 
     if (widget.data != "") {
       setState(() {
-        _namaSubLaluan.text = widget.data;
+        namaSubLaluan.text = widget.data;
       });
     }
   }
@@ -68,7 +68,7 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
         }
       },
       child: TextFormField(
-        controller: _namaSubLaluan,
+        controller: namaSubLaluan,
         readOnly: true,
         enabled: false,
         decoration: InputDecoration(
@@ -105,8 +105,7 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
                 ? BorderSide.none
                 : BorderSide(
                     width: borderSideWidth,
-                    color: _namaSubLaluan.text != '' &&
-                            widget.iconCondition == 1
+                    color: namaSubLaluan.text != '' && widget.iconCondition == 1
                         ? (userRole == 200 ? enabledBorderWithText : grey100)
                         : (userRole == 200
                             ? enabledBorderWithoutText
@@ -114,7 +113,19 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
                   ),
             borderRadius: BorderRadius.circular(borderRadiusCircular),
           ),
+          errorStyle: const TextStyle(height: 0),
+          errorBorder: OutlineInputBorder(
+            borderSide: BorderSide(width: borderSideWidth, color: Colors.red),
+            borderRadius: BorderRadius.circular(borderRadiusCircular),
+          ),
         ),
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return '';
+          } else {
+            return null;
+          }
+        },
       ),
     );
   }
@@ -195,7 +206,7 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
                                   return InkWell(
                                     onTap: () {
                                       setState(() {
-                                        _namaSubLaluan.text =
+                                        namaSubLaluan.text =
                                             dataFuture[index].namaSubLaluan;
 
                                         Navigator.pop(context);

@@ -7,7 +7,7 @@ import '../../utils/custom_icon.dart';
 import '../../widgets/cards/cards.dart';
 import '../list_of_park/list_of_parks.dart';
 import '../list_of_road/list_of_road.dart';
-import '../list_of_sub_routes/list_of_sub_routes.dart';
+import '../list_of_sub_routes/list_of_sub_routes_text_form_field.dart';
 import 'package:eswm/widgets/buttons/report_button.dart';
 
 class WorkSchedule extends StatefulWidget {
@@ -124,7 +124,7 @@ class _WorkScheduleState extends State<WorkSchedule> {
                       shadowColor: userRole == 200
                           ? Colors.grey.shade50
                           : Colors.grey.shade200,
-                      child: ListOfSubRoutes(
+                      child: ListOfSubRoutesTextFormField(
                         hintText: 'Senarai Sub Laluan',
                         fontSize: userRole == 200 ? 18 : 15,
                         fillColor: userRole == 200
