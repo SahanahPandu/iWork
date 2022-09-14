@@ -29,27 +29,17 @@ class ListOfParks extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<ListOfParks> createState() => _ListOfParksState();
+  ListOfParksState createState() => ListOfParksState();
 }
 
-class _ListOfParksState extends State<ListOfParks> {
-  final TextEditingController _namaTaman = TextEditingController();
+class ListOfParksState extends State<ListOfParks> {
+  final TextEditingController namaTaman = TextEditingController();
   final Devices _device = Devices();
 
-  // int totalTaman = 0;
-
   getTotalData() {
-    // TamanApi.getTamanData(context).then((value) {
-    //   if (value.isNotEmpty) {
-    //     setState(() {
-    //       totalTaman = value.length;
-    //     });
-    //   }
-    // });
-
     if (widget.data != "") {
       setState(() {
-        _namaTaman.text = widget.data;
+        namaTaman.text = widget.data;
       });
     }
   }
@@ -74,7 +64,7 @@ class _ListOfParksState extends State<ListOfParks> {
           color: Color(0xff2B2B2B),
           fontWeight: FontWeight.w400,
         ),
-        controller: _namaTaman,
+        controller: namaTaman,
         readOnly: true,
         enabled: false,
         decoration: InputDecoration(
@@ -108,7 +98,7 @@ class _ListOfParksState extends State<ListOfParks> {
           disabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
               width: borderSideWidth,
-              color: _namaTaman.text != '' &&
+              color: namaTaman.text != '' &&
                       widget.iconCondition == 1 &&
                       widget.screen == null
                   ? (enabledBorderWithText)
@@ -116,7 +106,19 @@ class _ListOfParksState extends State<ListOfParks> {
             ),
             borderRadius: BorderRadius.circular(borderRadiusCircular),
           ),
+          errorStyle: const TextStyle(height: 0),
+          errorBorder: OutlineInputBorder(
+            borderSide: BorderSide(width: borderSideWidth, color: Colors.red),
+            borderRadius: BorderRadius.circular(borderRadiusCircular),
+          ),
         ),
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return '';
+          }
+
+          return null;
+        },
       ),
     );
   }
@@ -228,7 +230,7 @@ class _ListOfParksState extends State<ListOfParks> {
                                         }
 
                                         setState(() {
-                                          _namaTaman.text =
+                                          namaTaman.text =
                                               dataFuture[index].namaTaman;
 
                                           Navigator.pop(context);

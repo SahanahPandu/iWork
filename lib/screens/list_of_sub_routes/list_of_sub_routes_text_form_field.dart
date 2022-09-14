@@ -37,17 +37,7 @@ class ListOfSubRoutesTextFormFieldState
   final TextEditingController namaSubLaluan = TextEditingController();
   final Devices _device = Devices();
 
-  // int totalSubLaluan = 0;
-
   getTotalData() {
-    // SubLaluanApi.getSubLaluanData(context).then((value) {
-    //   if (value.isNotEmpty) {
-    //     setState(() {
-    //       totalSubLaluan = value.length;
-    //     });
-    //   }
-    // });
-
     if (widget.data != "") {
       setState(() {
         namaSubLaluan.text = widget.data;

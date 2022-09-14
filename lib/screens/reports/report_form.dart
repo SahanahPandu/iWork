@@ -13,6 +13,9 @@ import '../../utils/device.dart';
 import '../../models/reports.dart';
 import '../../screens/reports/pra/pra_section_report_form.dart';
 import '../../widgets/buttons/report_submit_button.dart';
+import '../list_of_obstacles/list_of_obstacles.dart';
+import '../list_of_park/list_of_parks.dart';
+import '../list_of_road/list_of_road_text_form_field.dart';
 import '../list_of_sub_routes/list_of_sub_routes_text_form_field.dart';
 
 class ReportForm extends StatefulWidget {
@@ -34,10 +37,11 @@ class ReportForm extends StatefulWidget {
 class _ReportFormState extends State<ReportForm> {
   final praSectionKey = GlobalKey<PraSectionReportFormState>();
   final namaSubLaluanKey = GlobalKey<ListOfSubRoutesTextFormFieldState>();
+  final namaTamanKey = GlobalKey<ListOfParksState>();
+  final namaJalanKey = GlobalKey<ListOfRoadTextFormFieldState>();
+  final jenisHalanganKey = GlobalKey<ListOfObstaclesState>();
   final Devices _device = Devices();
-  //late StreamSubscription<bool> keyboardSubscription;
-  // ignore: prefer_final_fields
-  ExpandableController _expandController =
+  final ExpandableController _expandController =
       ExpandableController(initialExpanded: true);
   final _reportFormKey = GlobalKey<FormState>();
   final TextEditingController _namaLaluan = TextEditingController();
@@ -110,6 +114,11 @@ class _ReportFormState extends State<ReportForm> {
   clearForm() {
     _reportFormKey.currentState!.reset();
     namaSubLaluanKey.currentState!.namaSubLaluan.clear();
+    namaTamanKey.currentState!.namaTaman.clear();
+    namaJalanKey.currentState!.namaJalan.clear();
+    jenisHalanganKey.currentState!.jenisHalangan.clear();
+    praSectionKey.currentState!.gambarLampiran = null;
+    praSectionKey.currentState!.catatan.clear();
     setState(() {});
   }
 
@@ -322,6 +331,10 @@ class _ReportFormState extends State<ReportForm> {
                             expanded: PraSectionReportForm(
                               key: praSectionKey,
                               screen: widget.screen,
+                              subLaluanKey: namaSubLaluanKey,
+                              tamanKey: namaTamanKey,
+                              jalanKey: namaJalanKey,
+                              jenisHalanganKey: jenisHalanganKey,
                               data: widget.data,
                               updateButton: updateButtonVisibility,
                             ),

@@ -28,11 +28,11 @@ class ListOfObstacles extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<ListOfObstacles> createState() => _ListOfObstaclesState();
+  ListOfObstaclesState createState() => ListOfObstaclesState();
 }
 
-class _ListOfObstaclesState extends State<ListOfObstacles> {
-  final TextEditingController _jenisHalangan = TextEditingController();
+class ListOfObstaclesState extends State<ListOfObstacles> {
+  final TextEditingController jenisHalangan = TextEditingController();
   final Devices _device = Devices();
 
   int totalHalangan = 0;
@@ -49,7 +49,7 @@ class _ListOfObstaclesState extends State<ListOfObstacles> {
     if (widget.data != "") {
       // this is for get data from list and pass to form , to show pass data in text field
       setState(() {
-        _jenisHalangan.text = widget.data;
+        jenisHalangan.text = widget.data;
       });
     }
   }
@@ -76,7 +76,7 @@ class _ListOfObstaclesState extends State<ListOfObstacles> {
           color: Color(0xff2B2B2B),
           fontWeight: FontWeight.w400,
         ),
-        controller: _jenisHalangan,
+        controller: jenisHalangan,
         readOnly: true,
         enabled: false,
         decoration: InputDecoration(
@@ -110,7 +110,7 @@ class _ListOfObstaclesState extends State<ListOfObstacles> {
           disabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
               width: borderSideWidth,
-              color: _jenisHalangan.text != '' &&
+              color: jenisHalangan.text != '' &&
                       widget.iconCondition == 1 &&
                       widget.screen == null
                   ? (userRole == 100 ? grey100 : enabledBorderWithText)
@@ -118,7 +118,19 @@ class _ListOfObstaclesState extends State<ListOfObstacles> {
             ),
             borderRadius: BorderRadius.circular(borderRadiusCircular),
           ),
+          errorStyle: const TextStyle(height: 0),
+          errorBorder: OutlineInputBorder(
+            borderSide: BorderSide(width: borderSideWidth, color: Colors.red),
+            borderRadius: BorderRadius.circular(borderRadiusCircular),
+          ),
         ),
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return '';
+          }
+
+          return null;
+        },
       ),
     );
   }
@@ -218,7 +230,7 @@ class _ListOfObstaclesState extends State<ListOfObstacles> {
                                     return InkWell(
                                       onTap: () {
                                         setState(() {
-                                          _jenisHalangan.text =
+                                          jenisHalangan.text =
                                               dataFuture[index].namaHalangan;
 
                                           Navigator.pop(context);

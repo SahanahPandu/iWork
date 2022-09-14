@@ -28,12 +28,11 @@ class ListOfRoadTextFormField extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<ListOfRoadTextFormField> createState() =>
-      _ListOfRoadTextFormFieldState();
+  ListOfRoadTextFormFieldState createState() => ListOfRoadTextFormFieldState();
 }
 
-class _ListOfRoadTextFormFieldState extends State<ListOfRoadTextFormField> {
-  final TextEditingController _namaJalan = TextEditingController();
+class ListOfRoadTextFormFieldState extends State<ListOfRoadTextFormField> {
+  final TextEditingController namaJalan = TextEditingController();
   final Devices _device = Devices();
 
   int totalJalan = 0;
@@ -49,7 +48,7 @@ class _ListOfRoadTextFormFieldState extends State<ListOfRoadTextFormField> {
 
     if (widget.data != "") {
       setState(() {
-        _namaJalan.text = widget.data;
+        namaJalan.text = widget.data;
       });
     }
   }
@@ -76,7 +75,7 @@ class _ListOfRoadTextFormFieldState extends State<ListOfRoadTextFormField> {
           color: Color(0xff2B2B2B),
           fontWeight: FontWeight.w400,
         ),
-        controller: _namaJalan,
+        controller: namaJalan,
         readOnly: true,
         enabled: false,
         decoration: InputDecoration(
@@ -110,7 +109,7 @@ class _ListOfRoadTextFormFieldState extends State<ListOfRoadTextFormField> {
           disabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
               width: borderSideWidth,
-              color: _namaJalan.text != '' &&
+              color: namaJalan.text != '' &&
                       widget.iconCondition == 1 &&
                       widget.screen == null
                   ? (userRole == 100 ? grey100 : enabledBorderWithText)
@@ -119,7 +118,19 @@ class _ListOfRoadTextFormFieldState extends State<ListOfRoadTextFormField> {
             borderRadius: BorderRadius.circular(borderRadiusCircular),
             gapPadding: 6.0,
           ),
+          errorStyle: const TextStyle(height: 0),
+          errorBorder: OutlineInputBorder(
+            borderSide: BorderSide(width: borderSideWidth, color: Colors.red),
+            borderRadius: BorderRadius.circular(borderRadiusCircular),
+          ),
         ),
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return '';
+          }
+
+          return null;
+        },
       ),
     );
   }
@@ -217,7 +228,7 @@ class _ListOfRoadTextFormFieldState extends State<ListOfRoadTextFormField> {
                                     return InkWell(
                                       onTap: () {
                                         setState(() {
-                                          _namaJalan.text =
+                                          namaJalan.text =
                                               dataFuture[index].namaJalan;
 
                                           Navigator.pop(context);
