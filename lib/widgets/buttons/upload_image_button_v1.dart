@@ -19,7 +19,7 @@ class _UploadImageButtonState extends State<UploadImageButton> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        ElevatedButton(
+        ElevatedButton.icon(
           onPressed: () {
             showUploadImageOption(context, widget.getImageName);
           },
@@ -31,8 +31,12 @@ class _UploadImageButtonState extends State<UploadImageButton> {
             ),
             elevation: 5.0,
           ),
-          child: const Text(
-            "Muat Naik Gambar",
+          icon: const Icon(
+            Icons.cloud_upload,
+            size: 28,
+          ),
+          label: const Text(
+            "Muat Naik Lampiran",
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w500,
@@ -44,7 +48,7 @@ class _UploadImageButtonState extends State<UploadImageButton> {
         ),
         const Center(
           child: Text(
-            "Format jpeg & png",
+            "Format fail .jpeg & .png sahaja",
             style: TextStyle(
               fontSize: 11,
               fontWeight: FontWeight.w400,

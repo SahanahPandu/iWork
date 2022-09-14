@@ -1,5 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+// ignore: depend_on_referenced_packages
+import 'package:path/path.dart';
 
 //import files
 import '../../../models/reports.dart';
@@ -7,6 +9,7 @@ import '../../../config/config.dart';
 import '../../../config/font.dart';
 import '../../../config/palette.dart';
 import '../../../utils/device.dart';
+import '../../../widgets/buttons/change_image_upload.dart';
 import '../../../widgets/buttons/upload_image_button.dart';
 import '../../list_of_obstacles/list_of_obstacles.dart';
 import '../../list_of_park/list_of_parks.dart';
@@ -52,6 +55,7 @@ class PraSectionReportFormState extends State<PraSectionReportForm> {
   String jenisHalangan = "";
   String subLaluan = "";
   File? gambarLampiran;
+  String namaGambar = "";
 
   double spacingHeight = userRole == 100 ? 25 : 20;
 
@@ -90,6 +94,7 @@ class PraSectionReportFormState extends State<PraSectionReportForm> {
   getImageName(fileName) {
     setState(() {
       gambarLampiran = fileName;
+      namaGambar = basename(fileName.path);
     });
   }
 
@@ -169,59 +174,64 @@ class PraSectionReportFormState extends State<PraSectionReportForm> {
           ),
         //Display selected image
         if (gambarLampiran != null || widget.screen == "4")
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: 200,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(
-                Radius.circular(borderRadiusCircular),
-              ),
-              color: Colors.lightBlue.shade100,
-            ),
-            child: gambarLampiran != null
-                ? Image.file(
-                    gambarLampiran!,
-                    width: double.infinity,
-                    height: double.infinity,
-                    fit: BoxFit.fill,
-                  )
-                // Center(
-                //     child: Container(
-                //       margin: const EdgeInsets.all(8),
-                //       padding: const EdgeInsets.all(1),
-                //       width: 200,
-                //       height: 150,
-                //       decoration: BoxDecoration(
-                //         border: Border.all(
-                //           color: Colors.white,
-                //           width: 2,
-                //         ),
-                //         borderRadius: BorderRadius.all(
-                //           Radius.circular(borderRadiusCircular),
-                //         ),
-                //         color: Colors.white,
-                //         boxShadow: const [
-                //           BoxShadow(
-                //             color: Colors.white,
-                //             blurStyle: BlurStyle.outer,
-                //           )
-                //         ],
-                //       ),
-                //       child: ClipRRect(
-                //         borderRadius: BorderRadius.all(
-                //             Radius.circular(borderRadiusCircular)),
-                //         child: Image.file(
-                //           gambarLampiran!,
-                //           width: double.infinity,
-                //           height: double.infinity,
-                //           fit: BoxFit.fill,
-                //         ),
-                //       ),
-                //     ),
-                //   )
-                : const Center(
-                    child: Text("No Image"),
+          Column(
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: 250,
+                decoration: BoxDecoration(
+                  border: widget.screen == "4"
+                      ? Border.all(
+                          color: const Color(0xffDDDFE2),
+                        )
+                      : null,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(borderRadiusCircular),
                   ),
+                  color: textFieldFillColor,
+                ),
+                child: gambarLampiran != null
+                    ? ClipRRect(
+                        clipBehavior: Clip.hardEdge,
+                        borderRadius: BorderRadius.all(
+                            Radius.circular(borderRadiusCircular)),
+                        child: Image.file(
+                          gambarLampiran!,
+                          width: double.infinity,
+                          height: double.infinity,
+                          fit: BoxFit.cover,
+                        ),
+                      )
+                    : Center(
+                        child: Text(
+                          "Tiada Gambar",
+                          style: TextStyle(
+                            color: greyCustom,
+                          ),
+                        ),
+                      ),
+              ),
+              if (widget.screen != "4")
+                const SizedBox(
+                  height: 10,
+                ),
+              if (widget.screen != "4")
+                Text(
+                  namaGambar,
+                  style: TextStyle(
+                    color: greyCustom,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w400,
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
+              if (widget.screen != "4")
+                const SizedBox(
+                  height: 10,
+                ),
+              if (widget.screen != "4")
+                ChangeImageButton(getImageName: getImageName),
+            ],
           ),
         SizedBox(
           height: spacingHeight,
