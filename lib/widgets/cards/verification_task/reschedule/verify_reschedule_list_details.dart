@@ -19,12 +19,14 @@ class VerifyRescheduleListDetails extends StatefulWidget {
 
 class _VerifyRescheduleListDetailsState
     extends State<VerifyRescheduleListDetails> {
+  final Devices _devices = Devices();
+
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 4),
       decoration: BoxDecoration(
-        border: widget.index != 1
+        border: widget.index != 2
             ? Border(
                 top: BorderSide.none,
                 bottom: BorderSide(
@@ -53,24 +55,44 @@ class _VerifyRescheduleListDetailsState
               ),
               Text("10/7/2022",
                   style: TextStyle(
-                      color: primaryTextColor,
+                      color: blackCustom,
                       fontSize: 15,
-                      fontWeight: FontWeight.w500)),
+                      fontWeight: FontWeight.w600)),
             ],
           ),
-          const SizedBox(height: 5),
+          const SizedBox(height: 15),
           SizedBox(
-            width: Devices().screenWidth(context),
+            width: _textSize().width,
+            height: _textSize().height,
             child: Text(
-                "Penyelia C ingin meminjam PRA ${widget.data!.name} di bawah seliaan anda untuk tugasan Laluan JHBP-C01 pada 10/07/2022",
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                    color: greyCustom,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400)),
+              "Penyelia ${widget.data!.reportsTo} mohon untuk meminjam PRA ${widget.data!.name} di bawah seliaan anda untuk tugasan Laluan JHBP-C01 pada 10/07/2022",
+              style: textStyle,
+              softWrap: true,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 2,
+            ),
           ),
         ],
       ),
     );
+  }
+
+  final TextStyle textStyle = TextStyle(
+      color: greyCustom,
+      fontSize: 13,
+      height: 1.5,
+      fontWeight: FontWeight.w400);
+
+  Size _textSize() {
+    final TextPainter textPainter = TextPainter(
+        text: TextSpan(
+            text:
+                "Penyelia ${widget.data!.reportsTo} mohon untuk meminjam PRA ${widget.data!.name} di bawah seliaan anda untuk tugasan Laluan JHBP-C01 pada 10/07/2022",
+            style: textStyle),
+        maxLines: 2,
+        textAlign: TextAlign.left,
+        textDirection: TextDirection.ltr)
+      ..layout(minWidth: 0, maxWidth: _devices.screenWidth(context));
+    return textPainter.size;
   }
 }

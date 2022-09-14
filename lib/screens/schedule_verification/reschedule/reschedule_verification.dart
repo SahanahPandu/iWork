@@ -43,7 +43,7 @@ class _RescheduleVerificationState extends State<RescheduleVerification> {
               return ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: 2,
+                itemCount: 3,
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {
