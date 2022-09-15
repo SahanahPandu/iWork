@@ -8,10 +8,11 @@ import 'list_of_road_details.dart';
 
 class ListOfRoad extends StatefulWidget {
   final int idTaman;
-  final String namaTaman;
 
-  const ListOfRoad({Key? key, required this.idTaman, required this.namaTaman})
-      : super(key: key);
+  const ListOfRoad({
+    Key? key,
+    required this.idTaman,
+  }) : super(key: key);
 
   @override
   State<ListOfRoad> createState() => _ListOfRoadState();
@@ -27,7 +28,7 @@ class _ListOfRoadState extends State<ListOfRoad> {
       children: [
         Container(
           margin: const EdgeInsets.only(
-            top: 24,
+            top: 16,
           ),
           color: const Color(0xffF7FBFF),
           padding: const EdgeInsets.symmetric(vertical: 16),
@@ -36,19 +37,11 @@ class _ListOfRoadState extends State<ListOfRoad> {
             child: Row(
               children: [
                 Text(
-                  "jalan bawah ",
+                  "Senarai Jalan ",
                   style: TextStyle(
-                    fontSize: 15,
+                    fontSize: 16,
                     color: blackCustom,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                Text(
-                  widget.namaTaman,
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: blackCustom,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w400,
                   ),
                 ),
               ],

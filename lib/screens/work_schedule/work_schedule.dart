@@ -20,6 +20,7 @@ class WorkSchedule extends StatefulWidget {
 }
 
 class _WorkScheduleState extends State<WorkSchedule> {
+  final tamanKey = GlobalKey<ListOfParksState>();
   bool _showSenaraiTaman = false;
   bool _showSenaraiJalan = false;
   int idTaman = 0;
@@ -29,6 +30,7 @@ class _WorkScheduleState extends State<WorkSchedule> {
 
   updateSenaraiTaman(id) {
     setState(() {
+      tamanKey.currentState?.namaTaman.clear();
       _showSenaraiTaman = true;
       idSubLaluan = id;
     });
@@ -122,9 +124,23 @@ class _WorkScheduleState extends State<WorkSchedule> {
               ),
               child: Column(
                 children: [
+                  Container(
+                    margin: const EdgeInsets.symmetric(
+                      vertical: 24,
+                    ),
+                    child: Text(
+                      "Perincian Sub-Laluan ",
+                      style: TextStyle(
+                        color: blackCustom,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+
                   //Sub Laluan
                   Container(
-                    margin: const EdgeInsets.fromLTRB(15, 24, 17, 16),
+                    margin: const EdgeInsets.fromLTRB(15, 0, 17, 16),
                     child: ListOfSubRoutesTextFormField(
                       hintText: 'Sub-Laluan',
                       fontSize: 15,
@@ -144,6 +160,7 @@ class _WorkScheduleState extends State<WorkSchedule> {
                         right: 17,
                       ),
                       child: ListOfParks(
+                        key: tamanKey,
                         subRoutesId: idSubLaluan,
                         showSenaraiJalan: updateShowSenaraiJalan,
                         hintText: 'Senarai Taman',
@@ -159,7 +176,6 @@ class _WorkScheduleState extends State<WorkSchedule> {
                   if (_showSenaraiJalan)
                     ListOfRoad(
                       idTaman: idTaman,
-                      namaTaman: namaTaman,
                     ),
                 ],
               ),

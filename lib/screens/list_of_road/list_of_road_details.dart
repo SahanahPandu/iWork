@@ -69,7 +69,7 @@ class _ListOfRoadDetailsState extends State<ListOfRoadDetails> {
               child: const Icon(
                 Icons.near_me_rounded,
                 color: Colors.green,
-                size: 15,
+                size: 24,
               ),
             ),
           )
