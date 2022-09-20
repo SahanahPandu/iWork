@@ -26,7 +26,6 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       child: Scaffold(
-        extendBodyBehindAppBar: userRole != 200 ? true : false,
         backgroundColor: Colors.transparent,
         extendBody: true,
         appBar: AppBar(

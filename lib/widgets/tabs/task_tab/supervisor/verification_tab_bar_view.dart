@@ -13,13 +13,11 @@ class VerifyTabbarView extends StatefulWidget {
 }
 
 class _VerifyTabbarViewState extends State<VerifyTabbarView> {
-
   @override
   Widget build(BuildContext context) {
     return const SingleChildScrollView(
-      physics: BouncingScrollPhysics(),
-      child:
-        ScheduleVerificationMain(),
+      physics: NeverScrollableScrollPhysics(),
+      child: ScheduleVerificationMain(),
     );
   }
 }
