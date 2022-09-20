@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../config/palette.dart';
 import '../../widgets/cards/today_task/today_task_card.dart';
+import '../../widgets/slivers/expand_collapse_header/expand_collapse_header.dart';
 import '../../widgets/tabs/task_tab/task_tab.dart';
-import '../../widgets/slivers/draggable_header/expand_collapse_header.dart';
 
 class Supervisor extends StatefulWidget {
   const Supervisor({Key? key}) : super(key: key);
