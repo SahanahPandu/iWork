@@ -13,6 +13,7 @@ class StatusContainer extends StatefulWidget {
 
   //Color textColor;
   final FontWeight fontWeight;
+  final bool? roundedCorner;
 
   const StatusContainer(
       {Key? key,
@@ -21,7 +22,8 @@ class StatusContainer extends StatefulWidget {
       required this.status,
       required this.statusId,
       // required this.textColor,
-      required this.fontWeight})
+      required this.fontWeight,
+      this.roundedCorner = false})
       : super(key: key);
 
   @override
@@ -159,13 +161,17 @@ class _StatusContainerState extends State<StatusContainer> {
       child: FittedBox(
         fit: BoxFit.contain,
         child: Container(
-          padding: const EdgeInsets.all(8),
+          padding: widget.roundedCorner!
+              ? const EdgeInsets.all(6)
+              : const EdgeInsets.all(8),
           decoration: BoxDecoration(
             color: statusBoxColor,
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(6),
-              bottomLeft: Radius.circular(6),
-            ),
+            borderRadius: widget.roundedCorner!
+                ? BorderRadius.circular(6)
+                : const BorderRadius.only(
+                    topLeft: Radius.circular(6),
+                    bottomLeft: Radius.circular(6),
+                  ),
           ),
           child: AutoSizeText(
             widget.status,

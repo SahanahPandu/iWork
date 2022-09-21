@@ -24,6 +24,7 @@ class SupervisorScheduleDetails extends StatefulWidget {
 
 class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
   final Devices _device = Devices();
+  Color expandBgColor = const Color(0xea4a39be);
 
   @override
   Widget build(BuildContext context) {
@@ -35,13 +36,13 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Text(
                 widget.data.namaLaluan,
                 style: TextStyle(
                   fontSize: 16,
-                  color: blackCustom,
-                  fontWeight: FontWeight.w500,
+                  color: white,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
             ),
@@ -50,13 +51,14 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
               status: widget.data.status,
               statusId: widget.data.idStatus,
               fontWeight: statusFontWeight,
+              roundedCorner: true,
             ),
           ],
         ),
 
         //No. Kenderaan
         Padding(
-          padding: const EdgeInsets.fromLTRB(15, 20, 15, 15),
+          padding: const EdgeInsets.fromLTRB(10, 20, 10, 15),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -65,7 +67,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                   Icon(
                     CustomIcon.truckFill,
                     size: 16,
-                    color: blue,
+                    color: white,
                   ),
                   const SizedBox(
                     width: 10,
@@ -74,7 +76,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                     "No. Kenderaan",
                     style: TextStyle(
                       fontSize: 15,
-                      color: greyCustom,
+                      color: white,
                       fontWeight: FontWeight.w400,
                     ),
                   ),
@@ -84,7 +86,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                 widget.data.noKenderaan,
                 style: TextStyle(
                   fontSize: 15,
-                  color: blackCustom,
+                  color: white,
                   fontWeight: FontWeight.w600,
                 ),
               )
@@ -93,7 +95,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
         ),
         //Jumlah Sub Laluan
         Padding(
-          padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
+          padding: const EdgeInsets.fromLTRB(10, 0, 10, 15),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -102,7 +104,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                   Icon(
                     CustomIcon.roadFill,
                     size: 16,
-                    color: blue,
+                    color: white,
                   ),
                   const SizedBox(
                     width: 10,
@@ -111,7 +113,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                     "Jumlah Sub Laluan",
                     style: TextStyle(
                       fontSize: 15,
-                      color: greyCustom,
+                      color: white,
                       fontWeight: FontWeight.w400,
                     ),
                   ),
@@ -121,7 +123,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                 "${widget.data.jumSubLaluan}",
                 style: TextStyle(
                   fontSize: 15,
-                  color: blackCustom,
+                  color: white,
                   fontWeight: FontWeight.w600,
                 ),
               )
@@ -130,7 +132,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
         ),
         //Jumlah Taman dan Jalan
         Padding(
-          padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
+          padding: const EdgeInsets.fromLTRB(10, 0, 10, 15),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -139,7 +141,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                   Icon(
                     CustomIcon.tamanFill,
                     size: 16,
-                    color: blue,
+                    color: white,
                   ),
                   const SizedBox(
                     width: 10,
@@ -148,7 +150,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                     "Jumlah Taman/Jalan",
                     style: TextStyle(
                       fontSize: 15,
-                      color: greyCustom,
+                      color: white,
                       fontWeight: FontWeight.w400,
                     ),
                   ),
@@ -158,7 +160,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                 "${widget.data.jumlahTaman}/${widget.data.jumlahJalan}",
                 style: TextStyle(
                   fontSize: 15,
-                  color: blackCustom,
+                  color: white,
                   fontWeight: FontWeight.w600,
                 ),
               )
@@ -167,16 +169,16 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
         ),
         //Jenis Kutipan
         Padding(
-          padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
+          padding: const EdgeInsets.fromLTRB(10, 0, 10, 15),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
                 children: [
                   Icon(
-                    Icons.grass,
+                    CustomIcon.recycle,
                     size: 16,
-                    color: blue,
+                    color: white,
                   ),
                   const SizedBox(
                     width: 8,
@@ -185,7 +187,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                     "Jenis Kutipan",
                     style: TextStyle(
                       fontSize: 15,
-                      color: greyCustom,
+                      color: white,
                       fontWeight: FontWeight.w400,
                     ),
                   ),
@@ -195,7 +197,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                 widget.data.jenisKutipan,
                 style: TextStyle(
                   fontSize: 15,
-                  color: blackCustom,
+                  color: white,
                   fontWeight: FontWeight.w600,
                 ),
               )
@@ -205,13 +207,13 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
 
         //Masuk Kerja/Keluar Kerja
         Padding(
-          padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
+          padding: const EdgeInsets.fromLTRB(10, 0, 10, 15),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
                 children: [
-                  Icon(CustomIcon.scheduleFill, size: 16, color: blue),
+                  Icon(CustomIcon.scheduleFill, size: 16, color: white),
                   const SizedBox(
                     width: 10,
                   ),
@@ -219,7 +221,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                     "Masuk/Keluar Kerja",
                     style: TextStyle(
                       fontSize: 15,
-                      color: greyCustom,
+                      color: white,
                       fontWeight: FontWeight.w400,
                     ),
                   ),
@@ -229,94 +231,25 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                 "${widget.data.mulaKerja} / ${widget.data.tamatKerja}",
                 style: TextStyle(
                   fontSize: 15,
-                  color: blackCustom,
+                  color: white,
                   fontWeight: FontWeight.w600,
                 ),
               )
             ],
           ),
         ),
-
-        //Senarai Staf
-        Padding(
-          padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  Icon(
-                    CustomIcon.user,
-                    size: 16,
-                    color: blue,
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    "Senarai Pekerja",
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: greyCustom,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ],
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 3),
-                    child: Text(
-                      widget.data.senaraiStaf.staf_1,
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: blackCustom,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 3),
-                    child: Text(
-                      widget.data.senaraiStaf.staf_2,
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: blackCustom,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 3),
-                    child: Text(
-                      widget.data.senaraiStaf.staf_3,
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: blackCustom,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                ],
-              )
-            ],
-          ),
-        ),
         //Semakan Kenderaan
         Padding(
-          padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
+          padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
                 children: [
                   Icon(
-                    CustomIcon.truckFill,
+                    CustomIcon.manualFill,
                     size: 16,
-                    color: blue,
+                    color: white,
                   ),
                   const SizedBox(
                     width: 10,
@@ -325,7 +258,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                     "Semakan Kenderaan",
                     style: TextStyle(
                       fontSize: 15,
-                      color: greyCustom,
+                      color: white,
                       fontWeight: FontWeight.w400,
                     ),
                   ),
@@ -335,13 +268,73 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                 "Sebelum/Selepas",
                 style: TextStyle(
                   fontSize: 15,
-                  color: blackCustom,
+                  color: white,
                   fontWeight: FontWeight.w600,
                 ),
               )
             ],
           ),
         ),
+        //Senarai Staf
+        Align(
+          alignment: Alignment.centerRight,
+          child: Container(
+            alignment: Alignment.centerLeft,
+            width: 140,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(10, 0, 10, 15),
+              child: Stack(
+                clipBehavior: Clip.none,
+                fit: StackFit.passthrough,
+                children: [
+                  Positioned(
+                    left: 70,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: CircleAvatar(
+                        backgroundColor: expandBgColor,
+                        radius: 22,
+                        child: CircleAvatar(
+                          backgroundImage:
+                              NetworkImage(widget.data.senaraiStaf.staf_3_img),
+                          radius: 20,
+                        ), //CircleAvatar
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 35,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: CircleAvatar(
+                        backgroundColor: expandBgColor,
+                        radius: 22,
+                        child: CircleAvatar(
+                          backgroundImage:
+                              NetworkImage(widget.data.senaraiStaf.staf_2_img),
+                          radius: 20,
+                        ), //CircleAvatar
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: CircleAvatar(
+                      backgroundColor: expandBgColor,
+                      radius: 22,
+                      child: CircleAvatar(
+                        backgroundImage:
+                            NetworkImage(widget.data.senaraiStaf.staf_1_img),
+                        radius: 20,
+                      ), //CircleAvatar
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+
         widget.button == true
             ? Center(
                 child: Container(

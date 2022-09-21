@@ -7,70 +7,28 @@ class ExpandCollapseHeader extends StatefulWidget {
   @override
   ExpandCollapseHeaderState createState() => ExpandCollapseHeaderState();
 
-  /// Widget to display before the toolbar's title.
   final Widget? leading;
-
-  /// Widget to display title in AppBar
   final Widget title;
-
-  /// Allows toggling of title from the center. By default title is in the center.
   final bool centerTitle;
-
-  /// List of Widgets to display in a row after the title widget.
   final List<Widget>? actions;
-
-  /// This make Leading and Action always visible. Default value is false.
   final bool alwaysShowLeadingAndAction;
-
-  /// This make Title always visible. Default value is false.
   final bool alwaysShowTitle;
-
-  /// Drawers are typically used with the Scaffold.drawer property.
   final Widget? drawer;
-
-  /// Height of the header widget. The height is a double between 0.0 and 1.0. The default value of height is 0.35 and should be less than stretchMaxHeigh
   final double headerExpandedHeight;
-
-  /// Widget to display Header above body.
   final Widget headerWidget;
-
-  /// AppBar or toolBar like widget just above the body.
   final Widget? headerBottomBar;
-
-  /// The color of the Material widget that underlies the entire DraggableScreen body.
   final Color? backgroundColor;
-
-  /// The color of the scaffold app bar.
   final Color? appBarColor;
-
-  /// Creates a border top left and top right radius of body, Default radius of the body is 20.0. For no radius simply set value to 0.
   final double curvedBodyRadius;
-
-  /// Widget to Body
   final List<Widget> body;
-
-  /// Allows toggling of fully expand draggability of the DraggableHome. Set this to true to allow the user to fully expand the header.
   final bool fullyStretchable;
-
-  /// The offset of overscroll required to fully expand the header.
   final double stretchTriggerOffset;
-
-  /// Widget to display when fully expanded as header or expandedBody above body.
   final Widget? expandedBody;
-
-  /// Height of the expandedBody widget. The height is a double between 0.0 and 0.95. The default value of height is 0.9 and should be greater than headerExpandedHeight
   final double stretchMaxHeight;
-
-  /// Object that defines a position for the FloatingActionButton based on the Scaffold's ScaffoldPrelayoutGeometry.
   final Widget? floatingActionButton;
-
-  /// Persistent bottom sheet shows information that supplements the primary content of the app. A persistent bottom sheet remains visible even when the user interacts with other parts of the app.
   final Widget? bottomSheet;
-
-  /// floatingActionButtonLocation: An object that defines a position for the FloatingActionButton based on the Scaffold's ScaffoldPrelayoutGeometry.
+  final Widget? fixedTitle;
   final FloatingActionButtonLocation? floatingActionButtonLocation;
-
-  /// floatingActionButtonAnimator: Provider of animations to move the FloatingActionButton between FloatingActionButtonLocations.
   final FloatingActionButtonAnimator? floatingActionButtonAnimator;
 
   const ExpandCollapseHeader({
@@ -94,6 +52,7 @@ class ExpandCollapseHeader extends StatefulWidget {
     this.expandedBody,
     this.stretchMaxHeight = 0.8,
     this.bottomSheet,
+    this.fixedTitle,
     this.floatingActionButton,
     this.floatingActionButtonLocation,
     this.floatingActionButtonAnimator,
@@ -145,7 +104,7 @@ class ExpandCollapseHeaderState extends State<ExpandCollapseHeader> {
             }
             //isFullyCollapsed
             if (notification.metrics.extentBefore >
-                expandedHeight - AppBar().preferredSize.height - 40) {
+                expandedHeight - AppBar().preferredSize.height - 60) {
               if (!(isFullyCollapsed.value)) {
                 isFullyCollapsed.add(true);
               }
@@ -213,7 +172,7 @@ class ExpandCollapseHeaderState extends State<ExpandCollapseHeader> {
                       duration: const Duration(milliseconds: 100),
                       child: widget.title,
                     ),
-              collapsedHeight: 85,
+              collapsedHeight: widget.fixedTitle != null ? 120 : 85,
               expandedHeight:
                   fullyExpanded ? fullyExpandedHeight : expandedHeight,
               flexibleSpace: Stack(
@@ -270,13 +229,14 @@ class ExpandCollapseHeaderState extends State<ExpandCollapseHeader> {
 
   Container _roundedCorner(BuildContext context) {
     return Container(
-      height: 24,
+      height: widget.fixedTitle != null ? 60 : 20,
       decoration: BoxDecoration(
         color: white,
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(widget.curvedBodyRadius),
         ),
       ),
+      child: widget.fixedTitle ?? Container(),
     );
   }
 

@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../../utils/custom_icon.dart';
+import '../../utils/device.dart';
 import '../../widgets/drawer/drawer.dart';
 import '../screens.dart';
 
@@ -14,7 +15,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height,
+      height: Devices().screenHeight(context),
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: [
