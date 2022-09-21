@@ -17,38 +17,52 @@ class _SupervisorState extends State<Supervisor> {
   Widget build(BuildContext context) {
     return ExpandCollapseHeader(
         centerTitle: false,
-        title: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const SizedBox(
-                height: 10,
+        title: Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: CircleAvatar(
+                backgroundColor: white54,
+                radius: 20,
+                child: const CircleAvatar(
+                  backgroundImage: NetworkImage(
+                      "https://www.citygorentalsmalta.com/wp-content/uploads/2021/04/iStock_000020004182Medium1.jpg"),
+                  //NetworkImage
+                  radius: 18,
+                ), //CircleAvatar
               ),
-              Text(
-                "Tugasan Hari Ini (9.00 pg - 5.00 ptg)",
-                style: TextStyle(
-                  color: white,
-                  fontWeight: FontWeight.w400,
-                  fontSize: 15,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  height: 10,
                 ),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              Text(
-                "15 September 2022",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                  color: white,
+                Text(
+                  "Tugasan Hari Ini (9.00 pg - 5.00 ptg)",
+                  style: TextStyle(
+                    color: white,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 15,
+                  ),
                 ),
-              ),
-              const SizedBox(
-                height: 10,
-              )
-            ],
-          ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  "15 September 2022",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    color: white,
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                )
+              ],
+            ),
+          ],
         ),
         alwaysShowLeadingAndAction: false,
         headerWidget: _header(context),
@@ -66,23 +80,37 @@ class _SupervisorState extends State<Supervisor> {
     return SafeArea(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
+        children: [
           Padding(
-            padding: EdgeInsets.only(left: 20, top: 15, bottom: 5),
-            child: Text(
-              "Hi, Suhaimi!",
-              textAlign: TextAlign.left,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-              ),
+            padding: const EdgeInsets.only(left: 25, top: 10, bottom: 5),
+            child: Row(
+              children: [
+                CircleAvatar(
+                  backgroundColor: white54,
+                  radius: 20,
+                  child: const CircleAvatar(
+                    backgroundImage: NetworkImage(
+                        "https://www.citygorentalsmalta.com/wp-content/uploads/2021/04/iStock_000020004182Medium1.jpg"),
+                    radius: 18,
+                  ), //CircleAvatar
+                ),
+                const SizedBox(width: 10),
+                const Text(
+                  "Hi, Suhaimi!",
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
             ),
           ),
-          SizedBox(
-            height: 20,
+          const SizedBox(
+            height: 15,
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: SizedBox(
               //height: Devices().screenHeight(context) * 0.26,

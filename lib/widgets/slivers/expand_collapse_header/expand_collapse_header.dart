@@ -210,15 +210,17 @@ class ExpandCollapseHeaderState extends State<ExpandCollapseHeader> {
                   : AnimatedOpacity(
                       curve: Curves.easeIn,
                       opacity: fullyCollapsed ? 1 : 0,
-                      duration: const Duration(milliseconds: 200),
+                      duration: const Duration(milliseconds: 100),
                       child: widget.title,
                     ),
-              collapsedHeight: appBarHeight,
+              collapsedHeight: 85,
               expandedHeight:
                   fullyExpanded ? fullyExpandedHeight : expandedHeight,
               flexibleSpace: Stack(
                 children: [
                   FlexibleSpaceBar(
+                    stretchModes: const [StretchMode.fadeTitle],
+                    collapseMode: CollapseMode.pin,
                     background: Container(
                       margin: const EdgeInsets.only(bottom: 0.2),
                       child: fullyExpanded
