@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../config/font.dart';
 import '../../../config/palette.dart';
 import '../../../models/laluan.dart';
+import '../../../utils/device.dart';
 import '../../../widgets/container/status_container.dart';
 import '../../../widgets/slivers/expand_collapse_header/expand_collapse_header.dart';
 import '../../list_of_park/list_of_parks.dart';
@@ -63,58 +64,68 @@ class _SupervisorWorkScheduleMainState
         ],
         curvedBodyRadius: 24,
         fixedTitle: _fixedTitle(context),
+        fixedTitleHeight: 60,
+        collapseHeight: 120,
+        collapseFade: 70,
         backgroundColor: transparent,
         appBarColor: collapseBgColor);
   }
 
   SafeArea _scrollBody() {
     return SafeArea(
-        child: Container(
-            height: 600,
-            color: white,
-            child: Column(
-              children: [
-                //Sub Laluan
+      child: Container(
+
+          /// 0.555 = headerExpandedHeight + 0.05
+          height: _showSenaraiTaman && _showSenaraiJalan
+              ? null
+              : (Devices().screenHeight(context) -
+                  (Devices().screenHeight(context) * 0.555) -
+                  kToolbarHeight),
+          color: white,
+          child: Column(
+            children: [
+              //Sub Laluan
+              Container(
+                margin: const EdgeInsets.fromLTRB(15, 10, 17, 16),
+                child: ListOfSubRoutesTextFormField(
+                  hintText: 'Sub-Laluan',
+                  fontSize: 15,
+                  fillColor: Colors.white,
+                  iconCondition: iconCondition,
+                  data: "",
+                  screen: "Work Schedule",
+                  getSubLaluanId: updateSenaraiTaman,
+                ),
+              ),
+
+              //Taman
+              if (_showSenaraiTaman)
                 Container(
-                  margin: const EdgeInsets.fromLTRB(15, 10, 17, 16),
-                  child: ListOfSubRoutesTextFormField(
-                    hintText: 'Sub-Laluan',
+                  margin: const EdgeInsets.only(
+                    left: 15,
+                    right: 17,
+                  ),
+                  child: ListOfParks(
+                    key: tamanKey,
+                    subRoutesId: idSubLaluan,
+                    showSenaraiJalan: updateShowSenaraiJalan,
+                    hintText: 'Senarai Taman',
                     fontSize: 15,
                     fillColor: Colors.white,
                     iconCondition: iconCondition,
                     data: "",
                     screen: "Work Schedule",
-                    getSubLaluanId: updateSenaraiTaman,
                   ),
                 ),
 
-                //Taman
-                if (_showSenaraiTaman)
-                  Container(
-                    margin: const EdgeInsets.only(
-                      left: 15,
-                      right: 17,
-                    ),
-                    child: ListOfParks(
-                      key: tamanKey,
-                      subRoutesId: idSubLaluan,
-                      showSenaraiJalan: updateShowSenaraiJalan,
-                      hintText: 'Senarai Taman',
-                      fontSize: 15,
-                      fillColor: Colors.white,
-                      iconCondition: iconCondition,
-                      data: "",
-                      screen: "Work Schedule",
-                    ),
-                  ),
-
-                //Senarai Jalan
-                if (_showSenaraiJalan)
-                  ListOfRoad(
-                    idTaman: idTaman,
-                  ),
-              ],
-            )));
+              //Senarai Jalan
+              if (_showSenaraiJalan)
+                ListOfRoad(
+                  idTaman: idTaman,
+                ),
+            ],
+          )),
+    );
   }
 
   Row _collapseTitle() {
@@ -229,7 +240,7 @@ class _SupervisorWorkScheduleMainState
       padding: const EdgeInsets.symmetric(vertical: 20),
       child: Center(
         child: Text(
-          "Perincian Sub-Laluan ",
+          "Perincian Sub-Laluan",
           style: TextStyle(
             color: blackCustom,
             fontSize: 16,

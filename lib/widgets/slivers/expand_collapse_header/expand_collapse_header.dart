@@ -28,6 +28,9 @@ class ExpandCollapseHeader extends StatefulWidget {
   final Widget? floatingActionButton;
   final Widget? bottomSheet;
   final Widget? fixedTitle;
+  final double? fixedTitleHeight;
+  final double? collapseHeight;
+  final double? collapseFade;
   final FloatingActionButtonLocation? floatingActionButtonLocation;
   final FloatingActionButtonAnimator? floatingActionButtonAnimator;
 
@@ -53,6 +56,9 @@ class ExpandCollapseHeader extends StatefulWidget {
     this.stretchMaxHeight = 0.8,
     this.bottomSheet,
     this.fixedTitle,
+    this.fixedTitleHeight = 20,
+    this.collapseHeight = 85,
+    this.collapseFade = 60,
     this.floatingActionButton,
     this.floatingActionButtonLocation,
     this.floatingActionButtonAnimator,
@@ -104,7 +110,9 @@ class ExpandCollapseHeaderState extends State<ExpandCollapseHeader> {
             }
             //isFullyCollapsed
             if (notification.metrics.extentBefore >
-                expandedHeight - AppBar().preferredSize.height - 60) {
+                expandedHeight -
+                    AppBar().preferredSize.height -
+                    widget.collapseFade!) {
               if (!(isFullyCollapsed.value)) {
                 isFullyCollapsed.add(true);
               }
@@ -172,7 +180,7 @@ class ExpandCollapseHeaderState extends State<ExpandCollapseHeader> {
                       duration: const Duration(milliseconds: 100),
                       child: widget.title,
                     ),
-              collapsedHeight: widget.fixedTitle != null ? 120 : 85,
+              collapsedHeight: widget.collapseHeight,
               expandedHeight:
                   fullyExpanded ? fullyExpandedHeight : expandedHeight,
               flexibleSpace: Stack(
@@ -229,7 +237,7 @@ class ExpandCollapseHeaderState extends State<ExpandCollapseHeader> {
 
   Container _roundedCorner(BuildContext context) {
     return Container(
-      height: widget.fixedTitle != null ? 60 : 20,
+      height: widget.fixedTitleHeight,
       decoration: BoxDecoration(
         color: white,
         borderRadius: BorderRadius.vertical(
@@ -244,7 +252,10 @@ class ExpandCollapseHeaderState extends State<ExpandCollapseHeader> {
     return SliverList(
       delegate: SliverChildListDelegate(
         [
-          Stack(children: [
+          Column(
+            children: [...widget.body],
+          ),
+          /*Stack(children: [
             Container(
               height: MediaQuery.of(context).size.height - topHeight - 80,
               color: widget.backgroundColor ??
@@ -253,7 +264,7 @@ class ExpandCollapseHeaderState extends State<ExpandCollapseHeader> {
             Column(
               children: [...widget.body],
             ),
-          ]),
+          ]),*/
         ],
       ),
     );

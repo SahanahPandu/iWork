@@ -17,63 +17,71 @@ class _SupervisorState extends State<Supervisor> {
   Widget build(BuildContext context) {
     return ExpandCollapseHeader(
         centerTitle: false,
-        title: Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: CircleAvatar(
-                backgroundColor: white54,
-                radius: 20,
-                child: const CircleAvatar(
-                  backgroundImage: NetworkImage(
-                      "https://www.citygorentalsmalta.com/wp-content/uploads/2021/04/iStock_000020004182Medium1.jpg"),
-                  //NetworkImage
-                  radius: 18,
-                ), //CircleAvatar
-              ),
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  "Tugasan Hari Ini (9.00 pg - 5.00 ptg)",
-                  style: TextStyle(
-                    color: white,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 15,
-                  ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  "15 September 2022",
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                    color: white,
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                )
-              ],
-            ),
-          ],
-        ),
+        title: _collapseTitle(),
         alwaysShowLeadingAndAction: false,
         headerWidget: _header(context),
         fullyStretchable: true,
         body: [
-          SafeArea(
-              child: Container(
-                  height: 860, color: white, child: const TaskStackOverTab())),
+          _scrollBody(),
         ],
         backgroundColor: transparent,
         appBarColor: const Color(0xff2b7fe8));
+  }
+
+  SafeArea _scrollBody() {
+    return SafeArea(
+        child: Container(
+            height: 860, color: white, child: const TaskStackOverTab()));
+  }
+
+  Row _collapseTitle() {
+    return Row(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: CircleAvatar(
+            backgroundColor: white54,
+            radius: 20,
+            child: const CircleAvatar(
+              backgroundImage: NetworkImage(
+                  "https://www.citygorentalsmalta.com/wp-content/uploads/2021/04/iStock_000020004182Medium1.jpg"),
+              //NetworkImage
+              radius: 18,
+            ), //CircleAvatar
+          ),
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(
+              height: 10,
+            ),
+            Text(
+              "Tugasan Hari Ini (9.00 pg - 5.00 ptg)",
+              style: TextStyle(
+                color: white,
+                fontWeight: FontWeight.w400,
+                fontSize: 15,
+              ),
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            Text(
+              "15 September 2022",
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+                color: white,
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            )
+          ],
+        ),
+      ],
+    );
   }
 
   Widget _header(BuildContext context) {
