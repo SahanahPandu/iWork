@@ -1,8 +1,12 @@
+import 'package:eswm/config/palette.dart';
 import 'package:flutter/material.dart';
+import 'package:grouped_list/grouped_list.dart';
+import 'package:intl/intl.dart';
 
 //import files
 import '../../providers/notifikasi_api.dart';
 import '../../screens/notifications/notifications_details.dart';
+// import '../../utils/custom_icon.dart';
 import '../../widgets/app_bar/app_bar_widget.dart';
 
 class Notifications extends StatefulWidget {
@@ -13,69 +17,93 @@ class Notifications extends StatefulWidget {
 }
 
 class _NotificationsState extends State<Notifications> {
+  // late List<dynamic> notificationDataList;
+
+  getNotificationData() async {
+    List<dynamic> notificationData =
+        await NotifikasiApi.getNotifikasiData(context);
+
+    return notificationData;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const AppBarWidget(
         title: "Notifikasi",
       ),
-      backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(
-          parent: AlwaysScrollableScrollPhysics(),
-        ),
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 5,
-            ),
-            FutureBuilder<List>(
-              future: NotifikasiApi.getNotifikasiData(context),
-              builder: (context, snapshot) {
-                var dataFuture = snapshot.data;
+      backgroundColor: const Color(0xffF7FBFF),
+      body: FutureBuilder<List<dynamic>>(
+        future: NotifikasiApi.getNotifikasiData(context),
+        builder: (context, snapshot) {
+          var dataFuture = snapshot.data;
 
-                switch (snapshot.connectionState) {
-                  case ConnectionState.waiting:
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
+          switch (snapshot.connectionState) {
+            case ConnectionState.waiting:
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
 
-                  default:
-                    if (snapshot.hasError) {
-                      return const Center(
-                        child: Text("Some error occured!"),
-                      );
+            default:
+              if (snapshot.hasError) {
+                return const Center(
+                  child: Text("Some error occured!"),
+                );
+              } else {
+                return GroupedListView<dynamic, String>(
+                  elements: dataFuture!,
+                  groupBy: (element) => DateFormat('yyyy-MM-dd')
+                      .format(DateTime.parse(element.dateReceived)),
+                  order: GroupedListOrder.DESC,
+                  groupSeparatorBuilder: (theDate) {
+                    // convert date time
+                    String dateToday =
+                        DateFormat('dd MMMM').format(DateTime.now());
+                    String convertDate =
+                        DateFormat('dd MMMM').format(DateTime.parse(theDate));
+                    String getTheDate = "";
+
+                    if (convertDate == dateToday) {
+                      //check if the date is today
+                      getTheDate = "Hari Ini";
                     } else {
-                      return ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: dataFuture!.length,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            color: dataFuture[index].readIdStatus == 2
-                                ? Colors.white
-                                : const Color(0xffEFF5FF),
-                            child: Column(
-                              children: [
-                                NotificationDetails(
-                                  data: dataFuture[index],
-                                ),
-                                Divider(
-                                  color: Colors.grey.shade200,
-                                  thickness: 0.5,
-                                  height: 0,
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      );
+                      getTheDate = convertDate;
                     }
-                }
-              },
-            ),
-          ],
-        ),
+
+                    return Container(
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 26, vertical: 10),
+                      child: Text(
+                        getTheDate,
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: blackCustom,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    );
+                  },
+                  itemBuilder: (context, element) {
+                    return Container(
+                      color: Colors.white,
+                      child: Column(
+                        children: [
+                          NotificationDetails(
+                            data: element,
+                          ),
+                          Divider(
+                            color: Colors.grey.shade200,
+                            thickness: 0.5,
+                            height: 0,
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                );
+              }
+          }
+        },
       ),
     );
   }
