@@ -32,55 +32,58 @@ class _ReassignEmployeeDetailsState extends State<ReassignEmployeeDetails> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ListOfEmployeeDetails(
-          data: widget.dataEmployee1!,
-          assignedEmployee: getAssignedEmployeeDetails,
-        ),
-        if (dataEmployee2 == null)
-          SizedBox(
-            width: MediaQuery.of(context).size.width,
-            child: GantiPekerjaButton(
-              assignedEmployee: getAssignedEmployeeDetails,
-              buttonText: "Ganti Pekerja",
-            ),
-          ),
-
-        if (dataEmployee2 != null)
-          const SizedBox(
-            height: 10,
-          ),
-        if (dataEmployee2 != null)
-          const Center(
-            child: Icon(
-              Icons.swap_vertical_circle_rounded,
-              size: 25,
-              color: Colors.green,
-            ),
-          ),
-        if (dataEmployee2 != null)
-          const SizedBox(
-            height: 10,
-          ),
-        if (dataEmployee2 != null)
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
           ListOfEmployeeDetails(
-            data: dataEmployee2,
+            data: widget.dataEmployee1!,
+            assignedEmployee: getAssignedEmployeeDetails,
           ),
-        // if (dataEmployee2 != null)
-        //   const SizedBox(
-        //     height: 15,
-        //   ),
-        if (dataEmployee2 != null)
-          SizedBox(
-            width: MediaQuery.of(context).size.width,
-            child: GantiPekerjaButton(
-              assignedEmployee: getAssignedEmployeeDetails,
-              buttonText: "Tukar Pilihan",
+          if (dataEmployee2 == null)
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: GantiPekerjaButton(
+                assignedEmployee: getAssignedEmployeeDetails,
+                buttonText: "Ganti Pekerja",
+              ),
             ),
-          ),
-      ],
+
+          if (dataEmployee2 != null)
+            const SizedBox(
+              height: 10,
+            ),
+          if (dataEmployee2 != null)
+            const Center(
+              child: Icon(
+                Icons.swap_vertical_circle_rounded,
+                size: 25,
+                color: Colors.green,
+              ),
+            ),
+          if (dataEmployee2 != null)
+            const SizedBox(
+              height: 10,
+            ),
+          if (dataEmployee2 != null)
+            ListOfEmployeeDetails(
+              data: dataEmployee2,
+            ),
+          // if (dataEmployee2 != null)
+          //   const SizedBox(
+          //     height: 15,
+          //   ),
+          if (dataEmployee2 != null)
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: GantiPekerjaButton(
+                assignedEmployee: getAssignedEmployeeDetails,
+                buttonText: "Tukar Pilihan",
+              ),
+            ),
+        ],
+      ),
     );
   }
 }

@@ -8,6 +8,7 @@ import '../../config/font.dart';
 import '../../widgets/container/status_container.dart';
 import '../../widgets/listview/card_list_view.dart';
 import '../../widgets/slivers/expand_collapse_header/expand_collapse_header.dart';
+import '../reassign_employee/reassign_employee_list.dart';
 import '../street_search/street_search.dart';
 
 class ScheduleIssueDetail extends StatefulWidget {
@@ -81,7 +82,10 @@ class _ScheduleIssueDetailState extends State<ScheduleIssueDetail> {
   Widget _getBottomList(String issue) {
     switch (issue) {
       case "kehadiran":
-        return const Center(child: Text("LIST OF STAFF ATTENDANCE"));
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 5),
+          child: ReassignEmployeeList(namaLaluan: widget.getInfo.namaLaluan),
+        );
       case "belum":
         return const StreetSearch();
       case "laporan":

@@ -24,184 +24,123 @@ class _ListOfEmployeeDetailsState extends State<ListOfEmployeeDetails> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        //Avatar, nama and status
-        ClipRect(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Expanded(
-                flex: 0,
-                child: Material(
-                  elevation: 3,
-                  shadowColor: Colors.grey,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(5),
+        Row(
+          children: [
+            Stack(
+                clipBehavior: Clip.hardEdge,
+                alignment: AlignmentDirectional.center,
+                fit: StackFit.loose,
+                children: <Widget>[
+                  Container(
+                    height: 64,
+                    width: 64,
+                    decoration: BoxDecoration(
+                        color: transparent,
+                        border: Border.all(color: grey200),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(4))),
                   ),
-                  child: SizedBox(
-                    height: 45,
-                    width: 45,
-                    child: Icon(
-                      Icons.account_box_rounded,
-                      color: Colors.black54,
-                    ),
+                  ClipRRect(
+                      borderRadius: BorderRadius.circular(4),
+                      child: FittedBox(
+                        fit: BoxFit.fill,
+                        child: Image.network(widget.data!.displayPicture,
+                            height: 56,
+                            width: 56, loadingBuilder: (BuildContext context,
+                                Widget child,
+                                ImageChunkEvent? loadingProgress) {
+                          if (loadingProgress == null) return child;
+                          return Padding(
+                            padding: const EdgeInsets.all(20),
+                            child: Center(
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2.5,
+                                color: green,
+                                value: loadingProgress.expectedTotalBytes !=
+                                        null
+                                    ? loadingProgress.cumulativeBytesLoaded /
+                                        loadingProgress.expectedTotalBytes!
+                                    : null,
+                              ),
+                            ),
+                          );
+                        }),
+                      ))
+                ]),
+            const SizedBox(
+              width: 15,
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: _textSize().width,
+                  height: _textSize().height,
+                  child: Text(
+                    widget.data!.name,
+                    style: textStyle,
+                    softWrap: true,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
                   ),
                 ),
-              ),
-              const SizedBox(
-                width: 15,
-              ),
-              //Nama
-              Expanded(
-                flex: 3,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                const SizedBox(height: 4),
+                Row(
                   children: [
-                    Text(
-                      widget.data!.name,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 15,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
                     Text(
                       widget.data!.designCat,
                       style: TextStyle(
-                        color: Colors.grey.shade600,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 11,
-                      ),
+                          color: greyCustom,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400),
+                    ),
+                    const SizedBox(width: 6),
+                    Icon(
+                      Icons.fiber_manual_record,
+                      size: 5,
+                      color: greyCustom,
+                    ),
+                    const SizedBox(width: 6),
+                    Text(
+                      widget.data!.skills,
+                      style: TextStyle(
+                          color: greyCustom,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400),
                     ),
                   ],
                 ),
-              ),
-              //Status
-              // StatusContainer(
-              //   type: "Kehadiran",
-              //   status: widget.data!.attStatus,
-              //   statusId: widget.data!.idAttStatus,
-              //   fontWeight: statusFontWeight,
-              // ),
-            ],
-          ),
-        ),
-        const SizedBox(
-          height: 25,
-        ),
-        //Kemahiran
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                Icon(
-                  Icons.psychology,
-                  size: 18,
-                  color: blue,
-                ),
                 const SizedBox(
-                  width: 15,
+                  height: 4,
                 ),
-                Text(
-                  "Kemahiran",
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: grey400,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+                /*  StatusContainer(
+                  type: "Kehadiran",
+                  status: widget.data!.attStatus,
+                  statusId: widget.data!.idAttStatus,
+                  fontWeight: statusFontWeight,
+                  roundedCorner: true,
+                )*/
               ],
             ),
-            Text(
-              widget.data!.skills,
-              style: TextStyle(
-                fontSize: 14,
-                color: black87,
-                fontWeight: FontWeight.w700,
-              ),
-            )
           ],
         ),
         const SizedBox(
           height: 12,
         ),
-        //Masuk Kerja / Keluar Kerja
-        // Row(
-        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //   children: [
-        //     Row(
-        //       children: [
-        //         Icon(
-        //           //Icons.timer_outlined,
-        //           CustomIcon.timerOutline,
-        //           size: 18,
-        //           color: blue,
-        //         ),
-        //         const SizedBox(
-        //           width: 15,
-        //         ),
-        //         Text(
-        //           "Masuk/Keluar Kerja",
-        //           style: TextStyle(
-        //             fontSize: 15,
-        //             // color: Colors.grey.shade800,
-        //             // fontWeight: FontWeight.w700,
-        //             color: grey400,
-        //             fontWeight: FontWeight.w600,
-        //           ),
-        //         ),
-        //       ],
-        //     ),
-        //     if (widget.data!.timeIn != "" && widget.data!.timeOut != "")
-        //       const SizedBox(
-        //         width: 25,
-        //       ),
-        //     (widget.data!.timeIn != "" && widget.data!.timeOut != "")
-        //         ? Expanded(
-        //             flex: 2,
-        //             child: Text(
-        //               "${widget.data!.timeIn} / ${widget.data!.timeOut}",
-        //               style: TextStyle(
-        //                 fontSize: 15,
-        //                 // color: Colors.black45,
-        //                 // fontWeight: FontWeight.w500,
-        //                 color: black87,
-        //                 fontWeight: FontWeight.w700,
-        //                 overflow: (widget.data!.timeIn != "" &&
-        //                         widget.data!.timeOut != "")
-        //                     ? TextOverflow.visible
-        //                     : null,
-        //               ),
-        //             ),
-        //           )
-        //         : Text(
-        //             (widget.data!.timeIn == "" && widget.data!.timeOut == "")
-        //                 ? "--:-- / --:/--"
-        //                 : (widget.data!.timeIn == "")
-        //                     ? "--:-- / ${widget.data!.timeOut}"
-        //                     : (widget.data!.timeOut == "")
-        //                         ? "${widget.data!.timeIn} / --:--"
-        //                         : "${widget.data!.timeIn} / ${widget.data!.timeOut}",
-        //             style: TextStyle(
-        //               fontSize: 15,
-        //               // color: Colors.black45,
-        //               // fontWeight: FontWeight.w500,
-        //               color: black87,
-        //               fontWeight: FontWeight.w700,
-        //               overflow: (widget.data!.timeIn != "" &&
-        //                       widget.data!.timeOut != "")
-        //                   ? TextOverflow.visible
-        //                   : null,
-        //             ),
-        //           ),
-        //   ],
-        // ),
-        // const SizedBox(
-        //   height: 15,
-        // ),
       ],
     );
+  }
+
+  final TextStyle textStyle =
+      TextStyle(color: blackCustom, fontSize: 15, fontWeight: FontWeight.w600);
+
+  Size _textSize() {
+    final TextPainter textPainter = TextPainter(
+        text: TextSpan(text: widget.data!.name, style: textStyle),
+        maxLines: 2,
+        textDirection: TextDirection.ltr)
+      ..layout(minWidth: 0, maxWidth: 220);
+    return textPainter.size;
   }
 }

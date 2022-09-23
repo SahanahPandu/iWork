@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 //import files
-import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../../screens/list_of_employees/list_of_employee_details.dart';
 import '../../screens/reassign_employee/reassign_employee_details.dart';
@@ -53,74 +52,28 @@ class _CardsState extends State<Cards> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        if (widget.type == "Senarai Pekerja") {
-          if (widget.assignedEmployee != null) {
-            widget.assignedEmployee!(widget.data!);
-            Navigator.pop(context);
+        onTap: () {
+          if (widget.type == "Senarai Pekerja") {
+            if (widget.assignedEmployee != null) {
+              widget.assignedEmployee!(widget.data!);
+              Navigator.pop(context);
+            }
           }
-        }
-      },
-      child: userRole == 200
-          ?
-          // Card(
-          //     shape: RoundedRectangleBorder(
-          //       borderRadius: BorderRadius.circular(15),
-          //     ),
-          //     shadowColor: Colors.grey.shade50,
-          //     elevation: 14,
-          //     child: Container(
-          //       child: getWidget(),
-          //       margin: _isScheduleDetailCard
-          //           ? const EdgeInsets.symmetric(vertical: 18)
-          //           : const EdgeInsets.all(18),
-          //     ),
-          //   )
-
-          Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(14),
-                color: white,
-                boxShadow: [
-                  BoxShadow(
-                      color: cardShadowColor,
-                      offset: const Offset(0, 2),
-                      blurRadius: 10,
-                      spreadRadius: 0.5)
-                ],
-              ),
-              child: getWidget(),
-            )
-          : (widget.type == "SV Laluan Details" ||
-                  widget.type == "Comp Laluan Details"
-              ? Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(14),
-                    color: white,
-                    boxShadow: [
-                      BoxShadow(
-                          color: cardShadowColor,
-                          offset: const Offset(0, 2),
-                          blurRadius: 10,
-                          spreadRadius: 0.5)
-                    ],
-                  ),
-                  child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 15),
-                      child: getWidget()))
-              : Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  shadowColor: Colors.grey.shade50,
-                  elevation: 14,
-                  child: Container(
-                    child: getWidget(),
-                    margin: _isScheduleDetailCard
-                        ? const EdgeInsets.symmetric(vertical: 18)
-                        : const EdgeInsets.all(18),
-                  ),
-                )),
-    );
+        },
+        child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(14),
+              color: white,
+              boxShadow: [
+                BoxShadow(
+                    color: cardShadowColor,
+                    offset: const Offset(0, 2),
+                    blurRadius: 10,
+                    spreadRadius: 0.5)
+              ],
+            ),
+            child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 15),
+                child: getWidget())));
   }
 }

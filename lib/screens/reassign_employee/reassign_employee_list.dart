@@ -67,7 +67,7 @@ class _ReassignEmployeeListState extends State<ReassignEmployeeList> {
                     //put this at the end of the column widget list ,
                     //because to able scroll all item without being covered by the button at the bottom
                     const SizedBox(
-                      height: 100,
+                      height: 50,
                     ),
                   ],
                 );
