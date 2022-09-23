@@ -12,7 +12,6 @@ import '../../screens/e_cuti/e_cuti.dart';
 import '../../screens/reports/reports.dart';
 import '../../screens/schedule_all/schedule_all_main.dart';
 import '../../screens/schedule_issue/report/report_approval_list_main.dart';
-import '../../screens/schedule_issue/schedule_issue_main.dart';
 import '../../screens/schedule_shift/schedule_shift_main.dart';
 import '../../screens/vehicle_checklist/vehicle_checklist_approval/vehicle_checklist_approval_main.dart';
 import '../../screens/workshop_vehicle/workshop_vehicle_main.dart';
@@ -94,7 +93,7 @@ class _DrawerBuildState extends State<DrawerBuild> {
           child: ListView(physics: const BouncingScrollPhysics(), children: [
             Container(
               alignment: Alignment.centerLeft,
-              height: _device.isLandscape(context) ? 80 : 110.0,
+              height: 110.0,
               child: DrawerHeader(
                   decoration: BoxDecoration(
                     color: white,
@@ -107,33 +106,24 @@ class _DrawerBuildState extends State<DrawerBuild> {
                           fit: StackFit.loose,
                           children: <Widget>[
                             Container(
-                              height: _device.isLandscape(context) ? 52 : 62,
-                              width: _device.isLandscape(context) ? 52 : 62,
+                              height: 62,
+                              width: 62,
                               decoration: BoxDecoration(
                                   color: transparent,
                                   border: Border.all(color: grey300),
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(10))),
                             ),
-                            Padding(
-                              padding: _device.isLandscape(context)
-                                  ? const EdgeInsets.all(2)
-                                  : const EdgeInsets.all(0),
-                              child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: FittedBox(
-                                    fit: BoxFit.fill,
-                                    child: Image.asset(
-                                      userImg,
-                                      height: _device.isLandscape(context)
-                                          ? 50
-                                          : 58,
-                                      width: _device.isLandscape(context)
-                                          ? 50
-                                          : 58,
-                                    ),
-                                  )),
-                            )
+                            ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: FittedBox(
+                                  fit: BoxFit.fill,
+                                  child: Image.asset(
+                                    userImg,
+                                    height: 58,
+                                    width: 58,
+                                  ),
+                                ))
                           ]),
                       const SizedBox(
                         width: 15,
