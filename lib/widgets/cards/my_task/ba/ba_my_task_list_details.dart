@@ -53,7 +53,6 @@ class _BAMyTaskListDetailsState extends State<BAMyTaskListDetails> {
                 type: PageTransitionType.fade,
                 child: ScheduleIssueMainScreen(
                     laluanData: widget.data,
-                    fromHome: true,
                     issueType: issue)));
     }
     return null;

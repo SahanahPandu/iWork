@@ -61,8 +61,8 @@ class _AttendanceVerificationDetailListState
                     fit: StackFit.loose,
                     children: <Widget>[
                       Container(
-                        height: 62,
-                        width: 62,
+                        height: 64,
+                        width: 64,
                         decoration: BoxDecoration(
                             color: transparent,
                             border: Border.all(color: grey200),
@@ -72,8 +72,8 @@ class _AttendanceVerificationDetailListState
                       ClipRRect(
                           borderRadius: BorderRadius.circular(4),
                           child: Image.network(
-                            height: 55,
-                            width: 55,
+                            height: 56,
+                            width: 56,
                             fit: BoxFit.fill,
                             widget.data.displayPicture,
                             loadingBuilder: (BuildContext context, Widget child,

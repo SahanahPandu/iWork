@@ -27,7 +27,7 @@ class _GantiPekerjaButtonState extends State<GantiPekerjaButton> {
           padding: const EdgeInsets.all(12),
           primary: Colors.white,
           shadowColor: Colors.white,
-          elevation: 5,
+          elevation: 0,
           shape: RoundedRectangleBorder(
             side: const BorderSide(color: Colors.red),
             borderRadius: BorderRadius.circular(borderRadiusCircular),

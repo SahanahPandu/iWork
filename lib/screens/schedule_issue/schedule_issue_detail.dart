@@ -1,28 +1,53 @@
 import 'package:flutter/material.dart';
 
 //import files
-import '../../../config/font.dart';
 import '../../../config/palette.dart';
 import '../../../models/laluan.dart';
-import '../../../widgets/container/status_container.dart';
-import '../../../widgets/slivers/expand_collapse_header/expand_collapse_header.dart';
-import '../../street_search/street_search.dart';
-import 'supervisor_schedule_details.dart';
+import '../../../screens/work_schedule/supervisor/supervisor_schedule_details.dart';
+import '../../config/font.dart';
+import '../../widgets/container/status_container.dart';
+import '../../widgets/listview/card_list_view.dart';
+import '../../widgets/slivers/expand_collapse_header/expand_collapse_header.dart';
+import '../reassign_employee/reassign_employee_list.dart';
+import '../street_search/street_search.dart';
 
-class SupervisorWorkScheduleMain extends StatefulWidget {
-  final Laluan? data;
+class ScheduleIssueDetail extends StatefulWidget {
+  final Laluan getInfo;
+  final String getIssue;
 
-  const SupervisorWorkScheduleMain({Key? key, required this.data})
-      : super(key: key);
+  const ScheduleIssueDetail({
+    Key? key,
+    required this.getIssue,
+    required this.getInfo,
+  }) : super(key: key);
 
   @override
-  State<SupervisorWorkScheduleMain> createState() =>
-      _SupervisorWorkScheduleMainState();
+  State<ScheduleIssueDetail> createState() => _ScheduleIssueDetailState();
 }
 
-class _SupervisorWorkScheduleMainState
-    extends State<SupervisorWorkScheduleMain> {
+class _ScheduleIssueDetailState extends State<ScheduleIssueDetail> {
+  String listTitle = "Test";
   Color collapseBgColor = const Color(0xff2b7fe8);
+
+  @override
+  void initState() {
+    _loadListTile();
+    super.initState();
+  }
+
+  void _loadListTile() {
+    switch (widget.getIssue) {
+      case "kehadiran":
+        listTitle = "Senarai Pekerja Tidak Hadir";
+        break;
+      case "laporan":
+        listTitle = "Senarai Laporan";
+        break;
+      case "belum":
+        listTitle = "Pilih Sub-Laluan & Taman:";
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,8 +70,32 @@ class _SupervisorWorkScheduleMainState
   }
 
   SafeArea _scrollBody() {
-    return const SafeArea(
-      child: StreetSearch());
+    return SafeArea(
+      child: Container(
+          color: white,
+          child: Column(
+            children: [_getBottomList(widget.getIssue)],
+          )),
+    );
+  }
+
+  Widget _getBottomList(String issue) {
+    switch (issue) {
+      case "kehadiran":
+        return Padding(
+          padding: const EdgeInsets.symmetric(vertical: 5),
+          child: ReassignEmployeeList(namaLaluan: widget.getInfo.namaLaluan),
+        );
+      case "belum":
+        return const StreetSearch();
+      case "laporan":
+        return const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 5),
+          child: CardListView(type: "Laporan"),
+        );
+      default:
+        return Container();
+    }
   }
 
   Row _collapseTitle() {
@@ -54,7 +103,7 @@ class _SupervisorWorkScheduleMainState
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          widget.data!.namaLaluan,
+          widget.getInfo.namaLaluan,
           style: TextStyle(
             color: white,
             fontWeight: FontWeight.w700,
@@ -64,8 +113,8 @@ class _SupervisorWorkScheduleMainState
         const SizedBox(width: 10),
         StatusContainer(
           type: "Laluan",
-          status: widget.data!.status,
-          statusId: widget.data!.idStatus,
+          status: widget.getInfo.status,
+          statusId: widget.getInfo.idStatus,
           fontWeight: statusFontWeight,
           roundedCorner: true,
         ),
@@ -92,7 +141,7 @@ class _SupervisorWorkScheduleMainState
                           radius: 20,
                           child: CircleAvatar(
                             backgroundImage: NetworkImage(
-                              widget.data!.senaraiStaf.staf_3_img,
+                              widget.getInfo.senaraiStaf.staf_3_img,
                             ),
                             //NetworkImage
                             radius: 18,
@@ -109,10 +158,9 @@ class _SupervisorWorkScheduleMainState
                           radius: 20,
                           child: CircleAvatar(
                             backgroundImage: NetworkImage(
-                                widget.data!.senaraiStaf.staf_2_img),
-                            //NetworkImage
+                                widget.getInfo.senaraiStaf.staf_2_img),
                             radius: 18,
-                          ), //CircleAvatar
+                          ),
                         ),
                       ),
                     ),
@@ -122,8 +170,8 @@ class _SupervisorWorkScheduleMainState
                         backgroundColor: collapseBgColor,
                         radius: 20,
                         child: CircleAvatar(
-                          backgroundImage:
-                              NetworkImage(widget.data!.senaraiStaf.staf_1_img),
+                          backgroundImage: NetworkImage(
+                              widget.getInfo.senaraiStaf.staf_1_img),
                           //NetworkImage
                           radius: 18,
                         ), //CircleAvatar
@@ -147,8 +195,7 @@ class _SupervisorWorkScheduleMainState
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: SizedBox(
-              //height: Devices().screenHeight(context) * 0.3,
-              child: SupervisorScheduleDetails(data: widget.data!),
+              child: SupervisorScheduleDetails(data: widget.getInfo),
             ),
           ),
         ],
@@ -161,7 +208,7 @@ class _SupervisorWorkScheduleMainState
       padding: const EdgeInsets.symmetric(vertical: 20),
       child: Center(
         child: Text(
-          "Perincian Sub-Laluan",
+          listTitle,
           style: TextStyle(
             color: blackCustom,
             fontSize: 16,
