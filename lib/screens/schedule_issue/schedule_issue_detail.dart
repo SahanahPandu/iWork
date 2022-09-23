@@ -8,6 +8,7 @@ import '../../config/font.dart';
 import '../../widgets/container/status_container.dart';
 import '../../widgets/listview/card_list_view.dart';
 import '../../widgets/slivers/expand_collapse_header/expand_collapse_header.dart';
+import '../street_search/street_search.dart';
 
 class ScheduleIssueDetail extends StatefulWidget {
   final Laluan getInfo;
@@ -83,7 +84,7 @@ class _ScheduleIssueDetailState extends State<ScheduleIssueDetail> {
       case "kehadiran":
         return const Center(child: Text("LIST OF STAFF ATTENDANCE"));
       case "belum":
-        return const Center(child: Text("LIST OF STREET SEARCH"));
+        return const StreetSearch();
       case "laporan":
         return const Padding(
           padding: EdgeInsets.symmetric(horizontal: 5),
