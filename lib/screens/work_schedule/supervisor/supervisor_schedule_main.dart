@@ -39,7 +39,6 @@ class _SupervisorWorkScheduleMainState
         curvedBodyRadius: 24,
         fixedTitle: _fixedTitle(context),
         fixedTitleHeight: 60,
-        collapseHeight: 120,
         collapseFade: 70,
         backgroundColor: transparent,
         appBarColor: collapseBgColor);

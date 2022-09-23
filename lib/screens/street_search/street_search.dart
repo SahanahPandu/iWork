@@ -8,7 +8,8 @@ import '../list_of_road/list_of_road.dart';
 import '../list_of_sub_routes/list_of_sub_routes_text_form_field.dart';
 
 class StreetSearch extends StatefulWidget {
-  const StreetSearch({Key? key}) : super(key: key);
+  final double? height;
+  const StreetSearch({Key? key, this.height = 0.555}) : super(key: key);
 
   @override
   State<StreetSearch> createState() => _StreetSearchState();
@@ -47,7 +48,7 @@ class _StreetSearchState extends State<StreetSearch> {
         height: _showSenaraiTaman && _showSenaraiJalan
             ? null
             : (Devices().screenHeight(context) -
-                (Devices().screenHeight(context) * 0.555) -
+                (Devices().screenHeight(context) * widget.height!) -
                 kToolbarHeight),
         color: white,
         child: Column(

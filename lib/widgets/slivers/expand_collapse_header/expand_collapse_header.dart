@@ -57,7 +57,7 @@ class ExpandCollapseHeader extends StatefulWidget {
     this.bottomSheet,
     this.fixedTitle,
     this.fixedTitleHeight = 20,
-    this.collapseHeight = 85,
+    this.collapseHeight = 120,
     this.collapseFade = 60,
     this.floatingActionButton,
     this.floatingActionButtonLocation,

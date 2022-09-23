@@ -20,6 +20,7 @@ class _SupervisorState extends State<Supervisor> {
         title: _collapseTitle(),
         alwaysShowLeadingAndAction: false,
         headerWidget: _header(context),
+        collapseHeight: 85,
         fullyStretchable: true,
         body: [
           _scrollBody(),
