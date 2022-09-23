@@ -45,9 +45,8 @@ class _SupervisorState extends State<Supervisor> {
             child: const CircleAvatar(
               backgroundImage: NetworkImage(
                   "https://www.citygorentalsmalta.com/wp-content/uploads/2021/04/iStock_000020004182Medium1.jpg"),
-              //NetworkImage
               radius: 18,
-            ), //CircleAvatar
+            ),
           ),
         ),
         Column(
@@ -100,7 +99,7 @@ class _SupervisorState extends State<Supervisor> {
                     backgroundImage: NetworkImage(
                         "https://www.citygorentalsmalta.com/wp-content/uploads/2021/04/iStock_000020004182Medium1.jpg"),
                     radius: 18,
-                  ), //CircleAvatar
+                  ),
                 ),
                 const SizedBox(width: 10),
                 const Text(

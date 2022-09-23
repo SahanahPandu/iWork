@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 //import files
 import '../../config/palette.dart';
 import '../../models/laluan.dart';
 import '../../utils/custom_icon.dart';
-import '../../widgets/buttons/sahkan_ganti_pekerja.dart';
-import '../../widgets/cards/issued_task/schedule_issue_card.dart';
-import '../../widgets/listview/card_list_view.dart';
+import '../../utils/device.dart';
+import 'schedule_issue_detail.dart';
 
 class ScheduleIssueMainScreen extends StatefulWidget {
   final Laluan? laluanData;
@@ -35,99 +35,106 @@ class _ScheduleIssueMainScreen extends State<ScheduleIssueMainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: white,
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(kToolbarHeight),
-        child: Container(
-          decoration: BoxDecoration(boxShadow: [
-            BoxShadow(
-              color: barShadowColor,
-              offset: const Offset(0, 3),
-              blurRadius: 8,
-            )
-          ]),
-          child: AppBar(
-            backgroundColor: white,
+    return Container(
+      height: Devices().screenHeight(context),
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            Color(0xff3298F8),
+            Color(0xff4A39BE),
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.center,
+        ),
+      ),
+      child: Scaffold(
+          backgroundColor: transparent,
+          appBar: AppBar(
+            systemOverlayStyle: SystemUiOverlayStyle(
+                statusBarColor: white,
+                statusBarIconBrightness: Brightness.dark, //android
+                statusBarBrightness: Brightness.light //ios
+                ),
+            backgroundColor: transparent,
             elevation: 0,
             leading: IconButton(
               onPressed: () {
                 Navigator.pop(context);
               },
-              icon: Icon(CustomIcon.arrowBack, color: blackCustom, size: 22),
+              icon: Icon(CustomIcon.arrowBack, color: white, size: 22),
             ),
             title: Center(
               child: Text(
                 issueTypeStr,
                 style: TextStyle(
                   fontSize: 15,
-                  color: blackCustom,
+                  color: white,
                   fontWeight: FontWeight.w400,
                 ),
               ),
             ),
-            actions: [
-              IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  CustomIcon.filter,
-                  color: blackCustom,
-                  size: 13,
-                ),
-              ),
+            actions: const [
+              SizedBox(
+                width: 50,
+              )
             ],
           ),
-        ),
-      ),
-      body: Stack(children: [
-        SingleChildScrollView(
-          physics: const BouncingScrollPhysics(
-              parent: AlwaysScrollableScrollPhysics()),
-          child: widget.fromHome == true
-              ? ScheduleIssuedCard(
-                  getInfo: widget.laluanData!, getIssue: widget.issueType)
-              : //Change here for listing types, from app drawer
-              Column(
-                  children: [
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      padding: const EdgeInsets.only(
-                          left: 20, right: 20, top: 20, bottom: 10),
-                      child: Text(
-                        "Senarai Laporan Hari Ini:",
-                        style: TextStyle(
-                            color: blackCustom,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w400),
+          body: ScrollConfiguration(
+              behavior:
+                  const MaterialScrollBehavior().copyWith(overscroll: false),
+              child: ScheduleIssueDetail(
+                  getInfo: widget.laluanData!, getIssue: widget.issueType))
+
+          /*Stack(children: [
+          SingleChildScrollView(
+            physics: const BouncingScrollPhysics(
+                parent: AlwaysScrollableScrollPhysics()),
+            child: widget.fromHome == true
+                ? ScheduleIssuedCard(
+                    getInfo: widget.laluanData!, getIssue: widget.issueType)
+                : //Change here for listing types, from app drawer
+                Column(
+                    children: [
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        padding: const EdgeInsets.only(
+                            left: 20, right: 20, top: 20, bottom: 10),
+                        child: Text(
+                          "Senarai Laporan Hari Ini:",
+                          style: TextStyle(
+                              color: blackCustom,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w400),
+                        ),
                       ),
+                      const Padding(
+                        padding: EdgeInsets.all(10),
+                        child: CardListView(type: "Laporan"),
+                      ),
+                    ],
+                  ),
+          ),
+          if (widget.fromHome == true && widget.issueType == "kehadiran")
+            Positioned(
+              bottom: 0,
+              child: Material(
+                elevation: 50,
+                child: Container(
+                  color: Colors.white,
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 0.1,
+                  child: Center(
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      height: MediaQuery.of(context).size.height * 0.05,
+                      child: const SahkanGantiPekerjaButton(),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.all(10),
-                      child: CardListView(type: "Laporan"),
-                    ),
-                  ],
-                ),
-        ),
-        if (widget.fromHome == true && widget.issueType == "kehadiran")
-          Positioned(
-            bottom: 0,
-            child: Material(
-              elevation: 50,
-              child: Container(
-                color: Colors.white,
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.1,
-                child: Center(
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    height: MediaQuery.of(context).size.height * 0.05,
-                    child: const SahkanGantiPekerjaButton(),
                   ),
                 ),
               ),
             ),
+        ]),*/
           ),
-      ]),
     );
   }
 
@@ -140,7 +147,7 @@ class _ScheduleIssueMainScreen extends State<ScheduleIssueMainScreen> {
         issueTypeStr = "Laporan";
         break;
       case "belum":
-        issueTypeStr = "Isu";
+        issueTypeStr = "Belum";
         break;
     }
   }
