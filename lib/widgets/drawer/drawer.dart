@@ -11,6 +11,7 @@ import '../../data/data_drawer.dart';
 import '../../screens/e_cuti/e_cuti.dart';
 import '../../screens/reports/reports.dart';
 import '../../screens/schedule_all/schedule_all_main.dart';
+import '../../screens/schedule_issue/report/report_approval_list_main.dart';
 import '../../screens/schedule_issue/schedule_issue_main.dart';
 import '../../screens/schedule_shift/schedule_shift_main.dart';
 import '../../screens/vehicle_checklist/vehicle_checklist_approval/vehicle_checklist_approval_main.dart';
@@ -397,10 +398,7 @@ class _DrawerBuildState extends State<DrawerBuild> {
                 context,
                 PageTransition(
                     type: PageTransitionType.fade,
-                    child: const ScheduleIssueMainScreen(
-                      fromHome: false,
-                      issueType: 'laporan',
-                    )));
+                    child: const ReportApprovalListMain()));
             break;
           case 5: // AKBK form
             Navigator.pop(context);

@@ -5,8 +5,8 @@ import '../../../config/palette.dart';
 import '../../../models/laluan.dart';
 import '../../../screens/work_schedule/supervisor/supervisor_schedule_details.dart';
 import '../../config/font.dart';
-import '../../utils/device.dart';
 import '../../widgets/container/status_container.dart';
+import '../../widgets/listview/card_list_view.dart';
 import '../../widgets/slivers/expand_collapse_header/expand_collapse_header.dart';
 
 class ScheduleIssueDetail extends StatefulWidget {
@@ -71,12 +71,27 @@ class _ScheduleIssueDetailState extends State<ScheduleIssueDetail> {
   SafeArea _scrollBody() {
     return SafeArea(
       child: Container(
-          height: (Devices().screenHeight(context) * 0.45) - kToolbarHeight,
           color: white,
           child: Column(
-            children: const [Center(child: Text("TESTING"))],
+            children: [_getBottomList(widget.getIssue)],
           )),
     );
+  }
+
+  Widget _getBottomList(String issue) {
+    switch (issue) {
+      case "kehadiran":
+        return const Center(child: Text("LIST OF STAFF ATTENDANCE"));
+      case "belum":
+        return const Center(child: Text("LIST OF STREET SEARCH"));
+      case "laporan":
+        return const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 5),
+          child: CardListView(type: "Laporan"),
+        );
+      default:
+        return Container();
+    }
   }
 
   Row _collapseTitle() {
