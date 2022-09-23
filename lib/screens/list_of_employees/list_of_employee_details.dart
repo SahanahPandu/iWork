@@ -1,8 +1,10 @@
 import "package:flutter/material.dart";
 
 //import files
+import '../../config/font.dart';
 import '../../config/palette.dart';
 import '../../models/pekerja.dart';
+import '../../widgets/container/status_container.dart';
 
 class ListOfEmployeeDetails extends StatefulWidget {
   final Pekerja? data;
@@ -21,186 +23,85 @@ class ListOfEmployeeDetails extends StatefulWidget {
 class _ListOfEmployeeDetailsState extends State<ListOfEmployeeDetails> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Row(
       children: [
-        //Avatar, nama and status
-        ClipRect(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //avatar
+        const Material(
+          elevation: 3,
+          shadowColor: Colors.grey,
+          borderRadius: BorderRadius.all(
+            Radius.circular(5),
+          ),
+          child: SizedBox(
+            height: 45,
+            width: 45,
+            child: Icon(
+              Icons.account_box_rounded,
+              color: Colors.black54,
+            ),
+          ),
+        ),
+        const SizedBox(
+          width: 16,
+        ),
+        Expanded(
+          //expanded to fit the text for name
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Expanded(
-                flex: 0,
-                child: Material(
-                  elevation: 3,
-                  shadowColor: Colors.grey,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(5),
-                  ),
-                  child: SizedBox(
-                    height: 45,
-                    width: 45,
-                    child: Icon(
-                      Icons.account_box_rounded,
-                      color: Colors.black54,
-                    ),
-                  ),
+              Text(
+                widget.data!.name,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 15,
                 ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
-              const SizedBox(
-                width: 15,
-              ),
-              //Nama
-              Expanded(
-                flex: 3,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      widget.data!.name,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 15,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+              Row(
+                children: [
+                  //kategori jawatan
+                  Text(
+                    widget.data!.designCat,
+                    style: TextStyle(
+                      color: greyCustom,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 13,
                     ),
-                    Text(
-                      widget.data!.designCat,
-                      style: TextStyle(
-                        color: Colors.grey.shade600,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 11,
-                      ),
+                  ),
+                  const SizedBox(
+                    width: 6,
+                  ),
+                  Icon(
+                    Icons.fiber_manual_record,
+                    size: 5,
+                    color: greyCustom,
+                  ),
+                  const SizedBox(
+                    width: 6,
+                  ),
+                  Text(
+                    widget.data!.skills,
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: greyCustom,
+                      fontWeight: FontWeight.w400,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              //Status
-              // StatusContainer(
-              //   type: "Kehadiran",
-              //   status: widget.data!.attStatus,
-              //   statusId: widget.data!.idAttStatus,
-              //   fontWeight: statusFontWeight,
+              // Expanded(
+              //   flex: 1,
+              //   child: StatusContainer(
+              //         type: "Kehadiran",
+              //         status: widget.data!.attStatus,
+              //         statusId: widget.data!.idAttStatus,
+              //         fontWeight: statusFontWeight,
+              //       ),
               // ),
             ],
           ),
         ),
-        const SizedBox(
-          height: 25,
-        ),
-        //Kemahiran
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                Icon(
-                  Icons.psychology,
-                  size: 18,
-                  color: blue,
-                ),
-                const SizedBox(
-                  width: 15,
-                ),
-                Text(
-                  "Kemahiran",
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: grey400,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ],
-            ),
-            Text(
-              widget.data!.skills,
-              style: TextStyle(
-                fontSize: 14,
-                color: black87,
-                fontWeight: FontWeight.w700,
-              ),
-            )
-          ],
-        ),
-        const SizedBox(
-          height: 12,
-        ),
-        //Masuk Kerja / Keluar Kerja
-        // Row(
-        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //   children: [
-        //     Row(
-        //       children: [
-        //         Icon(
-        //           //Icons.timer_outlined,
-        //           CustomIcon.timerOutline,
-        //           size: 18,
-        //           color: blue,
-        //         ),
-        //         const SizedBox(
-        //           width: 15,
-        //         ),
-        //         Text(
-        //           "Masuk/Keluar Kerja",
-        //           style: TextStyle(
-        //             fontSize: 15,
-        //             // color: Colors.grey.shade800,
-        //             // fontWeight: FontWeight.w700,
-        //             color: grey400,
-        //             fontWeight: FontWeight.w600,
-        //           ),
-        //         ),
-        //       ],
-        //     ),
-        //     if (widget.data!.timeIn != "" && widget.data!.timeOut != "")
-        //       const SizedBox(
-        //         width: 25,
-        //       ),
-        //     (widget.data!.timeIn != "" && widget.data!.timeOut != "")
-        //         ? Expanded(
-        //             flex: 2,
-        //             child: Text(
-        //               "${widget.data!.timeIn} / ${widget.data!.timeOut}",
-        //               style: TextStyle(
-        //                 fontSize: 15,
-        //                 // color: Colors.black45,
-        //                 // fontWeight: FontWeight.w500,
-        //                 color: black87,
-        //                 fontWeight: FontWeight.w700,
-        //                 overflow: (widget.data!.timeIn != "" &&
-        //                         widget.data!.timeOut != "")
-        //                     ? TextOverflow.visible
-        //                     : null,
-        //               ),
-        //             ),
-        //           )
-        //         : Text(
-        //             (widget.data!.timeIn == "" && widget.data!.timeOut == "")
-        //                 ? "--:-- / --:/--"
-        //                 : (widget.data!.timeIn == "")
-        //                     ? "--:-- / ${widget.data!.timeOut}"
-        //                     : (widget.data!.timeOut == "")
-        //                         ? "${widget.data!.timeIn} / --:--"
-        //                         : "${widget.data!.timeIn} / ${widget.data!.timeOut}",
-        //             style: TextStyle(
-        //               fontSize: 15,
-        //               // color: Colors.black45,
-        //               // fontWeight: FontWeight.w500,
-        //               color: black87,
-        //               fontWeight: FontWeight.w700,
-        //               overflow: (widget.data!.timeIn != "" &&
-        //                       widget.data!.timeOut != "")
-        //                   ? TextOverflow.visible
-        //                   : null,
-        //             ),
-        //           ),
-        //   ],
-        // ),
-        // const SizedBox(
-        //   height: 15,
-        // ),
       ],
     );
   }

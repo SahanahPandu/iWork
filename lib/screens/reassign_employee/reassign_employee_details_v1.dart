@@ -39,9 +39,6 @@ class _ReassignEmployeeDetailsState extends State<ReassignEmployeeDetails> {
           data: widget.dataEmployee1!,
           assignedEmployee: getAssignedEmployeeDetails,
         ),
-        const SizedBox(
-          height: 15,
-        ),
         if (dataEmployee2 == null)
           SizedBox(
             width: MediaQuery.of(context).size.width,
@@ -50,6 +47,7 @@ class _ReassignEmployeeDetailsState extends State<ReassignEmployeeDetails> {
               buttonText: "Ganti Pekerja",
             ),
           ),
+
         if (dataEmployee2 != null)
           const SizedBox(
             height: 10,
@@ -70,10 +68,10 @@ class _ReassignEmployeeDetailsState extends State<ReassignEmployeeDetails> {
           ListOfEmployeeDetails(
             data: dataEmployee2,
           ),
-        if (dataEmployee2 != null)
-          const SizedBox(
-            height: 15,
-          ),
+        // if (dataEmployee2 != null)
+        //   const SizedBox(
+        //     height: 15,
+        //   ),
         if (dataEmployee2 != null)
           SizedBox(
             width: MediaQuery.of(context).size.width,

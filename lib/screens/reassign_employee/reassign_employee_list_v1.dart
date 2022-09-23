@@ -39,8 +39,7 @@ class _ReassignEmployeeListState extends State<ReassignEmployeeList> {
                       .contains(
                           item.tiedLaluan)); // removed all non related staff
                   dataFuture.removeWhere((item) =>
-                      item.idAttStatus ==
-                      1); // removed employee that "Hadir" because this list only show absent
+                      item.idAttStatus == 1); // removed employee that "Hadir"
                 }
 
                 return Column(
