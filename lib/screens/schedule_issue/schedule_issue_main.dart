@@ -83,58 +83,7 @@ class _ScheduleIssueMainScreen extends State<ScheduleIssueMainScreen> {
               behavior:
                   const MaterialScrollBehavior().copyWith(overscroll: false),
               child: ScheduleIssueDetail(
-                  getInfo: widget.laluanData!, getIssue: widget.issueType))
-
-          /*Stack(children: [
-          SingleChildScrollView(
-            physics: const BouncingScrollPhysics(
-                parent: AlwaysScrollableScrollPhysics()),
-            child: widget.fromHome == true
-                ? ScheduleIssuedCard(
-                    getInfo: widget.laluanData!, getIssue: widget.issueType)
-                : //Change here for listing types, from app drawer
-                Column(
-                    children: [
-                      Container(
-                        alignment: Alignment.centerLeft,
-                        padding: const EdgeInsets.only(
-                            left: 20, right: 20, top: 20, bottom: 10),
-                        child: Text(
-                          "Senarai Laporan Hari Ini:",
-                          style: TextStyle(
-                              color: blackCustom,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w400),
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.all(10),
-                        child: CardListView(type: "Laporan"),
-                      ),
-                    ],
-                  ),
-          ),
-          if (widget.fromHome == true && widget.issueType == "kehadiran")
-            Positioned(
-              bottom: 0,
-              child: Material(
-                elevation: 50,
-                child: Container(
-                  color: Colors.white,
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.1,
-                  child: Center(
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.8,
-                      height: MediaQuery.of(context).size.height * 0.05,
-                      child: const SahkanGantiPekerjaButton(),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-        ]),*/
-          ),
+                  getInfo: widget.laluanData!, getIssue: widget.issueType))),
     );
   }
 
@@ -147,7 +96,7 @@ class _ScheduleIssueMainScreen extends State<ScheduleIssueMainScreen> {
         issueTypeStr = "Laporan";
         break;
       case "belum":
-        issueTypeStr = "Belum";
+        issueTypeStr = "Perincian Laluan";
         break;
     }
   }
