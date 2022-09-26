@@ -221,7 +221,7 @@ class _SupervisorMyTaskListDetailsState
                             type: PageTransitionType.fade,
                             child: ScheduleIssueMainScreen(
                                 laluanData: widget.data,
-                                fromHome: true,
+                                //fromHome: true,
                                 issueType: widget.data.isu)));
                   },
                 ),
