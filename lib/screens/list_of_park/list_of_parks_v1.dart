@@ -4,7 +4,7 @@ import '../../config/config.dart';
 import '../../config/font.dart';
 import '../../config/palette.dart';
 import '../../providers/taman_api.dart';
-import '../../utils/device.dart';
+import '../../utils/device/orientations.dart';
 
 class ListOfParks extends StatefulWidget {
   final Function(dynamic, dynamic)? showSenaraiJalan;
@@ -32,7 +32,6 @@ class ListOfParks extends StatefulWidget {
 
 class _ListOfParksState extends State<ListOfParks> {
   final TextEditingController _namaTaman = TextEditingController();
-  final Devices _device = Devices();
 
   int totalTaman = 0;
 
@@ -129,7 +128,7 @@ class _ListOfParksState extends State<ListOfParks> {
           ),
         ),
         constraints: userRole == 100
-            ? (_device.isLandscape(context)
+            ? (Orientations().isLandscape(context)
                 ? const BoxConstraints(maxWidth: 500, maxHeight: 400)
                 : const BoxConstraints(maxWidth: 500, maxHeight: 450))
             : null,

@@ -6,7 +6,7 @@ import '../../../../config/font.dart';
 import '../../../../config/palette.dart';
 import '../../../../models/laluan.dart';
 import '../../../../screens/schedule_issue/schedule_issue_main.dart';
-import '../../../../utils/device.dart';
+import '../../../../utils/device/sizes.dart';
 import '../../../container/status_container.dart';
 
 class EOMyTaskListDetails extends StatefulWidget {
@@ -21,7 +21,6 @@ class EOMyTaskListDetails extends StatefulWidget {
 }
 
 class _EOMyTaskListDetailsState extends State<EOMyTaskListDetails> {
-  final Devices _device = Devices();
   String taskIssueText = "";
 
   @override
@@ -52,8 +51,7 @@ class _EOMyTaskListDetailsState extends State<EOMyTaskListDetails> {
             PageTransition(
                 type: PageTransitionType.fade,
                 child: ScheduleIssueMainScreen(
-                    laluanData: widget.data,
-                    issueType: issue)));
+                    laluanData: widget.data, issueType: issue)));
     }
     return null;
   }
@@ -203,7 +201,7 @@ class _EOMyTaskListDetailsState extends State<EOMyTaskListDetails> {
             ? Container(
                 alignment: Alignment.center,
                 padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
-                width: _device.screenWidth(context) * 0.75,
+                width: Sizes().screenWidth(context) * 0.75,
                 child: ElevatedButton(
                   style: ButtonStyle(
                       shadowColor: MaterialStateProperty.all(Colors.grey[300]),
@@ -213,7 +211,7 @@ class _EOMyTaskListDetailsState extends State<EOMyTaskListDetails> {
                             side: BorderSide(color: red)),
                       ),
                       minimumSize: MaterialStateProperty.all(
-                          Size(_device.screenWidth(context), 42)),
+                          Size(Sizes().screenWidth(context), 42)),
                       backgroundColor: MaterialStateProperty.all(white)),
                   child: Text(taskIssueText,
                       style: TextStyle(

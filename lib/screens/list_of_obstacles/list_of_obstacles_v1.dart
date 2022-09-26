@@ -5,7 +5,7 @@ import '../../config/config.dart';
 import '../../config/font.dart';
 import '../../config/palette.dart';
 import '../../providers/halangan_api.dart';
-import '../../utils/device.dart';
+import '../../utils/device/orientations.dart';
 
 class ListOfObstacles extends StatefulWidget {
   final String text;
@@ -29,7 +29,6 @@ class ListOfObstacles extends StatefulWidget {
 
 class _ListOfObstaclesState extends State<ListOfObstacles> {
   final TextEditingController _jenisHalangan = TextEditingController();
-  final Devices _device = Devices();
 
   int totalHalangan = 0;
 
@@ -115,7 +114,7 @@ class _ListOfObstaclesState extends State<ListOfObstacles> {
           ),
         ),
         constraints: userRole == 100
-            ? (_device.isLandscape(context)
+            ? (Orientations().isLandscape(context)
                 ? const BoxConstraints(maxWidth: 500, maxHeight: 400)
                 : const BoxConstraints(maxWidth: 500, maxHeight: 450))
             : null,

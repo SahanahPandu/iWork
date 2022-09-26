@@ -9,9 +9,9 @@ import '../../config/font.dart';
 import '../../config/palette.dart';
 import '../../models/laluan.dart';
 import '../../config/config.dart';
-import '../../utils/device.dart';
 import '../../models/reports.dart';
 import '../../screens/reports/pra/pra_section_report_form.dart';
+import '../../utils/device/orientations.dart';
 import '../../widgets/buttons/report_submit_button.dart';
 import '../list_of_obstacles/list_of_obstacles.dart';
 import '../list_of_park/list_of_parks.dart';
@@ -40,7 +40,6 @@ class _ReportFormState extends State<ReportForm> {
   final namaTamanKey = GlobalKey<ListOfParksState>();
   final namaJalanKey = GlobalKey<ListOfRoadTextFormFieldState>();
   final jenisHalanganKey = GlobalKey<ListOfObstaclesState>();
-  final Devices _device = Devices();
   final ExpandableController _expandController =
       ExpandableController(initialExpanded: true);
   final _reportFormKey = GlobalKey<FormState>();
@@ -56,6 +55,7 @@ class _ReportFormState extends State<ReportForm> {
   bool buttonVisibility = true;
   int iconCondition = 1;
   int borderCondition = 1;
+
   void onClick() {
     if (_height == 500) {
       setState(() {
@@ -177,7 +177,7 @@ class _ReportFormState extends State<ReportForm> {
                         ? const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 5)
                         : (userRole == 100 &&
-                                _device.isLandscape(
+                                Orientations().isLandscape(
                                     context)) // condition for compactor panel
                             ? const EdgeInsets.fromLTRB(100, 80, 100, 150)
                             : const EdgeInsets.symmetric(

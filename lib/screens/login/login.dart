@@ -8,7 +8,9 @@ import '../../config/palette.dart';
 import '../../config/resource.dart';
 import '../../utils/authentication/auth.dart';
 import '../../utils/custom_icon.dart';
-import '../../utils/device.dart';
+import '../../utils/device/devices.dart';
+import '../../utils/device/sizes.dart';
+import '../../utils/device/uuid.dart';
 import '../../widgets/alert/toast.dart';
 import '../../widgets/alert/snackbar.dart';
 
@@ -21,7 +23,6 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final Devices _device = Devices();
   late PageController _pageController;
   final List<String> _images = [sliderImg_1, sliderImg_2, sliderImg_3];
 
@@ -33,6 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     _pageController = PageController();
+    Uuid().getDeviceIdentifier();
     super.initState();
   }
 
@@ -79,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Column(
       children: [
         SizedBox(
-          width: _device.screenWidth(context),
+          width: Sizes().screenWidth(context),
           height: sliderSize(context),
           child: ScrollConfiguration(
             behavior:
@@ -180,7 +182,7 @@ class _LoginScreenState extends State<LoginScreen> {
         key: _formKey,
         child: Column(
           children: <Widget>[
-            _idBox(_device.isTablet() ? compactorID : staffID),
+            _idBox(Devices().isTablet() ? compactorID : staffID),
             _buildSpace(context, 0.03),
             _passwordBox(),
           ],
@@ -315,7 +317,7 @@ class _LoginScreenState extends State<LoginScreen> {
         overlayColor: MaterialStateColor.resolveWith((states) => green800),
         shadowColor: MaterialStateProperty.all(grey900),
         minimumSize:
-            MaterialStateProperty.all(Size(_device.screenWidth(context), 46)),
+            MaterialStateProperty.all(Size(Sizes().screenWidth(context), 46)),
         shape: MaterialStateProperty.all(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(6),
@@ -330,7 +332,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   SizedBox _buildSpace(BuildContext context, double size) {
     return SizedBox(
-      height: _device.screenHeight(context) * size,
+      height: Sizes().screenHeight(context) * size,
     );
   }
 }

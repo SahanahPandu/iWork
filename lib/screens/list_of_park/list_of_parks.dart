@@ -4,7 +4,7 @@ import '../../config/config.dart';
 import '../../config/font.dart';
 import '../../config/palette.dart';
 import '../../providers/taman_api.dart';
-import '../../utils/device.dart';
+import '../../utils/device/orientations.dart';
 
 class ListOfParks extends StatefulWidget {
   final int? subRoutesId;
@@ -34,7 +34,6 @@ class ListOfParks extends StatefulWidget {
 
 class ListOfParksState extends State<ListOfParks> {
   final TextEditingController namaTaman = TextEditingController();
-  final Devices _device = Devices();
 
   getTotalData() {
     if (widget.data != "") {
@@ -133,7 +132,7 @@ class ListOfParksState extends State<ListOfParks> {
           ),
         ),
         constraints: userRole == 100
-            ? (_device.isLandscape(context)
+            ? (Orientations().isLandscape(context)
                 ? const BoxConstraints(maxWidth: 500, maxHeight: 400)
                 : const BoxConstraints(maxWidth: 500, maxHeight: 450))
             : null,

@@ -147,7 +147,7 @@ class _SupervisorWorkScheduleMainState
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: SizedBox(
-              //height: Devices().screenHeight(context) * 0.3,
+              //height: Sizes().screenHeight(context) * 0.3,
               child: SupervisorScheduleDetails(data: widget.data!),
             ),
           ),

@@ -121,7 +121,7 @@ class _SupervisorState extends State<Supervisor> {
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: SizedBox(
-              //height: Devices().screenHeight(context) * 0.26,
+              //height: Sizes().screenHeight(context) * 0.26,
               child: TodayTaskCard(),
             ),
           ),

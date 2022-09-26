@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../../config/palette.dart';
 import '../../../../models/cuti.dart';
 import '../../../../utils/custom_icon.dart';
-import '../../../../utils/device.dart';
+import '../../../../utils/device/sizes.dart';
 import '../../../../widgets/image_viewer/image_viewer.dart';
 
 class EcutiApprovalDetail extends StatefulWidget {
@@ -22,7 +22,6 @@ class _EcutiApprovalDetailState extends State<EcutiApprovalDetail> {
   final TextEditingController _startDate = TextEditingController();
   final TextEditingController _endDate = TextEditingController();
   final TextEditingController _remarks = TextEditingController();
-  final Devices _device = Devices();
   bool isAttached = false;
 
   @override
@@ -67,10 +66,10 @@ class _EcutiApprovalDetailState extends State<EcutiApprovalDetail> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SizedBox(
-                width: _device.screenWidth(context) * 0.42,
+                width: Sizes().screenWidth(context) * 0.42,
                 child: _buildTextForm(_startDate, "Tarikh Mula")),
             SizedBox(
-                width: _device.screenWidth(context) * 0.42,
+                width: Sizes().screenWidth(context) * 0.42,
                 child: _buildTextForm(_endDate, "Tarikh Tamat")),
           ],
         ),

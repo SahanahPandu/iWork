@@ -8,7 +8,7 @@ import '../../../../config/palette.dart';
 import '../../../../config/string.dart';
 import '../../../../models/vc/vc.dart';
 import '../../../../screens/vehicle_checklist/vehicle_checklist_form/vehicle_checklist_form_detail.dart';
-import '../../../../utils/device.dart';
+import '../../../../utils/device/sizes.dart';
 
 class VehicleChecklistCardDetails extends StatefulWidget {
   final VehicleChecklist data;
@@ -23,8 +23,6 @@ class VehicleChecklistCardDetails extends StatefulWidget {
 
 class _VehicleChecklistCardDetailsState
     extends State<VehicleChecklistCardDetails> {
-  final Devices _device = Devices();
-
   Color alterColorBefore = Colors.grey;
   Color alterColorAfter = Colors.grey;
 
@@ -112,7 +110,7 @@ class _VehicleChecklistCardDetailsState
                       side: BorderSide(color: green)),
                 ),
                 minimumSize: MaterialStateProperty.all(
-                    Size(_device.screenWidth(context), 45)),
+                    Size(Sizes().screenWidth(context), 45)),
                 backgroundColor: MaterialStateProperty.all(white)),
             child: Text(vc, style: TextStyle(fontSize: 15, color: green)),
           ),

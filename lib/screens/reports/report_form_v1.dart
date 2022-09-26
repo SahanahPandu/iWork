@@ -5,9 +5,9 @@ import 'package:expandable/expandable.dart';
 import '../../config/palette.dart';
 import '../../models/laluan.dart';
 import '../../config/config.dart';
-import '../../utils/device.dart';
 import '../../models/reports.dart';
 import '../../screens/reports/pra/pra_section_report_form.dart';
+import '../../utils/device/orientations.dart';
 import '../../widgets/buttons/ecuti_submit_button.dart';
 
 class ReportForm extends StatefulWidget {
@@ -27,7 +27,6 @@ class ReportForm extends StatefulWidget {
 }
 
 class _ReportFormState extends State<ReportForm> {
-  final Devices _device = Devices();
   //late StreamSubscription<bool> keyboardSubscription;
   final ExpandableController _controller =
       ExpandableController(initialExpanded: true);
@@ -84,7 +83,7 @@ class _ReportFormState extends State<ReportForm> {
               margin: userRole != 100
                   ? const EdgeInsets.symmetric(horizontal: 20, vertical: 5)
                   : (userRole == 100 &&
-                          _device.isLandscape(
+                          Orientations().isLandscape(
                               context)) // condition for compactor panel
                       ? const EdgeInsets.fromLTRB(100, 80, 100, 150)
                       : const EdgeInsets.symmetric(
@@ -161,7 +160,8 @@ class _ReportFormState extends State<ReportForm> {
                       SizedBox(
                         width: userRole != 100
                             ? 8
-                            : (userRole == 100 && _device.isLandscape(context))
+                            : (userRole == 100 &&
+                                    Orientations().isLandscape(context))
                                 ? 300
                                 : 200,
                       ),

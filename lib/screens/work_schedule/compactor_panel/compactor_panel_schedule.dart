@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 //import files
 import '../../../config/palette.dart';
 import '../../../utils/custom_icon.dart';
-import '../../../utils/device.dart';
+import '../../../utils/device/orientations.dart';
 import '../../../widgets/cards/cards.dart';
 import '../../list_of_park/list_of_parks.dart';
 import '../../list_of_road/compactor_panel/comp_list_of_road.dart';
@@ -19,7 +19,6 @@ class CompactorPanelSchedule extends StatefulWidget {
 }
 
 class _CompactorPanelScheduleState extends State<CompactorPanelSchedule> {
-  final Devices _device = Devices();
   bool _showSenaraiJalan = false;
   int idTaman = 0;
   int iconCondition = 1;
@@ -62,7 +61,7 @@ class _CompactorPanelScheduleState extends State<CompactorPanelSchedule> {
           )
         ],
       ),
-      body: _device.isLandscape(context)
+      body: Orientations().isLandscape(context)
           ? landscapeLayoutBuild()
           : portraitLayoutBuild(),
     );

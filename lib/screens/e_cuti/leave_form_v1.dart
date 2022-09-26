@@ -10,9 +10,9 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 //import files
 import '../../config/config.dart';
 import '../../screens/list_of_leave_type/list_of_leave_type.dart';
+import '../../utils/device/sizes.dart';
 import '../../widgets/buttons/upload_files_button.dart';
 import '../../config/palette.dart';
-import '../../utils/device.dart';
 import '../../config/font.dart';
 import '../../models/cuti.dart';
 import '../../widgets/buttons/ecuti_submit_button.dart';
@@ -29,7 +29,6 @@ class LeaveForm extends StatefulWidget {
 
 class _LeaveFormState extends State<LeaveForm> {
   final _formKey = GlobalKey<FormState>();
-  final Devices _device = Devices();
   final TextEditingController _tarikhMula = TextEditingController();
   final TextEditingController _tarikhTamat = TextEditingController();
   final TextEditingController _lampiran = TextEditingController();
@@ -142,7 +141,8 @@ class _LeaveFormState extends State<LeaveForm> {
                       ListOfLeaveType(
                         hintText: 'Jenis Cuti',
                         fontSize: 15,
-                        borderCondition: borderCondition, // have border
+                        borderCondition: borderCondition,
+                        // have border
                         fillColor: textFieldFillColor,
                         iconCondition: iconCondition,
                         data: jenisCuti,
@@ -171,7 +171,7 @@ class _LeaveFormState extends State<LeaveForm> {
                               }
                             },
                             child: SizedBox(
-                              width: _device.screenWidth(context) * 0.42,
+                              width: Sizes().screenWidth(context) * 0.42,
                               child: TextFormField(
                                 controller: _tarikhMula,
                                 readOnly: true,
@@ -261,7 +261,7 @@ class _LeaveFormState extends State<LeaveForm> {
                               }
                             },
                             child: SizedBox(
-                              width: _device.screenWidth(context) * 0.42,
+                              width: Sizes().screenWidth(context) * 0.42,
                               child: TextFormField(
                                 controller: _tarikhTamat,
                                 readOnly: true,
@@ -344,7 +344,7 @@ class _LeaveFormState extends State<LeaveForm> {
                       ),
                       if (_lampiranVisibility)
                         SizedBox(
-                          width: _device.screenWidth(context),
+                          width: Sizes().screenWidth(context),
                           child:
                               UploadFilesButton(textLampiran: _lampiran.text),
                         ),
@@ -352,7 +352,7 @@ class _LeaveFormState extends State<LeaveForm> {
                       //Detail Lampiran
                       if (_lampiranDetailsVisibility)
                         SizedBox(
-                          width: _device.screenWidth(context),
+                          width: Sizes().screenWidth(context),
                           child: TextFormField(
                             controller: _lampiran,
                             readOnly: true,
@@ -408,8 +408,8 @@ class _LeaveFormState extends State<LeaveForm> {
                             buttonVisibility = false;
                           });
                         },
-                        textInputAction: TextInputAction
-                            .done, //set bottom right button on keyboard to "Done" instead of go to next line
+                        textInputAction: TextInputAction.done,
+                        //set bottom right button on keyboard to "Done" instead of go to next line
                         decoration: InputDecoration(
                           filled: true,
                           fillColor: textFieldFillColor,

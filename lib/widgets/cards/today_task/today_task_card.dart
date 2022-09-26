@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 //import files
+import '../../../utils/device/orientations.dart';
+import '../../../utils/device/sizes.dart';
 import 'ba/ba_today_task_details.dart';
 import 'compactor_panel/compactor_panel_today_task_details.dart';
 import 'eo/eo_today_task_details.dart';
@@ -10,7 +12,6 @@ import 'pra/pra_today_task_details.dart';
 import '../../../config/config.dart';
 import '../../../config/resource.dart';
 import '../../../config/string.dart';
-import '../../../utils/device.dart';
 
 class TodayTaskCard extends StatefulWidget {
   const TodayTaskCard({Key? key}) : super(key: key);
@@ -22,7 +23,6 @@ class TodayTaskCard extends StatefulWidget {
 class _TodayTaskCardState extends State<TodayTaskCard> {
   late String timeIn = "";
   late String timeOut = "";
-  final Devices _device = Devices();
 
   getTimeLog(actionText) {
     String currentTime = DateFormat("hh:mm a").format(DateTime.now());
@@ -41,11 +41,11 @@ class _TodayTaskCardState extends State<TodayTaskCard> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: _device.screenWidth(context),
+      width: Sizes().screenWidth(context),
       height: userRole == 200
           ? 240
           : (userRole == 100
-              ? (_device.isLandscape(context) ? 210 : 230)
+              ? (Orientations().isLandscape(context) ? 210 : 230)
               : 180),
       child: assignRoleTaskDetails(),
     );

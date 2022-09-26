@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../config/palette.dart';
-import '../../utils/device.dart';
+import '../../utils/device/sizes.dart';
 import '../../widgets/cards/today_task/today_task_card.dart';
 import '../../widgets/tabs/task_tab/task_tab.dart';
 
@@ -48,7 +48,7 @@ class _SupervisorOldState extends State<SupervisorOld> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: SizedBox(
-                          height: Devices().screenHeight(context) * 0.26,
+                          height: Sizes().screenHeight(context) * 0.26,
                           child: const TodayTaskCard(),
                         ),
                       ),
@@ -60,7 +60,7 @@ class _SupervisorOldState extends State<SupervisorOld> {
           ];
         },
         body: Container(
-          width: Devices().screenWidth(context),
+          width: Sizes().screenWidth(context),
           decoration: BoxDecoration(
             color: white,
             borderRadius: const BorderRadius.only(

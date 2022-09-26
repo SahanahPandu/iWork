@@ -6,7 +6,7 @@ import '../../../../config/palette.dart';
 import '../../../../config/string.dart';
 import '../../../../models/vc/vc.dart';
 import '../../../../utils/custom_icon.dart';
-import '../../../../utils/device.dart';
+import '../../../../utils/device/sizes.dart';
 import '../../../alert/alert_dialog.dart';
 import '../../../alert/lottie_alert_dialog.dart';
 import 'vehicle_checklist_approval_tab_bar_view/vehicle_checklist_approval_after_tab_bar_view.dart';
@@ -175,7 +175,7 @@ class _VehicleChecklistApprovalTabState
                   overlayColor:
                       MaterialStateColor.resolveWith((states) => green800),
                   minimumSize: MaterialStateProperty.all(
-                      Size(Devices().screenWidth(context), 41)),
+                      Size(Sizes().screenWidth(context), 41)),
                   backgroundColor: MaterialStateProperty.all(green)),
               child: Text('Sahkan',
                   style: TextStyle(

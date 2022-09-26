@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import '../../config/palette.dart';
 import '../../config/string.dart';
 import '../../utils/custom_icon.dart';
-import '../../utils/device.dart';
+import '../../utils/device/sizes.dart';
 import '../../widgets/alert/alert_dialog.dart';
 import '../../widgets/alert/lottie_alert_dialog.dart';
 import '../../widgets/alert/toast.dart';
@@ -298,7 +298,7 @@ class _ScheduleShiftMainState extends State<ScheduleShiftMain> {
                   overlayColor:
                       MaterialStateColor.resolveWith((states) => green800),
                   minimumSize: MaterialStateProperty.all(
-                      Size(Devices().screenWidth(context), 41)),
+                      Size(Sizes().screenWidth(context), 41)),
                   backgroundColor: MaterialStateProperty.all(green)),
               child: Text('Hantar',
                   style: TextStyle(
