@@ -6,6 +6,7 @@ import '../../config/palette.dart';
 import '../../models/laluan.dart';
 import '../../utils/custom_icon.dart';
 import '../../utils/device/sizes.dart';
+import '../../widgets/buttons/contact_button.dart';
 import 'schedule_issue_detail.dart';
 
 class ScheduleIssueMainScreen extends StatefulWidget {
@@ -79,7 +80,10 @@ class _ScheduleIssueMainScreen extends State<ScheduleIssueMainScreen> {
                 behavior:
                     const MaterialScrollBehavior().copyWith(overscroll: false),
                 child: ScheduleIssueDetail(
-                    getInfo: widget.laluanData!, getIssue: widget.issueType))));
+                    getInfo: widget.laluanData!, getIssue: widget.issueType)),
+            floatingActionButton: widget.issueType == "belum"
+                ? ContactButton(data: widget.laluanData)
+                : Container()));
   }
 
   void _filterIssueType() {

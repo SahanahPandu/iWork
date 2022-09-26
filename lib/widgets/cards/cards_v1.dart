@@ -7,7 +7,7 @@ import '../../screens/list_of_employees/list_of_employee_details.dart';
 import '../../screens/reassign_employee/reassign_employee_details.dart';
 import '../../screens/work_schedule/compactor_panel/compactor_panel_schedule_details.dart';
 import '../../screens/work_schedule/pra/pra_work_schedule_details.dart';
-import '../../screens/work_schedule/supervisor/supervisor_schedule_details.dart';
+import '../../screens/work_schedule/supervisor/supervisor_work_schedule_details.dart';
 
 class Cards extends StatefulWidget {
   final String type;

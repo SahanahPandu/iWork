@@ -7,7 +7,7 @@ import '../../../models/laluan.dart';
 import '../../../widgets/container/status_container.dart';
 import '../../../widgets/slivers/expand_collapse_header/expand_collapse_header.dart';
 import '../../street_search/street_search.dart';
-import 'supervisor_schedule_details.dart';
+import 'supervisor_work_schedule_details.dart';
 
 class SupervisorWorkScheduleMain extends StatefulWidget {
   final Laluan? data;
@@ -45,8 +45,7 @@ class _SupervisorWorkScheduleMainState
   }
 
   SafeArea _scrollBody() {
-    return const SafeArea(
-      child: StreetSearch());
+    return const SafeArea(child: StreetSearch());
   }
 
   Row _collapseTitle() {
