@@ -44,7 +44,7 @@ class _TodayTaskCardState extends State<TodayTaskCard> {
       width: Sizes().screenWidth(context),
       height: userRole == 100
           ? (Orientations().isLandscape(context) ? 210 : 230)
-          : 180,
+          : null,
       child: assignRoleTaskDetails(),
     );
   }

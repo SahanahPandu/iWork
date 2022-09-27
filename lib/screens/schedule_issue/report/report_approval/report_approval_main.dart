@@ -11,7 +11,7 @@ import '../../../../utils/custom_icon.dart';
 import '../../../../utils/device/sizes.dart';
 import '../../../../widgets/alert/alert_dialog.dart';
 import '../../../../widgets/alert/lottie_alert_dialog.dart';
-import '../../../../widgets/modal_bottom_sheet/acceptance_options.dart';
+import '../../../../widgets/modal_bottom_sheet/custom_bottom_sheet_options.dart';
 import 'report_approval_detail.dart';
 
 class ReportApprovalMain extends StatefulWidget {
@@ -411,7 +411,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
         child: InkWell(
           borderRadius: BorderRadius.circular(8),
           onTap: () {
-            showAcceptanceOptions(context, reportStatusList, 0.3, _kerosakan);
+            showBottomSheetOptions(context, reportStatusList, 0.3, _kerosakan);
           },
           child: _buildInactiveTextField(_kerosakan, "Pilih Tarikh"),
         ),
@@ -451,7 +451,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
         child: InkWell(
           borderRadius: BorderRadius.circular(8),
           onTap: () {
-            showAcceptanceOptions(context, reportStatusList, 0.3, _kerosakan);
+            showBottomSheetOptions(context, reportStatusList, 0.3, _kerosakan);
           },
           child: _buildInactiveTextField(_kerosakan, "Pilih Kenderaan"),
         ),
@@ -461,7 +461,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
         child: InkWell(
           borderRadius: BorderRadius.circular(8),
           onTap: () {
-            showAcceptanceOptions(context, reportStatusList, 0.3, _kerosakan);
+            showBottomSheetOptions(context, reportStatusList, 0.3, _kerosakan);
           },
           child: _buildInactiveTextField(_kerosakan, "Pilih Pekerja"),
         ),
@@ -548,7 +548,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
           child: InkWell(
             borderRadius: BorderRadius.circular(8),
             onTap: () {
-              showAcceptanceOptions(
+              showBottomSheetOptions(
                   context, reportStatusList, 0.25, _kerosakan);
             },
             child: _buildInactiveTextField(_kerosakan, "Sila Pilih Saiz Tayar"),
@@ -559,7 +559,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
           child: InkWell(
             borderRadius: BorderRadius.circular(8),
             onTap: () {
-              showAcceptanceOptions(
+              showBottomSheetOptions(
                   context, reportStatusList, 0.25, _kerosakan);
             },
             child:
@@ -571,7 +571,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
           child: InkWell(
             borderRadius: BorderRadius.circular(8),
             onTap: () {
-              showAcceptanceOptions(
+              showBottomSheetOptions(
                   context, reportStatusList, 0.25, _kerosakan);
             },
             child: _buildInactiveTextField(_kerosakan, "Sila Pilih Isu"),
@@ -594,7 +594,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
           child: InkWell(
             borderRadius: BorderRadius.circular(8),
             onTap: () {
-              showAcceptanceOptions(
+              showBottomSheetOptions(
                   context, reportStatusList, 0.25, _kerosakan);
             },
             child: _buildInactiveTextField(_kerosakan, "Jenis-jenis Kerosakan"),
@@ -637,7 +637,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
           child: InkWell(
             borderRadius: BorderRadius.circular(8),
             onTap: () {
-              showAcceptanceOptions(context, reportStatusList, 0.3, _unitUkur);
+              showBottomSheetOptions(context, reportStatusList, 0.3, _unitUkur);
             },
             child: _buildInactiveTextField(_unitUkur, "Unit Ukuran"),
           ),
@@ -647,7 +647,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
           child: InkWell(
             borderRadius: BorderRadius.circular(8),
             onTap: () {
-              showAcceptanceOptions(context, reportStatusList, 0.3, _odometer);
+              showBottomSheetOptions(context, reportStatusList, 0.3, _odometer);
             },
             child: _buildInactiveTextField(_odometer, "Keadaan Odometer"),
           ),
@@ -719,7 +719,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
           child: InkWell(
             borderRadius: BorderRadius.circular(8),
             onTap: () {
-              showAcceptanceOptions(context, reportStatusList, 0.3, _rStatus);
+              showBottomSheetOptions(context, reportStatusList, 0.3, _rStatus);
             },
             child: _buildInactiveTextField(_rStatus, "Pilih Status"),
           ),

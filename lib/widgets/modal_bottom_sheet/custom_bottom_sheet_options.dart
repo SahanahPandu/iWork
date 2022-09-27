@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../config/palette.dart';
+import '../../utils/custom_icon.dart';
 import '../../utils/device/sizes.dart';
 
+int selectedIndex = -1;
+
 @override
-Widget? showAcceptanceOptions(
-  BuildContext context,
-  List statusList,
-  double height,
-  TextEditingController? textController,
-) {
+Widget? showBottomSheetOptions(BuildContext context, List statusList,
+    double height, TextEditingController? textController,
+    {String? title = "Pilih Status"}) {
   showModalBottomSheet(
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
@@ -42,7 +42,7 @@ Widget? showAcceptanceOptions(
                   bottom: 10,
                 ),
                 child: Text(
-                  "Pilih Status",
+                  title!,
                   style: TextStyle(
                     color: greyCustom,
                     fontSize: 15,
@@ -71,6 +71,7 @@ Widget? showAcceptanceOptions(
                           if (textController != null) {
                             textController.text = statusList[index];
                           }
+                          selectedIndex = index;
                         },
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,13 +79,26 @@ Widget? showAcceptanceOptions(
                             Container(
                               padding: const EdgeInsets.symmetric(
                                   vertical: 18, horizontal: 4),
-                              child: Text(
-                                statusList[index],
-                                style: TextStyle(
-                                  color: blackCustom,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w400,
-                                ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    statusList[index],
+                                    style: TextStyle(
+                                      color: blackCustom,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                  Icon(
+                                      textController?.text != "" &&
+                                              selectedIndex == index
+                                          ? CustomIcon.checkedBox
+                                          : null,
+                                      color: green,
+                                      size: 18)
+                                ],
                               ),
                             )
                           ],

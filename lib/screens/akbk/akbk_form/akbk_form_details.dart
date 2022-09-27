@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 
 import '../../../config/palette.dart';
 import '../../../utils/custom_icon.dart';
-import '../../../widgets/modal_bottom_sheet/acceptance_options.dart';
+import '../../../widgets/modal_bottom_sheet/custom_bottom_sheet_options.dart';
 
 class AkbkFormDetails extends StatefulWidget {
   final int part;
@@ -30,12 +30,12 @@ class _AkbkFormDetailsState extends State<AkbkFormDetails> {
   final TextEditingController _dateTimeController = TextEditingController();
   final TextEditingController _unitController = TextEditingController();
   final TextEditingController _breakdownTypeController =
-  TextEditingController();
+      TextEditingController();
   final TextEditingController _odometerConditionController =
       TextEditingController();
+  final TextEditingController _kodController = TextEditingController();
   late DateTime pickedDate;
   int _part = 0;
-
 
   @override
   void initState() {
@@ -90,11 +90,12 @@ class _AkbkFormDetailsState extends State<AkbkFormDetails> {
           child: InkWell(
             borderRadius: BorderRadius.circular(8),
             onTap: () {
-              showAcceptanceOptions(
+              showBottomSheetOptions(
                   context,
                   ['Negeri Sembilan', 'Melaka', 'Johor (S)', 'Johor(N)'],
                   0.4,
-                  _stateController);
+                  _stateController,
+                  title: "Pilih Negeri");
             },
             child: _buildInactiveTextDropdown(_stateController, "Negeri"),
           ),
@@ -104,11 +105,12 @@ class _AkbkFormDetailsState extends State<AkbkFormDetails> {
           child: InkWell(
             borderRadius: BorderRadius.circular(8),
             onTap: () {
-              showAcceptanceOptions(
+              showBottomSheetOptions(
                   context,
                   ['Port Dickson', 'Rembau', 'Seremban', 'Senawang'],
                   0.4,
-                  _stateController);
+                  _districtController,
+                  title: "Pilih Daerah");
             },
             child: _buildInactiveTextDropdown(_districtController, "Daerah"),
           ),
@@ -123,11 +125,12 @@ class _AkbkFormDetailsState extends State<AkbkFormDetails> {
           child: InkWell(
             borderRadius: BorderRadius.circular(8),
             onTap: () {
-              showAcceptanceOptions(
+              showBottomSheetOptions(
                   context,
                   ['Port Dickson', 'Rembau', 'Seremban', 'Senawang'],
                   0.4,
-                  _repairStationController);
+                  _repairStationController,
+                  title: "Pilih Stesen Kerja Pembaikan");
             },
             child: _buildInactiveTextDropdown(
                 _repairStationController, "Stesen Kerja Pembaikan"),
@@ -138,11 +141,12 @@ class _AkbkFormDetailsState extends State<AkbkFormDetails> {
           child: InkWell(
             borderRadius: BorderRadius.circular(8),
             onTap: () {
-              showAcceptanceOptions(
+              showBottomSheetOptions(
                   context,
                   ['BLS2321', 'RFD5274', 'BDF3221', 'ERD6346'],
                   0.4,
-                  _vehicleNoController);
+                  _vehicleNoController,
+                  title: "Pilih No. Pendaftaran Kenderaan");
             },
             child: _buildInactiveTextDropdown(
                 _vehicleNoController, "No. Pendaftaran Kenderaan"),
@@ -153,7 +157,7 @@ class _AkbkFormDetailsState extends State<AkbkFormDetails> {
           child: InkWell(
             borderRadius: BorderRadius.circular(8),
             onTap: () {
-              showAcceptanceOptions(
+              showBottomSheetOptions(
                   context,
                   [
                     'Hicom',
@@ -162,7 +166,8 @@ class _AkbkFormDetailsState extends State<AkbkFormDetails> {
                     'Mitsubishi Fuso'
                   ],
                   0.4,
-                  _vehicleModelController);
+                  _vehicleModelController,
+                  title: "Pilih Modal Kenderaan");
             },
             child: _buildInactiveTextDropdown(
                 _vehicleModelController, "Model Kenderaan"),
@@ -173,11 +178,12 @@ class _AkbkFormDetailsState extends State<AkbkFormDetails> {
           child: InkWell(
             borderRadius: BorderRadius.circular(8),
             onTap: () {
-              showAcceptanceOptions(
+              showBottomSheetOptions(
                   context,
                   ['1.3cc', '1.5cc', '1.8cc', '2.0cc'],
                   0.4,
-                  _vehicleTypeController);
+                  _vehicleTypeController,
+                  title: "Pilih Jenis Kenderaan");
             },
             child: _buildInactiveTextDropdown(
                 _vehicleTypeController, "Jenis Kenderaan"),
@@ -188,11 +194,12 @@ class _AkbkFormDetailsState extends State<AkbkFormDetails> {
           child: InkWell(
             borderRadius: BorderRadius.circular(8),
             onTap: () {
-              showAcceptanceOptions(
+              showBottomSheetOptions(
                   context,
                   ['Ahmad', 'Suhaimi', 'Jalal', 'Jalil'],
                   0.4,
-                  _driverController);
+                  _driverController,
+                  title: "Pilih Nama Pemandu");
             },
             child:
                 _buildInactiveTextDropdown(_driverController, "Nama Pemandu"),
@@ -235,8 +242,9 @@ class _AkbkFormDetailsState extends State<AkbkFormDetails> {
           child: InkWell(
             borderRadius: BorderRadius.circular(8),
             onTap: () {
-              showAcceptanceOptions(
-                  context, ['km', 'hours'], 0.4, _unitController);
+              showBottomSheetOptions(
+                  context, ['km', 'hours'], 0.3, _unitController,
+                  title: "Pilih Unit Ukuran");
             },
             child: _buildInactiveTextDropdown(_unitController, "Unit Ukuran"),
           ),
@@ -246,11 +254,12 @@ class _AkbkFormDetailsState extends State<AkbkFormDetails> {
           child: InkWell(
             borderRadius: BorderRadius.circular(8),
             onTap: () {
-              showAcceptanceOptions(
+              showBottomSheetOptions(
                   context,
                   ['Baik', 'Ok', 'Tidak Baik', 'Rosak'],
                   0.4,
-                  _odometerConditionController);
+                  _odometerConditionController,
+                  title: "Pilih Keadaan Odomoter");
             },
             child: _buildInactiveTextDropdown(
                 _odometerConditionController, "Keadaan Odometer"),
@@ -272,7 +281,7 @@ class _AkbkFormDetailsState extends State<AkbkFormDetails> {
           child: InkWell(
             borderRadius: BorderRadius.circular(8),
             onTap: () {
-              showAcceptanceOptions(
+              showBottomSheetOptions(
                   context,
                   [
                     'Auto-Transmisi',
@@ -288,7 +297,8 @@ class _AkbkFormDetailsState extends State<AkbkFormDetails> {
                     'Welding',
                   ],
                   0.5,
-                  _breakdownTypeController);
+                  _breakdownTypeController,
+                  title: "Pilih Jenis Kerosakan");
             },
             child: _buildInactiveTextDropdown(
                 _breakdownTypeController, "Jenis Kerosakan"),
@@ -299,7 +309,7 @@ class _AkbkFormDetailsState extends State<AkbkFormDetails> {
           child: InkWell(
             borderRadius: BorderRadius.circular(8),
             onTap: () {
-              showAcceptanceOptions(
+              showBottomSheetOptions(
                   context,
                   [
                     'Kerosakan Kenderaan',
@@ -307,9 +317,10 @@ class _AkbkFormDetailsState extends State<AkbkFormDetails> {
                     'Kerosakan Tayar'
                   ],
                   0.4,
-                  _driverController);
+                  _kodController,
+                  title: "Pilih Kod");
             },
-            child: _buildInactiveTextDropdown(_driverController, "Kod"),
+            child: _buildInactiveTextDropdown(_kodController, "Kod"),
           ),
         ),
         Padding(
@@ -408,6 +419,7 @@ class _AkbkFormDetailsState extends State<AkbkFormDetails> {
       TextInputType type, int max, String label) {
     return TextFormField(
       cursorColor: green,
+      textInputAction: TextInputAction.done,
       cursorHeight: 18,
       keyboardType: type,
       minLines: 1,
@@ -425,9 +437,9 @@ class _AkbkFormDetailsState extends State<AkbkFormDetails> {
           fontWeight: FontWeight.w300,
         ),
         border: const OutlineInputBorder(),
-        focusedErrorBorder: OutlineInputBorder(
+        /*focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(4),
-            borderSide: BorderSide(color: green)),
+            borderSide: BorderSide(color: green)),*/
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: green),
           borderRadius: BorderRadius.circular(4),
