@@ -45,8 +45,8 @@ class _PraWorkScheduleMainState extends State<PraWorkScheduleMain> {
   SafeArea _scrollBody() {
     return const SafeArea(
 
-        /// 0.4 = headerExpandedHeight + 0.05
-        child: StreetSearch(height: 0.4));
+        /// 0.438 = headerExpandedHeight + 0.038
+        child: StreetSearch(height: 0.438));
   }
 
   Row _collapseTitle() {

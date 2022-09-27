@@ -4,6 +4,7 @@ import '../../config/config.dart';
 import '../../config/font.dart';
 import '../../config/palette.dart';
 import '../../providers/taman_api.dart';
+import '../../utils/custom_icon.dart';
 import '../../utils/device/orientations.dart';
 
 class ListOfParks extends StatefulWidget {
@@ -34,6 +35,7 @@ class ListOfParks extends StatefulWidget {
 
 class ListOfParksState extends State<ListOfParks> {
   final TextEditingController namaTaman = TextEditingController();
+  int selectedIndex = -2;
 
   getTotalData() {
     if (widget.data != "") {
@@ -231,20 +233,35 @@ class ListOfParksState extends State<ListOfParks> {
                                         setState(() {
                                           namaTaman.text =
                                               dataFuture[index].namaTaman;
-
+                                          if (namaTaman.text != "") {
+                                            selectedIndex = index;
+                                          }
                                           Navigator.pop(context);
                                         });
                                       },
                                       child: Container(
                                         margin: const EdgeInsets.symmetric(
                                             vertical: 12),
-                                        child: Text(
-                                          dataFuture[index].namaTaman,
-                                          style: TextStyle(
-                                            color: blackCustom,
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.w400,
-                                          ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              dataFuture[index].namaTaman,
+                                              style: TextStyle(
+                                                color: blackCustom,
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.w400,
+                                              ),
+                                            ),
+                                            Icon(
+                                                namaTaman.text != "" &&
+                                                        selectedIndex == index
+                                                    ? CustomIcon.checkedBox
+                                                    : null,
+                                                color: green,
+                                                size: 18)
+                                          ],
                                         ),
                                       ),
                                     );
