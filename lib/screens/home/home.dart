@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 //import files
-import '../../config/config.dart';
+// import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../../utils/custom_icon.dart';
 import '../../utils/device/sizes.dart';
@@ -55,9 +55,9 @@ class HomeScreen extends StatelessWidget {
         ),
         drawer: const DrawerBuild(),
         body: ScrollConfiguration(
-                behavior:
-                    const MaterialScrollBehavior().copyWith(overscroll: false),
-                child: const Screens()),
+            behavior:
+                const MaterialScrollBehavior().copyWith(overscroll: false),
+            child: const Screens()),
       ),
     );
   }
