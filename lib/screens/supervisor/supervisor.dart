@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../config/palette.dart';
+import '../../utils/date.dart';
 import '../../widgets/cards/today_task/today_task_card.dart';
 import '../../widgets/slivers/expand_collapse_header/expand_collapse_header.dart';
 import '../../widgets/tabs/task_tab/task_tab.dart';
@@ -68,7 +69,7 @@ class _SupervisorState extends State<Supervisor> {
               height: 5,
             ),
             Text(
-              "15 September 2022",
+              Date.getTodayDate(),
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
@@ -116,7 +117,7 @@ class _SupervisorState extends State<Supervisor> {
             ),
           ),
           const SizedBox(
-            height: 15,
+            height: 10,
           ),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 20),

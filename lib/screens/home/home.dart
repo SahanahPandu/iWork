@@ -54,14 +54,7 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
         drawer: const DrawerBuild(),
-        body: userRole == 200
-            ? const SingleChildScrollView(
-                physics: BouncingScrollPhysics(
-                  parent: AlwaysScrollableScrollPhysics(),
-                ),
-                child: Screens(),
-              )
-            : ScrollConfiguration(
+        body: ScrollConfiguration(
                 behavior:
                     const MaterialScrollBehavior().copyWith(overscroll: false),
                 child: const Screens()),

@@ -17,7 +17,8 @@ class _ContactButtonState extends State<ContactButton> {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
-      elevation: 0,
+      elevation: 1,
+      highlightElevation: 1,
       backgroundColor: callColor,
       child: const Icon(
         Icons.wifi_calling_3_rounded,

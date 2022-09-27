@@ -42,11 +42,9 @@ class _TodayTaskCardState extends State<TodayTaskCard> {
   Widget build(BuildContext context) {
     return SizedBox(
       width: Sizes().screenWidth(context),
-      height: userRole == 200
-          ? 240
-          : (userRole == 100
-              ? (Orientations().isLandscape(context) ? 210 : 230)
-              : 180),
+      height: userRole == 100
+          ? (Orientations().isLandscape(context) ? 210 : 230)
+          : 180,
       child: assignRoleTaskDetails(),
     );
   }
