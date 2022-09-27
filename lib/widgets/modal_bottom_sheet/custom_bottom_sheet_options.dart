@@ -8,12 +8,9 @@ import '../../utils/device/sizes.dart';
 int selectedIndex = -1;
 
 @override
-Widget? showAcceptanceOptions(
-  BuildContext context,
-  List statusList,
-  double height,
-  TextEditingController? textController,
-) {
+Widget? showBottomSheetOptions(BuildContext context, List statusList,
+    double height, TextEditingController? textController,
+    {String? title = "Pilih Status"}) {
   showModalBottomSheet(
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
@@ -45,7 +42,7 @@ Widget? showAcceptanceOptions(
                   bottom: 10,
                 ),
                 child: Text(
-                  "Pilih Status",
+                  title!,
                   style: TextStyle(
                     color: greyCustom,
                     fontSize: 15,

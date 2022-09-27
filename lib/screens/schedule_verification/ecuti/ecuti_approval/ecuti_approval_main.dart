@@ -9,7 +9,7 @@ import '../../../../utils/custom_icon.dart';
 import '../../../../utils/device/sizes.dart';
 import '../../../../widgets/alert/alert_dialog.dart';
 import '../../../../widgets/alert/lottie_alert_dialog.dart';
-import '../../../../widgets/modal_bottom_sheet/acceptance_options.dart';
+import '../../../../widgets/modal_bottom_sheet/custom_bottom_sheet_options.dart';
 import 'ecuti_approval_detail.dart';
 
 class EcutiApprovalMain extends StatefulWidget {
@@ -270,11 +270,11 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
             ),
             border: const OutlineInputBorder(),
             focusedErrorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(4),
                 borderSide: BorderSide(color: green)),
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: green),
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(4),
             ),
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
@@ -296,7 +296,7 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
       child: InkWell(
         borderRadius: BorderRadius.circular(8),
         onTap: () {
-          showAcceptanceOptions(context, leaveStatusList, 0.32, _status);
+          showBottomSheetOptions(context, leaveStatusList, 0.32, _status);
         },
         child: TextFormField(
           controller: _status,
