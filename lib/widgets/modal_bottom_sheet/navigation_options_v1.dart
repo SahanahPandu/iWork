@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../config/config.dart';
-import '../../utils/device.dart';
-
-final Devices _device = Devices();
+import '../../utils/device/orientations.dart';
 
 Widget? showNavigationOptions(BuildContext context) {
   showModalBottomSheet(
       constraints: userRole == 100
-          ? (_device.isLandscape(context)
+          ? (Orientations().isLandscape(context)
               ? const BoxConstraints(maxWidth: 500, maxHeight: 150)
               : const BoxConstraints(maxWidth: 500, maxHeight: 120))
           : null,

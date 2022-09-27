@@ -4,7 +4,7 @@ import 'package:page_transition/page_transition.dart';
 //import files
 import '../../config/config.dart';
 import '../../config/palette.dart';
-import '../../utils/device.dart';
+import '../../utils/device/sizes.dart';
 import '../../widgets/tabs/ecuti_approval_tab/ecuti_approval_tab.dart';
 import '../vehicle_checklist/vehicle_checklist_approval/vehicle_checklist_approval_main.dart';
 import 'attendance/attendance_detail/attendance_verification_list.dart';
@@ -22,8 +22,6 @@ class ScheduleVerificationMain extends StatefulWidget {
 }
 
 class _ScheduleVerificationMainState extends State<ScheduleVerificationMain> {
-  final Devices _device = Devices();
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -70,7 +68,7 @@ class _ScheduleVerificationMainState extends State<ScheduleVerificationMain> {
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
             child: value == true
                 ? SizedBox(
-                    width: _device.screenWidth(context),
+                    width: Sizes().screenWidth(context),
                     child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(14),
@@ -109,7 +107,7 @@ class _ScheduleVerificationMainState extends State<ScheduleVerificationMain> {
                               Container(
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 10),
-                                width: _device.screenWidth(context),
+                                width: Sizes().screenWidth(context),
                                 child: ElevatedButton(
                                   style: ButtonStyle(
                                       elevation: MaterialStateProperty.all(0),
@@ -122,7 +120,7 @@ class _ScheduleVerificationMainState extends State<ScheduleVerificationMain> {
                                                 BorderRadius.circular(12)),
                                       ),
                                       minimumSize: MaterialStateProperty.all(
-                                          Size(_device.screenWidth(context),
+                                          Size(Sizes().screenWidth(context),
                                               42)),
                                       backgroundColor:
                                           MaterialStateProperty.all(
@@ -148,8 +146,9 @@ class _ScheduleVerificationMainState extends State<ScheduleVerificationMain> {
   Future<void> _navigatePage(BuildContext context, detailRedirect) async {
     Navigator.push(context,
         PageTransition(type: PageTransitionType.fade, child: detailRedirect));
-  ///Once completed api integration, will enable this method
-  /*  String refresh = await Navigator.push(context,
+
+    ///Once completed api integration, will enable this method
+    /*  String refresh = await Navigator.push(context,
         PageTransition(type: PageTransitionType.fade, child: detailRedirect));
     if (!mounted) return;
     switch (refresh) {

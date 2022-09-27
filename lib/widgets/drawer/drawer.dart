@@ -1,4 +1,3 @@
-import 'package:eswm/screens/reports/report_list.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -9,6 +8,7 @@ import '../../config/resource.dart';
 import '../../config/string.dart';
 import '../../data/data_drawer.dart';
 import '../../screens/e_cuti/e_cuti.dart';
+import '../../screens/reports/report_list.dart';
 import '../../screens/reports/reports.dart';
 import '../../screens/schedule_all/schedule_all_main.dart';
 import '../../screens/schedule_issue/report/report_approval_list_main.dart';
@@ -17,7 +17,7 @@ import '../../screens/vehicle_checklist/vehicle_checklist_approval/vehicle_check
 import '../../screens/workshop_vehicle/workshop_vehicle_main.dart';
 import '../../utils/authentication/auth.dart';
 import '../../utils/custom_icon.dart';
-import '../../utils/device.dart';
+import '../../utils/device/sizes.dart';
 import '../alert/alert_dialog.dart';
 import '../app_bar/app_bar_widget.dart';
 import '../tabs/akbk_tab/akbk_tab.dart';
@@ -31,7 +31,6 @@ class DrawerBuild extends StatefulWidget {
 }
 
 class _DrawerBuildState extends State<DrawerBuild> {
-  final Devices _device = Devices();
   String name = "";
   String role = "";
   final List<bool> _isHighlighted = [
@@ -173,7 +172,7 @@ class _DrawerBuildState extends State<DrawerBuild> {
                   )),
             ),
             SizedBox(
-                height: _device.screenHeight(context) * 0.75,
+                height: Sizes().screenHeight(context) * 0.75,
                 child: ListView.builder(
                     physics: const BouncingScrollPhysics(),
                     itemCount: _getList().length,

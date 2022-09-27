@@ -5,11 +5,10 @@ import 'package:flutter/services.dart';
 import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../../utils/custom_icon.dart';
-import '../../utils/device.dart';
-import 'package:eswm/widgets/buttons/report_button.dart';
-
+import '../../utils/device/sizes.dart';
+import '../../widgets/buttons/report_button.dart';
 import 'pra/pra_work_schedule_main.dart';
-import 'supervisor/supervisor_schedule_main.dart';
+import 'supervisor/supervisor_work_schedule_main.dart';
 
 class WorkSchedule extends StatefulWidget {
   final dynamic data;
@@ -26,7 +25,7 @@ class _WorkScheduleState extends State<WorkSchedule> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: Devices().screenHeight(context),
+      height: Sizes().screenHeight(context),
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: [
@@ -72,9 +71,7 @@ class _WorkScheduleState extends State<WorkSchedule> {
         body: ScrollConfiguration(
             behavior:
                 const MaterialScrollBehavior().copyWith(overscroll: false),
-            child: userRole == 200
-                ? PraWorkScheduleMain(data: widget.data)
-                : SupervisorWorkScheduleMain(data: widget.data)),
+            child: _getUserWorkSchedule()),
         floatingActionButton: userRole == 200
             ? Container(
                 margin: _showSenaraiJalan
@@ -84,5 +81,21 @@ class _WorkScheduleState extends State<WorkSchedule> {
             : null,
       ),
     );
+  }
+
+  Widget _getUserWorkSchedule() {
+    switch (userRole) {
+
+      /// PRA
+      case 200:
+        return PraWorkScheduleMain(data: widget.data);
+
+      /// SV | EO | BA
+      case 300:
+      case 400:
+      case 500:
+        return SupervisorWorkScheduleMain(data: widget.data);
+    }
+    return Container();
   }
 }

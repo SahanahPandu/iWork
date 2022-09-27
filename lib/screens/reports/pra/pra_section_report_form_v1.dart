@@ -7,7 +7,7 @@ import '../../../models/reports.dart';
 import '../../../config/config.dart';
 import '../../../config/font.dart';
 import '../../../config/palette.dart';
-import '../../../utils/device.dart';
+import '../../../utils/device/sizes.dart';
 import '../../../widgets/buttons/upload_image_button.dart';
 import '../../list_of_obstacles/list_of_obstacles.dart';
 import '../../list_of_park/list_of_parks.dart';
@@ -28,7 +28,6 @@ class PraSectionReportForm extends StatefulWidget {
 }
 
 class _PraSectionReportFormState extends State<PraSectionReportForm> {
-  final Devices _device = Devices();
   final TextEditingController _catatan = TextEditingController();
   final FocusNode _catatanFocusNode = FocusNode();
 
@@ -172,7 +171,7 @@ class _PraSectionReportFormState extends State<PraSectionReportForm> {
             //Gambar
             if (gambarLampiran == null && widget.screen == "3")
               SizedBox(
-                width: _device.screenWidth(context),
+                width: Sizes().screenWidth(context),
                 child: UploadImageButton(getImageName: getImageName),
               ),
             //Display selected image

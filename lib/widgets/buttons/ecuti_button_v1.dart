@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../../config/config.dart';
 import '../../config/dimen.dart';
 import '../../screens/e_cuti/e_cuti.dart';
-import '../../utils/device.dart';
+import '../../utils/device/sizes.dart';
 
 class EcutiButton extends StatefulWidget {
   const EcutiButton({Key? key}) : super(key: key);
@@ -14,13 +14,11 @@ class EcutiButton extends StatefulWidget {
 }
 
 class _EcutiButtonState extends State<EcutiButton> {
-  final Devices _device = Devices();
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: _device.screenWidth(context) * (buttonEcutiWidth(context)),
-      height: _device.screenHeight(context) * (buttonHeight(context)),
+      width: Sizes().screenWidth(context) * (buttonEcutiWidth(context)),
+      height: Sizes().screenHeight(context) * (buttonHeight(context)),
       //color: Colors.white,
       child: ElevatedButton.icon(
         style: ElevatedButton.styleFrom(

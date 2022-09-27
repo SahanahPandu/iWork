@@ -7,7 +7,7 @@ import '../../config/dimen.dart';
 import '../../config/palette.dart';
 import '../../config/string.dart';
 import '../../utils/date.dart';
-import '../../utils/device.dart';
+import '../../utils/device/sizes.dart';
 import '../alert/alert_dialog.dart';
 import '../alert/lottie_alert_dialog.dart';
 
@@ -22,7 +22,6 @@ class _ENotisButtonState extends State<ENotisButton>
     with TickerProviderStateMixin {
   double _scaleText = 1;
   late AnimationController _controllerText;
-  final Devices _device = Devices();
   String todayDate = Date.getTodayDate();
 
   @override
@@ -51,8 +50,8 @@ class _ENotisButtonState extends State<ENotisButton>
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: _device.screenWidth(context) * (buttonEcutiWidth(context)),
-      height: _device.screenHeight(context) * (buttonHeight(context)),
+      width: Sizes().screenWidth(context) * (buttonEcutiWidth(context)),
+      height: Sizes().screenHeight(context) * (buttonHeight(context)),
       child: GestureDetector(
         behavior: HitTestBehavior.translucent,
         onTap: () {

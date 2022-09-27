@@ -6,7 +6,7 @@ import '../../../../config/palette.dart';
 import '../../../../config/string.dart';
 import '../../../../models/laluan.dart';
 import '../../../../utils/custom_icon.dart';
-import '../../../../utils/device.dart';
+import '../../../../utils/device/orientations.dart';
 import '../../../../widgets/slide_bar/start_end_work_slide_bar.dart';
 
 class CompactorPanelMyTaskListDetails extends StatefulWidget {
@@ -29,8 +29,6 @@ class CompactorPanelMyTaskListDetailsState
     extends State<CompactorPanelMyTaskListDetails> {
   String _startedTime = "--:--";
   String _endedTime = "--:--";
-
-  final Devices _device = Devices();
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +99,8 @@ class CompactorPanelMyTaskListDetailsState
                       Text(
                         "No. Kenderaan",
                         style: TextStyle(
-                          fontSize: _device.isLandscape(context) ? 15 : 14,
+                          fontSize:
+                              Orientations().isLandscape(context) ? 15 : 14,
                           color: greyCustom,
                           fontWeight: FontWeight.w500,
                         ),
@@ -111,7 +110,7 @@ class CompactorPanelMyTaskListDetailsState
                   Text(
                     widget.data.noKenderaan,
                     style: TextStyle(
-                      fontSize: _device.isLandscape(context) ? 15 : 14,
+                      fontSize: Orientations().isLandscape(context) ? 15 : 14,
                       color: blackCustom,
                       fontWeight: FontWeight.w500,
                     ),
@@ -138,7 +137,8 @@ class CompactorPanelMyTaskListDetailsState
                       Text(
                         "Jumlah Sub Laluan",
                         style: TextStyle(
-                          fontSize: _device.isLandscape(context) ? 15 : 14,
+                          fontSize:
+                              Orientations().isLandscape(context) ? 15 : 14,
                           color: greyCustom,
                           fontWeight: FontWeight.w500,
                         ),
@@ -148,7 +148,7 @@ class CompactorPanelMyTaskListDetailsState
                   Text(
                     "${widget.data.jumSubLaluan}",
                     style: TextStyle(
-                      fontSize: _device.isLandscape(context) ? 15 : 14,
+                      fontSize: Orientations().isLandscape(context) ? 15 : 14,
                       color: blackCustom,
                       fontWeight: FontWeight.w500,
                     ),
@@ -175,7 +175,8 @@ class CompactorPanelMyTaskListDetailsState
                       Text(
                         "Jumlah Taman/Jalan",
                         style: TextStyle(
-                          fontSize: _device.isLandscape(context) ? 15 : 14,
+                          fontSize:
+                              Orientations().isLandscape(context) ? 15 : 14,
                           color: greyCustom,
                           fontWeight: FontWeight.w500,
                         ),
@@ -185,7 +186,7 @@ class CompactorPanelMyTaskListDetailsState
                   Text(
                     "${widget.data.jumlahTaman}/${widget.data.jumlahJalan}",
                     style: TextStyle(
-                      fontSize: _device.isLandscape(context) ? 15 : 14,
+                      fontSize: Orientations().isLandscape(context) ? 15 : 14,
                       color: blackCustom,
                       fontWeight: FontWeight.w500,
                     ),
@@ -212,7 +213,8 @@ class CompactorPanelMyTaskListDetailsState
                       Text(
                         "Mula/Tamat Kerja",
                         style: TextStyle(
-                          fontSize: _device.isLandscape(context) ? 15 : 14,
+                          fontSize:
+                              Orientations().isLandscape(context) ? 15 : 14,
                           color: greyCustom,
                           fontWeight: FontWeight.w500,
                         ),
@@ -224,7 +226,7 @@ class CompactorPanelMyTaskListDetailsState
                         ? '--:-- / --:--'
                         : '$_startedTime/$_endedTime',
                     style: TextStyle(
-                      fontSize: _device.isLandscape(context) ? 15 : 14,
+                      fontSize: Orientations().isLandscape(context) ? 15 : 14,
                       color: blackCustom,
                       fontWeight: FontWeight.w500,
                     ),

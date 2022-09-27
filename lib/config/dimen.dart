@@ -1,76 +1,84 @@
 import 'package:flutter/material.dart';
 
-import '../utils/device.dart';
+import '../utils/device/devices.dart';
+import '../utils/device/orientations.dart';
+import '../utils/device/sizes.dart';
 
-final Devices _device = Devices();
-final double fontSize = _device.isPhone() ? 16 : 20;
-final double taskCardPadding = _device.isPhone() ? 14 : 20;
+final double fontSize = Devices().isPhone() ? 16 : 20;
+final double taskCardPadding = Devices().isPhone() ? 14 : 20;
 
 EdgeInsets tabletTaskCardMargin(BuildContext context) =>
-    _device.isLandscape(context)
+    Orientations().isLandscape(context)
         ? const EdgeInsets.only(bottom: 15.0)
         : const EdgeInsets.only(bottom: 15.0, left: 15.0, right: 15.0);
 
 double gridRatio(BuildContext context) =>
-    _device.isLandscape(context) ? 1.7 : 1.155;
+    Orientations().isLandscape(context) ? 1.7 : 1.155;
 
-double alertBoxPadding(BuildContext context) =>
-    _device.isTablet() ? (_device.isLandscape(context) ? 280 : 170) : 20.0;
+double alertBoxPadding(BuildContext context) => Devices().isTablet()
+    ? (Orientations().isLandscape(context) ? 280 : 170)
+    : 20.0;
 
-double loginPadding(BuildContext context) => _device.isPhone()
-    ? (_device.isPortrait(context) ? 15.0 : 200.0)
-    : (_device.isPortrait(context) ? 140.0 : 340.0);
+double loginPadding(BuildContext context) => Devices().isPhone()
+    ? (Orientations().isPortrait(context) ? 15.0 : 200.0)
+    : (Orientations().isPortrait(context) ? 140.0 : 340.0);
 
-double sliderSize(BuildContext context) =>
-    _device.isPhone() ? 200.0 : (_device.isPortrait(context) ? 250.0 : 200.0);
+double sliderSize(BuildContext context) => Devices().isPhone()
+    ? 200.0
+    : (Orientations().isPortrait(context) ? 250.0 : 200.0);
 
-double logoHeight(BuildContext context) =>
-    _device.isPhone() ? 90.0 : (_device.isPortrait(context) ? 140.0 : 100.0);
+double logoHeight(BuildContext context) => Devices().isPhone()
+    ? 90.0
+    : (Orientations().isPortrait(context) ? 140.0 : 100.0);
 
-double logoWidth(BuildContext context) =>
-    _device.isPhone() ? 100.0 : (_device.isPortrait(context) ? 140.0 : 100.0);
+double logoWidth(BuildContext context) => Devices().isPhone()
+    ? 100.0
+    : (Orientations().isPortrait(context) ? 140.0 : 100.0);
 
-double buttonWidth(BuildContext context) => _device.isPhone()
-    ? (_device.isPortrait(context) ? 0.40 : 0.30)
-    : (_device.isPortrait(context) ? 0.25 : 0.16);
+double buttonWidth(BuildContext context) => Devices().isPhone()
+    ? (Orientations().isPortrait(context) ? 0.40 : 0.30)
+    : (Orientations().isPortrait(context) ? 0.25 : 0.16);
 
-double buttonHeight(BuildContext context) => _device.isPhone()
-    ? (_device.isPortrait(context) ? 0.05 : 0.12)
-    : (_device.isPortrait(context) ? 0.05 : 0.06);
+double buttonHeight(BuildContext context) => Devices().isPhone()
+    ? (Orientations().isPortrait(context) ? 0.05 : 0.12)
+    : (Orientations().isPortrait(context) ? 0.05 : 0.06);
 
-double buttonEcutiWidth(BuildContext context) => _device.isPhone()
-    ? (_device.isPortrait(context) ? 0.30 : 0.24)
-    : (_device.isPortrait(context) ? 0.25 : 0.16);
+double buttonEcutiWidth(BuildContext context) => Devices().isPhone()
+    ? (Orientations().isPortrait(context) ? 0.30 : 0.24)
+    : (Orientations().isPortrait(context) ? 0.25 : 0.16);
 
 double fontSizeVc(BuildContext context) =>
-    _device.isLandscape(context) ? 16 : 14;
+    Orientations().isLandscape(context) ? 16 : 14;
 
-double containerVCHeight(BuildContext context) => _device.isLandscape(context)
-    ? (_device.screenHeight(context) * 0.16)
-    : (_device.screenHeight(context) * 0.14);
+double containerVCHeight(BuildContext context) =>
+    Orientations().isLandscape(context)
+        ? (Sizes().screenHeight(context) * 0.16)
+        : (Sizes().screenHeight(context) * 0.14);
 
-double containerVC2Height(BuildContext context) => _device.isLandscape(context)
-    ? (_device.screenHeight(context) * 0.19)
-    : (_device.screenHeight(context) * 0.13);
+double containerVC2Height(BuildContext context) =>
+    Orientations().isLandscape(context)
+        ? (Sizes().screenHeight(context) * 0.19)
+        : (Sizes().screenHeight(context) * 0.13);
 
-EdgeInsets paddingVcTable(BuildContext context) => _device.isLandscape(context)
-    ? const EdgeInsets.symmetric(horizontal: 20.0)
-    : const EdgeInsets.symmetric(horizontal: 10.0);
+EdgeInsets paddingVcTable(BuildContext context) =>
+    Orientations().isLandscape(context)
+        ? const EdgeInsets.symmetric(horizontal: 20.0)
+        : const EdgeInsets.symmetric(horizontal: 10.0);
 
 double tableSpace(BuildContext context) =>
-    _device.isLandscape(context) ? 32 : 20;
+    Orientations().isLandscape(context) ? 32 : 20;
 
 double columnSpaceVc(BuildContext context) =>
-    _device.isPortrait(context) ? 5 : 0;
+    Orientations().isPortrait(context) ? 5 : 0;
 
 double columnSpacing(BuildContext context) =>
-    _device.isLandscape(context) ? 6 : 15;
+    Orientations().isLandscape(context) ? 6 : 15;
 
 double axisSpacing(BuildContext context) =>
-    _device.isLandscape(context) ? 10.0 : 0;
+    Orientations().isLandscape(context) ? 10.0 : 0;
 
 Map<int, FlexColumnWidth> columnVC2Width(BuildContext context) =>
-    _device.isLandscape(context)
+    Orientations().isLandscape(context)
         ? const {
             0: FlexColumnWidth(3),
             1: FlexColumnWidth(2.2),

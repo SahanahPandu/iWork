@@ -5,7 +5,8 @@ import 'package:flutter/services.dart';
 import '../../config/palette.dart';
 import '../../models/laluan.dart';
 import '../../utils/custom_icon.dart';
-import '../../utils/device.dart';
+import '../../utils/device/sizes.dart';
+import '../../widgets/buttons/contact_button.dart';
 import 'schedule_issue_detail.dart';
 
 class ScheduleIssueMainScreen extends StatefulWidget {
@@ -13,9 +14,7 @@ class ScheduleIssueMainScreen extends StatefulWidget {
   final String issueType;
 
   const ScheduleIssueMainScreen(
-      {Key? key,
-      this.laluanData,
-      required this.issueType})
+      {Key? key, this.laluanData, required this.issueType})
       : super(key: key);
 
   @override
@@ -34,7 +33,7 @@ class _ScheduleIssueMainScreen extends State<ScheduleIssueMainScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: Devices().screenHeight(context),
+        height: Sizes().screenHeight(context),
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
@@ -81,7 +80,10 @@ class _ScheduleIssueMainScreen extends State<ScheduleIssueMainScreen> {
                 behavior:
                     const MaterialScrollBehavior().copyWith(overscroll: false),
                 child: ScheduleIssueDetail(
-                    getInfo: widget.laluanData!, getIssue: widget.issueType))));
+                    getInfo: widget.laluanData!, getIssue: widget.issueType)),
+            floatingActionButton: widget.issueType == "belum"
+                ? ContactButton(data: widget.laluanData)
+                : Container()));
   }
 
   void _filterIssueType() {

@@ -5,7 +5,7 @@ import '../../config/config.dart';
 import '../../config/font.dart';
 import '../../config/palette.dart';
 import '../../providers/jalan_api.dart';
-import '../../utils/device.dart';
+import '../../utils/device/orientations.dart';
 
 class ListOfRoadTextFormField extends StatefulWidget {
   final String text;
@@ -34,7 +34,6 @@ class ListOfRoadTextFormField extends StatefulWidget {
 
 class _ListOfRoadTextFormFieldState extends State<ListOfRoadTextFormField> {
   final TextEditingController _namaJalan = TextEditingController();
-  final Devices _device = Devices();
 
   int totalJalan = 0;
 
@@ -134,7 +133,7 @@ class _ListOfRoadTextFormFieldState extends State<ListOfRoadTextFormField> {
           ),
         ),
         constraints: userRole == 100
-            ? (_device.isLandscape(context)
+            ? (Orientations().isLandscape(context)
                 ? const BoxConstraints(maxWidth: 500, maxHeight: 400)
                 : const BoxConstraints(maxWidth: 500, maxHeight: 450))
             : null,

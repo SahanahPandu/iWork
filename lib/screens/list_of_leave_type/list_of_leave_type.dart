@@ -5,7 +5,7 @@ import '../../config/config.dart';
 import '../../config/font.dart';
 import '../../config/palette.dart';
 import '../../providers/jenis_cuti_api.dart';
-import '../../utils/device.dart';
+import '../../utils/device/orientations.dart';
 
 class ListOfLeaveType extends StatefulWidget {
   final String hintText;
@@ -30,7 +30,6 @@ class ListOfLeaveType extends StatefulWidget {
 }
 
 class _ListOfLeaveTypeState extends State<ListOfLeaveType> {
-  final Devices _device = Devices();
   int totalJenisCuti = 0;
 
   getTotalData() {
@@ -138,7 +137,7 @@ class _ListOfLeaveTypeState extends State<ListOfLeaveType> {
           ),
         ),
         constraints: userRole == 100
-            ? (_device.isLandscape(context)
+            ? (Orientations().isLandscape(context)
                 ? const BoxConstraints(maxWidth: 500, maxHeight: 400)
                 : const BoxConstraints(
                     maxWidth: 500,

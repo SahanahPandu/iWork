@@ -8,7 +8,7 @@ import '../../../screens/list_of_employees/list_of_employees.dart';
 import '../../../screens/reassign_employee/reassign_employee_list.dart';
 import '../my_task/supervisor/supervisor_my_task_list_details.dart';
 import '../../listview/card_list_view.dart';
-import '../../../screens/work_schedule/supervisor/supervisor_schedule_details.dart';
+import '../../../screens/work_schedule/supervisor/supervisor_work_schedule_details.dart';
 
 class ScheduleIssuedCard extends StatefulWidget {
   final Laluan getInfo;

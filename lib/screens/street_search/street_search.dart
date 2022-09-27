@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../config/palette.dart';
-import '../../utils/device.dart';
+import '../../utils/device/sizes.dart';
 import '../list_of_park/list_of_parks.dart';
 import '../list_of_road/list_of_road.dart';
 import '../list_of_sub_routes/list_of_sub_routes_text_form_field.dart';
 
 class StreetSearch extends StatefulWidget {
   final double? height;
+
   const StreetSearch({Key? key, this.height = 0.555}) : super(key: key);
 
   @override
@@ -47,8 +48,8 @@ class _StreetSearchState extends State<StreetSearch> {
         /// 0.555 = headerExpandedHeight + 0.05
         height: _showSenaraiTaman && _showSenaraiJalan
             ? null
-            : (Devices().screenHeight(context) -
-                (Devices().screenHeight(context) * widget.height!) -
+            : (Sizes().screenHeight(context) -
+                (Sizes().screenHeight(context) * widget.height!) -
                 kToolbarHeight),
         color: white,
         child: Column(

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 //import files
 import '../../../config/palette.dart';
 import '../../../models/laluan.dart';
-import '../../../screens/work_schedule/supervisor/supervisor_schedule_details.dart';
+import '../../../screens/work_schedule/supervisor/supervisor_work_schedule_details.dart';
 import '../../config/font.dart';
 import '../../widgets/container/status_container.dart';
 import '../../widgets/listview/card_list_view.dart';

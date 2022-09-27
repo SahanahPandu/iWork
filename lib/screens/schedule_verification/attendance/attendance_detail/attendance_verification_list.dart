@@ -6,7 +6,7 @@ import '../../../../config/palette.dart';
 import '../../../../config/string.dart';
 import '../../../../providers/pekerja_api.dart';
 import '../../../../utils/custom_icon.dart';
-import '../../../../utils/device.dart';
+import '../../../../utils/device/sizes.dart';
 import '../../../../widgets/alert/alert_dialog.dart';
 import '../../../../widgets/alert/lottie_alert_dialog.dart';
 import 'attendance_verification_detail_list.dart';
@@ -21,7 +21,6 @@ class AttendanceVerificationList extends StatefulWidget {
 
 class _AttendanceVerificationListState
     extends State<AttendanceVerificationList> {
-  final Devices _device = Devices();
   late Future<List> _loadPekerjaData;
   IconData icon = CustomIcon.checkBoxEmpty;
   Color iconColor = grey600;
@@ -208,7 +207,7 @@ class _AttendanceVerificationListState
                   overlayColor:
                       MaterialStateColor.resolveWith((states) => green800),
                   minimumSize: MaterialStateProperty.all(
-                      Size(_device.screenWidth(context), 41)),
+                      Size(Sizes().screenWidth(context), 41)),
                   backgroundColor: MaterialStateProperty.all(green)),
               child: Text('Sahkan Kehadiran',
                   style: TextStyle(

@@ -10,9 +10,10 @@ import '../../config/config.dart';
 import '../../providers/jenis_cuti_api.dart';
 import '../../utils/custom_icon.dart';
 // import '../../utils/date.dart';
+import '../../utils/device/orientations.dart';
+import '../../utils/device/sizes.dart';
 import '../../widgets/buttons/upload_files_button.dart';
 import '../../config/palette.dart';
-import '../../utils/device.dart';
 import '../../config/font.dart';
 import '../../models/cuti.dart';
 import '../../widgets/buttons/ecuti_submit_button.dart';
@@ -33,7 +34,6 @@ class _LeaveFormState extends State<LeaveForm> {
   ExpandableController _expandController =
       ExpandableController(initialExpanded: true);
   final _formKey = GlobalKey<FormState>();
-  final Devices _device = Devices();
   final TextEditingController _jenisCuti = TextEditingController();
   final TextEditingController _tarikhMula = TextEditingController();
   final TextEditingController _tarikhTamat = TextEditingController();
@@ -374,7 +374,7 @@ class _LeaveFormState extends State<LeaveForm> {
                                   }
                                 },
                                 child: SizedBox(
-                                  width: _device.screenWidth(context) * 0.42,
+                                  width: Sizes().screenWidth(context) * 0.42,
                                   child: TextFormField(
                                     style: const TextStyle(
                                       fontSize: 15,
@@ -506,7 +506,7 @@ class _LeaveFormState extends State<LeaveForm> {
                                   }
                                 },
                                 child: SizedBox(
-                                  width: _device.screenWidth(context) * 0.42,
+                                  width: Sizes().screenWidth(context) * 0.42,
                                   child: TextFormField(
                                     style: const TextStyle(
                                       fontSize: 15,
@@ -663,14 +663,14 @@ class _LeaveFormState extends State<LeaveForm> {
         ),
         if (_lampiranVisibility)
           SizedBox(
-            width: _device.screenWidth(context),
+            width: Sizes().screenWidth(context),
             child: UploadFilesButton(textLampiran: lampiran),
           ),
 
         //Detail Lampiran
         if (_lampiranDetailsVisibility)
           Container(
-            width: _device.screenWidth(context),
+            width: Sizes().screenWidth(context),
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
                 color: const Color(0xffD9D9D9),
@@ -715,8 +715,8 @@ class _LeaveFormState extends State<LeaveForm> {
                 buttonVisibility = false;
               });
             },
-            textInputAction: TextInputAction
-                .done, //set bottom right button on keyboard to "Done" instead of go to next line
+            textInputAction: TextInputAction.done,
+            //set bottom right button on keyboard to "Done" instead of go to next line
             decoration: InputDecoration(
                 filled: true,
                 fillColor: textFieldFillColor,
@@ -898,7 +898,7 @@ class _LeaveFormState extends State<LeaveForm> {
           ),
         ),
         constraints: userRole == 100
-            ? (_device.isLandscape(context)
+            ? (Orientations().isLandscape(context)
                 ? const BoxConstraints(maxWidth: 500, maxHeight: 400)
                 : const BoxConstraints(
                     maxWidth: 500,

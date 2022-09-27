@@ -7,7 +7,7 @@ import '../../../../config/palette.dart';
 import '../../../../models/laluan.dart';
 import '../../../../screens/schedule_issue/schedule_issue_main.dart';
 import '../../../../utils/custom_icon.dart';
-import '../../../../utils/device.dart';
+import '../../../../utils/device/sizes.dart';
 import '../../../container/status_container.dart';
 
 class SupervisorMyTaskListDetails extends StatefulWidget {
@@ -25,8 +25,6 @@ class SupervisorMyTaskListDetails extends StatefulWidget {
 
 class _SupervisorMyTaskListDetailsState
     extends State<SupervisorMyTaskListDetails> {
-  final Devices _device = Devices();
-
   String taskIssueText = "";
 
   @override
@@ -196,7 +194,7 @@ class _SupervisorMyTaskListDetailsState
             ? Container(
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(18),
-                width: _device.screenWidth(context),
+                width: Sizes().screenWidth(context),
                 child: ElevatedButton(
                   style: ButtonStyle(
                       elevation: MaterialStateProperty.all(0),
@@ -207,7 +205,7 @@ class _SupervisorMyTaskListDetailsState
                       overlayColor: MaterialStateColor.resolveWith(
                           (states) => Colors.red.shade900),
                       minimumSize: MaterialStateProperty.all(
-                          Size(_device.screenWidth(context), 42)),
+                          Size(Sizes().screenWidth(context), 42)),
                       backgroundColor: MaterialStateProperty.all(redCustom)),
                   child: Text(taskIssueText,
                       style: TextStyle(
@@ -221,7 +219,6 @@ class _SupervisorMyTaskListDetailsState
                             type: PageTransitionType.fade,
                             child: ScheduleIssueMainScreen(
                                 laluanData: widget.data,
-                                //fromHome: true,
                                 issueType: widget.data.isu)));
                   },
                 ),

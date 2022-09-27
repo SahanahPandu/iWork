@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 //import files
 import '../../../../config/palette.dart';
 import '../../../../models/reports.dart';
-import '../../../../utils/device.dart';
+import '../../../../utils/device/sizes.dart';
 import '../../../../widgets/image_viewer/image_viewer.dart';
 
 class ReportApprovalDetail extends StatefulWidget {
@@ -156,7 +156,7 @@ class _ReportApprovalDetailState extends State<ReportApprovalDetail> {
                   child: Container(
                     constraints: BoxConstraints(
                         maxHeight: 280,
-                        minWidth: Devices().screenWidth(context)),
+                        minWidth: Sizes().screenWidth(context)),
                     padding: const EdgeInsets.all(5),
                     child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),

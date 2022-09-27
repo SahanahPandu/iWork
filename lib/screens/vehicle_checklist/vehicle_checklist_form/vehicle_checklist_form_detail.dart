@@ -9,7 +9,8 @@ import '../../../config/string.dart';
 import '../../../models/vc/vc.dart';
 import '../../../utils/custom_icon.dart';
 import '../../../utils/date.dart';
-import '../../../utils/device.dart';
+import '../../../utils/device/orientations.dart';
+import '../../../utils/device/sizes.dart';
 import '../../../widgets/alert/alert_dialog.dart';
 import '../../../widgets/alert/toast.dart';
 
@@ -34,7 +35,6 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
     GlobalKey<FormState>()
   ];
   late ScrollController _scrollController;
-  final Devices _device = Devices();
   bool _showBackToTopButton = false;
   bool _valid = false;
   bool _incompleteRadioButton = false;
@@ -94,8 +94,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
               }
             });
           },
-          icon:
-              Icon(CustomIcon.arrowBack, color: blackCustom, size: 22),
+          icon: Icon(CustomIcon.arrowBack, color: blackCustom, size: 22),
         ),
         title: Center(
           child: Text(
@@ -140,10 +139,10 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
               //CONTAINER #1
               Container(
                   width: double.infinity,
-                  height: _device.isLandscape(context)
-                      ? (_device.screenHeight(context) * 0.19)
-                      : (_device.screenHeight(context) * 0.13),
-                  padding: _device.isLandscape(context)
+                  height: Orientations().isLandscape(context)
+                      ? (Sizes().screenHeight(context) * 0.19)
+                      : (Sizes().screenHeight(context) * 0.13),
+                  padding: Orientations().isLandscape(context)
                       ? const EdgeInsets.symmetric(horizontal: 20.0)
                       : const EdgeInsets.symmetric(horizontal: 10.0),
                   child: Card(
@@ -158,7 +157,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                           child: Table(
                               defaultVerticalAlignment:
                                   TableCellVerticalAlignment.middle,
-                              columnWidths: _device.isPortrait(context)
+                              columnWidths: Orientations().isPortrait(context)
                                   ? const {
                                       0: FlexColumnWidth(2),
                                       1: FlexColumnWidth(1.9),
@@ -275,10 +274,12 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                           MainAxisAlignment.spaceAround,
                                       children: [
                                         SizedBox(
-                                            height: _device.isLandscape(context)
+                                            height: Orientations()
+                                                    .isLandscape(context)
                                                 ? 35
                                                 : 32,
-                                            width: _device.isLandscape(context)
+                                            width: Orientations()
+                                                    .isLandscape(context)
                                                 ? 130
                                                 : 100,
                                             child: _valueTextFormBuild(
@@ -304,11 +305,12 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                   SizedBox(
                                     height: 25,
                                     child: Padding(
-                                      padding: _device.isLandscape(context)
-                                          ? const EdgeInsets.symmetric(
-                                              horizontal: 7.0)
-                                          : const EdgeInsets.symmetric(
-                                              horizontal: 0),
+                                      padding:
+                                          Orientations().isLandscape(context)
+                                              ? const EdgeInsets.symmetric(
+                                                  horizontal: 7.0)
+                                              : const EdgeInsets.symmetric(
+                                                  horizontal: 0),
                                       child: Row(
                                         children: [
                                           Row(
@@ -380,10 +382,12 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                         MainAxisAlignment.spaceAround,
                                     children: [
                                       SizedBox(
-                                          height: _device.isLandscape(context)
+                                          height: Orientations()
+                                                  .isLandscape(context)
                                               ? 35
                                               : 32,
-                                          width: _device.isLandscape(context)
+                                          width: Orientations()
+                                                  .isLandscape(context)
                                               ? 130
                                               : 100,
                                           child: _valueTextFormBuild(1,
@@ -399,28 +403,32 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                   Text(' ',
                                       textAlign: TextAlign.left,
                                       style: TextStyle(
-                                          fontSize: _device.isLandscape(context)
+                                          fontSize: Orientations()
+                                                  .isLandscape(context)
                                               ? 16
                                               : 14,
                                           color: blueGrey)),
                                   Text(akbkNo,
                                       textAlign: TextAlign.left,
                                       style: TextStyle(
-                                        fontSize: _device.isLandscape(context)
-                                            ? 16
-                                            : 14,
+                                        fontSize:
+                                            Orientations().isLandscape(context)
+                                                ? 16
+                                                : 14,
                                         color: blueGrey,
                                       )),
                                   Container(
-                                      padding: _device.isLandscape(context)
-                                          ? const EdgeInsets.symmetric(
-                                              horizontal: 20.0)
-                                          : const EdgeInsets.symmetric(
-                                              horizontal: 16.0),
-                                      height: _device.isLandscape(context)
-                                          ? 35
-                                          : 32,
-                                      width: _device.isLandscape(context)
+                                      padding:
+                                          Orientations().isLandscape(context)
+                                              ? const EdgeInsets.symmetric(
+                                                  horizontal: 20.0)
+                                              : const EdgeInsets.symmetric(
+                                                  horizontal: 16.0),
+                                      height:
+                                          Orientations().isLandscape(context)
+                                              ? 35
+                                              : 32,
+                                      width: Orientations().isLandscape(context)
                                           ? 400
                                           : 0,
                                       child: _valueTextFormBuild(
@@ -431,9 +439,9 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
               // #CONTAINER 3
               Container(
                   width: double.infinity,
-                  height: _device.isLandscape(context)
-                      ? (_device.screenHeight(context) * 0.46)
-                      : (_device.screenHeight(context) * 0.3),
+                  height: Orientations().isLandscape(context)
+                      ? (Sizes().screenHeight(context) * 0.46)
+                      : (Sizes().screenHeight(context) * 0.3),
                   padding: paddingVcTable(context),
                   child: Card(
                       //CARD #3
@@ -447,7 +455,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                           child: Table(
                               defaultVerticalAlignment:
                                   TableCellVerticalAlignment.middle,
-                              columnWidths: _device.isLandscape(context)
+                              columnWidths: Orientations().isLandscape(context)
                                   ? const {
                                       0: FlexColumnWidth(1.62),
                                       1: FlexColumnWidth(4),
@@ -493,7 +501,9 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                   //SizeBox Widget
                                   SizedBox(
                                       height:
-                                          _device.isLandscape(context) ? 6 : 0),
+                                          Orientations().isLandscape(context)
+                                              ? 6
+                                              : 0),
                                 ]),
                                 TableRow(children: [
                                   Text(passReceipt,
@@ -650,10 +660,11 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                     child: Row(
                                       children: [
                                         Container(
-                                          width: _device.isLandscape(context)
-                                              ? (_device.screenWidth(context) *
+                                          width: Orientations()
+                                                  .isLandscape(context)
+                                              ? (Sizes().screenWidth(context) *
                                                   0.55)
-                                              : (_device.screenWidth(context) *
+                                              : (Sizes().screenWidth(context) *
                                                   0.5),
                                           height: 55,
                                           decoration: BoxDecoration(
@@ -1505,7 +1516,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                 spreadRadius: 0.5)
           ],
         ),
-        padding: _device.isPortrait(context)
+        padding: Orientations().isPortrait(context)
             ? const EdgeInsets.symmetric(horizontal: 220, vertical: 15)
             : const EdgeInsets.symmetric(horizontal: 400, vertical: 10),
         child: SizedBox(
@@ -1521,7 +1532,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                 overlayColor:
                     MaterialStateColor.resolveWith((states) => green800),
                 minimumSize: MaterialStateProperty.all(
-                    Size(_device.screenWidth(context), 45)),
+                    Size(Sizes().screenWidth(context), 45)),
                 backgroundColor: MaterialStateProperty.all(green)),
             child: Text('Hantar',
                 style: TextStyle(

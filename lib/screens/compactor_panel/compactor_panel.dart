@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 //import files
 import '../../config/palette.dart';
 import '../../config/string.dart';
-import '../../utils/device.dart';
+import '../../utils/device/orientations.dart';
+import '../../utils/device/sizes.dart';
 import '../../widgets/cards/today_task/today_task_card.dart';
 import '../../widgets/gridview/compactor_panel/compactor_task_list.dart';
 
@@ -15,8 +16,6 @@ class CompactorPanel extends StatefulWidget {
 }
 
 class _CompactorPanelState extends State<CompactorPanel> {
-  final Devices _device = Devices();
-
   bool closeTopCard = false;
 
   void getTopCardStatus(status) {
@@ -27,9 +26,9 @@ class _CompactorPanelState extends State<CompactorPanel> {
 
   @override
   Widget build(BuildContext context) {
-    final double categoryHeight = _device.isLandscape(context)
-        ? _device.screenHeight(context) * 0.3
-        : _device.screenHeight(context) * 0.25;
+    final double categoryHeight = Orientations().isLandscape(context)
+        ? Sizes().screenHeight(context) * 0.3
+        : Sizes().screenHeight(context) * 0.25;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,7 +39,7 @@ class _CompactorPanelState extends State<CompactorPanel> {
               padding: EdgeInsets.only(
                   left: 30,
                   top: 15,
-                  bottom: _device.isLandscape(context) ? 10 : 0),
+                  bottom: Orientations().isLandscape(context) ? 10 : 0),
               child: Text(
                 "Hi, Suhaimi",
                 style: TextStyle(
@@ -54,7 +53,7 @@ class _CompactorPanelState extends State<CompactorPanel> {
               padding: EdgeInsets.only(
                   left: 10,
                   top: 15,
-                  bottom: _device.isLandscape(context) ? 10 : 0),
+                  bottom: Orientations().isLandscape(context) ? 10 : 0),
               child: Text(
                 "BLW 7096",
                 style: TextStyle(
@@ -71,7 +70,7 @@ class _CompactorPanelState extends State<CompactorPanel> {
           opacity: closeTopCard ? 0 : 1,
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 400),
-            width: _device.screenWidth(context),
+            width: Sizes().screenWidth(context),
             alignment: Alignment.topCenter,
             height: closeTopCard ? 0 : categoryHeight,
             child: SizedBox(

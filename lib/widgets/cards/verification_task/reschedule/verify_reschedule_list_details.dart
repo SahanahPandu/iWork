@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 //import files
 import '../../../../config/palette.dart';
 import '../../../../models/pekerja.dart';
-import '../../../../utils/device.dart';
+import '../../../../utils/device/sizes.dart';
 
 class VerifyRescheduleListDetails extends StatefulWidget {
   final Pekerja? data;
@@ -19,8 +19,6 @@ class VerifyRescheduleListDetails extends StatefulWidget {
 
 class _VerifyRescheduleListDetailsState
     extends State<VerifyRescheduleListDetails> {
-  final Devices _devices = Devices();
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -92,7 +90,7 @@ class _VerifyRescheduleListDetailsState
         maxLines: 2,
         textAlign: TextAlign.left,
         textDirection: TextDirection.ltr)
-      ..layout(minWidth: 0, maxWidth: _devices.screenWidth(context));
+      ..layout(minWidth: 0, maxWidth: Sizes().screenWidth(context));
     return textPainter.size;
   }
 }

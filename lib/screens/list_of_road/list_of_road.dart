@@ -5,7 +5,7 @@ import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../../config/string.dart';
 import '../../providers/jalan_api.dart';
-import '../../utils/device.dart';
+import '../../utils/device/sizes.dart';
 import 'list_of_road_details.dart';
 
 class ListOfRoad extends StatefulWidget {
@@ -77,8 +77,8 @@ class _ListOfRoadState extends State<ListOfRoad> {
                   if (newList.isEmpty) {
                     return SizedBox(
                       height: userRole == 200
-                          ? Devices().screenHeight(context) * 0.24
-                          : Devices().screenHeight(context) * 0.18,
+                          ? Sizes().screenHeight(context) * 0.24
+                          : Sizes().screenHeight(context) * 0.18,
                       child: Container(
                         margin: const EdgeInsets.fromLTRB(25, 15, 25, 15),
                         alignment: Alignment.topLeft,

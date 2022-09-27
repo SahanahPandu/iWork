@@ -9,7 +9,8 @@ import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../../config/string.dart';
 import '../../utils/date.dart';
-import '../../utils/device.dart';
+import '../../utils/device/orientations.dart';
+import '../../utils/device/sizes.dart';
 import '../alert/alert_dialog.dart';
 import '../alert/toast.dart';
 import '../cards/my_task/compactor_panel/compactor_panel_my_task_list_details.dart';
@@ -25,7 +26,6 @@ class StartEndWorkSlideBar extends StatefulWidget {
 
 class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
   final _controller = ActionSliderController();
-  final Devices _device = Devices();
 
   //  statusTask == 1
   Color textColor = green;
@@ -43,11 +43,12 @@ class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
     return RotatedBox(
       quarterTurns: statusTask == 2 ? 2 : 0,
       child: ActionSlider.custom(
-        width:
-            _device.isLandscape(context) ? 350 : _device.screenWidth(context),
+        width: Orientations().isLandscape(context)
+            ? 350
+            : Sizes().screenWidth(context),
         controller: _controller,
-        height: _device.isLandscape(context)? 45 : 40,
-        toggleWidth: _device.isLandscape(context)? 35.0 : 31,
+        height: Orientations().isLandscape(context) ? 45 : 40,
+        toggleWidth: Orientations().isLandscape(context) ? 35.0 : 31,
         sliderBehavior: SliderBehavior.stretch,
         foregroundChild: Container(
             decoration: BoxDecoration(
@@ -70,7 +71,7 @@ class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
                     child: Text(slideText,
                         style: TextStyle(
                             fontSize:
-                                _device.isLandscape(context) ? 14 : 11.5,
+                                Orientations().isLandscape(context) ? 14 : 11.5,
                             fontWeight: FontWeight.w500)),
                   ),
           ),

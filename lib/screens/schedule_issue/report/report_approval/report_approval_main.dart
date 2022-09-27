@@ -8,7 +8,7 @@ import '../../../../config/palette.dart';
 import '../../../../config/string.dart';
 import '../../../../models/reports.dart';
 import '../../../../utils/custom_icon.dart';
-import '../../../../utils/device.dart';
+import '../../../../utils/device/sizes.dart';
 import '../../../../widgets/alert/alert_dialog.dart';
 import '../../../../widgets/alert/lottie_alert_dialog.dart';
 import '../../../../widgets/modal_bottom_sheet/acceptance_options.dart';
@@ -26,7 +26,6 @@ class ReportApprovalMain extends StatefulWidget {
 class _ReportApprovalMainState extends State<ReportApprovalMain> {
   final ExpandableController _reportController =
       ExpandableController(initialExpanded: false);
-  final Devices _device = Devices();
   final TextEditingController _laluan = TextEditingController();
   final TextEditingController _vehicleNo = TextEditingController();
   final TextEditingController _rStatus = TextEditingController();
@@ -228,7 +227,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
                   overlayColor:
                       MaterialStateColor.resolveWith((states) => green800),
                   minimumSize: MaterialStateProperty.all(
-                      Size(Devices().screenWidth(context), 41)),
+                      Size(Sizes().screenWidth(context), 41)),
                   backgroundColor: MaterialStateProperty.all(green)),
               child: Text('Sahkan',
                   style: TextStyle(
@@ -423,7 +422,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SizedBox(
-              width: _device.screenWidth(context) * 0.41,
+              width: Sizes().screenWidth(context) * 0.41,
               child: InkWell(
                 borderRadius: BorderRadius.circular(8),
                 onTap: () {
@@ -434,7 +433,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
               ),
             ),
             SizedBox(
-              width: _device.screenWidth(context) * 0.42,
+              width: Sizes().screenWidth(context) * 0.42,
               child: InkWell(
                 borderRadius: BorderRadius.circular(8),
                 onTap: () {
@@ -487,7 +486,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
         context: context,
         builder: (builder) {
           return Container(
-            height: _device.screenHeight(context) * 0.3,
+            height: Sizes().screenHeight(context) * 0.3,
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Center(
               child: SizedBox(

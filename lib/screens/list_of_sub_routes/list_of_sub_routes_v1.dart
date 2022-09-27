@@ -5,7 +5,7 @@ import '../../config/config.dart';
 import '../../config/font.dart';
 import '../../config/palette.dart';
 import '../../providers/sub_laluan_api.dart';
-import '../../utils/device.dart';
+import '../../utils/device/orientations.dart';
 
 class ListOfSubRoutes extends StatefulWidget {
   final String hintText;
@@ -31,7 +31,6 @@ class ListOfSubRoutes extends StatefulWidget {
 
 class ListOfSubRoutesState extends State<ListOfSubRoutes> {
   final TextEditingController namaSubLaluan = TextEditingController();
-  final Devices _device = Devices();
 
   int totalSubLaluan = 0;
 
@@ -140,7 +139,7 @@ class ListOfSubRoutesState extends State<ListOfSubRoutes> {
           ),
         ),
         constraints: userRole == 100
-            ? (_device.isLandscape(context)
+            ? (Orientations().isLandscape(context)
                 ? const BoxConstraints(maxWidth: 500, maxHeight: 400)
                 : const BoxConstraints(maxWidth: 500, maxHeight: 450))
             : null,

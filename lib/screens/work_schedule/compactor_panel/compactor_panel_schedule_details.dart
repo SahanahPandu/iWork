@@ -5,7 +5,7 @@ import '../../../config/font.dart';
 import '../../../config/palette.dart';
 import '../../../models/laluan.dart';
 import '../../../utils/custom_icon.dart';
-import '../../../utils/device.dart';
+import '../../../utils/device/orientations.dart';
 import '../../../widgets/buttons/report_button.dart';
 import '../../../widgets/container/status_container.dart';
 
@@ -22,8 +22,6 @@ class CompactorPanelScheduleDetails extends StatefulWidget {
 
 class _CompactorPanelScheduleDetailsState
     extends State<CompactorPanelScheduleDetails> {
-  final Devices _device = Devices();
-
   @override
   Widget build(BuildContext context) {
     return Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
@@ -71,7 +69,7 @@ class _CompactorPanelScheduleDetailsState
                     Text(
                       "No. Kenderaan",
                       style: TextStyle(
-                        fontSize: _device.isLandscape(context) ? 15 : 14,
+                        fontSize: Orientations().isLandscape(context) ? 15 : 14,
                         color: greyCustom,
                         fontWeight: FontWeight.w500,
                       ),
@@ -81,7 +79,7 @@ class _CompactorPanelScheduleDetailsState
                 Text(
                   widget.data.noKenderaan,
                   style: TextStyle(
-                    fontSize: _device.isLandscape(context) ? 15 : 14,
+                    fontSize: Orientations().isLandscape(context) ? 15 : 14,
                     color: blackCustom,
                     fontWeight: FontWeight.w500,
                   ),
@@ -108,7 +106,7 @@ class _CompactorPanelScheduleDetailsState
                     Text(
                       "Jumlah Sub Laluan",
                       style: TextStyle(
-                        fontSize: _device.isLandscape(context) ? 15 : 14,
+                        fontSize: Orientations().isLandscape(context) ? 15 : 14,
                         color: greyCustom,
                         fontWeight: FontWeight.w500,
                       ),
@@ -118,7 +116,7 @@ class _CompactorPanelScheduleDetailsState
                 Text(
                   "${widget.data.jumSubLaluan}",
                   style: TextStyle(
-                    fontSize: _device.isLandscape(context) ? 15 : 14,
+                    fontSize: Orientations().isLandscape(context) ? 15 : 14,
                     color: blackCustom,
                     fontWeight: FontWeight.w500,
                   ),
@@ -145,7 +143,7 @@ class _CompactorPanelScheduleDetailsState
                     Text(
                       "Jumlah Taman/Jalan",
                       style: TextStyle(
-                        fontSize: _device.isLandscape(context) ? 15 : 14,
+                        fontSize: Orientations().isLandscape(context) ? 15 : 14,
                         color: greyCustom,
                         fontWeight: FontWeight.w500,
                       ),
@@ -155,7 +153,7 @@ class _CompactorPanelScheduleDetailsState
                 Text(
                   "${widget.data.jumlahTaman}/${widget.data.jumlahJalan}",
                   style: TextStyle(
-                    fontSize: _device.isLandscape(context) ? 15 : 14,
+                    fontSize: Orientations().isLandscape(context) ? 15 : 14,
                     color: blackCustom,
                     fontWeight: FontWeight.w500,
                   ),
@@ -182,7 +180,7 @@ class _CompactorPanelScheduleDetailsState
                     Text(
                       "Mula Kerja/Tamat Kerja",
                       style: TextStyle(
-                        fontSize: _device.isLandscape(context) ? 15 : 14,
+                        fontSize: Orientations().isLandscape(context) ? 15 : 14,
                         color: greyCustom,
                         fontWeight: FontWeight.w500,
                       ),
@@ -192,7 +190,7 @@ class _CompactorPanelScheduleDetailsState
                 Text(
                   '--:-- / --:--',
                   style: TextStyle(
-                    fontSize: _device.isLandscape(context) ? 15 : 14,
+                    fontSize: Orientations().isLandscape(context) ? 15 : 14,
                     color: blackCustom,
                     fontWeight: FontWeight.w500,
                   ),

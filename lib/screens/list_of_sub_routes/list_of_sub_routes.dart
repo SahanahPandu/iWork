@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../../providers/sub_laluan_api.dart';
-import '../../utils/device.dart';
-
-final Devices _device = Devices();
+import '../../utils/device/orientations.dart';
 
 Future<dynamic> showListOfSubRoutes(context) {
   return showModalBottomSheet(
@@ -18,7 +16,7 @@ Future<dynamic> showListOfSubRoutes(context) {
       ),
     ),
     constraints: userRole == 100
-        ? (_device.isLandscape(context)
+        ? (Orientations().isLandscape(context)
             ? const BoxConstraints(maxWidth: 500, maxHeight: 400)
             : const BoxConstraints(maxWidth: 500, maxHeight: 450))
         : null,

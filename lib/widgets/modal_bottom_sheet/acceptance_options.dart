@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../config/palette.dart';
-import '../../utils/device.dart';
+import '../../utils/device/sizes.dart';
 
 @override
 Widget? showAcceptanceOptions(
@@ -22,7 +22,7 @@ Widget? showAcceptanceOptions(
       context: context,
       builder: (builder) {
         return SizedBox(
-          height: Devices().screenHeight(context) * height,
+          height: Sizes().screenHeight(context) * height,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -52,15 +52,14 @@ Widget? showAcceptanceOptions(
               ),
               const Padding(
                 padding: EdgeInsets.only(left: 26, right: 26, top: 8),
-                child:  Divider(height: 0.5),
+                child: Divider(height: 0.5),
               ),
               Expanded(
                 child: Container(
                   margin: const EdgeInsets.symmetric(
                     horizontal: 10,
                   ),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: ListView.builder(
                     physics: const BouncingScrollPhysics(),
                     shrinkWrap: true,

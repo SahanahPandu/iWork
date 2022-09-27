@@ -6,7 +6,7 @@ import '../../../../config/palette.dart';
 import '../../../config/font.dart';
 import '../../../../models/laluan.dart';
 import '../../../utils/custom_icon.dart';
-import '../../../utils/device.dart';
+import '../../../utils/device/sizes.dart';
 import '../../../widgets/container/status_container.dart';
 
 class SupervisorScheduleDetails extends StatefulWidget {
@@ -23,7 +23,6 @@ class SupervisorScheduleDetails extends StatefulWidget {
 }
 
 class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
-  final Devices _device = Devices();
   Color expandBgColor = const Color(0xea4a39be);
 
   @override
@@ -339,7 +338,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
             ? Center(
                 child: Container(
                   padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
-                  width: _device.screenWidth(context) * 0.75,
+                  width: Sizes().screenWidth(context) * 0.75,
                   child: ElevatedButton(
                     style: ButtonStyle(
                         elevation: MaterialStateProperty.all(0),
@@ -358,7 +357,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                               side: BorderSide(color: red)),
                         ),
                         minimumSize: MaterialStateProperty.all(
-                            Size(_device.screenWidth(context), 42)),
+                            Size(Sizes().screenWidth(context), 42)),
                         backgroundColor: MaterialStateProperty.all(white)),
                     child: const Text("Hubungi Pemandu",
                         style: TextStyle(

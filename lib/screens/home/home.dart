@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../../utils/custom_icon.dart';
-import '../../utils/device.dart';
+import '../../utils/device/sizes.dart';
 import '../../widgets/drawer/drawer.dart';
 import '../screens.dart';
 
@@ -15,7 +15,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: Devices().screenHeight(context),
+      height: Sizes().screenHeight(context),
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: [
@@ -54,14 +54,7 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
         drawer: const DrawerBuild(),
-        body: userRole == 200
-            ? const SingleChildScrollView(
-                physics: BouncingScrollPhysics(
-                  parent: AlwaysScrollableScrollPhysics(),
-                ),
-                child: Screens(),
-              )
-            : ScrollConfiguration(
+        body: ScrollConfiguration(
                 behavior:
                     const MaterialScrollBehavior().copyWith(overscroll: false),
                 child: const Screens()),

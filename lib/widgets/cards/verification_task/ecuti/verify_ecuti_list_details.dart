@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 //import files
 import '../../../../config/palette.dart';
 import '../../../../models/cuti.dart';
-import '../../../../utils/device.dart';
+import '../../../../utils/device/sizes.dart';
 
 class VerifyEcutiListDetails extends StatefulWidget {
   final Cuti? data;
@@ -43,7 +43,7 @@ class _VerifyEcutiListDetailsState extends State<VerifyEcutiListDetails> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            width: Devices().screenWidth(context),
+            width: Sizes().screenWidth(context),
             child: Text(widget.data!.pemohon,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
