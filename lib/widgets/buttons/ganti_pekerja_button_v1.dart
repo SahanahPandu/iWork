@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
 //import files
+import '../../config/palette.dart';
 import '../../screens/employee_list/employee_list.dart';
 
 class GantiPekerjaButton extends StatefulWidget {
@@ -23,10 +24,14 @@ class _GantiPekerjaButtonState extends State<GantiPekerjaButton> {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        padding: const EdgeInsets.all(12),
-        primary: Colors.white,
-        elevation: 0,
-      ),
+          padding: const EdgeInsets.all(12),
+          primary: Colors.white,
+          shadowColor: Colors.white,
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            side: const BorderSide(color: Colors.red),
+            borderRadius: BorderRadius.circular(borderRadiusCircular),
+          )),
       onPressed: () {
         Navigator.push(
             context,
@@ -39,10 +44,8 @@ class _GantiPekerjaButtonState extends State<GantiPekerjaButton> {
       child: Text(
         widget.buttonText,
         style: const TextStyle(
-          color: Color(0xff34A853),
-          fontSize: 13,
-          fontWeight: FontWeight.w400,
-          decoration: TextDecoration.underline,
+          color: Colors.red,
+          fontSize: 15,
         ),
       ),
     );

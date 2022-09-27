@@ -24,11 +24,11 @@ class _SahkanGantiPekerjaButtonState extends State<SahkanGantiPekerjaButton> {
           )),
       onPressed: () {},
       child: const Text(
-        "Sahkan",
+        "Sahkan Ganti Pekerja",
         style: TextStyle(
           color: Colors.white,
-          fontSize: 15,
-          fontWeight: FontWeight.w600,
+          fontSize: 14,
+          fontWeight: FontWeight.bold,
         ),
       ),
     );
