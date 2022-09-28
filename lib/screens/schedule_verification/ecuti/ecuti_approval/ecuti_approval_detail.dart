@@ -1,11 +1,18 @@
+import 'dart:async';
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 
 //import files
 import '../../../../config/palette.dart';
+import '../../../../config/resource.dart';
 import '../../../../models/cuti.dart';
 import '../../../../utils/custom_icon.dart';
 import '../../../../utils/device/sizes.dart';
 import '../../../../widgets/image_viewer/image_viewer.dart';
+import '../../../../widgets/pdf_viewer/pdf_viewer.dart';
 
 class EcutiApprovalDetail extends StatefulWidget {
   final Cuti data;
@@ -18,23 +25,33 @@ class EcutiApprovalDetail extends StatefulWidget {
 
 class _EcutiApprovalDetailState extends State<EcutiApprovalDetail> {
   final TextEditingController _appliedBy = TextEditingController();
+  final TextEditingController _designation = TextEditingController();
   final TextEditingController _leaveType = TextEditingController();
   final TextEditingController _startDate = TextEditingController();
   final TextEditingController _endDate = TextEditingController();
   final TextEditingController _remarks = TextEditingController();
-  bool isAttached = false;
+  bool imgAttached = false;
+  bool pdfAttached = false;
+  String remotePDFpath = "";
+  String urlFormat = "";
+  String filename = "";
+  Color textColor = blackCustom;
 
   @override
   void initState() {
+    _setLeaveDataText();
+    super.initState();
+  }
+
+  void _setLeaveDataText() {
     if (widget.data.pemohon != "" ||
         widget.data.jenisCuti != "" ||
-        widget.data.tarikhMula != "" ||
-        widget.data.catatan != "") {
+        widget.data.tarikhMula != "") {
       setState(() {
         _appliedBy.text = widget.data.pemohon;
         _leaveType.text = widget.data.jenisCuti;
         _startDate.text = widget.data.tarikhMula;
-
+        _designation.text = widget.data.designation;
         if (widget.data.tarikhTamat != "") {
           _endDate.text = widget.data.tarikhTamat;
         } else {
@@ -42,9 +59,21 @@ class _EcutiApprovalDetailState extends State<EcutiApprovalDetail> {
         }
 
         if (widget.data.lampiran != "") {
-          isAttached = true;
+          urlFormat =
+              widget.data.lampiran.substring(widget.data.lampiran.length - 4);
+          if (urlFormat == ".pdf") {
+            pdfAttached = true;
+            _createFileOfPdfUrl().then((f) {
+              setState(() {
+                remotePDFpath = f.path;
+              });
+            });
+          } else {
+            imgAttached = true;
+          }
         } else {
-          isAttached = false;
+          pdfAttached = false;
+          imgAttached = false;
         }
 
         if (widget.data.catatan != "") {
@@ -54,7 +83,6 @@ class _EcutiApprovalDetailState extends State<EcutiApprovalDetail> {
         }
       });
     }
-    super.initState();
   }
 
   @override
@@ -62,6 +90,9 @@ class _EcutiApprovalDetailState extends State<EcutiApprovalDetail> {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Column(children: [
+        _buildTextForm(_appliedBy, "Pemohon"),
+        _buildTextForm(_designation, "Jawatan"),
+        _buildTextForm(_leaveType, "Jenis Cuti"),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -73,53 +104,136 @@ class _EcutiApprovalDetailState extends State<EcutiApprovalDetail> {
                 child: _buildTextForm(_endDate, "Tarikh Tamat")),
           ],
         ),
-        isAttached
-            ? Stack(alignment: Alignment.center, children: [
-                InkWell(
-                  onTap: () {
-                    Navigator.of(context).push(
-                      PageRouteBuilder(
-                        opaque: false,
-                        pageBuilder: (_, __, ___) => ImageViewer(
-                            attachment: widget.data.lampiran,
-                            type: BoxFit.fitWidth),
-                      ),
-                    );
-                  },
-                  child: Hero(
-                    tag: "imgTag",
-                    child: Container(
-                      constraints: const BoxConstraints(maxHeight: 300),
-                      padding: const EdgeInsets.all(5),
-                      child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Image.network(
-                            widget.data.lampiran,
-                            fit: BoxFit.fitWidth,
-                            loadingBuilder: (BuildContext context, Widget child,
-                                ImageChunkEvent? loadingProgress) {
-                              if (loadingProgress == null) return child;
-                              return Center(
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 3,
-                                  color: green,
-                                  value: loadingProgress.expectedTotalBytes !=
-                                          null
-                                      ? loadingProgress.cumulativeBytesLoaded /
-                                          loadingProgress.expectedTotalBytes!
-                                      : null,
-                                ),
-                              );
-                            },
-                          )),
-                    ),
-                  ),
-                )
-              ])
-            : Container(),
+        imgAttached
+            ? _imgView(context)
+            : pdfAttached
+                ? _pdfViewButton(context)
+                : Container(),
         _buildTextForm(_remarks, "Catatan"),
       ]),
     );
+  }
+
+  Stack _imgView(BuildContext context) {
+    return Stack(alignment: Alignment.center, children: [
+      GestureDetector(
+        onTap: () {
+          Navigator.of(context).push(
+            PageRouteBuilder(
+              opaque: false,
+              pageBuilder: (_, __, ___) => ImageViewer(
+                  attachment: widget.data.lampiran, type: BoxFit.fitWidth),
+            ),
+          );
+        },
+        child: Hero(
+          tag: "imgTag",
+          child: Container(
+            constraints: const BoxConstraints(maxHeight: 300),
+            padding: const EdgeInsets.all(5),
+            child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Image.network(
+                  widget.data.lampiran,
+                  fit: BoxFit.fitWidth,
+                  loadingBuilder: (BuildContext context, Widget child,
+                      ImageChunkEvent? loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return Center(
+                      child: CircularProgressIndicator(
+                        strokeWidth: 3,
+                        color: green,
+                        value: loadingProgress.expectedTotalBytes != null
+                            ? loadingProgress.cumulativeBytesLoaded /
+                                loadingProgress.expectedTotalBytes!
+                            : null,
+                      ),
+                    );
+                  },
+                )),
+          ),
+        ),
+      )
+    ]);
+  }
+
+  GestureDetector _pdfViewButton(BuildContext context) {
+    return GestureDetector(
+        onTap: () {
+          if (remotePDFpath.isNotEmpty) {
+            Timer(const Duration(milliseconds: 200), () {
+              setState(() {
+                textColor = blackCustom;
+              });
+            });
+
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    PDFScreen(path: remotePDFpath, getfile: filename),
+              ),
+            );
+          }
+        },
+        onTapDown: (_) {
+          setState(() {
+            textColor = const Color(0xFF0F8F33);
+          });
+        },
+        onTapUp: (_) {
+          setState(() {
+            textColor = blackCustom;
+          });
+        },
+        onTapCancel: () {
+          setState(() {
+            textColor = blackCustom;
+          });
+        },
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 15),
+          child: Container(
+              height: 40,
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                  color: fillColor,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: borderTextColor, width: 0.5)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(pdfImg),
+                  const SizedBox(width: 10),
+                  Text(filename,
+                      style: TextStyle(
+                          color: textColor,
+                          //decoration: textStyle,
+                          fontStyle: FontStyle.italic,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400)),
+                ],
+              )),
+        ));
+  }
+
+  Future<File> _createFileOfPdfUrl() async {
+    Completer<File> completer = Completer();
+    try {
+      var url = widget.data.lampiran;
+      filename = url.substring(url.lastIndexOf("/") + 1);
+      var request = await HttpClient().getUrl(Uri.parse(url));
+      var response = await request.close();
+      var bytes = await consolidateHttpClientResponseBytes(response);
+      var dir = await getApplicationDocumentsDirectory();
+      File file = File("${dir.path}/$filename");
+      await file.writeAsBytes(bytes, flush: true);
+      completer.complete(file);
+    } catch (e) {
+      throw Exception('Error parsing url file!');
+    }
+
+    return completer.future;
   }
 
   Padding _buildTextForm(TextEditingController textController, String label,

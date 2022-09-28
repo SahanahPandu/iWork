@@ -9,6 +9,7 @@ class Cuti {
   final String lampiran;
   final String catatan;
   final String pemohon;
+  final String designation;
   final String approvalBy;
   final String maklumbalasSV;
 
@@ -23,6 +24,7 @@ class Cuti {
     required this.lampiran,
     required this.catatan,
     required this.pemohon,
+    required this.designation,
     required this.approvalBy,
     required this.maklumbalasSV,
   });
@@ -38,6 +40,7 @@ class Cuti {
         lampiran: json['lampiran'] ?? "",
         catatan: json['catatan'] ?? "",
         pemohon: json['pemohon'] ?? "",
+        designation: json['designation'] ?? "",
         approvalBy: json['approvalBy'] ?? "",
         maklumbalasSV: json['maklumbalasSV'] ?? "",
       );

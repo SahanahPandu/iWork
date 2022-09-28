@@ -25,10 +25,6 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
   final ExpandableController _eCutiController =
       ExpandableController(initialExpanded: false);
   final TextEditingController _status = TextEditingController();
-  final TextEditingController _by = TextEditingController();
-  final TextEditingController _leaveType = TextEditingController();
-  final TextEditingController _startDate = TextEditingController();
-  final TextEditingController _endDate = TextEditingController();
   List leaveStatusList = ['Diluluskan', 'Diluluskan tanpa lampiran', 'Ditolak'];
   bool buttonVisibility = true;
   Color iconColor = grey500;
@@ -36,31 +32,7 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
   @override
   void initState() {
     iconColor = grey500;
-    _setMainEcutiText();
     super.initState();
-  }
-
-  void _setMainEcutiText() {
-    if (widget.data.pemohon != "") {
-      setState(() {
-        _by.text = widget.data.pemohon;
-      });
-    }
-    if (widget.data.jenisCuti != "") {
-      setState(() {
-        _leaveType.text = widget.data.jenisCuti;
-      });
-    }
-    if (widget.data.tarikhMula != "") {
-      setState(() {
-        _startDate.text = widget.data.tarikhMula;
-      });
-    }
-    if (widget.data.tarikhTamat != "") {
-      setState(() {
-        _endDate.text = widget.data.tarikhTamat;
-      });
-    }
   }
 
   @override
@@ -88,7 +60,7 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
               ),
               title: Center(
                 child: Text(
-                  "Perincian e-Cuti",
+                  "Pengesahan E-Cuti",
                   style: TextStyle(
                     fontSize: 15,
                     color: blackCustom,
@@ -96,16 +68,7 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
                   ),
                 ),
               ),
-              actions: [
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    CustomIcon.filter,
-                    color: blackCustom,
-                    size: 13,
-                  ),
-                ),
-              ],
+              actions: const [SizedBox(width: 50)],
             ),
           ),
         ),
@@ -153,8 +116,6 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
                       ),
                     ),
                   ),
-                  _buildTextForm(_by, "Pemohon"),
-                  _buildTextForm(_leaveType, "Jenis Cuti"),
                   ScrollOnExpand(
                     scrollOnCollapse: false,
                     scrollOnExpand: true,
@@ -165,13 +126,13 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 5),
                   const Divider(height: 0.5),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 15),
+                        padding: const EdgeInsets.symmetric(vertical: 18),
                         child: Text("Pengesahan Penyelia :",
                             style: TextStyle(
                                 color: blackCustom,
@@ -212,16 +173,20 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
                       MaterialStateColor.resolveWith((states) => green800),
                   minimumSize: MaterialStateProperty.all(
                       Size(Sizes().screenWidth(context), 41)),
-                  backgroundColor: MaterialStateProperty.all(green)),
-              child: Text('Sahkan',
+                  backgroundColor: MaterialStateProperty.all(greenCustom)),
+              child: Text('Hantar',
                   style: TextStyle(
                       color: white, fontSize: 14, fontWeight: FontWeight.w700)),
               onPressed: () {
                 showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      return showAlertDialog(context, confirmation,
-                          "Sahkan borang E-Cuti ini?", cancel, "Sahkan");
+                      return showAlertDialog(
+                          context,
+                          confirmation,
+                          "Sahkan borang E-Cuti pekerja ${widget.data.pemohon}?",
+                          cancel,
+                          "Sahkan");
                     }).then((actionText) {
                   if (actionText == "Sahkan") {
                     Navigator.pop(context, 'refreshEcuti');
@@ -333,7 +298,8 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
     );
   }
 
-  Padding _buildTextForm(TextEditingController textController, String label,
+  /// Unused for now
+  /*Padding _buildTextForm(TextEditingController textController, String label,
       [bool? flex = false]) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 12),
@@ -368,7 +334,7 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
         ),
       ),
     );
-  }
+  }*/
 
   RichText _textBuilder() {
     return RichText(
