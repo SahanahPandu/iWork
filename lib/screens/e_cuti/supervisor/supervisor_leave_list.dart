@@ -23,26 +23,28 @@ class _SupervisorLeaveList extends State<SupervisorLeaveList> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: white,
-        body: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Column(children: [
-            Container(
-              alignment: Alignment.centerLeft,
-              padding: const EdgeInsets.only(
-                  left: 20, right: 20, top: 20, bottom: 10),
-              child: Text(
-                "Rekod permohonan cuti PRA :",
-                style: TextStyle(
-                    color: blackCustom,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w400),
+        body: ScrollConfiguration(
+          behavior: const MaterialScrollBehavior().copyWith(overscroll: false),
+          child: SingleChildScrollView(
+            child: Column(children: [
+              Container(
+                alignment: Alignment.centerLeft,
+                padding: const EdgeInsets.only(
+                    left: 20, right: 20, top: 20, bottom: 10),
+                child: Text(
+                  "Senarai permohonan E-Cuti:",
+                  style: TextStyle(
+                      color: blackCustom,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400),
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10),
-              child: CardListView(type: "Cuti", cutiStatus: widget.status),
-            ),
-          ]),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: CardListView(type: "Cuti", cutiStatus: widget.status),
+              ),
+            ]),
+          ),
         ));
   }
 }
