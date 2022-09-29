@@ -88,7 +88,6 @@ class _EcutiApprovalTabState extends State<EcutiApprovalTab>
               TabBar(
                 isScrollable: true,
                 indicatorWeight: 0,
-                padding: const EdgeInsets.symmetric(horizontal: 10),
                 controller: _tabController,
                 indicator: UnderlineTabIndicator(
                     borderSide: BorderSide(width: 2.5, color: greenCustom),
@@ -99,6 +98,7 @@ class _EcutiApprovalTabState extends State<EcutiApprovalTab>
                 unselectedLabelStyle:
                     const TextStyle(fontWeight: FontWeight.w400, fontSize: 14),
                 unselectedLabelColor: greyCustom,
+                splashBorderRadius: BorderRadius.circular(20),
                 tabs: const [
                   Tab(
                     text: 'Semua',
