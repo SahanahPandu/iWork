@@ -46,7 +46,7 @@ class _SupervisorState extends State<Supervisor> {
             radius: 20,
             child: const CircleAvatar(
               backgroundImage: NetworkImage(
-                  "https://www.citygorentalsmalta.com/wp-content/uploads/2021/04/iStock_000020004182Medium1.jpg"),
+                  "https://www.hakuhodo-global.com/wp_admin/wp-content/uploads/2017/11/Shuntaro_Ito2square.jpg"),
               radius: 18,
             ),
           ),
@@ -99,7 +99,7 @@ class _SupervisorState extends State<Supervisor> {
                   radius: 20,
                   child: const CircleAvatar(
                     backgroundImage: NetworkImage(
-                        "https://www.citygorentalsmalta.com/wp-content/uploads/2021/04/iStock_000020004182Medium1.jpg"),
+                        "https://www.hakuhodo-global.com/wp_admin/wp-content/uploads/2017/11/Shuntaro_Ito2square.jpg"),
                     radius: 18,
                   ),
                 ),
