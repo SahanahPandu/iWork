@@ -1,4 +1,4 @@
-import 'package:eswm/widgets/slivers/expand_collapse_header/expand_collapse_header.dart';
+// import 'package:eswm/widgets/slivers/expand_collapse_header/expand_collapse_header.dart';
 import 'package:flutter/material.dart';
 
 //import files
@@ -171,104 +171,6 @@ class _EmployeeListState extends State<EmployeeList> {
                     ),
                   ],
                 ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _header(BuildContext context) {
-    return SafeArea(
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-        child: Center(
-          child: AbsentEmployeeDetails(
-            data: widget.absentEmployee,
-          ),
-        ),
-      ),
-    );
-  }
-
-  SafeArea _scrollBody() {
-    return SafeArea(
-      child: Container(
-        color: white,
-        child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              //Search Box for Employee name
-              if (svNameList.isEmpty)
-                SearchBoxWidget(
-                  labelText: 'Cari Pekerja',
-                  searchedName: getSearchName,
-                ),
-              if (svNameList.isEmpty)
-                const SizedBox(
-                  height: 20,
-                ),
-
-              //Selected Sv Names
-              if (svNameList.isNotEmpty)
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 25,
-                  padding: const EdgeInsets.only(left: 8),
-                  child: ListView.separated(
-                    physics: const BouncingScrollPhysics(),
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    separatorBuilder: (context, index) {
-                      return const SizedBox(
-                        width: 8,
-                      );
-                    },
-                    itemCount: svNameList.length,
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: () {
-                          if (svNameList.isNotEmpty) {
-                            setState(() {
-                              svNameList.remove(svNameList[index]);
-                              svIdList.remove(svIdList[index]);
-                            });
-                          }
-                        },
-                        child: _showSelectedSvName(svNameList[index]),
-                      );
-                    },
-                  ),
-                ),
-              if (svNameList.isNotEmpty)
-                const SizedBox(
-                  height: 10,
-                ),
-              const Padding(
-                padding: EdgeInsets.only(left: 8),
-                child: Text(
-                  "Senarai Pekerja",
-                  style: TextStyle(
-                    color: Color(0xff8A92A6),
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
-
-              const SizedBox(
-                height: 8,
-              ),
-              //Employee List
-              ListOfEmployees(
-                idStatus: 1, // Hadir
-                searchedName: searchName,
-                assignedEmployee: widget.assignedEmployee,
-                idSv: svIdList,
               ),
             ],
           ),
