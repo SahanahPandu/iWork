@@ -1,3 +1,4 @@
+// import 'package:eswm/screens/schedule_issue/schedule_issue_main.dart';
 import 'package:flutter/material.dart';
 
 //import files
@@ -55,6 +56,8 @@ class _CardsState extends State<Cards> {
         onTap: () {
           if (widget.type == "Senarai Pekerja") {
             if (widget.assignedEmployee != null) {
+              //final buttonVisibility = StateInheritedWidget.of(context);
+              //buttonVisibility?.updateVisibility();
               widget.assignedEmployee!(widget.data!);
               Navigator.pop(context);
             }

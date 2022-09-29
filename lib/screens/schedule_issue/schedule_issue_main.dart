@@ -1,3 +1,6 @@
+// ignore_for_file: library_private_types_in_public_api
+
+import 'package:eswm/widgets/buttons/sahkan_ganti_pekerja.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -7,7 +10,6 @@ import '../../models/laluan.dart';
 import '../../utils/custom_icon.dart';
 import '../../utils/device/sizes.dart';
 import '../../widgets/buttons/contact_button.dart';
-import '../../widgets/buttons/sahkan_ganti_pekerja.dart';
 import 'schedule_issue_detail.dart';
 
 class ScheduleIssueMainScreen extends StatefulWidget {
@@ -23,6 +25,7 @@ class ScheduleIssueMainScreen extends StatefulWidget {
 }
 
 class _ScheduleIssueMainScreen extends State<ScheduleIssueMainScreen> {
+  bool buttonVisibility = false;
   String issueTypeStr = "";
 
   @override
@@ -31,9 +34,20 @@ class _ScheduleIssueMainScreen extends State<ScheduleIssueMainScreen> {
     super.initState();
   }
 
+  void updateVisibility() {
+    setState(() {
+      buttonVisibility = true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return
+        // StateInheritedWidget(
+        //   buttonVisibility: buttonVisibility,
+        //   stateWidget: this,
+        //   child:
+        Container(
       height: Sizes().screenHeight(context),
       decoration: const BoxDecoration(
         gradient: LinearGradient(
@@ -81,7 +95,9 @@ class _ScheduleIssueMainScreen extends State<ScheduleIssueMainScreen> {
             behavior:
                 const MaterialScrollBehavior().copyWith(overscroll: false),
             child: ScheduleIssueDetail(
-                getInfo: widget.laluanData!, getIssue: widget.issueType)),
+              getInfo: widget.laluanData!,
+              getIssue: widget.issueType,
+            )),
         floatingActionButton: widget.issueType == "belum"
             ? ContactButton(data: widget.laluanData)
             : Container(),
@@ -99,6 +115,7 @@ class _ScheduleIssueMainScreen extends State<ScheduleIssueMainScreen> {
               )
             : null,
       ),
+      // ),
     );
   }
 
@@ -116,3 +133,25 @@ class _ScheduleIssueMainScreen extends State<ScheduleIssueMainScreen> {
     }
   }
 }
+
+//trying using inherited widget
+
+// class StateInheritedWidget extends InheritedWidget {
+//   final bool buttonVisibility;
+//   final _ScheduleIssueMainScreen stateWidget;
+
+//   const StateInheritedWidget({
+//     Key? key,
+//     required Widget child,
+//     required this.buttonVisibility,
+//     required this.stateWidget,
+//   }) : super(key: key, child: child);
+
+//   static _ScheduleIssueMainScreen? of(BuildContext context) => context
+//       .dependOnInheritedWidgetOfExactType<StateInheritedWidget>()
+//       ?.stateWidget;
+
+//   @override
+//   bool updateShouldNotify(StateInheritedWidget oldWidget) =>
+//       oldWidget.buttonVisibility != buttonVisibility;
+// }

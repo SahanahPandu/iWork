@@ -1,10 +1,14 @@
+import 'package:eswm/screens/list_of_employees/list_of_employee_details.dart';
 import 'package:flutter/material.dart';
 
 //import files
 import 'package:eswm/providers/pekerja_api.dart';
 import 'package:eswm/widgets/cards/cards.dart';
 
+import '../../config/palette.dart';
+
 class ListOfEmployees extends StatefulWidget {
+  final String? type;
   final dynamic idPekerja;
   final dynamic idSv;
   final int? idStatus;
@@ -13,6 +17,7 @@ class ListOfEmployees extends StatefulWidget {
 
   const ListOfEmployees({
     Key? key,
+    this.type,
     this.idPekerja,
     this.idSv,
     this.idStatus,
@@ -77,17 +82,38 @@ class _ListOfEmployeesState extends State<ListOfEmployees> {
                           .toList();
                     }
 
-                    return ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: dataFuture!.length,
-                        itemBuilder: (context, index) {
-                          return Cards(
-                            type: "Senarai Pekerja",
-                            data: dataFuture![index],
-                            assignedEmployee: widget.assignedEmployee,
-                          );
-                        });
+                    return widget.type != null
+                        ? ListView.separated(
+                            physics: const BouncingScrollPhysics(),
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            separatorBuilder: (context, index) {
+                              return Divider(
+                                thickness: 0.5,
+                                color: dividerColor,
+                              );
+                            },
+                            itemCount: dataFuture!.length,
+                            itemBuilder: (context, index) {
+                              return Container(
+                                margin: const EdgeInsets.only(bottom: 24),
+                                child: ListOfEmployeeDetails(
+                                  data: dataFuture![index],
+                                ),
+                              );
+                            },
+                          )
+                        : ListView.builder(
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: dataFuture!.length,
+                            itemBuilder: (context, index) {
+                              return Cards(
+                                type: "Senarai Pekerja",
+                                data: dataFuture![index],
+                                assignedEmployee: widget.assignedEmployee,
+                              );
+                            });
                   }
               }
             }),
