@@ -244,7 +244,10 @@ class ExpandCollapseHeaderState extends State<ExpandCollapseHeader> {
           top: Radius.circular(widget.curvedBodyRadius),
         ),
       ),
-      child: widget.fixedTitle ?? Container(),
+      child: widget.fixedTitle ??
+          Container(
+            height: 0,
+          ),
     );
   }
 

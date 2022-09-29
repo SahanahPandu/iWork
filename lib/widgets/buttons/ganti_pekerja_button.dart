@@ -5,11 +5,13 @@ import 'package:page_transition/page_transition.dart';
 import '../../screens/employee_list/employee_list.dart';
 
 class GantiPekerjaButton extends StatefulWidget {
+  final dynamic absentEmployee;
   final Function(dynamic)? assignedEmployee;
   final String buttonText;
 
   const GantiPekerjaButton({
     Key? key,
+    this.absentEmployee,
     this.assignedEmployee,
     required this.buttonText,
   }) : super(key: key);
@@ -33,6 +35,7 @@ class _GantiPekerjaButtonState extends State<GantiPekerjaButton> {
             PageTransition(
                 type: PageTransitionType.fade,
                 child: EmployeeList(
+                  absentEmployee: widget.absentEmployee,
                   assignedEmployee: widget.assignedEmployee,
                 )));
       },

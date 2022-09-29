@@ -4,8 +4,10 @@ import 'package:page_transition/page_transition.dart';
 
 //import files
 import '../../widgets/buttons/ganti_pekerja_button.dart';
+// import '../../widgets/buttons/sahkan_ganti_pekerja.dart';
 import '../employee_list/employee_list.dart';
 import '../list_of_employees/list_of_employee_details.dart';
+// import '../schedule_issue/schedule_issue_main.dart';
 
 class ReassignEmployeeDetails extends StatefulWidget {
   final dynamic dataEmployee1; //absence employee
@@ -24,8 +26,11 @@ class _ReassignEmployeeDetailsState extends State<ReassignEmployeeDetails> {
   dynamic dataEmployee2; //assigned employee
 
   getAssignedEmployeeDetails(dynamic data) {
+    //final buttonVisibility = StateInheritedWidget.of(context);
     if (data != null) {
+      // widget.visibility!();
       if (mounted) {
+        // showBottomButton();
         setState(() {
           dataEmployee2 = data;
         });
@@ -47,11 +52,10 @@ class _ReassignEmployeeDetailsState extends State<ReassignEmployeeDetails> {
             child: Icon(
               Icons.swap_vertical_circle_rounded,
               size: 25,
-              color: Colors.green,
+              color: Color(0xff34A853),
             ),
           ),
         assignedEmployeeSection(),
-        // if (dataEmployee2 != null) displayButton()!,
       ],
     );
   }
@@ -74,6 +78,7 @@ class _ReassignEmployeeDetailsState extends State<ReassignEmployeeDetails> {
             PageTransition(
                 type: PageTransitionType.fade,
                 child: EmployeeList(
+                  absentEmployee: widget.dataEmployee1,
                   assignedEmployee: getAssignedEmployeeDetails,
                 )));
       },
@@ -95,6 +100,7 @@ class _ReassignEmployeeDetailsState extends State<ReassignEmployeeDetails> {
                 )
               : Center(
                   child: GantiPekerjaButton(
+                    absentEmployee: widget.dataEmployee1,
                     assignedEmployee: getAssignedEmployeeDetails,
                     buttonText: "Ganti Pekerja",
                   ),
@@ -104,12 +110,24 @@ class _ReassignEmployeeDetailsState extends State<ReassignEmployeeDetails> {
     );
   }
 
-  // Widget? displayButton() {
+  // Widget? showBottomButton() {
   //   showBottomSheet(
-  //       context: context,
-  //       builder: (builder) {
-  //         return const SahkanGantiPekerjaButton();
-  //       });
+  //     context: context,
+  //     builder: (builder) {
+  //       return SizedBox(
+  //         height: MediaQuery.of(context).size.height * 0.1,
+  //         width: MediaQuery.of(context).size.width,
+  //         child: const BottomAppBar(
+  //           elevation: 40,
+  //           color: Colors.white,
+  //           child: Padding(
+  //             padding: EdgeInsets.symmetric(horizontal: 26, vertical: 17),
+  //             child: SahkanGantiPekerjaButton(),
+  //           ),
+  //         ),
+  //       );
+  //     },
+  //   );
   //   return null;
   // }
 }

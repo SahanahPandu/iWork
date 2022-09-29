@@ -16,7 +16,7 @@ class _SahkanGantiPekerjaButtonState extends State<SahkanGantiPekerjaButton> {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-          primary: Colors.green,
+          primary: const Color(0xff34A853),
           shadowColor: Colors.white,
           elevation: 5,
           shape: RoundedRectangleBorder(
