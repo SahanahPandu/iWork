@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../config/font.dart';
 import '../../../config/palette.dart';
 import '../../../models/cuti.dart';
+import '../../../utils/device/sizes.dart';
 import '../../../widgets/container/status_container.dart';
 
 class SupervisorLeaveListDetails extends StatefulWidget {
@@ -54,47 +55,25 @@ class _SupervisorLeaveListDetailsState
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: Text(
-                  widget.data.pemohon,
-                  style: TextStyle(
-                      fontSize: 16,
-                      color: blackCustom,
-                      fontWeight: FontWeight.w500),
-                ),
-              ),
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: SizedBox(
+                    width: _textSize(widget.data.pemohon).width,
+                    height: _textSize(widget.data.pemohon).height,
+                    child: Text(
+                      widget.data.pemohon,
+                      style: textStyle,
+                      softWrap: true,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
+                  )),
+              const SizedBox(width: 10),
               StatusContainer(
                 type: "Cuti",
                 status: statusText,
                 statusId: widget.data.idStatus,
                 fontWeight: statusFontWeight,
               ),
-            ],
-          ),
-        ),
-
-        //Penyelia
-        Padding(
-          padding: const EdgeInsets.fromLTRB(15, 10, 15, 0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Penyelia",
-                style: TextStyle(
-                  fontSize: 15,
-                  color: greyCustom,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-              Text(
-                widget.data.approvalBy,
-                style: TextStyle(
-                  fontSize: 15,
-                  color: blackCustom,
-                  fontWeight: FontWeight.w600,
-                ),
-              )
             ],
           ),
         ),
@@ -132,19 +111,20 @@ class _SupervisorLeaveListDetailsState
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Mula/Tamat",
+                "Tarikh Mula/Tamat",
                 style: TextStyle(
                   fontSize: 15,
                   color: greyCustom,
                   fontWeight: FontWeight.w400,
                 ),
               ),
+              const SizedBox(width: 5),
               Text(
                 (widget.data.tarikhMula != widget.data.tarikhTamat)
                     ? "${widget.data.tarikhMula} - ${widget.data.tarikhTamat}"
                     : widget.data.tarikhMula,
                 style: TextStyle(
-                  fontSize: 15,
+                  fontSize: 14,
                   color: blackCustom,
                   fontWeight: FontWeight.w600,
                 ),
@@ -157,5 +137,17 @@ class _SupervisorLeaveListDetailsState
         ),
       ],
     );
+  }
+
+  final TextStyle textStyle =
+      TextStyle(fontSize: 16, color: blackCustom, fontWeight: FontWeight.w500);
+
+  Size _textSize(String data) {
+    final TextPainter textPainter = TextPainter(
+        text: TextSpan(text: data, style: textStyle),
+        maxLines: 1,
+        textDirection: TextDirection.ltr)
+      ..layout(minWidth: 0, maxWidth: Sizes().screenWidth(context) * 0.52);
+    return textPainter.size;
   }
 }
