@@ -85,52 +85,34 @@ class _EcutiApprovalTabState extends State<EcutiApprovalTab>
           padding: const EdgeInsets.all(10),
           child: Column(
             children: [
-              Container(
-                height: 55,
-                decoration: BoxDecoration(
-                  color: tabBoxColor,
-                  borderRadius: BorderRadius.circular(
-                    46,
+              TabBar(
+                isScrollable: true,
+                indicatorWeight: 0,
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                controller: _tabController,
+                indicator: UnderlineTabIndicator(
+                    borderSide: BorderSide(width: 2.5, color: greenCustom),
+                    insets: const EdgeInsets.symmetric(horizontal: 25)),
+                labelColor: greenCustom,
+                labelStyle:
+                    const TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
+                unselectedLabelStyle:
+                    const TextStyle(fontWeight: FontWeight.w400, fontSize: 14),
+                unselectedLabelColor: greyCustom,
+                tabs: const [
+                  Tab(
+                    text: 'Semua',
                   ),
-                ),
-                child: TabBar(
-                  isScrollable: true,
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                  controller: _tabController,
-                  indicator: BoxDecoration(
-                      borderRadius: BorderRadius.circular(
-                        46,
-                      ),
-                      color: white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: tabShadowColor,
-                          blurRadius: 1,
-                          offset: const Offset(0.0, 2.0),
-                        ),
-                      ]),
-                  labelColor: blackCustom,
-                  labelStyle: const TextStyle(
-                      fontWeight: FontWeight.w600, fontSize: 15),
-                  unselectedLabelStyle: const TextStyle(
-                      fontWeight: FontWeight.w400, fontSize: 14),
-                  unselectedLabelColor: greyCustom,
-                  tabs: const [
-                    Tab(
-                      text: 'Semua',
-                    ),
-                    Tab(
-                      text: 'Baru',
-                    ),
-                    Tab(
-                      text: 'Diluluskan',
-                    ),
-                    Tab(
-                      text: 'Ditolak',
-                    ),
-                  ],
-                ),
+                  Tab(
+                    text: 'Baharu',
+                  ),
+                  Tab(
+                    text: 'Diluluskan',
+                  ),
+                  Tab(
+                    text: 'Ditolak',
+                  ),
+                ],
               ),
               ScrollConfiguration(
                 behavior:
