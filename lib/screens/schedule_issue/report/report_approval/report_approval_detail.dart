@@ -19,6 +19,8 @@ class ReportApprovalDetail extends StatefulWidget {
 }
 
 class _ReportApprovalDetailState extends State<ReportApprovalDetail> {
+  final TextEditingController _laluan = TextEditingController();
+  final TextEditingController _vehicleNo = TextEditingController();
   final TextEditingController _subLaluan = TextEditingController();
   final TextEditingController _taman = TextEditingController();
   final TextEditingController _jalan = TextEditingController();
@@ -104,12 +106,16 @@ class _ReportApprovalDetailState extends State<ReportApprovalDetail> {
   }
 
   void _setMainReportText() {
-    if (widget.data.namaSubLaluan != "" ||
+    if (widget.data.namaLaluan != "" ||
+        widget.data.noKenderaan != "" ||
+        widget.data.namaSubLaluan != "" ||
         widget.data.namaTaman != "" ||
         widget.data.namaJalan != "" ||
         widget.data.jenisHalangan != "" ||
         widget.data.catatan != "") {
       setState(() {
+        _laluan.text = widget.data.namaLaluan;
+        _vehicleNo.text = widget.data.noKenderaan;
         _subLaluan.text = widget.data.namaSubLaluan;
         _taman.text = widget.data.namaTaman;
         _jalan.text = widget.data.namaJalan;
@@ -133,6 +139,8 @@ class _ReportApprovalDetailState extends State<ReportApprovalDetail> {
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      _buildTextForm(_laluan, "Laluan"),
+      _buildTextForm(_vehicleNo, "No Kenderaan"),
       _buildTextForm(_subLaluan, "Sub Laluan"),
       _buildTextForm(_taman, "Taman"),
       _buildTextForm(_jalan, "Jalan"),
@@ -155,8 +163,7 @@ class _ReportApprovalDetailState extends State<ReportApprovalDetail> {
                   tag: "imgTag",
                   child: Container(
                     constraints: BoxConstraints(
-                        maxHeight: 280,
-                        minWidth: Sizes().screenWidth(context)),
+                        maxHeight: 280, minWidth: Sizes().screenWidth(context)),
                     padding: const EdgeInsets.all(5),
                     child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),

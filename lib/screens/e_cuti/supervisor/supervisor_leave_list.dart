@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../../config/palette.dart';
+import '../../../widgets/custom_scroll/custom_scroll.dart';
 import '../../../widgets/listview/card_list_view.dart';
 
 class SupervisorLeaveList extends StatefulWidget {
@@ -24,7 +25,7 @@ class _SupervisorLeaveList extends State<SupervisorLeaveList> {
     return Scaffold(
         backgroundColor: white,
         body: ScrollConfiguration(
-          behavior: const MaterialScrollBehavior().copyWith(overscroll: false),
+          behavior: CustomScrollBehavior(),
           child: SingleChildScrollView(
             child: Column(children: [
               Container(
