@@ -27,9 +27,10 @@ void showListOfSupervisor(passContext, updateSvNameList) {
                   top: Radius.circular(20),
                 ),
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              padding: const EdgeInsets.all(15),
+              child: ListView(
+                physics: const BouncingScrollPhysics(),
+                controller: scrollController,
                 children: [
                   const SizedBox(
                     height: 2,
@@ -40,11 +41,8 @@ void showListOfSupervisor(passContext, updateSvNameList) {
                     indent: 170,
                     endIndent: 170,
                   ),
-                  const SizedBox(
-                    height: 24,
-                  ),
                   const Text(
-                    "Pilih Penyelia",
+                    "Senarai Penyelia",
                     style: TextStyle(
                       color: Color(0xff969696),
                       fontSize: 15,
@@ -52,14 +50,7 @@ void showListOfSupervisor(passContext, updateSvNameList) {
                     ),
                   ),
                   const SizedBox(
-                    height: 16,
-                  ),
-                  const Divider(
-                    thickness: 1,
-                    color: Color(0xffE5E5E5),
-                  ),
-                  const SizedBox(
-                    height: 24,
+                    height: 10,
                   ),
                   FutureBuilder<List>(
                       future: PenyeliaApi.getPenyeliaData(passContext),
@@ -92,9 +83,19 @@ void showListOfSupervisor(passContext, updateSvNameList) {
                                         padding: userRole == 100
                                             ? const EdgeInsets.symmetric(
                                                 vertical: 23, horizontal: 5)
-                                            : const EdgeInsets.all(0),
-                                        margin:
-                                            const EdgeInsets.only(bottom: 24),
+                                            : const EdgeInsets.symmetric(
+                                                vertical: 10),
+                                        decoration: BoxDecoration(
+                                          border: Border(
+                                            top: BorderSide.none,
+                                            bottom: BorderSide(
+                                              color: grey400,
+                                              width:
+                                                  userRole == 100 ? 0.3 : 0.9,
+                                              style: BorderStyle.solid,
+                                            ),
+                                          ),
+                                        ),
                                         child: Text(
                                           dataFuture[index].name,
                                           style: const TextStyle(
