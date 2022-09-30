@@ -91,7 +91,7 @@ class _SupervisorWorkScheduleMainState
                           radius: 20,
                           child: CircleAvatar(
                             backgroundImage: NetworkImage(
-                              widget.data!.senaraiStaf.staf_3_img,
+                              widget.data!.senaraiStaf.staf3Img,
                             ),
                             //NetworkImage
                             radius: 18,
@@ -107,8 +107,8 @@ class _SupervisorWorkScheduleMainState
                           backgroundColor: collapseBgColor,
                           radius: 20,
                           child: CircleAvatar(
-                            backgroundImage: NetworkImage(
-                                widget.data!.senaraiStaf.staf_2_img),
+                            backgroundImage:
+                                NetworkImage(widget.data!.senaraiStaf.staf2Img),
                             //NetworkImage
                             radius: 18,
                           ), //CircleAvatar
@@ -122,7 +122,7 @@ class _SupervisorWorkScheduleMainState
                         radius: 20,
                         child: CircleAvatar(
                           backgroundImage:
-                              NetworkImage(widget.data!.senaraiStaf.staf_1_img),
+                              NetworkImage(widget.data!.senaraiStaf.staf1Img),
                           //NetworkImage
                           radius: 18,
                         ), //CircleAvatar
