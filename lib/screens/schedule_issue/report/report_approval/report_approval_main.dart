@@ -26,8 +26,6 @@ class ReportApprovalMain extends StatefulWidget {
 class _ReportApprovalMainState extends State<ReportApprovalMain> {
   final ExpandableController _reportController =
       ExpandableController(initialExpanded: false);
-  final TextEditingController _laluan = TextEditingController();
-  final TextEditingController _vehicleNo = TextEditingController();
   final TextEditingController _rStatus = TextEditingController();
   final TextEditingController _unitUkur = TextEditingController();
   final TextEditingController _odometer = TextEditingController();
@@ -52,23 +50,9 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
   void initState() {
     iconColor = grey500;
     _loadReportStatus(widget.data.idStatus, widget.data.jenisHalangan);
-    _setMainReportText();
     _setSvFeedbackText();
     _setBaFeedbackText();
     super.initState();
-  }
-
-  void _setMainReportText() {
-    if (widget.data.namaLaluan != "") {
-      setState(() {
-        _laluan.text = widget.data.namaLaluan;
-      });
-    }
-    if (widget.data.noKenderaan != "") {
-      setState(() {
-        _vehicleNo.text = widget.data.noKenderaan;
-      });
-    }
   }
 
   void _setSvFeedbackText() {
@@ -140,65 +124,66 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
                 ],
               ),
             )),
-        body: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: ExpandableNotifier(
-            controller: _reportController,
-            child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 15),
-                    child: ExpandableButton(
-                      child: InkWell(
-                        highlightColor: white,
-                        onTap: () {
-                          _reportController.toggle();
-                          _reportController.expanded
-                              ? setState(() {
-                                  iconColor = green;
-                                })
-                              : setState(() {
-                                  iconColor = grey500;
-                                });
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("Butiran maklumat laporan:",
-                                style: TextStyle(
-                                    color: blackCustom,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w400)),
-                            Icon(
-                              _reportController.expanded
-                                  ? CustomIcon.expand
-                                  : CustomIcon.collapse,
-                              size: 16,
-                              color: activeColor,
-                            ),
-                          ],
+        body: ScrollConfiguration(
+          behavior: const MaterialScrollBehavior().copyWith(overscroll: false),
+          child: SingleChildScrollView(
+            child: ExpandableNotifier(
+              controller: _reportController,
+              child: Container(
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 15),
+                      child: ExpandableButton(
+                        child: InkWell(
+                          highlightColor: white,
+                          onTap: () {
+                            _reportController.toggle();
+                            _reportController.expanded
+                                ? setState(() {
+                                    iconColor = green;
+                                  })
+                                : setState(() {
+                                    iconColor = grey500;
+                                  });
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("Butiran maklumat laporan:",
+                                  style: TextStyle(
+                                      color: blackCustom,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w400)),
+                              Icon(
+                                _reportController.expanded
+                                    ? CustomIcon.expand
+                                    : CustomIcon.collapse,
+                                size: 16,
+                                color: activeColor,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  _buildTextForm(_laluan, "Laluan"),
-                  _buildTextForm(_vehicleNo, "No Kenderaan"),
-                  ScrollOnExpand(
-                    scrollOnCollapse: false,
-                    scrollOnExpand: true,
-                    child: Expandable(
-                      collapsed: Container(),
-                      expanded: ReportApprovalDetail(
-                          data: widget.data, reportStatus: condition),
+                    ScrollOnExpand(
+                      scrollOnCollapse: false,
+                      scrollOnExpand: true,
+                      child: Expandable(
+                        collapsed: Container(),
+                        expanded: ReportApprovalDetail(
+                            data: widget.data, reportStatus: condition),
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 15),
-                  const Divider(height: 0.5),
-                  _buildReportSections(context, condition),
-                ],
+                    const SizedBox(height: 10),
+                    const Divider(height: 0.5),
+                    _buildReportSections(context, condition),
+                  ],
+                ),
               ),
             ),
           ),
@@ -229,7 +214,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
                   minimumSize: MaterialStateProperty.all(
                       Size(Sizes().screenWidth(context), 41)),
                   backgroundColor: MaterialStateProperty.all(green)),
-              child: Text('Sahkan',
+              child: Text('Hantar',
                   style: TextStyle(
                       color: white, fontSize: 14, fontWeight: FontWeight.w700)),
               onPressed: () {
@@ -247,11 +232,6 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
                           return showLottieAlertDialog(
                               context, _textBuilder(), null);
                         });
-                    // Navigator.push(
-                    //     context,
-                    //     PageTransition(
-                    //         child: CustomDialog(text: _textBuilder()),
-                    //         type: PageTransitionType.fade));
                   }
                 });
               },
@@ -275,7 +255,12 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
   Widget _buildReportSections(BuildContext context, int condition) {
     switch (condition) {
       case 1:
-        return _buildReportAcceptanceColumn(context, "Maklumbalas kepada PRA:");
+        return Column(
+          children: [
+            _buildReportAcceptanceColumn(context, "Maklumbalas kepada PRA:"),
+            _buildNote()
+          ],
+        );
       case 2:
         return Column(
           children: [
@@ -289,6 +274,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
                 const SizedBox(height: 15),
                 const Divider(height: 0.5),
                 _buildReportAkbkSubColumn(context),
+                _buildNote()
               ],
             )
           ],
@@ -305,7 +291,8 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
                 _buildReportAkbkMainColumn(context),
                 const SizedBox(height: 15),
                 const Divider(height: 0.5),
-                _buildReportAkbkTyreSubColumn(context)
+                _buildReportAkbkTyreSubColumn(context),
+                _buildNote()
               ],
             )
           ],
@@ -721,15 +708,34 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
             onTap: () {
               showBottomSheetOptions(context, reportStatusList, 0.3, _rStatus);
             },
-            child: _buildInactiveTextField(_rStatus, "Pilih Status"),
+            child: _buildInactiveTextField(_rStatus, "Status"),
           ),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),
           child: _buildActiveTextField(
-              TextInputType.multiline, "Isi maklumbalas di ruang ini", 1, 10),
-        )
+              TextInputType.multiline, "Maklumbalas", 1, 10),
+        ),
       ],
+    );
+  }
+
+  Padding _buildNote() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      child: Row(
+        children: [
+          Icon(CustomIcon.exclamation, color: blue, size: 14),
+          const SizedBox(width: 10),
+          Text(
+              "Laporan Halangan Kerja juga akan dihantar kepada\nBA untuk pengesahan.",
+              style: TextStyle(
+                  fontStyle: FontStyle.italic,
+                  fontSize: 13,
+                  height: 1.3,
+                  color: grey600))
+        ],
+      ),
     );
   }
 
