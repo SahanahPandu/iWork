@@ -17,9 +17,9 @@
     "kehadiran": "3/3",
     "leaderContact": "+60142612967",
     "senaraiStaf": {
-      "staf_1_img": "https://automateonline.com.au/wp-content/uploads/2019/02/portrait-square-04.jpg",
-      "staf_2_img": "https://focusforensics.com/wp-content/uploads/staff-clayton_mccall-square.jpg",
-      "staf_3_img": "https://i0.wp.com/i-panic.com/wp-content/uploads/2021/09/portrait-square-05.jpg?resize=400%2C400&ssl=1"
+      "staf1Img": "https://automateonline.com.au/wp-content/uploads/2019/02/portrait-square-04.jpg",
+      "staf2Img": "https://focusforensics.com/wp-content/uploads/staff-clayton_mccall-square.jpg",
+      "staf3Img": "https://i0.wp.com/i-panic.com/wp-content/uploads/2021/09/portrait-square-05.jpg?resize=400%2C400&ssl=1"
     }
   },
   {
@@ -40,9 +40,9 @@
     "kehadiran": "3/3",
     "leaderContact": "+60142612967",
     "senaraiStaf": {
-      "staf_1_img": "https://automateonline.com.au/wp-content/uploads/2019/02/portrait-square-04.jpg",
-      "staf_2_img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9U_c5cI4iHSsKXXvNHc6_aRv4kgk3abVsDw&usqp=CAU",
-      "staf_3_img": "https://www.digicatapult.org.uk/wp-content/uploads/2021/11/DC_square_People_juergen-600x600-c-default.jpg"
+      "staf1Img": "https://automateonline.com.au/wp-content/uploads/2019/02/portrait-square-04.jpg",
+      "staf2Img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9U_c5cI4iHSsKXXvNHc6_aRv4kgk3abVsDw&usqp=CAU",
+      "staf3Img": "https://www.digicatapult.org.uk/wp-content/uploads/2021/11/DC_square_People_juergen-600x600-c-default.jpg"
     }
   },
   {
@@ -63,9 +63,9 @@
     "kehadiran": "3/3",
     "leaderContact": "+60142612967",
     "senaraiStaf": {
-      "staf_1_img": "https://automateonline.com.au/wp-content/uploads/2019/02/portrait-square-04.jpg",
-      "staf_2_img": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&w=1080&fit=max&q=80&fm=jpg&crop=entropy&cs=tinysrgb",
-      "staf_3_img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRe5dT_2ayYcu9_Dc9AXcS7H-lg1VyBw1h2IlfBO5oHonwrQCaX--fAoKPExoJC-a9AC6w&usqp=CAU"
+      "staf1Img": "https://automateonline.com.au/wp-content/uploads/2019/02/portrait-square-04.jpg",
+      "staf2Img": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&w=1080&fit=max&q=80&fm=jpg&crop=entropy&cs=tinysrgb",
+      "staf3Img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRe5dT_2ayYcu9_Dc9AXcS7H-lg1VyBw1h2IlfBO5oHonwrQCaX--fAoKPExoJC-a9AC6w&usqp=CAU"
     }
   }
 ]
