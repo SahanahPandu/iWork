@@ -141,7 +141,7 @@ class _ScheduleIssueDetailState extends State<ScheduleIssueDetail> {
                           radius: 20,
                           child: CircleAvatar(
                             backgroundImage: NetworkImage(
-                              widget.getInfo.senaraiStaf.staf_3_img,
+                              widget.getInfo.senaraiStaf.staf3Img,
                             ),
                             //NetworkImage
                             radius: 18,
@@ -158,7 +158,7 @@ class _ScheduleIssueDetailState extends State<ScheduleIssueDetail> {
                           radius: 20,
                           child: CircleAvatar(
                             backgroundImage: NetworkImage(
-                                widget.getInfo.senaraiStaf.staf_2_img),
+                                widget.getInfo.senaraiStaf.staf2Img),
                             radius: 18,
                           ),
                         ),
@@ -170,8 +170,8 @@ class _ScheduleIssueDetailState extends State<ScheduleIssueDetail> {
                         backgroundColor: collapseBgColor,
                         radius: 20,
                         child: CircleAvatar(
-                          backgroundImage: NetworkImage(
-                              widget.getInfo.senaraiStaf.staf_1_img),
+                          backgroundImage:
+                              NetworkImage(widget.getInfo.senaraiStaf.staf1Img),
                           //NetworkImage
                           radius: 18,
                         ), //CircleAvatar

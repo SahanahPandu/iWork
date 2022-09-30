@@ -295,7 +295,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                         radius: 22,
                         child: CircleAvatar(
                           backgroundImage:
-                              NetworkImage(widget.data.senaraiStaf.staf_3_img),
+                              NetworkImage(widget.data.senaraiStaf.staf3Img),
                           radius: 20,
                         ), //CircleAvatar
                       ),
@@ -310,7 +310,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                         radius: 22,
                         child: CircleAvatar(
                           backgroundImage:
-                              NetworkImage(widget.data.senaraiStaf.staf_2_img),
+                              NetworkImage(widget.data.senaraiStaf.staf2Img),
                           radius: 20,
                         ), //CircleAvatar
                       ),
@@ -323,7 +323,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                       radius: 22,
                       child: CircleAvatar(
                         backgroundImage:
-                            NetworkImage(widget.data.senaraiStaf.staf_1_img),
+                            NetworkImage(widget.data.senaraiStaf.staf1Img),
                         radius: 20,
                       ), //CircleAvatar
                     ),
