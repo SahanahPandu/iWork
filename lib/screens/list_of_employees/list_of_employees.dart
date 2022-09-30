@@ -98,7 +98,9 @@ class _ListOfEmployeesState extends State<ListOfEmployees> {
                               return Container(
                                 margin: const EdgeInsets.only(bottom: 24),
                                 child: ListOfEmployeeDetails(
+                                  type: widget.type,
                                   data: dataFuture![index],
+                                  assignedEmployee: widget.assignedEmployee,
                                 ),
                               );
                             },

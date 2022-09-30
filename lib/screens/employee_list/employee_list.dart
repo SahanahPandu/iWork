@@ -103,7 +103,7 @@ class _EmployeeListState extends State<EmployeeList> {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 26, vertical: 24),
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.8,
+                height: MediaQuery.of(context).size.height,
                 decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
@@ -163,7 +163,7 @@ class _EmployeeListState extends State<EmployeeList> {
                     ),
                     //Employee List
                     ListOfEmployees(
-                      type: "Senarai Tidak Hadir",
+                      type: "Senarai Hadir",
                       idStatus: 1, // Hadir
                       searchedName: searchName,
                       assignedEmployee: widget.assignedEmployee,
