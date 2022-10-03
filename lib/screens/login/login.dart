@@ -140,27 +140,6 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-/*_imageAnimation(PageController animation, images, pagePosition) {
-    return AnimatedBuilder(
-      animation: animation,
-      builder: (context, widget) {
-        return SizedBox(
-          width: 200,
-          height: 200,
-          child: widget,
-        );
-      },
-      child: Column(
-        children: [
-          Container(
-            margin: const EdgeInsets.all(10),
-            child: Image.asset(images[pagePosition]),
-          ),
-        ],
-      ),
-    );
-  }*/
-
   SmoothPageIndicator _indicators(imagesLength, currentIndex) {
     return SmoothPageIndicator(
         controller: _pageController,
@@ -169,7 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
             dotHeight: 8,
             dotWidth: 8,
             dotColor: grey200,
-            activeDotColor: green),
+            activeDotColor: greenCustom),
         onDotClicked: (currentIndex) {});
   }
 
@@ -193,7 +172,8 @@ class _LoginScreenState extends State<LoginScreen> {
     return SizedBox(
       child: TextFormField(
         textInputAction: TextInputAction.next,
-        cursorColor: green,
+        cursorColor: greenCustom,
+        cursorWidth: 1.2,
         onSaved: (value) {
           _userIdInput = value!;
         },
@@ -208,22 +188,22 @@ class _LoginScreenState extends State<LoginScreen> {
             hintMaxLines: 1,
             filled: true,
             fillColor: white,
-            focusColor: green,
+            focusColor: greenCustom,
             isDense: true,
             border: const OutlineInputBorder(),
             errorStyle: const TextStyle(fontSize: 10, height: 0.3),
             errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
-                borderSide: BorderSide(color: red)),
+                borderSide: BorderSide(color: red, width: 0.5)),
             focusedErrorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
-                borderSide: BorderSide(color: green)),
+                borderSide: BorderSide(color: greenCustom, width: 0.5)),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: borderTextColor),
+              borderSide: BorderSide(color: borderTextColor, width: 0.8),
             ),
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: green),
+              borderSide: BorderSide(color: greenCustom, width: 0.5),
               borderRadius: BorderRadius.circular(8),
             ),
             labelStyle: TextStyle(
@@ -237,7 +217,8 @@ class _LoginScreenState extends State<LoginScreen> {
     return SizedBox(
       child: TextFormField(
         textInputAction: TextInputAction.done,
-        cursorColor: green,
+        cursorColor: greenCustom,
+        cursorWidth: 1.2,
         obscureText: _isObscure,
         onSaved: (val) {
           _passwordInput = val!;
@@ -254,21 +235,21 @@ class _LoginScreenState extends State<LoginScreen> {
             filled: true,
             fillColor: white,
             isDense: true,
-            focusColor: green,
+            focusColor: greenCustom,
             border: const OutlineInputBorder(),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: borderTextColor),
+              borderSide: BorderSide(color: borderTextColor, width: 0.8),
             ),
             errorStyle: const TextStyle(fontSize: 10, height: 0.3),
             errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
-                borderSide: BorderSide(color: red)),
+                borderSide: BorderSide(color: red, width: 0.5)),
             focusedErrorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
-                borderSide: BorderSide(color: green)),
+                borderSide: BorderSide(color: greenCustom, width: 0.5)),
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: green),
+              borderSide: BorderSide(color: greenCustom, width: 0.5),
               borderRadius: BorderRadius.circular(8),
             ),
             labelStyle: TextStyle(
@@ -312,7 +293,7 @@ class _LoginScreenState extends State<LoginScreen> {
         //  print("user password = $passwordInput");
       },
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(buttonColor),
+        backgroundColor: MaterialStateProperty.all(greenCustom),
         elevation: MaterialStateProperty.all(0),
         overlayColor: MaterialStateColor.resolveWith((states) => green800),
         shadowColor: MaterialStateProperty.all(grey900),

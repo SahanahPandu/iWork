@@ -287,7 +287,7 @@ class _ReportApprovalDetailState extends State<ReportApprovalDetail> {
           ),
         ),
         _buildTextForm(_svStatus, "Status Laporan"),
-        _buildTextForm(_svFeedback, "Maklumbalas Penyelia", true),
+        _buildTextForm(_svFeedback, "Maklumbalas Penyelia", true)
       ],
     );
   }

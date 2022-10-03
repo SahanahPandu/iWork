@@ -96,7 +96,7 @@ Widget? showBottomSheetOptions(BuildContext context, List statusList,
                                               selectedIndex == index
                                           ? CustomIcon.checkedBox
                                           : null,
-                                      color: green,
+                                      color: greenCustom,
                                       size: 18)
                                 ],
                               ),

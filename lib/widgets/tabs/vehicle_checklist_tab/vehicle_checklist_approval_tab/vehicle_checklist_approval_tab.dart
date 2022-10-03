@@ -176,7 +176,7 @@ class _VehicleChecklistApprovalTabState
                       MaterialStateColor.resolveWith((states) => green800),
                   minimumSize: MaterialStateProperty.all(
                       Size(Sizes().screenWidth(context), 41)),
-                  backgroundColor: MaterialStateProperty.all(green)),
+                  backgroundColor: MaterialStateProperty.all(greenCustom)),
               child: Text('Sahkan',
                   style: TextStyle(
                       color: white, fontSize: 14, fontWeight: FontWeight.w700)),
@@ -228,7 +228,7 @@ class _VehicleChecklistApprovalTabState
                   style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
-                      color: green,
+                      color: greenCustom,
                       height: 1.5)),
               TextSpan(
                   text: " \nbagi kenderaan",
@@ -242,7 +242,7 @@ class _VehicleChecklistApprovalTabState
                   style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
-                      color: green,
+                      color: greenCustom,
                       height: 1.5)),
               TextSpan(
                   text: "telah \nberjaya disahkan oleh anda",

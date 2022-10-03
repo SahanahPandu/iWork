@@ -28,9 +28,9 @@ class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
   final _controller = ActionSliderController();
 
   //  statusTask == 1
-  Color textColor = green;
-  Color iconColor = green;
-  Color borderColor = green;
+  Color textColor = greenCustom;
+  Color iconColor = greenCustom;
+  Color borderColor = greenCustom;
   Color boxColor = white;
   String slideText = startWork;
 
