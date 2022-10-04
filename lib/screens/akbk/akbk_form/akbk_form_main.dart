@@ -265,7 +265,7 @@ class _AkbkFormState extends State<AkbkForm> {
                       MaterialStateColor.resolveWith((states) => green800),
                   minimumSize: MaterialStateProperty.all(
                       Size(Sizes().screenWidth(context), 41)),
-                  backgroundColor: MaterialStateProperty.all(green)),
+                  backgroundColor: MaterialStateProperty.all(greenCustom)),
               child: Text('Hantar Borang',
                   style: TextStyle(
                       color: white, fontSize: 14, fontWeight: FontWeight.w700)),

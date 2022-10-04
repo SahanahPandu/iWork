@@ -84,7 +84,7 @@ class _AttendanceVerificationDetailListState
                                 child: Center(
                                   child: CircularProgressIndicator(
                                     strokeWidth: 2.5,
-                                    color: green,
+                                    color: greenCustom,
                                     value: loadingProgress.expectedTotalBytes !=
                                             null
                                         ? loadingProgress

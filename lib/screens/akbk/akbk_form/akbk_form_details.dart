@@ -418,9 +418,10 @@ class _AkbkFormDetailsState extends State<AkbkFormDetails> {
   TextFormField _buildActiveTextForm(
       TextInputType type, int max, String label) {
     return TextFormField(
-      cursorColor: green,
+      cursorColor: greenCustom,
       textInputAction: TextInputAction.done,
-      cursorHeight: 18,
+      cursorHeight: 20,
+      cursorWidth: 1.2,
       keyboardType: type,
       minLines: 1,
       maxLines: max,
@@ -428,7 +429,7 @@ class _AkbkFormDetailsState extends State<AkbkFormDetails> {
       decoration: InputDecoration(
         filled: true,
         fillColor: white,
-        focusColor: green,
+        focusColor: greenCustom,
         contentPadding: const EdgeInsets.all(15),
         labelText: label,
         labelStyle: TextStyle(
@@ -441,7 +442,7 @@ class _AkbkFormDetailsState extends State<AkbkFormDetails> {
             borderRadius: BorderRadius.circular(4),
             borderSide: BorderSide(color: green)),*/
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: green),
+          borderSide: BorderSide(color: greenCustom, width: 0.5),
           borderRadius: BorderRadius.circular(4),
         ),
         enabledBorder: OutlineInputBorder(

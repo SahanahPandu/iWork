@@ -127,64 +127,69 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
         body: ScrollConfiguration(
           behavior: const MaterialScrollBehavior().copyWith(overscroll: false),
           child: SingleChildScrollView(
-            child: ExpandableNotifier(
-              controller: _reportController,
-              child: Container(
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 15),
-                      child: ExpandableButton(
-                        child: InkWell(
-                          highlightColor: white,
-                          onTap: () {
-                            _reportController.toggle();
-                            _reportController.expanded
-                                ? setState(() {
-                                    iconColor = green;
-                                  })
-                                : setState(() {
-                                    iconColor = grey500;
-                                  });
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("Butiran maklumat laporan:",
-                                  style: TextStyle(
-                                      color: blackCustom,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w400)),
-                              Icon(
+            child: Column(
+              children: [
+                ExpandableNotifier(
+                  controller: _reportController,
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 15),
+                          child: ExpandableButton(
+                            child: InkWell(
+                              highlightColor: white,
+                              onTap: () {
+                                _reportController.toggle();
                                 _reportController.expanded
-                                    ? CustomIcon.expand
-                                    : CustomIcon.collapse,
-                                size: 16,
-                                color: activeColor,
+                                    ? setState(() {
+                                        iconColor = green;
+                                      })
+                                    : setState(() {
+                                        iconColor = grey500;
+                                      });
+                              },
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text("Butiran maklumat laporan:",
+                                      style: TextStyle(
+                                          color: blackCustom,
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w400)),
+                                  Icon(
+                                    _reportController.expanded
+                                        ? CustomIcon.expand
+                                        : CustomIcon.collapse,
+                                    size: 16,
+                                    color: activeColor,
+                                  ),
+                                ],
                               ),
-                            ],
+                            ),
                           ),
                         ),
-                      ),
+                        ScrollOnExpand(
+                          scrollOnCollapse: false,
+                          scrollOnExpand: true,
+                          child: Expandable(
+                            collapsed: Container(),
+                            expanded: ReportApprovalDetail(
+                                data: widget.data, reportStatus: condition),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        const Divider(height: 0.5),
+                        _buildReportSections(context, condition),
+                      ],
                     ),
-                    ScrollOnExpand(
-                      scrollOnCollapse: false,
-                      scrollOnExpand: true,
-                      child: Expandable(
-                        collapsed: Container(),
-                        expanded: ReportApprovalDetail(
-                            data: widget.data, reportStatus: condition),
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    const Divider(height: 0.5),
-                    _buildReportSections(context, condition),
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
           ),
         ),
@@ -265,7 +270,8 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
         return Column(
           children: [
             _buildReportAcceptanceColumn(context, "Maklumbalas kepada PRA:"),
-            const SizedBox(height: 15),
+            _buildNote(),
+            const SizedBox(height: 20),
             const Divider(height: 0.5),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -273,8 +279,8 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
                 _buildReportAkbkMainColumn(context),
                 const SizedBox(height: 15),
                 const Divider(height: 0.5),
+                const SizedBox(height: 15),
                 _buildReportAkbkSubColumn(context),
-                _buildNote()
               ],
             )
           ],
@@ -283,7 +289,8 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
         return Column(
           children: [
             _buildReportAcceptanceColumn(context, "Maklumbalas kepada PRA:"),
-            const SizedBox(height: 15),
+            _buildNote(),
+            const SizedBox(height: 20),
             const Divider(height: 0.5),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -291,8 +298,8 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
                 _buildReportAkbkMainColumn(context),
                 const SizedBox(height: 15),
                 const Divider(height: 0.5),
+                const SizedBox(height: 15),
                 _buildReportAkbkTyreSubColumn(context),
-                _buildNote()
               ],
             )
           ],
@@ -305,14 +312,14 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 15),
-              child: Text("Tindakan dari Penyelia:",
+              child: Text("Maklumbalas kepada PRA:",
                   style: TextStyle(
                       color: blackCustom,
                       fontSize: 15,
                       fontWeight: FontWeight.w400)),
             ),
             _buildTextForm(_svStatus, "Status"),
-            _buildTextForm(_svFeedback, "Maklumbalas Penyelia", true),
+            _buildTextForm(_svFeedback, "Maklumbalas", true),
           ],
         );
       case 7:
@@ -332,14 +339,14 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 15),
-              child: Text("Tindakan dari BA:",
+              child: Text("Pengesahan dari BA:",
                   style: TextStyle(
                       color: blackCustom,
                       fontSize: 15,
                       fontWeight: FontWeight.w400)),
             ),
             _buildTextForm(_baStatus, "Status"),
-            _buildTextForm(_baFeedback, "Maklumbalas Penyelia", true),
+            _buildTextForm(_baFeedback, "Maklumbalas", true),
           ],
         );
       default:
@@ -606,10 +613,11 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
 
   Column _buildReportAkbkMainColumn(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 15),
-          child: Text("Lengkapkan borang AKBK di bawah untuk pengesahan BA:",
+          child: Text("Lengkapkan borang AKBK di bawah:",
               style: TextStyle(
                   color: blackCustom,
                   fontSize: 15,
@@ -651,8 +659,10 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
   TextFormField _buildActiveTextField(TextInputType type, String label,
       [int? minLines = 1, int? maxLines = 1]) {
     return TextFormField(
+      textInputAction: TextInputAction.done,
       cursorColor: green,
-      cursorHeight: 18,
+      cursorHeight: 20,
+      cursorWidth: 1.2,
       keyboardType: type,
       minLines: minLines,
       maxLines: maxLines,
@@ -672,9 +682,9 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
         border: const OutlineInputBorder(),
         focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(4),
-            borderSide: BorderSide(color: green)),
+            borderSide: BorderSide(color: green, width: 0.5)),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: green),
+          borderSide: BorderSide(color: green, width: 0.5),
           borderRadius: BorderRadius.circular(4),
         ),
         enabledBorder: OutlineInputBorder(

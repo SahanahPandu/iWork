@@ -104,7 +104,7 @@ class PDFScreenState extends State<PDFScreen> with WidgetsBindingObserver {
           ],
         ),
         floatingActionButton: FloatingActionButton.extended(
-          backgroundColor: green,
+          backgroundColor: greenCustom,
           highlightElevation: 0,
           splashColor: darkGreen,
           elevation: 0,
