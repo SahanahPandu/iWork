@@ -116,9 +116,11 @@ class _EmployeeListState extends State<EmployeeList> {
                   children: [
                     //Search Box for Employee name
                     if (svNameList.isEmpty)
-                      SearchBoxWidget(
-                        labelText: 'Carian',
-                        searchedName: getSearchName,
+                      Expanded(
+                        child: SearchBoxWidget(
+                          labelText: 'Carian',
+                          searchedName: getSearchName,
+                        ),
                       ),
 
                     //Selected Sv Names

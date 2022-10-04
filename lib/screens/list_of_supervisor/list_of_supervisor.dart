@@ -1,24 +1,29 @@
+// import 'package:eswm/models/penyelia.dart';
+import 'package:eswm/models/penyelia_checkbox.dart';
 import 'package:flutter/material.dart';
 
 //import files
-import '../../config/config.dart';
+// import '../../config/config.dart';
 import '../../providers/penyelia_api.dart';
+import '../../widgets/buttons/select_button.dart';
 
-void showListOfSupervisor(passContext, updateSvNameList) {
+Widget? showListOfSupervisor(passContext, updateSvNameList) {
   showModalBottomSheet(
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      context: passContext,
-      builder: (BuildContext context) {
+    isScrollControlled: true,
+    backgroundColor: Colors.transparent,
+    context: passContext,
+    builder: (BuildContext context) {
+      return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
         return GestureDetector(
           behavior: HitTestBehavior.opaque,
           onTap: () {
             Navigator.of(context).pop();
           },
           child: DraggableScrollableSheet(
-            initialChildSize: 0.5,
-            minChildSize: 0.1,
-            maxChildSize: 0.5,
+            initialChildSize: 0.6,
+            //minChildSize: 0.1,
+            //maxChildSize: 1.0,
             builder: (_, scrollController) => Container(
               decoration: const BoxDecoration(
                 color: Colors.white,
@@ -60,58 +65,68 @@ void showListOfSupervisor(passContext, updateSvNameList) {
                   const SizedBox(
                     height: 24,
                   ),
-                  FutureBuilder<List>(
-                      future: PenyeliaApi.getPenyeliaData(passContext),
-                      builder: (context, snapshot) {
-                        final dataFuture = snapshot.data;
+                  Expanded(
+                    child: FutureBuilder<List>(
+                        future: PenyeliaApi.getPenyeliaData(passContext),
+                        builder: (context, snapshot) {
+                          final dataFuture = snapshot.data;
 
-                        switch (snapshot.connectionState) {
-                          case ConnectionState.waiting:
-                            return const Center(
-                              child: CircularProgressIndicator(),
-                            );
-
-                          default:
-                            if (snapshot.hasError) {
+                          switch (snapshot.connectionState) {
+                            case ConnectionState.waiting:
                               return const Center(
-                                child: Text("Some error occured!"),
+                                child: CircularProgressIndicator(),
                               );
-                            } else {
-                              return ListView.builder(
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemCount: dataFuture!.length,
-                                  itemBuilder: (context, index) {
-                                    return InkWell(
-                                      onTap: () {
-                                        updateSvNameList(dataFuture[index]);
-                                        Navigator.pop(context);
-                                      },
-                                      child: Container(
-                                        padding: userRole == 100
-                                            ? const EdgeInsets.symmetric(
-                                                vertical: 23, horizontal: 5)
-                                            : const EdgeInsets.all(0),
-                                        margin:
-                                            const EdgeInsets.only(bottom: 24),
-                                        child: Text(
-                                          dataFuture[index].name,
-                                          style: const TextStyle(
-                                            color: Color(0xff2b2b2b),
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  });
-                            }
-                        }
-                      }),
+
+                            default:
+                              if (snapshot.hasError) {
+                                return const Center(
+                                  child: Text("Some error occured!"),
+                                );
+                              } else {
+                                List<PenyeliaCheckBox>? newListData = dataFuture
+                                    ?.map((data) => PenyeliaCheckBox(
+                                        idPenyelia: data.id,
+                                        namaPenyelia: data.name))
+                                    .toList();
+
+                                return ListView.builder(
+                                    physics: const BouncingScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemCount: newListData!.length,
+                                    itemBuilder: (context, index) {
+                                      return svCheckBoxList(newListData[index]);
+                                    });
+                              }
+                          }
+                        }),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    margin: const EdgeInsets.all(10),
+                    child: const SelectButton(),
+                  ),
                 ],
               ),
             ),
           ),
         );
       });
+    },
+  );
+  return null;
 }
+
+Widget svCheckBoxList(PenyeliaCheckBox dataPenyelia) => StatefulBuilder(
+      builder: (BuildContext context, StateSetter setState) {
+        return CheckboxListTile(
+          contentPadding: EdgeInsets.zero,
+          visualDensity: VisualDensity.compact,
+          controlAffinity: ListTileControlAffinity.leading,
+          title: Text(dataPenyelia.namaPenyelia),
+          value: dataPenyelia.valueCheckbox,
+          activeColor: const Color(0xff34A853),
+          onChanged: (newValue) =>
+              setState(() => dataPenyelia.valueCheckbox = newValue!),
+        );
+      },
+    );
