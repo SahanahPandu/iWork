@@ -85,7 +85,7 @@ class _AkbkRecordListDetailsState extends State<AkbkRecordListDetails> {
                       )),
                 ],
               ),
-              Text(widget.data.laluan,
+              Text(widget.data.laluan != "" ? widget.data.laluan : "-",
                   style: TextStyle(
                     fontSize: 15,
                     color: blackCustom,

@@ -3,6 +3,7 @@ class Akbk {
   final String status;
   final int statusId;
   final int reportId;
+  final String appliedBy;
   final String laluan;
   final String vehicleNo;
   final String akbkNo;
@@ -27,6 +28,7 @@ class Akbk {
   final String vehicleModel;
   final String vehicleType;
   final String driverName;
+  final String location;
   final String dateTime;
   final String remark;
 
@@ -35,6 +37,7 @@ class Akbk {
       required this.status,
       required this.statusId,
       required this.reportId,
+      required this.appliedBy,
       required this.laluan,
       required this.vehicleNo,
       required this.akbkNo,
@@ -59,6 +62,7 @@ class Akbk {
       required this.vehicleType,
       required this.vehicleModel,
       required this.driverName,
+      required this.location,
       required this.dateTime,
       required this.remark});
 
@@ -67,6 +71,7 @@ class Akbk {
         status: json['status'],
         statusId: json['statusId'],
         reportId: json['reportId'],
+        appliedBy: json['appliedBy'],
         laluan: json['laluan'],
         vehicleNo: json['vehicleNo'],
         akbkNo: json['akbkNo'],
@@ -91,6 +96,7 @@ class Akbk {
         vehicleType: json['vehicleType'],
         vehicleModel: json['vehicleModel'],
         driverName: json['driverName'],
+        location: json['location'],
         dateTime: json['dateTime'],
         remark: json['remark'],
       );
