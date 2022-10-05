@@ -102,180 +102,156 @@ class _AkbkFormDetailsState extends State<AkbkFormDetails> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        _getSectionWidget(context, _part),
-      ],
-    );
+    return Column(children: [
+      _getSectionWidget(context, _part),
+    ]);
   }
 
   Padding _getMainSection() {
     return Padding(
-      padding: const EdgeInsets.all(15),
-      child: Column(
-        children: [
+        padding: const EdgeInsets.all(15),
+        child: Column(children: [
           _buildInactiveTextField(_appliedByController, "Nama"),
           const SizedBox(height: 20),
           _buildInactiveTextField(_monthYearController, "Bulan / Tahun"),
           const SizedBox(height: 20),
           _buildInactiveTextField(_currentDateTimeController, "Tarikh / Masa"),
-        ],
-      ),
-    );
+        ]));
   }
 
   Widget _getOperationSection() {
     if (widget.data == null) {
-      return Column(
-        children: [
-          Padding(
+      return Column(children: [
+        Padding(
             padding: const EdgeInsets.all(15),
             child: InkWell(
-              borderRadius: BorderRadius.circular(8),
-              onTap: () {
-                showBottomSheetOptions(
-                    context,
-                    ['Negeri Sembilan', 'Melaka', 'Johor (S)', 'Johor(N)'],
-                    0.4,
-                    _stateController,
-                    title: "Pilih Negeri");
-              },
-              child: _buildInactiveTextDropdown(_stateController, "Negeri"),
-            ),
-          ),
-          Padding(
+                borderRadius: BorderRadius.circular(8),
+                onTap: () {
+                  showBottomSheetOptions(
+                      context,
+                      ['Negeri Sembilan', 'Melaka', 'Johor (S)', 'Johor(N)'],
+                      0.4,
+                      _stateController,
+                      title: "Pilih Negeri");
+                },
+                child: _buildInactiveTextDropdown(_stateController, "Negeri"))),
+        Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             child: InkWell(
-              borderRadius: BorderRadius.circular(8),
-              onTap: () {
-                showBottomSheetOptions(
-                    context,
-                    ['Port Dickson', 'Rembau', 'Seremban', 'Senawang'],
-                    0.4,
-                    _districtController,
-                    title: "Pilih Daerah");
-              },
-              child: _buildInactiveTextDropdown(_districtController, "Daerah"),
-            ),
-          ),
-          Padding(
+                borderRadius: BorderRadius.circular(8),
+                onTap: () {
+                  showBottomSheetOptions(
+                      context,
+                      ['Port Dickson', 'Rembau', 'Seremban', 'Senawang'],
+                      0.4,
+                      _districtController,
+                      title: "Pilih Daerah");
+                },
+                child:
+                    _buildInactiveTextDropdown(_districtController, "Daerah"))),
+        Padding(
             padding: const EdgeInsets.all(15),
             child: _buildActiveTextForm(_serviceAreaController,
-                TextInputType.multiline, 1, "Kawasan Servis"),
-          ),
-          Padding(
+                TextInputType.multiline, 1, "Kawasan Servis")),
+        Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             child: InkWell(
-              borderRadius: BorderRadius.circular(8),
-              onTap: () {
-                showBottomSheetOptions(
-                    context,
-                    ['Port Dickson', 'Rembau', 'Seremban', 'Senawang'],
-                    0.4,
-                    _repairStationController,
-                    title: "Pilih Stesen Kerja Pembaikan");
-              },
-              child: _buildInactiveTextDropdown(
-                  _repairStationController, "Stesen Kerja Pembaikan"),
-            ),
-          ),
-          Padding(
+                borderRadius: BorderRadius.circular(8),
+                onTap: () {
+                  showBottomSheetOptions(
+                      context,
+                      ['Port Dickson', 'Rembau', 'Seremban', 'Senawang'],
+                      0.4,
+                      _repairStationController,
+                      title: "Pilih Stesen Kerja Pembaikan");
+                },
+                child: _buildInactiveTextDropdown(
+                    _repairStationController, "Stesen Kerja Pembaikan"))),
+        Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             child: InkWell(
-              borderRadius: BorderRadius.circular(8),
-              onTap: () {
-                showBottomSheetOptions(
-                    context,
-                    ['BLS2321', 'RFD5274', 'BDF3221', 'ERD6346'],
-                    0.4,
-                    _vehicleNoController,
-                    title: "Pilih No. Pendaftaran Kenderaan");
-              },
-              child: _buildInactiveTextDropdown(
-                  _vehicleNoController, "No. Pendaftaran Kenderaan"),
-            ),
-          ),
-          Padding(
+                borderRadius: BorderRadius.circular(8),
+                onTap: () {
+                  showBottomSheetOptions(
+                      context,
+                      ['BLS2321', 'RFD5274', 'BDF3221', 'ERD6346'],
+                      0.4,
+                      _vehicleNoController,
+                      title: "Pilih No. Pendaftaran Kenderaan");
+                },
+                child: _buildInactiveTextDropdown(
+                    _vehicleNoController, "No. Pendaftaran Kenderaan"))),
+        Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             child: InkWell(
-              borderRadius: BorderRadius.circular(8),
-              onTap: () {
-                showBottomSheetOptions(
-                    context,
-                    [
-                      'Hicom',
-                      'Mitsubishi Fuso',
-                      'Mitsubishi Fuso',
-                      'Mitsubishi Fuso'
-                    ],
-                    0.4,
-                    _vehicleModelController,
-                    title: "Pilih Modal Kenderaan");
-              },
-              child: _buildInactiveTextDropdown(
-                  _vehicleModelController, "Model Kenderaan"),
-            ),
-          ),
-          Padding(
+                borderRadius: BorderRadius.circular(8),
+                onTap: () {
+                  showBottomSheetOptions(
+                      context,
+                      [
+                        'Hicom',
+                        'Mitsubishi Fuso',
+                        'Mitsubishi Fuso',
+                        'Mitsubishi Fuso'
+                      ],
+                      0.4,
+                      _vehicleModelController,
+                      title: "Pilih Modal Kenderaan");
+                },
+                child: _buildInactiveTextDropdown(
+                    _vehicleModelController, "Model Kenderaan"))),
+        Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             child: InkWell(
-              borderRadius: BorderRadius.circular(8),
-              onTap: () {
-                showBottomSheetOptions(
-                    context,
-                    ['1.3cc', '1.5cc', '1.8cc', '2.0cc'],
-                    0.4,
-                    _vehicleTypeController,
-                    title: "Pilih Jenis Kenderaan");
-              },
-              child: _buildInactiveTextDropdown(
-                  _vehicleTypeController, "Jenis Kenderaan"),
-            ),
-          ),
-          Padding(
+                borderRadius: BorderRadius.circular(8),
+                onTap: () {
+                  showBottomSheetOptions(
+                      context,
+                      ['1.3cc', '1.5cc', '1.8cc', '2.0cc'],
+                      0.4,
+                      _vehicleTypeController,
+                      title: "Pilih Jenis Kenderaan");
+                },
+                child: _buildInactiveTextDropdown(
+                    _vehicleTypeController, "Jenis Kenderaan"))),
+        Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             child: InkWell(
-              borderRadius: BorderRadius.circular(8),
-              onTap: () {
-                showBottomSheetOptions(
-                    context,
-                    ['Ahmad', 'Suhaimi', 'Jalal', 'Jalil'],
-                    0.4,
-                    _driverController,
-                    title: "Pilih Nama Pemandu");
-              },
-              child:
-                  _buildInactiveTextDropdown(_driverController, "Nama Pemandu"),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-            child: _buildActiveTextForm(_locationController,
-                TextInputType.multiline, 1, "Lokasi Kejadian"),
-          ),
-          Padding(
+                borderRadius: BorderRadius.circular(8),
+                onTap: () {
+                  showBottomSheetOptions(
+                      context,
+                      ['Ahmad', 'Suhaimi', 'Jalal', 'Jalil'],
+                      0.4,
+                      _driverController,
+                      title: "Pilih Nama Pemandu");
+                },
+                child: _buildInactiveTextDropdown(
+                    _driverController, "Nama Pemandu"))),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+          child: _buildActiveTextForm(_locationController,
+              TextInputType.multiline, 1, "Lokasi Kejadian"),
+        ),
+        Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             child: InkWell(
-              borderRadius: BorderRadius.circular(8),
-              onTap: () {
-                _showDateTime(context, _dateTimeController);
-              },
-              child: _buildInactiveTextDropdown(
-                  _dateTimeController, "Masa & Tarikh Kejadian", false),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-            child: _buildActiveTextForm(
-                _remark, TextInputType.multiline, 10, "Catatan"),
-          ),
-        ],
-      );
+                borderRadius: BorderRadius.circular(8),
+                onTap: () {
+                  _showDateTime(context, _dateTimeController);
+                },
+                child: _buildInactiveTextDropdown(
+                    _dateTimeController, "Masa & Tarikh Kejadian", false))),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+          child: _buildActiveTextForm(
+              _remark, TextInputType.multiline, 10, "Catatan"),
+        )
+      ]);
     } else {
       return Padding(
-        padding: const EdgeInsets.all(15),
-        child: Column(
-          children: [
+          padding: const EdgeInsets.all(15),
+          child: Column(children: [
             _buildInactiveTextField(_stateController, "Negeri"),
             const SizedBox(height: 20),
             _buildInactiveTextField(_districtController, "Daerah"),
@@ -299,62 +275,55 @@ class _AkbkFormDetailsState extends State<AkbkFormDetails> {
             _buildInactiveTextField(
                 _dateTimeController, "Masa & Tarikh Kejadian"),
             const SizedBox(height: 20),
-            _buildInactiveTextField(_remark, "Catatan"),
-          ],
-        ),
-      );
+            _buildInactiveTextField(_remark, "Catatan")
+          ]));
     }
   }
 
   Widget _getOdometerSection() {
     if (widget.data == null) {
-      return Column(
-        children: [
-          Padding(
+      return Column(children: [
+        Padding(
             padding: const EdgeInsets.all(15),
-            child: _buildActiveTextForm(_odometerReadingController,
-                TextInputType.multiline, 1, "Bacaan Odometer semasa Breakdown"),
-          ),
-          Padding(
+            child: _buildActiveTextForm(
+                _odometerReadingController,
+                TextInputType.multiline,
+                1,
+                "Bacaan Odometer semasa Breakdown")),
+        Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             child: InkWell(
-              borderRadius: BorderRadius.circular(8),
-              onTap: () {
-                showBottomSheetOptions(
-                    context, ['km', 'hours'], 0.3, _unitController,
-                    title: "Pilih Unit Ukuran");
-              },
-              child: _buildInactiveTextDropdown(_unitController, "Unit Ukuran"),
-            ),
-          ),
-          Padding(
+                borderRadius: BorderRadius.circular(8),
+                onTap: () {
+                  showBottomSheetOptions(
+                      context, ['km', 'hours'], 0.3, _unitController,
+                      title: "Pilih Unit Ukuran");
+                },
+                child: _buildInactiveTextDropdown(
+                    _unitController, "Unit Ukuran"))),
+        Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             child: InkWell(
-              borderRadius: BorderRadius.circular(8),
-              onTap: () {
-                showBottomSheetOptions(
-                    context,
-                    ['Baik', 'Ok', 'Tidak Baik', 'Rosak'],
-                    0.4,
-                    _odometerConditionController,
-                    title: "Pilih Keadaan Odomoter");
-              },
-              child: _buildInactiveTextDropdown(
-                  _odometerConditionController, "Keadaan Odometer"),
-            ),
-          ),
-          Padding(
+                borderRadius: BorderRadius.circular(8),
+                onTap: () {
+                  showBottomSheetOptions(
+                      context,
+                      ['Baik', 'Ok', 'Tidak Baik', 'Rosak'],
+                      0.4,
+                      _odometerConditionController,
+                      title: "Pilih Keadaan Odomoter");
+                },
+                child: _buildInactiveTextDropdown(
+                    _odometerConditionController, "Keadaan Odometer"))),
+        Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             child: _buildActiveTextForm(
-                _odoRemark, TextInputType.multiline, 10, "Catatan"),
-          )
-        ],
-      );
+                _odoRemark, TextInputType.multiline, 10, "Catatan"))
+      ]);
     } else {
       return Padding(
-        padding: const EdgeInsets.all(15),
-        child: Column(
-          children: [
+          padding: const EdgeInsets.all(15),
+          child: Column(children: [
             _buildInactiveTextField(
                 _odometerReadingController, "Bacaan Odometer semasa Breakdown"),
             const SizedBox(height: 20),
@@ -364,75 +333,66 @@ class _AkbkFormDetailsState extends State<AkbkFormDetails> {
                 _odometerConditionController, "Keadaan Odometer"),
             const SizedBox(height: 20),
             _buildInactiveTextField(_odoRemark, "Catatan")
-          ],
-        ),
-      );
+          ]));
     }
   }
 
   Widget _getBreakdownSection() {
     if (widget.data == null) {
-      return Column(
-        children: [
-          Padding(
+      return Column(children: [
+        Padding(
             padding: const EdgeInsets.all(15),
             child: InkWell(
-              borderRadius: BorderRadius.circular(8),
-              onTap: () {
-                showBottomSheetOptions(
-                    context,
-                    [
-                      'Auto-Transmisi',
-                      'Brek',
-                      'Elektrik',
-                      'Enjin',
-                      'Hidraulik',
-                      'Lain-lain',
-                      'Manu-Gearbox/Clutch',
-                      'Puspakom',
-                      'Service and Grease',
-                      'Suspensi',
-                      'Welding',
-                    ],
-                    0.5,
-                    _breakdownTypeController,
-                    title: "Pilih Jenis Kerosakan");
-              },
-              child: _buildInactiveTextDropdown(
-                  _breakdownTypeController, "Jenis Kerosakan"),
-            ),
-          ),
-          Padding(
+                borderRadius: BorderRadius.circular(8),
+                onTap: () {
+                  showBottomSheetOptions(
+                      context,
+                      [
+                        'Auto-Transmisi',
+                        'Brek',
+                        'Elektrik',
+                        'Enjin',
+                        'Hidraulik',
+                        'Lain-lain',
+                        'Manu-Gearbox/Clutch',
+                        'Puspakom',
+                        'Service and Grease',
+                        'Suspensi',
+                        'Welding',
+                      ],
+                      0.5,
+                      _breakdownTypeController,
+                      title: "Pilih Jenis Kerosakan");
+                },
+                child: _buildInactiveTextDropdown(
+                    _breakdownTypeController, "Jenis Kerosakan"))),
+        Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             child: InkWell(
-              borderRadius: BorderRadius.circular(8),
-              onTap: () {
-                showBottomSheetOptions(
-                    context,
-                    [
-                      'Kerosakan Kenderaan',
-                      'Penyelenggaraan Kenderaan',
-                      'Kerosakan Tayar'
-                    ],
-                    0.4,
-                    _kodController,
-                    title: "Pilih Kod");
-              },
-              child: _buildInactiveTextDropdown(_kodController, "Kod"),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-            child: _buildActiveTextForm(_breakdownRemark,
-                TextInputType.multiline, 10, "Catatan (jika rosak)"),
-          )
-        ],
-      );
+                borderRadius: BorderRadius.circular(8),
+                onTap: () {
+                  showBottomSheetOptions(
+                      context,
+                      [
+                        'Kerosakan Kenderaan',
+                        'Penyelenggaraan Kenderaan',
+                        'Kerosakan Tayar'
+                      ],
+                      0.4,
+                      _kodController,
+                      title: "Pilih Kod");
+                },
+                child: _buildInactiveTextDropdown(_kodController, "Kod"))),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+          child: _buildActiveTextForm(_breakdownRemark, TextInputType.multiline,
+              10, "Catatan (jika rosak)"),
+        )
+      ]);
     } else {
       return Padding(
-        padding: const EdgeInsets.all(15),
-        child: Column(
-          children: [
+          padding: const EdgeInsets.all(15),
+          child: Column(children: [
             _buildInactiveTextField(
                 _breakdownTypeController, "Jenis Kerosakan"),
             const SizedBox(height: 20),
@@ -440,9 +400,7 @@ class _AkbkFormDetailsState extends State<AkbkFormDetails> {
             const SizedBox(height: 20),
             _buildInactiveTextField(_breakdownRemark, "Catatan"),
             const SizedBox(height: 10)
-          ],
-        ),
-      );
+          ]));
     }
   }
 
@@ -463,111 +421,105 @@ class _AkbkFormDetailsState extends State<AkbkFormDetails> {
   TextFormField _buildInactiveTextField(
       TextEditingController controller, String label) {
     return TextFormField(
-      controller: controller,
-      readOnly: true,
-      enabled: false,
-      style: TextStyle(
-          color: blackCustom, fontSize: 15, fontWeight: FontWeight.w400),
-      decoration: InputDecoration(
-        filled: true,
-        fillColor: fillColor,
-        contentPadding: const EdgeInsets.all(15),
-        labelText: label,
-        labelStyle: TextStyle(
-          fontSize: 14,
-          color: labelColor,
-          fontWeight: FontWeight.w400,
-        ),
-        disabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            width: 0.5,
-            color: borderTextColor,
-          ),
-          borderRadius: BorderRadius.circular(4),
-        ),
-      ),
-    );
+        controller: controller,
+        readOnly: true,
+        enabled: false,
+        style: TextStyle(
+            color: blackCustom, fontSize: 15, fontWeight: FontWeight.w400),
+        decoration: InputDecoration(
+            filled: true,
+            fillColor: fillColor,
+            contentPadding: const EdgeInsets.all(15),
+            labelText: label,
+            labelStyle: TextStyle(
+              fontSize: 14,
+              color: labelColor,
+              fontWeight: FontWeight.w400,
+            ),
+            disabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                width: 0.5,
+                color: borderTextColor,
+              ),
+              borderRadius: BorderRadius.circular(4),
+            )));
   }
 
   TextFormField _buildInactiveTextDropdown(
       TextEditingController controller, String label,
       [bool? defaultIcon = true]) {
     return TextFormField(
-      controller: controller,
-      readOnly: true,
-      enabled: false,
-      style: TextStyle(color: blackCustom, fontSize: 15),
-      decoration: InputDecoration(
-        filled: true,
-        fillColor: white,
-        contentPadding: const EdgeInsets.all(15),
-        suffixIcon: defaultIcon == true
-            ? Icon(
-                CustomIcon.dropdown,
-                size: 16,
-                color: blackCustom,
-              )
-            : Icon(
-                CustomIcon.scheduleOutline,
-                size: 16,
-                color: blackCustom,
+        controller: controller,
+        readOnly: true,
+        enabled: false,
+        style: TextStyle(color: blackCustom, fontSize: 15),
+        decoration: InputDecoration(
+            filled: true,
+            fillColor: white,
+            contentPadding: const EdgeInsets.all(15),
+            suffixIcon: defaultIcon == true
+                ? Icon(
+                    CustomIcon.dropdown,
+                    size: 16,
+                    color: blackCustom,
+                  )
+                : Icon(
+                    CustomIcon.scheduleOutline,
+                    size: 16,
+                    color: blackCustom,
+                  ),
+            labelText: label,
+            labelStyle: TextStyle(
+              fontSize: 14,
+              color: labelColor,
+              fontWeight: FontWeight.w300,
+            ),
+            disabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                width: 0.5,
+                color: controller.text != "" ? greenCustom : borderTextColor,
               ),
-        labelText: label,
-        labelStyle: TextStyle(
-          fontSize: 14,
-          color: labelColor,
-          fontWeight: FontWeight.w300,
-        ),
-        disabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            width: 0.5,
-            color: controller.text != "" ? greenCustom : borderTextColor,
-          ),
-          borderRadius: BorderRadius.circular(4),
-        ),
-      ),
-    );
+              borderRadius: BorderRadius.circular(4),
+            )));
   }
 
   TextFormField _buildActiveTextForm(TextEditingController controller,
       TextInputType type, int max, String label) {
     return TextFormField(
-      cursorColor: greenCustom,
-      textInputAction: TextInputAction.done,
-      cursorHeight: 20,
-      cursorWidth: 1.2,
-      keyboardType: type,
-      minLines: 1,
-      maxLines: max,
-      style: TextStyle(color: blackCustom, fontSize: 15),
-      decoration: InputDecoration(
-        filled: true,
-        fillColor: white,
-        focusColor: greenCustom,
-        contentPadding: const EdgeInsets.all(15),
-        labelText: label,
-        labelStyle: TextStyle(
-          fontSize: 14,
-          color: labelColor,
-          fontWeight: FontWeight.w300,
-        ),
-        border: const OutlineInputBorder(),
-        /*focusedErrorBorder: OutlineInputBorder(
+        cursorColor: greenCustom,
+        textInputAction: TextInputAction.done,
+        cursorHeight: 20,
+        cursorWidth: 1.2,
+        keyboardType: type,
+        minLines: 1,
+        maxLines: max,
+        style: TextStyle(color: blackCustom, fontSize: 15),
+        decoration: InputDecoration(
+            filled: true,
+            fillColor: white,
+            focusColor: greenCustom,
+            contentPadding: const EdgeInsets.all(15),
+            labelText: label,
+            labelStyle: TextStyle(
+              fontSize: 14,
+              color: labelColor,
+              fontWeight: FontWeight.w300,
+            ),
+            border: const OutlineInputBorder(),
+            /*focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(4),
             borderSide: BorderSide(color: green)),*/
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: greenCustom, width: 0.5),
-          borderRadius: BorderRadius.circular(4),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            width: 0.5,
-            color: controller.text != "" ? greenCustom : borderTextColor,
-          ),
-          borderRadius: BorderRadius.circular(4),
-        ),
-      ),
-    );
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: greenCustom, width: 0.5),
+              borderRadius: BorderRadius.circular(4),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                width: 0.5,
+                color: controller.text != "" ? greenCustom : borderTextColor,
+              ),
+              borderRadius: BorderRadius.circular(4),
+            )));
   }
 
   Future<dynamic> _showDateTime(
@@ -576,22 +528,18 @@ class _AkbkFormDetailsState extends State<AkbkFormDetails> {
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(
-            colorScheme: const ColorScheme.light(
-              primary: Colors.green,
-              onPrimary: Colors.white,
-              onSurface: Colors.black45,
-            ),
-            dialogTheme: DialogTheme(
-              shape: RoundedRectangleBorder(
+              colorScheme: const ColorScheme.light(
+                  primary: Colors.green,
+                  onPrimary: Colors.white,
+                  onSurface: Colors.black45),
+              dialogTheme: DialogTheme(
+                  shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16),
-              ),
-            ),
-            textButtonTheme: TextButtonThemeData(
-              style: TextButton.styleFrom(
+              )),
+              textButtonTheme: TextButtonThemeData(
+                  style: TextButton.styleFrom(
                 primary: darkGreen,
-              ),
-            ),
-          ),
+              ))),
           child: child!,
         );
       },
@@ -611,29 +559,24 @@ class _AkbkFormDetailsState extends State<AkbkFormDetails> {
           context: context,
           builder: (context, child) {
             return MediaQuery(
-              data:
-                  MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
-              child: Theme(
-                data: Theme.of(context).copyWith(
-                  colorScheme: const ColorScheme.light(
-                    primary: Colors.green,
-                    onBackground: Colors.green,
-                    onPrimary: Colors.white,
-                  ),
-                  dialogTheme: DialogTheme(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                  ),
-                  textButtonTheme: TextButtonThemeData(
-                    style: TextButton.styleFrom(
-                      primary: darkGreen,
-                    ),
-                  ),
-                ),
-                child: child!,
-              ),
-            );
+                data: MediaQuery.of(context)
+                    .copyWith(alwaysUse24HourFormat: false),
+                child: Theme(
+                  data: Theme.of(context).copyWith(
+                      colorScheme: const ColorScheme.light(
+                          primary: Colors.green,
+                          onBackground: Colors.green,
+                          onPrimary: Colors.white),
+                      dialogTheme: DialogTheme(
+                          shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      )),
+                      textButtonTheme: TextButtonThemeData(
+                          style: TextButton.styleFrom(
+                        primary: darkGreen,
+                      ))),
+                  child: child!,
+                ));
           },
           initialTime: TimeOfDay.now(),
           cancelText: "BATAL",
