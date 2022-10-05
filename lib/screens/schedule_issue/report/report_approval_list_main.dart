@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 //import files
 import '../../../config/palette.dart';
 import '../../../utils/custom_icon.dart';
+import '../../../widgets/custom_scroll/custom_scroll.dart';
 import '../../../widgets/listview/card_list_view.dart';
 
 class ReportApprovalListMain extends StatefulWidget {
@@ -59,28 +60,29 @@ class _ReportApprovalListMainState extends State<ReportApprovalListMain> {
             ),
           ),
         ),
-        body: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(
-              parent: AlwaysScrollableScrollPhysics()),
-          child: Column(
-            children: [
-              Container(
-                alignment: Alignment.centerLeft,
-                padding: const EdgeInsets.only(
-                    left: 20, right: 20, top: 20, bottom: 10),
-                child: Text(
-                  "Senarai Laporan Hari Ini:",
-                  style: TextStyle(
-                      color: blackCustom,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w400),
+        body: ScrollConfiguration(
+          behavior: CustomScrollBehavior(),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(
+                  alignment: Alignment.centerLeft,
+                  padding: const EdgeInsets.only(
+                      left: 20, right: 20, top: 20, bottom: 10),
+                  child: Text(
+                    "Senarai Laporan Hari Ini:",
+                    style: TextStyle(
+                        color: blackCustom,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w400),
+                  ),
                 ),
-              ),
-              const Padding(
-                padding: EdgeInsets.all(10),
-                child: CardListView(type: "Laporan"),
-              ),
-            ],
+                const Padding(
+                  padding: EdgeInsets.all(10),
+                  child: CardListView(type: "Laporan"),
+                ),
+              ],
+            ),
           ),
         ));
   }

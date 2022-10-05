@@ -18,12 +18,10 @@ class BATodayTaskDetails extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<BATodayTaskDetails> createState() =>
-      _BATodayTaskDetailsState();
+  State<BATodayTaskDetails> createState() => _BATodayTaskDetailsState();
 }
 
-class _BATodayTaskDetailsState
-    extends State<BATodayTaskDetails> {
+class _BATodayTaskDetailsState extends State<BATodayTaskDetails> {
   String todayDate = "0";
 
   @override

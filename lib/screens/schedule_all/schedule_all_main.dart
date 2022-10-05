@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 //import files
-import '../../utils/custom_icon.dart';
 import '../../config/config.dart';
 import '../../config/palette.dart';
+import '../../utils/custom_icon.dart';
+import '../../widgets/custom_scroll/custom_scroll.dart';
 import '../../widgets/gridview/compactor_panel/compactor_task_list.dart';
 import '../../widgets/listview/card_list_view.dart';
 
@@ -41,8 +42,7 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
               onPressed: () {
                 Navigator.pop(context);
               },
-              icon: Icon(CustomIcon.arrowBack,
-                  color: blackCustom, size: 22),
+              icon: Icon(CustomIcon.arrowBack, color: blackCustom, size: 22),
             ),
             title: Center(
               child: Text(
@@ -73,9 +73,10 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                 CompactorTaskList(isButton: false),
               ],
             )
-          : SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              child: Column(
+          : ScrollConfiguration(
+              behavior: CustomScrollBehavior(),
+              child: SingleChildScrollView(
+                  child: Column(
                 children: [
                   Container(
                     alignment: Alignment.centerLeft,
@@ -98,6 +99,7 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                   ),
                 ],
               )),
+            ),
     );
   }
 }

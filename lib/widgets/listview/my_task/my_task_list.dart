@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 //import files
-import 'package:eswm/widgets/cards/my_task/my_task_card.dart';
+import '../../cards/my_task/my_task_card.dart';
 
 class MyTaskList extends StatefulWidget {
   final dynamic topCardStatus;
+
   const MyTaskList({
     Key? key,
     this.topCardStatus,

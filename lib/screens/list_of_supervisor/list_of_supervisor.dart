@@ -1,9 +1,7 @@
-// import 'package:eswm/models/penyelia.dart';
-import 'package:eswm/models/penyelia_checkbox.dart';
 import 'package:flutter/material.dart';
 
 //import files
-// import '../../config/config.dart';
+import '../../models/penyelia_checkbox.dart';
 import '../../providers/penyelia_api.dart';
 import '../../widgets/buttons/select_button.dart';
 

@@ -17,7 +17,6 @@ class TimeLogButton extends StatefulWidget {
 }
 
 class _TimeLogButtonState extends State<TimeLogButton> {
-
   Color buttonColor = const Color(0xff52A834);
   Color buttonTextColor = Colors.white;
   Color buttonOverlayColor = green800;

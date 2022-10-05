@@ -19,7 +19,6 @@ class CompListOfRoad extends StatefulWidget {
 }
 
 class _CompListOfRoadState extends State<CompListOfRoad> {
-
   @override
   Widget build(BuildContext context) {
     return Card(

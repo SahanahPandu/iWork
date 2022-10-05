@@ -1,11 +1,10 @@
-import 'package:eswm/screens/list_of_employees/list_of_employee_details.dart';
 import 'package:flutter/material.dart';
 
 //import files
-import 'package:eswm/providers/pekerja_api.dart';
-import 'package:eswm/widgets/cards/cards.dart';
-
 import '../../config/palette.dart';
+import '../../providers/pekerja_api.dart';
+import '../../widgets/cards/cards.dart';
+import 'list_of_employee_details.dart';
 
 class ListOfEmployees extends StatefulWidget {
   final String? type;

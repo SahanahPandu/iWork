@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 //import files
-import 'package:eswm/providers/pekerja_api.dart';
-import 'package:eswm/widgets/cards/cards.dart';
+import '../../providers/pekerja_api.dart';
+import '../../widgets/cards/cards.dart';
 
 class ListOfEmployees extends StatefulWidget {
   final dynamic idPekerja;

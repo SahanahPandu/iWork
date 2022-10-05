@@ -1,10 +1,10 @@
-import 'package:eswm/utils/custom_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 //import files
 import '../../config/palette.dart';
 import '../../models/notifikasi.dart';
+import '../../utils/custom_icon.dart';
 
 class NotificationDetails extends StatefulWidget {
   final Notifikasi data;

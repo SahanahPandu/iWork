@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:eswm/utils/routes/routes.dart';
+
+//import files
+import 'utils/routes/routes.dart';
 
 void main() {
   runApp(const MyApp());

@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 
 //import files
-import 'package:eswm/widgets/tabs/tabs.dart';
-import 'package:eswm/config/string.dart';
+import '../../config/string.dart';
+import '../../widgets/tabs/tabs.dart';
 
 class ECuti extends StatefulWidget {
   final String screen;
   final dynamic data;
 
-  const ECuti({Key? key, required this.screen, required this.data}) : super(key: key);
+  const ECuti({Key? key, required this.screen, required this.data})
+      : super(key: key);
 
   @override
   State<ECuti> createState() => _ECutiState();

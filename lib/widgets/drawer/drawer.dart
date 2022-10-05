@@ -89,161 +89,168 @@ class _DrawerBuildState extends State<DrawerBuild> {
             topRight: Radius.circular(14), bottomRight: Radius.circular(14)),
         child: Drawer(
           backgroundColor: white,
-          child: ListView(physics: const BouncingScrollPhysics(), children: [
-            Container(
-              alignment: Alignment.centerLeft,
-              height: 110.0,
-              child: DrawerHeader(
-                  decoration: BoxDecoration(
-                    color: white,
-                  ),
-                  child: Row(
-                    children: [
-                      Stack(
-                          clipBehavior: Clip.hardEdge,
-                          alignment: AlignmentDirectional.center,
-                          fit: StackFit.loose,
-                          children: <Widget>[
-                            Container(
-                              height: 62,
-                              width: 62,
-                              decoration: BoxDecoration(
-                                  color: transparent,
-                                  border: Border.all(color: grey300),
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(10))),
+          child: Theme(
+            data: Theme.of(context).copyWith(useMaterial3: true),
+            child: ListView(children: [
+              Container(
+                alignment: Alignment.centerLeft,
+                height: 110.0,
+                child: DrawerHeader(
+                    decoration: BoxDecoration(
+                      color: white,
+                    ),
+                    child: Row(
+                      children: [
+                        Stack(
+                            clipBehavior: Clip.hardEdge,
+                            alignment: AlignmentDirectional.center,
+                            fit: StackFit.loose,
+                            children: <Widget>[
+                              Container(
+                                height: 62,
+                                width: 62,
+                                decoration: BoxDecoration(
+                                    color: transparent,
+                                    border: Border.all(color: grey300),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(10))),
+                              ),
+                              ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: FittedBox(
+                                    fit: BoxFit.fill,
+                                    child: Image.asset(
+                                      userImg,
+                                      height: 58,
+                                      width: 58,
+                                    ),
+                                  ))
+                            ]),
+                        const SizedBox(
+                          width: 15,
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '''Muhammad Amiruddin Bin \nAriffin''',
+                              overflow: TextOverflow.visible,
+                              maxLines: 2,
+                              style: TextStyle(
+                                  color: blackCustom,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w600),
                             ),
-                            ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: FittedBox(
-                                  fit: BoxFit.fill,
-                                  child: Image.asset(
-                                    userImg,
-                                    height: 58,
-                                    width: 58,
+                            const SizedBox(height: 4),
+                            Row(
+                              children: [
+                                Text(
+                                  "SWK2210020",
+                                  style: TextStyle(
+                                      color: greyCustom,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                                const SizedBox(width: 6),
+                                Icon(
+                                  Icons.fiber_manual_record,
+                                  size: 5,
+                                  color: greyCustom,
+                                ),
+                                const SizedBox(width: 6),
+                                Text(
+                                  role,
+                                  style: TextStyle(
+                                      color: greyCustom,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    )),
+              ),
+              SizedBox(
+                  height: Sizes().screenHeight(context) * 0.75,
+                  child: Theme(
+                    data: Theme.of(context).copyWith(useMaterial3: true),
+                    child: ListView.builder(
+                        itemCount: _getList().length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            child: ListTile(
+                              minLeadingWidth: 25,
+                              tileColor:
+                                  _isHighlighted[index] ? activeBoxColor : null,
+                              leading: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 10),
+                                    child: Icon(
+                                      _isHighlighted[index]
+                                          ? _getList()[index].iconFill
+                                          : _getList()[index].iconOutline,
+                                      color: _isHighlighted[index]
+                                          ? activeColor
+                                          : _getList()[index].titleColor,
+                                      size: 16,
+                                    ),
                                   ),
-                                ))
-                          ]),
-                      const SizedBox(
-                        width: 15,
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            '''Muhammad Amiruddin Bin \nAriffin''',
-                            overflow: TextOverflow.visible,
-                            maxLines: 2,
-                            style: TextStyle(
-                                color: blackCustom,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600),
-                          ),
-                          const SizedBox(height: 4),
-                          Row(
-                            children: [
-                              Text(
-                                "SWK2210020",
-                                style: TextStyle(
-                                    color: greyCustom,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w400),
+                                ],
                               ),
-                              const SizedBox(width: 6),
-                              Icon(
-                                Icons.fiber_manual_record,
-                                size: 5,
-                                color: greyCustom,
-                              ),
-                              const SizedBox(width: 6),
-                              Text(
-                                role,
-                                style: TextStyle(
-                                    color: greyCustom,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w400),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
-                  )),
-            ),
-            SizedBox(
-                height: Sizes().screenHeight(context) * 0.75,
-                child: ListView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: _getList().length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: ListTile(
-                          minLeadingWidth: 25,
-                          tileColor:
-                              _isHighlighted[index] ? activeBoxColor : null,
-                          leading: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(left: 10),
-                                child: Icon(
-                                  _isHighlighted[index]
-                                      ? _getList()[index].iconFill
-                                      : _getList()[index].iconOutline,
-                                  color: _isHighlighted[index]
-                                      ? activeColor
-                                      : _getList()[index].titleColor,
-                                  size: 16,
+                              title: Container(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  _getList()[index].title,
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      color: _isHighlighted[index]
+                                          ? activeColor
+                                          : _getList()[index].titleColor,
+                                      fontWeight: _isHighlighted[index]
+                                          ? FontWeight.w500
+                                          : FontWeight.w400),
                                 ),
                               ),
-                            ],
-                          ),
-                          title: Container(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              _getList()[index].title,
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  color: _isHighlighted[index]
-                                      ? activeColor
-                                      : _getList()[index].titleColor,
-                                  fontWeight: _isHighlighted[index]
-                                      ? FontWeight.w500
-                                      : FontWeight.w400),
-                            ),
-                          ),
-                          onTap: () {
-                            for (int i = 0; i < _isHighlighted.length; i++) {
-                              setState(() {
-                                if (index == i) {
-                                  _isHighlighted[index] = true;
-                                } else {
-                                  _isHighlighted[i] = false;
+                              onTap: () {
+                                for (int i = 0;
+                                    i < _isHighlighted.length;
+                                    i++) {
+                                  setState(() {
+                                    if (index == i) {
+                                      _isHighlighted[index] = true;
+                                    } else {
+                                      _isHighlighted[i] = false;
+                                    }
+                                  });
                                 }
-                              });
-                            }
-                            _getDrawerRoute(index, context);
-                          },
-                        ),
-                      );
-                    })),
-            ListTile(
-              visualDensity: const VisualDensity(vertical: -4),
-              title: Padding(
-                padding: const EdgeInsets.only(left: 20),
-                child: Text(
-                  'Aplikasi V0.2',
-                  style: (TextStyle(
-                      color: grey500,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 12)),
+                                _getDrawerRoute(index, context);
+                              },
+                            ),
+                          );
+                        }),
+                  )),
+              ListTile(
+                visualDensity: const VisualDensity(vertical: -4),
+                title: Padding(
+                  padding: const EdgeInsets.only(left: 20),
+                  child: Text(
+                    'Aplikasi V0.2',
+                    style: (TextStyle(
+                        color: grey500,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 12)),
+                  ),
                 ),
+                onTap: () {},
               ),
-              onTap: () {},
-            ),
-          ]),
+            ]),
+          ),
         ),
       ),
     );

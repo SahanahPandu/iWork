@@ -2,8 +2,9 @@
 
 import 'package:flutter/material.dart';
 
-import 'package:eswm/utils/authentication/role.dart';
-import 'package:eswm/utils/authentication/auth.dart';
+//import files
+import 'utils/authentication/auth.dart';
+import 'utils/authentication/role.dart';
 
 class Root extends StatefulWidget {
   const Root({Key? key}) : super(key: key);

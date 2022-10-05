@@ -1,8 +1,8 @@
-import 'package:eswm/config/palette.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 //import files
+import '../../config/palette.dart';
 import '../../utils/image_picker.dart';
 
 Future<dynamic>? showUploadImageOption(

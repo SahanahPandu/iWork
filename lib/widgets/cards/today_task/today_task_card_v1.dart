@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 //import files
-import '../../../utils/device/orientations.dart';
-import '../../../utils/device/sizes.dart';
-import 'ba/ba_today_task_details.dart';
-import 'compactor_panel/compactor_panel_today_task_details.dart';
-import 'eo/eo_today_task_details.dart';
-import 'supervisor/supervisor_today_task_details.dart';
-import 'pra/pra_today_task_details.dart';
 import '../../../config/config.dart';
 import '../../../config/dimen.dart';
 import '../../../config/palette.dart';
 import '../../../config/resource.dart';
 import '../../../config/string.dart';
+import '../../../utils/device/orientations.dart';
+import '../../../utils/device/sizes.dart';
+import 'ba/ba_today_task_details.dart';
+import 'compactor_panel/compactor_panel_today_task_details.dart';
+import 'eo/eo_today_task_details.dart';
+import 'pra/pra_today_task_details.dart';
+import 'supervisor/supervisor_today_task_details.dart';
 
 class TodayTaskCard extends StatefulWidget {
   const TodayTaskCard({Key? key}) : super(key: key);
