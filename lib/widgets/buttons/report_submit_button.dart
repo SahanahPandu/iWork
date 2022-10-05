@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 
 //import files
-import '../../config/string.dart';
 import '../../config/palette.dart';
+import '../../config/string.dart';
 import '../../widgets/alert/alert_dialog.dart';
 import '../alert/lottie_alert_dialog.dart';
 import '../alert/snackbar.dart';
-// import '../alert/snackbar.dart';
 
 class ReportSubmitButton extends StatefulWidget {
   final GlobalKey<FormState>? formKey;

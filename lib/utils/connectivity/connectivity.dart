@@ -7,9 +7,11 @@ class AppConnectivity {
   AppConnectivity._();
 
   static final _instance = AppConnectivity._();
+
   static AppConnectivity get instance => _instance;
   final _connectivity = Connectivity();
   final _controller = StreamController.broadcast();
+
   Stream get myStream => _controller.stream;
 
   void initialise() async {

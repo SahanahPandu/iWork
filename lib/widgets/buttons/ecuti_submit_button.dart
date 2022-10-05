@@ -1,11 +1,8 @@
-// import 'package:eswm/utils/custom_icon.dart';
 import 'package:flutter/material.dart';
-// import 'package:page_transition/page_transition.dart';
 
 //import files
-import '../../config/string.dart';
 import '../../config/palette.dart';
-// import '../../screens/dialog/custom_dialog.dart';
+import '../../config/string.dart';
 import '../../widgets/alert/alert_dialog.dart';
 import '../alert/lottie_alert_dialog.dart';
 import '../alert/snackbar.dart';

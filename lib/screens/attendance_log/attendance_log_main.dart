@@ -1,9 +1,9 @@
-import 'package:eswm/providers/attendance_log_api.dart';
-import 'package:eswm/screens/attendance_log/attendance_log_details.dart';
 import 'package:flutter/material.dart';
 
 import '../../config/palette.dart';
+import '../../providers/attendance_log_api.dart';
 import '../../utils/custom_icon.dart';
+import 'attendance_log_details.dart';
 
 class AttendanceLogMain extends StatefulWidget {
   const AttendanceLogMain({Key? key}) : super(key: key);

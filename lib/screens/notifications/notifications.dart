@@ -1,12 +1,11 @@
-import 'package:eswm/config/palette.dart';
 import 'package:flutter/material.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:intl/intl.dart';
 
 //import files
+import '../../config/palette.dart';
 import '../../providers/notifikasi_api.dart';
 import '../../screens/notifications/notifications_details.dart';
-// import '../../utils/custom_icon.dart';
 import '../../widgets/app_bar/app_bar_widget.dart';
 
 class Notifications extends StatefulWidget {

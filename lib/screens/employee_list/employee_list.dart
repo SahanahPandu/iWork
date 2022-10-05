@@ -4,11 +4,8 @@ import 'package:flutter/material.dart';
 import '../../config/palette.dart';
 import '../../utils/device/sizes.dart';
 import '../../widgets/app_bar/app_bar_widget.dart';
-// import '../../widgets/search_box/search_box.dart';
 import '../../widgets/search_box/search_box.dart';
 import '../list_of_employees/absent_employee_details.dart';
-// import '../list_of_employees/list_of_employee_details.dart';
-// import '../list_of_employees/list_of_employees.dart';
 import '../list_of_employees/list_of_employees.dart';
 import '../list_of_supervisor/list_of_supervisor.dart';
 

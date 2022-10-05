@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 //import files
+import '../../config/palette.dart';
 import '../../screens/e_cuti/leave_form.dart';
 import '../../screens/e_cuti/leave_list.dart';
 import '../../screens/reports/report_form.dart';
 import '../../screens/reports/report_list.dart';
 import '../../widgets/app_bar/app_bar_widget.dart';
-import '../../config/palette.dart';
 
 class Tabs extends StatefulWidget {
   final String screen;

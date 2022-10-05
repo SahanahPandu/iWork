@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 //import files
-import 'package:eswm/widgets/listview/card_list_view.dart';
+import '../../widgets/listview/card_list_view.dart';
 
 class LeaveList extends StatefulWidget {
   const LeaveList({Key? key}) : super(key: key);

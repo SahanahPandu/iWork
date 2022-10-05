@@ -9,6 +9,7 @@ import '../../../../utils/custom_icon.dart';
 import '../../../../utils/device/sizes.dart';
 import '../../../../widgets/alert/alert_dialog.dart';
 import '../../../../widgets/alert/lottie_alert_dialog.dart';
+import '../../../../widgets/custom_scroll/custom_scroll.dart';
 import 'attendance_verification_detail_list.dart';
 
 class AttendanceVerificationList extends StatefulWidget {
@@ -105,76 +106,78 @@ class _AttendanceVerificationListState
                           fontSize: 16,
                           fontWeight: FontWeight.w600))),
               Expanded(
-                child: SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 10),
-                          child: Row(
-                            children: [
-                              InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      icon = CustomIcon.checkedBox;
-                                      iconColor = greenCustom;
-                                    });
-                                  },
-                                  child:
-                                      Icon(icon, color: iconColor, size: 18)),
-                              const SizedBox(width: 10),
-                              Text(
-                                "Pilih semua",
-                                style: TextStyle(
-                                    color: blackCustom,
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 15),
-                              )
-                            ],
-                          ),
-                        ),
-                        FutureBuilder<List>(
-                          future: _loadPekerjaData,
-                          builder: (context, snapshot) {
-                            final dataFuture = snapshot.data;
-                            switch (snapshot.connectionState) {
-                              case ConnectionState.waiting:
-                                return const Center(
-                                  child: CircularProgressIndicator(),
-                                );
-                              default:
-                                if (snapshot.hasError) {
-                                  return const Center(
-                                    child: Text("Some errors occurred!"),
-                                  );
-                                } else {
-                                  return ListView.builder(
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    shrinkWrap: true,
-                                    itemCount: dataFuture!.length,
-                                    itemBuilder: (context, index) {
-                                      if (dataFuture.length > 1) {
-                                        return Container(
-                                          color: white,
-                                          child:
-                                              AttendanceVerificationDetailList(
-                                            data: dataFuture[index],
-                                            index: index,
-                                          ),
-                                        );
-                                      }
-                                      return Container();
+                child: ScrollConfiguration(
+                  behavior: CustomScrollBehavior(),
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 10),
+                            child: Row(
+                              children: [
+                                InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        icon = CustomIcon.checkedBox;
+                                        iconColor = greenCustom;
+                                      });
                                     },
+                                    child:
+                                        Icon(icon, color: iconColor, size: 18)),
+                                const SizedBox(width: 10),
+                                Text(
+                                  "Pilih semua",
+                                  style: TextStyle(
+                                      color: blackCustom,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 15),
+                                )
+                              ],
+                            ),
+                          ),
+                          FutureBuilder<List>(
+                            future: _loadPekerjaData,
+                            builder: (context, snapshot) {
+                              final dataFuture = snapshot.data;
+                              switch (snapshot.connectionState) {
+                                case ConnectionState.waiting:
+                                  return const Center(
+                                    child: CircularProgressIndicator(),
                                   );
-                                }
-                            }
-                          },
-                        ),
-                      ],
+                                default:
+                                  if (snapshot.hasError) {
+                                    return const Center(
+                                      child: Text("Some errors occurred!"),
+                                    );
+                                  } else {
+                                    return ListView.builder(
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      itemCount: dataFuture!.length,
+                                      itemBuilder: (context, index) {
+                                        if (dataFuture.length > 1) {
+                                          return Container(
+                                            color: white,
+                                            child:
+                                                AttendanceVerificationDetailList(
+                                              data: dataFuture[index],
+                                              index: index,
+                                            ),
+                                          );
+                                        }
+                                        return Container();
+                                      },
+                                    );
+                                  }
+                              }
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

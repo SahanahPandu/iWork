@@ -79,11 +79,11 @@ class TaskStackOverTabState extends State<TaskStackOverTab>
             controller: _tabController,
             children: const [
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8.0),
+                padding: EdgeInsets.symmetric(horizontal: 8),
                 child: IssueTabbarView(),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8.0),
+                padding: EdgeInsets.symmetric(horizontal: 8),
                 child: VerifyTabbarView(),
               ),
             ],

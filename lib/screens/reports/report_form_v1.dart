@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:expandable/expandable.dart';
+import 'package:flutter/material.dart';
 
 //import files
+import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../../models/laluan.dart';
-import '../../config/config.dart';
 import '../../models/reports.dart';
 import '../../screens/reports/pra/pra_section_report_form.dart';
 import '../../utils/device/orientations.dart';

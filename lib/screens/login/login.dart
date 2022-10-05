@@ -3,16 +3,16 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 //import files
 import '../../config/dimen.dart';
-import '../../config/string.dart';
 import '../../config/palette.dart';
 import '../../config/resource.dart';
+import '../../config/string.dart';
 import '../../utils/authentication/auth.dart';
 import '../../utils/custom_icon.dart';
 import '../../utils/device/devices.dart';
 import '../../utils/device/sizes.dart';
 import '../../utils/device/uuid.dart';
-import '../../widgets/alert/toast.dart';
 import '../../widgets/alert/snackbar.dart';
+import '../../widgets/alert/toast.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);

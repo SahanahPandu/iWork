@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 
 //import files
-import 'package:eswm/widgets/cards/list_card.dart';
-import 'package:eswm/providers/cuti_api.dart';
-import 'package:eswm/providers/laluan_api.dart';
-import 'package:eswm/providers/jalan_api.dart';
-import 'package:eswm/providers/reports_api.dart';
-
 import '../../config/config.dart';
+import '../../providers/cuti_api.dart';
+import '../../providers/jalan_api.dart';
+import '../../providers/laluan_api.dart';
+import '../../providers/reports_api.dart';
+import '../cards/list_card.dart';
 
 class CardListView extends StatefulWidget {
   final String type;

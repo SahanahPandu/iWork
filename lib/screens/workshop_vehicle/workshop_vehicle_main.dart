@@ -128,7 +128,8 @@ class _WorkshopVehicleMainState extends State<WorkshopVehicleMain> {
                                           ],
                                         ),
                                         child: Padding(
-                                          padding: const EdgeInsets.symmetric(vertical: 5),
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 5),
                                           child: WorkshopVehicleDetails(
                                             data: dataFuture[index],
                                           ),

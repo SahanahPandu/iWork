@@ -1,13 +1,11 @@
-import 'package:flutter/material.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
 //import files
 import '../../widgets/buttons/ganti_pekerja_button.dart';
-// import '../../widgets/buttons/sahkan_ganti_pekerja.dart';
 import '../employee_list/employee_list.dart';
 import '../list_of_employees/list_of_employee_details.dart';
-// import '../schedule_issue/schedule_issue_main.dart';
 
 class ReassignEmployeeDetails extends StatefulWidget {
   final dynamic dataEmployee1; //absence employee
@@ -110,24 +108,24 @@ class _ReassignEmployeeDetailsState extends State<ReassignEmployeeDetails> {
     );
   }
 
-  // Widget? showBottomButton() {
-  //   showBottomSheet(
-  //     context: context,
-  //     builder: (builder) {
-  //       return SizedBox(
-  //         height: MediaQuery.of(context).size.height * 0.1,
-  //         width: MediaQuery.of(context).size.width,
-  //         child: const BottomAppBar(
-  //           elevation: 40,
-  //           color: Colors.white,
-  //           child: Padding(
-  //             padding: EdgeInsets.symmetric(horizontal: 26, vertical: 17),
-  //             child: SahkanGantiPekerjaButton(),
-  //           ),
-  //         ),
-  //       );
-  //     },
-  //   );
-  //   return null;
-  // }
+// Widget? showBottomButton() {
+//   showBottomSheet(
+//     context: context,
+//     builder: (builder) {
+//       return SizedBox(
+//         height: MediaQuery.of(context).size.height * 0.1,
+//         width: MediaQuery.of(context).size.width,
+//         child: const BottomAppBar(
+//           elevation: 40,
+//           color: Colors.white,
+//           child: Padding(
+//             padding: EdgeInsets.symmetric(horizontal: 26, vertical: 17),
+//             child: SahkanGantiPekerjaButton(),
+//           ),
+//         ),
+//       );
+//     },
+//   );
+//   return null;
+// }
 }

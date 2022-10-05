@@ -1,10 +1,10 @@
-import 'package:eswm/utils/custom_icon.dart';
 import 'package:flutter/material.dart';
 
 //import files
 import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../../models/jalan.dart';
+import '../../utils/custom_icon.dart';
 import '../../widgets/modal_bottom_sheet/navigation_options.dart';
 
 class ListOfRoadDetails extends StatefulWidget {

@@ -242,11 +242,11 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
 
   Column _setSvFeedbackColumn() {
     return Column(
-        children: [
-          _buildTextForm(_status, "Status Permohonan"),
-          _buildTextForm(_feedback, "Maklumbalas Penyelia", true),
-        ],
-      );
+      children: [
+        _buildTextForm(_status, "Status Permohonan"),
+        _buildTextForm(_feedback, "Maklumbalas Penyelia", true),
+      ],
+    );
   }
 
   Column _getSvFeedbackColumn(BuildContext context) {

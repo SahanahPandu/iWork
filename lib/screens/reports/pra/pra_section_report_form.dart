@@ -1,13 +1,15 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
+
 // ignore: depend_on_referenced_packages
 import 'package:path/path.dart';
 
 //import files
-import '../../../models/reports.dart';
 import '../../../config/config.dart';
 import '../../../config/font.dart';
 import '../../../config/palette.dart';
+import '../../../models/reports.dart';
 import '../../../utils/device/sizes.dart';
 import '../../../widgets/buttons/change_image_upload.dart';
 import '../../../widgets/buttons/upload_image_button.dart';

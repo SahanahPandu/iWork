@@ -14,8 +14,7 @@ class SplashMain extends StatefulWidget {
   State<SplashMain> createState() => _SplashMainState();
 }
 
-class _SplashMainState extends State<SplashMain>
-    with TickerProviderStateMixin {
+class _SplashMainState extends State<SplashMain> with TickerProviderStateMixin {
   var expanded = false;
   final transitionDuration = const Duration(seconds: 1);
 
