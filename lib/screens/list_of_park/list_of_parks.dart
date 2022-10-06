@@ -7,6 +7,7 @@ import '../../config/palette.dart';
 import '../../providers/taman_api.dart';
 import '../../utils/custom_icon.dart';
 import '../../utils/device/orientations.dart';
+import '../../widgets/custom_scroll/custom_scroll.dart';
 
 class ListOfParks extends StatefulWidget {
   final int? subRoutesId;
@@ -138,146 +139,173 @@ class ListOfParksState extends State<ListOfParks> {
             ? (Orientations().isLandscape(context)
                 ? const BoxConstraints(maxWidth: 500, maxHeight: 400)
                 : const BoxConstraints(maxWidth: 500, maxHeight: 450))
-            : null,
+            : const BoxConstraints(maxHeight: 380),
         context: context,
         builder: (builder) {
-          return SizedBox(
-            height: userRole == 100
-                ? null
-                : MediaQuery.of(context).size.height * 0.5,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(
-                  height: 2,
-                ),
-                const Divider(
-                  thickness: 1,
-                  color: Color(0xff969696),
-                  indent: 170,
-                  endIndent: 170,
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(
-                    top: 24,
-                    left: 24,
-                    bottom: 16,
-                  ),
-                  child: Text(
-                    //"${totalTaman.toString()} Senarai Taman",
-                    "Pilih Taman",
-                    style: TextStyle(
-                      color: Color(0xff969696),
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-                const Divider(
-                  thickness: 1,
-                  color: Color(0xffE5E5E5),
-                  indent: 25,
-                  endIndent: 25,
-                ),
-                FutureBuilder<List>(
-                  future: TamanApi.getTamanData(context),
-                  builder: (context, snapshot) {
-                    final dataFuture = snapshot.data;
-
-                    switch (snapshot.connectionState) {
-                      case ConnectionState.waiting:
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-
-                      default:
-                        if (snapshot.hasError) {
-                          return const Center(
-                            child: Text("Some error occured!"),
-                          );
-                        } else {
-                          //checking if there is sub laluan id is passed, else show all
-                          if (widget.subRoutesId != null &&
-                              widget.subRoutesId != 0) {
-                            dataFuture!.removeWhere((item) =>
-                                item.idSubLaluan != widget.subRoutesId);
-                          }
-
-                          if (dataFuture!.isEmpty) {
-                            return Center(
-                              child: Container(
-                                margin: const EdgeInsets.all(20),
-                                child: const Text("Tiada data"),
+          return Container(
+              padding: const EdgeInsets.only(top: 5),
+              child: ScrollConfiguration(
+                  behavior: CustomScrollBehavior(),
+                  child: SingleChildScrollView(
+                      child: Wrap(children: [
+                    Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Divider(
+                            thickness: 0.5,
+                            color: Color(0xff969696),
+                            indent: 160,
+                            endIndent: 160,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              top: 20,
+                              left: 30,
+                              bottom: 10,
+                            ),
+                            child: Text(
+                              "Pilih Taman",
+                              style: TextStyle(
+                                color: greyCustom,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
                               ),
-                            );
-                          } else {
-                            return Expanded(
-                              child: Container(
-                                margin: const EdgeInsets.symmetric(
-                                  horizontal: 10,
-                                ),
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 10),
-                                child: ListView.builder(
-                                  physics: const BouncingScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemCount: dataFuture.length,
-                                  itemBuilder: (context, index) {
-                                    return InkWell(
-                                      onTap: () {
-                                        if (widget.showSenaraiJalan != null) {
-                                          widget.showSenaraiJalan!(
-                                              dataFuture[index].id,
-                                              dataFuture[index].namaTaman);
-                                        }
-
-                                        setState(() {
-                                          namaTaman.text =
-                                              dataFuture[index].namaTaman;
-                                          if (namaTaman.text != "") {
-                                            selectedIndex = index;
+                            ),
+                          ),
+                          const Padding(
+                            padding:
+                                EdgeInsets.only(left: 26, right: 26, top: 8),
+                            child: Divider(height: 0.5),
+                          ),
+                          Padding(
+                              padding: const EdgeInsets.only(bottom: 10),
+                              child: FutureBuilder<List>(
+                                  future: TamanApi.getTamanData(context),
+                                  builder: (context, snapshot) {
+                                    final dataFuture = snapshot.data;
+                                    switch (snapshot.connectionState) {
+                                      case ConnectionState.waiting:
+                                        return const Center(
+                                          child: CircularProgressIndicator(),
+                                        );
+                                      default:
+                                        if (snapshot.hasError) {
+                                          return const Center(
+                                            child: Text("Some error occured!"),
+                                          );
+                                        } else {
+                                          //checking if there is sub laluan id is passed, else show all
+                                          if (widget.subRoutesId != null &&
+                                              widget.subRoutesId != 0) {
+                                            dataFuture!.removeWhere((item) =>
+                                                item.idSubLaluan !=
+                                                widget.subRoutesId);
                                           }
-                                          Navigator.pop(context);
-                                        });
-                                      },
-                                      child: Container(
-                                        margin: const EdgeInsets.symmetric(
-                                            vertical: 12),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              dataFuture[index].namaTaman,
-                                              style: TextStyle(
-                                                color: blackCustom,
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.w400,
+                                          if (dataFuture!.isEmpty) {
+                                            return Center(
+                                              child: Container(
+                                                margin:
+                                                    const EdgeInsets.all(20),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    const Icon(
+                                                        CustomIcon.exclamation,
+                                                        color: Colors.orange,
+                                                        size: 14),
+                                                    const SizedBox(width: 10),
+                                                    Text(
+                                                        "Tiada senarai taman dijumpai",
+                                                        style: TextStyle(
+                                                            color: grey500)),
+                                                  ],
+                                                ),
                                               ),
-                                            ),
-                                            Icon(
-                                                namaTaman.text != "" &&
-                                                        selectedIndex == index
-                                                    ? CustomIcon.checkedBox
-                                                    : null,
-                                                color: green,
-                                                size: 18)
-                                          ],
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            );
-                          }
-                        }
-                    }
-                  },
-                ),
-              ],
-            ),
-          );
+                                            );
+                                          } else {
+                                            return Container(
+                                                margin:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 10),
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 15),
+                                                child: ListView.builder(
+                                                    physics:
+                                                        const NeverScrollableScrollPhysics(),
+                                                    shrinkWrap: true,
+                                                    itemCount:
+                                                        dataFuture.length,
+                                                    itemBuilder:
+                                                        (context, index) {
+                                                      return InkWell(
+                                                          onTap: () {
+                                                            if (widget
+                                                                    .showSenaraiJalan !=
+                                                                null) {
+                                                              widget.showSenaraiJalan!(
+                                                                  dataFuture[
+                                                                          index]
+                                                                      .id,
+                                                                  dataFuture[
+                                                                          index]
+                                                                      .namaTaman);
+                                                            }
+                                                            setState(() {
+                                                              namaTaman.text =
+                                                                  dataFuture[
+                                                                          index]
+                                                                      .namaTaman;
+                                                              if (namaTaman
+                                                                      .text !=
+                                                                  "") {
+                                                                selectedIndex =
+                                                                    index;
+                                                              }
+                                                              Navigator.pop(
+                                                                  context);
+                                                            });
+                                                          },
+                                                          child: Container(
+                                                              margin: const EdgeInsets
+                                                                      .symmetric(
+                                                                  vertical: 16),
+                                                              child: Row(
+                                                                  children: [
+                                                                    Icon(
+                                                                        namaTaman.text != "" && selectedIndex == index
+                                                                            ? Icons
+                                                                                .check
+                                                                            : null,
+                                                                        color:
+                                                                            green,
+                                                                        size:
+                                                                            18),
+                                                                    const SizedBox(
+                                                                        width:
+                                                                            8),
+                                                                    Text(
+                                                                        dataFuture[index]
+                                                                            .namaTaman,
+                                                                        style:
+                                                                            TextStyle(
+                                                                          color:
+                                                                              blackCustom,
+                                                                          fontSize:
+                                                                              15,
+                                                                          fontWeight: namaTaman.text != "" && selectedIndex == index
+                                                                              ? FontWeight.w600
+                                                                              : FontWeight.w400,
+                                                                        ))
+                                                                  ])));
+                                                    }));
+                                          }
+                                        }
+                                    }
+                                  }))
+                        ])
+                  ]))));
         });
     return null;
   }

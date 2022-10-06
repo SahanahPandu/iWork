@@ -5,6 +5,7 @@ import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../../config/string.dart';
 import '../../providers/jalan_api.dart';
+import '../../utils/custom_icon.dart';
 import '../../utils/device/sizes.dart';
 import 'list_of_road_details.dart';
 
@@ -80,11 +81,19 @@ class _ListOfRoadState extends State<ListOfRoad> {
                           ? Sizes().screenHeight(context) * 0.24
                           : Sizes().screenHeight(context) * 0.18,
                       child: Container(
-                        margin: const EdgeInsets.fromLTRB(25, 15, 25, 15),
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 25, vertical: 15),
                         alignment: Alignment.topLeft,
-                        child: Text(
-                          notFoundStreet,
-                          style: TextStyle(color: grey400),
+                        child: Row(
+                          children: [
+                            const Icon(CustomIcon.exclamation,
+                                color: Colors.orange, size: 14),
+                            const SizedBox(width: 10),
+                            Text(
+                              notFoundStreet,
+                              style: TextStyle(color: grey400),
+                            ),
+                          ],
                         ),
                       ),
                     );

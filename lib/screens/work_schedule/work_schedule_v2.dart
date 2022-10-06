@@ -27,12 +27,14 @@ class _WorkScheduleState extends State<WorkSchedule> {
   int iconCondition = 1;
   int idSubLaluan = 0;
   String namaTaman = "";
+  String namaSublaluan = "";
 
-  updateSenaraiTaman(id) {
+  updateSenaraiTaman(id, [name]) {
     setState(() {
       tamanKey.currentState?.namaTaman.clear();
       _showSenaraiTaman = true;
       idSubLaluan = id;
+      namaSublaluan = name;
     });
   }
 

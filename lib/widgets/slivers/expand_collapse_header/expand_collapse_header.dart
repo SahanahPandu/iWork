@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 
 //import files
+import '../../../config/config.dart';
 import '../../../config/palette.dart';
 
 class ExpandCollapseHeader extends StatefulWidget {
@@ -34,36 +35,38 @@ class ExpandCollapseHeader extends StatefulWidget {
   final double? collapseFade;
   final FloatingActionButtonLocation? floatingActionButtonLocation;
   final FloatingActionButtonAnimator? floatingActionButtonAnimator;
+  final bool collapseButton;
 
-  const ExpandCollapseHeader({
-    Key? key,
-    this.leading,
-    required this.title,
-    this.centerTitle = true,
-    this.actions,
-    this.alwaysShowLeadingAndAction = false,
-    this.alwaysShowTitle = false,
-    this.headerExpandedHeight = 0.4,
-    required this.headerWidget,
-    this.headerBottomBar,
-    this.backgroundColor,
-    this.appBarColor,
-    this.curvedBodyRadius = 28,
-    required this.body,
-    this.drawer,
-    this.fullyStretchable = false,
-    this.stretchTriggerOffset = 200,
-    this.expandedBody,
-    this.stretchMaxHeight = 0.8,
-    this.bottomSheet,
-    this.fixedTitle,
-    this.fixedTitleHeight = 20,
-    this.collapseHeight = 120,
-    this.collapseFade = 60,
-    this.floatingActionButton,
-    this.floatingActionButtonLocation,
-    this.floatingActionButtonAnimator,
-  })  : assert(headerExpandedHeight > 0.0 &&
+  const ExpandCollapseHeader(
+      {Key? key,
+      this.leading,
+      required this.title,
+      this.centerTitle = true,
+      this.actions,
+      this.alwaysShowLeadingAndAction = false,
+      this.alwaysShowTitle = false,
+      this.headerExpandedHeight = 0.4,
+      required this.headerWidget,
+      this.headerBottomBar,
+      this.backgroundColor,
+      this.appBarColor,
+      this.curvedBodyRadius = 28,
+      required this.body,
+      this.drawer,
+      this.fullyStretchable = false,
+      this.stretchTriggerOffset = 200,
+      this.expandedBody,
+      this.stretchMaxHeight = 0.8,
+      this.bottomSheet,
+      this.fixedTitle,
+      this.fixedTitleHeight = 20,
+      this.collapseHeight = 120,
+      this.collapseFade = 60,
+      this.floatingActionButton,
+      this.floatingActionButtonLocation,
+      this.floatingActionButtonAnimator,
+      this.collapseButton = false})
+      : assert(headerExpandedHeight > 0.0 &&
             headerExpandedHeight < stretchMaxHeight),
         assert(
           (stretchMaxHeight > headerExpandedHeight) && (stretchMaxHeight < .95),
@@ -76,12 +79,38 @@ class ExpandCollapseHeaderState extends State<ExpandCollapseHeader> {
       BehaviorSubject<bool>.seeded(false);
   final BehaviorSubject<bool> isFullyCollapsed =
       BehaviorSubject<bool>.seeded(false);
+  late ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    if (widget.collapseButton) {
+      _showButton();
+    } else {}
+    super.initState();
+  }
 
   @override
   void dispose() {
     isFullyExpanded.close();
     isFullyCollapsed.close();
+    _scrollController.dispose();
     super.dispose();
+  }
+
+  void _showButton() {
+    /// controller checks offset to show/hide button
+    _scrollController = ScrollController()
+      ..addListener(() {
+        setState(() {
+          if (_scrollController.offset >= 35) {
+            /// hide report button
+            button.value = false;
+          } else {
+            /// show report button
+            button.value = true;
+          }
+        });
+      });
   }
 
   @override
@@ -143,6 +172,7 @@ class ExpandCollapseHeaderState extends State<ExpandCollapseHeader> {
     double topPadding,
   ) {
     return CustomScrollView(
+      controller: _scrollController,
       //physics: const BouncingScrollPhysics(),
       slivers: [
         StreamBuilder<List<bool>>(
