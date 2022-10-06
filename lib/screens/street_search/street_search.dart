@@ -24,12 +24,14 @@ class _StreetSearchState extends State<StreetSearch> {
   int iconCondition = 1;
   int idSubLaluan = 0;
   String namaTaman = "";
+  String namaSublaluan = "";
 
-  updateSenaraiTaman(id) {
+  updateSenaraiTaman(id, [name]) {
     setState(() {
       tamanKey.currentState?.namaTaman.clear();
       _showSenaraiTaman = true;
       idSubLaluan = id;
+      namaSublaluan = name;
     });
   }
 
@@ -62,7 +64,7 @@ class _StreetSearchState extends State<StreetSearch> {
                 fontSize: 15,
                 fillColor: Colors.white,
                 iconCondition: iconCondition,
-                data: "",
+                data: namaSublaluan,
                 screen: "Work Schedule",
                 getSubLaluanId: updateSenaraiTaman,
               ),
@@ -83,7 +85,7 @@ class _StreetSearchState extends State<StreetSearch> {
                   fontSize: 15,
                   fillColor: Colors.white,
                   iconCondition: iconCondition,
-                  data: "",
+                  data: namaTaman,
                   screen: "Work Schedule",
                 ),
               ),

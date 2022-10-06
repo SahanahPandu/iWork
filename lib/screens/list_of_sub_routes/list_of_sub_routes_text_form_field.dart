@@ -15,7 +15,7 @@ class ListOfSubRoutesTextFormField extends StatefulWidget {
   final int iconCondition;
   final String data;
   final String? screen;
-  final Function(dynamic)? getSubLaluanId;
+  final Function(dynamic, dynamic)? getSubLaluanId;
 
   const ListOfSubRoutesTextFormField({
     Key? key,
@@ -218,7 +218,9 @@ class ListOfSubRoutesTextFormFieldState
                                               setState(() {
                                                 widget.getSubLaluanId != null
                                                     ? widget.getSubLaluanId!(
-                                                        dataFuture[index].id)
+                                                        dataFuture[index].id,
+                                                        dataFuture[index]
+                                                            .namaSubLaluan)
                                                     : null;
                                                 namaSubLaluan.text =
                                                     dataFuture[index]
