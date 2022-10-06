@@ -30,7 +30,7 @@ String confirmEndWork =
 String endWork = 'Leretkan Ke Kiri Untuk Tamat Tugas';
 String doVcFirst =
     'Pastikan anda mengisi borang semak kenderaan terlebih dahulu sebelum memulakan tugasan kerja';
-String notFoundStreet = 'Tiada Senarai Jalan dijumpai!';
+String notFoundStreet = 'Tiada senarai jalan dijumpai!';
 String noEmployeeFound = 'Tiada Senarai Pekerja dijumpai!';
 String fillUpVC =
     'Lengkapkan borang semakan kenderaan sebelum keluar di bawah :';

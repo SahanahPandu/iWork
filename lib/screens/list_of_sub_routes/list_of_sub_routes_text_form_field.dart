@@ -5,8 +5,8 @@ import '../../config/config.dart';
 import '../../config/font.dart';
 import '../../config/palette.dart';
 import '../../providers/sub_laluan_api.dart';
-import '../../utils/custom_icon.dart';
 import '../../utils/device/orientations.dart';
+import '../../widgets/custom_scroll/custom_scroll.dart';
 
 class ListOfSubRoutesTextFormField extends StatefulWidget {
   final String hintText;
@@ -138,131 +138,139 @@ class ListOfSubRoutesTextFormFieldState
             ? (Orientations().isLandscape(context)
                 ? const BoxConstraints(maxWidth: 500, maxHeight: 400)
                 : const BoxConstraints(maxWidth: 500, maxHeight: 450))
-            : null,
+            : const BoxConstraints(maxHeight: 380),
         context: context,
         builder: (builder) {
-          return SizedBox(
-            height: userRole == 100
-                ? null
-                : MediaQuery.of(context).size.height * 0.5,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(
-                  height: 2,
-                ),
-                const Divider(
-                  thickness: 1,
-                  color: Color(0xff969696),
-                  indent: 170,
-                  endIndent: 170,
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(
-                    top: 24,
-                    left: 24,
-                    bottom: 16,
-                  ),
-                  child: Text(
-                    //"${totalSubLaluan.toString()} Senarai Sub Laluan",
-                    "Pilih Sub-Laluan",
-                    style: TextStyle(
-                      color: Color(0xff969696),
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-                const Divider(
-                  thickness: 1,
-                  color: Color(0xffE5E5E5),
-                  indent: 25,
-                  endIndent: 25,
-                ),
-                FutureBuilder<List>(
-                  future: SubLaluanApi.getSubLaluanData(context),
-                  builder: (context, snapshot) {
-                    final dataFuture = snapshot.data;
+          return Container(
+            padding: const EdgeInsets.only(top: 5),
+            child: ScrollConfiguration(
+              behavior: CustomScrollBehavior(),
+              child: SingleChildScrollView(
+                child: Wrap(children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Divider(
+                        thickness: 1,
+                        color: Color(0xff969696),
+                        indent: 160,
+                        endIndent: 160,
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(
+                          top: 20,
+                          left: 30,
+                          bottom: 10,
+                        ),
+                        child: Text(
+                          "Pilih Sub-Laluan",
+                          style: TextStyle(
+                            color: Color(0xff969696),
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 26, right: 26, top: 8),
+                        child: Divider(height: 0.5),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: FutureBuilder<List>(
+                          future: SubLaluanApi.getSubLaluanData(context),
+                          builder: (context, snapshot) {
+                            final dataFuture = snapshot.data;
 
-                    switch (snapshot.connectionState) {
-                      case ConnectionState.waiting:
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
+                            switch (snapshot.connectionState) {
+                              case ConnectionState.waiting:
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
 
-                      default:
-                        if (snapshot.hasError) {
-                          return const Center(
-                            child: Text("Some error occured!"),
-                          );
-                        } else {
-                          if (dataFuture!.isEmpty) {
-                            return Center(
-                              child: Container(
-                                margin: const EdgeInsets.all(20),
-                                child: const Text("Tiada data"),
-                              ),
-                            );
-                          } else {
-                            return Expanded(
-                              child: Container(
-                                margin:
-                                    const EdgeInsets.symmetric(horizontal: 10),
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 10),
-                                child: ListView.builder(
-                                  physics: const BouncingScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemCount: dataFuture.length,
-                                  itemBuilder: (context, index) {
-                                    return InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          widget.getSubLaluanId != null
-                                              ? widget.getSubLaluanId!(
-                                                  dataFuture[index].id)
-                                              : null;
-                                          namaSubLaluan.text =
-                                              dataFuture[index].namaSubLaluan;
-                                          selectedIndex = index;
-                                          Navigator.pop(context);
-                                        });
-                                      },
+                              default:
+                                if (snapshot.hasError) {
+                                  return const Center(
+                                    child: Text("Some error occured!"),
+                                  );
+                                } else {
+                                  if (dataFuture!.isEmpty) {
+                                    return Center(
                                       child: Container(
-                                        margin: const EdgeInsets.symmetric(
-                                            vertical: 12),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              dataFuture[index].namaSubLaluan,
-                                              style: TextStyle(
-                                                color: blackCustom,
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.w400,
-                                              ),
-                                            ),
-                                            Icon(
-                                                selectedIndex == index
-                                                    ? CustomIcon.checkedBox
-                                                    : null,
-                                                color: green,
-                                                size: 18)
-                                          ],
-                                        ),
+                                        margin: const EdgeInsets.all(20),
+                                        child: const Text("Tiada data"),
                                       ),
                                     );
-                                  },
-                                ),
-                              ),
-                            );
-                          }
-                        }
-                    }
-                  },
-                ),
-              ],
+                                  } else {
+                                    return Container(
+                                      margin: const EdgeInsets.symmetric(
+                                          horizontal: 10),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 15),
+                                      child: ListView.builder(
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
+                                        shrinkWrap: true,
+                                        itemCount: dataFuture.length,
+                                        itemBuilder: (context, index) {
+                                          return InkWell(
+                                            onTap: () {
+                                              setState(() {
+                                                widget.getSubLaluanId != null
+                                                    ? widget.getSubLaluanId!(
+                                                        dataFuture[index].id)
+                                                    : null;
+                                                namaSubLaluan.text =
+                                                    dataFuture[index]
+                                                        .namaSubLaluan;
+                                                selectedIndex = index;
+                                                Navigator.pop(context);
+                                              });
+                                            },
+                                            child: Container(
+                                              margin:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 16),
+                                              child: Row(
+                                                children: [
+                                                  Icon(
+                                                      selectedIndex == index
+                                                          ? Icons.check
+                                                          : null,
+                                                      color: green,
+                                                      size: 18),
+                                                  const SizedBox(width: 8),
+                                                  Text(
+                                                      dataFuture[index]
+                                                          .namaSubLaluan,
+                                                      style: TextStyle(
+                                                        color: blackCustom,
+                                                        fontSize: 15,
+                                                        fontWeight:
+                                                            selectedIndex ==
+                                                                    index
+                                                                ? FontWeight
+                                                                    .w600
+                                                                : FontWeight
+                                                                    .w400,
+                                                      )),
+                                                ],
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    );
+                                  }
+                                }
+                            }
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ]),
+              ),
             ),
           );
         });
