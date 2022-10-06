@@ -20,8 +20,6 @@ class WorkSchedule extends StatefulWidget {
 }
 
 class _WorkScheduleState extends State<WorkSchedule> {
-  final bool _showSenaraiJalan = false;
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -37,49 +35,50 @@ class _WorkScheduleState extends State<WorkSchedule> {
         ),
       ),
       child: Scaffold(
-        backgroundColor: transparent,
-        appBar: AppBar(
-          systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarColor: white,
-            statusBarIconBrightness: Brightness.dark, //android
-            statusBarBrightness: Brightness.light, //ios
-          ),
           backgroundColor: transparent,
-          elevation: 0,
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(CustomIcon.arrowBack, color: white, size: 22),
-          ),
-          title: Center(
-            child: Text(
-              "Perincian Laluan",
-              style: TextStyle(
-                fontSize: 15,
-                color: white,
-                fontWeight: FontWeight.w400,
+          appBar: AppBar(
+            systemOverlayStyle: SystemUiOverlayStyle(
+              statusBarColor: white,
+              statusBarIconBrightness: Brightness.dark, //android
+              statusBarBrightness: Brightness.light, //ios
+            ),
+            backgroundColor: transparent,
+            elevation: 0,
+            leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Icon(CustomIcon.arrowBack, color: white, size: 22),
+            ),
+            title: Center(
+              child: Text(
+                "Perincian Laluan",
+                style: TextStyle(
+                  fontSize: 15,
+                  color: white,
+                  fontWeight: FontWeight.w400,
+                ),
               ),
             ),
+            actions: const [
+              SizedBox(
+                width: 50,
+              )
+            ],
           ),
-          actions: const [
-            SizedBox(
-              width: 50,
-            )
-          ],
-        ),
-        body: ScrollConfiguration(
-            behavior:
-                const MaterialScrollBehavior().copyWith(overscroll: false),
-            child: _getUserWorkSchedule()),
-        floatingActionButton: userRole == 200
-            ? Container(
-                margin: _showSenaraiJalan
-                    ? const EdgeInsets.only(right: 45, bottom: 10)
-                    : const EdgeInsets.all(0),
-                child: ReportButton(dataLaluan: widget.data))
-            : null,
-      ),
+          body: ScrollConfiguration(
+              behavior:
+                  const MaterialScrollBehavior().copyWith(overscroll: false),
+              child: _getUserWorkSchedule()),
+          floatingActionButton: ValueListenableBuilder(
+              valueListenable: button,
+              builder: (context, value, Widget? child) {
+                if (userRole == 100 || userRole == 200 && value == true) {
+                  return ReportButton(dataLaluan: widget.data);
+                } else {
+                  return Container();
+                }
+              })),
     );
   }
 

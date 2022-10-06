@@ -39,7 +39,8 @@ class _PraWorkScheduleMainState extends State<PraWorkScheduleMain> {
         fixedTitle: _fixedTitle(context),
         fixedTitleHeight: 60,
         backgroundColor: transparent,
-        appBarColor: collapseBgColor);
+        appBarColor: collapseBgColor,
+        collapseButton: true);
   }
 
   SafeArea _scrollBody() {
