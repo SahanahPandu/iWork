@@ -5,6 +5,8 @@ import '../../config/palette.dart';
 import '../../models/penyelia_checkbox.dart';
 import '../../providers/penyelia_api.dart';
 
+List<dynamic> selectedName = [];
+
 Widget? showListOfSupervisor(passContext, updateSvNameList) {
   showModalBottomSheet(
     isScrollControlled: true,
@@ -99,7 +101,8 @@ Widget? showListOfSupervisor(passContext, updateSvNameList) {
                   Container(
                     width: MediaQuery.of(context).size.width,
                     margin: const EdgeInsets.all(10),
-                    child: selectButton(passContext, updateSvNameList, []),
+                    child: selectButton(
+                        passContext, updateSvNameList, selectedName),
                   ),
                 ],
               ),
@@ -140,14 +143,22 @@ Widget selectButton(
 Widget svCheckBoxList(PenyeliaCheckBox dataPenyelia) => StatefulBuilder(
       builder: (BuildContext context, StateSetter setState) {
         return CheckboxListTile(
-          contentPadding: EdgeInsets.zero,
-          visualDensity: VisualDensity.compact,
-          controlAffinity: ListTileControlAffinity.leading,
-          title: Text(dataPenyelia.namaPenyelia),
-          value: dataPenyelia.valueCheckbox,
-          activeColor: const Color(0xff34A853),
-          onChanged: (newValue) =>
-              setState(() => dataPenyelia.valueCheckbox = newValue!),
-        );
+            contentPadding: EdgeInsets.zero,
+            visualDensity: VisualDensity.compact,
+            controlAffinity: ListTileControlAffinity.leading,
+            title: Text(dataPenyelia.namaPenyelia),
+            value: dataPenyelia.valueCheckbox,
+            activeColor: const Color(0xff34A853),
+            onChanged: (newValue) {
+              //add selected/tick sv name into new list
+              //removed name from new list if untick
+              if (newValue == true) {
+                selectedName.add(dataPenyelia);
+              } else {
+                selectedName.remove(dataPenyelia);
+              }
+
+              setState(() => dataPenyelia.valueCheckbox = newValue!);
+            });
       },
     );

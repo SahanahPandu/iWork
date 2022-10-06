@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../config/palette.dart';
+import '../../models/penyelia_checkbox.dart';
+import '../../providers/penyelia_api.dart';
 import '../../utils/device/sizes.dart';
 import '../../widgets/app_bar/app_bar_widget.dart';
 import '../../widgets/search_box/search_box.dart';
 import '../list_of_employees/absent_employee_details.dart';
 import '../list_of_employees/list_of_employees.dart';
-import '../list_of_supervisor/list_of_supervisor.dart';
 
 class EmployeeList extends StatefulWidget {
   final dynamic absentEmployee;
@@ -27,6 +28,8 @@ class _EmployeeListState extends State<EmployeeList> {
   String? searchName;
   List<dynamic> svNameList = [];
   List<dynamic> svIdList = [];
+  List<PenyeliaCheckBox> allSVName = [];
+  List<dynamic> selectedSVName = [];
   Color collapseBgColor = const Color(0xff2b7fe8);
 
   void getSearchName(name) {
@@ -36,10 +39,14 @@ class _EmployeeListState extends State<EmployeeList> {
   }
 
   void getSearchSVName(svData) {
-    setState(() {
-      svNameList.add(svData);
-      svIdList.add(svData.id);
-    });
+    if (svData.isNotEmpty) {
+      setState(() {
+        svNameList.addAll(svData);
+        svIdList.addAll(svData.id);
+      });
+    } else {
+      // print("empty");
+    }
   }
 
   @override
@@ -69,7 +76,7 @@ class _EmployeeListState extends State<EmployeeList> {
           listOfWidget: [
             IconButton(
               onPressed: () {
-                showListOfSupervisor(context, getSearchSVName);
+                showListOfSupervisor();
               },
               icon: Icon(
                 Icons.filter_alt_rounded,
@@ -114,58 +121,109 @@ class _EmployeeListState extends State<EmployeeList> {
                     //Search Box for Employee name
                     if (svNameList.isEmpty)
                       Expanded(
+                        flex: 0,
                         child: SearchBoxWidget(
                           labelText: 'Carian',
                           searchedName: getSearchName,
                         ),
                       ),
 
-                    //Selected Sv Names
-                    if (svNameList.isNotEmpty)
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: 25,
-                        padding: const EdgeInsets.only(left: 8),
-                        child: ListView.separated(
-                          physics: const BouncingScrollPhysics(),
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          separatorBuilder: (context, index) {
-                            return const SizedBox(
-                              width: 8,
-                            );
-                          },
-                          itemCount: svNameList.length,
-                          itemBuilder: (context, index) {
-                            return InkWell(
-                              onTap: () {
-                                if (svNameList.isNotEmpty) {
-                                  setState(() {
-                                    svNameList.remove(svNameList[index]);
-                                    svIdList.remove(svIdList[index]);
-                                  });
-                                }
-                              },
-                              child: _showSelectedSvName(svNameList[index]),
-                            );
-                          },
+                    //list of selected sv name
+                    if (selectedSVName.isNotEmpty)
+                      Expanded(
+                        flex: 0,
+                        child: Column(
+                          children: [
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            const Divider(
+                              thickness: 1,
+                              color: Color(0xffE5E5E5),
+                            ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            Row(
+                              children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        selectedSVName.clear();
+                                      });
+                                    },
+                                    child: Container(
+                                      height: 30,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        border: Border.all(
+                                          color: const Color(0xffD9D9D9),
+                                        ),
+                                        borderRadius: BorderRadius.circular(26),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          "Reset",
+                                          style: TextStyle(
+                                            color: blackCustom,
+                                            fontSize: 11,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 8,
+                                ),
+                                Expanded(
+                                  flex: 3,
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    height: 30,
+                                    padding: const EdgeInsets.only(left: 8),
+                                    child: ListView.separated(
+                                      physics: const BouncingScrollPhysics(),
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.horizontal,
+                                      separatorBuilder: (context, index) {
+                                        return const SizedBox(
+                                          width: 8,
+                                        );
+                                      },
+                                      itemCount: selectedSVName.length,
+                                      itemBuilder: (context, index) {
+                                        return InkWell(
+                                          onTap: () {},
+                                          child: _showSelectedSvName(
+                                              selectedSVName[index]),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
-                      ),
-                    if (svNameList.isNotEmpty)
-                      const SizedBox(
-                        height: 10,
                       ),
 
                     const SizedBox(
                       height: 24,
                     ),
                     //Employee List
-                    ListOfEmployees(
-                      type: "Senarai Hadir",
-                      idStatus: 1, // Hadir
-                      searchedName: searchName,
-                      assignedEmployee: widget.assignedEmployee,
-                      idSv: svIdList,
+                    Expanded(
+                      flex: 3,
+                      child: ListOfEmployees(
+                        type: "Senarai Hadir",
+                        idStatus: 1, // Hadir
+                        searchedName: searchName,
+                        assignedEmployee: widget.assignedEmployee,
+                        idSv: svIdList,
+                      ),
                     ),
                   ],
                 ),
@@ -177,17 +235,179 @@ class _EmployeeListState extends State<EmployeeList> {
     );
   }
 
+  Widget showListOfSupervisor() {
+    showModalBottomSheet(
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      context: context,
+      builder: (BuildContext context) {
+        return GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: () {
+            Navigator.of(context).pop();
+          },
+          child: DraggableScrollableSheet(
+            initialChildSize: 0.6,
+            builder: (_, scrollController) => Container(
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(20),
+                ),
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    height: 2,
+                  ),
+                  const Divider(
+                    thickness: 1,
+                    color: Color(0xff969696),
+                    indent: 170,
+                    endIndent: 170,
+                  ),
+                  const SizedBox(
+                    height: 24,
+                  ),
+                  const Text(
+                    "Pilih Penyelia",
+                    style: TextStyle(
+                      color: Color(0xff969696),
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  const Divider(
+                    thickness: 1,
+                    color: Color(0xffE5E5E5),
+                  ),
+                  const SizedBox(
+                    height: 24,
+                  ),
+                  Expanded(
+                    child: FutureBuilder<List>(
+                        future: PenyeliaApi.getPenyeliaData(context),
+                        builder: (context, snapshot) {
+                          final dataFuture = snapshot.data;
+
+                          switch (snapshot.connectionState) {
+                            case ConnectionState.waiting:
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+
+                            default:
+                              if (snapshot.hasError) {
+                                return const Center(
+                                  child: Text("Some error occured!"),
+                                );
+                              } else {
+                                allSVName = dataFuture!
+                                    .map((data) => PenyeliaCheckBox(
+                                        idPenyelia: data.id,
+                                        namaPenyelia: data.name))
+                                    .toList();
+
+                                return ListView.builder(
+                                    physics: const BouncingScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemCount: allSVName.length,
+                                    itemBuilder: (context, index) {
+                                      return svCheckBoxList(allSVName[index]);
+                                    });
+                              }
+                          }
+                        }),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    margin: const EdgeInsets.all(10),
+                    child: selectButton(),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+
+    return const SizedBox(
+      width: 0,
+      height: 0,
+    );
+  }
+
+  Widget svCheckBoxList(PenyeliaCheckBox dataPenyelia) {
+    return StatefulBuilder(
+        builder: (BuildContext context, StateSetter setState) {
+      return CheckboxListTile(
+          contentPadding: EdgeInsets.zero,
+          visualDensity: VisualDensity.compact,
+          controlAffinity: ListTileControlAffinity.leading,
+          title: Text(dataPenyelia.namaPenyelia),
+          value: dataPenyelia.valueCheckbox,
+          activeColor: const Color(0xff34A853),
+          onChanged: (newValue) {
+            setState(
+              () => dataPenyelia.valueCheckbox = newValue!,
+            );
+          });
+    });
+  }
+
+  Widget selectButton() {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+          primary: const Color(0xff34A853),
+          shadowColor: Colors.white,
+          elevation: 5,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(borderRadiusCircular),
+          )),
+      onPressed: () {
+        setState(() {
+          selectedSVName.clear();
+          selectedSVName.addAll(
+            allSVName.where((svName) => svName.valueCheckbox),
+          );
+
+          // svIdList.addAll(
+          //   allSVName.where((svName) => svName.valueCheckbox),
+          // );
+        });
+
+        Navigator.pop(context);
+        // updateSvNameList(selectedName);
+      },
+      child: const Text(
+        "Pilih",
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 15,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+    );
+  }
+
   Widget _showSelectedSvName(svData) {
     return Container(
+      // height: 30,
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         color: const Color(0xffC0E4FF),
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(26),
       ),
       child: Row(
         children: [
           Text(
-            "Penyelia ${svData.name}",
+            "${svData.namaPenyelia}",
             style: const TextStyle(
               color: Color(0xff005B9E),
               fontSize: 10,
