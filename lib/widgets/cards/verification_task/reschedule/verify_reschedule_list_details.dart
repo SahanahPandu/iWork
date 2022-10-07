@@ -38,56 +38,53 @@ class _VerifyRescheduleListDetailsState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                width: 200,
-                child: Text(widget.data!.name,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                        color: blackCustom,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w400)),
-              ),
-              Text("10/7/2022",
-                  style: TextStyle(
-                      color: blackCustom,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600)),
-            ],
-          ),
-          const SizedBox(height: 15),
+          Text("Penyelia",
+              style: TextStyle(
+                  fontSize: 13,
+                  color: blackCustom,
+                  fontWeight: FontWeight.w500)),
+          const SizedBox(height: 6),
           SizedBox(
-            width: _textSize().width,
-            height: _textSize().height,
-            child: Text(
-              "Penyelia ${widget.data!.reportsTo} mohon untuk meminjam PRA ${widget.data!.name} di bawah seliaan anda untuk tugasan Laluan JHBP-C01 pada 10/07/2022",
-              style: textStyle,
-              softWrap: true,
-              overflow: TextOverflow.ellipsis,
-              maxLines: 2,
-            ),
+            width: _textSize(widget.data!.reportsTo).width,
+            height: _textSize(widget.data!.reportsTo).height,
+            child: Text(widget.data!.reportsTo,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                    fontSize: 13,
+                    color: greyCustom,
+                    fontWeight: FontWeight.w400)),
+          ),
+          const SizedBox(height: 10),
+          Text("PRA",
+              style: TextStyle(
+                  fontSize: 13,
+                  color: blackCustom,
+                  fontWeight: FontWeight.w500)),
+          const SizedBox(height: 6),
+          SizedBox(
+            width: _textSize(widget.data!.name).width,
+            height: _textSize(widget.data!.name).height,
+            child: Text(widget.data!.name,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                    fontSize: 13,
+                    color: greyCustom,
+                    fontWeight: FontWeight.w400)),
           ),
         ],
       ),
     );
   }
 
-  final TextStyle textStyle = TextStyle(
-      color: greyCustom,
-      fontSize: 13,
-      height: 1.5,
-      fontWeight: FontWeight.w400);
+  final TextStyle textStyle =
+      TextStyle(fontSize: 13, color: greyCustom, fontWeight: FontWeight.w400);
 
-  Size _textSize() {
+  Size _textSize(String text) {
     final TextPainter textPainter = TextPainter(
-        text: TextSpan(
-            text:
-                "Penyelia ${widget.data!.reportsTo} mohon untuk meminjam PRA ${widget.data!.name} di bawah seliaan anda untuk tugasan Laluan JHBP-C01 pada 10/07/2022",
-            style: textStyle),
-        maxLines: 2,
+        text: TextSpan(text: text, style: textStyle),
+        maxLines: 1,
         textAlign: TextAlign.left,
         textDirection: TextDirection.ltr)
       ..layout(minWidth: 0, maxWidth: Sizes().screenWidth(context));
