@@ -98,12 +98,12 @@ class ExpandCollapseHeaderState extends State<ExpandCollapseHeader> {
   }
 
   void _showButton() {
-    /// controller checks offset to show/hide button
+    /// controller checks offset to show/hide/move button
     _scrollController = ScrollController()
       ..addListener(() {
         setState(() {
-          if (_scrollController.offset >= 35) {
-            /// hide report button
+          if (_scrollController.offset >= 32) {
+            /// hide/move report button
             button.value = false;
           } else {
             /// show report button

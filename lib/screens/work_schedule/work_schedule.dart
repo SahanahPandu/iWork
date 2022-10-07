@@ -21,6 +21,12 @@ class WorkSchedule extends StatefulWidget {
 
 class _WorkScheduleState extends State<WorkSchedule> {
   @override
+  void dispose() {
+    button.value = true;
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       height: Sizes().screenHeight(context),
@@ -73,7 +79,12 @@ class _WorkScheduleState extends State<WorkSchedule> {
           floatingActionButton: ValueListenableBuilder(
               valueListenable: button,
               builder: (context, value, Widget? child) {
-                if (userRole == 100 || userRole == 200 && value == true) {
+                if (userRole == 100 || userRole == 200 && value != true) {
+                  return Container(
+                      margin: const EdgeInsets.only(right: 45),
+                      child: ReportButton(dataLaluan: widget.data));
+                } else if (userRole == 100 ||
+                    userRole == 200 && value == true) {
                   return ReportButton(dataLaluan: widget.data);
                 } else {
                   return Container();

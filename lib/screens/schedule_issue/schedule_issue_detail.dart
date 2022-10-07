@@ -5,6 +5,7 @@ import '../../../config/palette.dart';
 import '../../../models/laluan.dart';
 import '../../../screens/work_schedule/supervisor/supervisor_work_schedule_details.dart';
 import '../../config/font.dart';
+import '../../widgets/buttons/contact_button.dart';
 import '../../widgets/container/status_container.dart';
 import '../../widgets/listview/card_list_view.dart';
 import '../../widgets/slivers/expand_collapse_header/expand_collapse_header.dart';
@@ -51,22 +52,31 @@ class _ScheduleIssueDetailState extends State<ScheduleIssueDetail> {
 
   @override
   Widget build(BuildContext context) {
-    return ExpandCollapseHeader(
-        centerTitle: false,
-        title: _collapseTitle(),
-        headerExpandedHeight: 0.52,
-        alwaysShowLeadingAndAction: false,
-        headerWidget: _header(context),
-        fullyStretchable: true,
-        body: [
-          _scrollBody(),
-        ],
-        curvedBodyRadius: 24,
-        fixedTitle: _fixedTitle(context),
-        fixedTitleHeight: 60,
-        collapseFade: 70,
-        backgroundColor: transparent,
-        appBarColor: collapseBgColor);
+    return Stack(children: [
+      ExpandCollapseHeader(
+          centerTitle: false,
+          title: _collapseTitle(),
+          headerExpandedHeight: 0.52,
+          alwaysShowLeadingAndAction: false,
+          headerWidget: _header(context),
+          fullyStretchable: true,
+          body: [
+            _scrollBody(),
+          ],
+          curvedBodyRadius: 24,
+          fixedTitle: _fixedTitle(context),
+          fixedTitleHeight: 60,
+          collapseFade: 70,
+          backgroundColor: transparent,
+          appBarColor: collapseBgColor,
+          collapseButton: widget.getIssue == "belum" ? true : false),
+      widget.getIssue == "belum"
+          ? Positioned(
+              bottom: 25,
+              right: -10,
+              child: ContactButton(data: widget.getInfo))
+          : Container()
+    ]);
   }
 
   SafeArea _scrollBody() {
