@@ -76,7 +76,8 @@ class _ListOfRoadState extends State<ListOfRoad> {
                   }
 
                   if (newList.isEmpty) {
-                    return SizedBox(
+                    return Container(
+                      color: white,
                       height: userRole == 200
                           ? Sizes().screenHeight(context) * 0.24
                           : Sizes().screenHeight(context) * 0.18,

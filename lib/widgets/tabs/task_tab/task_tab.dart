@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../../config/palette.dart';
-import 'supervisor/issue_tab_bar_view.dart';
-import 'supervisor/verification_tab_bar_view.dart';
+import '../../../screens/schedule_verification/schedule_verification_main.dart';
+import '../../listview/card_list_view.dart';
+
+/// temporarily disable tabBarView
+//import 'supervisor/issue_tab_bar_view.dart';
+//import 'supervisor/verification_tab_bar_view.dart';
 
 class TaskStackOverTab extends StatefulWidget {
   const TaskStackOverTab({Key? key}) : super(key: key);
@@ -15,10 +19,13 @@ class TaskStackOverTab extends StatefulWidget {
 class TaskStackOverTabState extends State<TaskStackOverTab>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  ValueNotifier<bool> defaultTab = ValueNotifier(false);
 
   @override
   void initState() {
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController =
+        TabController(length: 2, animationDuration: Duration.zero, vsync: this);
+    defaultTab.value = true;
     super.initState();
   }
 
@@ -63,6 +70,13 @@ class TaskStackOverTabState extends State<TaskStackOverTab>
               unselectedLabelStyle:
                   const TextStyle(fontWeight: FontWeight.w400, fontSize: 14),
               unselectedLabelColor: greyCustom,
+              onTap: (index) {
+                if (index == 0) {
+                  defaultTab.value = true;
+                } else {
+                  defaultTab.value = false;
+                }
+              },
               tabs: const [
                 Tab(
                   text: 'Isu',
@@ -74,7 +88,33 @@ class TaskStackOverTabState extends State<TaskStackOverTab>
             ),
           ),
         ),
-        Expanded(
+        ValueListenableBuilder(
+            valueListenable: defaultTab,
+            builder: (BuildContext context, value, Widget? child) {
+              if (value == true) {
+                /// Issue cards listing
+                return Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
+                  constraints: const BoxConstraints(minHeight: 500),
+                  child: Column(
+                    children: const [
+                      SizedBox(height: 10),
+                      CardListView(type: 'Laluan', screens: "isu"),
+                    ],
+                  ),
+                );
+              } else {
+                /// Verification cards listing
+                return Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    color: white,
+                    child: const ScheduleVerificationMain());
+              }
+            }),
+
+        /// temporarily disable tabBarView
+        /*SizedBox(
+          height: 1000,
           child: TabBarView(
             controller: _tabController,
             children: const [
@@ -88,7 +128,7 @@ class TaskStackOverTabState extends State<TaskStackOverTab>
               ),
             ],
           ),
-        ),
+        ),*/
       ],
     );
   }

@@ -33,8 +33,7 @@ class _SupervisorState extends State<Supervisor> {
 
   SafeArea _scrollBody() {
     return SafeArea(
-        child: Container(
-            height: 860, color: white, child: const TaskStackOverTab()));
+        child: Container(color: white, child: const TaskStackOverTab()));
   }
 
   Row _collapseTitle() {
