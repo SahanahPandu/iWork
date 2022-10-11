@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 //import files
+import '../../../../config/config.dart';
 import '../../../../config/palette.dart';
 import '../../../../config/string.dart';
 import '../../../../providers/pekerja_api.dart';
@@ -120,10 +121,16 @@ class _AttendanceVerificationListState
                               children: [
                                 InkWell(
                                     onTap: () {
-                                      setState(() {
+                                      if (icon == CustomIcon.checkBoxEmpty) {
                                         icon = CustomIcon.checkedBox;
                                         iconColor = greenCustom;
-                                      });
+                                        allSelected.value = true;
+                                      } else {
+                                        icon = CustomIcon.checkBoxEmpty;
+                                        iconColor = greyCustom;
+                                        allSelected.value = false;
+                                      }
+                                      setState(() {});
                                     },
                                     child:
                                         Icon(icon, color: iconColor, size: 18)),

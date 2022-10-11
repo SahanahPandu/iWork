@@ -31,3 +31,6 @@ ValueNotifier<bool> rescheduleMainCard = ValueNotifier(true);
 
 /// ** Button : show/hide **
 ValueNotifier<bool> button = ValueNotifier(true);
+
+/// ** Select All Button **
+ValueNotifier <bool> allSelected = ValueNotifier(false);
