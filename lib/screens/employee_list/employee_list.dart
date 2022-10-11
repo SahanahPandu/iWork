@@ -1,3 +1,4 @@
+import 'package:eswm/models/penyelia.dart';
 import 'package:flutter/material.dart';
 
 //import files
@@ -29,24 +30,13 @@ class _EmployeeListState extends State<EmployeeList> {
   List<dynamic> svNameList = [];
   List<dynamic> svIdList = [];
   List<PenyeliaCheckBox> allSVName = [];
-  List<dynamic> selectedSVName = [];
+  List<PenyeliaCheckBox> selectedSVName = [];
   Color collapseBgColor = const Color(0xff2b7fe8);
 
   void getSearchName(name) {
     setState(() {
       searchName = name;
     });
-  }
-
-  void getSearchSVName(svData) {
-    if (svData.isNotEmpty) {
-      setState(() {
-        svNameList.addAll(svData);
-        svIdList.addAll(svData.id);
-      });
-    } else {
-      // print("empty");
-    }
   }
 
   @override
@@ -115,7 +105,6 @@ class _EmployeeListState extends State<EmployeeList> {
                   ),
                 ),
                 child: Column(
-                  // mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     //Search Box for Employee name
@@ -131,7 +120,7 @@ class _EmployeeListState extends State<EmployeeList> {
                     //list of selected sv name
                     if (selectedSVName.isNotEmpty)
                       Expanded(
-                        flex: 0,
+                        flex: 1,
                         child: Column(
                           children: [
                             const SizedBox(
@@ -144,17 +133,21 @@ class _EmployeeListState extends State<EmployeeList> {
                             const SizedBox(
                               height: 16,
                             ),
-                            Row(
-                              children: [
-                                Expanded(
-                                  flex: 1,
-                                  child: InkWell(
+                            SizedBox(
+                              height: 35,
+                              child: ListView(
+                                physics: const BouncingScrollPhysics(),
+                                scrollDirection: Axis.horizontal,
+                                children: [
+                                  InkWell(
                                     onTap: () {
                                       setState(() {
                                         selectedSVName.clear();
+                                        svIdList.clear();
                                       });
                                     },
                                     child: Container(
+                                      width: 60,
                                       height: 30,
                                       decoration: BoxDecoration(
                                         color: Colors.white,
@@ -163,6 +156,7 @@ class _EmployeeListState extends State<EmployeeList> {
                                         ),
                                         borderRadius: BorderRadius.circular(26),
                                       ),
+                                      padding: const EdgeInsets.all(8),
                                       child: Center(
                                         child: Text(
                                           "Reset",
@@ -175,18 +169,15 @@ class _EmployeeListState extends State<EmployeeList> {
                                       ),
                                     ),
                                   ),
-                                ),
-                                const SizedBox(
-                                  width: 8,
-                                ),
-                                Expanded(
-                                  flex: 3,
-                                  child: Container(
-                                    width: MediaQuery.of(context).size.width,
+                                  const SizedBox(
+                                    width: 8,
+                                  ),
+                                  Container(
                                     height: 30,
                                     padding: const EdgeInsets.only(left: 8),
                                     child: ListView.separated(
-                                      physics: const BouncingScrollPhysics(),
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
                                       shrinkWrap: true,
                                       scrollDirection: Axis.horizontal,
                                       separatorBuilder: (context, index) {
@@ -204,19 +195,22 @@ class _EmployeeListState extends State<EmployeeList> {
                                       },
                                     ),
                                   ),
-                                ),
-                              ],
+                                  const SizedBox(
+                                    width: 8,
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         ),
                       ),
 
                     const SizedBox(
-                      height: 24,
+                      height: 16,
                     ),
                     //Employee List
                     Expanded(
-                      flex: 3,
+                      flex: 5,
                       child: ListOfEmployees(
                         type: "Senarai Hadir",
                         idStatus: 1, // Hadir
@@ -372,18 +366,20 @@ class _EmployeeListState extends State<EmployeeList> {
           )),
       onPressed: () {
         setState(() {
+          // use to show list of selected sv name under search box
           selectedSVName.clear();
           selectedSVName.addAll(
             allSVName.where((svName) => svName.valueCheckbox),
           );
 
-          // svIdList.addAll(
-          //   allSVName.where((svName) => svName.valueCheckbox),
-          // );
+          //use to pass into List of Employee page , to filtered list of employee based on selected sv only
+          svIdList.clear();
+          for (var id in selectedSVName) {
+            svIdList.add(id.idPenyelia);
+          }
         });
 
         Navigator.pop(context);
-        // updateSvNameList(selectedName);
       },
       child: const Text(
         "Pilih",
@@ -417,10 +413,19 @@ class _EmployeeListState extends State<EmployeeList> {
           const SizedBox(
             width: 8,
           ),
-          const Icon(
-            Icons.close,
-            color: Color(0xff005B9E),
-            size: 12,
+          InkWell(
+            onTap: () {
+              selectedSVName.removeWhere(
+                  (name) => name.namaPenyelia == svData.namaPenyelia);
+              svIdList.removeWhere((id) => id == svData.idPenyelia);
+
+              setState(() {});
+            },
+            child: const Icon(
+              Icons.close,
+              color: Color(0xff005B9E),
+              size: 12,
+            ),
           ),
         ],
       ),

@@ -1,3 +1,4 @@
+// import 'package:eswm/models/penyelia_checkbox.dart';
 import 'package:flutter/material.dart';
 
 //import files
@@ -9,7 +10,7 @@ import 'list_of_employee_details.dart';
 class ListOfEmployees extends StatefulWidget {
   final String? type;
   final dynamic idPekerja;
-  final dynamic idSv;
+  final List<dynamic>? idSv;
   final int? idStatus;
   final String? searchedName;
   final Function(dynamic)? assignedEmployee;
@@ -61,19 +62,19 @@ class _ListOfEmployeesState extends State<ListOfEmployees> {
                             (item) => !widget.idPekerja.contains(item.id));
                       }
 
-                      //checking if there is idSv is passed, else show all
-                      if (widget.idSv != null && widget.idSv.isNotEmpty) {
+                      //checking if there is idSv is passed, else show all, list of selected sv
+                      if (widget.idSv != null && widget.idSv!.isNotEmpty) {
                         dataFuture!.removeWhere(
-                            (item) => !widget.idSv.contains(item.idSv));
+                            (item) => !widget.idSv!.contains(item.idSv));
                       }
 
-                      //checking attendance id status
+                      //checking attendance id status, Hadir/Tidak Hadir
                       if (widget.idStatus != null) {
                         dataFuture!.removeWhere(
                             (item) => item.idAttStatus != widget.idStatus);
                       }
 
-                      //checking searching string
+                      //checking searching string , from searching box
                       if (widget.searchedName != null) {
                         dataFuture = dataFuture!
                             .where((item) => item.name

@@ -134,7 +134,7 @@ class _EmployeeListState extends State<EmployeeList> {
                 idStatus: 1, // Hadir
                 searchedName: searchName,
                 assignedEmployee: widget.assignedEmployee,
-                idSv: svIdList,
+                idSv: const [],
               ),
             ],
           ),
