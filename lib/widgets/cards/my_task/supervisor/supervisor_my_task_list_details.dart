@@ -30,7 +30,6 @@ class _SupervisorMyTaskListDetailsState
   @override
   void initState() {
     super.initState();
-    // _filterData();
     _filterTaskIssueText(widget.data.isu);
   }
 
