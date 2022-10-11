@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../config/dimen.dart';
 import '../../config/palette.dart';
 import '../../config/resource.dart';
+import '../../utils/device/devices.dart';
 import '../../utils/device/sizes.dart';
 import '../login/login.dart';
 
@@ -47,8 +48,20 @@ class _SplashMainState extends State<SplashMain> with TickerProviderStateMixin {
                     AnimatedContainer(
                       duration: transitionDuration,
                       curve: Curves.fastOutSlowIn,
-                      height: !expanded ? 240 : logoHeight(context),
-                      width: !expanded ? 240 : logoWidth(context),
+                      height: Devices().isPhone()
+                          ? !expanded
+                              ? 200
+                              : logoHeight(context)
+                          : !expanded
+                              ? 300
+                              : logoHeight(context),
+                      width: Devices().isPhone()
+                          ? !expanded
+                              ? 240
+                              : logoWidth(context)
+                          : !expanded
+                              ? 350
+                              : logoWidth(context),
                       child: Image.asset(
                         splashImg,
                       ),
