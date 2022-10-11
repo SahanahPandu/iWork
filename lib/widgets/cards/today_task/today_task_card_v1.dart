@@ -99,11 +99,9 @@ class _TodayTaskCardState extends State<TodayTaskCard> {
         return SupervisorTodayTaskDetails(
             timeIn: timeIn, timeOut: timeOut, getTimeLog: getTimeLog);
       case 400:
-        return EOTodayTaskDetails(
-            timeIn: timeIn, timeOut: timeOut, getTimeLog: getTimeLog);
+        return const EOTodayTaskDetails();
       case 500:
-        return BATodayTaskDetails(
-            timeIn: timeIn, timeOut: timeOut, getTimeLog: getTimeLog);
+        return const BATodayTaskDetails();
     }
     return Scaffold(
       body: Center(
