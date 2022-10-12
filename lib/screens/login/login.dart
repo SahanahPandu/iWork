@@ -67,10 +67,14 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Column(
         children: <Widget>[
           _buildSliderColumn(context),
-          _buildSpace(context, 0.03),
+          Devices().isPhone()
+              ? _buildSpace(context, 0.03)
+              : _buildSpace(context, 0.025),
           _buildForm(context),
           _forgotPasswordButton(),
-          _buildSpace(context, 0.01),
+          Devices().isPhone()
+              ? _buildSpace(context, 0.01)
+              : _buildSpace(context, 0.005),
           _loginButton(context),
         ],
       ),
@@ -82,7 +86,7 @@ class _LoginScreenState extends State<LoginScreen> {
       children: [
         SizedBox(
           width: Sizes().screenWidth(context),
-          height: sliderSize(context),
+          height: sliderHeight(context),
           child: ScrollConfiguration(
             behavior:
                 const MaterialScrollBehavior().copyWith(overscroll: false),
@@ -103,7 +107,9 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         Center(
           child: Text(
-            "Lakukan tugasan dengan mudah \n melalui aplikasi",
+            Devices().isPhone()
+                ? "Lakukan tugasan dengan mudah \n melalui aplikasi"
+                : "Lakukan tugasan dengan mudah melalui aplikasi",
             textAlign: TextAlign.center,
             style: TextStyle(
                 fontSize: 15,
@@ -114,7 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         Center(
           child: Padding(
-            padding: const EdgeInsets.only(top: 10, bottom: 10),
+            padding: const EdgeInsets.only(top: 8, bottom: 8),
             child: Text(
               "Mula guna iWork",
               textAlign: TextAlign.center,
@@ -145,8 +151,8 @@ class _LoginScreenState extends State<LoginScreen> {
         controller: _pageController,
         count: imagesLength,
         effect: WormEffect(
-            dotHeight: 8,
-            dotWidth: 8,
+            dotHeight: Devices().isPhone() ? 8 : 9,
+            dotWidth: Devices().isPhone() ? 8 : 9,
             dotColor: grey200,
             activeDotColor: greenCustom),
         onDotClicked: (currentIndex) {});
@@ -301,7 +307,7 @@ class _LoginScreenState extends State<LoginScreen> {
             MaterialStateProperty.all(Size(Sizes().screenWidth(context), 46)),
         shape: MaterialStateProperty.all(
           RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(6),
+            borderRadius: BorderRadius.circular(8),
           ),
         ),
       ),

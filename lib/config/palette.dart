@@ -42,12 +42,15 @@ Color greyCustom = const Color.fromRGBO(150, 150, 150, 1);
 Color redCustom = const Color.fromRGBO(224, 65, 65, 1);
 Color greenCustom = const Color.fromRGBO(52, 168, 83, 1);
 
-Color callColor = const Color.fromRGBO(82, 168, 83, 1);
+Color okTextColor = const Color.fromRGBO(160, 253, 87, 1);
+Color ngTextColor = const Color.fromRGBO(229, 27, 27, 1);
+Color callColor = const Color.fromRGBO(52, 168, 83, 1);
 Color activeColor = const Color.fromRGBO(50, 105, 248, 1);
 Color activeBoxColor = const Color.fromRGBO(238, 248, 255, 1);
 Color tabBoxColor = const Color.fromRGBO(242, 246, 255, 1);
 Color tabShadowColor = const Color.fromRGBO(7, 64, 173, 0.08);
 Color cardShadowColor = const Color.fromRGBO(13, 46, 97, 0.1);
+Color cardListShadowColor = const Color.fromRGBO(0, 0, 0, 0.08);
 Color barShadowColor = const Color.fromRGBO(0, 0, 0, 0.04);
 Color primaryTextColor = const Color.fromRGBO(35, 45, 66, 1);
 Color secondaryTextColor = const Color.fromRGBO(138, 146, 166, 1);

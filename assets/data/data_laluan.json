@@ -16,6 +16,7 @@
     "isu": "kehadiran",
     "kehadiran": "3/3",
     "leaderContact": "+60142612967",
+    "penyelia": "Muhammad Jalil Bin Amir",
     "senaraiStaf": {
       "staf1Img": "https://automateonline.com.au/wp-content/uploads/2019/02/portrait-square-04.jpg",
       "staf2Img": "https://focusforensics.com/wp-content/uploads/staff-clayton_mccall-square.jpg",
@@ -39,6 +40,7 @@
     "isu": "belum",
     "kehadiran": "3/3",
     "leaderContact": "+60142612967",
+    "penyelia": "Shafiq Jalil Bin Amir",
     "senaraiStaf": {
       "staf1Img": "https://automateonline.com.au/wp-content/uploads/2019/02/portrait-square-04.jpg",
       "staf2Img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9U_c5cI4iHSsKXXvNHc6_aRv4kgk3abVsDw&usqp=CAU",
@@ -62,6 +64,31 @@
     "isu": "laporan",
     "kehadiran": "3/3",
     "leaderContact": "+60142612967",
+    "penyelia": "Muhammad Jalil Bin Ahmad",
+    "senaraiStaf": {
+      "staf1Img": "https://automateonline.com.au/wp-content/uploads/2019/02/portrait-square-04.jpg",
+      "staf2Img": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&w=1080&fit=max&q=80&fm=jpg&crop=entropy&cs=tinysrgb",
+      "staf3Img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRe5dT_2ayYcu9_Dc9AXcS7H-lg1VyBw1h2IlfBO5oHonwrQCaX--fAoKPExoJC-a9AC6w&usqp=CAU"
+    }
+  },
+  {
+    "id": 4,
+    "namaLaluan": "JHBP01-C05",
+    "jumSubLaluan": 5,
+    "idStatus": 3,
+    "status": "Tugasan Selesai",
+    "idKenderaan": 3,
+    "noKenderaan": "BHK5462",
+    "jumlahTaman": 11,
+    "jumlahJalan": 81,
+    "idJenisKutipan": 1,
+    "jenisKutipan": "KI (Kutipan Isi Rumah)",
+    "mulaKerja": "--:--",
+    "tamatKerja": "--:--",
+    "isu": "",
+    "kehadiran": "3/3",
+    "leaderContact": "+60142612967",
+    "penyelia": "Muhamad Ahmad Bin Shafiq",
     "senaraiStaf": {
       "staf1Img": "https://automateonline.com.au/wp-content/uploads/2019/02/portrait-square-04.jpg",
       "staf2Img": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&w=1080&fit=max&q=80&fm=jpg&crop=entropy&cs=tinysrgb",

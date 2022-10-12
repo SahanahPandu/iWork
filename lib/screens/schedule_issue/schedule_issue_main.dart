@@ -6,7 +6,6 @@ import '../../config/palette.dart';
 import '../../models/laluan.dart';
 import '../../utils/custom_icon.dart';
 import '../../utils/device/sizes.dart';
-import '../../widgets/buttons/contact_button.dart';
 import '../../widgets/buttons/sahkan_ganti_pekerja.dart';
 import 'schedule_issue_detail.dart';
 
@@ -96,9 +95,6 @@ class _ScheduleIssueMainScreen extends State<ScheduleIssueMainScreen> {
               getInfo: widget.laluanData!,
               getIssue: widget.issueType,
             )),
-        floatingActionButton: widget.issueType == "belum"
-            ? ContactButton(data: widget.laluanData)
-            : Container(),
         bottomNavigationBar: widget.issueType == "kehadiran"
             ? SizedBox(
                 height: MediaQuery.of(context).size.height * 0.1,

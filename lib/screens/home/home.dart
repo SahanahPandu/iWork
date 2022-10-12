@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 //import files
+import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../../utils/custom_icon.dart';
 import '../../utils/device/sizes.dart';
@@ -29,6 +30,7 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         extendBody: true,
         appBar: AppBar(
+          leadingWidth: userRole == 100 ? 80 : 0,
           systemOverlayStyle: SystemUiOverlayStyle(
             statusBarColor: white,
             statusBarIconBrightness: Brightness.dark, //android
@@ -47,8 +49,8 @@ class HomeScreen extends StatelessWidget {
                 size: 18,
               ),
             ),
-            const SizedBox(
-              width: 10,
+            SizedBox(
+              width: userRole == 100 ? 30 : 10,
             )
           ],
         ),
