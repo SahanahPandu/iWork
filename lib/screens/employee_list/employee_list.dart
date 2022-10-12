@@ -39,11 +39,6 @@ class _EmployeeListState extends State<EmployeeList> {
   }
 
   @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Container(
       height: Sizes().screenHeight(context),

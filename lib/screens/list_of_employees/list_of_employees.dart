@@ -76,6 +76,7 @@ class _ListOfEmployeesState extends State<ListOfEmployees> {
 
                       //checking searching string , from searching box
                       if (widget.searchedName != null) {
+                        // print("Searching name: ${widget.searchedName}");
                         dataFuture = dataFuture!
                             .where((item) => item.name
                                 .toLowerCase()
