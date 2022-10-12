@@ -15,13 +15,6 @@ class Pra extends StatefulWidget {
 }
 
 class _PraState extends State<Pra> {
-  bool closeTopCard = false;
-
-  void getTopCardStatus(status) {
-    setState(() {
-      closeTopCard = status;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +40,7 @@ class _PraState extends State<Pra> {
       constraints: const BoxConstraints(minHeight: 280),
       color: white,
       padding: const EdgeInsets.all(15),
-      child: CardListView(type: "Laluan", topCardStatus: getTopCardStatus),
+      child: const CardListView(type: "Laluan"),
     ));
   }
 
