@@ -293,8 +293,8 @@ class _BAMyTaskListDetailsState extends State<BAMyTaskListDetails> {
     final TextPainter textPainter = TextPainter(
         text: TextSpan(text: widget.data.penyelia, style: textStyle),
         maxLines: 1,
-        textAlign: TextAlign.left,
-        textDirection: TextDirection.ltr)
+        textAlign: TextAlign.right,
+        textDirection: TextDirection.rtl)
       ..layout(minWidth: 0, maxWidth: 125);
     return textPainter.size;
   }

@@ -23,8 +23,8 @@ class VehicleChecklistCardDetails extends StatefulWidget {
 
 class _VehicleChecklistCardDetailsState
     extends State<VehicleChecklistCardDetails> {
-  Color alterColorBefore = Colors.grey;
-  Color alterColorAfter = Colors.grey;
+  Color alterColorBefore = greyCustom;
+  Color alterColorAfter = greyCustom;
 
   @override
   Widget build(BuildContext context) {
@@ -36,18 +36,17 @@ class _VehicleChecklistCardDetailsState
           children: [
             SizedBox(
               child: Padding(
-                  padding: const EdgeInsets.all(18.0),
+                  padding: const EdgeInsets.fromLTRB(40, 32, 0, 25),
                   child: Text(
                     vc,
                     style: TextStyle(
-                        fontSize: 19,
-                        color: grey800,
-                        fontWeight: FontWeight.w900),
+                        fontSize: 18,
+                        color: blackCustom,
+                        fontWeight: FontWeight.w500),
                   )),
             ),
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+              padding: const EdgeInsets.fromLTRB(40, 0, 0, 16),
               child: Row(
                 children: [
                   Icon(
@@ -56,22 +55,21 @@ class _VehicleChecklistCardDetailsState
                     color: alterColorBefore,
                   ),
                   const SizedBox(
-                    width: 8,
+                    width: 16,
                   ),
                   Text(
                     "Sebelum Bertugas",
                     style: TextStyle(
-                      fontSize: 15,
+                      fontSize: 16,
                       color: alterColorBefore,
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
                 ],
               ),
             ),
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+              padding: const EdgeInsets.fromLTRB(40, 0, 0, 16),
               child: Row(
                 children: [
                   Icon(
@@ -80,14 +78,14 @@ class _VehicleChecklistCardDetailsState
                     color: alterColorAfter,
                   ),
                   const SizedBox(
-                    width: 8,
+                    width: 16,
                   ),
                   Text(
                     "Selepas Bertugas",
                     style: TextStyle(
-                      fontSize: 15,
+                      fontSize: 16,
                       color: alterColorAfter,
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
                 ],
@@ -97,22 +95,27 @@ class _VehicleChecklistCardDetailsState
         ),
         Container(
           margin: tabletTaskCardMargin(context),
-          height: 45.0,
-          width: 350,
+          height: 40,
+          width: 330,
           child: ElevatedButton(
             onPressed: () {
               _navigateAndDisplaySelection(context);
             },
             style: ButtonStyle(
-                shape: MaterialStateProperty.all(
-                  RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                      side: BorderSide(color: green)),
+              backgroundColor: MaterialStateProperty.all(greenCustom),
+              elevation: MaterialStateProperty.all(0),
+              overlayColor:
+                  MaterialStateColor.resolveWith((states) => green800),
+              shadowColor: MaterialStateProperty.all(grey900),
+              minimumSize: MaterialStateProperty.all(
+                  Size(Sizes().screenWidth(context), 40)),
+              shape: MaterialStateProperty.all(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
                 ),
-                minimumSize: MaterialStateProperty.all(
-                    Size(Sizes().screenWidth(context), 45)),
-                backgroundColor: MaterialStateProperty.all(white)),
-            child: Text(vc, style: TextStyle(fontSize: 15, color: green)),
+              ),
+            ),
+            child: Text(vc, style: TextStyle(fontSize: 15, color: white)),
           ),
         ),
       ],

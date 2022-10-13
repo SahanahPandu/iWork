@@ -19,7 +19,7 @@ String taskEnded = 'Tugasan Selesai';
 String slidedStartTime = '';
 String slidedEndTime = '';
 
-String vc = 'Semakan Kenderaan';
+String vc = 'Semak Kenderaan';
 String startWorkText = 'Mula Kerja';
 String endWorkText = 'Tamat Kerja';
 String startWork = 'Leretkan Ke Kanan Untuk Mula Tugas';
