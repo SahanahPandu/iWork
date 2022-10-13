@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 //import files
+import '../../../../config/palette.dart';
 import '../../../../utils/custom_icon.dart';
 import '../../../../utils/date.dart';
 import '../../../../utils/device/orientations.dart';
@@ -93,10 +94,11 @@ class _CompactorPanelTodayTaskDetailsState
                                   backgroundColor:
                                       Orientations().isTabletPortrait(context)
                                           ? const Color(0xec3f67ea)
-                                          : const Color(0xec3f52c5),
+                                          : const Color(0xec4357d0),
                                   radius: 32,
-                                  child: const CircleAvatar(
-                                      backgroundImage: NetworkImage(
+                                  child: CircleAvatar(
+                                      backgroundColor: transparent,
+                                      backgroundImage: const NetworkImage(
                                           "https://www.fortisconstruction.com/images/uploads/people/_small-grid/arnel_cabais_headshot.jpg"),
                                       radius: 30)))),
                       Positioned(
@@ -108,10 +110,11 @@ class _CompactorPanelTodayTaskDetailsState
                                   backgroundColor:
                                       Orientations().isTabletPortrait(context)
                                           ? const Color(0xec3f67ea)
-                                          : const Color(0xec3f52c5),
+                                          : const Color(0xec4357d0),
                                   radius: 32,
-                                  child: const CircleAvatar(
-                                      backgroundImage: NetworkImage(
+                                  child: CircleAvatar(
+                                      backgroundColor: transparent,
+                                      backgroundImage: const NetworkImage(
                                           "https://www.jurispro.com/files/photos/user_4473.jpg?m=1605811497"),
                                       radius: 30)))),
                       Padding(
@@ -120,10 +123,11 @@ class _CompactorPanelTodayTaskDetailsState
                               backgroundColor:
                                   Orientations().isTabletPortrait(context)
                                       ? const Color(0xec3f67ea)
-                                      : const Color(0xec3f52c5),
+                                      : const Color(0xec4357d0),
                               radius: 32,
-                              child: const CircleAvatar(
-                                backgroundImage: NetworkImage(
+                              child: CircleAvatar(
+                                backgroundColor: transparent,
+                                backgroundImage: const NetworkImage(
                                     "https://miro.medium.com/max/800/1*7hkI-ZKsglnbjxCRV1bMZA.png"),
                                 radius: 30,
                               )))
