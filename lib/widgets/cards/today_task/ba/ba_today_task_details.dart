@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../../../config/palette.dart';
-import '../../../../utils/date.dart';
+import '../../../../utils/calendar/date.dart';
 import '../../../../utils/device/sizes.dart';
 import '../../summary_task/attendance/attendance_summary.dart';
 import '../../summary_task/compactor/compactor_summary.dart';

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../../models/cuti.dart';
 import '../../../../widgets/container/status_container.dart';
 import '../../../config/font.dart';
-import '../../../utils/custom_icon.dart';
+import '../../../utils/icon/custom_icon.dart';
 
 class PraECutiListDetails extends StatefulWidget {
   final Cuti data;

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../../models/jalan.dart';
-import '../../utils/custom_icon.dart';
+import '../../utils/icon/custom_icon.dart';
 import '../../widgets/modal_bottom_sheet/navigation_options.dart';
 
 class ListOfRoadDetails extends StatefulWidget {

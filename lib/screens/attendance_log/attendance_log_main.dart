@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../config/palette.dart';
 import '../../providers/attendance_log_api.dart';
-import '../../utils/custom_icon.dart';
+import '../../utils/icon/custom_icon.dart';
 import 'attendance_log_details.dart';
 
 class AttendanceLogMain extends StatefulWidget {

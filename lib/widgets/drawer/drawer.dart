@@ -16,7 +16,7 @@ import '../../screens/schedule_shift/schedule_shift_main.dart';
 import '../../screens/vehicle_checklist/vehicle_checklist_approval/vehicle_checklist_approval_main.dart';
 import '../../screens/workshop_vehicle/workshop_vehicle_main.dart';
 import '../../utils/authentication/auth.dart';
-import '../../utils/custom_icon.dart';
+import '../../utils/icon/custom_icon.dart';
 import '../../utils/device/sizes.dart';
 import '../alert/alert_dialog.dart';
 import '../app_bar/app_bar_widget.dart';

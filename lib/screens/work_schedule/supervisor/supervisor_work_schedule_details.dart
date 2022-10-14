@@ -5,7 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../../config/palette.dart';
 import '../../../../models/laluan.dart';
 import '../../../config/font.dart';
-import '../../../utils/custom_icon.dart';
+import '../../../utils/icon/custom_icon.dart';
 import '../../../utils/device/sizes.dart';
 import '../../../widgets/container/status_container.dart';
 

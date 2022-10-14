@@ -5,7 +5,7 @@ import 'package:flutter_pdfview/flutter_pdfview.dart';
 
 //import files
 import '../../config/palette.dart';
-import '../../utils/custom_icon.dart';
+import '../../utils/icon/custom_icon.dart';
 
 class PDFScreen extends StatefulWidget {
   final String? path;

@@ -1,8 +1,9 @@
-import 'package:eswm/config/palette.dart';
-import 'package:eswm/models/attendance_log/attendance_log.dart';
 import 'package:flutter/material.dart';
 
-import '../../utils/custom_icon.dart';
+//import files
+import '../../config/palette.dart';
+import '../../models/attendance_log/attendance_log.dart';
+import '../../utils/icon/custom_icon.dart';
 
 class AttendanceLogDetails extends StatefulWidget {
   final AttendanceLog data;

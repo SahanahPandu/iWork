@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../config/palette.dart';
-import '../../utils/date.dart';
+import '../../utils/calendar/date.dart';
 import '../../utils/device/orientations.dart';
 import '../../widgets/cards/today_task/today_task_card.dart';
 import '../../widgets/gridview/compactor_panel/compactor_task_list.dart';
@@ -46,7 +46,7 @@ class _CompactorPanelState extends State<CompactorPanel> {
           ? const BoxConstraints(minHeight: 630)
           : const BoxConstraints(minHeight: 285),
       color: white,
-      padding: const EdgeInsets.all(15),
+      padding: const EdgeInsets.fromLTRB(15, 0, 15, 10),
       child: const CompactorTaskList(isButton: true),
     ));
   }

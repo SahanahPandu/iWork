@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 //import files
 import '../../../../config/palette.dart';
 import '../../../../models/pekerja.dart';
-import '../../../../utils/date.dart';
+import '../../../../utils/calendar/time.dart';
 
 class AttendanceVerificationDetailList extends StatefulWidget {
   final Pekerja data;
@@ -203,10 +203,10 @@ class _AttendanceVerificationDetailListState
   void _toggleTimeInData(bool isTicked) {
     if (isTicked == true) {
       if (widget.data.timeIn == "") {
-        if (Date.getCurrentTime().contains("AM")) {
-          timeIn = "${Date.getCurrentTimeInHHMM()} pagi";
+        if (Time.getCurrentTime().contains("AM")) {
+          timeIn = "${Time.getCurrentTimeInHHMM()} pagi";
         } else {
-          timeIn = "${Date.getCurrentTimeInHHMM()} petang";
+          timeIn = "${Time.getCurrentTimeInHHMM()} petang";
         }
       } else {
         timeIn = widget.data.timeIn;

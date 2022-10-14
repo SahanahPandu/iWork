@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 //import files
 import '../../../config/palette.dart';
 import '../../../models/akbk.dart';
-import '../../../utils/custom_icon.dart';
+import '../../../utils/icon/custom_icon.dart';
 import '../../../widgets/modal_bottom_sheet/custom_bottom_sheet_options.dart';
 
 class AkbkFormDetails extends StatefulWidget {

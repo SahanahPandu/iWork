@@ -5,7 +5,7 @@ import '../../config/config.dart';
 import '../../config/font.dart';
 import '../../config/palette.dart';
 import '../../providers/taman_api.dart';
-import '../../utils/custom_icon.dart';
+import '../../utils/icon/custom_icon.dart';
 import '../../utils/device/orientations.dart';
 import '../../widgets/custom_scroll/custom_scroll.dart';
 

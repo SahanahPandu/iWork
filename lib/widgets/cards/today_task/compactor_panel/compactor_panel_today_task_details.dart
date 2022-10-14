@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../../../config/palette.dart';
-import '../../../../utils/custom_icon.dart';
-import '../../../../utils/date.dart';
+import '../../../../utils/icon/custom_icon.dart';
+import '../../../../utils/calendar/date.dart';
 import '../../../../utils/device/orientations.dart';
 
 class CompactorPanelTodayTaskDetails extends StatefulWidget {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../../config/palette.dart';
-import '../../../utils/custom_icon.dart';
+import '../../../utils/icon/custom_icon.dart';
 import '../../../utils/device/orientations.dart';
 import '../../../widgets/cards/cards.dart';
 import '../../list_of_park/list_of_parks.dart';

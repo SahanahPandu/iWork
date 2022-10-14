@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 //import files
 import '../../config/config.dart';
 import '../../config/palette.dart';
-import '../../utils/custom_icon.dart';
+import '../../utils/icon/custom_icon.dart';
 import '../../widgets/custom_scroll/custom_scroll.dart';
 import '../../widgets/gridview/compactor_panel/compactor_task_list.dart';
 import '../../widgets/listview/card_list_view.dart';

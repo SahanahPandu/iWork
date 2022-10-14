@@ -5,7 +5,7 @@ import 'package:page_transition/page_transition.dart';
 import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../../screens/time_log/time_log.dart';
-import '../../utils/custom_icon.dart';
+import '../../utils/icon/custom_icon.dart';
 
 class TimeLogButton extends StatefulWidget {
   final Function getTimeLog;

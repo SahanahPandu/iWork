@@ -6,7 +6,7 @@ import '../../../../config/font.dart';
 import '../../../../config/palette.dart';
 import '../../../../models/laluan.dart';
 import '../../../../screens/schedule_issue/schedule_issue_main.dart';
-import '../../../../utils/custom_icon.dart';
+import '../../../../utils/icon/custom_icon.dart';
 import '../../../../utils/device/sizes.dart';
 import '../../../container/status_container.dart';
 

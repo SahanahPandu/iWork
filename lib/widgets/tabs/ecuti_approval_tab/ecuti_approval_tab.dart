@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../../config/palette.dart';
-import '../../../utils/custom_icon.dart';
+import '../../../utils/icon/custom_icon.dart';
 import 'ecuti_approval_tab_bar_view/ecuti_approval_all_tab_bar_view.dart';
 import 'ecuti_approval_tab_bar_view/ecuti_approval_completed_tab_bar_view.dart';
 import 'ecuti_approval_tab_bar_view/ecuti_approval_new_tab_bar_view.dart';

@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 //import files
 import '../../config/palette.dart';
 import '../../config/string.dart';
-import '../../utils/custom_icon.dart';
+import '../../utils/icon/custom_icon.dart';
 import '../../utils/device/sizes.dart';
 import '../../widgets/alert/alert_dialog.dart';
 import '../../widgets/alert/lottie_alert_dialog.dart';

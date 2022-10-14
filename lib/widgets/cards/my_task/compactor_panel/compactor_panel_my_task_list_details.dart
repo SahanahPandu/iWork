@@ -5,7 +5,7 @@ import '../../../../config/config.dart';
 import '../../../../config/palette.dart';
 import '../../../../config/string.dart';
 import '../../../../models/laluan.dart';
-import '../../../../utils/custom_icon.dart';
+import '../../../../utils/icon/custom_icon.dart';
 import '../../../../utils/device/orientations.dart';
 import '../../../../widgets/slide_bar/start_end_work_slide_bar.dart';
 

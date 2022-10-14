@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../models/drawer.dart';
-import '../utils/custom_icon.dart';
+import '../utils/icon/custom_icon.dart';
 
 List compactorDrawerList = [
   Drawers(

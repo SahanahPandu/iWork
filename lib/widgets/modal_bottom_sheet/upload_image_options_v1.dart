@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 //import files
-import '../../utils/image_picker.dart';
+import '../../utils/media/image_picker.dart';
 
 Future<dynamic>? showUploadImageOption(
     BuildContext context, Function? getImageName) {

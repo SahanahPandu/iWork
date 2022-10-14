@@ -8,8 +8,8 @@ import '../../../config/dimen.dart';
 import '../../../config/palette.dart';
 import '../../../config/string.dart';
 import '../../../models/vc/vc.dart';
-import '../../../utils/custom_icon.dart';
-import '../../../utils/date.dart';
+import '../../../utils/icon/custom_icon.dart';
+import '../../../utils/calendar/date.dart';
 import '../../../utils/device/orientations.dart';
 import '../../../utils/device/sizes.dart';
 import '../../../widgets/alert/alert_dialog.dart';
@@ -52,9 +52,11 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
       ..addListener(() {
         setState(() {
           if (_scrollController.offset >= 200) {
-            _showBackToTopButton = true; // show the back-to-top button
+            /// show the back-to-top button
+            _showBackToTopButton = true;
           } else {
-            _showBackToTopButton = false; // hide the back-to-top button
+            /// hide the back-to-top button
+            _showBackToTopButton = false;
           }
         });
       });
@@ -64,11 +66,11 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
 
   @override
   void dispose() {
-    _scrollController.dispose(); // dispose the controller
+    _scrollController.dispose();
     super.dispose();
   }
 
-  // This function is triggered when the user presses the back-to-top button
+  /// This function is triggered when the user presses the back-to-top button
   void _scrollToTop() {
     _scrollController.animateTo(0,
         duration: const Duration(seconds: 1), curve: Curves.linear);
@@ -204,7 +206,6 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                 ]),
                                 TableRow(children: [
                                   SizedBox(height: tableSpace(context)),
-                                  //SizeBox Widget
                                   SizedBox(height: tableSpace(context)),
                                   SizedBox(height: tableSpace(context)),
                                   SizedBox(height: tableSpace(context)),
@@ -309,7 +310,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                       padding:
                                           Orientations().isLandscape(context)
                                               ? const EdgeInsets.symmetric(
-                                                  horizontal: 7.0)
+                                                  horizontal: 7)
                                               : const EdgeInsets.symmetric(
                                                   horizontal: 0),
                                       child: Row(
@@ -366,7 +367,6 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                 ]),
                                 TableRow(children: [
                                   SizedBox(height: columnSpacing(context)),
-                                  //SizeBox Widget
                                   SizedBox(height: columnSpacing(context)),
                                   SizedBox(height: columnSpacing(context)),
                                   SizedBox(height: columnSpacing(context)),
@@ -422,9 +422,9 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                       padding:
                                           Orientations().isLandscape(context)
                                               ? const EdgeInsets.symmetric(
-                                                  horizontal: 20.0)
+                                                  horizontal: 20)
                                               : const EdgeInsets.symmetric(
-                                                  horizontal: 16.0),
+                                                  horizontal: 16),
                                       height:
                                           Orientations().isLandscape(context)
                                               ? 35
@@ -499,7 +499,6 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                 ]),
                                 TableRow(children: [
                                   SizedBox(height: columnSpaceVc(context)),
-                                  //SizeBox Widget
                                   SizedBox(
                                       height:
                                           Orientations().isLandscape(context)
@@ -514,7 +513,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                   Container(
                                     height: 45,
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal: 7.0),
+                                        horizontal: 7),
                                     child: Row(
                                       children: [
                                         Row(
@@ -575,7 +574,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                     height: 35,
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(
-                                          horizontal: 7.0),
+                                          horizontal: 7),
                                       child: Row(
                                         children: [
                                           Row(
@@ -657,127 +656,128 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                           color: blueGrey,
                                           height: 1.3)),
                                   SizedBox(
-                                    height: 60,
-                                    child: Row(
-                                      children: [
+                                      height: 60,
+                                      child: Row(children: [
                                         Container(
-                                          width: Orientations()
-                                                  .isLandscape(context)
-                                              ? (Sizes().screenWidth(context) *
-                                                  0.55)
-                                              : (Sizes().screenWidth(context) *
-                                                  0.5),
-                                          height: 55,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                const BorderRadius.all(
-                                              Radius.circular((10)),
-                                            ),
-                                            gradient: LinearGradient(
-                                                colors: [
-                                                  lightPink,
-                                                  lightGreen,
-                                                ],
-                                                begin: const FractionalOffset(
-                                                    0.0, 0.0),
-                                                end: const FractionalOffset(
-                                                    1.0, 1.00),
-                                                stops: const [0.0, 1.0],
-                                                tileMode: TileMode.clamp),
-                                          ),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              const SizedBox(width: 10),
-                                              Transform(
-                                                alignment: Alignment.center,
-                                                transform:
-                                                    Matrix4.rotationY(math.pi),
-                                                child: Icon(
-                                                  Icons.local_gas_station,
-                                                  color: red,
-                                                  size: 30,
-                                                ),
+                                            width: Orientations()
+                                                    .isLandscape(context)
+                                                ? (Sizes()
+                                                        .screenWidth(context) *
+                                                    0.55)
+                                                : (Sizes()
+                                                        .screenWidth(context) *
+                                                    0.5),
+                                            height: 55,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                Radius.circular((10)),
                                               ),
-                                              Expanded(
-                                                child: SliderTheme(
-                                                  data: SliderTheme.of(context)
-                                                      .copyWith(
-                                                    activeTrackColor:
-                                                        white.withOpacity(1),
-                                                    inactiveTrackColor:
-                                                        white.withOpacity(.5),
-                                                    trackShape:
-                                                        const RoundedRectSliderTrackShape(),
-                                                    trackHeight: 5.0,
-                                                    thumbShape:
-                                                        const RoundSliderThumbShape(
-                                                            enabledThumbRadius:
-                                                                12.0),
-                                                    thumbColor: white,
-                                                    overlayColor:
-                                                        green.withAlpha(32),
-                                                    overlayShape:
-                                                        const RoundSliderOverlayShape(
-                                                            overlayRadius:
-                                                                28.0),
-                                                    tickMarkShape:
-                                                        const RoundSliderTickMarkShape(),
-                                                    activeTickMarkColor: white,
-                                                    inactiveTickMarkColor:
-                                                        greenGrey,
-                                                    valueIndicatorShape:
-                                                        const PaddleSliderValueIndicatorShape(),
-                                                    valueIndicatorColor:
-                                                        green600,
-                                                    valueIndicatorTextStyle:
-                                                        TextStyle(
-                                                      color: white,
+                                              gradient: LinearGradient(
+                                                  colors: [
+                                                    lightPink,
+                                                    lightGreen,
+                                                  ],
+                                                  begin: const FractionalOffset(
+                                                      0, 0),
+                                                  end: const FractionalOffset(
+                                                      1, 1),
+                                                  stops: const [0, 1],
+                                                  tileMode: TileMode.clamp),
+                                            ),
+                                            child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  const SizedBox(width: 10),
+                                                  Transform(
+                                                    alignment: Alignment.center,
+                                                    transform:
+                                                        Matrix4.rotationY(
+                                                            math.pi),
+                                                    child: Icon(
+                                                      Icons.local_gas_station,
+                                                      color: red,
+                                                      size: 30,
                                                     ),
                                                   ),
-                                                  child: Slider(
-                                                    min: 0.0,
-                                                    max: 100.0,
-                                                    value: _fuelValue,
-                                                    divisions: 4,
-                                                    label:
-                                                        '${_fuelValue.round()}%',
-                                                    semanticFormatterCallback:
-                                                        (double newValue) {
-                                                      return '${_fuelValue.round()}';
-                                                    },
-                                                    onChanged: (value) {
-                                                      setState(() {
-                                                        _fuelValue = value;
-                                                      });
-                                                    },
+                                                  Expanded(
+                                                    child: SliderTheme(
+                                                      data: SliderTheme.of(
+                                                              context)
+                                                          .copyWith(
+                                                        activeTrackColor: white
+                                                            .withOpacity(1),
+                                                        inactiveTrackColor:
+                                                            white.withOpacity(
+                                                                .5),
+                                                        trackShape:
+                                                            const RoundedRectSliderTrackShape(),
+                                                        trackHeight: 5,
+                                                        thumbShape:
+                                                            const RoundSliderThumbShape(
+                                                                enabledThumbRadius:
+                                                                    12),
+                                                        thumbColor: white,
+                                                        overlayColor:
+                                                            green.withAlpha(32),
+                                                        overlayShape:
+                                                            const RoundSliderOverlayShape(
+                                                                overlayRadius:
+                                                                    28),
+                                                        tickMarkShape:
+                                                            const RoundSliderTickMarkShape(),
+                                                        activeTickMarkColor:
+                                                            white,
+                                                        inactiveTickMarkColor:
+                                                            greenGrey,
+                                                        valueIndicatorShape:
+                                                            const PaddleSliderValueIndicatorShape(),
+                                                        valueIndicatorColor:
+                                                            green600,
+                                                        valueIndicatorTextStyle:
+                                                            TextStyle(
+                                                          color: white,
+                                                        ),
+                                                      ),
+                                                      child: Slider(
+                                                        min: 0,
+                                                        max: 100,
+                                                        value: _fuelValue,
+                                                        divisions: 4,
+                                                        label:
+                                                            '${_fuelValue.round()}%',
+                                                        semanticFormatterCallback:
+                                                            (double newValue) {
+                                                          return '${_fuelValue.round()}';
+                                                        },
+                                                        onChanged: (value) {
+                                                          setState(() {
+                                                            _fuelValue = value;
+                                                          });
+                                                        },
+                                                      ),
+                                                    ),
                                                   ),
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Icon(
-                                                  Icons.local_gas_station,
-                                                  color: green800,
-                                                  size: 30,
-                                                ),
-                                              ),
-                                              Text('${_fuelValue.round()}%',
-                                                  style: TextStyle(
-                                                      color: white,
-                                                      fontSize: 17,
-                                                      fontWeight:
-                                                          FontWeight.w900)),
-                                              const SizedBox(width: 10),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ]),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(8),
+                                                    child: Icon(
+                                                      Icons.local_gas_station,
+                                                      color: green800,
+                                                      size: 30,
+                                                    ),
+                                                  ),
+                                                  Text('${_fuelValue.round()}%',
+                                                      style: TextStyle(
+                                                          color: white,
+                                                          fontSize: 17,
+                                                          fontWeight:
+                                                              FontWeight.w900)),
+                                                  const SizedBox(width: 10),
+                                                ]))
+                                      ]))
+                                ])
                               ])))),
               // #CONTAINER 4
               Container(
@@ -797,21 +797,21 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                 text: TextSpan(
                                     text: "1. Dokumen Perjalanan",
                                     style: TextStyle(
-                                        fontSize: 18.0,
+                                        fontSize: 18,
                                         color: Colors.blue.shade700,
                                         fontWeight: FontWeight.bold),
                                     children: <TextSpan>[
                                   TextSpan(
                                       text: "  (${_keyIn[0]}/3)",
                                       style: TextStyle(
-                                          fontSize: 14.0,
+                                          fontSize: 14,
                                           color: _colorResult[0])),
                                 ])),
                             textColor: Colors.blue.shade700,
                             children: <Widget>[
                               Container(
-                                  margin: const EdgeInsets.fromLTRB(
-                                      30.0, 0.0, 30.0, 10.0),
+                                  margin:
+                                      const EdgeInsets.fromLTRB(30, 0, 30, 10),
                                   child: Table(
                                       defaultVerticalAlignment:
                                           TableCellVerticalAlignment.middle,
@@ -828,8 +828,8 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                             '1.3. Lesen pembawa A/Permit', 5),
                                       ])),
                               Container(
-                                padding: const EdgeInsets.fromLTRB(
-                                    30.0, 5.0, 30.0, 30.0),
+                                padding:
+                                    const EdgeInsets.fromLTRB(30, 5, 30, 30),
                                 height: 130,
                                 width: double.infinity,
                                 child: _textFieldBuild(),
@@ -849,28 +849,27 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                       ),
                       shadowColor: grey500,
                       elevation: 5,
-                      child: Column(
-                        children: [
-                          ExpansionTile(
+                      child: Column(children: [
+                        ExpansionTile(
                             title: RichText(
                                 text: TextSpan(
                                     text: "2. Pemeriksaan Tayar",
                                     style: TextStyle(
-                                        fontSize: 18.0,
+                                        fontSize: 18,
                                         color: Colors.blue.shade700,
                                         fontWeight: FontWeight.bold),
                                     children: <TextSpan>[
                                   TextSpan(
                                       text: "  (${_keyIn[1]}/3)",
                                       style: TextStyle(
-                                          fontSize: 14.0,
+                                          fontSize: 14,
                                           color: _colorResult[1])),
                                 ])),
                             textColor: Colors.blue.shade700,
                             children: <Widget>[
                               Container(
-                                  margin: const EdgeInsets.fromLTRB(
-                                      30.0, 0.0, 30.0, 10.0),
+                                  margin:
+                                      const EdgeInsets.fromLTRB(30, 0, 30, 10),
                                   child: Table(
                                       defaultVerticalAlignment:
                                           TableCellVerticalAlignment.middle,
@@ -890,16 +889,14 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                             '2.3. Tekanan angin diperiksa', 8),
                                       ])),
                               Container(
-                                padding: const EdgeInsets.fromLTRB(
-                                    30.0, 5.0, 30.0, 30.0),
+                                padding:
+                                    const EdgeInsets.fromLTRB(30, 5, 30, 30),
                                 height: 130,
                                 width: double.infinity,
                                 child: _textFieldBuild(),
                               )
-                            ],
-                          ),
-                        ],
-                      ))),
+                            ])
+                      ]))),
               // #CONTAINER 6
               Container(
                   width: double.infinity,
@@ -911,28 +908,27 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                       ),
                       shadowColor: grey500,
                       elevation: 5,
-                      child: Column(
-                        children: [
-                          ExpansionTile(
+                      child: Column(children: [
+                        ExpansionTile(
                             title: RichText(
                                 text: TextSpan(
                                     text: "3. Sistem Mampatan",
                                     style: TextStyle(
-                                        fontSize: 18.0,
+                                        fontSize: 18,
                                         color: Colors.blue.shade700,
                                         fontWeight: FontWeight.bold),
                                     children: <TextSpan>[
                                   TextSpan(
                                       text: "  (${_keyIn[2]}/5)",
                                       style: TextStyle(
-                                          fontSize: 14.0,
+                                          fontSize: 14,
                                           color: _colorResult[2])),
                                 ])),
                             textColor: Colors.blue.shade700,
                             children: <Widget>[
                               Container(
-                                  margin: const EdgeInsets.fromLTRB(
-                                      30.0, 0.0, 30.0, 10.0),
+                                  margin:
+                                      const EdgeInsets.fromLTRB(30, 0, 30, 10),
                                   child: Table(
                                       defaultVerticalAlignment:
                                           TableCellVerticalAlignment.middle,
@@ -957,16 +953,14 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                             13),
                                       ])),
                               Container(
-                                padding: const EdgeInsets.fromLTRB(
-                                    30.0, 5.0, 30.0, 30.0),
+                                padding:
+                                    const EdgeInsets.fromLTRB(30, 5, 30, 30),
                                 height: 130,
                                 width: double.infinity,
                                 child: _textFieldBuild(),
                               )
-                            ],
-                          ),
-                        ],
-                      ))),
+                            ])
+                      ]))),
               // #CONTAINER 7
               Container(
                   width: double.infinity,
@@ -978,28 +972,27 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                       ),
                       shadowColor: grey500,
                       elevation: 5,
-                      child: Column(
-                        children: [
-                          ExpansionTile(
+                      child: Column(children: [
+                        ExpansionTile(
                             title: RichText(
                                 text: TextSpan(
                                     text: "4. Sistem Lampu",
                                     style: TextStyle(
-                                        fontSize: 18.0,
+                                        fontSize: 18,
                                         color: Colors.blue.shade700,
                                         fontWeight: FontWeight.bold),
                                     children: <TextSpan>[
                                   TextSpan(
                                       text: "  (${_keyIn[3]}/6)",
                                       style: TextStyle(
-                                          fontSize: 14.0,
+                                          fontSize: 14,
                                           color: _colorResult[3])),
                                 ])),
                             textColor: Colors.blue.shade700,
                             children: <Widget>[
                               Container(
-                                  margin: const EdgeInsets.fromLTRB(
-                                      30.0, 0.0, 30.0, 10.0),
+                                  margin:
+                                      const EdgeInsets.fromLTRB(30, 0, 30, 10),
                                   child: Table(
                                       defaultVerticalAlignment:
                                           TableCellVerticalAlignment.middle,
@@ -1029,16 +1022,14 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                             19),
                                       ])),
                               Container(
-                                padding: const EdgeInsets.fromLTRB(
-                                    30.0, 5.0, 30.0, 30.0),
+                                padding:
+                                    const EdgeInsets.fromLTRB(30, 5, 30, 30),
                                 height: 130,
                                 width: double.infinity,
                                 child: _textFieldBuild(),
                               )
-                            ],
-                          ),
-                        ],
-                      ))),
+                            ])
+                      ]))),
               // #CONTAINER 8
               Container(
                   width: double.infinity,
@@ -1050,28 +1041,27 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                       ),
                       shadowColor: grey500,
                       elevation: 5,
-                      child: Column(
-                        children: [
-                          ExpansionTile(
+                      child: Column(children: [
+                        ExpansionTile(
                             title: RichText(
                                 text: TextSpan(
                                     text: "5. Sistem Enjin dan Driveline*",
                                     style: TextStyle(
-                                        fontSize: 18.0,
+                                        fontSize: 18,
                                         color: Colors.blue.shade700,
                                         fontWeight: FontWeight.bold),
                                     children: <TextSpan>[
                                   TextSpan(
                                       text: "  (${_keyIn[4]}/16)",
                                       style: TextStyle(
-                                          fontSize: 14.0,
+                                          fontSize: 14,
                                           color: _colorResult[3])),
                                 ])),
                             textColor: Colors.blue.shade700,
                             children: <Widget>[
                               Container(
-                                  margin: const EdgeInsets.fromLTRB(
-                                      30.0, 0.0, 30.0, 10.0),
+                                  margin:
+                                      const EdgeInsets.fromLTRB(30, 0, 30, 10),
                                   child: Table(
                                       defaultVerticalAlignment:
                                           TableCellVerticalAlignment.middle,
@@ -1132,16 +1122,14 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                             35),
                                       ])),
                               Container(
-                                padding: const EdgeInsets.fromLTRB(
-                                    30.0, 5.0, 30.0, 30.0),
+                                padding:
+                                    const EdgeInsets.fromLTRB(30, 5, 30, 30),
                                 height: 130,
                                 width: double.infinity,
                                 child: _textFieldBuild(),
                               )
-                            ],
-                          ),
-                        ],
-                      ))),
+                            ])
+                      ]))),
               // #CONTAINER 9
               Container(
                   width: double.infinity,
@@ -1153,28 +1141,27 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                       ),
                       shadowColor: grey500,
                       elevation: 5,
-                      child: Column(
-                        children: [
-                          ExpansionTile(
+                      child: Column(children: [
+                        ExpansionTile(
                             title: RichText(
                                 text: TextSpan(
                                     text: "6. Bahagian Luaran",
                                     style: TextStyle(
-                                        fontSize: 18.0,
+                                        fontSize: 18,
                                         color: Colors.blue.shade700,
                                         fontWeight: FontWeight.bold),
                                     children: <TextSpan>[
                                   TextSpan(
                                       text: "  (${_keyIn[5]}/2)",
                                       style: TextStyle(
-                                          fontSize: 14.0,
+                                          fontSize: 14,
                                           color: _colorResult[5])),
                                 ])),
                             textColor: Colors.blue.shade700,
                             children: <Widget>[
                               Container(
-                                  margin: const EdgeInsets.fromLTRB(
-                                      30.0, 0.0, 30.0, 10.0),
+                                  margin:
+                                      const EdgeInsets.fromLTRB(30, 0, 30, 10),
                                   child: Table(
                                       defaultVerticalAlignment:
                                           TableCellVerticalAlignment.middle,
@@ -1192,16 +1179,14 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                             '6.2. Hon diperiksa', 37),
                                       ])),
                               Container(
-                                padding: const EdgeInsets.fromLTRB(
-                                    30.0, 5.0, 30.0, 30.0),
+                                padding:
+                                    const EdgeInsets.fromLTRB(30, 5, 30, 30),
                                 height: 130,
                                 width: double.infinity,
                                 child: _textFieldBuild(),
                               )
-                            ],
-                          ),
-                        ],
-                      ))),
+                            ])
+                      ]))),
               // #CONTAINER 10
               Container(
                   width: double.infinity,
@@ -1213,28 +1198,27 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                       ),
                       shadowColor: grey500,
                       elevation: 5,
-                      child: Column(
-                        children: [
-                          ExpansionTile(
+                      child: Column(children: [
+                        ExpansionTile(
                             title: RichText(
                                 text: TextSpan(
                                     text: "7. Peralatan Keselamatan",
                                     style: TextStyle(
-                                        fontSize: 18.0,
+                                        fontSize: 18,
                                         color: Colors.blue.shade700,
                                         fontWeight: FontWeight.bold),
                                     children: <TextSpan>[
                                   TextSpan(
                                       text: "  (${_keyIn[6]}/3)",
                                       style: TextStyle(
-                                          fontSize: 14.0,
+                                          fontSize: 14,
                                           color: _colorResult[6])),
                                 ])),
                             textColor: Colors.blue.shade700,
                             children: <Widget>[
                               Container(
-                                  margin: const EdgeInsets.fromLTRB(
-                                      30.0, 0.0, 30.0, 10.0),
+                                  margin:
+                                      const EdgeInsets.fromLTRB(30, 0, 30, 10),
                                   child: Table(
                                       defaultVerticalAlignment:
                                           TableCellVerticalAlignment.middle,
@@ -1255,16 +1239,14 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                             40),
                                       ])),
                               Container(
-                                padding: const EdgeInsets.fromLTRB(
-                                    30.0, 5.0, 30.0, 30.0),
+                                padding:
+                                    const EdgeInsets.fromLTRB(30, 5, 30, 30),
                                 height: 130,
                                 width: double.infinity,
                                 child: _textFieldBuild(),
                               )
-                            ],
-                          ),
-                        ],
-                      ))),
+                            ])
+                      ]))),
               // #CONTAINER 11
               Container(
                   width: double.infinity,
@@ -1276,28 +1258,27 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                       ),
                       shadowColor: grey500,
                       elevation: 5,
-                      child: Column(
-                        children: [
-                          ExpansionTile(
+                      child: Column(children: [
+                        ExpansionTile(
                             title: RichText(
                                 text: TextSpan(
                                     text: "8. Kebersihan Kenderaan",
                                     style: TextStyle(
-                                        fontSize: 18.0,
+                                        fontSize: 18,
                                         color: Colors.blue.shade700,
                                         fontWeight: FontWeight.bold),
                                     children: <TextSpan>[
                                   TextSpan(
                                       text: "  (${_keyIn[7]}/2)",
                                       style: TextStyle(
-                                          fontSize: 14.0,
+                                          fontSize: 14,
                                           color: _colorResult[7])),
                                 ])),
                             textColor: Colors.blue.shade700,
                             children: <Widget>[
                               Container(
-                                  margin: const EdgeInsets.fromLTRB(
-                                      30.0, 0.0, 30.0, 10.0),
+                                  margin:
+                                      const EdgeInsets.fromLTRB(30, 0, 30, 10),
                                   child: Table(
                                       defaultVerticalAlignment:
                                           TableCellVerticalAlignment.middle,
@@ -1316,16 +1297,14 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                             42),
                                       ])),
                               Container(
-                                padding: const EdgeInsets.fromLTRB(
-                                    30.0, 5.0, 30.0, 30.0),
+                                padding:
+                                    const EdgeInsets.fromLTRB(30, 5, 30, 30),
                                 height: 130,
                                 width: double.infinity,
                                 child: _textFieldBuild(),
                               )
-                            ],
-                          ),
-                        ],
-                      ))),
+                            ])
+                      ]))),
               // #CONTAINER 12
               Container(
                   width: double.infinity,
@@ -1337,28 +1316,27 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                       ),
                       shadowColor: grey500,
                       elevation: 5,
-                      child: Column(
-                        children: [
-                          ExpansionTile(
+                      child: Column(children: [
+                        ExpansionTile(
                             title: RichText(
                                 text: TextSpan(
                                     text: "9. Kebersihan Bin Lifter",
                                     style: TextStyle(
-                                        fontSize: 18.0,
+                                        fontSize: 18,
                                         color: Colors.blue.shade700,
                                         fontWeight: FontWeight.bold),
                                     children: <TextSpan>[
                                   TextSpan(
                                       text: "  (${_keyIn[8]}/1)",
                                       style: TextStyle(
-                                          fontSize: 14.0,
+                                          fontSize: 14,
                                           color: _colorResult[8])),
                                 ])),
                             textColor: Colors.blue.shade700,
                             children: <Widget>[
                               Container(
-                                  margin: const EdgeInsets.fromLTRB(
-                                      30.0, 0.0, 30.0, 10.0),
+                                  margin:
+                                      const EdgeInsets.fromLTRB(30, 0, 30, 10),
                                   child: Table(
                                       defaultVerticalAlignment:
                                           TableCellVerticalAlignment.middle,
@@ -1374,16 +1352,14 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                             43),
                                       ])),
                               Container(
-                                padding: const EdgeInsets.fromLTRB(
-                                    30.0, 5.0, 30.0, 30.0),
+                                padding:
+                                    const EdgeInsets.fromLTRB(30, 5, 30, 30),
                                 height: 130,
                                 width: double.infinity,
                                 child: _textFieldBuild(),
                               )
-                            ],
-                          ),
-                        ],
-                      ))),
+                            ])
+                      ]))),
               // #CONTAINER 13
               Container(
                   width: double.infinity,
@@ -1395,28 +1371,27 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                       ),
                       shadowColor: grey500,
                       elevation: 5,
-                      child: Column(
-                        children: [
-                          ExpansionTile(
+                      child: Column(children: [
+                        ExpansionTile(
                             title: RichText(
                                 text: TextSpan(
                                     text: "10. Kemalangan",
                                     style: TextStyle(
-                                        fontSize: 18.0,
+                                        fontSize: 18,
                                         color: Colors.blue.shade700,
                                         fontWeight: FontWeight.bold),
                                     children: <TextSpan>[
                                   TextSpan(
                                       text: "  (${_keyIn[9]}/2)",
                                       style: TextStyle(
-                                          fontSize: 14.0,
+                                          fontSize: 14,
                                           color: _colorResult[9])),
                                 ])),
                             textColor: Colors.blue.shade700,
                             children: <Widget>[
                               Container(
-                                  margin: const EdgeInsets.fromLTRB(
-                                      30.0, 0.0, 30.0, 10.0),
+                                  margin:
+                                      const EdgeInsets.fromLTRB(30, 0, 30, 10),
                                   child: Table(
                                       defaultVerticalAlignment:
                                           TableCellVerticalAlignment.middle,
@@ -1435,16 +1410,14 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                             45),
                                       ])),
                               Container(
-                                padding: const EdgeInsets.fromLTRB(
-                                    30.0, 5.0, 30.0, 30.0),
+                                padding:
+                                    const EdgeInsets.fromLTRB(30, 5, 30, 30),
                                 height: 130,
                                 width: double.infinity,
                                 child: _textFieldBuild(),
                               )
-                            ],
-                          ),
-                        ],
-                      ))),
+                            ])
+                      ]))),
               // #CONTAINER 14
               Container(
                   width: double.infinity,
@@ -1456,28 +1429,27 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                       ),
                       shadowColor: grey500,
                       elevation: 5,
-                      child: Column(
-                        children: [
-                          ExpansionTile(
+                      child: Column(children: [
+                        ExpansionTile(
                             title: RichText(
                                 text: TextSpan(
                                     text: "11. Fizikal Kenderaan",
                                     style: TextStyle(
-                                        fontSize: 18.0,
+                                        fontSize: 18,
                                         color: Colors.blue.shade700,
                                         fontWeight: FontWeight.bold),
                                     children: <TextSpan>[
                                   TextSpan(
                                       text: "  (${_keyIn[10]}/2)",
                                       style: TextStyle(
-                                          fontSize: 14.0,
+                                          fontSize: 14,
                                           color: _colorResult[10])),
                                 ])),
                             textColor: Colors.blue.shade700,
                             children: <Widget>[
                               Container(
-                                  margin: const EdgeInsets.fromLTRB(
-                                      30.0, 0.0, 30.0, 10.0),
+                                  margin:
+                                      const EdgeInsets.fromLTRB(30, 0, 30, 10),
                                   child: Table(
                                       defaultVerticalAlignment:
                                           TableCellVerticalAlignment.middle,
@@ -1495,55 +1467,52 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                             47),
                                       ])),
                               Container(
-                                padding: const EdgeInsets.fromLTRB(
-                                    30.0, 5.0, 30.0, 30.0),
+                                padding:
+                                    const EdgeInsets.fromLTRB(30, 5, 30, 30),
                                 height: 130,
                                 width: double.infinity,
                                 child: _textFieldBuild(),
                               )
-                            ],
-                          ),
-                        ],
-                      ))),
+                            ])
+                      ]))),
             ]),
           )),
       bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          color: white,
-          boxShadow: [
-            BoxShadow(
-                color: Colors.grey.withOpacity(.3),
-                blurRadius: 6,
-                spreadRadius: 0.5)
-          ],
-        ),
-        padding: Orientations().isPortrait(context)
-            ? const EdgeInsets.symmetric(horizontal: 220, vertical: 15)
-            : const EdgeInsets.symmetric(horizontal: 400, vertical: 10),
-        child: SizedBox(
-          height: 40,
-          width: 150,
-          child: ElevatedButton(
-            style: ButtonStyle(
-                shape: MaterialStateProperty.all(
-                  RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0)),
-                ),
-                elevation: MaterialStateProperty.all(0),
-                overlayColor:
-                    MaterialStateColor.resolveWith((states) => green800),
-                minimumSize: MaterialStateProperty.all(
-                    Size(Sizes().screenWidth(context), 45)),
-                backgroundColor: MaterialStateProperty.all(green)),
-            child: Text('Hantar',
-                style: TextStyle(
-                    color: white, fontSize: 16, fontWeight: FontWeight.w700)),
-            onPressed: () {
-              _handleSubmittedData(context);
-            },
+          decoration: BoxDecoration(
+            color: white,
+            boxShadow: [
+              BoxShadow(
+                  color: Colors.grey.withOpacity(.3),
+                  blurRadius: 6,
+                  spreadRadius: 0.5)
+            ],
           ),
-        ),
-      ),
+          padding: Orientations().isPortrait(context)
+              ? const EdgeInsets.symmetric(horizontal: 220, vertical: 15)
+              : const EdgeInsets.symmetric(horizontal: 400, vertical: 10),
+          child: SizedBox(
+              height: 40,
+              width: 150,
+              child: ElevatedButton(
+                  style: ButtonStyle(
+                      shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0)),
+                      ),
+                      elevation: MaterialStateProperty.all(0),
+                      overlayColor:
+                          MaterialStateColor.resolveWith((states) => green800),
+                      minimumSize: MaterialStateProperty.all(
+                          Size(Sizes().screenWidth(context), 45)),
+                      backgroundColor: MaterialStateProperty.all(green)),
+                  child: Text('Hantar',
+                      style: TextStyle(
+                          color: white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700)),
+                  onPressed: () {
+                    _handleSubmittedData(context);
+                  }))),
       floatingActionButton:
           _showBackToTopButton == false ? null : _goUpButtonBuild(),
     );
@@ -1620,36 +1589,34 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
           textAlign: TextAlign.left,
           style: TextStyle(fontSize: 16, color: black87)),
       SizedBox(
-        height: 42,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 7.0),
-          child: Row(
-            children: [
-              Row(
-                children: [
-                  Radio(
-                    value: 1,
-                    groupValue: _buttonVal[idx],
-                    onChanged: (value) {
-                      setState(() {
-                        _buttonVal[idx] = value as int;
-                      });
-                    },
-                    activeColor: green,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        _buttonVal[idx] = 1;
-                      });
-                    },
-                    child: Text(has),
-                  ),
-                ],
-              ),
-              const SizedBox(width: 5),
-              Row(
-                children: [
+          height: 42,
+          child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 7),
+              child: Row(children: [
+                Row(
+                  children: [
+                    Radio(
+                      value: 1,
+                      groupValue: _buttonVal[idx],
+                      onChanged: (value) {
+                        setState(() {
+                          _buttonVal[idx] = value as int;
+                        });
+                      },
+                      activeColor: green,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _buttonVal[idx] = 1;
+                        });
+                      },
+                      child: Text(has),
+                    ),
+                  ],
+                ),
+                const SizedBox(width: 5),
+                Row(children: [
                   Radio(
                       value: 2,
                       groupValue: _buttonVal[idx],
@@ -1666,13 +1633,9 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                       });
                     },
                     child: Text(no),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      )
+                  )
+                ])
+              ])))
     ]);
   }
 

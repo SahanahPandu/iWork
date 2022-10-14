@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../config/font.dart';
 import '../../../config/palette.dart';
 import '../../../models/akbk.dart';
-import '../../../utils/custom_icon.dart';
+import '../../../utils/icon/custom_icon.dart';
 import '../../../widgets/container/status_container.dart';
 
 class AkbkRecordListDetails extends StatefulWidget {

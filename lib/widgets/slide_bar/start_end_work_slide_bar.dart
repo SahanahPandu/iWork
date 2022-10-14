@@ -8,7 +8,7 @@ import 'package:shimmer/shimmer.dart';
 import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../../config/string.dart';
-import '../../utils/date.dart';
+import '../../utils/calendar/time.dart';
 import '../../utils/device/orientations.dart';
 import '../../utils/device/sizes.dart';
 import '../alert/alert_dialog.dart';
@@ -120,13 +120,13 @@ class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
                 }).then((actionText) {
                 if (actionText == startWorkText) {
                   _setTaskState(endWork, red, red, red, white, 2);
-                  slidedStartTime = Date.getCurrentTime();
+                  slidedStartTime = Time.getCurrentTime();
                   CompactorPanelMyTaskListDetails.of(context)
                       ?.setStartTime(slidedStartTime);
                 } else if (actionText == endWorkText) {
                   _setTaskState(
                       startWork, grey, transparent, transparent, grey300, 3);
-                  slidedEndTime = Date.getCurrentTime();
+                  slidedEndTime = Time.getCurrentTime();
                 }
               })
             : showErrorToast(context, doVcFirst));

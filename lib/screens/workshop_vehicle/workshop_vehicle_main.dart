@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 //import files
 import '../../config/palette.dart';
 import '../../providers/workshop_vehicle_api.dart';
-import '../../utils/custom_icon.dart';
+import '../../utils/icon/custom_icon.dart';
 import 'workshop_vehicle_details.dart';
 
 class WorkshopVehicleMain extends StatefulWidget {

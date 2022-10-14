@@ -12,7 +12,7 @@ import '../../config/font.dart';
 import '../../config/palette.dart';
 import '../../models/cuti.dart';
 import '../../providers/jenis_cuti_api.dart';
-import '../../utils/custom_icon.dart';
+import '../../utils/icon/custom_icon.dart';
 import '../../utils/device/orientations.dart';
 import '../../utils/device/sizes.dart';
 import '../../widgets/buttons/ecuti_submit_button.dart';

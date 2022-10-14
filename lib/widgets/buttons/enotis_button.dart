@@ -7,7 +7,7 @@ import 'package:intl/intl.dart';
 import '../../config/dimen.dart';
 import '../../config/palette.dart';
 import '../../config/string.dart';
-import '../../utils/date.dart';
+import '../../utils/calendar/date.dart';
 import '../../utils/device/sizes.dart';
 import '../alert/alert_dialog.dart';
 import '../alert/lottie_alert_dialog.dart';
