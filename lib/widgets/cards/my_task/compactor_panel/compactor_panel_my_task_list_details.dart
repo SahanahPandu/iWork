@@ -5,8 +5,8 @@ import '../../../../config/config.dart';
 import '../../../../config/palette.dart';
 import '../../../../config/string.dart';
 import '../../../../models/laluan.dart';
-import '../../../../utils/icon/custom_icon.dart';
 import '../../../../utils/device/orientations.dart';
+import '../../../../utils/icon/custom_icon.dart';
 import '../../../../widgets/slide_bar/start_end_work_slide_bar.dart';
 
 class CompactorPanelMyTaskListDetails extends StatefulWidget {
@@ -256,17 +256,17 @@ class CompactorPanelMyTaskListDetailsState
                           )
                   ]))
         ]),
-        Padding(
-            padding:
-                const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 15),
-            child: widget.button == true
-                ? Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const <Widget>[
-                      StartEndWorkSlideBar(),
-                    ],
-                  )
-                : null)
+        widget.button == true
+            ? Padding(
+                padding: const EdgeInsets.only(
+                    left: 10, right: 10, top: 10, bottom: 15),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const <Widget>[
+                    StartEndWorkSlideBar(),
+                  ],
+                ))
+            : const SizedBox()
       ],
     );
   }

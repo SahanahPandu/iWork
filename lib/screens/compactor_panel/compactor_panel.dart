@@ -47,7 +47,7 @@ class _CompactorPanelState extends State<CompactorPanel> {
           : const BoxConstraints(minHeight: 285),
       color: white,
       padding: const EdgeInsets.fromLTRB(15, 0, 15, 10),
-      child: const CompactorTaskList(isButton: true),
+      child: const CompactorTaskList(main: true),
     ));
   }
 

@@ -67,39 +67,42 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
           ),
         ),
       ),
-      body: userRole == 100
-          ? Column(
-              children: const [
-                CompactorTaskList(isButton: false),
-              ],
-            )
-          : ScrollConfiguration(
-              behavior: CustomScrollBehavior(),
-              child: SingleChildScrollView(
-                  child: Column(
-                children: [
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    padding: const EdgeInsets.only(
-                        left: 20, right: 20, top: 20, bottom: 10),
-                    child: Text(
-                      "Senarai Laluan Tugasan :",
-                      style: TextStyle(
-                          color: blackCustom,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400),
-                    ),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.all(10),
-                    child: CardListView(
-                      type: "Laluan",
-                      screens: "drawer",
-                    ),
-                  ),
-                ],
-              )),
-            ),
+      body: ScrollConfiguration(
+        behavior: CustomScrollBehavior(),
+        child: SingleChildScrollView(
+            child: userRole == 100
+                ? Column(
+                    children: const [
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 8),
+                        child: CompactorTaskList(main: false),
+                      ),
+                    ],
+                  )
+                : Column(
+                    children: [
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        padding: const EdgeInsets.only(
+                            left: 20, right: 20, top: 20, bottom: 10),
+                        child: Text(
+                          "Senarai Laluan Tugasan :",
+                          style: TextStyle(
+                              color: blackCustom,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w400),
+                        ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.all(10),
+                        child: CardListView(
+                          type: "Laluan",
+                          screens: "drawer",
+                        ),
+                      ),
+                    ],
+                  )),
+      ),
     );
   }
 }

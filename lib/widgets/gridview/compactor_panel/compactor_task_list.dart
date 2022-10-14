@@ -12,10 +12,10 @@ import '../../cards/my_task/compactor_panel/vehicle_checklist_card_details.dart'
 
 class CompactorTaskList extends StatefulWidget {
   final Function? topCardStatus;
-  final bool isButton;
+  final bool main;
 
   const CompactorTaskList(
-      {Key? key, this.topCardStatus, required this.isButton})
+      {Key? key, this.topCardStatus, required this.main})
       : super(key: key);
 
   @override
@@ -54,7 +54,9 @@ class _CompactorTaskListState extends State<CompactorTaskList> {
                           crossAxisSpacing: axisSpacing(context),
                           mainAxisSpacing: axisSpacing(context),
                           childAspectRatio: gridRatio(context)),
-                      physics: const NeverScrollableScrollPhysics(),
+                      physics: widget.main == true
+                          ? const NeverScrollableScrollPhysics()
+                          : const ScrollPhysics(),
                       itemCount: laluanDataFuture!.length + 1,
                       itemBuilder: (context, i) {
                         if (i == 0) {
@@ -95,7 +97,7 @@ class _CompactorTaskListState extends State<CompactorTaskList> {
                             child: buildTabletCard(
                                 CompactorPanelMyTaskListDetails(
                                     data: laluanDataFuture[i - 1],
-                                    button: widget.isButton)));
+                                    button: widget.main)));
                       }));
           }
         });
