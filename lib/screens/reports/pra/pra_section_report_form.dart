@@ -281,7 +281,7 @@ class PraSectionReportFormState extends State<PraSectionReportForm> {
               disabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(
                   width: borderSideWidth,
-                  color: userRole == 100 ? grey100 : enabledBorderWithoutText,
+                  color: enabledBorderWithoutText,
                 ),
                 borderRadius: BorderRadius.circular(borderRadiusCircular),
               ),

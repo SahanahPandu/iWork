@@ -30,7 +30,7 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         extendBody: true,
         appBar: AppBar(
-          leadingWidth: userRole == 100 ? 80 : 0,
+          leadingWidth: userRole == 100 ? 80 : 40,
           systemOverlayStyle: SystemUiOverlayStyle(
             statusBarColor: white,
             statusBarIconBrightness: Brightness.dark, //android

@@ -155,6 +155,7 @@ class _ListCardState extends State<ListCard> with TickerProviderStateMixin {
         //comp || pra
 
         return Scaffold(
+          backgroundColor: white,
           appBar: const AppBarWidget(title: "E-Cuti"),
           body: LeaveForm(screen: "2", data: widget.data),
         );
@@ -172,6 +173,7 @@ class _ListCardState extends State<ListCard> with TickerProviderStateMixin {
         // comp || pra
         //return ReportsPage(screen: "4", data: widget.data, dataLaluan: null);
         return Scaffold(
+          backgroundColor: white,
           appBar: AppBarWidget(title: "L${widget.data.id}"),
           body: ReportForm(screen: "4", data: widget.data, dataLaluan: null),
         );

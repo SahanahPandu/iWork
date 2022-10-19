@@ -27,8 +27,6 @@ class CardListView extends StatefulWidget {
 }
 
 class _CardListViewState extends State<CardListView> {
-  final ScrollController _controller = ScrollController();
-
   getData(context) {
     Future<List<dynamic>>? list;
 
@@ -49,79 +47,54 @@ class _CardListViewState extends State<CardListView> {
 
   @override
   Widget build(BuildContext context) {
-    return NotificationListener<ScrollNotification>(
-      onNotification: (ScrollNotification scrollNotification) {
-        if (userRole == 200) {
-          if (widget.type == "Laluan") {
-            if (scrollNotification is ScrollStartNotification ||
-                scrollNotification is ScrollUpdateNotification) {
-              if (widget.topCardStatus != null) {
-                widget.topCardStatus!(true);
-              }
-            }
-            if (scrollNotification is OverscrollNotification) {
-              if (widget.topCardStatus != null) {
-                widget.topCardStatus!(false);
-              }
-            }
-          }
+    return FutureBuilder<List>(
+      future: getData(context),
+      builder: (context, snapshot) {
+        final dataFuture = snapshot.data;
 
-          return true;
-        }
-        return false;
-      },
-      child: FutureBuilder<List>(
-        future: getData(context),
-        builder: (context, snapshot) {
-          final dataFuture = snapshot.data;
+        switch (snapshot.connectionState) {
+          case ConnectionState.waiting:
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
 
-          switch (snapshot.connectionState) {
-            case ConnectionState.waiting:
+          default:
+            if (snapshot.hasError) {
               return const Center(
-                child: CircularProgressIndicator(),
+                child: Text("Some error occurred!"),
               );
-
-            default:
-              if (snapshot.hasError) {
-                return const Center(
-                  child: Text("Some error occurred!"),
-                );
-              } else {
-                //Filtering based on Cuti Status (if any)
-                if (widget.type == "Cuti" && widget.cutiStatus != null) {
-                  dataFuture!.removeWhere(
-                      (item) => !widget.cutiStatus.contains(item.idStatus));
-                }
-                //Filtering based on issued laluan cards
-                if (widget.type == "Laluan" && widget.screens == "isu") {
-                  dataFuture!.removeWhere((item) => "".contains(item.isu));
-                }
-
-                return ListView.builder(
-                  physics: userRole == 200
-                      ? ((widget.type == "Laluan" &&
-                              (widget.screens == "drawer" ||
-                                  widget.screens == "isu"))
-                          ? const BouncingScrollPhysics(
-                              parent: AlwaysScrollableScrollPhysics(),
-                            )
-                          : const NeverScrollableScrollPhysics())
-                      : const BouncingScrollPhysics(),
-                  controller: userRole == 200 ? _controller : null,
-                  shrinkWrap: true,
-                  itemCount: dataFuture!.length,
-                  itemBuilder: (context, index) {
-                    return ListCard(
-                      data: dataFuture[index],
-                      type: widget.type,
-                      listIndex: index,
-                    );
-                  },
-                );
+            } else {
+              //Filtering based on Cuti Status (if any)
+              if (widget.type == "Cuti" && widget.cutiStatus != null) {
+                dataFuture!.removeWhere(
+                    (item) => !widget.cutiStatus.contains(item.idStatus));
               }
-          }
-        },
-      ),
+              //Filtering based on issued laluan cards
+              if (widget.type == "Laluan" && widget.screens == "isu") {
+                dataFuture!.removeWhere((item) => "".contains(item.isu));
+              }
+
+              return ListView.builder(
+                physics: userRole == 200
+                    ? ((widget.type == "Laluan" &&
+                            (widget.screens == "drawer" ||
+                                widget.screens == "isu"))
+                        ? const BouncingScrollPhysics()
+                        : const NeverScrollableScrollPhysics())
+                    : const BouncingScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: dataFuture!.length,
+                itemBuilder: (context, index) {
+                  return ListCard(
+                    data: dataFuture[index],
+                    type: widget.type,
+                    listIndex: index,
+                  );
+                },
+              );
+            }
+        }
+      },
     );
   }
 }

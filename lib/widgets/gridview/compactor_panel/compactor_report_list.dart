@@ -78,19 +78,23 @@ class _CompactorReportListState extends State<CompactorReportList> {
   }
 
   //------------------------------------------------------
-  // Build card details for vc/tasks.
+  // Build card details for report lists.
   //------------------------------------------------------
   SizedBox buildTabletCard(redirect) {
     return SizedBox(
       child: Padding(
         padding: const EdgeInsets.all(15.0),
-        child: Card(
-          //Tugasan Card
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
-          ),
-          shadowColor: grey500,
-          elevation: 5,
+        child: Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: white,
+              boxShadow: [
+                BoxShadow(
+                    color: cardListShadowColor.withOpacity(0.06),
+                    offset: const Offset(0, 2),
+                    blurRadius: 12,
+                    spreadRadius: 0.5)
+              ]),
           child: Padding(padding: const EdgeInsets.all(10), child: redirect),
         ),
       ),

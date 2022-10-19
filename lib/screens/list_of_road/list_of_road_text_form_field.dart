@@ -111,8 +111,8 @@ class ListOfRoadTextFormFieldState extends State<ListOfRoadTextFormField> {
               color: namaJalan.text != '' &&
                       widget.iconCondition == 1 &&
                       widget.screen == null
-                  ? (userRole == 100 ? grey100 : enabledBorderWithText)
-                  : (userRole == 100 ? grey100 : enabledBorderWithoutText),
+                  ? (enabledBorderWithText)
+                  : (enabledBorderWithoutText),
             ),
             borderRadius: BorderRadius.circular(borderRadiusCircular),
             gapPadding: 6.0,

@@ -1,9 +1,11 @@
+import 'dart:async';
+
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
 //import files
-import '../../widgets/buttons/ganti_pekerja_button.dart';
+import '../../config/palette.dart';
 import '../employee_list/employee_list.dart';
 import '../list_of_employees/list_of_employee_details.dart';
 
@@ -21,7 +23,9 @@ class ReassignEmployeeDetails extends StatefulWidget {
 }
 
 class _ReassignEmployeeDetailsState extends State<ReassignEmployeeDetails> {
-  dynamic dataEmployee2; //assigned employee
+  //assigned employee
+  dynamic dataEmployee2;
+  Color textColor = greenCustom;
 
   getAssignedEmployeeDetails(dynamic data) {
     //final buttonVisibility = StateInheritedWidget.of(context);
@@ -42,8 +46,8 @@ class _ReassignEmployeeDetailsState extends State<ReassignEmployeeDetails> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         absentEmployeeSection(),
-        SizedBox(
-          height: dataEmployee2 != null ? 16 : 24,
+        const SizedBox(
+          height: 12,
         ),
         if (dataEmployee2 != null)
           const Center(
@@ -71,6 +75,11 @@ class _ReassignEmployeeDetailsState extends State<ReassignEmployeeDetails> {
   Widget assignedEmployeeSection() {
     return InkWell(
       onTap: () {
+        Timer(const Duration(milliseconds: 200), () {
+          setState(() {
+            textColor = greenCustom;
+          });
+        });
         Navigator.push(
             context,
             PageTransition(
@@ -80,14 +89,31 @@ class _ReassignEmployeeDetailsState extends State<ReassignEmployeeDetails> {
                   assignedEmployee: getAssignedEmployeeDetails,
                 )));
       },
+      onTapDown: (_) {
+        setState(() {
+          textColor = const Color(0xFF75BE72);
+        });
+      },
+      onTapUp: (_) {
+        setState(() {
+          textColor = greenCustom;
+        });
+      },
+      onTapCancel: () {
+        setState(() {
+          textColor = greenCustom;
+        });
+      },
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 6, vertical: 16),
+        margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+        height: (dataEmployee2 == null) ? 100 : null,
         color: dataEmployee2 != null ? const Color(0x4DEBFFF0) : Colors.white,
         child: DottedBorder(
           borderType: BorderType.RRect,
           radius: const Radius.circular(8),
           color: const Color(0xff34A853),
-          strokeWidth: 0.5,
+          strokeWidth: 0.8,
+          dashPattern: const [3, 3],
           child: (dataEmployee2 != null)
               ? Padding(
                   padding:
@@ -97,10 +123,17 @@ class _ReassignEmployeeDetailsState extends State<ReassignEmployeeDetails> {
                   ),
                 )
               : Center(
-                  child: GantiPekerjaButton(
-                    absentEmployee: widget.dataEmployee1,
-                    assignedEmployee: getAssignedEmployeeDetails,
-                    buttonText: "Ganti Pekerja",
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text("Ganti Pekerja",
+                          style: TextStyle(
+                            color: textColor,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w400,
+                            decoration: TextDecoration.underline,
+                          )),
+                    ],
                   ),
                 ),
         ),

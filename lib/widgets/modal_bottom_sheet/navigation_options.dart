@@ -1,17 +1,10 @@
 import 'package:flutter/material.dart';
 
 //import files
-import '../../config/config.dart';
 import '../../config/palette.dart';
-import '../../utils/device/orientations.dart';
 
 Widget? showNavigationOptions(BuildContext context) {
   showModalBottomSheet(
-      constraints: userRole == 100
-          ? (Orientations().isLandscape(context)
-              ? const BoxConstraints(maxWidth: 500, maxHeight: 150)
-              : const BoxConstraints(maxWidth: 500, maxHeight: 120))
-          : null,
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
@@ -42,7 +35,7 @@ Widget? showNavigationOptions(BuildContext context) {
                   bottom: 16,
                 ),
                 child: Text(
-                  "Pilih Gambar",
+                  "Navigasi ke lokasi",
                   style: TextStyle(
                     color: Color(0xff969696),
                     fontSize: 15,

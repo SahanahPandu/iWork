@@ -22,36 +22,48 @@ class AppBarWidget extends StatefulWidget implements PreferredSizeWidget {
 class _AppBarWidgetState extends State<AppBarWidget> {
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      backgroundColor: widget.bgColor ?? appBarBgColor,
-      elevation: 2,
-      shadowColor: const Color(0xffF5F5F5),
-      leading: IconButton(
-        onPressed: () {
-          Navigator.pop(context);
-        },
-        icon: Icon(
-          CustomIcon.arrowBack,
-          color: blackCustom,
-          size: 22,
+    return PreferredSize(
+      preferredSize: const Size.fromHeight(kToolbarHeight),
+      child: Container(
+        decoration: BoxDecoration(boxShadow: [
+          BoxShadow(
+            color: barShadowColor,
+            offset: const Offset(0, 3),
+            blurRadius: 8,
+          )
+        ]),
+        child: AppBar(
+          backgroundColor: widget.bgColor ?? appBarBgColor,
+          elevation: 0,
+          shadowColor: const Color(0xffF5F5F5),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(
+              CustomIcon.arrowBack,
+              color: blackCustom,
+              size: 22,
+            ),
+          ),
+          iconTheme: IconThemeData(color: black87),
+          centerTitle: true,
+          title: Text(
+            widget.title ?? "",
+            style: TextStyle(
+              fontSize: 15,
+              color: blackCustom,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+          actions: widget.listOfWidget ??
+              [
+                const SizedBox(
+                  width: 50,
+                )
+              ],
         ),
       ),
-      iconTheme: IconThemeData(color: black87),
-      centerTitle: true,
-      title: Text(
-        widget.title ?? "",
-        style: TextStyle(
-          fontSize: 15,
-          color: blackCustom,
-          fontWeight: FontWeight.w400,
-        ),
-      ),
-      actions: widget.listOfWidget ??
-          [
-            const SizedBox(
-              width: 50,
-            )
-          ],
     );
   }
 }

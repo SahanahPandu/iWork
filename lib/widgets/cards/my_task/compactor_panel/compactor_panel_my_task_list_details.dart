@@ -261,11 +261,8 @@ class CompactorPanelMyTaskListDetailsState
                 padding: const EdgeInsets.only(
                     left: 10, right: 10, top: 10, bottom: 15),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const <Widget>[
-                    StartEndWorkSlideBar(),
-                  ],
-                ))
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const <Widget>[StartEndWorkSlideBar()]))
             : const SizedBox()
       ],
     );

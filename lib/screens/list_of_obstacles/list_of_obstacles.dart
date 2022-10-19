@@ -112,8 +112,8 @@ class ListOfObstaclesState extends State<ListOfObstacles> {
               color: jenisHalangan.text != '' &&
                       widget.iconCondition == 1 &&
                       widget.screen == null
-                  ? (userRole == 100 ? grey100 : enabledBorderWithText)
-                  : (userRole == 100 ? grey100 : enabledBorderWithoutText),
+                  ? (enabledBorderWithText)
+                  : (enabledBorderWithoutText),
             ),
             borderRadius: BorderRadius.circular(borderRadiusCircular),
           ),

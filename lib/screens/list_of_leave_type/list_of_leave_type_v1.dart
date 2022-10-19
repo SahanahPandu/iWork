@@ -106,10 +106,8 @@ class _ListOfLeaveTypeState extends State<ListOfLeaveType> {
                 : BorderSide(
                     width: borderSideWidth,
                     color: _jenisCuti.text != '' && widget.iconCondition == 1
-                        ? (userRole == 100 ? grey100 : enabledBorderWithText)
-                        : (userRole == 100
-                            ? grey100
-                            : enabledBorderWithoutText),
+                        ? (enabledBorderWithText)
+                        : (enabledBorderWithoutText),
                   ),
             borderRadius: BorderRadius.circular(borderRadiusCircular),
           ),

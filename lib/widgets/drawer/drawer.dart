@@ -328,8 +328,9 @@ class _DrawerBuildState extends State<DrawerBuild> {
               context,
               PageTransition(
                 type: PageTransitionType.fade,
-                child: const Scaffold(
-                  appBar: AppBarWidget(
+                child: Scaffold(
+                  backgroundColor: white,
+                  appBar: const AppBarWidget(
                     title: "Laporan",
                     listOfWidget: [
                       Icon(
@@ -341,7 +342,7 @@ class _DrawerBuildState extends State<DrawerBuild> {
                       ),
                     ],
                   ),
-                  body: ReportList(
+                  body: const ReportList(
                     screen: "6",
                   ),
                 ),

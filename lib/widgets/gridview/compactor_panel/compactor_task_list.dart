@@ -14,8 +14,7 @@ class CompactorTaskList extends StatefulWidget {
   final Function? topCardStatus;
   final bool main;
 
-  const CompactorTaskList(
-      {Key? key, this.topCardStatus, required this.main})
+  const CompactorTaskList({Key? key, this.topCardStatus, required this.main})
       : super(key: key);
 
   @override
