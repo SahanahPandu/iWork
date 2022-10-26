@@ -1,6 +1,8 @@
+import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 //import files
 import '../../../config/config.dart';
@@ -11,7 +13,6 @@ import '../../../models/vc/vc.dart';
 import '../../../utils/calendar/date.dart';
 import '../../../utils/device/orientations.dart';
 import '../../../utils/device/sizes.dart';
-import '../../../utils/icon/custom_icon.dart';
 import '../../../widgets/alert/alert_dialog.dart';
 import '../../../widgets/alert/toast.dart';
 import '../../../widgets/custom_scroll/custom_scroll.dart';
@@ -40,6 +41,17 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
   bool _showBackToTopButton = false;
   bool _valid = false;
   bool _incompleteRadioButton = false;
+  bool formOpenFlag = true;
+  bool formOpenFlag2 = false;
+  bool formOpenFlag3 = false;
+  bool formOpenFlag4 = false;
+  bool formOpenFlag5 = false;
+  bool formOpenFlag6 = false;
+  bool formOpenFlag7 = false;
+  bool formOpenFlag8 = false;
+  bool formOpenFlag9 = false;
+  bool formOpenFlag10 = false;
+  bool formOpenFlag11 = false;
   String _todayDate = "0";
   double _fuelValue = 20;
   final _buttonVal = List.generate(50, (index) => index = -1);
@@ -61,7 +73,6 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
           }
         });
       });
-
     super.initState();
   }
 
@@ -80,96 +91,37 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       backgroundColor: white,
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(kToolbarHeight),
-        child: Container(
-          decoration: BoxDecoration(boxShadow: [
-            BoxShadow(
-              color: barShadowColor,
-              offset: const Offset(0, 3),
-              blurRadius: 8,
-            )
-          ]),
-          child: AppBar(
-            backgroundColor: white,
-            elevation: 0,
-            leading: IconButton(
-              onPressed: () {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return showAlertDialog(
-                          context, reminder, confirmBack, yes, cancel);
-                    }).then((actionText) {
-                  if (actionText == yes) {
-                    Navigator.pop(context);
-                  }
-                });
-              },
-              icon: Icon(CustomIcon.arrowBack, color: blackCustom, size: 22),
-            ),
-            title: Center(
-              child: Text(
-                vc,
-                style: TextStyle(
-                  fontSize: 18,
-                  color: grey800,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ),
-            actions: [
-              IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  CustomIcon.history,
-                  color: blackCustom,
-                  size: 18,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
       body: ScrollConfiguration(
         behavior: CustomScrollBehavior(),
         child: SingleChildScrollView(
             controller: _scrollController,
             child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child:
-                  Column(crossAxisAlignment: CrossAxisAlignment.start, children: <
-                      Widget>[
-                Padding(
-                  padding:
-                      const EdgeInsets.only(top: 20.0, bottom: 10.0, left: 22.0),
-                  child: Text(
-                    fillUpVC,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-                //CONTAINER #1
-                Container(
-                    width: double.infinity,
-                    height: Orientations().isLandscape(context)
-                        ? (Sizes().screenHeight(context) * 0.19)
-                        : (Sizes().screenHeight(context) * 0.13),
-                    padding: Orientations().isLandscape(context)
-                        ? const EdgeInsets.symmetric(horizontal: 20.0)
-                        : const EdgeInsets.symmetric(horizontal: 10.0),
-                    child: Card(
-                        //CARD #1
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        shadowColor: white,
-                        elevation: 5,
+              padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 48),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    //CONTAINER #1
+                    Container(
+                        alignment: Alignment.center,
+                        height: Orientations().isLandscape(context)
+                            ? (Sizes().screenHeight(context) * 0.18)
+                            : (Sizes().screenHeight(context) * 0.11),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            color: white,
+                            boxShadow: [
+                              BoxShadow(
+                                  color: cardListShadowColor,
+                                  offset: const Offset(0, 2),
+                                  blurRadius: 6,
+                                  spreadRadius: 0.5)
+                            ]),
                         child: Container(
-                            margin: const EdgeInsets.all(20),
+                            margin: Orientations().isPortrait(context)
+                                ? const EdgeInsets.fromLTRB(20, 20, 20, 22)
+                                : const EdgeInsets.all(20),
                             child: Table(
                                 defaultVerticalAlignment:
                                     TableCellVerticalAlignment.middle,
@@ -177,12 +129,12 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                     ? const {
                                         0: FlexColumnWidth(2),
                                         1: FlexColumnWidth(1.9),
-                                        2: FlexColumnWidth(0.4),
-                                        3: FlexColumnWidth(2),
-                                        4: FlexColumnWidth(2),
-                                        5: FlexColumnWidth(0.4),
-                                        6: FlexColumnWidth(1.9),
-                                        7: FlexColumnWidth(1.9),
+                                        2: FlexColumnWidth(0.3),
+                                        3: FlexColumnWidth(2.4),
+                                        4: FlexColumnWidth(2.1),
+                                        5: FlexColumnWidth(0.3),
+                                        6: FlexColumnWidth(1.6),
+                                        7: FlexColumnWidth(1.8),
                                       }
                                     : null,
                                 border: TableBorder.all(color: transparent),
@@ -191,31 +143,43 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                     Text(date,
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
-                                            fontSize: 16, color: blueGrey)),
+                                            fontSize: 16,
+                                            color: greyCustom,
+                                            fontWeight: FontWeight.w400)),
                                     Text(_todayDate,
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
-                                            fontSize: 16, color: black)),
+                                            fontSize: 16,
+                                            color: blackCustom,
+                                            fontWeight: FontWeight.w600)),
                                     const Text(' '),
                                     Text(
                                       streetNo,
                                       textAlign: TextAlign.left,
                                       style: TextStyle(
-                                          fontSize: 16, color: blueGrey),
+                                          fontSize: 16,
+                                          color: greyCustom,
+                                          fontWeight: FontWeight.w400),
                                     ),
                                     Text(widget.data.noLaluan,
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
-                                            fontSize: 16, color: black)),
+                                            fontSize: 16,
+                                            color: blackCustom,
+                                            fontWeight: FontWeight.w600)),
                                     const Text(' '),
-                                    Text(compactorID,
+                                    Text(status,
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
-                                            fontSize: 16, color: blueGrey)),
-                                    Text(widget.data.noKenderaan,
+                                            fontSize: 16,
+                                            color: greyCustom,
+                                            fontWeight: FontWeight.w400)),
+                                    Text(widget.data.status,
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
-                                            fontSize: 16, color: black)),
+                                            fontSize: 16,
+                                            color: blackCustom,
+                                            fontWeight: FontWeight.w600)),
                                   ]),
                                   TableRow(children: [
                                     SizedBox(height: tableSpace(context)),
@@ -231,104 +195,145 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                     Text(outTime,
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
-                                            fontSize: 16, color: blueGrey)),
-                                    Text('--:--',
+                                            fontSize: 16,
+                                            color: greyCustom,
+                                            fontWeight: FontWeight.w400)),
+                                    Text(' --:--',
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
-                                            fontSize: 16, color: black)),
+                                            fontSize: 16,
+                                            color: blackCustom,
+                                            fontWeight: FontWeight.w600)),
                                     const Text(' '),
-                                    Text(inTime,
+                                    Text(compactorID,
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
-                                          fontSize: 16,
-                                          color: blueGrey,
-                                        )),
-                                    Text('--:--',
+                                            fontSize: 16,
+                                            color: greyCustom,
+                                            fontWeight: FontWeight.w400)),
+                                    Text(widget.data.noKenderaan,
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
-                                            fontSize: 16, color: black)),
+                                            fontSize: 16,
+                                            color: blackCustom,
+                                            fontWeight: FontWeight.w600)),
                                     const Text(' '),
-                                    Text(status,
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                            fontSize: 16, color: blueGrey)),
-                                    const Text('-')
+                                    const Text(' '),
+                                    const Text(' ')
                                   ]),
-                                ])))),
-                const SizedBox(height: 10),
-                // #CONTAINER 2
-                Container(
-                    width: double.infinity,
-                    height: containerVC2Height(context),
-                    padding: paddingVcTable(context),
-                    child: Card(
-                        //CARD #2
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
+                                ]))),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 36, bottom: 20),
+                      child: Text(
+                        fillUpVC,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
                         ),
-                        shadowColor: white,
-                        elevation: 5,
+                      ),
+                    ),
+                    // #CONTAINER 2
+                    Container(
+                        alignment: Alignment.center,
+                        height: Orientations().isLandscape(context)
+                            ? (Sizes().screenHeight(context) * 0.28)
+                            : (Sizes().screenHeight(context) * 0.18),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            color: white,
+                            boxShadow: [
+                              BoxShadow(
+                                  color: barShadowColor,
+                                  offset: const Offset(0, 2),
+                                  blurRadius: 8,
+                                  spreadRadius: 2)
+                            ]),
                         child: Container(
                             margin: const EdgeInsets.all(20),
                             child: Table(
                                 defaultVerticalAlignment:
                                     TableCellVerticalAlignment.middle,
                                 columnWidths: columnVC2Width(context),
-                                border: TableBorder.all(color: transparent),
+                                border:
+                                    TableBorder.all(color: Colors.transparent),
                                 children: [
                                   TableRow(children: [
                                     Text(odometerLvl,
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
-                                            fontSize: fontSizeVc(context),
-                                            color: blueGrey)),
+                                            fontSize: 16,
+                                            color: greyCustom,
+                                            fontWeight: FontWeight.w400)),
                                     Container(
                                       alignment: Alignment.centerLeft,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          SizedBox(
-                                              height: Orientations()
-                                                      .isLandscape(context)
-                                                  ? 35
-                                                  : 32,
-                                              width: Orientations()
-                                                      .isLandscape(context)
-                                                  ? 130
-                                                  : 100,
-                                              child: _valueTextFormBuild(
-                                                  0,
-                                                  TextInputType.number,
-                                                  odometer)),
-                                          SizedBox(width: columnSpaceVc(context)),
-                                          Text(
-                                            km,
-                                            style: TextStyle(
-                                                color: black, fontSize: 14),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    const Text(' '),
+                                      child: SizedBox(
+                                          height: Orientations()
+                                                  .isLandscape(context)
+                                              ? 40
+                                              : 36,
+                                          width: Orientations()
+                                                  .isLandscape(context)
+                                              ? 260
+                                              : 220,
+                                          child: _valueTextFormBuild(
+                                              0, TextInputType.number, km)),
+                                    )
+                                  ]),
+                                  TableRow(children: [
+                                    SizedBox(height: columnSpacing(context)),
+                                    SizedBox(height: columnSpacing(context))
+                                  ]),
+                                  TableRow(children: [
+                                    Text(totalKM,
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            color: greyCustom,
+                                            fontWeight: FontWeight.w400)),
+                                    Container(
+                                      alignment: Alignment.centerLeft,
+                                      child: SizedBox(
+                                          height: Orientations()
+                                                  .isLandscape(context)
+                                              ? 40
+                                              : 36,
+                                          width: Orientations()
+                                                  .isLandscape(context)
+                                              ? 260
+                                              : 220,
+                                          child: _valueTextFormBuild(
+                                              1, TextInputType.number, km)),
+                                    )
+                                  ]),
+                                  TableRow(children: [
+                                    SizedBox(height: columnSpacing(context)),
+                                    SizedBox(height: columnSpacing(context))
+                                  ]),
+                                  TableRow(children: [
                                     Text(
                                       odometerFunc,
                                       style: TextStyle(
-                                          fontSize: fontSizeVc(context),
-                                          color: blueGrey),
+                                          fontSize: 16,
+                                          color: greyCustom,
+                                          fontWeight: FontWeight.w400),
                                     ),
                                     SizedBox(
-                                      height: 25,
-                                      child: Padding(
-                                        padding:
+                                        height:
                                             Orientations().isLandscape(context)
-                                                ? const EdgeInsets.symmetric(
-                                                    horizontal: 7)
-                                                : const EdgeInsets.symmetric(
-                                                    horizontal: 0),
-                                        child: Row(
-                                          children: [
-                                            Row(
+                                                ? 40
+                                                : 36,
+                                        width:
+                                            Orientations().isLandscape(context)
+                                                ? 200
+                                                : 100,
+                                        child: Row(children: [
+                                          GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                _buttonVal[0] = 1;
+                                              });
+                                            },
+                                            child: Row(
                                               children: [
                                                 Radio(
                                                   value: 1,
@@ -341,17 +346,22 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                                   },
                                                   activeColor: green,
                                                 ),
-                                                GestureDetector(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      _buttonVal[0] = 1;
-                                                    });
-                                                  },
-                                                  child: Text(yes),
-                                                )
+                                                Text(yes),
                                               ],
                                             ),
-                                            Row(
+                                          ),
+                                          SizedBox(
+                                              width: Orientations()
+                                                      .isLandscape(context)
+                                                  ? 40
+                                                  : 30),
+                                          GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                _buttonVal[0] = 2;
+                                              });
+                                            },
+                                            child: Row(
                                               children: [
                                                 Radio(
                                                     value: 2,
@@ -363,199 +373,146 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                                       });
                                                     },
                                                     activeColor: green),
-                                                GestureDetector(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      _buttonVal[0] = 2;
-                                                    });
-                                                  },
-                                                  child: Text(no),
-                                                )
+                                                Text(no),
                                               ],
                                             ),
-                                          ],
-                                        ),
-                                      ),
-                                    )
+                                          )
+                                        ]))
                                   ]),
-                                  TableRow(children: [
-                                    SizedBox(height: columnSpacing(context)),
-                                    SizedBox(height: columnSpacing(context)),
-                                    SizedBox(height: columnSpacing(context)),
-                                    SizedBox(height: columnSpacing(context)),
-                                    SizedBox(height: columnSpacing(context)),
-                                  ]),
-                                  TableRow(children: [
-                                    Text(totalKM,
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                            fontSize: fontSizeVc(context),
-                                            color: blueGrey)),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        SizedBox(
-                                            height: Orientations()
-                                                    .isLandscape(context)
-                                                ? 35
-                                                : 32,
-                                            width: Orientations()
-                                                    .isLandscape(context)
-                                                ? 130
-                                                : 100,
-                                            child: _valueTextFormBuild(1,
-                                                TextInputType.number, odometer)),
-                                        SizedBox(width: columnSpaceVc(context)),
-                                        Text(
-                                          km,
-                                          style: TextStyle(
-                                              color: black, fontSize: 14),
-                                        )
-                                      ],
-                                    ),
-                                    Text(' ',
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                            fontSize: Orientations()
-                                                    .isLandscape(context)
-                                                ? 16
-                                                : 14,
-                                            color: blueGrey)),
-                                    Text(akbkNo,
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                          fontSize:
-                                              Orientations().isLandscape(context)
-                                                  ? 16
-                                                  : 14,
-                                          color: blueGrey,
-                                        )),
-                                    Container(
-                                        padding:
-                                            Orientations().isLandscape(context)
-                                                ? const EdgeInsets.symmetric(
-                                                    horizontal: 20)
-                                                : const EdgeInsets.symmetric(
-                                                    horizontal: 16),
-                                        height:
-                                            Orientations().isLandscape(context)
-                                                ? 35
-                                                : 32,
-                                        width: Orientations().isLandscape(context)
-                                            ? 400
-                                            : 0,
-                                        child: _valueTextFormBuild(
-                                            2, TextInputType.number)),
-                                  ]),
-                                ])))),
-                const SizedBox(height: 10),
-                // #CONTAINER 3
-                Container(
-                    width: double.infinity,
-                    height: Orientations().isLandscape(context)
-                        ? (Sizes().screenHeight(context) * 0.46)
-                        : (Sizes().screenHeight(context) * 0.3),
-                    padding: paddingVcTable(context),
-                    child: Card(
-                        //CARD #3
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        shadowColor: white,
-                        elevation: 5,
+                                ]))),
+                    const SizedBox(height: 30),
+                    // #CONTAINER 3
+                    Container(
+                        alignment: Alignment.center,
+                        height: Orientations().isLandscape(context)
+                            ? (Sizes().screenHeight(context) * 0.42)
+                            : (Sizes().screenHeight(context) * 0.3),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            color: white,
+                            boxShadow: [
+                              BoxShadow(
+                                  color: barShadowColor,
+                                  offset: const Offset(0, 2),
+                                  blurRadius: 8,
+                                  spreadRadius: 2)
+                            ]),
                         child: Container(
-                            margin: const EdgeInsets.all(20),
+                            margin: const EdgeInsets.symmetric(horizontal: 20),
                             child: Table(
                                 defaultVerticalAlignment:
                                     TableCellVerticalAlignment.middle,
-                                columnWidths: Orientations().isLandscape(context)
-                                    ? const {
-                                        0: FlexColumnWidth(1.62),
-                                        1: FlexColumnWidth(4),
-                                      }
-                                    : const {
-                                        0: FlexColumnWidth(2),
-                                        1: FlexColumnWidth(3)
-                                      },
+                                columnWidths:
+                                    Orientations().isLandscape(context)
+                                        ? const {
+                                            0: FlexColumnWidth(1),
+                                            1: FlexColumnWidth(2),
+                                          }
+                                        : const {
+                                            0: FlexColumnWidth(1),
+                                            1: FlexColumnWidth(1)
+                                          },
                                 border: TableBorder.all(color: transparent),
                                 children: [
                                   TableRow(children: [
-                                    Text(dieselFill,
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                            fontSize: 16, color: blueGrey)),
-                                    Container(
-                                      padding:
-                                          const EdgeInsets.symmetric(vertical: 7),
-                                      child: Row(
-                                        children: [
-                                          SizedBox(
-                                              height: 35,
-                                              width: 130,
-                                              child: _valueTextFormBuild(3,
-                                                  TextInputType.number, litre)),
-                                          const SizedBox(width: 10),
-                                          Text(
-                                            litre,
-                                            style: TextStyle(color: black),
+                                    Orientations().isLandscape(context)
+                                        ? Text(dieselFill,
+                                            textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                color: greyCustom,
+                                                fontWeight: FontWeight.w400))
+                                        : Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(dieselFill,
+                                                  textAlign: TextAlign.left,
+                                                  style: TextStyle(
+                                                      fontSize: 16,
+                                                      color: greyCustom,
+                                                      fontWeight:
+                                                          FontWeight.w400)),
+                                              const SizedBox(height: 70)
+                                            ],
                                           ),
-                                          const SizedBox(width: 35),
-                                          SizedBox(
-                                              height: 35,
-                                              width: 130,
-                                              child: _valueTextFormBuild(
-                                                  4, TextInputType.number, rm))
-                                        ],
-                                      ),
-                                    ),
-                                  ]),
-                                  TableRow(children: [
-                                    SizedBox(height: columnSpaceVc(context)),
-                                    SizedBox(
-                                        height:
-                                            Orientations().isLandscape(context)
-                                                ? 6
-                                                : 0),
+                                    Orientations().isLandscape(context)
+                                        ? Row(
+                                            children: [
+                                              SizedBox(
+                                                  height: Orientations()
+                                                          .isLandscape(context)
+                                                      ? 40
+                                                      : 36,
+                                                  width: Orientations()
+                                                          .isLandscape(context)
+                                                      ? 260
+                                                      : 220,
+                                                  child: _valueTextFormBuild(
+                                                      3,
+                                                      TextInputType.number,
+                                                      litre)),
+                                              const SizedBox(width: 20),
+                                              SizedBox(
+                                                  height: Orientations()
+                                                          .isLandscape(context)
+                                                      ? 40
+                                                      : 36,
+                                                  width: Orientations()
+                                                          .isLandscape(context)
+                                                      ? 260
+                                                      : 220,
+                                                  child: _valueTextFormBuild(4,
+                                                      TextInputType.number, rm))
+                                            ],
+                                          )
+                                        : Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              SizedBox(
+                                                  height: 36,
+                                                  width: 220,
+                                                  child: _valueTextFormBuild(
+                                                      3,
+                                                      TextInputType.number,
+                                                      litre)),
+                                              const SizedBox(height: 18),
+                                              SizedBox(
+                                                  height: 36,
+                                                  width: 220,
+                                                  child: _valueTextFormBuild(
+                                                      4,
+                                                      TextInputType.number,
+                                                      rm)),
+                                              const SizedBox(height: 10),
+                                            ],
+                                          ),
                                   ]),
                                   TableRow(children: [
                                     Text(passReceipt,
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
-                                            fontSize: 16, color: blueGrey)),
-                                    Container(
-                                      height: 45,
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 7),
+                                            fontSize: 16,
+                                            color: greyCustom,
+                                            fontWeight: FontWeight.w400)),
+                                    SizedBox(
+                                      height:
+                                          Orientations().isLandscape(context)
+                                              ? 40
+                                              : 36,
                                       child: Row(
                                         children: [
-                                          Row(
-                                            children: [
-                                              Radio(
-                                                value: 1,
-                                                groupValue: _buttonVal[1],
-                                                onChanged: (value) {
-                                                  setState(() {
-                                                    _buttonVal[1] = value as int;
-                                                  });
-                                                },
-                                                activeColor: green,
-                                              ),
-                                              GestureDetector(
-                                                onTap: () {
-                                                  setState(() {
-                                                    _buttonVal[1] = 1;
-                                                  });
-                                                },
-                                                child: Text(yes),
-                                              )
-                                            ],
-                                          ),
-                                          const SizedBox(width: 5),
-                                          Row(
-                                            children: [
-                                              Radio(
-                                                  value: 2,
+                                          GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                _buttonVal[1] = 1;
+                                              });
+                                            },
+                                            child: Row(
+                                              children: [
+                                                Radio(
+                                                  value: 1,
                                                   groupValue: _buttonVal[1],
                                                   onChanged: (value) {
                                                     setState(() {
@@ -563,16 +520,38 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                                           value as int;
                                                     });
                                                   },
-                                                  activeColor: green),
-                                              GestureDetector(
-                                                onTap: () {
-                                                  setState(() {
-                                                    _buttonVal[1] = 2;
-                                                  });
-                                                },
-                                                child: Text(no),
-                                              )
-                                            ],
+                                                  activeColor: green,
+                                                ),
+                                                Text(yes),
+                                              ],
+                                            ),
+                                          ),
+                                          SizedBox(
+                                              width: Orientations()
+                                                      .isLandscape(context)
+                                                  ? 40
+                                                  : 30),
+                                          GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                _buttonVal[1] = 2;
+                                              });
+                                            },
+                                            child: Row(
+                                              children: [
+                                                Radio(
+                                                    value: 2,
+                                                    groupValue: _buttonVal[1],
+                                                    onChanged: (value) {
+                                                      setState(() {
+                                                        _buttonVal[1] =
+                                                            value as int;
+                                                      });
+                                                    },
+                                                    activeColor: green),
+                                                Text(no),
+                                              ],
+                                            ),
                                           ),
                                         ],
                                       ),
@@ -582,15 +561,22 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                     Text(fleetCard,
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
-                                            fontSize: 16, color: blueGrey)),
+                                            fontSize: 16,
+                                            color: greyCustom,
+                                            fontWeight: FontWeight.w400)),
                                     SizedBox(
-                                      height: 35,
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 7),
-                                        child: Row(
-                                          children: [
-                                            Row(
+                                        height:
+                                            Orientations().isLandscape(context)
+                                                ? 40
+                                                : 36,
+                                        child: Row(children: [
+                                          GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                _buttonVal[2] = 1;
+                                              });
+                                            },
+                                            child: Row(
                                               children: [
                                                 Radio(
                                                   value: 1,
@@ -603,19 +589,22 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                                   },
                                                   activeColor: green,
                                                 ),
-                                                GestureDetector(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      _buttonVal[2] = 1;
-                                                    });
-                                                  },
-                                                  child: Text(yes),
-                                                )
+                                                Text(yes),
                                               ],
                                             ),
-                                            const SizedBox(width: 5),
-                                            Row(
-                                              children: [
+                                          ),
+                                          SizedBox(
+                                              width: Orientations()
+                                                      .isLandscape(context)
+                                                  ? 40
+                                                  : 30),
+                                          GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  _buttonVal[2] = 2;
+                                                });
+                                              },
+                                              child: Row(children: [
                                                 Radio(
                                                     value: 2,
                                                     groupValue: _buttonVal[2],
@@ -626,38 +615,30 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                                       });
                                                     },
                                                     activeColor: green),
-                                                GestureDetector(
-                                                  onTap: () {
-                                                    setState(() {
-                                                      _buttonVal[2] = 2;
-                                                    });
-                                                  },
-                                                  child: Text(no),
-                                                )
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    )
+                                                Text(no),
+                                              ]))
+                                        ]))
                                   ]),
                                   TableRow(children: [
                                     Text(cardNo,
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
-                                            fontSize: 16, color: blueGrey)),
-                                    SizedBox(
-                                      width: 400,
-                                      height: 60,
-                                      child: Row(
-                                        children: [
-                                          SizedBox(
-                                            height: 35,
-                                            width: 130,
-                                            child: _valueTextFormBuild(
-                                                5, TextInputType.number),
-                                          ),
-                                        ],
+                                            fontSize: 16,
+                                            color: greyCustom,
+                                            fontWeight: FontWeight.w400)),
+                                    Container(
+                                      alignment: Alignment.centerLeft,
+                                      child: SizedBox(
+                                        height:
+                                            Orientations().isLandscape(context)
+                                                ? 40
+                                                : 36,
+                                        width:
+                                            Orientations().isLandscape(context)
+                                                ? 260
+                                                : 220,
+                                        child: _valueTextFormBuild(
+                                            5, TextInputType.number, "", false),
                                       ),
                                     )
                                   ]),
@@ -665,22 +646,21 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                     Text(fuelLvl,
                                         textAlign: TextAlign.left,
                                         style: TextStyle(
-                                            fontSize: 16,
-                                            color: blueGrey,
-                                            height: 1.3)),
-                                    SizedBox(
-                                        height: 60,
+                                            fontSize: 16, color: greyCustom)),
+                                    Container(
+                                        alignment: Alignment.bottomLeft,
+                                        height: 70,
+                                        padding: const EdgeInsets.only(top: 18),
                                         child: Row(children: [
                                           Container(
                                               width: Orientations()
                                                       .isLandscape(context)
-                                                  ? (Sizes()
-                                                          .screenWidth(context) *
-                                                      0.55)
-                                                  : (Sizes()
-                                                          .screenWidth(context) *
-                                                      0.5),
-                                              height: 55,
+                                                  ? (Sizes().screenWidth(
+                                                          context) *
+                                                      0.5)
+                                                  : (Sizes().screenWidth(
+                                                          context) *
+                                                      0.4),
                                               decoration: BoxDecoration(
                                                 borderRadius:
                                                     const BorderRadius.all(
@@ -691,27 +671,36 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                                       lightPink,
                                                       lightGreen,
                                                     ],
-                                                    begin: const FractionalOffset(
-                                                        0, 0),
+                                                    begin:
+                                                        const FractionalOffset(
+                                                            0, 0),
                                                     end: const FractionalOffset(
                                                         1, 1),
                                                     stops: const [0, 1],
                                                     tileMode: TileMode.clamp),
                                               ),
                                               child: Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
                                                   mainAxisAlignment:
-                                                      MainAxisAlignment.center,
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
                                                   children: [
                                                     const SizedBox(width: 10),
                                                     Transform(
-                                                      alignment: Alignment.center,
+                                                      alignment:
+                                                          Alignment.center,
                                                       transform:
                                                           Matrix4.rotationY(
                                                               math.pi),
                                                       child: Icon(
                                                         Icons.local_gas_station,
                                                         color: red,
-                                                        size: 30,
+                                                        size: Orientations()
+                                                                .isLandscape(
+                                                                    context)
+                                                            ? 30
+                                                            : 20,
                                                       ),
                                                     ),
                                                     Expanded(
@@ -719,8 +708,9 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                                         data: SliderTheme.of(
                                                                 context)
                                                             .copyWith(
-                                                          activeTrackColor: white
-                                                              .withOpacity(1),
+                                                          activeTrackColor:
+                                                              white.withOpacity(
+                                                                  1),
                                                           inactiveTrackColor:
                                                               white.withOpacity(
                                                                   .5),
@@ -732,8 +722,8 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                                                   enabledThumbRadius:
                                                                       12),
                                                           thumbColor: white,
-                                                          overlayColor:
-                                                              green.withAlpha(32),
+                                                          overlayColor: green
+                                                              .withAlpha(32),
                                                           overlayShape:
                                                               const RoundSliderOverlayShape(
                                                                   overlayRadius:
@@ -761,12 +751,14 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                                           label:
                                                               '${_fuelValue.round()}%',
                                                           semanticFormatterCallback:
-                                                              (double newValue) {
+                                                              (double
+                                                                  newValue) {
                                                             return '${_fuelValue.round()}';
                                                           },
                                                           onChanged: (value) {
                                                             setState(() {
-                                                              _fuelValue = value;
+                                                              _fuelValue =
+                                                                  value;
                                                             });
                                                           },
                                                         ),
@@ -774,788 +766,1869 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                                     ),
                                                     Padding(
                                                       padding:
-                                                          const EdgeInsets.all(8),
+                                                          const EdgeInsets.all(
+                                                              8),
                                                       child: Icon(
                                                         Icons.local_gas_station,
                                                         color: green800,
-                                                        size: 30,
+                                                        size: Orientations()
+                                                                .isLandscape(
+                                                                    context)
+                                                            ? 30
+                                                            : 20,
                                                       ),
                                                     ),
-                                                    Text('${_fuelValue.round()}%',
+                                                    Text(
+                                                        '${_fuelValue.round()}%',
                                                         style: TextStyle(
                                                             color: white,
                                                             fontSize: 17,
                                                             fontWeight:
-                                                                FontWeight.w900)),
+                                                                FontWeight
+                                                                    .w900)),
                                                     const SizedBox(width: 10),
                                                   ]))
                                         ]))
                                   ])
-                                ])))),
-                // #CONTAINER 4
-                Container(
-                    width: double.infinity,
-                    padding: paddingVcTable(context),
-                    child: Card(
-                        //CARD #3
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        shadowColor: white,
-                        elevation: 5,
-                        child: Column(
-                          children: [
-                            ExpansionTile(
-                              title: RichText(
-                                  text: TextSpan(
-                                      text: "1. Dokumen Perjalanan",
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.blue.shade700,
-                                          fontWeight: FontWeight.bold),
-                                      children: <TextSpan>[
-                                    TextSpan(
-                                        text: "  (${_keyIn[0]}/3)",
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            color: _colorResult[0])),
-                                  ])),
-                              textColor: Colors.blue.shade700,
-                              children: <Widget>[
-                                Container(
-                                    margin:
-                                        const EdgeInsets.fromLTRB(30, 0, 30, 10),
-                                    child: Table(
+                                ]))),
+                    const SizedBox(height: 30),
+                    // #CONTAINER 4
+                    Container(
+                        alignment: Alignment.center,
+                        clipBehavior: Clip.antiAlias,
+                        margin: EdgeInsets.zero,
+                        decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(16),
+                                topRight: Radius.circular(16)),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: barShadowColor,
+                                  offset: const Offset(1, 1),
+                                  blurRadius: 8,
+                                  spreadRadius: 0.5)
+                            ]),
+                        child: Theme(
+                          data: Theme.of(context).copyWith(
+                              dividerColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              splashColor: Colors.transparent),
+                          child: ExpansionTile(
+                            key: GlobalKey(),
+                            tilePadding: const EdgeInsets.symmetric(
+                                vertical: 5, horizontal: 25),
+                            initiallyExpanded: formOpenFlag,
+                            onExpansionChanged: (d) {
+                              Timer(const Duration(milliseconds: 300), () {
+                                setState(() {
+                                  formOpenFlag2 = !d;
+                                  formOpenFlag = d;
+                                });
+                              });
+                            },
+                            title: Text(
+                                "1. Dokumen Perjalanan (${_keyIn[0]}/3)",
+                                style: const TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.w500)),
+                            collapsedBackgroundColor: tabBoxColor,
+                            backgroundColor: activeColor,
+                            textColor: white,
+                            iconColor: white,
+                            collapsedTextColor: greyCustom,
+                            collapsedIconColor: greyCustom,
+                            children: <Widget>[
+                              Container(
+                                color: white,
+                                padding: Orientations()
+                                        .isTabletPortrait(context)
+                                    ? const EdgeInsets.fromLTRB(35, 20, 35, 20)
+                                    : const EdgeInsets.fromLTRB(56, 20, 56, 20),
+                                child: Column(
+                                  children: [
+                                    Table(
                                         defaultVerticalAlignment:
                                             TableCellVerticalAlignment.middle,
                                         columnWidths: const {
-                                          0: FlexColumnWidth(4),
-                                          1: FlexColumnWidth(1.62),
+                                          0: FlexColumnWidth(2),
+                                          1: FlexColumnWidth(1),
                                         },
                                         border:
                                             TableBorder.all(color: transparent),
                                         children: [
-                                          _tableRowBuild('1.1. Puspakom Disc', 3),
+                                          _tableRowBuild(
+                                              '1.1. Puspakom Disc', 3),
                                           _tableRowBuild('1.2. Cukai Jalan', 4),
                                           _tableRowBuild(
                                               '1.3. Lesen pembawa A/Permit', 5),
-                                        ])),
-                                Container(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(30, 5, 30, 30),
-                                  height: 130,
-                                  width: double.infinity,
-                                  child: _textFieldBuild(),
-                                )
-                              ],
-                            ),
-                          ],
-                        ))),
-                // #CONTAINER 5
-                Container(
-                    width: double.infinity,
-                    padding: paddingVcTable(context),
-                    child: Card(
-                        //CARD #5
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        shadowColor: white,
-                        elevation: 5,
-                        child: Column(children: [
-                          ExpansionTile(
-                              title: RichText(
-                                  text: TextSpan(
-                                      text: "2. Pemeriksaan Tayar",
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.blue.shade700,
-                                          fontWeight: FontWeight.bold),
-                                      children: <TextSpan>[
-                                    TextSpan(
-                                        text: "  (${_keyIn[1]}/3)",
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            color: _colorResult[1])),
-                                  ])),
-                              textColor: Colors.blue.shade700,
-                              children: <Widget>[
-                                Container(
-                                    margin:
-                                        const EdgeInsets.fromLTRB(30, 0, 30, 10),
-                                    child: Table(
-                                        defaultVerticalAlignment:
-                                            TableCellVerticalAlignment.middle,
-                                        columnWidths: const {
-                                          0: FlexColumnWidth(4),
-                                          1: FlexColumnWidth(1.62),
+                                        ]),
+                                    Container(
+                                      color: white,
+                                      padding: const EdgeInsets.fromLTRB(
+                                          0, 15, 0, 20),
+                                      height: 100,
+                                      child: _textFieldBuild(),
+                                    ),
+                                    Align(
+                                      alignment: Alignment.bottomRight,
+                                      child: ElevatedButton(
+                                        style: ButtonStyle(
+                                            elevation:
+                                                MaterialStateProperty.all(0),
+                                            shape: MaterialStateProperty.all(
+                                              RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0)),
+                                            ),
+                                            overlayColor:
+                                                MaterialStateColor.resolveWith(
+                                                    (states) => green800),
+                                            backgroundColor:
+                                                MaterialStateProperty.all(
+                                                    greenCustom)),
+                                        onPressed: () {
+                                          Timer(
+                                              const Duration(milliseconds: 450),
+                                              () {
+                                            setState(() {
+                                              formOpenFlag = !formOpenFlag;
+                                              formOpenFlag2 = !formOpenFlag;
+                                            });
+                                          });
                                         },
-                                        border:
-                                            TableBorder.all(color: transparent),
+                                        child: const Text("Seterusnya"),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        )),
+                    const SizedBox(height: 5),
+                    // #CONTAINER 5
+                    Container(
+                        alignment: Alignment.center,
+                        clipBehavior: Clip.antiAlias,
+                        margin: EdgeInsets.zero,
+                        decoration: BoxDecoration(boxShadow: [
+                          BoxShadow(
+                              color: barShadowColor,
+                              offset: const Offset(1, 1),
+                              blurRadius: 8,
+                              spreadRadius: 0.5)
+                        ]),
+                        child: Theme(
+                            data: Theme.of(context).copyWith(
+                                dividerColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                splashColor: Colors.transparent),
+                            child: ExpansionTile(
+                                key: GlobalKey(),
+                                tilePadding: const EdgeInsets.symmetric(
+                                    vertical: 5, horizontal: 25),
+                                initiallyExpanded: formOpenFlag2,
+                                onExpansionChanged: (d) {
+                                  Timer(const Duration(milliseconds: 300), () {
+                                    setState(() {
+                                      formOpenFlag = !d;
+                                      formOpenFlag2 = d;
+                                    });
+                                  });
+                                },
+                                title: Text(
+                                    "2. Pemeriksaan Tayar (${_keyIn[1]}/3)",
+                                    style: const TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500)),
+                                collapsedBackgroundColor: tabBoxColor,
+                                backgroundColor: activeColor,
+                                textColor: white,
+                                iconColor: white,
+                                collapsedTextColor: greyCustom,
+                                collapsedIconColor: greyCustom,
+                                children: <Widget>[
+                                  Container(
+                                      color: white,
+                                      padding: Orientations()
+                                              .isTabletPortrait(context)
+                                          ? const EdgeInsets.fromLTRB(
+                                              35, 20, 35, 20)
+                                          : const EdgeInsets.fromLTRB(
+                                              56, 20, 56, 20),
+                                      child: Column(
                                         children: [
-                                          _tableRowBuild(
-                                              '2.1. Bahagian bunga tayar diperiksa',
-                                              6),
-                                          _tableRowBuild(
-                                              '2.2. Nut tayar diperiksa', 7),
-                                          _tableRowBuild(
-                                              '2.3. Tekanan angin diperiksa', 8),
-                                        ])),
-                                Container(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(30, 5, 30, 30),
-                                  height: 130,
-                                  width: double.infinity,
-                                  child: _textFieldBuild(),
-                                )
-                              ])
-                        ]))),
-                // #CONTAINER 6
-                Container(
-                    width: double.infinity,
-                    padding: paddingVcTable(context),
-                    child: Card(
-                        //CARD #6
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        shadowColor: white,
-                        elevation: 5,
-                        child: Column(children: [
-                          ExpansionTile(
-                              title: RichText(
-                                  text: TextSpan(
-                                      text: "3. Sistem Mampatan",
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.blue.shade700,
-                                          fontWeight: FontWeight.bold),
-                                      children: <TextSpan>[
-                                    TextSpan(
-                                        text: "  (${_keyIn[2]}/5)",
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            color: _colorResult[2])),
-                                  ])),
-                              textColor: Colors.blue.shade700,
-                              children: <Widget>[
-                                Container(
-                                    margin:
-                                        const EdgeInsets.fromLTRB(30, 0, 30, 10),
-                                    child: Table(
-                                        defaultVerticalAlignment:
-                                            TableCellVerticalAlignment.middle,
-                                        columnWidths: const {
-                                          0: FlexColumnWidth(4),
-                                          1: FlexColumnWidth(1.62),
-                                        },
-                                        border: TableBorder.all(
-                                            color: Colors.transparent),
-                                        children: [
-                                          _tableRowBuild(
-                                              '3.1. Sistem Hidraulik & Minyak',
-                                              9),
-                                          _tableRowBuild('3.2. PTD/PAM', 10),
-                                          _tableRowBuild(
-                                              '3.3. Semua penutup diperiksa', 11),
-                                          _tableRowBuild(
-                                              '3.4. Buang air dalam tabung angin',
-                                              12),
-                                          _tableRowBuild(
-                                              '3.5. Sistem LEACHATE diperiksa',
-                                              13),
-                                        ])),
-                                Container(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(30, 5, 30, 30),
-                                  height: 130,
-                                  width: double.infinity,
-                                  child: _textFieldBuild(),
-                                )
-                              ])
-                        ]))),
-                // #CONTAINER 7
-                Container(
-                    width: double.infinity,
-                    padding: paddingVcTable(context),
-                    child: Card(
-                        //CARD #7
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        shadowColor: white,
-                        elevation: 5,
-                        child: Column(children: [
-                          ExpansionTile(
-                              title: RichText(
-                                  text: TextSpan(
-                                      text: "4. Sistem Lampu",
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.blue.shade700,
-                                          fontWeight: FontWeight.bold),
-                                      children: <TextSpan>[
-                                    TextSpan(
-                                        text: "  (${_keyIn[3]}/6)",
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            color: _colorResult[3])),
-                                  ])),
-                              textColor: Colors.blue.shade700,
-                              children: <Widget>[
-                                Container(
-                                    margin:
-                                        const EdgeInsets.fromLTRB(30, 0, 30, 10),
-                                    child: Table(
-                                        defaultVerticalAlignment:
-                                            TableCellVerticalAlignment.middle,
-                                        columnWidths: const {
-                                          0: FlexColumnWidth(4),
-                                          1: FlexColumnWidth(1.62),
-                                        },
-                                        border:
-                                            TableBorder.all(color: transparent),
-                                        children: [
-                                          _tableRowBuild(
-                                              '4.1. Lampu utama dan belakang diperiksa',
-                                              14),
-                                          _tableRowBuild(
-                                              '4.2. Lampu berhenti diperiksa',
-                                              15),
-                                          _tableRowBuild(
-                                              '4.3. Lampu isyarat diperiksa', 16),
-                                          _tableRowBuild(
-                                              '4.4. Lampu kecemasan diperiksa (Hazard Light)',
-                                              17),
-                                          _tableRowBuild(
-                                              '4.5. Lampu isyarat sedang bekerja diperiksa (Beacon Light)',
-                                              18),
-                                          _tableRowBuild(
-                                              '4.6. Lampu nombor plet diperiksa',
-                                              19),
-                                        ])),
-                                Container(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(30, 5, 30, 30),
-                                  height: 130,
-                                  width: double.infinity,
-                                  child: _textFieldBuild(),
-                                )
-                              ])
-                        ]))),
-                // #CONTAINER 8
-                Container(
-                    width: double.infinity,
-                    padding: paddingVcTable(context),
-                    child: Card(
-                        //CARD #8
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        shadowColor: white,
-                        elevation: 5,
-                        child: Column(children: [
-                          ExpansionTile(
-                              title: RichText(
-                                  text: TextSpan(
-                                      text: "5. Sistem Enjin dan Driveline*",
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.blue.shade700,
-                                          fontWeight: FontWeight.bold),
-                                      children: <TextSpan>[
-                                    TextSpan(
-                                        text: "  (${_keyIn[4]}/16)",
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            color: _colorResult[3])),
-                                  ])),
-                              textColor: Colors.blue.shade700,
-                              children: <Widget>[
-                                Container(
-                                    margin:
-                                        const EdgeInsets.fromLTRB(30, 0, 30, 10),
-                                    child: Table(
-                                        defaultVerticalAlignment:
-                                            TableCellVerticalAlignment.middle,
-                                        columnWidths: const {
-                                          0: FlexColumnWidth(4),
-                                          1: FlexColumnWidth(1.62),
-                                        },
-                                        border: TableBorder.all(
-                                            color: Colors.transparent),
-                                        children: [
-                                          _tableRowBuild(
-                                              '5.1. Periksa dipstik minyak enjin',
-                                              20),
-                                          _tableRowBuild(
-                                              '5.2. Periksa paras minyak enjin',
-                                              21),
-                                          _tableRowBuild(
-                                              '5.3. Periksa penutup minyak enjin',
-                                              22),
-                                          _tableRowBuild(
-                                              '5.4. Periksa paras air radiator',
-                                              23),
-                                          _tableRowBuild(
-                                              '5.5. Periksa paras expansion tank',
-                                              24),
-                                          _tableRowBuild(
-                                              '5.6. Periksa dipstik minyak Auto Transmission',
-                                              25),
-                                          _tableRowBuild(
-                                              '5.7. Periksa paras minyak Auto Transmission',
-                                              26),
-                                          _tableRowBuild(
-                                              '5.8. Periksa paras minyak power steering',
-                                              27),
-                                          _tableRowBuild(
-                                              '5.9. Periksa paras minyak brek',
-                                              28),
-                                          _tableRowBuild(
-                                              '5.10. Nyatakan sistem cengkaman sistem brek',
-                                              29),
-                                          _tableRowBuild(
-                                              '5.11. Periksa paras minyak sistem clutch',
-                                              30),
-                                          _tableRowBuild(
-                                              '5.12. Adakah sistem clutch berfungsi dengan baik',
-                                              31),
-                                          _tableRowBuild(
-                                              '5.13. Periksa paras air wiper tank',
-                                              32),
-                                          _tableRowBuild(
-                                              '5.14. Periksa keadaan wiper (Kiri & Kanan)',
-                                              33),
-                                          _tableRowBuild(
-                                              '5.15. Periksa paras air bateri No. 1 & No. 2',
-                                              34),
-                                          _tableRowBuild(
-                                              '5.16. Periksa keadaan asap ekzos',
-                                              35),
-                                        ])),
-                                Container(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(30, 5, 30, 30),
-                                  height: 130,
-                                  width: double.infinity,
-                                  child: _textFieldBuild(),
-                                )
-                              ])
-                        ]))),
-                // #CONTAINER 9
-                Container(
-                    width: double.infinity,
-                    padding: paddingVcTable(context),
-                    child: Card(
-                        //CARD #9
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        shadowColor: white,
-                        elevation: 5,
-                        child: Column(children: [
-                          ExpansionTile(
-                              title: RichText(
-                                  text: TextSpan(
-                                      text: "6. Bahagian Luaran",
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.blue.shade700,
-                                          fontWeight: FontWeight.bold),
-                                      children: <TextSpan>[
-                                    TextSpan(
-                                        text: "  (${_keyIn[5]}/2)",
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            color: _colorResult[5])),
-                                  ])),
-                              textColor: Colors.blue.shade700,
-                              children: <Widget>[
-                                Container(
-                                    margin:
-                                        const EdgeInsets.fromLTRB(30, 0, 30, 10),
-                                    child: Table(
-                                        defaultVerticalAlignment:
-                                            TableCellVerticalAlignment.middle,
-                                        columnWidths: const {
-                                          0: FlexColumnWidth(4),
-                                          1: FlexColumnWidth(1.62),
-                                        },
-                                        border: TableBorder.all(
-                                            color: Colors.transparent),
-                                        children: [
-                                          _tableRowBuild(
-                                              '6.1. Cermin pandang belakang dan sisi',
-                                              36),
-                                          _tableRowBuild(
-                                              '6.2. Hon diperiksa', 37),
-                                        ])),
-                                Container(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(30, 5, 30, 30),
-                                  height: 130,
-                                  width: double.infinity,
-                                  child: _textFieldBuild(),
-                                )
-                              ])
-                        ]))),
-                // #CONTAINER 10
-                Container(
-                    width: double.infinity,
-                    padding: paddingVcTable(context),
-                    child: Card(
-                        //CARD #10
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        shadowColor: white,
-                        elevation: 5,
-                        child: Column(children: [
-                          ExpansionTile(
-                              title: RichText(
-                                  text: TextSpan(
-                                      text: "7. Peralatan Keselamatan",
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.blue.shade700,
-                                          fontWeight: FontWeight.bold),
-                                      children: <TextSpan>[
-                                    TextSpan(
-                                        text: "  (${_keyIn[6]}/3)",
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            color: _colorResult[6])),
-                                  ])),
-                              textColor: Colors.blue.shade700,
-                              children: <Widget>[
-                                Container(
-                                    margin:
-                                        const EdgeInsets.fromLTRB(30, 0, 30, 10),
-                                    child: Table(
-                                        defaultVerticalAlignment:
-                                            TableCellVerticalAlignment.middle,
-                                        columnWidths: const {
-                                          0: FlexColumnWidth(4),
-                                          1: FlexColumnWidth(1.62),
-                                        },
-                                        border: TableBorder.all(
-                                            color: Colors.transparent),
-                                        children: [
-                                          _tableRowBuild(
-                                              '7.1. Penanda amaran kecemasan (Triangle Reflector)',
-                                              38),
-                                          _tableRowBuild(
-                                              '7.2. Alat pemadam api', 39),
-                                          _tableRowBuild(
-                                              '7.3. Kotak kecemasan (First Aid Kit)',
-                                              40),
-                                        ])),
-                                Container(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(30, 5, 30, 30),
-                                  height: 130,
-                                  width: double.infinity,
-                                  child: _textFieldBuild(),
-                                )
-                              ])
-                        ]))),
-                // #CONTAINER 11
-                Container(
-                    width: double.infinity,
-                    padding: paddingVcTable(context),
-                    child: Card(
-                        //CARD #11
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        shadowColor: white,
-                        elevation: 5,
-                        child: Column(children: [
-                          ExpansionTile(
-                              title: RichText(
-                                  text: TextSpan(
-                                      text: "8. Kebersihan Kenderaan",
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.blue.shade700,
-                                          fontWeight: FontWeight.bold),
-                                      children: <TextSpan>[
-                                    TextSpan(
-                                        text: "  (${_keyIn[7]}/2)",
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            color: _colorResult[7])),
-                                  ])),
-                              textColor: Colors.blue.shade700,
-                              children: <Widget>[
-                                Container(
-                                    margin:
-                                        const EdgeInsets.fromLTRB(30, 0, 30, 10),
-                                    child: Table(
-                                        defaultVerticalAlignment:
-                                            TableCellVerticalAlignment.middle,
-                                        columnWidths: const {
-                                          0: FlexColumnWidth(4),
-                                          1: FlexColumnWidth(1.62),
-                                        },
-                                        border: TableBorder.all(
-                                            color: Colors.transparent),
-                                        children: [
-                                          _tableRowBuild(
-                                              '8.1. Kebersihan dalam kokpit (kabin)',
-                                              41),
-                                          _tableRowBuild(
-                                              '8.2. Kebersihan sekitar luaran badan trak',
-                                              42),
-                                        ])),
-                                Container(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(30, 5, 30, 30),
-                                  height: 130,
-                                  width: double.infinity,
-                                  child: _textFieldBuild(),
-                                )
-                              ])
-                        ]))),
-                // #CONTAINER 12
-                Container(
-                    width: double.infinity,
-                    padding: paddingVcTable(context),
-                    child: Card(
-                        //CARD #12
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        shadowColor: white,
-                        elevation: 5,
-                        child: Column(children: [
-                          ExpansionTile(
-                              title: RichText(
-                                  text: TextSpan(
-                                      text: "9. Kebersihan Bin Lifter",
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.blue.shade700,
-                                          fontWeight: FontWeight.bold),
-                                      children: <TextSpan>[
-                                    TextSpan(
-                                        text: "  (${_keyIn[8]}/1)",
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            color: _colorResult[8])),
-                                  ])),
-                              textColor: Colors.blue.shade700,
-                              children: <Widget>[
-                                Container(
-                                    margin:
-                                        const EdgeInsets.fromLTRB(30, 0, 30, 10),
-                                    child: Table(
-                                        defaultVerticalAlignment:
-                                            TableCellVerticalAlignment.middle,
-                                        columnWidths: const {
-                                          0: FlexColumnWidth(4),
-                                          1: FlexColumnWidth(1.62),
-                                        },
-                                        border: TableBorder.all(
-                                            color: Colors.transparent),
-                                        children: [
-                                          _tableRowBuild(
-                                              '9.1. Bin lifter dicuci oleh pemandu',
-                                              43),
-                                        ])),
-                                Container(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(30, 5, 30, 30),
-                                  height: 130,
-                                  width: double.infinity,
-                                  child: _textFieldBuild(),
-                                )
-                              ])
-                        ]))),
-                // #CONTAINER 13
-                Container(
-                    width: double.infinity,
-                    padding: paddingVcTable(context),
-                    child: Card(
-                        //CARD #13
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        shadowColor: white,
-                        elevation: 5,
-                        child: Column(children: [
-                          ExpansionTile(
-                              title: RichText(
-                                  text: TextSpan(
-                                      text: "10. Kemalangan",
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.blue.shade700,
-                                          fontWeight: FontWeight.bold),
-                                      children: <TextSpan>[
-                                    TextSpan(
-                                        text: "  (${_keyIn[9]}/2)",
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            color: _colorResult[9])),
-                                  ])),
-                              textColor: Colors.blue.shade700,
-                              children: <Widget>[
-                                Container(
-                                    margin:
-                                        const EdgeInsets.fromLTRB(30, 0, 30, 10),
-                                    child: Table(
-                                        defaultVerticalAlignment:
-                                            TableCellVerticalAlignment.middle,
-                                        columnWidths: const {
-                                          0: FlexColumnWidth(4),
-                                          1: FlexColumnWidth(1.62),
-                                        },
-                                        border:
-                                            TableBorder.all(color: transparent),
-                                        children: [
-                                          _tableRowBuild(
-                                              '10.1. Adakah anda terlibat dengan mana-mana kemalangan',
-                                              44),
-                                          _tableRowBuild(
-                                              '10.2. Nombor kenderaan pihak ketiga',
-                                              45),
-                                        ])),
-                                Container(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(30, 5, 30, 30),
-                                  height: 130,
-                                  width: double.infinity,
-                                  child: _textFieldBuild(),
-                                )
-                              ])
-                        ]))),
-                // #CONTAINER 14
-                Container(
-                    width: double.infinity,
-                    padding: paddingVcTable(context),
-                    child: Card(
-                        //CARD #14
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        shadowColor: white,
-                        elevation: 5,
-                        child: Column(children: [
-                          ExpansionTile(
-                              title: RichText(
-                                  text: TextSpan(
-                                      text: "11. Fizikal Kenderaan",
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.blue.shade700,
-                                          fontWeight: FontWeight.bold),
-                                      children: <TextSpan>[
-                                    TextSpan(
-                                        text: "  (${_keyIn[10]}/2)",
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            color: _colorResult[10])),
-                                  ])),
-                              textColor: Colors.blue.shade700,
-                              children: <Widget>[
-                                Container(
-                                    margin:
-                                        const EdgeInsets.fromLTRB(30, 0, 30, 10),
-                                    child: Table(
-                                        defaultVerticalAlignment:
-                                            TableCellVerticalAlignment.middle,
-                                        columnWidths: const {
-                                          0: FlexColumnWidth(4),
-                                          1: FlexColumnWidth(1.62),
-                                        },
-                                        border: TableBorder.all(
-                                            color: Colors.transparent),
-                                        children: [
-                                          _tableRowBuild(
-                                              '11.1. Sampah dalam kompaktor', 46),
-                                          _tableRowBuild(
-                                              '11.2. Keadaan fizikal/kecatatan pada trak',
-                                              47),
-                                        ])),
-                                Container(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(30, 5, 30, 30),
-                                  height: 130,
-                                  width: double.infinity,
-                                  child: _textFieldBuild(),
-                                )
-                              ])
-                        ]))),
-              ]),
+                                          Table(
+                                              defaultVerticalAlignment:
+                                                  TableCellVerticalAlignment
+                                                      .middle,
+                                              columnWidths: const {
+                                                0: FlexColumnWidth(2),
+                                                1: FlexColumnWidth(1),
+                                              },
+                                              border: TableBorder.all(
+                                                  color: transparent),
+                                              children: [
+                                                _tableRowBuild(
+                                                    '2.1. Bahagian bunga tayar diperiksa',
+                                                    6),
+                                                _tableRowBuild(
+                                                    '2.2. Nut tayar diperiksa',
+                                                    7),
+                                                _tableRowBuild(
+                                                    '2.3. Tekanan angin diperiksa',
+                                                    8),
+                                              ]),
+                                          Container(
+                                            color: white,
+                                            padding: const EdgeInsets.fromLTRB(
+                                                0, 15, 0, 20),
+                                            height: 100,
+                                            child: _textFieldBuild(),
+                                          ),
+                                          Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              children: [
+                                                ElevatedButton(
+                                                  style: ButtonStyle(
+                                                      elevation:
+                                                          MaterialStateProperty
+                                                              .all(0),
+                                                      shape:
+                                                          MaterialStateProperty
+                                                              .all(
+                                                        RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      8.0),
+                                                          side: BorderSide(
+                                                            color:
+                                                                grey500, //color
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      overlayColor:
+                                                          MaterialStateColor
+                                                              .resolveWith(
+                                                                  (states) =>
+                                                                      grey200),
+                                                      backgroundColor:
+                                                          MaterialStateProperty
+                                                              .all(white)),
+                                                  onPressed: () {
+                                                    Timer(
+                                                        const Duration(
+                                                            milliseconds: 450),
+                                                        () {
+                                                      setState(() {
+                                                        formOpenFlag = true;
+                                                        formOpenFlag2 = false;
+                                                      });
+                                                    });
+                                                  },
+                                                  child: Text("Sebelum",
+                                                      style: TextStyle(
+                                                          color: blackCustom)),
+                                                ),
+                                                const SizedBox(width: 20),
+                                                ElevatedButton(
+                                                  style: ButtonStyle(
+                                                      elevation:
+                                                          MaterialStateProperty
+                                                              .all(0),
+                                                      shape:
+                                                          MaterialStateProperty
+                                                              .all(
+                                                        RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        8.0)),
+                                                      ),
+                                                      overlayColor:
+                                                          MaterialStateColor
+                                                              .resolveWith(
+                                                                  (states) =>
+                                                                      green800),
+                                                      backgroundColor:
+                                                          MaterialStateProperty
+                                                              .all(
+                                                                  greenCustom)),
+                                                  onPressed: () {
+                                                    Timer(
+                                                        const Duration(
+                                                            milliseconds: 450),
+                                                        () {
+                                                      setState(() {
+                                                        formOpenFlag =
+                                                            !formOpenFlag;
+                                                        formOpenFlag2 = true;
+                                                      });
+                                                    });
+                                                  },
+                                                  child:
+                                                      const Text("Seterusnya"),
+                                                )
+                                              ])
+                                        ],
+                                      ))
+                                ]))),
+                    const SizedBox(height: 5),
+                    // #CONTAINER 6
+                    Container(
+                        alignment: Alignment.center,
+                        clipBehavior: Clip.antiAlias,
+                        margin: EdgeInsets.zero,
+                        decoration: BoxDecoration(boxShadow: [
+                          BoxShadow(
+                              color: barShadowColor,
+                              offset: const Offset(1, 1),
+                              blurRadius: 8,
+                              spreadRadius: 0.5)
+                        ]),
+                        child: Theme(
+                            data: Theme.of(context).copyWith(
+                                dividerColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                splashColor: Colors.transparent),
+                            child: ExpansionTile(
+                                key: GlobalKey(),
+                                tilePadding: const EdgeInsets.symmetric(
+                                    vertical: 5, horizontal: 25),
+                                initiallyExpanded: formOpenFlag3,
+                                onExpansionChanged: (d) {
+                                  Timer(const Duration(milliseconds: 350), () {
+                                    setState(() {
+                                      formOpenFlag2 = !d;
+                                      formOpenFlag3 = d;
+                                    });
+                                  });
+                                },
+                                title: Text(
+                                    "3. Sistem Mampatan (${_keyIn[2]}/5)",
+                                    style: const TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500)),
+                                collapsedBackgroundColor: tabBoxColor,
+                                backgroundColor: activeColor,
+                                textColor: white,
+                                iconColor: white,
+                                collapsedTextColor: greyCustom,
+                                collapsedIconColor: greyCustom,
+                                children: <Widget>[
+                                  Container(
+                                      color: white,
+                                      padding: Orientations()
+                                              .isTabletPortrait(context)
+                                          ? const EdgeInsets.fromLTRB(
+                                              35, 20, 35, 20)
+                                          : const EdgeInsets.fromLTRB(
+                                              56, 20, 56, 20),
+                                      child: Column(children: [
+                                        Table(
+                                            defaultVerticalAlignment:
+                                                TableCellVerticalAlignment
+                                                    .middle,
+                                            columnWidths: const {
+                                              0: FlexColumnWidth(2),
+                                              1: FlexColumnWidth(1),
+                                            },
+                                            border: TableBorder.all(
+                                                color: Colors.transparent),
+                                            children: [
+                                              _tableRowBuild(
+                                                  '3.1. Sistem Hidraulik & Minyak',
+                                                  9),
+                                              _tableRowBuild(
+                                                  '3.2. PTD/PAM', 10),
+                                              _tableRowBuild(
+                                                  '3.3. Semua penutup diperiksa',
+                                                  11),
+                                              _tableRowBuild(
+                                                  '3.4. Buang air dalam tabung angin',
+                                                  12),
+                                              _tableRowBuild(
+                                                  '3.5. Sistem LEACHATE diperiksa',
+                                                  13),
+                                            ]),
+                                        Container(
+                                          color: white,
+                                          padding: const EdgeInsets.fromLTRB(
+                                              0, 15, 0, 20),
+                                          height: 100,
+                                          child: _textFieldBuild(),
+                                        ),
+                                        Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              ElevatedButton(
+                                                style: ButtonStyle(
+                                                    elevation:
+                                                        MaterialStateProperty
+                                                            .all(0),
+                                                    shape: MaterialStateProperty
+                                                        .all(
+                                                      RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8.0),
+                                                        side: BorderSide(
+                                                          color:
+                                                              grey500, //color
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    overlayColor:
+                                                        MaterialStateColor
+                                                            .resolveWith(
+                                                                (states) =>
+                                                                    grey200),
+                                                    backgroundColor:
+                                                        MaterialStateProperty
+                                                            .all(white)),
+                                                onPressed: () {
+                                                  Timer(
+                                                      const Duration(
+                                                          milliseconds: 450),
+                                                      () {
+                                                    setState(() {
+                                                      formOpenFlag2 = true;
+                                                      formOpenFlag3 = false;
+                                                    });
+                                                  });
+                                                },
+                                                child: Text("Sebelum",
+                                                    style: TextStyle(
+                                                        color: blackCustom)),
+                                              ),
+                                              const SizedBox(width: 20),
+                                              ElevatedButton(
+                                                style: ButtonStyle(
+                                                    elevation:
+                                                        MaterialStateProperty
+                                                            .all(0),
+                                                    shape: MaterialStateProperty
+                                                        .all(
+                                                      RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      8.0)),
+                                                    ),
+                                                    overlayColor:
+                                                        MaterialStateColor
+                                                            .resolveWith(
+                                                                (states) =>
+                                                                    green800),
+                                                    backgroundColor:
+                                                        MaterialStateProperty
+                                                            .all(greenCustom)),
+                                                onPressed: () {
+                                                  Timer(
+                                                      const Duration(
+                                                          milliseconds: 450),
+                                                      () {
+                                                    setState(() {
+                                                      formOpenFlag2 =
+                                                          !formOpenFlag2;
+                                                      formOpenFlag3 = true;
+                                                    });
+                                                  });
+                                                },
+                                                child: const Text("Seterusnya"),
+                                              ),
+                                            ])
+                                      ]))
+                                ]))),
+                    const SizedBox(height: 5),
+                    // #CONTAINER 7
+                    Container(
+                        alignment: Alignment.center,
+                        clipBehavior: Clip.antiAlias,
+                        margin: EdgeInsets.zero,
+                        decoration: BoxDecoration(boxShadow: [
+                          BoxShadow(
+                              color: barShadowColor,
+                              offset: const Offset(1, 1),
+                              blurRadius: 8,
+                              spreadRadius: 0.5)
+                        ]),
+                        child: Theme(
+                            data: Theme.of(context).copyWith(
+                                dividerColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                splashColor: Colors.transparent),
+                            child: ExpansionTile(
+                                key: GlobalKey(),
+                                tilePadding: const EdgeInsets.symmetric(
+                                    vertical: 5, horizontal: 25),
+                                initiallyExpanded: formOpenFlag4,
+                                onExpansionChanged: (d) {
+                                  Timer(const Duration(milliseconds: 350), () {
+                                    setState(() {
+                                      formOpenFlag3 = !d;
+                                      formOpenFlag4 = d;
+                                    });
+                                  });
+                                },
+                                title: Text("4. Sistem Lampu (${_keyIn[3]}/6)",
+                                    style: const TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500)),
+                                collapsedBackgroundColor: tabBoxColor,
+                                backgroundColor: activeColor,
+                                textColor: white,
+                                iconColor: white,
+                                collapsedTextColor: greyCustom,
+                                collapsedIconColor: greyCustom,
+                                children: <Widget>[
+                                  Container(
+                                      color: white,
+                                      padding: Orientations()
+                                              .isTabletPortrait(context)
+                                          ? const EdgeInsets.fromLTRB(
+                                              35, 20, 35, 20)
+                                          : const EdgeInsets.fromLTRB(
+                                              56, 20, 56, 20),
+                                      child: Column(children: [
+                                        Table(
+                                            defaultVerticalAlignment:
+                                                TableCellVerticalAlignment
+                                                    .middle,
+                                            columnWidths: const {
+                                              0: FlexColumnWidth(2),
+                                              1: FlexColumnWidth(1),
+                                            },
+                                            border: TableBorder.all(
+                                                color: Colors.transparent),
+                                            children: [
+                                              _tableRowBuild(
+                                                  '4.1. Lampu utama dan belakang diperiksa',
+                                                  14),
+                                              _tableRowBuild(
+                                                  '4.2. Lampu berhenti diperiksa',
+                                                  15),
+                                              _tableRowBuild(
+                                                  '4.3. Lampu isyarat diperiksa',
+                                                  16),
+                                              _tableRowBuild(
+                                                  '4.4. Lampu kecemasan diperiksa (Hazard Light)',
+                                                  17),
+                                              _tableRowBuild(
+                                                  '4.5. Lampu isyarat sedang bekerja diperiksa (Beacon Light)',
+                                                  18),
+                                              _tableRowBuild(
+                                                  '4.6. Lampu nombor plet diperiksa',
+                                                  19),
+                                            ]),
+                                        Container(
+                                          color: white,
+                                          padding: const EdgeInsets.fromLTRB(
+                                              0, 15, 0, 20),
+                                          height: 100,
+                                          child: _textFieldBuild(),
+                                        ),
+                                        Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              ElevatedButton(
+                                                style: ButtonStyle(
+                                                    elevation:
+                                                        MaterialStateProperty
+                                                            .all(0),
+                                                    shape: MaterialStateProperty
+                                                        .all(
+                                                      RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8.0),
+                                                        side: BorderSide(
+                                                          color:
+                                                              grey500, //color
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    overlayColor:
+                                                        MaterialStateColor
+                                                            .resolveWith(
+                                                                (states) =>
+                                                                    grey200),
+                                                    backgroundColor:
+                                                        MaterialStateProperty
+                                                            .all(white)),
+                                                onPressed: () {
+                                                  Timer(
+                                                      const Duration(
+                                                          milliseconds: 450),
+                                                      () {
+                                                    setState(() {
+                                                      formOpenFlag3 = true;
+                                                      formOpenFlag4 = false;
+                                                    });
+                                                  });
+                                                },
+                                                child: Text("Sebelum",
+                                                    style: TextStyle(
+                                                        color: blackCustom)),
+                                              ),
+                                              const SizedBox(width: 20),
+                                              ElevatedButton(
+                                                style: ButtonStyle(
+                                                    elevation:
+                                                        MaterialStateProperty
+                                                            .all(0),
+                                                    shape: MaterialStateProperty
+                                                        .all(
+                                                      RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      8.0)),
+                                                    ),
+                                                    overlayColor:
+                                                        MaterialStateColor
+                                                            .resolveWith(
+                                                                (states) =>
+                                                                    green800),
+                                                    backgroundColor:
+                                                        MaterialStateProperty
+                                                            .all(greenCustom)),
+                                                onPressed: () {
+                                                  Timer(
+                                                      const Duration(
+                                                          milliseconds: 450),
+                                                      () {
+                                                    setState(() {
+                                                      formOpenFlag3 =
+                                                          !formOpenFlag3;
+                                                      formOpenFlag4 = true;
+                                                    });
+                                                  });
+                                                },
+                                                child: const Text("Seterusnya"),
+                                              ),
+                                            ])
+                                      ]))
+                                ]))),
+                    const SizedBox(height: 5),
+                    // #CONTAINER 8
+                    Container(
+                        alignment: Alignment.center,
+                        clipBehavior: Clip.antiAlias,
+                        margin: EdgeInsets.zero,
+                        decoration: BoxDecoration(boxShadow: [
+                          BoxShadow(
+                              color: barShadowColor,
+                              offset: const Offset(1, 1),
+                              blurRadius: 8,
+                              spreadRadius: 0.5)
+                        ]),
+                        child: Theme(
+                            data: Theme.of(context).copyWith(
+                                dividerColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                splashColor: Colors.transparent),
+                            child: ExpansionTile(
+                                key: GlobalKey(),
+                                tilePadding: const EdgeInsets.symmetric(
+                                    vertical: 5, horizontal: 25),
+                                initiallyExpanded: formOpenFlag5,
+                                onExpansionChanged: (d) {
+                                  Timer(const Duration(milliseconds: 350), () {
+                                    setState(() {
+                                      formOpenFlag4 = !d;
+                                      formOpenFlag5 = d;
+                                    });
+                                  });
+                                },
+                                title: Text(
+                                    "5. Sistem Enjin dan Driveline (${_keyIn[4]}/16)",
+                                    style: const TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500)),
+                                collapsedBackgroundColor: tabBoxColor,
+                                backgroundColor: activeColor,
+                                textColor: white,
+                                iconColor: white,
+                                collapsedTextColor: greyCustom,
+                                collapsedIconColor: greyCustom,
+                                children: <Widget>[
+                                  Container(
+                                      color: white,
+                                      padding: Orientations()
+                                              .isTabletPortrait(context)
+                                          ? const EdgeInsets.fromLTRB(
+                                              35, 20, 35, 20)
+                                          : const EdgeInsets.fromLTRB(
+                                              56, 20, 56, 20),
+                                      child: Column(children: [
+                                        Table(
+                                            defaultVerticalAlignment:
+                                                TableCellVerticalAlignment
+                                                    .middle,
+                                            columnWidths: const {
+                                              0: FlexColumnWidth(2),
+                                              1: FlexColumnWidth(1),
+                                            },
+                                            border: TableBorder.all(
+                                                color: Colors.transparent),
+                                            children: [
+                                              _tableRowBuild(
+                                                  '5.1. Periksa dipstik minyak enjin',
+                                                  20),
+                                              _tableRowBuild(
+                                                  '5.2. Periksa paras minyak enjin',
+                                                  21),
+                                              _tableRowBuild(
+                                                  '5.3. Periksa penutup minyak enjin',
+                                                  22),
+                                              _tableRowBuild(
+                                                  '5.4. Periksa paras air radiator',
+                                                  23),
+                                              _tableRowBuild(
+                                                  '5.5. Periksa paras expansion tank',
+                                                  24),
+                                              _tableRowBuild(
+                                                  '5.6. Periksa dipstik minyak Auto Transmission',
+                                                  25),
+                                              _tableRowBuild(
+                                                  '5.7. Periksa paras minyak Auto Transmission',
+                                                  26),
+                                              _tableRowBuild(
+                                                  '5.8. Periksa paras minyak power steering',
+                                                  27),
+                                              _tableRowBuild(
+                                                  '5.9. Periksa paras minyak brek',
+                                                  28),
+                                              _tableRowBuild(
+                                                  '5.10. Nyatakan sistem cengkaman sistem brek',
+                                                  29),
+                                              _tableRowBuild(
+                                                  '5.11. Periksa paras minyak sistem clutch',
+                                                  30),
+                                              _tableRowBuild(
+                                                  '5.12. Adakah sistem clutch berfungsi dengan baik',
+                                                  31),
+                                              _tableRowBuild(
+                                                  '5.13. Periksa paras air wiper tank',
+                                                  32),
+                                              _tableRowBuild(
+                                                  '5.14. Periksa keadaan wiper (Kiri & Kanan)',
+                                                  33),
+                                              _tableRowBuild(
+                                                  '5.15. Periksa paras air bateri No. 1 & No. 2',
+                                                  34),
+                                              _tableRowBuild(
+                                                  '5.16. Periksa keadaan asap ekzos',
+                                                  35),
+                                            ]),
+                                        Container(
+                                          color: white,
+                                          padding: const EdgeInsets.fromLTRB(
+                                              0, 15, 0, 20),
+                                          height: 100,
+                                          child: _textFieldBuild(),
+                                        ),
+                                        Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              ElevatedButton(
+                                                style: ButtonStyle(
+                                                    elevation:
+                                                        MaterialStateProperty
+                                                            .all(0),
+                                                    shape: MaterialStateProperty
+                                                        .all(
+                                                      RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8.0),
+                                                        side: BorderSide(
+                                                          color:
+                                                              grey500, //color
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    overlayColor:
+                                                        MaterialStateColor
+                                                            .resolveWith(
+                                                                (states) =>
+                                                                    grey200),
+                                                    backgroundColor:
+                                                        MaterialStateProperty
+                                                            .all(white)),
+                                                onPressed: () {
+                                                  Timer(
+                                                      const Duration(
+                                                          milliseconds: 450),
+                                                      () {
+                                                    setState(() {
+                                                      formOpenFlag4 = true;
+                                                      formOpenFlag5 = false;
+                                                    });
+                                                  });
+                                                },
+                                                child: Text("Sebelum",
+                                                    style: TextStyle(
+                                                        color: blackCustom)),
+                                              ),
+                                              const SizedBox(width: 20),
+                                              ElevatedButton(
+                                                style: ButtonStyle(
+                                                    elevation:
+                                                        MaterialStateProperty
+                                                            .all(0),
+                                                    shape: MaterialStateProperty
+                                                        .all(
+                                                      RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      8.0)),
+                                                    ),
+                                                    overlayColor:
+                                                        MaterialStateColor
+                                                            .resolveWith(
+                                                                (states) =>
+                                                                    green800),
+                                                    backgroundColor:
+                                                        MaterialStateProperty
+                                                            .all(greenCustom)),
+                                                onPressed: () {
+                                                  Timer(
+                                                      const Duration(
+                                                          milliseconds: 450),
+                                                      () {
+                                                    setState(() {
+                                                      formOpenFlag5 =
+                                                          !formOpenFlag4;
+                                                      formOpenFlag5 = true;
+                                                    });
+                                                  });
+                                                },
+                                                child: const Text("Seterusnya"),
+                                              ),
+                                            ])
+                                      ]))
+                                ]))),
+                    const SizedBox(height: 5),
+                    // #CONTAINER 9
+                    Container(
+                        alignment: Alignment.center,
+                        clipBehavior: Clip.antiAlias,
+                        margin: EdgeInsets.zero,
+                        decoration: BoxDecoration(boxShadow: [
+                          BoxShadow(
+                              color: barShadowColor,
+                              offset: const Offset(1, 1),
+                              blurRadius: 8,
+                              spreadRadius: 0.5)
+                        ]),
+                        child: Theme(
+                            data: Theme.of(context).copyWith(
+                                dividerColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                splashColor: Colors.transparent),
+                            child: ExpansionTile(
+                                key: GlobalKey(),
+                                tilePadding: const EdgeInsets.symmetric(
+                                    vertical: 5, horizontal: 25),
+                                initiallyExpanded: formOpenFlag6,
+                                onExpansionChanged: (d) {
+                                  Timer(const Duration(milliseconds: 350), () {
+                                    setState(() {
+                                      formOpenFlag5 = !d;
+                                      formOpenFlag6 = d;
+                                    });
+                                  });
+                                },
+                                title: Text(
+                                    "6. Bahagian Luaran (${_keyIn[5]}/2)",
+                                    style: const TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500)),
+                                collapsedBackgroundColor: tabBoxColor,
+                                backgroundColor: activeColor,
+                                textColor: white,
+                                iconColor: white,
+                                collapsedTextColor: greyCustom,
+                                collapsedIconColor: greyCustom,
+                                children: <Widget>[
+                                  Container(
+                                      color: white,
+                                      padding: Orientations()
+                                              .isTabletPortrait(context)
+                                          ? const EdgeInsets.fromLTRB(
+                                              35, 20, 35, 20)
+                                          : const EdgeInsets.fromLTRB(
+                                              56, 20, 56, 20),
+                                      child: Column(children: [
+                                        Table(
+                                            defaultVerticalAlignment:
+                                                TableCellVerticalAlignment
+                                                    .middle,
+                                            columnWidths: const {
+                                              0: FlexColumnWidth(2),
+                                              1: FlexColumnWidth(1),
+                                            },
+                                            border: TableBorder.all(
+                                                color: Colors.transparent),
+                                            children: [
+                                              _tableRowBuild(
+                                                  '6.1. Cermin pandang belakang dan sisi',
+                                                  36),
+                                              _tableRowBuild(
+                                                  '6.2. Hon diperiksa', 37),
+                                            ]),
+                                        Container(
+                                          color: white,
+                                          padding: const EdgeInsets.fromLTRB(
+                                              0, 15, 0, 20),
+                                          height: 100,
+                                          child: _textFieldBuild(),
+                                        ),
+                                        Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              ElevatedButton(
+                                                style: ButtonStyle(
+                                                    elevation:
+                                                        MaterialStateProperty
+                                                            .all(0),
+                                                    shape: MaterialStateProperty
+                                                        .all(
+                                                      RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8.0),
+                                                        side: BorderSide(
+                                                          color:
+                                                              grey500, //color
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    overlayColor:
+                                                        MaterialStateColor
+                                                            .resolveWith(
+                                                                (states) =>
+                                                                    grey200),
+                                                    backgroundColor:
+                                                        MaterialStateProperty
+                                                            .all(white)),
+                                                onPressed: () {
+                                                  Timer(
+                                                      const Duration(
+                                                          milliseconds: 450),
+                                                      () {
+                                                    setState(() {
+                                                      formOpenFlag5 = true;
+                                                      formOpenFlag6 = false;
+                                                    });
+                                                  });
+                                                },
+                                                child: Text("Sebelum",
+                                                    style: TextStyle(
+                                                        color: blackCustom)),
+                                              ),
+                                              const SizedBox(width: 20),
+                                              ElevatedButton(
+                                                style: ButtonStyle(
+                                                    elevation:
+                                                        MaterialStateProperty
+                                                            .all(0),
+                                                    shape: MaterialStateProperty
+                                                        .all(
+                                                      RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      8.0)),
+                                                    ),
+                                                    overlayColor:
+                                                        MaterialStateColor
+                                                            .resolveWith(
+                                                                (states) =>
+                                                                    green800),
+                                                    backgroundColor:
+                                                        MaterialStateProperty
+                                                            .all(greenCustom)),
+                                                onPressed: () {
+                                                  Timer(
+                                                      const Duration(
+                                                          milliseconds: 450),
+                                                      () {
+                                                    setState(() {
+                                                      formOpenFlag6 =
+                                                          !formOpenFlag5;
+                                                      formOpenFlag6 = true;
+                                                    });
+                                                  });
+                                                },
+                                                child: const Text("Seterusnya"),
+                                              ),
+                                            ])
+                                      ]))
+                                ]))),
+                    const SizedBox(height: 5),
+                    // #CONTAINER 10
+                    Container(
+                        alignment: Alignment.center,
+                        clipBehavior: Clip.antiAlias,
+                        margin: EdgeInsets.zero,
+                        decoration: BoxDecoration(boxShadow: [
+                          BoxShadow(
+                              color: barShadowColor,
+                              offset: const Offset(1, 1),
+                              blurRadius: 8,
+                              spreadRadius: 0.5)
+                        ]),
+                        child: Theme(
+                            data: Theme.of(context).copyWith(
+                                dividerColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                splashColor: Colors.transparent),
+                            child: ExpansionTile(
+                                key: GlobalKey(),
+                                tilePadding: const EdgeInsets.symmetric(
+                                    vertical: 5, horizontal: 25),
+                                initiallyExpanded: formOpenFlag7,
+                                onExpansionChanged: (d) {
+                                  Timer(const Duration(milliseconds: 350), () {
+                                    setState(() {
+                                      formOpenFlag6 = !d;
+                                      formOpenFlag7 = d;
+                                    });
+                                  });
+                                },
+                                title: Text(
+                                    "7. Peralatan Keselamatan (${_keyIn[6]}/3)",
+                                    style: const TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500)),
+                                collapsedBackgroundColor: tabBoxColor,
+                                backgroundColor: activeColor,
+                                textColor: white,
+                                iconColor: white,
+                                collapsedTextColor: greyCustom,
+                                collapsedIconColor: greyCustom,
+                                children: <Widget>[
+                                  Container(
+                                      color: white,
+                                      padding: Orientations()
+                                              .isTabletPortrait(context)
+                                          ? const EdgeInsets.fromLTRB(
+                                              35, 20, 35, 20)
+                                          : const EdgeInsets.fromLTRB(
+                                              56, 20, 56, 20),
+                                      child: Column(children: [
+                                        Table(
+                                            defaultVerticalAlignment:
+                                                TableCellVerticalAlignment
+                                                    .middle,
+                                            columnWidths: const {
+                                              0: FlexColumnWidth(2),
+                                              1: FlexColumnWidth(1),
+                                            },
+                                            border: TableBorder.all(
+                                                color: Colors.transparent),
+                                            children: [
+                                              _tableRowBuild(
+                                                  '7.1. Penanda amaran kecemasan (Triangle Reflector)',
+                                                  38),
+                                              _tableRowBuild(
+                                                  '7.2. Alat pemadam api', 39),
+                                              _tableRowBuild(
+                                                  '7.3. Kotak kecemasan (First Aid Kit)',
+                                                  40),
+                                            ]),
+                                        Container(
+                                          color: white,
+                                          padding: const EdgeInsets.fromLTRB(
+                                              0, 15, 0, 20),
+                                          height: 100,
+                                          child: _textFieldBuild(),
+                                        ),
+                                        Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              ElevatedButton(
+                                                style: ButtonStyle(
+                                                    elevation:
+                                                        MaterialStateProperty
+                                                            .all(0),
+                                                    shape: MaterialStateProperty
+                                                        .all(
+                                                      RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8.0),
+                                                        side: BorderSide(
+                                                          color:
+                                                              grey500, //color
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    overlayColor:
+                                                        MaterialStateColor
+                                                            .resolveWith(
+                                                                (states) =>
+                                                                    grey200),
+                                                    backgroundColor:
+                                                        MaterialStateProperty
+                                                            .all(white)),
+                                                onPressed: () {
+                                                  Timer(
+                                                      const Duration(
+                                                          milliseconds: 450),
+                                                      () {
+                                                    setState(() {
+                                                      formOpenFlag6 = true;
+                                                      formOpenFlag7 = false;
+                                                    });
+                                                  });
+                                                },
+                                                child: Text("Sebelum",
+                                                    style: TextStyle(
+                                                        color: blackCustom)),
+                                              ),
+                                              const SizedBox(width: 20),
+                                              ElevatedButton(
+                                                style: ButtonStyle(
+                                                    elevation:
+                                                        MaterialStateProperty
+                                                            .all(0),
+                                                    shape: MaterialStateProperty
+                                                        .all(
+                                                      RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      8.0)),
+                                                    ),
+                                                    overlayColor:
+                                                        MaterialStateColor
+                                                            .resolveWith(
+                                                                (states) =>
+                                                                    green800),
+                                                    backgroundColor:
+                                                        MaterialStateProperty
+                                                            .all(greenCustom)),
+                                                onPressed: () {
+                                                  Timer(
+                                                      const Duration(
+                                                          milliseconds: 450),
+                                                      () {
+                                                    setState(() {
+                                                      formOpenFlag6 =
+                                                          !formOpenFlag6;
+                                                      formOpenFlag7 = true;
+                                                    });
+                                                  });
+                                                },
+                                                child: const Text("Seterusnya"),
+                                              ),
+                                            ])
+                                      ]))
+                                ]))),
+                    const SizedBox(height: 5),
+                    // #CONTAINER 11
+                    Container(
+                        alignment: Alignment.center,
+                        clipBehavior: Clip.antiAlias,
+                        margin: EdgeInsets.zero,
+                        decoration: BoxDecoration(boxShadow: [
+                          BoxShadow(
+                              color: barShadowColor,
+                              offset: const Offset(1, 1),
+                              blurRadius: 8,
+                              spreadRadius: 0.5)
+                        ]),
+                        child: Theme(
+                            data: Theme.of(context).copyWith(
+                                dividerColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                splashColor: Colors.transparent),
+                            child: ExpansionTile(
+                                key: GlobalKey(),
+                                tilePadding: const EdgeInsets.symmetric(
+                                    vertical: 5, horizontal: 25),
+                                initiallyExpanded: formOpenFlag8,
+                                onExpansionChanged: (d) {
+                                  Timer(const Duration(milliseconds: 350), () {
+                                    setState(() {
+                                      formOpenFlag7 = !d;
+                                      formOpenFlag8 = d;
+                                    });
+                                  });
+                                },
+                                title: Text(
+                                    "8. Kebersihan Kenderaan (${_keyIn[7]}/2)",
+                                    style: const TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500)),
+                                collapsedBackgroundColor: tabBoxColor,
+                                backgroundColor: activeColor,
+                                textColor: white,
+                                iconColor: white,
+                                collapsedTextColor: greyCustom,
+                                collapsedIconColor: greyCustom,
+                                children: <Widget>[
+                                  Container(
+                                      color: white,
+                                      padding: Orientations()
+                                              .isTabletPortrait(context)
+                                          ? const EdgeInsets.fromLTRB(
+                                              35, 20, 35, 20)
+                                          : const EdgeInsets.fromLTRB(
+                                              56, 20, 56, 20),
+                                      child: Column(children: [
+                                        Table(
+                                            defaultVerticalAlignment:
+                                                TableCellVerticalAlignment
+                                                    .middle,
+                                            columnWidths: const {
+                                              0: FlexColumnWidth(2),
+                                              1: FlexColumnWidth(1),
+                                            },
+                                            border: TableBorder.all(
+                                                color: Colors.transparent),
+                                            children: [
+                                              _tableRowBuild(
+                                                  '8.1. Kebersihan dalam kokpit (kabin)',
+                                                  41),
+                                              _tableRowBuild(
+                                                  '8.2. Kebersihan sekitar luaran badan trak',
+                                                  42),
+                                            ]),
+                                        Container(
+                                          color: white,
+                                          padding: const EdgeInsets.fromLTRB(
+                                              0, 15, 0, 20),
+                                          height: 100,
+                                          child: _textFieldBuild(),
+                                        ),
+                                        Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              ElevatedButton(
+                                                style: ButtonStyle(
+                                                    elevation:
+                                                        MaterialStateProperty
+                                                            .all(0),
+                                                    shape: MaterialStateProperty
+                                                        .all(
+                                                      RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8.0),
+                                                        side: BorderSide(
+                                                          color:
+                                                              grey500, //color
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    overlayColor:
+                                                        MaterialStateColor
+                                                            .resolveWith(
+                                                                (states) =>
+                                                                    grey200),
+                                                    backgroundColor:
+                                                        MaterialStateProperty
+                                                            .all(white)),
+                                                onPressed: () {
+                                                  Timer(
+                                                      const Duration(
+                                                          milliseconds: 450),
+                                                      () {
+                                                    setState(() {
+                                                      formOpenFlag6 = true;
+                                                      formOpenFlag7 = false;
+                                                    });
+                                                  });
+                                                },
+                                                child: Text("Sebelum",
+                                                    style: TextStyle(
+                                                        color: blackCustom)),
+                                              ),
+                                              const SizedBox(width: 20),
+                                              ElevatedButton(
+                                                style: ButtonStyle(
+                                                    elevation:
+                                                        MaterialStateProperty
+                                                            .all(0),
+                                                    shape: MaterialStateProperty
+                                                        .all(
+                                                      RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      8.0)),
+                                                    ),
+                                                    overlayColor:
+                                                        MaterialStateColor
+                                                            .resolveWith(
+                                                                (states) =>
+                                                                    green800),
+                                                    backgroundColor:
+                                                        MaterialStateProperty
+                                                            .all(greenCustom)),
+                                                onPressed: () {
+                                                  Timer(
+                                                      const Duration(
+                                                          milliseconds: 450),
+                                                      () {
+                                                    setState(() {
+                                                      formOpenFlag7 =
+                                                          !formOpenFlag7;
+                                                      formOpenFlag8 = true;
+                                                    });
+                                                  });
+                                                },
+                                                child: const Text("Seterusnya"),
+                                              ),
+                                            ])
+                                      ]))
+                                ]))),
+                    const SizedBox(height: 5),
+                    // #CONTAINER 12
+                    Container(
+                        alignment: Alignment.center,
+                        clipBehavior: Clip.antiAlias,
+                        margin: EdgeInsets.zero,
+                        decoration: BoxDecoration(boxShadow: [
+                          BoxShadow(
+                              color: barShadowColor,
+                              offset: const Offset(1, 1),
+                              blurRadius: 8,
+                              spreadRadius: 0.5)
+                        ]),
+                        child: Theme(
+                            data: Theme.of(context).copyWith(
+                                dividerColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                splashColor: Colors.transparent),
+                            child: ExpansionTile(
+                                key: GlobalKey(),
+                                tilePadding: const EdgeInsets.symmetric(
+                                    vertical: 5, horizontal: 25),
+                                initiallyExpanded: formOpenFlag9,
+                                onExpansionChanged: (d) {
+                                  Timer(const Duration(milliseconds: 350), () {
+                                    setState(() {
+                                      formOpenFlag8 = !d;
+                                      formOpenFlag9 = d;
+                                    });
+                                  });
+                                },
+                                title: Text(
+                                    "9. Kebersihan Bin Lifter (${_keyIn[8]}/1)",
+                                    style: const TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500)),
+                                collapsedBackgroundColor: tabBoxColor,
+                                backgroundColor: activeColor,
+                                textColor: white,
+                                iconColor: white,
+                                collapsedTextColor: greyCustom,
+                                collapsedIconColor: greyCustom,
+                                children: <Widget>[
+                                  Container(
+                                      color: white,
+                                      padding: Orientations()
+                                              .isTabletPortrait(context)
+                                          ? const EdgeInsets.fromLTRB(
+                                              35, 20, 35, 20)
+                                          : const EdgeInsets.fromLTRB(
+                                              56, 20, 56, 20),
+                                      child: Column(children: [
+                                        Table(
+                                            defaultVerticalAlignment:
+                                                TableCellVerticalAlignment
+                                                    .middle,
+                                            columnWidths: const {
+                                              0: FlexColumnWidth(2),
+                                              1: FlexColumnWidth(1),
+                                            },
+                                            border: TableBorder.all(
+                                                color: Colors.transparent),
+                                            children: [
+                                              _tableRowBuild(
+                                                  '9.1. Bin lifter dicuci oleh pemandu',
+                                                  43),
+                                            ]),
+                                        Container(
+                                          color: white,
+                                          padding: const EdgeInsets.fromLTRB(
+                                              0, 15, 0, 20),
+                                          height: 100,
+                                          child: _textFieldBuild(),
+                                        ),
+                                        Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              ElevatedButton(
+                                                style: ButtonStyle(
+                                                    elevation:
+                                                        MaterialStateProperty
+                                                            .all(0),
+                                                    shape: MaterialStateProperty
+                                                        .all(
+                                                      RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8.0),
+                                                        side: BorderSide(
+                                                          color:
+                                                              grey500, //color
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    overlayColor:
+                                                        MaterialStateColor
+                                                            .resolveWith(
+                                                                (states) =>
+                                                                    grey200),
+                                                    backgroundColor:
+                                                        MaterialStateProperty
+                                                            .all(white)),
+                                                onPressed: () {
+                                                  Timer(
+                                                      const Duration(
+                                                          milliseconds: 450),
+                                                      () {
+                                                    setState(() {
+                                                      formOpenFlag8 = true;
+                                                      formOpenFlag9 = false;
+                                                    });
+                                                  });
+                                                },
+                                                child: Text("Sebelum",
+                                                    style: TextStyle(
+                                                        color: blackCustom)),
+                                              ),
+                                              const SizedBox(width: 20),
+                                              ElevatedButton(
+                                                style: ButtonStyle(
+                                                    elevation:
+                                                        MaterialStateProperty
+                                                            .all(0),
+                                                    shape: MaterialStateProperty
+                                                        .all(
+                                                      RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      8.0)),
+                                                    ),
+                                                    overlayColor:
+                                                        MaterialStateColor
+                                                            .resolveWith(
+                                                                (states) =>
+                                                                    green800),
+                                                    backgroundColor:
+                                                        MaterialStateProperty
+                                                            .all(greenCustom)),
+                                                onPressed: () {
+                                                  Timer(
+                                                      const Duration(
+                                                          milliseconds: 450),
+                                                      () {
+                                                    setState(() {
+                                                      formOpenFlag8 =
+                                                          !formOpenFlag8;
+                                                      formOpenFlag9 = true;
+                                                    });
+                                                  });
+                                                },
+                                                child: const Text("Seterusnya"),
+                                              ),
+                                            ])
+                                      ]))
+                                ]))),
+                    const SizedBox(height: 5),
+                    //CONTAINER 13
+                    Container(
+                        alignment: Alignment.center,
+                        clipBehavior: Clip.antiAlias,
+                        margin: EdgeInsets.zero,
+                        decoration: BoxDecoration(boxShadow: [
+                          BoxShadow(
+                              color: barShadowColor,
+                              offset: const Offset(1, 1),
+                              blurRadius: 8,
+                              spreadRadius: 0.5)
+                        ]),
+                        child: Theme(
+                            data: Theme.of(context).copyWith(
+                                dividerColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                splashColor: Colors.transparent),
+                            child: ExpansionTile(
+                                key: GlobalKey(),
+                                tilePadding: const EdgeInsets.symmetric(
+                                    vertical: 5, horizontal: 25),
+                                initiallyExpanded: formOpenFlag10,
+                                onExpansionChanged: (d) {
+                                  Timer(const Duration(milliseconds: 350), () {
+                                    setState(() {
+                                      formOpenFlag9 = !d;
+                                      formOpenFlag10 = d;
+                                    });
+                                  });
+                                },
+                                title: Text("10. Kemalangan (${_keyIn[9]}/2)",
+                                    style: const TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500)),
+                                collapsedBackgroundColor: tabBoxColor,
+                                backgroundColor: activeColor,
+                                textColor: white,
+                                iconColor: white,
+                                collapsedTextColor: greyCustom,
+                                collapsedIconColor: greyCustom,
+                                children: <Widget>[
+                                  Container(
+                                      color: white,
+                                      padding: Orientations()
+                                              .isTabletPortrait(context)
+                                          ? const EdgeInsets.fromLTRB(
+                                              35, 20, 35, 20)
+                                          : const EdgeInsets.fromLTRB(
+                                              56, 20, 56, 20),
+                                      child: Column(children: [
+                                        Table(
+                                            defaultVerticalAlignment:
+                                                TableCellVerticalAlignment
+                                                    .middle,
+                                            columnWidths: const {
+                                              0: FlexColumnWidth(2),
+                                              1: FlexColumnWidth(1),
+                                            },
+                                            border: TableBorder.all(
+                                                color: Colors.transparent),
+                                            children: [
+                                              _tableRowBuild(
+                                                  '10.1. Adakah anda terlibat dengan mana-mana kemalangan',
+                                                  44),
+                                              _tableRowBuild(
+                                                  '10.2. Nombor kenderaan pihak ketiga',
+                                                  45),
+                                            ]),
+                                        Container(
+                                          color: white,
+                                          padding: const EdgeInsets.fromLTRB(
+                                              0, 15, 0, 20),
+                                          height: 100,
+                                          child: _textFieldBuild(),
+                                        ),
+                                        Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              ElevatedButton(
+                                                style: ButtonStyle(
+                                                    elevation:
+                                                        MaterialStateProperty
+                                                            .all(0),
+                                                    shape: MaterialStateProperty
+                                                        .all(
+                                                      RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8.0),
+                                                        side: BorderSide(
+                                                          color:
+                                                              grey500, //color
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    overlayColor:
+                                                        MaterialStateColor
+                                                            .resolveWith(
+                                                                (states) =>
+                                                                    grey200),
+                                                    backgroundColor:
+                                                        MaterialStateProperty
+                                                            .all(white)),
+                                                onPressed: () {
+                                                  Timer(
+                                                      const Duration(
+                                                          milliseconds: 450),
+                                                      () {
+                                                    setState(() {
+                                                      formOpenFlag9 = true;
+                                                      formOpenFlag10 = false;
+                                                    });
+                                                  });
+                                                },
+                                                child: Text("Sebelum",
+                                                    style: TextStyle(
+                                                        color: blackCustom)),
+                                              ),
+                                              const SizedBox(width: 20),
+                                              ElevatedButton(
+                                                style: ButtonStyle(
+                                                    elevation:
+                                                        MaterialStateProperty
+                                                            .all(0),
+                                                    shape: MaterialStateProperty
+                                                        .all(
+                                                      RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      8.0)),
+                                                    ),
+                                                    overlayColor:
+                                                        MaterialStateColor
+                                                            .resolveWith(
+                                                                (states) =>
+                                                                    green800),
+                                                    backgroundColor:
+                                                        MaterialStateProperty
+                                                            .all(greenCustom)),
+                                                onPressed: () {
+                                                  Timer(
+                                                      const Duration(
+                                                          milliseconds: 450),
+                                                      () {
+                                                    setState(() {
+                                                      formOpenFlag9 =
+                                                          !formOpenFlag9;
+                                                      formOpenFlag10 = true;
+                                                    });
+                                                  });
+                                                },
+                                                child: const Text("Seterusnya"),
+                                              ),
+                                            ])
+                                      ]))
+                                ]))),
+                    const SizedBox(height: 5),
+                    // #CONTAINER 14
+                    Container(
+                        alignment: Alignment.center,
+                        clipBehavior: Clip.antiAlias,
+                        margin: EdgeInsets.zero,
+                        decoration: BoxDecoration(boxShadow: [
+                          BoxShadow(
+                              color: barShadowColor,
+                              offset: const Offset(1, 1),
+                              blurRadius: 8,
+                              spreadRadius: 0.5)
+                        ]),
+                        child: Theme(
+                            data: Theme.of(context).copyWith(
+                                dividerColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                splashColor: Colors.transparent),
+                            child: ExpansionTile(
+                                key: GlobalKey(),
+                                tilePadding: const EdgeInsets.symmetric(
+                                    vertical: 5, horizontal: 25),
+                                initiallyExpanded: formOpenFlag11,
+                                onExpansionChanged: (d) {
+                                  Timer(const Duration(milliseconds: 350), () {
+                                    setState(() {
+                                      formOpenFlag10 = !d;
+                                      formOpenFlag11 = d;
+                                    });
+                                  });
+                                },
+                                title: Text(
+                                    "11. Fizikal Kenderaan (${_keyIn[10]}/2)",
+                                    style: const TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500)),
+                                collapsedBackgroundColor: tabBoxColor,
+                                backgroundColor: activeColor,
+                                textColor: white,
+                                iconColor: white,
+                                collapsedTextColor: greyCustom,
+                                collapsedIconColor: greyCustom,
+                                children: <Widget>[
+                                  Container(
+                                      color: white,
+                                      padding: Orientations()
+                                              .isTabletPortrait(context)
+                                          ? const EdgeInsets.fromLTRB(
+                                              35, 20, 35, 20)
+                                          : const EdgeInsets.fromLTRB(
+                                              56, 20, 56, 20),
+                                      child: Column(children: [
+                                        Table(
+                                            defaultVerticalAlignment:
+                                                TableCellVerticalAlignment
+                                                    .middle,
+                                            columnWidths: const {
+                                              0: FlexColumnWidth(2),
+                                              1: FlexColumnWidth(1),
+                                            },
+                                            border: TableBorder.all(
+                                                color: Colors.transparent),
+                                            children: [
+                                              _tableRowBuild(
+                                                  '11.1. Sampah dalam kompaktor',
+                                                  46),
+                                              _tableRowBuild(
+                                                  '11.2. Keadaan fizikal/kecatatan pada trak',
+                                                  47),
+                                            ]),
+                                        Container(
+                                          color: white,
+                                          padding: const EdgeInsets.fromLTRB(
+                                              0, 15, 0, 20),
+                                          height: 100,
+                                          child: _textFieldBuild(),
+                                        ),
+                                        Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              ElevatedButton(
+                                                style: ButtonStyle(
+                                                    elevation:
+                                                        MaterialStateProperty
+                                                            .all(0),
+                                                    shape: MaterialStateProperty
+                                                        .all(
+                                                      RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8.0),
+                                                        side: BorderSide(
+                                                          color:
+                                                              grey500, //color
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    overlayColor:
+                                                        MaterialStateColor
+                                                            .resolveWith(
+                                                                (states) =>
+                                                                    grey200),
+                                                    backgroundColor:
+                                                        MaterialStateProperty
+                                                            .all(white)),
+                                                onPressed: () {
+                                                  Timer(
+                                                      const Duration(
+                                                          milliseconds: 450),
+                                                      () {
+                                                    setState(() {
+                                                      formOpenFlag10 = true;
+                                                      formOpenFlag11 = false;
+                                                    });
+                                                  });
+                                                },
+                                                child: Text("Sebelum",
+                                                    style: TextStyle(
+                                                        color: blackCustom)),
+                                              ),
+                                              const SizedBox(width: 20),
+                                              ElevatedButton(
+                                                style: ButtonStyle(
+                                                    elevation:
+                                                        MaterialStateProperty
+                                                            .all(0),
+                                                    shape: MaterialStateProperty
+                                                        .all(
+                                                      RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      8.0)),
+                                                    ),
+                                                    overlayColor:
+                                                        MaterialStateColor
+                                                            .resolveWith(
+                                                                (states) =>
+                                                                    green800),
+                                                    backgroundColor:
+                                                        MaterialStateProperty
+                                                            .all(greenCustom)),
+                                                onPressed: () {
+                                                  _handleSubmittedData(context);
+                                                },
+                                                child: const Text("Hantar"),
+                                              ),
+                                            ])
+                                      ]))
+                                ]))),
+                    const SizedBox(height: 5)
+                  ]),
             )),
       ),
-      bottomNavigationBar: Container(
-          decoration: BoxDecoration(
-            color: white,
-            boxShadow: [
-              BoxShadow(
-                  color: Colors.grey.withOpacity(.3),
-                  blurRadius: 6,
-                  spreadRadius: 0.5)
-            ],
-          ),
-          padding: Orientations().isPortrait(context)
-              ? const EdgeInsets.symmetric(horizontal: 220, vertical: 15)
-              : const EdgeInsets.symmetric(horizontal: 400, vertical: 10),
-          child: SizedBox(
-              height: 40,
-              width: 150,
-              child: ElevatedButton(
-                  style: ButtonStyle(
-                      shape: MaterialStateProperty.all(
-                        RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0)),
-                      ),
-                      elevation: MaterialStateProperty.all(0),
-                      overlayColor:
-                          MaterialStateColor.resolveWith((states) => green800),
-                      minimumSize: MaterialStateProperty.all(
-                          Size(Sizes().screenWidth(context), 45)),
-                      backgroundColor: MaterialStateProperty.all(green)),
-                  child: Text('Hantar',
-                      style: TextStyle(
-                          color: white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w700)),
-                  onPressed: () {
-                    _handleSubmittedData(context);
-                  }))),
       floatingActionButton:
           _showBackToTopButton == false ? null : _goUpButtonBuild(),
     );
   }
 
-  Form _valueTextFormBuild(int idx, TextInputType type, [String? label]) {
+  Form _valueTextFormBuild(int idx, TextInputType type,
+      [String? label = "", bool? icon = true]) {
     return Form(
         key: _key[idx],
         child: TextFormField(
-          cursorColor: green,
+          cursorColor: greenCustom,
           keyboardType: type,
+          textAlignVertical: TextAlignVertical.center,
           autovalidateMode: AutovalidateMode.onUserInteraction,
+          maxLines: 1,
+          inputFormatters: [LengthLimitingTextInputFormatter(10)],
           decoration: InputDecoration(
+              hintText: '0',
+              hintStyle: TextStyle(
+                  color: borderTextColor,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500),
+              //isCollapsed: true,
+              contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+              isDense: true,
+              suffixIconConstraints:
+                  icon! ? const BoxConstraints(maxWidth: 50) : null,
+              suffixIcon: icon
+                  ? SizedBox(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Container(
+                              decoration: BoxDecoration(
+                                  border: Border(
+                                left: BorderSide(
+                                    color: borderTextColor, width: 0.5),
+                              )),
+                              padding:
+                                  const EdgeInsets.only(left: 10, right: 10),
+                              alignment: Alignment.centerRight,
+                              child: Text(label ?? "")),
+                        ],
+                      ),
+                    )
+                  : SizedBox(
+                      height: Orientations().isLandscape(context) ? 40 : 36),
               errorStyle: const TextStyle(height: 0),
               focusColor: green,
               enabledBorder: OutlineInputBorder(
-                  borderRadius: const BorderRadius.all(Radius.circular(5)),
-                  borderSide: BorderSide(width: 1, color: grey300)),
+                  borderRadius: const BorderRadius.all(Radius.circular(4)),
+                  borderSide: BorderSide(width: 1, color: borderTextColor)),
               border: const OutlineInputBorder(),
               focusedErrorBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: green),
-                borderRadius: BorderRadius.circular(5),
+                borderSide: BorderSide(color: greenCustom),
+                borderRadius: BorderRadius.circular(4),
               ),
               focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: green),
-                borderRadius: BorderRadius.circular(5),
-              ),
-              labelText: label ?? "",
-              labelStyle: TextStyle(color: grey400, fontSize: 14)),
+                borderSide: BorderSide(color: greenCustom),
+                borderRadius: BorderRadius.circular(4),
+              )),
           validator: (value) {
             if (value == null || value.isEmpty) {
               return "";
@@ -1601,55 +2674,54 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
     return TableRow(children: [
       Text(title,
           textAlign: TextAlign.left,
-          style: TextStyle(fontSize: 16, color: black87)),
+          style: TextStyle(fontSize: 16, color: blackCustom)),
       SizedBox(
           height: 42,
-          child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 7),
-              child: Row(children: [
-                Row(
-                  children: [
-                    Radio(
-                      value: 1,
-                      groupValue: _buttonVal[idx],
-                      onChanged: (value) {
-                        setState(() {
-                          _buttonVal[idx] = value as int;
-                        });
-                      },
-                      activeColor: green,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _buttonVal[idx] = 1;
-                        });
-                      },
-                      child: Text(has),
-                    ),
-                  ],
+          child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+            Row(
+              children: [
+                Radio(
+                  value: 1,
+                  groupValue: _buttonVal[idx],
+                  onChanged: (value) {
+                    setState(() {
+                      _buttonVal[idx] = value as int;
+                    });
+                  },
+                  activeColor: green,
                 ),
-                const SizedBox(width: 5),
-                Row(children: [
-                  Radio(
-                      value: 2,
-                      groupValue: _buttonVal[idx],
-                      onChanged: (value) {
-                        setState(() {
-                          _buttonVal[idx] = value as int;
-                        });
-                      },
-                      activeColor: green),
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        _buttonVal[idx] = 2;
-                      });
-                    },
-                    child: Text(no),
-                  )
-                ])
-              ])))
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _buttonVal[idx] = 1;
+                    });
+                  },
+                  child: Text(has),
+                ),
+              ],
+            ),
+            SizedBox(width: Orientations().isTabletPortrait(context) ? 0 : 30),
+            Row(children: [
+              Radio(
+                  value: 2,
+                  groupValue: _buttonVal[idx],
+                  onChanged: (value) {
+                    setState(() {
+                      _buttonVal[idx] = value as int;
+                    });
+                  },
+                  activeColor: green),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _buttonVal[idx] = 2;
+                  });
+                },
+                child: Text(no),
+              )
+            ]),
+            SizedBox(width: Orientations().isTabletPortrait(context) ? 10 : 0)
+          ]))
     ]);
   }
 
