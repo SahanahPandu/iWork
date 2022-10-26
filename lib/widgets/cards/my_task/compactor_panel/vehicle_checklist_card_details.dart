@@ -9,6 +9,7 @@ import '../../../../config/string.dart';
 import '../../../../models/vc/vc.dart';
 import '../../../../screens/vehicle_checklist/vehicle_checklist_form/vehicle_checklist_form_detail.dart';
 import '../../../../utils/device/sizes.dart';
+import '../../../tabs/vehicle_checklist_tab/vehicle_checklist_form_tab/vehicle_checklist_form_tab.dart';
 
 class VehicleChecklistCardDetails extends StatefulWidget {
   final VehicleChecklist data;
@@ -127,7 +128,7 @@ class _VehicleChecklistCardDetailsState
         context,
         PageTransition(
             type: PageTransitionType.fade,
-            child: VehicleChecklistDetail(data: widget.data)));
+            child: VehicleChecklistFormTab(data: widget.data)));
     if (!mounted) return;
     if (refresh == true) {
       _changeStatus();

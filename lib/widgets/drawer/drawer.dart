@@ -16,8 +16,8 @@ import '../../screens/schedule_shift/schedule_shift_main.dart';
 import '../../screens/vehicle_checklist/vehicle_checklist_approval/vehicle_checklist_approval_main.dart';
 import '../../screens/workshop_vehicle/workshop_vehicle_main.dart';
 import '../../utils/authentication/auth.dart';
-import '../../utils/icon/custom_icon.dart';
 import '../../utils/device/sizes.dart';
+import '../../utils/icon/custom_icon.dart';
 import '../alert/alert_dialog.dart';
 import '../app_bar/app_bar_widget.dart';
 import '../tabs/akbk_tab/akbk_tab.dart';
@@ -266,6 +266,8 @@ class _DrawerBuildState extends State<DrawerBuild> {
         return svDrawerList;
       case 400: //eo
       case 500: //ba
+      case 600: //sam
+      case 700: //rom
         return eoBaDrawerList;
     }
     return praDrawerList;
@@ -364,6 +366,8 @@ class _DrawerBuildState extends State<DrawerBuild> {
       case 300: //supervisor
       case 400: //eo
       case 500: //ba
+      case 600: //sam
+      case 700: //rom
         switch (idx) {
           case 1: // ECuti
             Navigator.pop(context);

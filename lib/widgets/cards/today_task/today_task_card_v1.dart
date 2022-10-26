@@ -90,8 +90,7 @@ class _TodayTaskCardState extends State<TodayTaskCard> {
   StatefulWidget assignRoleTaskDetails() {
     switch (userRole) {
       case 100:
-        return CompactorPanelTodayTaskDetails(
-            timeIn: timeIn, timeOut: timeOut, getTimeLog: getTimeLog);
+        return const CompactorPanelTodayTaskDetails();
       case 200:
         return PraTodayTaskDetails(
             timeIn: timeIn, timeOut: timeOut, getTimeLog: getTimeLog);

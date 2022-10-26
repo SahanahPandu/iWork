@@ -4,8 +4,8 @@ import 'package:flutter/services.dart';
 //import files
 import '../../config/config.dart';
 import '../../config/palette.dart';
-import '../../utils/icon/custom_icon.dart';
 import '../../utils/device/sizes.dart';
+import '../../utils/icon/custom_icon.dart';
 import '../../widgets/drawer/drawer.dart';
 import '../screens.dart';
 
@@ -39,18 +39,23 @@ class HomeScreen extends StatelessWidget {
           backgroundColor: Colors.transparent,
           elevation: 0,
           actions: [
-            InkWell(
-              onTap: () {
-                Navigator.pushNamed(context, '/notification');
-              },
-              child: const Icon(
-                CustomIcon.notificationFill,
-                color: Colors.white,
-                size: 18,
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 5),
+              width: 45,
+              child: InkWell(
+                borderRadius: BorderRadius.circular(30),
+                onTap: () {
+                  Navigator.pushNamed(context, '/notification');
+                },
+                child: const Icon(
+                  CustomIcon.notificationFill,
+                  color: Colors.white,
+                  size: 18,
+                ),
               ),
             ),
             SizedBox(
-              width: userRole == 100 ? 30 : 10,
+              width: userRole == 100 ? 20 : 10,
             )
           ],
         ),

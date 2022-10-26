@@ -100,10 +100,12 @@ class _WorkScheduleState extends State<WorkSchedule> {
       case 200:
         return PraWorkScheduleMain(data: widget.data);
 
-      /// SV | EO | BA
+      /// SV | EO | BA | SAM | ROM
       case 300:
       case 400:
       case 500:
+      case 600:
+      case 700:
         return SupervisorWorkScheduleMain(data: widget.data);
     }
     return Container();

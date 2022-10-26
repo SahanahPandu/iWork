@@ -52,8 +52,7 @@ class _TodayTaskCardState extends State<TodayTaskCard> {
   StatefulWidget assignRoleTaskDetails() {
     switch (userRole) {
       case 100:
-        return CompactorPanelTodayTaskDetails(
-            timeIn: timeIn, timeOut: timeOut, getTimeLog: getTimeLog);
+        return const CompactorPanelTodayTaskDetails();
       case 200:
         return PraTodayTaskDetails(
             timeIn: timeIn, timeOut: timeOut, getTimeLog: getTimeLog);
@@ -63,6 +62,8 @@ class _TodayTaskCardState extends State<TodayTaskCard> {
       case 400:
         return const EOTodayTaskDetails();
       case 500:
+      case 600:
+      case 700:
         return const BATodayTaskDetails();
     }
     return Scaffold(

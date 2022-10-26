@@ -13,7 +13,7 @@ EdgeInsets tabletTaskCardMargin(BuildContext context) =>
         : const EdgeInsets.only(bottom: 15, left: 15, right: 15);
 
 double gridRatio(BuildContext context) =>
-    Orientations().isLandscape(context) ? 1.7 : 1.155;
+    Orientations().isLandscape(context) ? 1.75 : 1.155;
 
 double alertBoxPadding(BuildContext context) => Devices().isTablet()
     ? (Orientations().isLandscape(context) ? 280 : 170)
@@ -41,9 +41,6 @@ double buttonEcutiWidth(BuildContext context) => Devices().isPhone()
     ? (Orientations().isPortrait(context) ? 0.3 : 0.24)
     : (Orientations().isPortrait(context) ? 0.25 : 0.16);
 
-double fontSizeVc(BuildContext context) =>
-    Orientations().isLandscape(context) ? 16 : 14;
-
 double containerVCHeight(BuildContext context) =>
     Orientations().isLandscape(context)
         ? (Sizes().screenHeight(context) * 0.16)
@@ -60,13 +57,13 @@ EdgeInsets paddingVcTable(BuildContext context) =>
         : const EdgeInsets.symmetric(horizontal: 10);
 
 double tableSpace(BuildContext context) =>
-    Orientations().isLandscape(context) ? 32 : 20;
+    Orientations().isLandscape(context) ? 25 : 20;
 
 double columnSpaceVc(BuildContext context) =>
     Orientations().isPortrait(context) ? 5 : 0;
 
 double columnSpacing(BuildContext context) =>
-    Orientations().isLandscape(context) ? 6 : 15;
+    Orientations().isLandscape(context) ? 15 : 18;
 
 double axisSpacing(BuildContext context) =>
     Orientations().isLandscape(context) ? 10 : 0;
@@ -74,16 +71,10 @@ double axisSpacing(BuildContext context) =>
 Map<int, FlexColumnWidth> columnVC2Width(BuildContext context) =>
     Orientations().isLandscape(context)
         ? const {
-            0: FlexColumnWidth(3),
-            1: FlexColumnWidth(2.2),
-            2: FlexColumnWidth(0.6),
-            3: FlexColumnWidth(2.8),
-            4: FlexColumnWidth(2.2)
+            0: FlexColumnWidth(1),
+            1: FlexColumnWidth(2)
           }
         : const {
-            0: FlexColumnWidth(2.6),
-            1: FlexColumnWidth(2),
-            2: FlexColumnWidth(0.35),
-            3: FlexColumnWidth(2.1),
-            4: FlexColumnWidth(2.3)
+            0: FlexColumnWidth(1),
+            1: FlexColumnWidth(1)
           };

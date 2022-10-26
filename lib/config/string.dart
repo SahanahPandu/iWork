@@ -33,25 +33,25 @@ String doVcFirst =
 String notFoundStreet = 'Tiada senarai jalan dijumpai!';
 String noEmployeeFound = 'Tiada Senarai Pekerja dijumpai!';
 String fillUpVC =
-    'Lengkapkan borang semakan kenderaan sebelum keluar di bawah :';
+    'Lengkapkan borang semakan kenderaan (Sebelum Keluar):';
 String date = 'Tarikh';
-String streetNo = 'No Laluan';
+String streetNo = 'No. Laluan';
 String outTime = 'Masa Keluar';
 String inTime = 'Masa Balik';
 String status = 'Status';
 String odometer = 'Odometer';
-String odometerLvl = 'Bacaan Odometer (KELUAR)';
+String odometerLvl = 'Bacaan Odometer (Keluar)';
 String odometerFunc = 'Odometer berfungsi';
 String totalKM = 'Jumlah Penggunaan KM Harian';
 String akbkNo = 'No. AKBK (Laporan Kerosakan)';
 String dieselFill = 'Diesel Diisi';
-String passReceipt = 'Diserahkan Resit Minyak Diesel';
+String passReceipt = 'Serah Resit Minyak Diesel';
 String fleetCard = 'Penggunaan Diesel Fleet Card';
 String cardNo = 'No. Kad (Lima no. terakhir)';
-String fuelLvl = 'Tandakan Paras Meter Minyak Sebelum Keluar';
+String fuelLvl = 'Paras Meter Sebelum Keluar';
 
 String km = 'km';
-String litre = 'Liter';
+String litre = 'liter';
 String rm = 'RM';
 
 String has = 'Ada';

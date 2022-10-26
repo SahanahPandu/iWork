@@ -48,6 +48,8 @@ class _ScreensState extends State<Screens> {
       case 400:
         return const EO();
       case 500:
+      case 600:
+      case 700:
         return const BA();
       default:
         return Scaffold(

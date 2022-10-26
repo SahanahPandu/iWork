@@ -28,11 +28,11 @@ class _CompactorPanelState extends State<CompactorPanel> {
           _scrollBody(),
         ],
         headerExpandedHeight:
-            Orientations().isTabletPortrait(context) ? 0.35 : 0.45,
+            Orientations().isTabletPortrait(context) ? 0.35 : 0.405,
         fixedTitle: _fixedTitle(context),
-        fixedTitleHeight: 70,
+        fixedTitleHeight: Orientations().isTabletPortrait(context) ? 65 : 70,
         collapseHeight: 148,
-        collapseFade: Orientations().isTabletPortrait(context) ? 130 : 90,
+        collapseFade: Orientations().isTabletPortrait(context) ? 130 : 95,
         backgroundColor: transparent,
         appBarColor: Orientations().isTabletPortrait(context)
             ? const Color(0xff358af5)

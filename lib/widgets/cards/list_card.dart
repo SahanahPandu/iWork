@@ -80,7 +80,7 @@ class _ListCardState extends State<ListCard> with TickerProviderStateMixin {
       } else if (userRole == 400) {
         //eo
         return EOMyTaskListDetails(data: widget.data);
-      } else if (userRole == 500) {
+      } else if (userRole == 500 || userRole == 600 || userRole == 700) {
         //BA
         return BAMyTaskListDetails(data: widget.data);
       }

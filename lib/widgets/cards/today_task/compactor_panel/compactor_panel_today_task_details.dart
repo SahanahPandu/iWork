@@ -2,21 +2,12 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../../../config/palette.dart';
-import '../../../../utils/icon/custom_icon.dart';
 import '../../../../utils/calendar/date.dart';
 import '../../../../utils/device/orientations.dart';
+import '../../../../utils/icon/custom_icon.dart';
 
 class CompactorPanelTodayTaskDetails extends StatefulWidget {
-  final String timeIn;
-  final String timeOut;
-  final Function getTimeLog;
-
-  const CompactorPanelTodayTaskDetails(
-      {Key? key,
-      required this.timeIn,
-      required this.timeOut,
-      required this.getTimeLog})
-      : super(key: key);
+  const CompactorPanelTodayTaskDetails({Key? key}) : super(key: key);
 
   @override
   State<CompactorPanelTodayTaskDetails> createState() =>
