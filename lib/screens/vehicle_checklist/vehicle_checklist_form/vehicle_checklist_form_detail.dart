@@ -37,6 +37,20 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
     GlobalKey<FormState>(),
     GlobalKey<FormState>()
   ];
+
+  static final List<GlobalKey<FormState>> _textKeys = [
+    GlobalKey<FormState>(),
+    GlobalKey<FormState>(),
+    GlobalKey<FormState>(),
+    GlobalKey<FormState>(),
+    GlobalKey<FormState>(),
+    GlobalKey<FormState>(),
+    GlobalKey<FormState>(),
+    GlobalKey<FormState>(),
+    GlobalKey<FormState>(),
+    GlobalKey<FormState>(),
+    GlobalKey<FormState>()
+  ];
   late ScrollController _scrollController;
   bool _showBackToTopButton = false;
   bool _valid = false;
@@ -866,7 +880,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                       padding: const EdgeInsets.fromLTRB(
                                           0, 15, 0, 20),
                                       height: 100,
-                                      child: _textFieldBuild(),
+                                      child: _textFieldBuild(0),
                                     ),
                                     Align(
                                       alignment: Alignment.bottomRight,
@@ -984,7 +998,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                             padding: const EdgeInsets.fromLTRB(
                                                 0, 15, 0, 20),
                                             height: 100,
-                                            child: _textFieldBuild(),
+                                            child: _textFieldBuild(1),
                                           ),
                                           Row(
                                               mainAxisAlignment:
@@ -1158,7 +1172,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                           padding: const EdgeInsets.fromLTRB(
                                               0, 15, 0, 20),
                                           height: 100,
-                                          child: _textFieldBuild(),
+                                          child: _textFieldBuild(2),
                                         ),
                                         Row(
                                             mainAxisAlignment:
@@ -1329,7 +1343,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                           padding: const EdgeInsets.fromLTRB(
                                               0, 15, 0, 20),
                                           height: 100,
-                                          child: _textFieldBuild(),
+                                          child: _textFieldBuild(3),
                                         ),
                                         Row(
                                             mainAxisAlignment:
@@ -1531,7 +1545,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                           padding: const EdgeInsets.fromLTRB(
                                               0, 15, 0, 20),
                                           height: 100,
-                                          child: _textFieldBuild(),
+                                          child: _textFieldBuild(4),
                                         ),
                                         Row(
                                             mainAxisAlignment:
@@ -1690,7 +1704,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                           padding: const EdgeInsets.fromLTRB(
                                               0, 15, 0, 20),
                                           height: 100,
-                                          child: _textFieldBuild(),
+                                          child: _textFieldBuild(5),
                                         ),
                                         Row(
                                             mainAxisAlignment:
@@ -1852,7 +1866,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                           padding: const EdgeInsets.fromLTRB(
                                               0, 15, 0, 20),
                                           height: 100,
-                                          child: _textFieldBuild(),
+                                          child: _textFieldBuild(6),
                                         ),
                                         Row(
                                             mainAxisAlignment:
@@ -2012,7 +2026,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                           padding: const EdgeInsets.fromLTRB(
                                               0, 15, 0, 20),
                                           height: 100,
-                                          child: _textFieldBuild(),
+                                          child: _textFieldBuild(7),
                                         ),
                                         Row(
                                             mainAxisAlignment:
@@ -2169,7 +2183,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                           padding: const EdgeInsets.fromLTRB(
                                               0, 15, 0, 20),
                                           height: 100,
-                                          child: _textFieldBuild(),
+                                          child: _textFieldBuild(8),
                                         ),
                                         Row(
                                             mainAxisAlignment:
@@ -2328,7 +2342,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                           padding: const EdgeInsets.fromLTRB(
                                               0, 15, 0, 20),
                                           height: 100,
-                                          child: _textFieldBuild(),
+                                          child: _textFieldBuild(9),
                                         ),
                                         Row(
                                             mainAxisAlignment:
@@ -2488,7 +2502,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                           padding: const EdgeInsets.fromLTRB(
                                               0, 15, 0, 20),
                                           height: 100,
-                                          child: _textFieldBuild(),
+                                          child: _textFieldBuild(10),
                                         ),
                                         Row(
                                             mainAxisAlignment:
@@ -2650,8 +2664,9 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
     );
   }
 
-  TextField _textFieldBuild() {
+  TextField _textFieldBuild(int idx) {
     return TextField(
+      key: _textKeys[idx],
       maxLines: 5,
       cursorColor: green,
       keyboardType: TextInputType.text,
