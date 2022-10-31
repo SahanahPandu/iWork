@@ -106,12 +106,12 @@ class ListOfSubRoutesTextFormFieldState
                   ? (enabledBorderWithText)
                   : (enabledBorderWithoutText),
             ),
-            borderRadius: BorderRadius.circular(borderRadiusCircular),
+            borderRadius: BorderRadius.circular(4),
           ),
           errorStyle: const TextStyle(height: 0),
           errorBorder: OutlineInputBorder(
             borderSide: BorderSide(width: borderSideWidth, color: Colors.red),
-            borderRadius: BorderRadius.circular(borderRadiusCircular),
+            borderRadius: BorderRadius.circular(4),
           ),
         ),
         validator: (value) {

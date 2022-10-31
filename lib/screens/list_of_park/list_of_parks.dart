@@ -5,8 +5,8 @@ import '../../config/config.dart';
 import '../../config/font.dart';
 import '../../config/palette.dart';
 import '../../providers/taman_api.dart';
-import '../../utils/icon/custom_icon.dart';
 import '../../utils/device/orientations.dart';
+import '../../utils/icon/custom_icon.dart';
 import '../../widgets/custom_scroll/custom_scroll.dart';
 
 class ListOfParks extends StatefulWidget {
@@ -57,7 +57,7 @@ class ListOfParksState extends State<ListOfParks> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        if (widget.iconCondition == 1) {
+        if (widget.iconCondition == 1 && widget.subRoutesId != 0) {
           showListOfParks();
         }
       },
@@ -89,10 +89,7 @@ class ListOfParksState extends State<ListOfParks> {
                   color: Color(0xff2B2B2B),
                 )
               : null,
-          label: Container(
-            color: Colors.white,
-            child: const Text('Taman'),
-          ),
+          label: const Text('Taman'),
           labelStyle: TextStyle(
             fontSize: widget.fontSize,
             color: labelTextColor,
@@ -107,12 +104,12 @@ class ListOfParksState extends State<ListOfParks> {
                   ? (enabledBorderWithText)
                   : (enabledBorderWithoutText),
             ),
-            borderRadius: BorderRadius.circular(borderRadiusCircular),
+            borderRadius: BorderRadius.circular(4),
           ),
           errorStyle: const TextStyle(height: 0),
           errorBorder: OutlineInputBorder(
             borderSide: BorderSide(width: borderSideWidth, color: Colors.red),
-            borderRadius: BorderRadius.circular(borderRadiusCircular),
+            borderRadius: BorderRadius.circular(4),
           ),
         ),
         validator: (value) {

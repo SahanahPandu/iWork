@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 //import files
+import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../../models/jalan.dart';
 import '../../utils/icon/custom_icon.dart';
@@ -47,8 +48,8 @@ class _ListOfRoadDetailsState extends State<ListOfRoadDetails> {
           ],
         ),
         SizedBox(
-          width: 28,
-          height: 28,
+          width: userRole == 100 ? 30 : 28,
+          height: userRole == 100 ? 30 : 28,
           child: ElevatedButton(
             onPressed: () {
               showNavigationOptions(context);
@@ -61,10 +62,10 @@ class _ListOfRoadDetailsState extends State<ListOfRoadDetails> {
                 borderRadius: BorderRadius.circular(50),
               ),
             ),
-            child: const Icon(
+            child: Icon(
               CustomIcon.navigation,
               color: Colors.green,
-              size: 24,
+              size: userRole == 100 ? 30 : 24,
             ),
           ),
         ),

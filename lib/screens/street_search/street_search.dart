@@ -79,22 +79,39 @@ class _StreetSearchState extends State<StreetSearch> {
                       ),
 
                       //Taman
-                      if (_showSenaraiTaman)
-                        Container(
-                          margin: const EdgeInsets.only(top: 10, right: 20),
-                          width: 300,
-                          child: ListOfParks(
-                            key: tamanKey,
-                            subRoutesId: idSubLaluan,
-                            showSenaraiJalan: updateShowSenaraiJalan,
-                            hintText: 'Senarai Taman',
-                            fontSize: 15,
-                            fillColor: Colors.white,
-                            iconCondition: iconCondition,
-                            data: namaTaman,
-                            screen: "Work Schedule",
-                          ),
-                        ),
+                      //if (_showSenaraiTaman)
+                      /// Display disabled Taman TextField if empty sublaluan ID
+                      namaSublaluan != ""
+                          ? Container(
+                              margin: const EdgeInsets.only(top: 10, right: 20),
+                              width: 300,
+                              child: ListOfParks(
+                                key: tamanKey,
+                                subRoutesId: idSubLaluan,
+                                showSenaraiJalan: updateShowSenaraiJalan,
+                                hintText: 'Senarai Taman',
+                                fontSize: 15,
+                                fillColor: Colors.white,
+                                iconCondition: iconCondition,
+                                data: namaTaman,
+                                screen: "Work Schedule",
+                              ),
+                            )
+                          : Container(
+                              margin: const EdgeInsets.only(top: 10, right: 20),
+                              width: 300,
+                              child: ListOfParks(
+                                key: tamanKey,
+                                subRoutesId: idSubLaluan,
+                                showSenaraiJalan: updateShowSenaraiJalan,
+                                hintText: 'Senarai Taman',
+                                fontSize: 15,
+                                fillColor: grey100,
+                                iconCondition: iconCondition,
+                                data: namaTaman,
+                                screen: "Work Schedule",
+                              ),
+                            ),
                     ],
                   ),
 
@@ -125,28 +142,45 @@ class _StreetSearchState extends State<StreetSearch> {
                   ),
 
                   //Taman
-                  if (_showSenaraiTaman)
-                    Container(
-                      margin: userRole == 100 &&
-                              Orientations().isTabletPortrait(context)
-                          ? const EdgeInsets.only(
-                              left: 60, right: 60, bottom: 10)
-                          : const EdgeInsets.only(
-                              left: 17,
-                              right: 17,
-                            ),
-                      child: ListOfParks(
-                        key: tamanKey,
-                        subRoutesId: idSubLaluan,
-                        showSenaraiJalan: updateShowSenaraiJalan,
-                        hintText: 'Senarai Taman',
-                        fontSize: 15,
-                        fillColor: Colors.white,
-                        iconCondition: iconCondition,
-                        data: namaTaman,
-                        screen: "Work Schedule",
-                      ),
-                    ),
+                  //if (_showSenaraiTaman)
+                  /// Display disabled Taman TextField if empty sublaluan ID
+                  namaSublaluan != ""
+                      ? Container(
+                          margin: userRole == 100 &&
+                                  Orientations().isTabletPortrait(context)
+                              ? const EdgeInsets.only(
+                                  left: 60, right: 60, bottom: 10)
+                              : const EdgeInsets.only(
+                                  left: 17,
+                                  right: 17,
+                                ),
+                          child: ListOfParks(
+                            key: tamanKey,
+                            subRoutesId: idSubLaluan,
+                            showSenaraiJalan: updateShowSenaraiJalan,
+                            hintText: 'Senarai Taman',
+                            fontSize: 15,
+                            fillColor: Colors.white,
+                            iconCondition: iconCondition,
+                            data: namaTaman,
+                            screen: "Work Schedule",
+                          ),
+                        )
+                      : Container(
+                          margin: const EdgeInsets.only(
+                              left: 60, right: 60, bottom: 10),
+                          child: ListOfParks(
+                            key: tamanKey,
+                            subRoutesId: idSubLaluan,
+                            showSenaraiJalan: updateShowSenaraiJalan,
+                            hintText: 'Senarai Taman',
+                            fontSize: 15,
+                            fillColor: const Color(0xfff8f7f7),
+                            iconCondition: iconCondition,
+                            data: namaTaman,
+                            screen: "Work Schedule",
+                          ),
+                        ),
 
                   //Senarai Jalan
                   if (_showSenaraiJalan)
