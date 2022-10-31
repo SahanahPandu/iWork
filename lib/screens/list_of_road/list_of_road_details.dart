@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 //import files
-import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../../models/jalan.dart';
 import '../../utils/icon/custom_icon.dart';
@@ -31,9 +30,8 @@ class _ListOfRoadDetailsState extends State<ListOfRoadDetails> {
               widget.data.namaJalan,
               style: TextStyle(
                   color: blackCustom,
-                  fontSize: userRole == 200 ? 15 : 14,
-                  fontWeight:
-                      userRole == 200 ? FontWeight.w400 : FontWeight.w600),
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400),
             ),
             const SizedBox(
               height: 6,
@@ -41,9 +39,9 @@ class _ListOfRoadDetailsState extends State<ListOfRoadDetails> {
             Text(
               "${widget.data.jumlahTong} tong",
               style: TextStyle(
-                fontSize: userRole == 200 ? 13 : 14,
-                color: const Color(0xff969696),
-                fontWeight: userRole == 200 ? FontWeight.w400 : FontWeight.w600,
+                fontSize: 16,
+                color: greyCustom,
+                fontWeight: FontWeight.w400,
               ),
             ),
           ],

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../config/font.dart';
 import '../../../config/palette.dart';
 import '../../../models/laluan.dart';
+import '../../../utils/device/orientations.dart';
 import '../../../utils/icon/custom_icon.dart';
 import '../../../widgets/container/status_container.dart';
 
@@ -21,6 +22,7 @@ class CompactorPanelScheduleDetails extends StatefulWidget {
 class _CompactorPanelScheduleDetailsState
     extends State<CompactorPanelScheduleDetails> {
   Color expandBgColor = const Color(0xea4a39be);
+  Color portraitExpandBgColor = const Color(0xea3e62be);
 
   @override
   Widget build(BuildContext context) {
@@ -233,7 +235,10 @@ class _CompactorPanelScheduleDetailsState
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 12),
                                 child: CircleAvatar(
-                                    backgroundColor: expandBgColor,
+                                    backgroundColor:
+                                        Orientations().isTabletPortrait(context)
+                                            ? portraitExpandBgColor
+                                            : expandBgColor,
                                     radius: 28,
                                     child: CircleAvatar(
                                       backgroundImage: NetworkImage(
@@ -246,7 +251,10 @@ class _CompactorPanelScheduleDetailsState
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 12),
                                 child: CircleAvatar(
-                                    backgroundColor: expandBgColor,
+                                    backgroundColor:
+                                        Orientations().isTabletPortrait(context)
+                                            ? portraitExpandBgColor
+                                            : expandBgColor,
                                     radius: 28,
                                     child: CircleAvatar(
                                       backgroundImage: NetworkImage(
@@ -256,7 +264,10 @@ class _CompactorPanelScheduleDetailsState
                         Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 12),
                             child: CircleAvatar(
-                                backgroundColor: expandBgColor,
+                                backgroundColor:
+                                    Orientations().isTabletPortrait(context)
+                                        ? portraitExpandBgColor
+                                        : expandBgColor,
                                 radius: 28,
                                 child: CircleAvatar(
                                   backgroundImage: NetworkImage(

@@ -109,7 +109,10 @@ class _StreetSearchState extends State<StreetSearch> {
                 children: [
                   //Sub Laluan
                   Container(
-                    margin: const EdgeInsets.fromLTRB(15, 10, 17, 16),
+                    margin: userRole == 100 &&
+                            Orientations().isTabletPortrait(context)
+                        ? const EdgeInsets.fromLTRB(60, 15, 60, 25)
+                        : const EdgeInsets.fromLTRB(17, 10, 17, 16),
                     child: ListOfSubRoutesTextFormField(
                       hintText: 'Sub-Laluan',
                       fontSize: 15,
@@ -124,10 +127,14 @@ class _StreetSearchState extends State<StreetSearch> {
                   //Taman
                   if (_showSenaraiTaman)
                     Container(
-                      margin: const EdgeInsets.only(
-                        left: 15,
-                        right: 17,
-                      ),
+                      margin: userRole == 100 &&
+                              Orientations().isTabletPortrait(context)
+                          ? const EdgeInsets.only(
+                              left: 60, right: 60, bottom: 10)
+                          : const EdgeInsets.only(
+                              left: 17,
+                              right: 17,
+                            ),
                       child: ListOfParks(
                         key: tamanKey,
                         subRoutesId: idSubLaluan,

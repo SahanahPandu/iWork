@@ -5,8 +5,9 @@ import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../../config/string.dart';
 import '../../providers/jalan_api.dart';
-import '../../utils/icon/custom_icon.dart';
+import '../../utils/device/orientations.dart';
 import '../../utils/device/sizes.dart';
+import '../../utils/icon/custom_icon.dart';
 import 'list_of_road_details.dart';
 
 class ListOfRoad extends StatefulWidget {
@@ -36,7 +37,9 @@ class _ListOfRoadState extends State<ListOfRoad> {
           color: const Color(0xffF7FBFF),
           padding: const EdgeInsets.symmetric(vertical: 16),
           child: Padding(
-            padding: const EdgeInsets.only(left: 32),
+            padding: userRole == 100 && Orientations().isTabletPortrait(context)
+                ? const EdgeInsets.only(left: 60)
+                : const EdgeInsets.only(left: 32),
             child: Row(
               children: [
                 Text(
@@ -111,7 +114,10 @@ class _ListOfRoadState extends State<ListOfRoad> {
                     itemCount: newList.length,
                     itemBuilder: (context, index) {
                       return Container(
-                        margin: const EdgeInsets.fromLTRB(32, 24, 34, 20),
+                        margin: userRole == 100 &&
+                                Orientations().isTabletPortrait(context)
+                            ? const EdgeInsets.fromLTRB(60, 20, 60, 20)
+                            : const EdgeInsets.fromLTRB(32, 24, 34, 20),
                         child: ListOfRoadDetails(
                           data: newList[index],
                           index: index,
