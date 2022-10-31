@@ -139,7 +139,7 @@ class _CompactorPanelScheduleMainState
       child: ExpandCollapseHeader(
           centerTitle: false,
           title: _collapseTitle(),
-          headerExpandedHeight: 0.4,
+          headerExpandedHeight: 0.41,
           alwaysShowLeadingAndAction: false,
           headerWidget: _header(context),
           fullyStretchable: true,
@@ -158,7 +158,7 @@ class _CompactorPanelScheduleMainState
   Widget _scrollBody() {
     return SafeArea(
         child:
-            Container(color: white, child: const StreetSearch(height: 0.421)));
+            Container(color: white, child: const StreetSearch(height: 0.432)));
   }
 
   Widget _collapseTitle() {
