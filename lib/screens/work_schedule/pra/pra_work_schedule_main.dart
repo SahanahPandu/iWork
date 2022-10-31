@@ -78,34 +78,25 @@ class _PraWorkScheduleMainState extends State<PraWorkScheduleMain> {
 
   Widget _header(BuildContext context) {
     return SafeArea(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: SizedBox(
-              //height: Sizes().screenHeight(context) * 0.3,
-              child: PraWorkScheduleDetails(data: widget.data!),
-            ),
-          ),
-        ],
-      ),
-    );
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: SizedBox(
+            //height: Sizes().screenHeight(context) * 0.3,
+            child: PraWorkScheduleDetails(data: widget.data!),
+          ))
+    ]));
   }
 
   Widget _fixedTitle(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 20),
-      child: Center(
-        child: Text(
-          "Perincian Sub-Laluan",
-          style: TextStyle(
-            color: blackCustom,
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-      ),
-    );
+        padding: const EdgeInsets.symmetric(vertical: 20),
+        child: Center(
+            child: Text("Perincian Sub-Laluan",
+                style: TextStyle(
+                  color: blackCustom,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ))));
   }
 }

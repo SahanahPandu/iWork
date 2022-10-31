@@ -6,7 +6,7 @@ import '../../../config/dimen.dart';
 import '../../../config/palette.dart';
 import '../../../providers/laluan_api.dart';
 import '../../../providers/vehicle_checklist_api.dart';
-import '../../../screens/work_schedule/compactor_panel/compactor_panel_schedule.dart';
+import '../../../screens/work_schedule/compactor_panel/compactor_panel_schedule_main.dart';
 import '../../../utils/device/orientations.dart';
 import '../../cards/my_task/compactor_panel/compactor_panel_my_task_list_details.dart';
 import '../../cards/my_task/compactor_panel/vehicle_checklist_card_details.dart';
@@ -92,7 +92,7 @@ class _CompactorTaskListState extends State<CompactorTaskList> {
                                   context,
                                   PageTransition(
                                       type: PageTransitionType.fade,
-                                      child: CompactorPanelSchedule(
+                                      child: CompactorPanelScheduleMain(
                                           data: laluanDataFuture[i - 1])));
                               //print("index clicked ${i - 1}");
                             },

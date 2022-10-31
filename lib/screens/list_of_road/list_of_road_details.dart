@@ -21,61 +21,6 @@ class ListOfRoadDetails extends StatefulWidget {
 class _ListOfRoadDetailsState extends State<ListOfRoadDetails> {
   @override
   Widget build(BuildContext context) {
-    if (userRole == 100) {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Container(
-            margin: const EdgeInsets.symmetric(
-              horizontal: 10,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text(
-                  widget.data.namaJalan,
-                  style: TextStyle(
-                    color: Colors.grey.shade800,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                Text(
-                  "Jumlah Tong ${widget.data.jumlahTong}",
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: grey400,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(
-            width: 22,
-            height: 22,
-            child: ElevatedButton(
-              onPressed: () {
-                showNavigationOptions(context);
-              },
-              style: ElevatedButton.styleFrom(
-                primary: const Color(0xffc9ffd7),
-                padding: const EdgeInsets.all(0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50),
-                ),
-              ),
-              child: const Icon(
-                Icons.near_me_rounded,
-                color: Colors.green,
-                size: 24,
-              ),
-            ),
-          )
-        ],
-      );
-    }
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

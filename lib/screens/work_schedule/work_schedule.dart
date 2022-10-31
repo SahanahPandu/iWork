@@ -7,6 +7,7 @@ import '../../config/palette.dart';
 import '../../utils/icon/custom_icon.dart';
 import '../../utils/device/sizes.dart';
 import '../../widgets/buttons/report_button.dart';
+import 'compactor_panel/compactor_panel_schedule_main.dart';
 import 'pra/pra_work_schedule_main.dart';
 import 'supervisor/supervisor_work_schedule_main.dart';
 
@@ -95,11 +96,9 @@ class _WorkScheduleState extends State<WorkSchedule> {
 
   Widget _getUserWorkSchedule() {
     switch (userRole) {
-
       /// PRA
       case 200:
         return PraWorkScheduleMain(data: widget.data);
-
       /// SV | EO | BA | SAM | ROM
       case 300:
       case 400:
