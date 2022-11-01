@@ -85,8 +85,12 @@ class _ListOfRoadState extends State<ListOfRoad> {
                           ? Sizes().screenHeight(context) * 0.24
                           : Sizes().screenHeight(context) * 0.18,
                       child: Container(
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 25, vertical: 15),
+                        margin: userRole == 100 &&
+                                Orientations().isTabletPortrait(context)
+                            ? const EdgeInsets.symmetric(
+                                horizontal: 60, vertical: 40)
+                            : const EdgeInsets.symmetric(
+                                horizontal: 25, vertical: 15),
                         alignment: Alignment.topLeft,
                         child: Row(
                           children: [

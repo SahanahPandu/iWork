@@ -8,8 +8,7 @@ import '../../config/resource.dart';
 import '../../config/string.dart';
 import '../../data/data_drawer.dart';
 import '../../screens/e_cuti/e_cuti.dart';
-import '../../screens/reports/report_list.dart';
-import '../../screens/reports/reports.dart';
+import '../../screens/reports/report_list_main.dart';
 import '../../screens/schedule_all/schedule_all_main.dart';
 import '../../screens/schedule_issue/report/report_approval_list_main.dart';
 import '../../screens/schedule_shift/schedule_shift_main.dart';
@@ -17,9 +16,7 @@ import '../../screens/vehicle_checklist/vehicle_checklist_approval/vehicle_check
 import '../../screens/workshop_vehicle/workshop_vehicle_main.dart';
 import '../../utils/authentication/auth.dart';
 import '../../utils/device/sizes.dart';
-import '../../utils/icon/custom_icon.dart';
 import '../alert/alert_dialog.dart';
-import '../app_bar/app_bar_widget.dart';
 import '../tabs/akbk_tab/akbk_tab.dart';
 import '../tabs/ecuti_approval_tab/ecuti_approval_tab.dart';
 
@@ -291,11 +288,7 @@ class _DrawerBuildState extends State<DrawerBuild> {
                 context,
                 PageTransition(
                     type: PageTransitionType.fade,
-                    child: const ReportsPage(
-                      screen: "6",
-                      data: null,
-                      dataLaluan: null,
-                    )));
+                    child: const ReportListMain()));
             break;
 
           case 5: //logout
@@ -330,31 +323,9 @@ class _DrawerBuildState extends State<DrawerBuild> {
               context,
               PageTransition(
                 type: PageTransitionType.fade,
-                child: Scaffold(
-                  backgroundColor: white,
-                  appBar: const AppBarWidget(
-                    title: "Laporan",
-                    listOfWidget: [
-                      Icon(
-                        CustomIcon.filter,
-                        size: 15,
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                    ],
-                  ),
-                  body: const ReportList(
-                    screen: "6",
-                  ),
-                ),
+                child: const ReportListMain(),
               ),
             );
-            // const ReportsPage(
-            //   screen: "6",
-            //   data: null,
-            //   dataLaluan: null,
-            // )));
             break;
           case 6: //logout
             _userLogout(context);

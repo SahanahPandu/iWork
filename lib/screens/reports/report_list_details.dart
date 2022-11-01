@@ -20,7 +20,7 @@ class ReportListDetails extends StatefulWidget {
 }
 
 class _ReportListDetailsState extends State<ReportListDetails> {
-  double horizontalPadding = 16;
+  double horizontalPadding = 20;
   Color iconColor = const Color(0xff3269F8);
   Color labelColor = greyCustom;
   Color inputColor = blackCustom;
@@ -29,7 +29,7 @@ class _ReportListDetailsState extends State<ReportListDetails> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 16, bottom: 32),
+      margin: const EdgeInsets.only(top: 15, bottom: 20),
       child: Column(
         children: [
           //laluan and status
@@ -231,13 +231,17 @@ class _ReportListDetailsState extends State<ReportListDetails> {
                     ),
                   ],
                 ),
-                Text(
-                  textAlign: TextAlign.end,
-                  widget.data.jenisHalangan,
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: inputColor,
-                    fontWeight: FontWeight.w600,
+                Expanded(
+                  child: Text(
+                    textAlign: TextAlign.end,
+                    widget.data.jenisHalangan,
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: inputColor,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
               ],

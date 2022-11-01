@@ -175,12 +175,11 @@ class _ReportFormState extends State<ReportForm> {
                       margin: userRole != 100
                           ? const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 5)
-                          : (userRole == 100 &&
-                                  Orientations().isLandscape(
-                                      context)) // condition for compactor panel
-                              ? const EdgeInsets.fromLTRB(100, 80, 100, 150)
+                          : Orientations().isLandscape(
+                                  context) // condition for compactor panel
+                              ? const EdgeInsets.fromLTRB(100, 20, 100, 0)
                               : const EdgeInsets.symmetric(
-                                  horizontal: 80, vertical: 60),
+                                  horizontal: 60, vertical: 20),
                       child: Form(
                         key: _reportFormKey,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -337,8 +336,8 @@ class _ReportFormState extends State<ReportForm> {
                             if (widget.screen == "4") supervisorSection(),
                             //put this at the end of the column widget list ,
                             //because to able scroll all item without being covered by the button at the bottom
-                            const SizedBox(
-                              height: 100,
+                            SizedBox(
+                              height: userRole == 100 ? 80 : 100,
                             ),
                           ],
                         ),
