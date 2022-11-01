@@ -167,8 +167,14 @@ class _StreetSearchState extends State<StreetSearch> {
                           ),
                         )
                       : Container(
-                          margin: const EdgeInsets.only(
-                              left: 60, right: 60, bottom: 10),
+                          margin: userRole == 100 &&
+                                  Orientations().isTabletPortrait(context)
+                              ? const EdgeInsets.only(
+                                  left: 60, right: 60, bottom: 10)
+                              : const EdgeInsets.only(
+                                  left: 17,
+                                  right: 17,
+                                ),
                           child: ListOfParks(
                             key: tamanKey,
                             subRoutesId: idSubLaluan,
