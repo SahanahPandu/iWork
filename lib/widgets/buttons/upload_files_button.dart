@@ -6,9 +6,14 @@ import 'package:flutter/material.dart';
 import '../../utils/media/file_picker.dart';
 
 class UploadFilesButton extends StatefulWidget {
-  String textLampiran;
+  String lampiranName;
+  Function(String)? updateLampiran;
 
-  UploadFilesButton({Key? key, required this.textLampiran}) : super(key: key);
+  UploadFilesButton({
+    Key? key,
+    required this.lampiranName,
+    this.updateLampiran,
+  }) : super(key: key);
 
   @override
   State<UploadFilesButton> createState() => _UploadFilesButtonState();
@@ -23,10 +28,7 @@ class _UploadFilesButtonState extends State<UploadFilesButton> {
         ElevatedButton(
           onPressed: () async {
             String getFileName = await FilePickerClass.getFilePathName();
-
-            setState(() {
-              widget.textLampiran = getFileName;
-            });
+            widget.updateLampiran!(getFileName);
           },
           style: ElevatedButton.styleFrom(
             primary: const Color(0xff3269F8),
@@ -47,8 +49,8 @@ class _UploadFilesButtonState extends State<UploadFilesButton> {
           //         size: 28,
           //       ),
           child: Text(
-            (widget.textLampiran != "")
-                ? widget.textLampiran
+            (widget.lampiranName != "")
+                ? widget.lampiranName
                 : "Muat Naik Lampiran",
             style: const TextStyle(
               fontSize: 16,

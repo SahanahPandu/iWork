@@ -149,7 +149,16 @@ class _LeaveFormState extends State<LeaveForm> {
     _lampiranDetailsVisibility = false;
     _catatan.clear();
     _jenisCuti.clear();
+    lampiran = "";
     setState(() {});
+  }
+
+  updateLampiran(String fileName) {
+    if (fileName != "") {
+      setState(() {
+        lampiran = fileName;
+      });
+    }
   }
 
   @override
@@ -664,7 +673,10 @@ class _LeaveFormState extends State<LeaveForm> {
         if (_lampiranVisibility)
           SizedBox(
             width: Sizes().screenWidth(context),
-            child: UploadFilesButton(textLampiran: lampiran),
+            child: UploadFilesButton(
+              lampiranName: lampiran,
+              updateLampiran: updateLampiran,
+            ),
           ),
 
         //Detail Lampiran
@@ -706,7 +718,7 @@ class _LeaveFormState extends State<LeaveForm> {
             controller: _catatan,
             minLines: 1,
             maxLines: 5,
-            enabled: false,
+            enabled: true,
             cursorColor: green,
             focusNode: _catatanFocusNode,
             onTap: () {

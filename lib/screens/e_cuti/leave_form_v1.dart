@@ -346,7 +346,7 @@ class _LeaveFormState extends State<LeaveForm> {
                         SizedBox(
                           width: Sizes().screenWidth(context),
                           child:
-                              UploadFilesButton(textLampiran: _lampiran.text),
+                              UploadFilesButton(lampiranName: _lampiran.text),
                         ),
 
                       //Detail Lampiran
