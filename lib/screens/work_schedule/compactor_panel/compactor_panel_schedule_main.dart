@@ -304,6 +304,13 @@ class _CompactorPanelScheduleMainState
                     (Sizes().screenHeight(context) * 0.2) -
                     kToolbarHeight),
         color: white,
+
+        /// Set min height of container to fill screen when search result is empty
+        constraints: Orientations().isTabletPortrait(context) &&
+                _showSenaraiTaman &&
+                _showSenaraiJalan
+            ? const BoxConstraints(minHeight: 563)
+            : null,
         child: Orientations().isTabletPortrait(context)
             ? Column(
                 children: [
