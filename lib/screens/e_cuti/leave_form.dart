@@ -250,15 +250,6 @@ class _LeaveFormState extends State<LeaveForm> {
                           const SizedBox(
                             height: 24,
                           ),
-                          //Jenis Cuti
-                          // ListOfLeaveType(
-                          //   hintText: 'Jenis Cuti',
-                          //   fontSize: 15,
-                          //   borderCondition: borderCondition, // have border
-                          //   fillColor: textFieldFillColor,
-                          //   iconCondition: iconCondition,
-                          //   data: _jenisCuti,
-                          // ),
                           InkWell(
                             borderRadius: userRole == 100
                                 ? BorderRadius.circular(borderRadiusCircular)
@@ -297,10 +288,7 @@ class _LeaveFormState extends State<LeaveForm> {
                                         color: Color(0xff2B2B2B),
                                       )
                                     : null,
-                                label: Container(
-                                  color: Colors.white,
-                                  child: const Text('Jenis Cuti'),
-                                ),
+                                label: const Text('Jenis Cuti'),
                                 labelStyle: TextStyle(
                                   fontSize: 15,
                                   color: labelTextColor,
@@ -407,10 +395,7 @@ class _LeaveFormState extends State<LeaveForm> {
                                         fontWeight:
                                             textFormFieldLabelFontWeight,
                                       ),
-                                      label: Container(
-                                        color: Colors.white,
-                                        child: const Text('Tarikh Mula'),
-                                      ),
+                                      label: const Text('Tarikh Mula'),
                                       labelStyle: TextStyle(
                                         fontSize: 15,
                                         color: labelTextColor,
@@ -539,10 +524,7 @@ class _LeaveFormState extends State<LeaveForm> {
                                         fontWeight:
                                             textFormFieldLabelFontWeight,
                                       ),
-                                      label: Container(
-                                        color: Colors.white,
-                                        child: const Text('Tarikh Akhir'),
-                                      ),
+                                      label: const Text('Tarikh Akhir'),
                                       labelStyle: TextStyle(
                                         fontSize: 15,
                                         color: labelTextColor,
@@ -765,10 +747,7 @@ class _LeaveFormState extends State<LeaveForm> {
                 ),
                 alignLabelWithHint: true,
                 floatingLabelAlignment: FloatingLabelAlignment.start,
-                label: Container(
-                  color: Colors.white,
-                  child: const Text("Catatan"),
-                ),
+                label: const Text("Catatan"),
                 labelStyle: TextStyle(
                   fontSize: 15,
                   color: labelTextColor,
@@ -838,10 +817,7 @@ class _LeaveFormState extends State<LeaveForm> {
             contentPadding: userRole == 100
                 ? const EdgeInsets.symmetric(vertical: 15, horizontal: 20)
                 : const EdgeInsets.all(8),
-            label: Container(
-              color: Colors.white,
-              child: const Text("Status Permohonan"),
-            ),
+            label: const Text("Status Permohonan"),
             labelStyle: TextStyle(
               fontSize: 15,
               color: labelTextColor,
@@ -878,10 +854,7 @@ class _LeaveFormState extends State<LeaveForm> {
             contentPadding: userRole == 100
                 ? const EdgeInsets.symmetric(vertical: 15, horizontal: 20)
                 : const EdgeInsets.all(8),
-            label: Container(
-              color: Colors.white,
-              child: const Text("Maklumbalas Penyelia"),
-            ),
+            label: const Text("Maklumbalas Penyelia"),
             labelStyle: TextStyle(
               fontSize: 15,
               color: labelTextColor,

@@ -88,10 +88,7 @@ class ListOfSubRoutesTextFormFieldState
                   color: Color(0xff2B2B2B),
                 )
               : null,
-          label: Container(
-            color: Colors.white,
-            child: const Text('Sub-Laluan'),
-          ),
+          label: const Text('Sub-Laluan'),
           labelStyle: TextStyle(
             fontSize: widget.fontSize,
             color: labelTextColor,

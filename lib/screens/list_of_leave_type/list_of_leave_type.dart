@@ -92,10 +92,7 @@ class _ListOfLeaveTypeState extends State<ListOfLeaveType> {
                   color: Color(0xff2B2B2B),
                 )
               : null,
-          label: Container(
-            color: Colors.white,
-            child: Text(widget.hintText),
-          ),
+          label: Text(widget.hintText),
           labelStyle: TextStyle(
             fontSize: widget.fontSize,
             color: labelTextColor,

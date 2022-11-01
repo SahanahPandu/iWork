@@ -287,10 +287,7 @@ class PraSectionReportFormState extends State<PraSectionReportForm> {
               ),
               alignLabelWithHint: true,
               floatingLabelAlignment: FloatingLabelAlignment.start,
-              label: Container(
-                color: Colors.white,
-                child: const Text("Catatan"),
-              ),
+              label: const Text("Catatan"),
               labelStyle: TextStyle(
                 fontSize: 15,
                 color: labelTextColor,

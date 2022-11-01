@@ -97,10 +97,7 @@ class ListOfObstaclesState extends State<ListOfObstacles> {
                   color: Color(0xff2B2B2B),
                 )
               : null,
-          label: Container(
-            color: Colors.white,
-            child: const Text('Jenis Halangan'),
-          ),
+          label: const Text('Jenis Halangan'),
           labelStyle: TextStyle(
             fontSize: widget.fontSize,
             color: labelTextColor,

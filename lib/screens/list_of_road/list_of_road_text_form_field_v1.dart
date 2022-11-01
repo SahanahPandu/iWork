@@ -97,10 +97,7 @@ class _ListOfRoadTextFormFieldState extends State<ListOfRoadTextFormField> {
                   color: Color(0xff2B2B2B),
                 )
               : null,
-          label: Container(
-            color: Colors.white,
-            child: const Text('Jalan'),
-          ),
+          label: const Text('Jalan'),
           labelStyle: TextStyle(
             fontSize: widget.fontSize,
             color: labelTextColor,

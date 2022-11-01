@@ -248,10 +248,7 @@ class _ReportFormState extends State<ReportForm> {
                                         color: Color(0xff2B2B2B),
                                       )
                                     : null,
-                                label: Container(
-                                  color: Colors.white,
-                                  child: const Text('Laluan'),
-                                ),
+                                label: const Text('Laluan'),
                                 labelStyle: TextStyle(
                                   fontSize: 15,
                                   color: labelTextColor,
@@ -301,10 +298,7 @@ class _ReportFormState extends State<ReportForm> {
                                         color: Color(0xff2B2B2B),
                                       )
                                     : null,
-                                label: Container(
-                                  color: Colors.white,
-                                  child: const Text('No. Kenderaan'),
-                                ),
+                                label: const Text('No. Kenderaan'),
                                 labelStyle: TextStyle(
                                   fontSize: 15,
                                   color: labelTextColor,
@@ -452,10 +446,7 @@ class _ReportFormState extends State<ReportForm> {
             contentPadding: userRole == 100
                 ? const EdgeInsets.symmetric(vertical: 15, horizontal: 20)
                 : const EdgeInsets.all(8),
-            label: Container(
-              color: Colors.white,
-              child: const Text("Status"),
-            ),
+            label: const Text("Status"),
             labelStyle: TextStyle(
               fontSize: 15,
               color: labelTextColor,
@@ -492,10 +483,7 @@ class _ReportFormState extends State<ReportForm> {
             contentPadding: userRole == 100
                 ? const EdgeInsets.symmetric(vertical: 15, horizontal: 20)
                 : const EdgeInsets.all(8),
-            label: Container(
-              color: Colors.white,
-              child: const Text("Maklumbalas Penyelia"),
-            ),
+            label: const Text("Maklumbalas Penyelia"),
             labelStyle: TextStyle(
               fontSize: 15,
               color: labelTextColor,
