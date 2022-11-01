@@ -126,7 +126,7 @@ class _VehicleChecklistFormTabState extends State<VehicleChecklistFormTab>
                       ),
                     ],
                     onTap: (t) {
-                      print(_tabController.index);
+                      // print(_tabController.index);
                     },
                   ),
                 ),
