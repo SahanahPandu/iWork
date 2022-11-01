@@ -71,7 +71,7 @@ class _CompactorPanelTodayTaskDetailsState
             alignment: Alignment.centerRight,
             child: Container(
                 alignment: Alignment.centerLeft,
-                width: 180,
+                width: 170,
                 child: Stack(
                     clipBehavior: Clip.none,
                     fit: StackFit.passthrough,

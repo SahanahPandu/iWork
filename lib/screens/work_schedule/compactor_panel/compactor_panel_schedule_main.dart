@@ -10,7 +10,9 @@ import '../../../utils/icon/custom_icon.dart';
 import '../../../widgets/buttons/report_button.dart';
 import '../../../widgets/container/status_container.dart';
 import '../../../widgets/slivers/expand_collapse_header/expand_collapse_header.dart';
-import '../../street_search/street_search.dart';
+import '../../list_of_park/list_of_parks.dart';
+import '../../list_of_road/list_of_road.dart';
+import '../../list_of_sub_routes/list_of_sub_routes_text_form_field.dart';
 import 'compactor_panel_schedule_details.dart';
 
 class CompactorPanelScheduleMain extends StatefulWidget {
@@ -28,6 +30,31 @@ class _CompactorPanelScheduleMainState
     extends State<CompactorPanelScheduleMain> {
   Color collapseBgColor = const Color(0xff3597f8);
   Color appbarColor = const Color(0xf93597f8);
+  final tamanKey = GlobalKey<ListOfParksState>();
+  bool _showSenaraiTaman = false;
+  bool _showSenaraiJalan = false;
+  int idTaman = 0;
+  int iconCondition = 1;
+  int idSubLaluan = 0;
+  String namaTaman = "";
+  String namaSublaluan = "";
+
+  updateSenaraiTaman(id, [name]) {
+    setState(() {
+      tamanKey.currentState?.namaTaman.clear();
+      _showSenaraiTaman = true;
+      idSubLaluan = id;
+      namaSublaluan = name;
+    });
+  }
+
+  updateShowSenaraiJalan(id, [name]) {
+    setState(() {
+      _showSenaraiJalan = true;
+      idTaman = id;
+      namaTaman = name;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -124,10 +151,10 @@ class _CompactorPanelScheduleMainState
                     child: ScrollConfiguration(
                         behavior: const MaterialScrollBehavior()
                             .copyWith(overscroll: false),
-                        child: const SingleChildScrollView(
+                        child: SingleChildScrollView(
                             child: Padding(
-                          padding: EdgeInsets.only(top: 15),
-                          child: StreetSearch(height: 0.2),
+                          padding: const EdgeInsets.only(top: 15),
+                          child: _streetSearch(context),
                         )))))
           ]))
     ]);
@@ -157,8 +184,7 @@ class _CompactorPanelScheduleMainState
 
   Widget _scrollBody() {
     return SafeArea(
-        child:
-            Container(color: white, child: const StreetSearch(height: 0.432)));
+        child: Container(color: white, child: _streetSearch(context)));
   }
 
   Widget _collapseTitle() {
@@ -246,7 +272,6 @@ class _CompactorPanelScheduleMainState
       Padding(
           padding: const EdgeInsets.symmetric(horizontal: 90, vertical: 10),
           child: SizedBox(
-              //height: Sizes().screenHeight(context) * 0.3,
               child: CompactorPanelScheduleDetails(
             data: widget.data,
           )))
@@ -263,5 +288,147 @@ class _CompactorPanelScheduleMainState
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
                 ))));
+  }
+
+  /// Street search referred as widget for Tab users
+  /// To avoid reinitializing street search data when device orientation changed
+  Widget _streetSearch(BuildContext context) {
+    return Container(
+        height: _showSenaraiTaman && _showSenaraiJalan
+            ? null
+            : Orientations().isTabletPortrait(context)
+                ? (Sizes().screenHeight(context) -
+                    (Sizes().screenHeight(context) * 0.432) -
+                    kToolbarHeight)
+                : (Sizes().screenHeight(context) -
+                    (Sizes().screenHeight(context) * 0.2) -
+                    kToolbarHeight),
+        color: white,
+        child: Orientations().isTabletPortrait(context)
+            ? Column(
+                children: [
+                  //Sub Laluan
+                  Container(
+                    margin: Orientations().isTabletPortrait(context)
+                        ? const EdgeInsets.fromLTRB(60, 15, 60, 25)
+                        : const EdgeInsets.fromLTRB(17, 10, 17, 16),
+                    child: ListOfSubRoutesTextFormField(
+                      hintText: 'Sub-Laluan',
+                      fontSize: 15,
+                      fillColor: Colors.white,
+                      iconCondition: iconCondition,
+                      data: namaSublaluan,
+                      screen: "Work Schedule",
+                      getSubLaluanId: updateSenaraiTaman,
+                    ),
+                  ),
+
+                  //Taman
+                  //if (_showSenaraiTaman)
+                  /// Display disabled Taman TextField if empty sublaluan ID
+                  namaSublaluan != ""
+                      ? Container(
+                          margin: const EdgeInsets.only(
+                              left: 60, right: 60, bottom: 10),
+                          child: ListOfParks(
+                            key: tamanKey,
+                            subRoutesId: idSubLaluan,
+                            showSenaraiJalan: updateShowSenaraiJalan,
+                            hintText: 'Senarai Taman',
+                            fontSize: 15,
+                            fillColor: Colors.white,
+                            iconCondition: iconCondition,
+                            data: namaTaman,
+                            screen: "Work Schedule",
+                          ),
+                        )
+                      : Container(
+                          margin: const EdgeInsets.only(
+                              left: 60, right: 60, bottom: 10),
+                          child: ListOfParks(
+                            key: tamanKey,
+                            subRoutesId: idSubLaluan,
+                            showSenaraiJalan: updateShowSenaraiJalan,
+                            hintText: 'Senarai Taman',
+                            fontSize: 15,
+                            fillColor: const Color(0xfff8f7f7),
+                            iconCondition: iconCondition,
+                            data: namaTaman,
+                            screen: "Work Schedule",
+                          ),
+                        ),
+
+                  //Senarai Jalan
+                  if (_showSenaraiJalan)
+                    ListOfRoad(
+                      idTaman: idTaman,
+                    ),
+                ],
+              )
+            : Column(
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      //Sub Laluan
+                      Container(
+                        width: 300,
+                        margin: const EdgeInsets.only(top: 10, left: 20),
+                        child: ListOfSubRoutesTextFormField(
+                          hintText: 'Sub-Laluan',
+                          fontSize: 15,
+                          fillColor: Colors.white,
+                          iconCondition: iconCondition,
+                          data: namaSublaluan,
+                          screen: "Work Schedule",
+                          getSubLaluanId: updateSenaraiTaman,
+                        ),
+                      ),
+
+                      //Taman
+                      //if (_showSenaraiTaman)
+                      /// Display disabled Taman TextField if empty sublaluan ID
+                      namaSublaluan != ""
+                          ? Container(
+                              margin: const EdgeInsets.only(top: 10, right: 20),
+                              width: 300,
+                              child: ListOfParks(
+                                key: tamanKey,
+                                subRoutesId: idSubLaluan,
+                                showSenaraiJalan: updateShowSenaraiJalan,
+                                hintText: 'Senarai Taman',
+                                fontSize: 15,
+                                fillColor: Colors.white,
+                                iconCondition: iconCondition,
+                                data: namaTaman,
+                                screen: "Work Schedule",
+                              ),
+                            )
+                          : Container(
+                              margin: const EdgeInsets.only(top: 10, right: 20),
+                              width: 300,
+                              child: ListOfParks(
+                                key: tamanKey,
+                                subRoutesId: idSubLaluan,
+                                showSenaraiJalan: updateShowSenaraiJalan,
+                                hintText: 'Senarai Taman',
+                                fontSize: 15,
+                                fillColor: grey100,
+                                iconCondition: iconCondition,
+                                data: namaTaman,
+                                screen: "Work Schedule",
+                              ),
+                            ),
+                    ],
+                  ),
+
+                  //Senarai Jalan
+                  if (_showSenaraiJalan)
+                    ListOfRoad(
+                      idTaman: idTaman,
+                    ),
+                ],
+              ));
   }
 }
