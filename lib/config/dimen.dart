@@ -15,6 +15,9 @@ EdgeInsets tabletTaskCardMargin(BuildContext context) =>
 double gridRatio(BuildContext context) =>
     Orientations().isLandscape(context) ? 1.75 : 1.155;
 
+double gridRatioReport(BuildContext context) =>
+    Orientations().isLandscape(context) ? 2 : 1.155;
+
 double alertBoxPadding(BuildContext context) => Devices().isTablet()
     ? (Orientations().isLandscape(context) ? 280 : 170)
     : 20;
