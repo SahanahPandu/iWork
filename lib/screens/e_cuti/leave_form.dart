@@ -8,6 +8,7 @@ import 'package:keyboard_visibility_pro/keyboard_visibility_pro.dart';
 
 //import files
 import '../../config/config.dart';
+import '../../config/dimen.dart';
 import '../../config/font.dart';
 import '../../config/palette.dart';
 import '../../models/cuti.dart';
@@ -47,7 +48,7 @@ class _LeaveFormState extends State<LeaveForm> {
   Color enableBorderWithTextColor = enabledBorderWithText;
   bool _lampiranVisibility = true;
   bool _lampiranDetailsVisibility = false;
-  double spaceHeight = 15;
+  double spaceHeight = 24;
   String jenisCuti = "";
   bool buttonVisibility = true;
   int iconCondition = 1;
@@ -207,406 +208,390 @@ class _LeaveFormState extends State<LeaveForm> {
             controller: _expandController,
             child: Stack(
               children: [
-                SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(
-                    parent: AlwaysScrollableScrollPhysics(),
-                  ),
-                  child: Container(
-                    margin:
-                        const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                    child: Form(
-                      key: _formKey,
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          if (widget.screen == "2")
+                ScrollConfiguration(
+                  behavior: const MaterialScrollBehavior()
+                      .copyWith(overscroll: false),
+                  child: SingleChildScrollView(
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 5),
+                      child: Form(
+                        key: _formKey,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            if (widget.screen == "2")
+                              const SizedBox(
+                                height: 24,
+                              ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  formTitle,
+                                  style: const TextStyle(
+                                    color: Color(0xff8A92A6),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                                if (widget.screen == "2")
+                                  //expand button
+                                  ExpandableButton(
+                                    child: GestureDetector(
+                                        onTap: () {
+                                          _expandController.toggle();
+                                          setState(() {});
+                                        },
+                                        child: expandButton()),
+                                  ),
+                              ],
+                            ),
                             const SizedBox(
                               height: 24,
                             ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                formTitle,
+                            GestureDetector(
+                              onTap: () {
+                                if (iconCondition == 1) {
+                                  showListOfLeaveType();
+                                }
+                              },
+                              child: TextFormField(
                                 style: const TextStyle(
-                                  color: Color(0xff8A92A6),
-                                  fontSize: 14,
+                                  fontSize: 15,
+                                  color: Color(0xff2B2B2B),
                                   fontWeight: FontWeight.w400,
                                 ),
-                              ),
-                              if (widget.screen == "2")
-                                //expand button
-                                ExpandableButton(
-                                  child: InkWell(
-                                      onTap: () {
-                                        _expandController.toggle();
-                                        setState(() {});
-                                      },
-                                      child: expandButton()),
-                                ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 24,
-                          ),
-                          InkWell(
-                            borderRadius: userRole == 100
-                                ? BorderRadius.circular(borderRadiusCircular)
-                                : null,
-                            onTap: () {
-                              if (iconCondition == 1) {
-                                showListOfLeaveType();
-                              }
-                            },
-                            child: TextFormField(
-                              style: const TextStyle(
-                                fontSize: 15,
-                                color: Color(0xff2B2B2B),
-                                fontWeight: FontWeight.w400,
-                              ),
-                              controller: _jenisCuti,
-                              readOnly: true,
-                              enabled: false,
-                              decoration: InputDecoration(
-                                filled: true,
-                                fillColor: textFieldFillColor,
-                                contentPadding: userRole == 100
-                                    ? const EdgeInsets.symmetric(
-                                        vertical: 15, horizontal: 20)
-                                    : const EdgeInsets.all(8),
-                                hintText: 'Jenis Cuti',
-                                hintStyle: TextStyle(
-                                  fontSize: 15,
-                                  color: labelTextColor,
-                                  fontWeight: textFormFieldLabelFontWeight,
-                                ),
-                                suffixIcon: iconCondition == 1
-                                    ? const Icon(
-                                        Icons.expand_more,
-                                        size: 20,
-                                        color: Color(0xff2B2B2B),
-                                      )
-                                    : null,
-                                label: const Text('Jenis Cuti'),
-                                labelStyle: TextStyle(
-                                  fontSize: 15,
-                                  color: labelTextColor,
-                                  fontWeight: textFormFieldLabelFontWeight,
-                                ),
-                                errorStyle: const TextStyle(height: 0),
-                                errorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
+                                controller: _jenisCuti,
+                                readOnly: true,
+                                enabled: false,
+                                decoration: InputDecoration(
+                                  filled: true,
+                                  fillColor: textFieldFillColor,
+                                  contentPadding: const EdgeInsets.all(8),
+                                  hintText: 'Jenis Cuti',
+                                  hintStyle: TextStyle(
+                                    fontSize: 15,
+                                    color: labelTextColor,
+                                    fontWeight: textFormFieldLabelFontWeight,
+                                  ),
+                                  suffixIcon: iconCondition == 1
+                                      ? const Icon(
+                                          Icons.expand_more,
+                                          size: 20,
+                                          color: Color(0xff2B2B2B),
+                                        )
+                                      : null,
+                                  label: const Text('Jenis Cuti'),
+                                  labelStyle: TextStyle(
+                                    fontSize: 15,
+                                    color: labelTextColor,
+                                    fontWeight: textFormFieldLabelFontWeight,
+                                  ),
+                                  errorStyle: const TextStyle(height: 0),
+                                  errorBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: borderSideWidth,
+                                        color: Colors.red),
+                                    borderRadius: BorderRadius.circular(
+                                        borderRadiusCircular),
+                                  ),
+                                  disabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
                                       width: borderSideWidth,
-                                      color: Colors.red),
-                                  borderRadius: BorderRadius.circular(
-                                      borderRadiusCircular),
-                                ),
-                                disabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: borderSideWidth,
-                                    color: _jenisCuti.text != '' &&
-                                            iconCondition == 1
-                                        ? (userRole == 100
-                                            ? grey100
-                                            : enabledBorderWithText)
-                                        : (userRole == 100
-                                            ? grey100
-                                            : enabledBorderWithoutText),
+                                      color: _jenisCuti.text != '' &&
+                                              iconCondition == 1
+                                          ? enabledBorderWithText
+                                          : enabledBorderWithoutText,
+                                    ),
+                                    borderRadius: BorderRadius.circular(
+                                        borderRadiusCircular),
                                   ),
-                                  borderRadius: BorderRadius.circular(
-                                      borderRadiusCircular),
                                 ),
-                              ),
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return '';
-                                }
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return '';
+                                  }
 
-                                return null;
-                              },
+                                  return null;
+                                },
+                              ),
                             ),
-                          ),
 
-                          SizedBox(
-                            height: spaceHeight,
-                          ),
-                          //Tarikh Mula & Tarikh Tamat
+                            SizedBox(
+                              height: spaceHeight,
+                            ),
+                            //Tarikh Mula & Tarikh Tamat
 
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              //tarikh mula
-                              InkWell(
-                                onTap: () async {
-                                  if (widget.screen != "2") {
-                                    DateTime? getStartDate =
-                                        await datePicker(context);
-                                    if (getStartDate != null) {
-                                      String fullDate =
-                                          DateFormat("dd MMMM yyyy", "ms")
-                                              .format(getStartDate);
-                                      String actualDate = "";
-
-                                      if (leaveDate == "") {
-                                        //belum pilih tarikh akhir
-                                        actualDate = fullDate;
-                                      } else {
-                                        //dah pilih tarikh akhir
-                                        if (leaveDate == fullDate) {
-                                          // if Tarikh Mula sama dengan Tarikh Akhir
-                                          actualDate = leaveDate;
-                                        } else {
-                                          actualDate = "$fullDate - $leaveDate";
-                                        }
-                                      }
-
-                                      setState(() {
-                                        _tarikhMula.text =
-                                            DateFormat("dd/MM/yyyy")
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                //tarikh mula
+                                GestureDetector(
+                                  onTap: () async {
+                                    if (widget.screen != "2") {
+                                      DateTime? getStartDate =
+                                          await datePicker(context);
+                                      if (getStartDate != null) {
+                                        String fullDate =
+                                            DateFormat("dd MMMM yyyy", "ms")
                                                 .format(getStartDate);
-                                        leaveDate = actualDate;
-                                      });
-                                    }
-                                  }
-                                },
-                                child: SizedBox(
-                                  width: Sizes().screenWidth(context) * 0.42,
-                                  child: TextFormField(
-                                    style: const TextStyle(
-                                      fontSize: 15,
-                                      color: Color(0xff2B2B2B),
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                    controller: _tarikhMula,
-                                    readOnly: true,
-                                    enabled: false,
-                                    decoration: InputDecoration(
-                                      filled: true,
-                                      fillColor: textFieldFillColor,
-                                      contentPadding: userRole == 100
-                                          ? const EdgeInsets.symmetric(
-                                              vertical: 15, horizontal: 20)
-                                          : const EdgeInsets.all(8),
-                                      hintText: 'Tarikh Mula',
-                                      hintStyle: TextStyle(
-                                        fontSize: 15,
-                                        color: labelTextColor,
-                                        fontWeight:
-                                            textFormFieldLabelFontWeight,
-                                      ),
-                                      label: const Text('Tarikh Mula'),
-                                      labelStyle: TextStyle(
-                                        fontSize: 15,
-                                        color: labelTextColor,
-                                        fontWeight:
-                                            textFormFieldLabelFontWeight,
-                                      ),
-                                      disabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          width: borderSideWidth,
-                                          color: _tarikhMula.text != '' &&
-                                                  iconCondition == 1
-                                              ? (userRole == 100
-                                                  ? grey100
-                                                  : enabledBorderWithText)
-                                              : (userRole == 100
-                                                  ? grey100
-                                                  : enabledBorderWithoutText),
-                                        ),
-                                        borderRadius: BorderRadius.circular(
-                                            borderRadiusCircular),
-                                      ),
-                                      errorStyle: const TextStyle(height: 0),
-                                      errorBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            width: borderSideWidth,
-                                            color: Colors.red),
-                                        borderRadius: BorderRadius.circular(
-                                            borderRadiusCircular),
-                                      ),
-                                      suffixIcon: iconCondition == 1
-                                          ? IntrinsicHeight(
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  VerticalDivider(
-                                                    color: Colors.grey.shade400,
-                                                    thickness: 1,
-                                                    indent: 8,
-                                                    endIndent: 8,
-                                                  ),
-                                                  Container(
-                                                    margin:
-                                                        const EdgeInsets.only(
-                                                            right: 6),
-                                                    child: Icon(
-                                                      CustomIcon
-                                                          .scheduleOutline,
-                                                      size: 16,
-                                                      color:
-                                                          Colors.grey.shade800,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            )
-                                          : null,
-                                    ),
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return '';
-                                      }
+                                        String actualDate = "";
 
-                                      return null;
-                                    },
-                                  ),
-                                ),
-                              ),
-                              //tarikh akhir
-                              InkWell(
-                                onTap: () async {
-                                  if (widget.screen != "2") {
-                                    DateTime? getEndDate =
-                                        await datePicker(context);
-                                    if (getEndDate != null) {
-                                      String fullDate =
-                                          DateFormat("dd MMMM yyyy", "ms")
-                                              .format(getEndDate);
-                                      String actualDate = "";
-
-                                      if (leaveDate == "") {
-                                        //belum pilih Tarikh Mula
-                                        actualDate = fullDate;
-                                      } else {
-                                        //dah pilih tarikh mula
-
-                                        if (leaveDate == fullDate) {
-                                          //if Tarikh Mula sama dengan Tarikh Akhir
-
-                                          actualDate = leaveDate;
+                                        if (leaveDate == "") {
+                                          //belum pilih tarikh akhir
+                                          actualDate = fullDate;
                                         } else {
-                                          actualDate = "$leaveDate - $fullDate";
+                                          //dah pilih tarikh akhir
+                                          if (leaveDate == fullDate) {
+                                            // if Tarikh Mula sama dengan Tarikh Akhir
+                                            actualDate = leaveDate;
+                                          } else {
+                                            actualDate =
+                                                "$fullDate - $leaveDate";
+                                          }
                                         }
-                                      }
 
-                                      setState(() {
-                                        _tarikhTamat.text =
-                                            DateFormat("dd/MM/yyyy")
-                                                .format(getEndDate);
-                                        leaveDate = actualDate;
-                                      });
+                                        setState(() {
+                                          _tarikhMula.text =
+                                              DateFormat("dd/MM/yyyy")
+                                                  .format(getStartDate);
+                                          leaveDate = actualDate;
+                                        });
+                                      }
                                     }
-                                  }
-                                },
-                                child: SizedBox(
-                                  width: Sizes().screenWidth(context) * 0.42,
-                                  child: TextFormField(
-                                    style: const TextStyle(
-                                      fontSize: 15,
-                                      color: Color(0xff2B2B2B),
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                    controller: _tarikhTamat,
-                                    readOnly: true,
-                                    enabled: false,
-                                    decoration: InputDecoration(
-                                      filled: true,
-                                      fillColor: textFieldFillColor,
-                                      contentPadding: userRole == 100
-                                          ? const EdgeInsets.symmetric(
-                                              vertical: 15, horizontal: 20)
-                                          : const EdgeInsets.all(8),
-                                      hintText: 'Tarikh Akhir',
-                                      hintStyle: TextStyle(
+                                  },
+                                  child: SizedBox(
+                                    width: Sizes().screenWidth(context) * 0.42,
+                                    child: TextFormField(
+                                      style: const TextStyle(
                                         fontSize: 15,
-                                        color: labelTextColor,
-                                        fontWeight:
-                                            textFormFieldLabelFontWeight,
+                                        color: Color(0xff2B2B2B),
+                                        fontWeight: FontWeight.w400,
                                       ),
-                                      label: const Text('Tarikh Akhir'),
-                                      labelStyle: TextStyle(
-                                        fontSize: 15,
-                                        color: labelTextColor,
-                                        fontWeight:
-                                            textFormFieldLabelFontWeight,
-                                      ),
-                                      disabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          width: borderSideWidth,
-                                          color: _tarikhTamat.text != '' &&
-                                                  iconCondition == 1
-                                              ? (userRole == 100
-                                                  ? grey100
-                                                  : enabledBorderWithText)
-                                              : (userRole == 100
-                                                  ? grey100
-                                                  : enabledBorderWithoutText),
+                                      controller: _tarikhMula,
+                                      readOnly: true,
+                                      enabled: false,
+                                      decoration: InputDecoration(
+                                        filled: true,
+                                        fillColor: textFieldFillColor,
+                                        contentPadding: const EdgeInsets.all(8),
+                                        hintText: 'Tarikh Mula',
+                                        hintStyle: TextStyle(
+                                          fontSize: 15,
+                                          color: labelTextColor,
+                                          fontWeight:
+                                              textFormFieldLabelFontWeight,
                                         ),
-                                        borderRadius: BorderRadius.circular(
-                                            borderRadiusCircular),
-                                      ),
-                                      errorStyle: const TextStyle(height: 0),
-                                      errorBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
+                                        label: const Text('Tarikh Mula'),
+                                        labelStyle: TextStyle(
+                                          fontSize: 15,
+                                          color: labelTextColor,
+                                          fontWeight:
+                                              textFormFieldLabelFontWeight,
+                                        ),
+                                        disabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
                                             width: borderSideWidth,
-                                            color: Colors.red),
-                                        borderRadius: BorderRadius.circular(
-                                            borderRadiusCircular),
-                                      ),
-                                      suffixIcon: iconCondition == 1
-                                          ? IntrinsicHeight(
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  VerticalDivider(
-                                                    color: Colors.grey.shade400,
-                                                    thickness: 1,
-                                                    indent: 8,
-                                                    endIndent: 8,
-                                                  ),
-                                                  Container(
-                                                    margin:
-                                                        const EdgeInsets.only(
-                                                            right: 6),
-                                                    child: const Icon(
-                                                      CustomIcon
-                                                          .scheduleOutline,
-                                                      size: 16,
-                                                      color: Color(0xff2B2B2B),
+                                            color: _tarikhMula.text != '' &&
+                                                    iconCondition == 1
+                                                ? enabledBorderWithText
+                                                : enabledBorderWithoutText,
+                                          ),
+                                          borderRadius: BorderRadius.circular(
+                                              borderRadiusCircular),
+                                        ),
+                                        errorStyle: const TextStyle(height: 0),
+                                        errorBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              width: borderSideWidth,
+                                              color: Colors.red),
+                                          borderRadius: BorderRadius.circular(
+                                              borderRadiusCircular),
+                                        ),
+                                        suffixIcon: iconCondition == 1
+                                            ? IntrinsicHeight(
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: [
+                                                    VerticalDivider(
+                                                      color:
+                                                          Colors.grey.shade400,
+                                                      thickness: 1,
+                                                      indent: 8,
+                                                      endIndent: 8,
                                                     ),
-                                                  ),
-                                                ],
-                                              ),
-                                            )
-                                          : null,
-                                    ),
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return '';
-                                      }
+                                                    Container(
+                                                      margin:
+                                                          const EdgeInsets.only(
+                                                              right: 6),
+                                                      child: Icon(
+                                                        CustomIcon
+                                                            .scheduleOutline,
+                                                        size: 16,
+                                                        color: Colors
+                                                            .grey.shade800,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              )
+                                            : null,
+                                      ),
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return '';
+                                        }
 
-                                      return null;
-                                    },
+                                        return null;
+                                      },
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
+                                //tarikh akhir
+                                GestureDetector(
+                                  onTap: () async {
+                                    if (widget.screen != "2") {
+                                      DateTime? getEndDate =
+                                          await datePicker(context);
+                                      if (getEndDate != null) {
+                                        String fullDate =
+                                            DateFormat("dd MMMM yyyy", "ms")
+                                                .format(getEndDate);
+                                        String actualDate = "";
 
-                          //Lampiran
-                          Expandable(
-                            collapsed: Container(width: 0),
-                            expanded: expandableContainer(),
-                          ),
+                                        if (leaveDate == "") {
+                                          //belum pilih Tarikh Mula
+                                          actualDate = fullDate;
+                                        } else {
+                                          //dah pilih tarikh mula
 
-                          //Supervisor sections
-                          if (widget.screen == "2") supervisorSection(),
+                                          if (leaveDate == fullDate) {
+                                            //if Tarikh Mula sama dengan Tarikh Akhir
 
-                          const SizedBox(
-                            height: 100,
-                          ),
-                        ],
+                                            actualDate = leaveDate;
+                                          } else {
+                                            actualDate =
+                                                "$leaveDate - $fullDate";
+                                          }
+                                        }
+
+                                        setState(() {
+                                          _tarikhTamat.text =
+                                              DateFormat("dd/MM/yyyy")
+                                                  .format(getEndDate);
+                                          leaveDate = actualDate;
+                                        });
+                                      }
+                                    }
+                                  },
+                                  child: SizedBox(
+                                    width: Sizes().screenWidth(context) * 0.42,
+                                    child: TextFormField(
+                                      style: const TextStyle(
+                                        fontSize: 15,
+                                        color: Color(0xff2B2B2B),
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                      controller: _tarikhTamat,
+                                      readOnly: true,
+                                      enabled: false,
+                                      decoration: InputDecoration(
+                                        filled: true,
+                                        fillColor: textFieldFillColor,
+                                        contentPadding: const EdgeInsets.all(8),
+                                        hintText: 'Tarikh Akhir',
+                                        hintStyle: TextStyle(
+                                          fontSize: 15,
+                                          color: labelTextColor,
+                                          fontWeight:
+                                              textFormFieldLabelFontWeight,
+                                        ),
+                                        label: const Text('Tarikh Akhir'),
+                                        labelStyle: TextStyle(
+                                          fontSize: 15,
+                                          color: labelTextColor,
+                                          fontWeight:
+                                              textFormFieldLabelFontWeight,
+                                        ),
+                                        disabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            width: borderSideWidth,
+                                            color: _tarikhTamat.text != '' &&
+                                                    iconCondition == 1
+                                                ? enabledBorderWithText
+                                                : enabledBorderWithoutText,
+                                          ),
+                                          borderRadius: BorderRadius.circular(
+                                              borderRadiusCircular),
+                                        ),
+                                        errorStyle: const TextStyle(height: 0),
+                                        errorBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              width: borderSideWidth,
+                                              color: Colors.red),
+                                          borderRadius: BorderRadius.circular(
+                                              borderRadiusCircular),
+                                        ),
+                                        suffixIcon: iconCondition == 1
+                                            ? IntrinsicHeight(
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: [
+                                                    VerticalDivider(
+                                                      color:
+                                                          Colors.grey.shade400,
+                                                      thickness: 1,
+                                                      indent: 8,
+                                                      endIndent: 8,
+                                                    ),
+                                                    Container(
+                                                      margin:
+                                                          const EdgeInsets.only(
+                                                              right: 6),
+                                                      child: const Icon(
+                                                        CustomIcon
+                                                            .scheduleOutline,
+                                                        size: 16,
+                                                        color:
+                                                            Color(0xff2B2B2B),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              )
+                                            : null,
+                                      ),
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return '';
+                                        }
+
+                                        return null;
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+
+                            //Lampiran
+                            Expandable(
+                              collapsed: Container(width: 0),
+                              expanded: expandableContainer(),
+                            ),
+
+                            //Supervisor sections
+                            if (widget.screen == "2") supervisorSection(),
+
+                            const SizedBox(
+                              height: 100,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -620,12 +605,12 @@ class _LeaveFormState extends State<LeaveForm> {
                       elevation: 50,
                       child: Container(
                         color: Colors.white,
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height * 0.1,
+                        width: Sizes().screenWidth(context),
+                        height: Sizes().screenHeight(context) * 0.1,
                         child: Center(
                           child: SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.8,
-                            height: MediaQuery.of(context).size.height * 0.06,
+                            width: Sizes().screenWidth(context) * 0.8,
+                            height: Sizes().screenHeight(context) * 0.06,
                             child: EcutiSubmitButton(
                               formKey: _formKey,
                               data: leaveDate,
@@ -814,9 +799,7 @@ class _LeaveFormState extends State<LeaveForm> {
           decoration: InputDecoration(
             filled: true,
             fillColor: textFieldFillColor,
-            contentPadding: userRole == 100
-                ? const EdgeInsets.symmetric(vertical: 15, horizontal: 20)
-                : const EdgeInsets.all(8),
+            contentPadding: const EdgeInsets.all(8),
             label: const Text("Status Permohonan"),
             labelStyle: TextStyle(
               fontSize: 15,
@@ -851,9 +834,7 @@ class _LeaveFormState extends State<LeaveForm> {
           decoration: InputDecoration(
             filled: true,
             fillColor: textFieldFillColor,
-            contentPadding: userRole == 100
-                ? const EdgeInsets.symmetric(vertical: 15, horizontal: 20)
-                : const EdgeInsets.all(8),
+            contentPadding: const EdgeInsets.all(8),
             label: const Text("Maklumbalas Penyelia"),
             labelStyle: TextStyle(
               fontSize: 15,
@@ -894,9 +875,7 @@ class _LeaveFormState extends State<LeaveForm> {
         context: context,
         builder: (builder) {
           return SizedBox(
-            height: userRole == 100
-                ? null
-                : MediaQuery.of(context).size.height * 0.3,
+            height: Sizes().screenHeight(context) * 0.3,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -953,18 +932,12 @@ class _LeaveFormState extends State<LeaveForm> {
                               margin: const EdgeInsets.symmetric(
                                 horizontal: 10,
                               ),
-                              padding: userRole == 100
-                                  ? const EdgeInsets.symmetric(
-                                      horizontal: 20, vertical: 10)
-                                  : const EdgeInsets.all(6),
+                              padding: const EdgeInsets.all(6),
                               child: ListView.builder(
-                                physics: userRole == 100
-                                    ? const BouncingScrollPhysics()
-                                    : const ScrollPhysics(),
                                 shrinkWrap: true,
                                 itemCount: dataFuture!.length,
                                 itemBuilder: (context, index) {
-                                  return InkWell(
+                                  return GestureDetector(
                                     onTap: () {
                                       setState(() {
                                         _jenisCuti.text =
@@ -974,14 +947,9 @@ class _LeaveFormState extends State<LeaveForm> {
                                       });
                                     },
                                     child: Container(
-                                      margin: userRole == 100
-                                          ? null
-                                          : const EdgeInsets.symmetric(
-                                              vertical: 5),
-                                      padding: userRole == 100
-                                          ? const EdgeInsets.symmetric(
-                                              vertical: 23, horizontal: 5)
-                                          : const EdgeInsets.all(6),
+                                      margin: const EdgeInsets.symmetric(
+                                          vertical: 5),
+                                      padding: const EdgeInsets.all(6),
                                       child: Text(
                                         dataFuture[index].jenisCuti,
                                         style: const TextStyle(

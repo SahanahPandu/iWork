@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 //import files
 import '../../config/config.dart';
 import '../../utils/device/orientations.dart';
+import '../../utils/device/sizes.dart';
 
 Widget? showNavigationOptions(BuildContext context) {
   showModalBottomSheet(
@@ -21,7 +22,7 @@ Widget? showNavigationOptions(BuildContext context) {
       context: context,
       builder: (builder) {
         return SizedBox(
-          height: MediaQuery.of(context).size.height * 0.2,
+          height: Sizes().screenHeight(context) * 0.2,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [

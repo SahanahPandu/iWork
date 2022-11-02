@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../config/config.dart';
+import '../../config/dimen.dart';
 import '../../config/font.dart';
 import '../../config/palette.dart';
 import '../../providers/jenis_cuti_api.dart';
 import '../../utils/device/orientations.dart';
+import '../../utils/device/sizes.dart';
 
 class ListOfLeaveType extends StatefulWidget {
   String hintText;
@@ -133,9 +135,7 @@ class _ListOfLeaveTypeState extends State<ListOfLeaveType> {
         context: context,
         builder: (builder) {
           return SizedBox(
-            height: userRole == 100
-                ? null
-                : MediaQuery.of(context).size.height * 0.3,
+            height: Sizes().screenHeight(context) * 0.3,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

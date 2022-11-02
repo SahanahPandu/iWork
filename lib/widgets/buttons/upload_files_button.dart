@@ -25,36 +25,41 @@ class _UploadFilesButtonState extends State<UploadFilesButton> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        ElevatedButton(
-          onPressed: () async {
-            String getFileName = await FilePickerClass.getFilePathName();
-            widget.updateLampiran!(getFileName);
-          },
-          style: ElevatedButton.styleFrom(
-            primary: const Color(0xff3269F8),
-            padding: const EdgeInsets.all(8),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
-            elevation: 5.0,
-          ),
-          // icon: (widget.textLampiran != "")
-          //     ? const Icon(
-          //         Icons.check_circle,
-          //         color: Colors.green,
-          //         size: 28,
-          //       )
-          //     : const Icon(
-          //         Icons.cloud_upload,
-          //         size: 28,
-          //       ),
-          child: Text(
-            (widget.lampiranName != "")
-                ? widget.lampiranName
-                : "Muat Naik Lampiran",
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
+        SizedBox(
+          height: 42,
+          child: ElevatedButton(
+            onPressed: () async {
+              String getFileName = await FilePickerClass.getFilePathName();
+              widget.updateLampiran!(getFileName);
+            },
+            style: ButtonStyle(
+                elevation: MaterialStateProperty.all(0),
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0)),
+                ),
+                overlayColor: MaterialStateColor.resolveWith(
+                    (states) => const Color(0xff0033c2)),
+                backgroundColor:
+                    MaterialStateProperty.all(const Color(0xff3269F8))),
+            // icon: (widget.textLampiran != "")
+            //     ? const Icon(
+            //         Icons.check_circle,
+            //         color: Colors.green,
+            //         size: 28,
+            //       )
+            //     : const Icon(
+            //         Icons.cloud_upload,
+            //         size: 28,
+            //       ),
+            child: Text(
+              (widget.lampiranName != "")
+                  ? widget.lampiranName
+                  : "Muat Naik Lampiran",
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
         ),

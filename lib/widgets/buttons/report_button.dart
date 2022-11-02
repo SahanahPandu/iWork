@@ -20,6 +20,9 @@ class _ReportButtonState extends State<ReportButton> {
   Widget build(BuildContext context) {
     return FloatingActionButton(
       backgroundColor: const Color(0xffE04141),
+      highlightElevation: 0,
+      splashColor: const Color(0xffc90000),
+      elevation: 0,
       child: const Icon(
         CustomIcon.exclamation,
         size: 24,

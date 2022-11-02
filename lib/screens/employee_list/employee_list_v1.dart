@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../config/palette.dart';
+import '../../utils/device/sizes.dart';
 import '../../widgets/app_bar/app_bar_widget.dart';
 import '../../widgets/search_box/search_box.dart';
 import '../list_of_employees/list_of_employees.dart';
@@ -82,7 +83,7 @@ class _EmployeeListState extends State<EmployeeList> {
               //Selected Sv Names
               if (svNameList.isNotEmpty)
                 Container(
-                  width: MediaQuery.of(context).size.width,
+                  width: Sizes().screenWidth(context),
                   height: 25,
                   padding: const EdgeInsets.only(left: 8),
                   child: ListView.separated(

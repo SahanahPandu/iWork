@@ -8,6 +8,7 @@ import '../../models/laluan.dart';
 import '../../models/reports.dart';
 import '../../screens/reports/pra/pra_section_report_form.dart';
 import '../../utils/device/orientations.dart';
+import '../../utils/device/sizes.dart';
 import '../../widgets/buttons/ecuti_submit_button.dart';
 
 class ReportForm extends StatefulWidget {
@@ -227,12 +228,12 @@ class _ReportFormState extends State<ReportForm> {
               elevation: 50,
               child: Container(
                 color: Colors.white,
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.1,
+                width: Sizes().screenWidth(context),
+                height: Sizes().screenHeight(context) * 0.1,
                 child: Center(
                   child: SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    height: MediaQuery.of(context).size.height * 0.06,
+                    width: Sizes().screenWidth(context) * 0.8,
+                    height: Sizes().screenHeight(context) * 0.06,
                     child: const EcutiSubmitButton(),
                   ),
                 ),

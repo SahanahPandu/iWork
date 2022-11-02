@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../config/config.dart';
+import '../../config/dimen.dart';
 import '../../config/font.dart';
 import '../../config/palette.dart';
 import '../../providers/taman_api.dart';
@@ -104,12 +105,12 @@ class ListOfParksState extends State<ListOfParks> {
                   ? (enabledBorderWithText)
                   : (enabledBorderWithoutText),
             ),
-            borderRadius: BorderRadius.circular(4),
+            borderRadius: BorderRadius.circular(borderRadiusCircular),
           ),
           errorStyle: const TextStyle(height: 0),
           errorBorder: OutlineInputBorder(
             borderSide: BorderSide(width: borderSideWidth, color: Colors.red),
-            borderRadius: BorderRadius.circular(4),
+            borderRadius: BorderRadius.circular(borderRadiusCircular),
           ),
         ),
         validator: (value) {

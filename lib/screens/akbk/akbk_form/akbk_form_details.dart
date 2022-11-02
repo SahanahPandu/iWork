@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 //import files
+import '../../../config/dimen.dart';
 import '../../../config/palette.dart';
 import '../../../models/akbk.dart';
 import '../../../utils/icon/custom_icon.dart';
@@ -441,7 +442,7 @@ class _AkbkFormDetailsState extends State<AkbkFormDetails> {
                 width: 0.5,
                 color: borderTextColor,
               ),
-              borderRadius: BorderRadius.circular(4),
+              borderRadius: BorderRadius.circular(borderRadiusCircular),
             )));
   }
 
@@ -479,7 +480,7 @@ class _AkbkFormDetailsState extends State<AkbkFormDetails> {
                 width: 0.5,
                 color: controller.text != "" ? greenCustom : borderTextColor,
               ),
-              borderRadius: BorderRadius.circular(4),
+              borderRadius: BorderRadius.circular(borderRadiusCircular),
             )));
   }
 
@@ -507,18 +508,18 @@ class _AkbkFormDetailsState extends State<AkbkFormDetails> {
             ),
             border: const OutlineInputBorder(),
             /*focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(4),
+            borderRadius: BorderRadius.circular(borderRadiusCircular),
             borderSide: BorderSide(color: green)),*/
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: greenCustom, width: 0.5),
-              borderRadius: BorderRadius.circular(4),
+              borderRadius: BorderRadius.circular(borderRadiusCircular),
             ),
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
                 width: 0.5,
                 color: controller.text != "" ? greenCustom : borderTextColor,
               ),
-              borderRadius: BorderRadius.circular(4),
+              borderRadius: BorderRadius.circular(borderRadiusCircular),
             )));
   }
 

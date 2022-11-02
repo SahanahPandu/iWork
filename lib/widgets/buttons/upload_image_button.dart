@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 //import files
+import '../../config/config.dart';
 import '../modal_bottom_sheet/upload_image_options.dart';
 
 class UploadImageButton extends StatefulWidget {
@@ -19,28 +20,36 @@ class _UploadImageButtonState extends State<UploadImageButton> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        ElevatedButton(
-          onPressed: () {
-            showUploadImageOption(context, widget.getImageName);
-          },
-          style: ElevatedButton.styleFrom(
-            primary: const Color(0xff3269F8),
-            padding: const EdgeInsets.all(8),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
-            elevation: 5.0,
-          ),
-          child: const Text(
-            "Muat Naik Gambar",
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
+        Container(
+          padding: userRole == 100
+              ? const EdgeInsets.symmetric(horizontal: 20)
+              : null,
+          height: 45,
+          child: ElevatedButton(
+            onPressed: () {
+              showUploadImageOption(context, widget.getImageName);
+            },
+            style: ButtonStyle(
+                elevation: MaterialStateProperty.all(0),
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0)),
+                ),
+                overlayColor: MaterialStateColor.resolveWith(
+                    (states) => const Color(0xff0033c2)),
+                backgroundColor:
+                    MaterialStateProperty.all(const Color(0xff3269F8))),
+            child: const Text(
+              "Muat Naik Gambar",
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
         ),
-        const SizedBox(
-          height: 5,
+        SizedBox(
+          height: userRole == 100 ? 10 : 5,
         ),
         const Center(
           child: Text(

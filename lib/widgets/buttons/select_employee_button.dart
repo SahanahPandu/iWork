@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+//import files
+import '../../config/palette.dart';
+
 class SelectEmployeeButton extends StatefulWidget {
   final Function? onClick;
 
@@ -12,26 +15,35 @@ class SelectEmployeeButton extends StatefulWidget {
 class _SelectEmployeeButtonState extends State<SelectEmployeeButton> {
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () {
-        if (widget.onClick != null) {
-          widget.onClick!();
-        }
-      },
-      style: ElevatedButton.styleFrom(
-        primary: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(18),
-        ),
-        elevation: 5,
-        shadowColor: Colors.white,
-      ),
-      child: const Text(
-        "Pilih Pekerja",
-        style: TextStyle(
-          fontSize: 13,
-          color: Color(0xff34A853),
-          fontWeight: FontWeight.w400,
+    return Container(
+      decoration:
+          BoxDecoration(borderRadius: BorderRadius.circular(18), boxShadow: [
+        BoxShadow(
+            color: grey100,
+            offset: const Offset(0, 0),
+            blurRadius: 8,
+            spreadRadius: 1)
+      ]),
+      child: ElevatedButton(
+        onPressed: () {
+          if (widget.onClick != null) {
+            widget.onClick!();
+          }
+        },
+        style: ButtonStyle(
+            elevation: MaterialStateProperty.all(0),
+            shape: MaterialStateProperty.all(
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+            ),
+            overlayColor: MaterialStateProperty.all(grey100),
+            backgroundColor: MaterialStateProperty.all(white)),
+        child: const Text(
+          "Pilih Pekerja",
+          style: TextStyle(
+            fontSize: 13,
+            color: Color(0xff34A853),
+            fontWeight: FontWeight.w400,
+          ),
         ),
       ),
     );

@@ -5,6 +5,7 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 //import files
 import '../../../config/config.dart';
+import '../../../config/dimen.dart';
 import '../../../config/font.dart';
 import '../../../config/palette.dart';
 import '../../../models/reports.dart';
@@ -177,7 +178,7 @@ class _PraSectionReportFormState extends State<PraSectionReportForm> {
             //Display selected image
             if (gambarLampiran != null || widget.screen == "4")
               Container(
-                width: MediaQuery.of(context).size.width,
+                width: Sizes().screenWidth(context),
                 height: 200,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(

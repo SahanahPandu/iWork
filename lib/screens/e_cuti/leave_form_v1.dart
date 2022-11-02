@@ -8,6 +8,7 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 //import files
 import '../../config/config.dart';
+import '../../config/dimen.dart';
 import '../../config/font.dart';
 import '../../config/palette.dart';
 import '../../models/cuti.dart';
@@ -469,12 +470,12 @@ class _LeaveFormState extends State<LeaveForm> {
                   elevation: 50,
                   child: Container(
                     color: Colors.white,
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.1,
+                    width: Sizes().screenWidth(context),
+                    height: Sizes().screenHeight(context) * 0.1,
                     child: Center(
                       child: SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.8,
-                        height: MediaQuery.of(context).size.height * 0.06,
+                        width: Sizes().screenWidth(context) * 0.8,
+                        height: Sizes().screenHeight(context) * 0.06,
                         child: const EcutiSubmitButton(),
                       ),
                     ),

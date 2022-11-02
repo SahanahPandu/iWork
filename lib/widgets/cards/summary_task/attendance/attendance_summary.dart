@@ -1,5 +1,7 @@
-import 'package:eswm/config/palette.dart';
 import 'package:flutter/material.dart';
+
+//import files
+import '../../../../config/palette.dart';
 
 class AttendanceSummary extends StatefulWidget {
   const AttendanceSummary({Key? key}) : super(key: key);

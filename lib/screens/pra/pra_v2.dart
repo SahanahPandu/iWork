@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 //import files
+import '../../utils/device/sizes.dart';
 import '../../widgets/cards/today_task/today_task_card.dart';
 import '../../widgets/listview/card_list_view.dart';
 
@@ -43,13 +44,13 @@ class _PraState extends State<Pra> {
               height: 20,
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.29,
+              height: Sizes().screenHeight(context) * 0.29,
               child: const TodayTaskCard(),
             ),
           ]),
         ),
         Container(
-          width: MediaQuery.of(context).size.width,
+          width: Sizes().screenWidth(context),
           decoration: const BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.only(

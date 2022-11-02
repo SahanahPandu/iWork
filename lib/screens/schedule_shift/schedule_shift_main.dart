@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 //import files
+import '../../config/dimen.dart';
 import '../../config/palette.dart';
 import '../../config/string.dart';
 import '../../utils/icon/custom_icon.dart';

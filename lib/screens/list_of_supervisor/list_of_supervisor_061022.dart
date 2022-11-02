@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 //import files
-import '../../config/palette.dart';
+import '../../config/dimen.dart';
 import '../../models/penyelia_checkbox.dart';
 import '../../providers/penyelia_api.dart';
+import '../../utils/device/sizes.dart';
 
 List<dynamic> selectedName = [];
 
@@ -99,7 +100,7 @@ Widget? showListOfSupervisor(passContext, updateSvNameList) {
                         }),
                   ),
                   Container(
-                    width: MediaQuery.of(context).size.width,
+                    width: Sizes().screenWidth(context),
                     margin: const EdgeInsets.all(10),
                     child: selectButton(
                         passContext, updateSvNameList, selectedName),

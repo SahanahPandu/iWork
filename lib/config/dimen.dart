@@ -7,6 +7,10 @@ import '../utils/device/sizes.dart';
 final double fontSize = Devices().isPhone() ? 16 : 20;
 final double taskCardPadding = Devices().isPhone() ? 14 : 20;
 
+//border setting
+double borderSideWidth = 1;
+double borderRadiusCircular = 4;
+
 EdgeInsets tabletTaskCardMargin(BuildContext context) =>
     Orientations().isLandscape(context)
         ? const EdgeInsets.only(bottom: 15)
