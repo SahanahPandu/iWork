@@ -32,8 +32,7 @@ String doVcFirst =
     'Pastikan anda mengisi borang semak kenderaan terlebih dahulu sebelum memulakan tugasan kerja';
 String notFoundStreet = 'Tiada senarai jalan dijumpai!';
 String noEmployeeFound = 'Tiada Senarai Pekerja dijumpai!';
-String fillUpVC =
-    'Lengkapkan borang semakan kenderaan (Sebelum Keluar):';
+String fillUpVC = 'Lengkapkan borang semakan kenderaan (Sebelum Keluar):';
 String date = 'Tarikh';
 String streetNo = 'No. Laluan';
 String outTime = 'Masa Keluar';
@@ -59,6 +58,7 @@ String yes = 'Ya';
 String no = 'Tiada';
 String cancel = 'Batal';
 String submit = 'Hantar';
+String yesConfirm = 'Ya, pasti';
 String confirmBack = 'Adakah anda pasti untuk kembali?';
 String fillVc =
     'Pastikan anda mengisi borang semak kenderaan terlebih dahulu sebelum memulakan tugasan kerja.';
