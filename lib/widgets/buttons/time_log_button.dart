@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
 //import files
-import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../../screens/time_log/time_log.dart';
 import '../../utils/icon/custom_icon.dart';
@@ -58,26 +57,17 @@ class _TimeLogButtonState extends State<TimeLogButton> {
       width: 190,
       height: 46,
       child: ElevatedButton.icon(
-        style: userRole == 200
-            ? ElevatedButton.styleFrom(
-                primary: buttonColor,
-                padding: const EdgeInsets.all(13),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(26),
-                ),
-                elevation: 5,
-              )
-            : ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(buttonColor),
-                elevation: MaterialStateProperty.all(5),
-                overlayColor: MaterialStateColor.resolveWith(
-                    (states) => buttonOverlayColor),
-                shape: MaterialStateProperty.all(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(26),
-                  ),
-                ),
-              ),
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(buttonColor),
+          elevation: MaterialStateProperty.all(5),
+          overlayColor:
+              MaterialStateColor.resolveWith((states) => buttonOverlayColor),
+          shape: MaterialStateProperty.all(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(26),
+            ),
+          ),
+        ),
         onPressed: () {
           if (buttonColor != const Color(0xffD9D9D9)) {
             changeButtonColor();

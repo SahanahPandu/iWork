@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 //import files
 import '../../config/palette.dart';
 import '../../screens/dialog/custom_dialog.dart';
+import '../../utils/device/sizes.dart';
 import '../../utils/icon/custom_icon.dart';
 
 showLottieAlertDialog(BuildContext context, contents, Function? clearForm) {
@@ -29,8 +30,8 @@ showLottieAlertDialog(BuildContext context, contents, Function? clearForm) {
       borderRadius: BorderRadius.circular(14),
     ),
     content: SizedBox(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height * 0.3,
+      width: Sizes().screenWidth(context),
+      height: Sizes().screenHeight(context) * 0.3,
       child: CustomDialog(text: contents),
     ),
     contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 20),

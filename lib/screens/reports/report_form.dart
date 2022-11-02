@@ -5,14 +5,15 @@ import 'package:keyboard_visibility_pro/keyboard_visibility_pro.dart';
 
 //import files
 import '../../config/config.dart';
+import '../../config/dimen.dart';
 import '../../config/font.dart';
 import '../../config/palette.dart';
 import '../../models/laluan.dart';
 import '../../models/reports.dart';
 import '../../screens/reports/pra/pra_section_report_form.dart';
 import '../../utils/device/orientations.dart';
+import '../../utils/device/sizes.dart';
 import '../../widgets/buttons/report_submit_button.dart';
-import '../../widgets/custom_scroll/custom_scroll.dart';
 import '../list_of_obstacles/list_of_obstacles.dart';
 import '../list_of_park/list_of_parks.dart';
 import '../list_of_road/list_of_road_text_form_field.dart';
@@ -169,7 +170,8 @@ class _ReportFormState extends State<ReportForm> {
             child: Stack(
               children: [
                 ScrollConfiguration(
-                  behavior: CustomScrollBehavior(),
+                  behavior: const MaterialScrollBehavior()
+                      .copyWith(overscroll: false),
                   child: SingleChildScrollView(
                     child: Container(
                       margin: userRole != 100
@@ -177,7 +179,7 @@ class _ReportFormState extends State<ReportForm> {
                               horizontal: 20, vertical: 5)
                           : Orientations().isLandscape(
                                   context) // condition for compactor panel
-                              ? const EdgeInsets.fromLTRB(100, 20, 100, 0)
+                              ? const EdgeInsets.fromLTRB(150, 35, 150, 0)
                               : const EdgeInsets.symmetric(
                                   horizontal: 60, vertical: 20),
                       child: Form(
@@ -313,9 +315,6 @@ class _ReportFormState extends State<ReportForm> {
                                 ),
                               ),
                             ),
-                            SizedBox(
-                              height: userRole == 100 ? 30 : 0,
-                            ),
                             Expandable(
                               collapsed: Container(
                                 width: 0,
@@ -337,7 +336,7 @@ class _ReportFormState extends State<ReportForm> {
                             //put this at the end of the column widget list ,
                             //because to able scroll all item without being covered by the button at the bottom
                             SizedBox(
-                              height: userRole == 100 ? 80 : 100,
+                              height: userRole == 100 ? 90 : 100,
                             ),
                           ],
                         ),
@@ -353,23 +352,32 @@ class _ReportFormState extends State<ReportForm> {
                     child: Material(
                       elevation: 50,
                       child: Container(
-                        color: Colors.white,
-                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                          color:
+                              userRole == 100 ? const Color(0xf2f6f6f6) : white,
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.grey.withOpacity(.2),
+                                blurRadius: 6,
+                                spreadRadius: 0.5)
+                          ],
+                        ),
+                        width: Sizes().screenWidth(context),
                         height: userRole == 100
                             ? Orientations().isTabletPortrait(context)
-                                ? MediaQuery.of(context).size.height * 0.06
-                                : MediaQuery.of(context).size.height * 0.1
-                            : MediaQuery.of(context).size.height * 0.1,
+                                ? Sizes().screenHeight(context) * 0.065
+                                : Sizes().screenHeight(context) * 0.11
+                            : Sizes().screenHeight(context) * 0.1,
                         child: Center(
                           child: SizedBox(
                             width: userRole == 100
-                                ? MediaQuery.of(context).size.width * 0.5
-                                : MediaQuery.of(context).size.width * 0.8,
+                                ? Sizes().screenWidth(context) * 0.5
+                                : Sizes().screenWidth(context) * 0.8,
                             height: userRole == 100
                                 ? Orientations().isTabletPortrait(context)
-                                    ? MediaQuery.of(context).size.height * 0.04
-                                    : MediaQuery.of(context).size.height * 0.06
-                                : MediaQuery.of(context).size.height * 0.06,
+                                    ? Sizes().screenHeight(context) * 0.04
+                                    : Sizes().screenHeight(context) * 0.07
+                                : Sizes().screenHeight(context) * 0.06,
                             child: ReportSubmitButton(
                               formKey: _reportFormKey,
                               clearForm: clearForm,
@@ -409,14 +417,14 @@ class _ReportFormState extends State<ReportForm> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(
-          height: 32,
+          height: 25,
         ),
         const Divider(
           thickness: 1,
           color: Color(0xffE5E5E5),
         ),
         const SizedBox(
-          height: 32,
+          height: 25,
         ),
         Text(
           "Tindakan dari Penyelia: ",

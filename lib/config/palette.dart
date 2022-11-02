@@ -63,11 +63,6 @@ Color dividerColor = const Color.fromRGBO(229, 229, 229, 1);
 //------Text Form Field--------------------------------------------------------
 Color textFormFieldFillColor = const Color(0x33DDDFE2);
 
-//border setting
-//double borderSideWidth = 1.5;
-double borderSideWidth = 1;
-double borderRadiusCircular = 8;
-
 //border color
 Color focusedBorder = Colors.green;
 Color enabledBorderWithText = Colors.green;

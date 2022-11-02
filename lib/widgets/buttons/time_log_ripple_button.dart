@@ -29,7 +29,7 @@ class _TimeLogRippleButtonState extends State<TimeLogRippleButton> {
       color: widget.btnColor,
       minRadius: 40,
       ripplesCount: 15,
-      child: InkWell(
+      child: GestureDetector(
         onTap: () {
           showDialog(
               context: context,

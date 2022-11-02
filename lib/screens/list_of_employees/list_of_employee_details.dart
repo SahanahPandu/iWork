@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import "package:flutter/material.dart";
 
 //import files
+import '../../config/dimen.dart';
 import '../../config/palette.dart';
 import '../../models/pekerja.dart';
 import '../../widgets/buttons/select_employee_button.dart';
@@ -49,7 +50,7 @@ class _ListOfEmployeeDetailsState extends State<ListOfEmployeeDetails> {
                       borderRadius: const BorderRadius.all(Radius.circular(4))),
                 ),
                 ClipRRect(
-                    borderRadius: BorderRadius.circular(4),
+                    borderRadius: BorderRadius.circular(borderRadiusCircular),
                     child: FittedBox(
                       fit: BoxFit.fill,
                       child: Image.network(widget.data!.displayPicture,

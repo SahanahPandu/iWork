@@ -7,16 +7,23 @@ import '../utils/device/sizes.dart';
 final double fontSize = Devices().isPhone() ? 16 : 20;
 final double taskCardPadding = Devices().isPhone() ? 14 : 20;
 
+//border setting
+double borderSideWidth = 1;
+double borderRadiusCircular = 4;
+
 EdgeInsets tabletTaskCardMargin(BuildContext context) =>
     Orientations().isLandscape(context)
         ? const EdgeInsets.only(bottom: 15)
         : const EdgeInsets.only(bottom: 15, left: 15, right: 15);
 
 double gridRatio(BuildContext context) =>
-    Orientations().isLandscape(context) ? 1.75 : 1.155;
+    Orientations().isLandscape(context) ? 1.72 : 1.155;
+
+double gridRatioSchedule(BuildContext context) =>
+    Orientations().isLandscape(context) ? 2 : 1.55;
 
 double gridRatioReport(BuildContext context) =>
-    Orientations().isLandscape(context) ? 2 : 1.155;
+    Orientations().isLandscape(context) ? 2 : 1.28;
 
 double alertBoxPadding(BuildContext context) => Devices().isTablet()
     ? (Orientations().isLandscape(context) ? 280 : 170)
@@ -73,11 +80,5 @@ double axisSpacing(BuildContext context) =>
 
 Map<int, FlexColumnWidth> columnVC2Width(BuildContext context) =>
     Orientations().isLandscape(context)
-        ? const {
-            0: FlexColumnWidth(1),
-            1: FlexColumnWidth(2)
-          }
-        : const {
-            0: FlexColumnWidth(1),
-            1: FlexColumnWidth(1)
-          };
+        ? const {0: FlexColumnWidth(1), 1: FlexColumnWidth(2)}
+        : const {0: FlexColumnWidth(1), 1: FlexColumnWidth(1)};

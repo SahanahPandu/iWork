@@ -5,8 +5,8 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../../config/palette.dart';
 import '../../../../models/laluan.dart';
 import '../../../config/font.dart';
-import '../../../utils/icon/custom_icon.dart';
 import '../../../utils/device/sizes.dart';
+import '../../../utils/icon/custom_icon.dart';
 import '../../../widgets/container/status_container.dart';
 
 class SupervisorScheduleDetails extends StatefulWidget {

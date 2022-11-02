@@ -72,8 +72,14 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
         child: SingleChildScrollView(
             child: userRole == 100
                 ? Column(
-                    children: const [
-                      Padding(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                          padding: const EdgeInsets.fromLTRB(30, 30, 0, 15),
+                          child: const Text("Senarai Jadual Tugasan :",
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.w400))),
+                      const Padding(
                         padding: EdgeInsets.symmetric(vertical: 8),
                         child: CompactorTaskList(main: false),
                       ),

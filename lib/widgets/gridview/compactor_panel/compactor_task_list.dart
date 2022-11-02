@@ -55,13 +55,17 @@ class _CompactorTaskListState extends State<CompactorTaskList> {
                           crossAxisCount: 2,
                           crossAxisSpacing: axisSpacing(context),
                           mainAxisSpacing: axisSpacing(context),
-                          childAspectRatio: gridRatio(context)),
+                          childAspectRatio: widget.main == true
+                              ? gridRatio(context)
+                              : gridRatioSchedule(context)),
                       physics: widget.main == true
                           ? const NeverScrollableScrollPhysics()
                           : const ScrollPhysics(),
-                      itemCount: laluanDataFuture!.length + 1,
+                      itemCount: widget.main == true
+                          ? laluanDataFuture!.length + 1
+                          : laluanDataFuture!.length,
                       itemBuilder: (context, i) {
-                        if (i == 0) {
+                        if (widget.main == true && i == 0) {
                           return FutureBuilder<List>(
                               future: _loadVcData,
                               builder: (context, snapshot) {
@@ -93,12 +97,16 @@ class _CompactorTaskListState extends State<CompactorTaskList> {
                                   PageTransition(
                                       type: PageTransitionType.fade,
                                       child: CompactorPanelScheduleMain(
-                                          data: laluanDataFuture[i - 1])));
+                                          data: widget.main == true
+                                              ? laluanDataFuture[i - 1]
+                                              : laluanDataFuture[i])));
                               //print("index clicked ${i - 1}");
                             },
                             child: buildTabletCard(
                                 CompactorPanelMyTaskListDetails(
-                                    data: laluanDataFuture[i - 1],
+                                    data: widget.main == true
+                                        ? laluanDataFuture[i - 1]
+                                        : laluanDataFuture[i],
                                     button: widget.main)));
                       }));
           }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../../../config/config.dart';
+import '../../../../config/dimen.dart';
 import '../../../../config/palette.dart';
 import '../../../../config/string.dart';
 import '../../../../models/reports.dart';
@@ -385,7 +386,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
               width: 0.5,
               color: borderTextColor,
             ),
-            borderRadius: BorderRadius.circular(4),
+            borderRadius: BorderRadius.circular(borderRadiusCircular),
           ),
         ),
       ),
@@ -681,18 +682,18 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
         ),
         border: const OutlineInputBorder(),
         focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(4),
+            borderRadius: BorderRadius.circular(borderRadiusCircular),
             borderSide: BorderSide(color: green, width: 0.5)),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: green, width: 0.5),
-          borderRadius: BorderRadius.circular(4),
+          borderRadius: BorderRadius.circular(borderRadiusCircular),
         ),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
             width: 0.5,
             color: borderTextColor,
           ),
-          borderRadius: BorderRadius.circular(4),
+          borderRadius: BorderRadius.circular(borderRadiusCircular),
           //gapPadding: 6.0,
         ),
       ),
@@ -778,7 +779,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
             width: 0.5,
             color: borderTextColor,
           ),
-          borderRadius: BorderRadius.circular(4),
+          borderRadius: BorderRadius.circular(borderRadiusCircular),
           //gapPadding: 6.0,
         ),
       ),

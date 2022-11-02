@@ -5,6 +5,7 @@ import '../../config/config.dart';
 import '../../config/font.dart';
 import '../../config/palette.dart';
 import '../../models/reports.dart';
+import '../../utils/device/orientations.dart';
 import '../../utils/icon/custom_icon.dart';
 import '../../widgets/container/status_container.dart';
 
@@ -29,7 +30,9 @@ class _ReportListDetailsState extends State<ReportListDetails> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 15, bottom: 20),
+      margin: Orientations().isTabletPortrait(context)
+          ? const EdgeInsets.only(top: 15)
+          : const EdgeInsets.only(top: 15, bottom: 20),
       child: Column(
         children: [
           //laluan and status

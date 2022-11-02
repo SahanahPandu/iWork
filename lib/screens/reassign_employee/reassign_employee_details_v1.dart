@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 //import files
+import '../../utils/device/sizes.dart';
 import '../../widgets/buttons/ganti_pekerja_button.dart';
 import '../list_of_employees/list_of_employee_details.dart';
 
@@ -41,7 +42,7 @@ class _ReassignEmployeeDetailsState extends State<ReassignEmployeeDetails> {
         ),
         if (dataEmployee2 == null)
           SizedBox(
-            width: MediaQuery.of(context).size.width,
+            width: Sizes().screenWidth(context),
             child: GantiPekerjaButton(
               assignedEmployee: getAssignedEmployeeDetails,
               buttonText: "Ganti Pekerja",
@@ -74,7 +75,7 @@ class _ReassignEmployeeDetailsState extends State<ReassignEmployeeDetails> {
         //   ),
         if (dataEmployee2 != null)
           SizedBox(
-            width: MediaQuery.of(context).size.width,
+            width: Sizes().screenWidth(context),
             child: GantiPekerjaButton(
               assignedEmployee: getAssignedEmployeeDetails,
               buttonText: "Tukar Pilihan",

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 //import files
 import '../../config/config.dart';
 import '../../config/palette.dart';
+import '../../utils/device/sizes.dart';
 import '../../utils/icon/custom_icon.dart';
 import '../../widgets/buttons/report_button.dart';
 import '../../widgets/cards/cards.dart';
@@ -96,7 +97,7 @@ class _WorkScheduleState extends State<WorkSchedule> {
                     ),
             ),
             Container(
-              width: MediaQuery.of(context).size.width,
+              width: Sizes().screenWidth(context),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: const BorderRadius.only(

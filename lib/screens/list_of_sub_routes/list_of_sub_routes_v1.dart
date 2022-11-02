@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../config/config.dart';
+import '../../config/dimen.dart';
 import '../../config/font.dart';
 import '../../config/palette.dart';
 import '../../providers/sub_laluan_api.dart';
 import '../../utils/device/orientations.dart';
+import '../../utils/device/sizes.dart';
 
 class ListOfSubRoutes extends StatefulWidget {
   final String hintText;
@@ -146,9 +148,8 @@ class ListOfSubRoutesState extends State<ListOfSubRoutes> {
         context: context,
         builder: (builder) {
           return SizedBox(
-            height: userRole == 100
-                ? null
-                : MediaQuery.of(context).size.height * 0.5,
+            height:
+                userRole == 100 ? null : Sizes().screenHeight(context) * 0.5,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

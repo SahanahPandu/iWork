@@ -7,6 +7,7 @@ import 'package:path/path.dart';
 
 //import files
 import '../../../config/config.dart';
+import '../../../config/dimen.dart';
 import '../../../config/font.dart';
 import '../../../config/palette.dart';
 import '../../../models/reports.dart';
@@ -58,7 +59,7 @@ class PraSectionReportFormState extends State<PraSectionReportForm> {
   File? gambarLampiran;
   String namaGambar = "";
 
-  double spacingHeight = userRole == 100 ? 25 : 20;
+  double spacingHeight = userRole == 100 ? 30 : 20;
 
   loadData() {
     if (widget.screen == "4") {
@@ -178,7 +179,7 @@ class PraSectionReportFormState extends State<PraSectionReportForm> {
           Column(
             children: [
               Container(
-                width: MediaQuery.of(context).size.width,
+                width: Sizes().screenWidth(context),
                 height: 250,
                 decoration: BoxDecoration(
                   border: widget.screen == "4"
@@ -186,16 +187,15 @@ class PraSectionReportFormState extends State<PraSectionReportForm> {
                           color: const Color(0xffDDDFE2),
                         )
                       : null,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(borderRadiusCircular),
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(4),
                   ),
                   color: textFieldFillColor,
                 ),
                 child: gambarLampiran != null
                     ? ClipRRect(
                         clipBehavior: Clip.hardEdge,
-                        borderRadius: BorderRadius.all(
-                            Radius.circular(borderRadiusCircular)),
+                        borderRadius: const BorderRadius.all(Radius.circular(4)),
                         child: Image.file(
                           gambarLampiran!,
                           width: double.infinity,
@@ -287,7 +287,10 @@ class PraSectionReportFormState extends State<PraSectionReportForm> {
               ),
               alignLabelWithHint: true,
               floatingLabelAlignment: FloatingLabelAlignment.start,
-              label: const Text("Catatan"),
+              label: Container(
+                color: Colors.white,
+                child: const Text("Catatan"),
+              ),
               labelStyle: TextStyle(
                 fontSize: 15,
                 color: labelTextColor,

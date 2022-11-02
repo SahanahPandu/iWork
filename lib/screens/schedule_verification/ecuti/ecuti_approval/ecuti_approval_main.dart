@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../../../config/config.dart';
+import '../../../../config/dimen.dart';
 import '../../../../config/palette.dart';
 import '../../../../config/string.dart';
 import '../../../../models/cuti.dart';
-import '../../../../utils/icon/custom_icon.dart';
 import '../../../../utils/device/sizes.dart';
+import '../../../../utils/icon/custom_icon.dart';
 import '../../../../widgets/alert/alert_dialog.dart';
 import '../../../../widgets/alert/lottie_alert_dialog.dart';
 import '../../../../widgets/modal_bottom_sheet/custom_bottom_sheet_options.dart';
@@ -296,18 +297,18 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
             ),
             border: const OutlineInputBorder(),
             focusedErrorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(4),
+                borderRadius: BorderRadius.circular(borderRadiusCircular),
                 borderSide: BorderSide(color: green)),
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: green, width: 0.5),
-              borderRadius: BorderRadius.circular(4),
+              borderRadius: BorderRadius.circular(borderRadiusCircular),
             ),
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
                 width: 0.5,
                 color: controller.text != "" ? greenCustom : borderTextColor,
               ),
-              borderRadius: BorderRadius.circular(4),
+              borderRadius: BorderRadius.circular(borderRadiusCircular),
               //gapPadding: 6.0,
             ),
           ),
@@ -344,7 +345,7 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
             width: 0.5,
             color: controller.text != "" ? greenCustom : borderTextColor,
           ),
-          borderRadius: BorderRadius.circular(4),
+          borderRadius: BorderRadius.circular(borderRadiusCircular),
           //gapPadding: 6.0,
         ),
       ),
@@ -381,7 +382,7 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
               width: 0.5,
               color: borderTextColor,
             ),
-            borderRadius: BorderRadius.circular(4),
+            borderRadius: BorderRadius.circular(borderRadiusCircular),
           ),
         ),
       ),

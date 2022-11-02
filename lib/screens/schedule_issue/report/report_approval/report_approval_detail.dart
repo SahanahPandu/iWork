@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 //import files
+import '../../../../config/dimen.dart';
 import '../../../../config/palette.dart';
 import '../../../../models/reports.dart';
 import '../../../../utils/device/sizes.dart';
@@ -226,7 +227,7 @@ class _ReportApprovalDetailState extends State<ReportApprovalDetail> {
               width: 0.5,
               color: borderTextColor,
             ),
-            borderRadius: BorderRadius.circular(4),
+            borderRadius: BorderRadius.circular(borderRadiusCircular),
           ),
         ),
       ),

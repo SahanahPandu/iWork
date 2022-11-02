@@ -6,6 +6,7 @@ import '../../config/palette.dart';
 import '../../config/string.dart';
 import '../alert/alert_dialog.dart';
 import '../alert/lottie_alert_dialog.dart';
+import '../../config/dimen.dart';
 
 class SahkanGantiPekerjaButton extends StatefulWidget {
   const SahkanGantiPekerjaButton({Key? key}) : super(key: key);

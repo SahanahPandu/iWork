@@ -16,7 +16,6 @@ class EOTodayTaskDetails extends StatefulWidget {
 }
 
 class _EOTodayTaskDetailsState extends State<EOTodayTaskDetails> {
-
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [

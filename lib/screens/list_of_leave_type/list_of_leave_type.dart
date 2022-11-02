@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../config/config.dart';
+import '../../config/dimen.dart';
 import '../../config/font.dart';
 import '../../config/palette.dart';
 import '../../providers/jenis_cuti_api.dart';
-import '../../utils/device/orientations.dart';
+import '../../utils/device/sizes.dart';
 
 class ListOfLeaveType extends StatefulWidget {
   final String hintText;
@@ -56,9 +57,7 @@ class _ListOfLeaveTypeState extends State<ListOfLeaveType> {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      borderRadius:
-          userRole == 100 ? BorderRadius.circular(borderRadiusCircular) : null,
+    return GestureDetector(
       onTap: () {
         if (widget.iconCondition == 1) {
           showListOfLeaveType();
@@ -76,9 +75,7 @@ class _ListOfLeaveTypeState extends State<ListOfLeaveType> {
         decoration: InputDecoration(
           filled: true,
           fillColor: widget.fillColor,
-          contentPadding: userRole == 100
-              ? const EdgeInsets.symmetric(vertical: 15, horizontal: 20)
-              : const EdgeInsets.all(8),
+          contentPadding: const EdgeInsets.all(8),
           hintText: widget.hintText,
           hintStyle: TextStyle(
             fontSize: widget.fontSize,
@@ -133,21 +130,10 @@ class _ListOfLeaveTypeState extends State<ListOfLeaveType> {
             topRight: Radius.circular(20),
           ),
         ),
-        constraints: userRole == 100
-            ? (Orientations().isLandscape(context)
-                ? const BoxConstraints(maxWidth: 500, maxHeight: 400)
-                : const BoxConstraints(
-                    maxWidth: 500,
-                    minHeight: 200,
-                    maxHeight: 450,
-                  ))
-            : null,
         context: context,
         builder: (builder) {
           return SizedBox(
-            height: userRole == 100
-                ? null
-                : MediaQuery.of(context).size.height * 0.3,
+            height: Sizes().screenHeight(context) * 0.3,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -209,9 +195,6 @@ class _ListOfLeaveTypeState extends State<ListOfLeaveType> {
                                       horizontal: 20, vertical: 10)
                                   : const EdgeInsets.all(6),
                               child: ListView.builder(
-                                physics: userRole == 100
-                                    ? const BouncingScrollPhysics()
-                                    : const ScrollPhysics(),
                                 shrinkWrap: true,
                                 itemCount: dataFuture!.length,
                                 itemBuilder: (context, index) {

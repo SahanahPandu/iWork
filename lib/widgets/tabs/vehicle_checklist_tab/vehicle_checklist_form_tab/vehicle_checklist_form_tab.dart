@@ -93,42 +93,38 @@ class _VehicleChecklistFormTabState extends State<VehicleChecklistFormTab>
                     ),
                   ),
                   child: TabBar(
-                    padding: Orientations().isTabletPortrait(context)
-                        ? const EdgeInsets.symmetric(
-                            vertical: 12, horizontal: 20)
-                        : const EdgeInsets.symmetric(
-                            vertical: 12, horizontal: 70),
-                    controller: _tabController,
-                    indicator: BoxDecoration(
-                        borderRadius: BorderRadius.circular(
-                          46,
-                        ),
-                        color: white,
-                        boxShadow: [
-                          BoxShadow(
-                            color: tabShadowColor,
-                            blurRadius: 1,
-                            offset: const Offset(0.0, 2.0),
+                      padding: Orientations().isTabletPortrait(context)
+                          ? const EdgeInsets.symmetric(
+                              vertical: 12, horizontal: 20)
+                          : const EdgeInsets.symmetric(
+                              vertical: 12, horizontal: 70),
+                      controller: _tabController,
+                      indicator: BoxDecoration(
+                          borderRadius: BorderRadius.circular(
+                            46,
                           ),
-                        ]),
-                    labelColor: blackCustom,
-                    labelStyle: const TextStyle(
-                        fontWeight: FontWeight.w600, fontSize: 16),
-                    unselectedLabelStyle: const TextStyle(
-                        fontWeight: FontWeight.w400, fontSize: 15),
-                    unselectedLabelColor: greyCustom,
-                    tabs: const [
-                      Tab(
-                        text: 'Sebelum',
-                      ),
-                      Tab(
-                        text: 'Selepas',
-                      ),
-                    ],
-                    onTap: (t) {
-                      // print(_tabController.index);
-                    },
-                  ),
+                          color: white,
+                          boxShadow: [
+                            BoxShadow(
+                              color: tabShadowColor,
+                              blurRadius: 1,
+                              offset: const Offset(0.0, 2.0),
+                            ),
+                          ]),
+                      labelColor: blackCustom,
+                      labelStyle: const TextStyle(
+                          fontWeight: FontWeight.w600, fontSize: 16),
+                      unselectedLabelStyle: const TextStyle(
+                          fontWeight: FontWeight.w400, fontSize: 15),
+                      unselectedLabelColor: greyCustom,
+                      tabs: const [
+                        Tab(
+                          text: 'Sebelum',
+                        ),
+                        Tab(
+                          text: 'Selepas',
+                        ),
+                      ]),
                 ),
               ),
               ScrollConfiguration(

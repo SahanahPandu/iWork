@@ -4,6 +4,7 @@ import 'package:rxdart/rxdart.dart';
 //import files
 import '../../../config/config.dart';
 import '../../../config/palette.dart';
+import '../../../utils/device/sizes.dart';
 
 class ExpandCollapseHeader extends StatefulWidget {
   @override
@@ -121,10 +122,10 @@ class ExpandCollapseHeaderState extends State<ExpandCollapseHeader> {
     final double topPadding = MediaQuery.of(context).padding.top;
 
     final double expandedHeight =
-        MediaQuery.of(context).size.height * widget.headerExpandedHeight;
+        Sizes().screenHeight(context) * widget.headerExpandedHeight;
 
     final double fullyExpandedHeight =
-        MediaQuery.of(context).size.height * (widget.stretchMaxHeight);
+        Sizes().screenHeight(context) * (widget.stretchMaxHeight);
 
     return Scaffold(
       backgroundColor:
@@ -242,7 +243,7 @@ class ExpandCollapseHeaderState extends State<ExpandCollapseHeader> {
                           : fullyExpanded
                               ? 0
                               : kToolbarHeight,
-                      width: MediaQuery.of(context).size.width,
+                      width: Sizes().screenWidth(context),
                       child: fullyCollapsed
                           ? const SizedBox()
                           : fullyExpanded
@@ -291,7 +292,7 @@ class ExpandCollapseHeaderState extends State<ExpandCollapseHeader> {
           ),
           /*Stack(children: [
             Container(
-              height: MediaQuery.of(context).size.height - topHeight - 80,
+              height: Sizes().screenHeight(context) - topHeight - 80,
               color: widget.backgroundColor ??
                   Theme.of(context).scaffoldBackgroundColor,
             ),

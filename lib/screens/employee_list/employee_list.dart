@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 //import files
+import '../../config/dimen.dart';
 import '../../config/palette.dart';
 import '../../models/penyelia_checkbox.dart';
 import '../../providers/penyelia_api.dart';
@@ -89,8 +90,8 @@ class _EmployeeListState extends State<EmployeeList> {
               Container(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 26, vertical: 24),
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
+                width: Sizes().screenWidth(context),
+                height: Sizes().screenHeight(context),
                 decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
@@ -313,7 +314,7 @@ class _EmployeeListState extends State<EmployeeList> {
                         }),
                   ),
                   Container(
-                    width: MediaQuery.of(context).size.width,
+                    width: Sizes().screenWidth(context),
                     margin: const EdgeInsets.all(10),
                     child: selectButton(),
                   ),

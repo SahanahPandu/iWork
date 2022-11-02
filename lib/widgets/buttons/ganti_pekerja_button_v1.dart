@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
 //import files
-import '../../config/palette.dart';
+import '../../config/dimen.dart';
 import '../../screens/employee_list/employee_list.dart';
 
 class GantiPekerjaButton extends StatefulWidget {

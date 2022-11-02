@@ -25,13 +25,13 @@ class _ReportSubmitButtonState extends State<ReportSubmitButton> {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-          primary: Colors.green,
-          shadowColor: Colors.white,
-          elevation: 5,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(borderRadiusCircular),
-          )),
+      style: ButtonStyle(
+          elevation: MaterialStateProperty.all(0),
+          shape: MaterialStateProperty.all(
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          ),
+          overlayColor: MaterialStateColor.resolveWith((states) => green800),
+          backgroundColor: MaterialStateProperty.all(greenCustom)),
       onPressed: () {
         if (widget.formKey != null) {
           if (widget.formKey!.currentState!.validate()) {

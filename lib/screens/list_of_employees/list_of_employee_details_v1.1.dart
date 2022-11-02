@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 
 //import files
 
+import '../../config/dimen.dart';
 import '../../config/palette.dart';
 import '../../models/pekerja.dart';
 
@@ -41,7 +42,7 @@ class _ListOfEmployeeDetailsState extends State<ListOfEmployeeDetails> {
                             const BorderRadius.all(Radius.circular(4))),
                   ),
                   ClipRRect(
-                      borderRadius: BorderRadius.circular(4),
+                      borderRadius: BorderRadius.circular(borderRadiusCircular),
                       child: FittedBox(
                         fit: BoxFit.fill,
                         child: Image.network(widget.data!.displayPicture,

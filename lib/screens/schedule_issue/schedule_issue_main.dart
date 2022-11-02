@@ -97,7 +97,7 @@ class _ScheduleIssueMainScreen extends State<ScheduleIssueMainScreen> {
             )),
         bottomNavigationBar: widget.issueType == "kehadiran"
             ? SizedBox(
-                height: MediaQuery.of(context).size.height * 0.1,
+                height: Sizes().screenHeight(context) * 0.1,
                 child: const BottomAppBar(
                   elevation: 40,
                   color: Colors.white,

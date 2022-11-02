@@ -68,21 +68,34 @@ class _ReportListMainState extends State<ReportListMain> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                Container(
-                  alignment: Alignment.centerLeft,
-                  padding: const EdgeInsets.only(
-                      left: 20, right: 20, top: 20, bottom: 10),
-                  child: Text(
-                    "Senarai Laporan :",
-                    style: TextStyle(
-                        color: blackCustom,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w400),
-                  ),
-                ),
+                userRole != 100
+                    ? Container(
+                        alignment: Alignment.centerLeft,
+                        padding: const EdgeInsets.only(
+                            left: 20, right: 20, top: 20, bottom: 10),
+                        child: Text(
+                          "Senarai Laporan :",
+                          style: TextStyle(
+                              color: blackCustom,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w400),
+                        ),
+                      )
+                    : Container(
+                        alignment: Alignment.centerLeft,
+                        padding: const EdgeInsets.fromLTRB(30, 30, 0, 15),
+                        child: Text(
+                          "Senarai Laporan :",
+                          style: TextStyle(
+                              color: blackCustom,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400),
+                        ),
+                      ),
                 userRole == 100
                     ? const Padding(
-                        padding: EdgeInsets.all(10),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                         child: CompactorReportList(),
                       )
                     : const Padding(

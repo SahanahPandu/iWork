@@ -3,6 +3,7 @@ import 'package:image_picker/image_picker.dart';
 
 //import files
 import '../../config/palette.dart';
+import '../../utils/device/sizes.dart';
 import '../../utils/media/image_picker.dart';
 
 Future<dynamic>? showUploadImageOption(
@@ -18,7 +19,7 @@ Future<dynamic>? showUploadImageOption(
       context: context,
       builder: (builder) {
         return SizedBox(
-          height: MediaQuery.of(context).size.height * 0.3,
+          height: Sizes().screenHeight(context) * 0.3,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
