@@ -336,7 +336,7 @@ class _ReportFormState extends State<ReportForm> {
                             //put this at the end of the column widget list ,
                             //because to able scroll all item without being covered by the button at the bottom
                             SizedBox(
-                              height: userRole == 100 ? 80 : 100,
+                              height: userRole == 100 ? 90 : 100,
                             ),
                           ],
                         ),

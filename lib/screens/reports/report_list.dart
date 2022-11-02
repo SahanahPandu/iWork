@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../config/config.dart';
+import '../../utils/device/orientations.dart';
 import '../../widgets/custom_scroll/custom_scroll.dart';
 import '../../widgets/gridview/compactor_panel/compactor_report_list.dart';
 import '../../widgets/listview/card_list_view.dart';
@@ -23,7 +24,12 @@ class _ReportListState extends State<ReportList> {
       behavior: CustomScrollBehavior(),
       child: SingleChildScrollView(
         child: userRole == 100
-            ? const CompactorReportList()
+            ? Padding(
+                padding: Orientations().isTabletPortrait(context)
+                    ? const EdgeInsets.symmetric(horizontal: 5)
+                    : const EdgeInsets.symmetric(horizontal: 50),
+                child: const CompactorReportList(),
+              )
             : Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
