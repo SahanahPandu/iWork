@@ -227,10 +227,14 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
                 showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      return showAlertDialog(context, confirmation,
-                          "Sahkan borang laporan ini?", cancel, "Sahkan");
+                      return showAlertDialog(
+                          context,
+                          confirmation,
+                          "Anda pasti untuk hantar sekarang? Maklumbalas ini akan dihantar kepada PRA dan BA.",
+                          cancel,
+                          submit);
                     }).then((actionText) {
-                  if (actionText == "Sahkan") {
+                  if (actionText == submit) {
                     Navigator.pop(context);
                     showDialog(
                         context: context,
@@ -250,7 +254,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
     return RichText(
         textAlign: TextAlign.center,
         text: TextSpan(
-            text: "Borang laporan ini telah berjaya disahkan oleh anda",
+            text: "Status telah dikemaskini dan dimaklumkan kepada PRA dan BA",
             style: TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.w400,
