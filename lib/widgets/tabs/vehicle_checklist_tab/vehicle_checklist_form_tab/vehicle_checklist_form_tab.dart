@@ -11,8 +11,9 @@ import 'vehicle_checklist_form_tab_bar_view/vehicle_checklist_form_before_tab_ba
 
 class VehicleChecklistFormTab extends StatefulWidget {
   final VehicleChecklist data;
+  final int? idx;
 
-  const VehicleChecklistFormTab({Key? key, required this.data})
+  const VehicleChecklistFormTab({Key? key, required this.data, this.idx})
       : super(key: key);
 
   @override
@@ -26,7 +27,11 @@ class _VehicleChecklistFormTabState extends State<VehicleChecklistFormTab>
 
   @override
   void initState() {
-    _tabController = TabController(length: 2, vsync: this);
+    if (widget.idx == 1){
+      _tabController = TabController(length: 2, vsync: this, initialIndex: 1);
+    } else {
+      _tabController = TabController(length: 2, vsync: this);
+    }
     super.initState();
   }
 

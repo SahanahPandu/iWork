@@ -13,6 +13,7 @@ import '../../screens/schedule_all/schedule_all_main.dart';
 import '../../screens/schedule_issue/report/report_approval_list_main.dart';
 import '../../screens/schedule_shift/schedule_shift_main.dart';
 import '../../screens/vehicle_checklist/vehicle_checklist_approval/vehicle_checklist_approval_main.dart';
+import '../../screens/vehicle_checklist/vehicle_checklist_list/vehicle_checklist_list_main.dart';
 import '../../screens/workshop_vehicle/workshop_vehicle_main.dart';
 import '../../utils/authentication/auth.dart';
 import '../../utils/device/sizes.dart';
@@ -291,6 +292,13 @@ class _DrawerBuildState extends State<DrawerBuild> {
                     child: const ReportListMain()));
             break;
 
+          case 3:
+            Navigator.push(
+                context,
+                PageTransition(
+                    type: PageTransitionType.fade,
+                    child: const VehicleChecklistListMain()));
+            break;
           case 5: //logout
             _userLogout(context);
             break;
