@@ -132,7 +132,9 @@ class _VehicleChecklistFormTabState extends State<VehicleChecklistFormTab>
                       ),
                     ],
                     onTap: (index) {
-                      if (index == 1 && widget.data.statusId == 2) {
+                      if (index == 1 &&
+                          widget.data.statusId == 1 ||
+                          widget.data.statusId == 2) {
                         _tabController.index = 0;
                         showDialog(
                             context: context,

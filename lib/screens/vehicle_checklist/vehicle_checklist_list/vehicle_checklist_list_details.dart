@@ -9,6 +9,7 @@ import '../../../models/vc/vc.dart';
 import '../../../utils/calendar/date.dart';
 import '../../../utils/device/orientations.dart';
 import '../../../utils/icon/custom_icon.dart';
+import '../../../widgets/alert/alert_dialog.dart';
 import '../../../widgets/tabs/vehicle_checklist_tab/vehicle_checklist_form_tab/vehicle_checklist_form_tab.dart';
 
 class VehicleChecklistListDetails extends StatefulWidget {
@@ -29,8 +30,10 @@ class _VehicleChecklistListDetailsState
   bool bfrEnable = false;
   bool aftEnable = false;
 
-  Color textColor = greenCustom;
-
+  /// STATUS    |      SEBELUM                           |    SELEPAS
+  ///   1       |      initial = incomplete, enable vc   |    initial = incomplete, unable vc & show alert box
+  ///   2       |      initial = complete, enable vc     |    initial = incomplete, unable vc & show alert box
+  ///   3       |      initial = complete, enable vc     |    initial = complete, enable vc
   @override
   void initState() {
     if (widget.vcData.statusId == 1) {
@@ -82,41 +85,37 @@ class _VehicleChecklistListDetailsState
             ),
             GestureDetector(
               onTap: () {
-                bfrEnable
-                    ? Timer(const Duration(milliseconds: 200), () {
-                        setState(() {
-                          bfrStatusColor = greenCustom;
-                        });
-                      })
-                    : null;
-                bfrEnable
-                    ? Navigator.push(
-                        context,
-                        PageTransition(
-                            child: VehicleChecklistFormTab(data: widget.vcData),
-                            type: PageTransitionType.fade))
-                    : null;
+                Timer(const Duration(milliseconds: 200), () {
+                  setState(() {
+                    widget.vcData.statusId != 1
+                        ? bfrStatusColor = greenCustom
+                        : bfrStatusColor = greyCustom;
+                  });
+                });
+                Navigator.push(
+                    context,
+                    PageTransition(
+                        child: VehicleChecklistFormTab(data: widget.vcData),
+                        type: PageTransitionType.fade));
               },
               onTapDown: (_) {
-                bfrEnable
-                    ? setState(() {
-                        bfrStatusColor = hoverColor;
-                      })
-                    : null;
+                setState(() {
+                  bfrStatusColor = hoverColor;
+                });
               },
               onTapUp: (_) {
-                bfrEnable
-                    ? setState(() {
-                        bfrStatusColor = greenCustom;
-                      })
-                    : null;
+                setState(() {
+                  widget.vcData.statusId != 1
+                      ? bfrStatusColor = greenCustom
+                      : bfrStatusColor = greyCustom;
+                });
               },
               onTapCancel: () {
-                bfrEnable
-                    ? setState(() {
-                        bfrStatusColor = greenCustom;
-                      })
-                    : null;
+                setState(() {
+                  widget.vcData.statusId != 1
+                      ? bfrStatusColor = greenCustom
+                      : bfrStatusColor = greyCustom;
+                });
               },
               child: Row(
                 children: [
@@ -140,7 +139,20 @@ class _VehicleChecklistListDetailsState
                           aftStatusColor = greenCustom;
                         });
                       })
-                    : null;
+                    : showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return showAlertDialog(
+                              context,
+                              "Notis",
+                              "Semakan Kenderaan (Selepas Balik) akan \ndiaktif dan perlu diisi selepas semua tugasan \ntamat dan selesai.",
+                              "",
+                              "Kembali");
+                        }).then((actionText) {
+                        if (actionText == "Kembali") {
+                          //Navigator.pop(context);
+                        }
+                      });
                 aftEnable
                     ? Navigator.push(
                         context,
