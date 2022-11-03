@@ -4,8 +4,8 @@ import 'package:flutter/services.dart';
 //import files
 import '../../config/palette.dart';
 import '../../models/laluan.dart';
-import '../../utils/icon/custom_icon.dart';
 import '../../utils/device/sizes.dart';
+import '../../utils/icon/custom_icon.dart';
 import '../../widgets/buttons/sahkan_ganti_pekerja.dart';
 import 'schedule_issue_detail.dart';
 
@@ -102,7 +102,7 @@ class _ScheduleIssueMainScreen extends State<ScheduleIssueMainScreen> {
                   elevation: 40,
                   color: Colors.white,
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 26, vertical: 17),
+                    padding: EdgeInsets.symmetric(horizontal: 26, vertical: 16),
                     child: SahkanGantiPekerjaButton(),
                   ),
                 ),

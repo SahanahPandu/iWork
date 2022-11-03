@@ -6,13 +6,15 @@ import '../../../../models/vc/vc.dart';
 import '../../../../utils/device/orientations.dart';
 import '../../../../utils/device/sizes.dart';
 import '../../../../utils/icon/custom_icon.dart';
+import '../../../alert/alert_dialog.dart';
 import 'vehicle_checklist_form_tab_bar_view/vehicle_checklist_form_after_tab_bar_view.dart';
 import 'vehicle_checklist_form_tab_bar_view/vehicle_checklist_form_before_tab_bar_view.dart';
 
 class VehicleChecklistFormTab extends StatefulWidget {
   final VehicleChecklist data;
+  final int? idx;
 
-  const VehicleChecklistFormTab({Key? key, required this.data})
+  const VehicleChecklistFormTab({Key? key, required this.data, this.idx})
       : super(key: key);
 
   @override
@@ -26,7 +28,11 @@ class _VehicleChecklistFormTabState extends State<VehicleChecklistFormTab>
 
   @override
   void initState() {
-    _tabController = TabController(length: 2, vsync: this);
+    if (widget.idx == 1) {
+      _tabController = TabController(length: 2, vsync: this, initialIndex: 1);
+    } else {
+      _tabController = TabController(length: 2, vsync: this);
+    }
     super.initState();
   }
 
@@ -93,38 +99,60 @@ class _VehicleChecklistFormTabState extends State<VehicleChecklistFormTab>
                     ),
                   ),
                   child: TabBar(
-                      padding: Orientations().isTabletPortrait(context)
-                          ? const EdgeInsets.symmetric(
-                              vertical: 12, horizontal: 20)
-                          : const EdgeInsets.symmetric(
-                              vertical: 12, horizontal: 70),
-                      controller: _tabController,
-                      indicator: BoxDecoration(
-                          borderRadius: BorderRadius.circular(
-                            46,
+                    padding: Orientations().isTabletPortrait(context)
+                        ? const EdgeInsets.symmetric(
+                            vertical: 12, horizontal: 20)
+                        : const EdgeInsets.symmetric(
+                            vertical: 12, horizontal: 70),
+                    controller: _tabController,
+                    indicator: BoxDecoration(
+                        borderRadius: BorderRadius.circular(
+                          46,
+                        ),
+                        color: white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: tabShadowColor,
+                            blurRadius: 1,
+                            offset: const Offset(0.0, 2.0),
                           ),
-                          color: white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: tabShadowColor,
-                              blurRadius: 1,
-                              offset: const Offset(0.0, 2.0),
-                            ),
-                          ]),
-                      labelColor: blackCustom,
-                      labelStyle: const TextStyle(
-                          fontWeight: FontWeight.w600, fontSize: 16),
-                      unselectedLabelStyle: const TextStyle(
-                          fontWeight: FontWeight.w400, fontSize: 15),
-                      unselectedLabelColor: greyCustom,
-                      tabs: const [
-                        Tab(
-                          text: 'Sebelum',
-                        ),
-                        Tab(
-                          text: 'Selepas',
-                        ),
-                      ]),
+                        ]),
+                    labelColor: blackCustom,
+                    labelStyle: const TextStyle(
+                        fontWeight: FontWeight.w600, fontSize: 16),
+                    unselectedLabelStyle: const TextStyle(
+                        fontWeight: FontWeight.w400, fontSize: 15),
+                    unselectedLabelColor: greyCustom,
+                    tabs: const [
+                      Tab(
+                        text: 'Sebelum',
+                      ),
+                      Tab(
+                        text: 'Selepas',
+                      ),
+                    ],
+                    onTap: (index) {
+                      if (index == 1 &&
+                          widget.data.statusId == 1 ||
+                          widget.data.statusId == 2) {
+                        _tabController.index = 0;
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return showAlertDialog(
+                                  context,
+                                  "Notis",
+                                  "Semakan Kenderaan (Selepas Balik) akan \ndiaktif dan perlu diisi selepas semua tugasan \ntamat dan selesai.",
+                                  "",
+                                  "Kembali");
+                            }).then((actionText) {
+                          if (actionText == "Kembali") {
+                            //Navigator.pop(context);
+                          }
+                        });
+                      }
+                    },
+                  ),
                 ),
               ),
               ScrollConfiguration(

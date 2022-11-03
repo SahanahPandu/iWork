@@ -180,8 +180,8 @@ class _VehicleChecklistApprovalViewState
                     child: _buildTextRow(
                         'Guna Diesel Fleet Card',
                         before
-                            ? widget.data.selepas.vcItem.fuel.fleetCard
-                            : widget.data.sebelum.vcItem.fuel.fleetCard),
+                            ? widget.data.sebelum.vcItem.fuel.fleetCard
+                            : widget.data.selepas.vcItem.fuel.fleetCard),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
@@ -383,7 +383,7 @@ class _VehicleChecklistApprovalViewState
                         '3.5 Sistem Leachate diperiksa',
                         before
                             ? widget.data.sebelum.vcItem.mampatan.leachate
-                            : widget.data.sebelum.vcItem.mampatan.leachate),
+                            : widget.data.selepas.vcItem.mampatan.leachate),
                   ),
                 ],
               ),
