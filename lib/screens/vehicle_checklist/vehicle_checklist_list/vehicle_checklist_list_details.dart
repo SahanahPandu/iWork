@@ -100,7 +100,7 @@ class _VehicleChecklistListDetailsState
               onTapDown: (_) {
                 bfrEnable
                     ? setState(() {
-                        bfrStatusColor = lightAccentGreen;
+                        bfrStatusColor = hoverColor;
                       })
                     : null;
               },
@@ -153,7 +153,7 @@ class _VehicleChecklistListDetailsState
               onTapDown: (_) {
                 aftEnable
                     ? setState(() {
-                        aftStatusColor = lightAccentGreen;
+                        aftStatusColor = hoverColor;
                       })
                     : null;
               },

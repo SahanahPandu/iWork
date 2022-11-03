@@ -44,7 +44,7 @@ Color greenCustom = const Color.fromRGBO(52, 168, 83, 1);
 
 Color okTextColor = const Color.fromRGBO(160, 253, 87, 1);
 Color ngTextColor = const Color.fromRGBO(229, 27, 27, 1);
-Color lightAccentGreen = const Color(0xfe42c91f);
+Color hoverColor = const Color(0xf5089eaf);
 Color callColor = const Color.fromRGBO(52, 168, 83, 1);
 Color activeColor = const Color.fromRGBO(50, 105, 248, 1);
 Color activeBoxColor = const Color.fromRGBO(238, 248, 255, 1);
