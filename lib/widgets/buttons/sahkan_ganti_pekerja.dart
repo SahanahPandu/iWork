@@ -6,7 +6,6 @@ import '../../config/palette.dart';
 import '../../config/string.dart';
 import '../alert/alert_dialog.dart';
 import '../alert/lottie_alert_dialog.dart';
-import '../../config/dimen.dart';
 
 class SahkanGantiPekerjaButton extends StatefulWidget {
   const SahkanGantiPekerjaButton({Key? key}) : super(key: key);
@@ -20,13 +19,13 @@ class _SahkanGantiPekerjaButtonState extends State<SahkanGantiPekerjaButton> {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-          primary: const Color(0xff34A853),
-          shadowColor: Colors.white,
-          elevation: 5,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(borderRadiusCircular),
-          )),
+      style: ButtonStyle(
+          elevation: MaterialStateProperty.all(0),
+          shape: MaterialStateProperty.all(
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          ),
+          overlayColor: MaterialStateColor.resolveWith((states) => green800),
+          backgroundColor: MaterialStateProperty.all(greenCustom)),
       onPressed: () {
         showDialog(
             context: context,

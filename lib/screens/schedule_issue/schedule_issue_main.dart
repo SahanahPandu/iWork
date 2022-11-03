@@ -102,7 +102,7 @@ class _ScheduleIssueMainScreen extends State<ScheduleIssueMainScreen> {
                   elevation: 40,
                   color: Colors.white,
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 26, vertical: 17),
+                    padding: EdgeInsets.symmetric(horizontal: 26, vertical: 16),
                     child: SahkanGantiPekerjaButton(),
                   ),
                 ),
