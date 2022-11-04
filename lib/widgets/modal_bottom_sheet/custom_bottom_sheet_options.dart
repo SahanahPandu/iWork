@@ -8,7 +8,7 @@ int selectedIndex = -1;
 
 @override
 Widget? showBottomSheetOptions(BuildContext context, List statusList,
-    double height, TextEditingController? textController,
+    double height, TextEditingController? textController, Function? updateValue,
     {String? title = "Pilih Status"}) {
   showModalBottomSheet(
       isScrollControlled: true,
@@ -70,12 +70,15 @@ Widget? showBottomSheetOptions(BuildContext context, List statusList,
                                   itemBuilder: (context, index) {
                                     return InkWell(
                                         onTap: () {
-                                          Navigator.pop(context);
                                           if (textController != null) {
                                             textController.text =
                                                 statusList[index];
+                                            updateValue != null
+                                                ? updateValue(statusList[index])
+                                                : null;
                                           }
                                           selectedIndex = index;
+                                          Navigator.pop(context);
                                         },
                                         child: Column(
                                             crossAxisAlignment:

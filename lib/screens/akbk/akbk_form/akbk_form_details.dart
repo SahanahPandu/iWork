@@ -133,6 +133,7 @@ class _AkbkFormDetailsState extends State<AkbkFormDetails> {
                       ['Negeri Sembilan', 'Melaka', 'Johor (S)', 'Johor(N)'],
                       0.4,
                       _stateController,
+                      null,
                       title: "Pilih Negeri");
                 },
                 child: _buildInactiveTextDropdown(_stateController, "Negeri"))),
@@ -146,6 +147,7 @@ class _AkbkFormDetailsState extends State<AkbkFormDetails> {
                       ['Port Dickson', 'Rembau', 'Seremban', 'Senawang'],
                       0.4,
                       _districtController,
+                      null,
                       title: "Pilih Daerah");
                 },
                 child:
@@ -164,6 +166,7 @@ class _AkbkFormDetailsState extends State<AkbkFormDetails> {
                       ['Port Dickson', 'Rembau', 'Seremban', 'Senawang'],
                       0.4,
                       _repairStationController,
+                      null,
                       title: "Pilih Stesen Kerja Pembaikan");
                 },
                 child: _buildInactiveTextDropdown(
@@ -178,6 +181,7 @@ class _AkbkFormDetailsState extends State<AkbkFormDetails> {
                       ['BLS2321', 'RFD5274', 'BDF3221', 'ERD6346'],
                       0.4,
                       _vehicleNoController,
+                      null,
                       title: "Pilih No. Pendaftaran Kenderaan");
                 },
                 child: _buildInactiveTextDropdown(
@@ -197,6 +201,7 @@ class _AkbkFormDetailsState extends State<AkbkFormDetails> {
                       ],
                       0.4,
                       _vehicleModelController,
+                      null,
                       title: "Pilih Modal Kenderaan");
                 },
                 child: _buildInactiveTextDropdown(
@@ -211,6 +216,7 @@ class _AkbkFormDetailsState extends State<AkbkFormDetails> {
                       ['1.3cc', '1.5cc', '1.8cc', '2.0cc'],
                       0.4,
                       _vehicleTypeController,
+                      null,
                       title: "Pilih Jenis Kenderaan");
                 },
                 child: _buildInactiveTextDropdown(
@@ -225,6 +231,7 @@ class _AkbkFormDetailsState extends State<AkbkFormDetails> {
                       ['Ahmad', 'Suhaimi', 'Jalal', 'Jalil'],
                       0.4,
                       _driverController,
+                      null,
                       title: "Pilih Nama Pemandu");
                 },
                 child: _buildInactiveTextDropdown(
@@ -297,7 +304,7 @@ class _AkbkFormDetailsState extends State<AkbkFormDetails> {
                 borderRadius: BorderRadius.circular(8),
                 onTap: () {
                   showBottomSheetOptions(
-                      context, ['km', 'hours'], 0.3, _unitController,
+                      context, ['km', 'hours'], 0.3, _unitController, null,
                       title: "Pilih Unit Ukuran");
                 },
                 child: _buildInactiveTextDropdown(
@@ -312,6 +319,7 @@ class _AkbkFormDetailsState extends State<AkbkFormDetails> {
                       ['Baik', 'Ok', 'Tidak Baik', 'Rosak'],
                       0.4,
                       _odometerConditionController,
+                      null,
                       title: "Pilih Keadaan Odomoter");
                 },
                 child: _buildInactiveTextDropdown(
@@ -363,6 +371,7 @@ class _AkbkFormDetailsState extends State<AkbkFormDetails> {
                       ],
                       0.5,
                       _breakdownTypeController,
+                      null,
                       title: "Pilih Jenis Kerosakan");
                 },
                 child: _buildInactiveTextDropdown(
@@ -381,6 +390,7 @@ class _AkbkFormDetailsState extends State<AkbkFormDetails> {
                       ],
                       0.4,
                       _kodController,
+                      null,
                       title: "Pilih Kod");
                 },
                 child: _buildInactiveTextDropdown(_kodController, "Kod"))),

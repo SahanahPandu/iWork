@@ -56,6 +56,12 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
     super.initState();
   }
 
+  void updateValue(string) {
+    setState(() {
+      _rStatus.text = string;
+    });
+  }
+
   void _setSvFeedbackText() {
     if (widget.data.statusPenyelia != "") {
       setState(() {
@@ -278,16 +284,18 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
             _buildNote(),
             const SizedBox(height: 20),
             const Divider(height: 0.5),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildReportAkbkMainColumn(context),
-                const SizedBox(height: 15),
-                const Divider(height: 0.5),
-                const SizedBox(height: 15),
-                _buildReportAkbkSubColumn(context),
-              ],
-            )
+            //check here if SV accept or not the report
+            if (_rStatus.text == "Diterima")
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildReportAkbkMainColumn(context),
+                  const SizedBox(height: 15),
+                  const Divider(height: 0.5),
+                  const SizedBox(height: 15),
+                  _buildReportAkbkSubColumn(context),
+                ],
+              )
           ],
         );
       case 3:
@@ -410,7 +418,8 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
         child: InkWell(
           borderRadius: BorderRadius.circular(8),
           onTap: () {
-            showBottomSheetOptions(context, reportStatusList, 0.3, _kerosakan);
+            showBottomSheetOptions(
+                context, reportStatusList, 0.3, _kerosakan, null);
           },
           child: _buildInactiveTextField(_kerosakan, "Pilih Tarikh"),
         ),
@@ -450,7 +459,13 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
         child: InkWell(
           borderRadius: BorderRadius.circular(8),
           onTap: () {
-            showBottomSheetOptions(context, reportStatusList, 0.3, _kerosakan);
+            showBottomSheetOptions(
+              context,
+              reportStatusList,
+              0.3,
+              _kerosakan,
+              null,
+            );
           },
           child: _buildInactiveTextField(_kerosakan, "Pilih Kenderaan"),
         ),
@@ -460,7 +475,8 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
         child: InkWell(
           borderRadius: BorderRadius.circular(8),
           onTap: () {
-            showBottomSheetOptions(context, reportStatusList, 0.3, _kerosakan);
+            showBottomSheetOptions(
+                context, reportStatusList, 0.3, _kerosakan, null);
           },
           child: _buildInactiveTextField(_kerosakan, "Pilih Pekerja"),
         ),
@@ -548,7 +564,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
             borderRadius: BorderRadius.circular(8),
             onTap: () {
               showBottomSheetOptions(
-                  context, reportStatusList, 0.25, _kerosakan);
+                  context, reportStatusList, 0.25, _kerosakan, null);
             },
             child: _buildInactiveTextField(_kerosakan, "Sila Pilih Saiz Tayar"),
           ),
@@ -559,7 +575,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
             borderRadius: BorderRadius.circular(8),
             onTap: () {
               showBottomSheetOptions(
-                  context, reportStatusList, 0.25, _kerosakan);
+                  context, reportStatusList, 0.25, _kerosakan, null);
             },
             child:
                 _buildInactiveTextField(_kerosakan, "Sila Pilih Lokasi Tayar"),
@@ -571,7 +587,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
             borderRadius: BorderRadius.circular(8),
             onTap: () {
               showBottomSheetOptions(
-                  context, reportStatusList, 0.25, _kerosakan);
+                  context, reportStatusList, 0.25, _kerosakan, null);
             },
             child: _buildInactiveTextField(_kerosakan, "Sila Pilih Isu"),
           ),
@@ -594,7 +610,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
             borderRadius: BorderRadius.circular(8),
             onTap: () {
               showBottomSheetOptions(
-                  context, reportStatusList, 0.25, _kerosakan);
+                  context, reportStatusList, 0.25, _kerosakan, null);
             },
             child: _buildInactiveTextField(_kerosakan, "Jenis-jenis Kerosakan"),
           ),
@@ -637,7 +653,8 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
           child: InkWell(
             borderRadius: BorderRadius.circular(8),
             onTap: () {
-              showBottomSheetOptions(context, reportStatusList, 0.3, _unitUkur);
+              showBottomSheetOptions(
+                  context, reportStatusList, 0.3, _unitUkur, null);
             },
             child: _buildInactiveTextField(_unitUkur, "Unit Ukuran"),
           ),
@@ -647,7 +664,8 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
           child: InkWell(
             borderRadius: BorderRadius.circular(8),
             onTap: () {
-              showBottomSheetOptions(context, reportStatusList, 0.3, _odometer);
+              showBottomSheetOptions(
+                  context, reportStatusList, 0.3, _odometer, null);
             },
             child: _buildInactiveTextField(_odometer, "Keadaan Odometer"),
           ),
@@ -721,7 +739,8 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
           child: InkWell(
             borderRadius: BorderRadius.circular(8),
             onTap: () {
-              showBottomSheetOptions(context, reportStatusList, 0.3, _rStatus);
+              showBottomSheetOptions(
+                  context, reportStatusList, 0.3, _rStatus, updateValue);
             },
             child: _buildInactiveTextField(_rStatus, "Status"),
           ),
@@ -792,9 +811,11 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
 
   void _loadReportStatus(int rptStatus, String rptType) {
     switch (rptStatus) {
-      //Baharu
+
+      //Baharu & Dalam Proses
       case 1:
         switch (userRole) {
+
           // sv -> need to accept/reject laluan/cuaca case from pra.
           case 300:
           case 400:
@@ -816,6 +837,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
             }
             break;
         }
+
         break;
       //Diterima sv
       case 2:

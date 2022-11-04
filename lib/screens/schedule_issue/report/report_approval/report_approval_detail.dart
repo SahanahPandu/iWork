@@ -235,6 +235,7 @@ class _ReportApprovalDetailState extends State<ReportApprovalDetail> {
   }
 
   int _getReportStatus(int reportStatus) {
+    //reportStatus = can refer to file report_approval_main > _loadReportStatus()
     return _condition = reportStatus;
   }
 

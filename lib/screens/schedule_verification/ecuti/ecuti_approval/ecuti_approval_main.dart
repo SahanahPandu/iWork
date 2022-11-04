@@ -258,7 +258,8 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
           padding: const EdgeInsets.symmetric(vertical: 10),
           child: GestureDetector(
               onTap: () {
-                showBottomSheetOptions(context, leaveStatusList, 0.32, _status);
+                showBottomSheetOptions(
+                    context, leaveStatusList, 0.32, _status, null);
               },
               child: _buildInactiveTextField(_status, "Status Permohonan")),
         ),
