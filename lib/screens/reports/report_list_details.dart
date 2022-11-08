@@ -21,7 +21,7 @@ class ReportListDetails extends StatefulWidget {
 }
 
 class _ReportListDetailsState extends State<ReportListDetails> {
-  double horizontalPadding = 20;
+  double horizontalPadding = userRole == 100 ? 34 : 20;
   Color iconColor = const Color(0xff3269F8);
   Color labelColor = greyCustom;
   Color inputColor = blackCustom;
@@ -44,7 +44,7 @@ class _ReportListDetailsState extends State<ReportListDetails> {
                 child: Text(
                   "L${widget.index + 1} - ${widget.data.namaLaluan}",
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: userRole == 100 ? 18 : 16,
                     color: inputColor,
                     fontWeight: FontWeight.w500,
                   ),
@@ -82,7 +82,7 @@ class _ReportListDetailsState extends State<ReportListDetails> {
                         Text(
                           "Tarikh & Masa",
                           style: TextStyle(
-                            fontSize: 15,
+                            fontSize: userRole == 100 ? 16 : 15,
                             color: labelColor,
                             fontWeight: FontWeight.w400,
                           ),
@@ -94,7 +94,7 @@ class _ReportListDetailsState extends State<ReportListDetails> {
                     child: Text(
                       "${widget.data.tarikh},${widget.data.masa}",
                       style: TextStyle(
-                        fontSize: 15,
+                        fontSize: userRole == 100 ? 16 : 15,
                         color: inputColor,
                         fontWeight: FontWeight.w600,
                       ),
@@ -131,7 +131,7 @@ class _ReportListDetailsState extends State<ReportListDetails> {
                         Text(
                           "Taman",
                           style: TextStyle(
-                            fontSize: 15,
+                            fontSize: userRole == 100 ? 16 : 15,
                             color: labelColor,
                             fontWeight: FontWeight.w400,
                           ),
@@ -144,7 +144,7 @@ class _ReportListDetailsState extends State<ReportListDetails> {
                       textAlign: TextAlign.end,
                       widget.data.namaTaman,
                       style: TextStyle(
-                        fontSize: 15,
+                        fontSize: userRole == 100 ? 16 : 15,
                         color: inputColor,
                         fontWeight: FontWeight.w600,
                       ),
@@ -180,7 +180,7 @@ class _ReportListDetailsState extends State<ReportListDetails> {
                         Text(
                           "Jalan",
                           style: TextStyle(
-                            fontSize: 15,
+                            fontSize: userRole == 100 ? 16 : 15,
                             color: labelColor,
                             fontWeight: FontWeight.w400,
                           ),
@@ -193,7 +193,7 @@ class _ReportListDetailsState extends State<ReportListDetails> {
                       textAlign: TextAlign.end,
                       widget.data.namaJalan,
                       style: TextStyle(
-                        fontSize: 15,
+                        fontSize: userRole == 100 ? 16 : 15,
                         color: inputColor,
                         fontWeight: FontWeight.w600,
                       ),
@@ -227,7 +227,7 @@ class _ReportListDetailsState extends State<ReportListDetails> {
                     Text(
                       "Jenis Halangan",
                       style: TextStyle(
-                        fontSize: 15,
+                        fontSize: userRole == 100 ? 16 : 15,
                         color: labelColor,
                         fontWeight: FontWeight.w400,
                       ),
@@ -239,7 +239,7 @@ class _ReportListDetailsState extends State<ReportListDetails> {
                     textAlign: TextAlign.end,
                     widget.data.jenisHalangan,
                     style: TextStyle(
-                      fontSize: 15,
+                      fontSize: userRole == 100 ? 16 : 15,
                       color: inputColor,
                       fontWeight: FontWeight.w600,
                     ),

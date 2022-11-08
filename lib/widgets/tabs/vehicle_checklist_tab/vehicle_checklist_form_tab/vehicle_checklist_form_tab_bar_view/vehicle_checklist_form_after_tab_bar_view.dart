@@ -19,6 +19,6 @@ class _VehicleChecklistFormAfterTabbarViewState
     extends State<VehicleChecklistFormAfterTabbarView> {
   @override
   Widget build(BuildContext context) {
-    return VehicleChecklistDetail(data: widget.data);
+    return VehicleChecklistDetail(data: widget.data, before: false);
   }
 }

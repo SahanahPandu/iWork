@@ -815,7 +815,6 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
       //Baharu & Dalam Proses
       case 1:
         switch (userRole) {
-
           // sv -> need to accept/reject laluan/cuaca case from pra.
           case 300:
           case 400:
@@ -837,7 +836,6 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
             }
             break;
         }
-
         break;
       //Diterima sv
       case 2:

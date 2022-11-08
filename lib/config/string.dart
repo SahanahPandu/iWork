@@ -54,8 +54,9 @@ String litre = 'liter';
 String rm = 'RM';
 
 String has = 'Ada';
+String dont = 'Tiada';
 String yes = 'Ya';
-String no = 'Tiada';
+String no = 'Tidak';
 String cancel = 'Batal';
 String submit = 'Hantar';
 String yesConfirm = 'Ya, pasti';
