@@ -31,45 +31,34 @@ class VehicleChecklistDetail extends StatefulWidget {
 
 class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
     with TickerProviderStateMixin {
-  final List<GlobalKey<FormState>> _key = [
-    GlobalKey<FormState>(),
-    GlobalKey<FormState>(),
-    GlobalKey<FormState>(),
-    GlobalKey<FormState>(),
-    GlobalKey<FormState>()
-  ];
+  /// Form Keys for Value input from Card 2 ~ Card 3
+  final _valueKey =
+      List<GlobalKey<FormState>>.generate(5, (index) => GlobalKey<FormState>());
 
-  final List<GlobalKey<FormState>> _textKeys = [
-    GlobalKey<FormState>(),
-    GlobalKey<FormState>(),
-    GlobalKey<FormState>(),
-    GlobalKey<FormState>(),
-    GlobalKey<FormState>(),
-    GlobalKey<FormState>(),
-    GlobalKey<FormState>(),
-    GlobalKey<FormState>(),
-    GlobalKey<FormState>(),
-    GlobalKey<FormState>(),
-    GlobalKey<FormState>()
-  ];
-  bool _valid = false;
-  bool _incompleteRadioButton = false;
-  bool formOpenFlag = true;
-  bool formOpenFlag2 = false;
-  bool formOpenFlag3 = false;
-  bool formOpenFlag4 = false;
-  bool formOpenFlag5 = false;
-  bool formOpenFlag6 = false;
-  bool formOpenFlag7 = false;
-  bool formOpenFlag8 = false;
-  bool formOpenFlag9 = false;
-  bool formOpenFlag10 = false;
-  bool formOpenFlag11 = false;
-  bool empty = true;
-  double _fuelValue = 25;
+  /// Form Keys for Remark input from Card 4 ~ Card 15
+  final _textKeys = List<GlobalKey<FormState>>.generate(
+      11, (index) => GlobalKey<FormState>());
+
+  /// Controller Keys for Remark input from Card 4 ~ Card 15
+  final _remarkController = List<TextEditingController>.generate(
+      11, (index) => TextEditingController());
+
+  /// Integer value of each radio button in every row
   final _buttonVal = List.generate(50, (index) => index = -1);
-  final _keyIn = List<String>.generate(11, (index) => "0");
+
+  /// Total integer value of radio buttons in each section
+  final _totalEntered = List<String>.generate(11, (index) => "0");
   final _colorResult = List<Color>.generate(11, (index) => grey400);
+
+  /// Container expand/collapse boolean
+  final formOpenFlag = List<bool>.generate(11, (index) => false);
+  bool formOpenFlagDefault = true;
+  bool _valid = false;
+  bool empty = true;
+  bool _incompleteRadioButton = false;
+  double _fuelValue = 25;
+
+  /// Below are the data variables declared individually, for easy reference by other developers
   final TextEditingController _odoReader = TextEditingController();
   final TextEditingController _totalKM = TextEditingController();
   final TextEditingController _diesel = TextEditingController();
@@ -1073,16 +1062,16 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                     key: GlobalKey(),
                     tilePadding:
                         const EdgeInsets.symmetric(vertical: 5, horizontal: 25),
-                    initiallyExpanded: formOpenFlag,
+                    initiallyExpanded: formOpenFlagDefault,
                     onExpansionChanged: (d) {
                       Timer(const Duration(milliseconds: 300), () {
                         setState(() {
-                          formOpenFlag2 = !d;
-                          formOpenFlag = d;
+                          formOpenFlag[0] = !d;
+                          formOpenFlagDefault = d;
                         });
                       });
                     },
-                    title: Text("1. Dokumen Perjalanan (${_keyIn[0]}/3)",
+                    title: Text("1. Dokumen Perjalanan (${_totalEntered[0]}/3)",
                         style: const TextStyle(
                             fontSize: 18, fontWeight: FontWeight.w500)),
                     collapsedBackgroundColor: tabBoxColor,
@@ -1139,8 +1128,9 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                 onPressed: () {
                                   Timer(const Duration(milliseconds: 450), () {
                                     setState(() {
-                                      formOpenFlag = !formOpenFlag;
-                                      formOpenFlag2 = !formOpenFlag;
+                                      formOpenFlagDefault =
+                                          !formOpenFlagDefault;
+                                      formOpenFlag[0] = !formOpenFlagDefault;
                                     });
                                   });
                                 },
@@ -1175,16 +1165,17 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                         key: GlobalKey(),
                         tilePadding: const EdgeInsets.symmetric(
                             vertical: 5, horizontal: 25),
-                        initiallyExpanded: formOpenFlag2,
+                        initiallyExpanded: formOpenFlag[0],
                         onExpansionChanged: (d) {
                           Timer(const Duration(milliseconds: 300), () {
                             setState(() {
-                              formOpenFlag = !d;
-                              formOpenFlag2 = d;
+                              formOpenFlagDefault = !d;
+                              formOpenFlag[0] = d;
                             });
                           });
                         },
-                        title: Text("2. Pemeriksaan Tayar (${_keyIn[1]}/3)",
+                        title: Text(
+                            "2. Pemeriksaan Tayar (${_totalEntered[1]}/3)",
                             style: const TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.w500)),
                         collapsedBackgroundColor: tabBoxColor,
@@ -1264,8 +1255,8 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                                 const Duration(
                                                     milliseconds: 450), () {
                                               setState(() {
-                                                formOpenFlag = true;
-                                                formOpenFlag2 = false;
+                                                formOpenFlagDefault = true;
+                                                formOpenFlag[0] = false;
                                               });
                                             });
                                           },
@@ -1295,8 +1286,8 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                                 const Duration(
                                                     milliseconds: 450), () {
                                               setState(() {
-                                                formOpenFlag = !formOpenFlag;
-                                                formOpenFlag2 = true;
+                                                formOpenFlag[0] = false;
+                                                formOpenFlag[1] = true;
                                               });
                                             });
                                           },
@@ -1328,16 +1319,17 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                         key: GlobalKey(),
                         tilePadding: const EdgeInsets.symmetric(
                             vertical: 5, horizontal: 25),
-                        initiallyExpanded: formOpenFlag3,
+                        initiallyExpanded: formOpenFlag[1],
                         onExpansionChanged: (d) {
                           Timer(const Duration(milliseconds: 350), () {
                             setState(() {
-                              formOpenFlag2 = !d;
-                              formOpenFlag3 = d;
+                              formOpenFlag[0] = !d;
+                              formOpenFlag[1] = d;
                             });
                           });
                         },
-                        title: Text("3. Sistem Mampatan (${_keyIn[2]}/5)",
+                        title: Text(
+                            "3. Sistem Mampatan (${_totalEntered[2]}/5)",
                             style: const TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.w500)),
                         collapsedBackgroundColor: tabBoxColor,
@@ -1424,8 +1416,8 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                               const Duration(milliseconds: 450),
                                               () {
                                             setState(() {
-                                              formOpenFlag2 = true;
-                                              formOpenFlag3 = false;
+                                              formOpenFlag[0] = true;
+                                              formOpenFlag[1] = false;
                                             });
                                           });
                                         },
@@ -1455,8 +1447,9 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                               const Duration(milliseconds: 450),
                                               () {
                                             setState(() {
-                                              formOpenFlag2 = !formOpenFlag2;
-                                              formOpenFlag3 = true;
+                                              formOpenFlag[1] =
+                                                  !formOpenFlag[1];
+                                              formOpenFlag[2] = true;
                                             });
                                           });
                                         },
@@ -1487,16 +1480,16 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                         key: GlobalKey(),
                         tilePadding: const EdgeInsets.symmetric(
                             vertical: 5, horizontal: 25),
-                        initiallyExpanded: formOpenFlag4,
+                        initiallyExpanded: formOpenFlag[2],
                         onExpansionChanged: (d) {
                           Timer(const Duration(milliseconds: 350), () {
                             setState(() {
-                              formOpenFlag3 = !d;
-                              formOpenFlag4 = d;
+                              formOpenFlag[1] = !d;
+                              formOpenFlag[2] = d;
                             });
                           });
                         },
-                        title: Text("4. Sistem Lampu (${_keyIn[3]}/6)",
+                        title: Text("4. Sistem Lampu (${_totalEntered[3]}/6)",
                             style: const TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.w500)),
                         collapsedBackgroundColor: tabBoxColor,
@@ -1593,8 +1586,8 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                               const Duration(milliseconds: 450),
                                               () {
                                             setState(() {
-                                              formOpenFlag3 = true;
-                                              formOpenFlag4 = false;
+                                              formOpenFlag[1] = true;
+                                              formOpenFlag[2] = false;
                                             });
                                           });
                                         },
@@ -1624,8 +1617,9 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                               const Duration(milliseconds: 450),
                                               () {
                                             setState(() {
-                                              formOpenFlag3 = !formOpenFlag3;
-                                              formOpenFlag4 = true;
+                                              formOpenFlag[2] =
+                                                  !formOpenFlag[2];
+                                              formOpenFlag[3] = true;
                                             });
                                           });
                                         },
@@ -1656,17 +1650,17 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                         key: GlobalKey(),
                         tilePadding: const EdgeInsets.symmetric(
                             vertical: 5, horizontal: 25),
-                        initiallyExpanded: formOpenFlag5,
+                        initiallyExpanded: formOpenFlag[3],
                         onExpansionChanged: (d) {
                           Timer(const Duration(milliseconds: 350), () {
                             setState(() {
-                              formOpenFlag4 = !d;
-                              formOpenFlag5 = d;
+                              formOpenFlag[2] = !d;
+                              formOpenFlag[3] = d;
                             });
                           });
                         },
                         title: Text(
-                            "5. Sistem Enjin dan Driveline (${_keyIn[4]}/16)",
+                            "5. Sistem Enjin dan Driveline (${_totalEntered[4]}/16)",
                             style: const TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.w500)),
                         collapsedBackgroundColor: tabBoxColor,
@@ -1823,8 +1817,8 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                               const Duration(milliseconds: 450),
                                               () {
                                             setState(() {
-                                              formOpenFlag4 = true;
-                                              formOpenFlag5 = false;
+                                              formOpenFlag[2] = true;
+                                              formOpenFlag[3] = false;
                                             });
                                           });
                                         },
@@ -1854,8 +1848,9 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                               const Duration(milliseconds: 450),
                                               () {
                                             setState(() {
-                                              formOpenFlag5 = !formOpenFlag4;
-                                              formOpenFlag5 = true;
+                                              formOpenFlag[3] =
+                                                  !formOpenFlag[3];
+                                              formOpenFlag[4] = true;
                                             });
                                           });
                                         },
@@ -1886,16 +1881,17 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                         key: GlobalKey(),
                         tilePadding: const EdgeInsets.symmetric(
                             vertical: 5, horizontal: 25),
-                        initiallyExpanded: formOpenFlag6,
+                        initiallyExpanded: formOpenFlag[4],
                         onExpansionChanged: (d) {
                           Timer(const Duration(milliseconds: 350), () {
                             setState(() {
-                              formOpenFlag5 = !d;
-                              formOpenFlag6 = d;
+                              formOpenFlag[3] = !d;
+                              formOpenFlag[4] = d;
                             });
                           });
                         },
-                        title: Text("6. Bahagian Luaran (${_keyIn[5]}/2)",
+                        title: Text(
+                            "6. Bahagian Luaran (${_totalEntered[5]}/2)",
                             style: const TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.w500)),
                         collapsedBackgroundColor: tabBoxColor,
@@ -1964,8 +1960,8 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                               const Duration(milliseconds: 450),
                                               () {
                                             setState(() {
-                                              formOpenFlag5 = true;
-                                              formOpenFlag6 = false;
+                                              formOpenFlag[3] = true;
+                                              formOpenFlag[4] = false;
                                             });
                                           });
                                         },
@@ -1995,8 +1991,9 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                               const Duration(milliseconds: 450),
                                               () {
                                             setState(() {
-                                              formOpenFlag6 = !formOpenFlag5;
-                                              formOpenFlag6 = true;
+                                              formOpenFlag[4] =
+                                                  !formOpenFlag[4];
+                                              formOpenFlag[5] = true;
                                             });
                                           });
                                         },
@@ -2027,16 +2024,17 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                         key: GlobalKey(),
                         tilePadding: const EdgeInsets.symmetric(
                             vertical: 5, horizontal: 25),
-                        initiallyExpanded: formOpenFlag7,
+                        initiallyExpanded: formOpenFlag[5],
                         onExpansionChanged: (d) {
                           Timer(const Duration(milliseconds: 350), () {
                             setState(() {
-                              formOpenFlag6 = !d;
-                              formOpenFlag7 = d;
+                              formOpenFlag[4] = !d;
+                              formOpenFlag[5] = d;
                             });
                           });
                         },
-                        title: Text("7. Peralatan Keselamatan (${_keyIn[6]}/3)",
+                        title: Text(
+                            "7. Peralatan Keselamatan (${_totalEntered[6]}/3)",
                             style: const TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.w500)),
                         collapsedBackgroundColor: tabBoxColor,
@@ -2111,8 +2109,8 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                               const Duration(milliseconds: 450),
                                               () {
                                             setState(() {
-                                              formOpenFlag6 = true;
-                                              formOpenFlag7 = false;
+                                              formOpenFlag[4] = true;
+                                              formOpenFlag[5] = false;
                                             });
                                           });
                                         },
@@ -2142,8 +2140,9 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                               const Duration(milliseconds: 450),
                                               () {
                                             setState(() {
-                                              formOpenFlag6 = !formOpenFlag6;
-                                              formOpenFlag7 = true;
+                                              formOpenFlag[5] =
+                                                  !formOpenFlag[5];
+                                              formOpenFlag[6] = true;
                                             });
                                           });
                                         },
@@ -2174,16 +2173,17 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                         key: GlobalKey(),
                         tilePadding: const EdgeInsets.symmetric(
                             vertical: 5, horizontal: 25),
-                        initiallyExpanded: formOpenFlag8,
+                        initiallyExpanded: formOpenFlag[6],
                         onExpansionChanged: (d) {
                           Timer(const Duration(milliseconds: 350), () {
                             setState(() {
-                              formOpenFlag7 = !d;
-                              formOpenFlag8 = d;
+                              formOpenFlag[5] = !d;
+                              formOpenFlag[6] = d;
                             });
                           });
                         },
-                        title: Text("8. Kebersihan Kenderaan (${_keyIn[7]}/2)",
+                        title: Text(
+                            "8. Kebersihan Kenderaan (${_totalEntered[7]}/2)",
                             style: const TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.w500)),
                         collapsedBackgroundColor: tabBoxColor,
@@ -2256,8 +2256,8 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                               const Duration(milliseconds: 450),
                                               () {
                                             setState(() {
-                                              formOpenFlag6 = true;
-                                              formOpenFlag7 = false;
+                                              formOpenFlag[5] = true;
+                                              formOpenFlag[6] = false;
                                             });
                                           });
                                         },
@@ -2287,8 +2287,9 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                               const Duration(milliseconds: 450),
                                               () {
                                             setState(() {
-                                              formOpenFlag7 = !formOpenFlag7;
-                                              formOpenFlag8 = true;
+                                              formOpenFlag[6] =
+                                                  !formOpenFlag[6];
+                                              formOpenFlag[7] = true;
                                             });
                                           });
                                         },
@@ -2319,18 +2320,32 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                         key: GlobalKey(),
                         tilePadding: const EdgeInsets.symmetric(
                             vertical: 5, horizontal: 25),
-                        initiallyExpanded: formOpenFlag9,
+                        initiallyExpanded: formOpenFlag[7],
                         onExpansionChanged: (d) {
                           Timer(const Duration(milliseconds: 350), () {
                             setState(() {
-                              formOpenFlag8 = !d;
-                              formOpenFlag9 = d;
+                              formOpenFlag[6] = !d;
+                              formOpenFlag[7] = d;
                             });
                           });
                         },
-                        title: Text("9. Kebersihan Bin Lifter (${_keyIn[8]}/1)",
-                            style: const TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.w500)),
+                        title: Row(
+                          children: [
+                            const Text("9. Kebersihan Bin Lifter ",
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.w500)),
+                            ValueListenableBuilder(
+                              valueListenable: attendanceMainCard,
+                              builder:
+                                  (BuildContext context, value, Widget? child) {
+                                return Text("(${_totalEntered[8]}/1)",
+                                    style: const TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500));
+                              },
+                            ),
+                          ],
+                        ),
                         collapsedBackgroundColor: tabBoxColor,
                         backgroundColor: activeColor,
                         textColor: white,
@@ -2395,8 +2410,8 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                               const Duration(milliseconds: 450),
                                               () {
                                             setState(() {
-                                              formOpenFlag8 = true;
-                                              formOpenFlag9 = false;
+                                              formOpenFlag[6] = true;
+                                              formOpenFlag[7] = false;
                                             });
                                           });
                                         },
@@ -2426,8 +2441,9 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                               const Duration(milliseconds: 450),
                                               () {
                                             setState(() {
-                                              formOpenFlag8 = !formOpenFlag8;
-                                              formOpenFlag9 = true;
+                                              formOpenFlag[7] =
+                                                  !formOpenFlag[7];
+                                              formOpenFlag[8] = true;
                                             });
                                           });
                                         },
@@ -2458,16 +2474,16 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                         key: GlobalKey(),
                         tilePadding: const EdgeInsets.symmetric(
                             vertical: 5, horizontal: 25),
-                        initiallyExpanded: formOpenFlag10,
+                        initiallyExpanded: formOpenFlag[8],
                         onExpansionChanged: (d) {
                           Timer(const Duration(milliseconds: 350), () {
                             setState(() {
-                              formOpenFlag9 = !d;
-                              formOpenFlag10 = d;
+                              formOpenFlag[7] = !d;
+                              formOpenFlag[8] = d;
                             });
                           });
                         },
-                        title: Text("10. Kemalangan (${_keyIn[9]}/2)",
+                        title: Text("10. Kemalangan (${_totalEntered[9]}/2)",
                             style: const TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.w500)),
                         collapsedBackgroundColor: tabBoxColor,
@@ -2540,8 +2556,8 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                               const Duration(milliseconds: 450),
                                               () {
                                             setState(() {
-                                              formOpenFlag9 = true;
-                                              formOpenFlag10 = false;
+                                              formOpenFlag[7] = true;
+                                              formOpenFlag[8] = false;
                                             });
                                           });
                                         },
@@ -2571,8 +2587,9 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                               const Duration(milliseconds: 450),
                                               () {
                                             setState(() {
-                                              formOpenFlag9 = !formOpenFlag9;
-                                              formOpenFlag10 = true;
+                                              formOpenFlag[8] =
+                                                  !formOpenFlag[8];
+                                              formOpenFlag[9] = true;
                                             });
                                           });
                                         },
@@ -2603,16 +2620,17 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                         key: GlobalKey(),
                         tilePadding: const EdgeInsets.symmetric(
                             vertical: 5, horizontal: 25),
-                        initiallyExpanded: formOpenFlag11,
+                        initiallyExpanded: formOpenFlag[9],
                         onExpansionChanged: (d) {
                           Timer(const Duration(milliseconds: 350), () {
                             setState(() {
-                              formOpenFlag10 = !d;
-                              formOpenFlag11 = d;
+                              formOpenFlag[8] = !d;
+                              formOpenFlag[9] = d;
                             });
                           });
                         },
-                        title: Text("11. Fizikal Kenderaan (${_keyIn[10]}/2)",
+                        title: Text(
+                            "11. Fizikal Kenderaan (${_totalEntered[10]}/2)",
                             style: const TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.w500)),
                         collapsedBackgroundColor: tabBoxColor,
@@ -2685,8 +2703,8 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                               const Duration(milliseconds: 450),
                                               () {
                                             setState(() {
-                                              formOpenFlag10 = true;
-                                              formOpenFlag11 = false;
+                                              formOpenFlag[8] = true;
+                                              formOpenFlag[9] = false;
                                             });
                                           });
                                         },
@@ -2787,7 +2805,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
   Form _valueTextFormBuild(int idx, TextInputType type,
       [String? label = "", bool? icon = true]) {
     return Form(
-        key: _key[idx],
+        key: _valueKey[idx],
         child: TextFormField(
           cursorColor: greenCustom,
           keyboardType: type,
@@ -2851,27 +2869,35 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
   }
 
   /// Catatan TextField
-  TextField _textFieldBuild(int idx) {
-    return TextField(
+  Form _textFieldBuild(int idx) {
+    return Form(
       key: _textKeys[idx],
-      maxLines: 5,
-      cursorColor: green,
-      keyboardType: TextInputType.text,
-      decoration: InputDecoration(
-          focusColor: green,
-          enabledBorder: OutlineInputBorder(
-              borderRadius: const BorderRadius.all(Radius.circular(5)),
-              borderSide: BorderSide(width: 1, color: grey300)),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: green),
-            borderRadius: BorderRadius.circular(5),
-          ),
-          labelText: 'Catatan',
-          alignLabelWithHint: true,
-          labelStyle: TextStyle(color: grey400, fontSize: 14)),
+      child: TextField(
+        controller: _remarkController[idx],
+        maxLines: 5,
+        cursorColor: green,
+        keyboardType: TextInputType.text,
+        textInputAction: TextInputAction.done,
+        onSubmitted: (value) {
+          _remarkController[idx].text = value.toString();
+        },
+        decoration: InputDecoration(
+            focusColor: green,
+            enabledBorder: OutlineInputBorder(
+                borderRadius: const BorderRadius.all(Radius.circular(5)),
+                borderSide: BorderSide(width: 1, color: grey300)),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: green),
+              borderRadius: BorderRadius.circular(5),
+            ),
+            labelText: 'Catatan',
+            alignLabelWithHint: true,
+            labelStyle: TextStyle(color: grey400, fontSize: 14)),
+      ),
     );
   }
 
+  /// Radio Button in Card 4 ~ Card 15
   TableRow _tableRowBuild(String title, int idx,
       [String? label = "", String? has = "", String? dont = ""]) {
     return TableRow(children: [
@@ -3037,7 +3063,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
       }
       int totalLength = allGroup[a].length;
       int filled = totalLength - n;
-      _keyIn[a] = filled.toString();
+      _totalEntered[a] = filled.toString();
       n = 0;
       _incompleteRadioButton = false;
     }
@@ -3045,8 +3071,8 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
 
   _handleSubmittedData(context) {
     _loadRadioButton();
-    for (var i = 0; i < _key.length; i++) {
-      final FormState? form = _key[i].currentState;
+    for (var i = 0; i < _valueKey.length; i++) {
+      final FormState? form = _valueKey[i].currentState;
       if (form!.validate() && !_incompleteRadioButton) {
         form.save();
         _valid = true;
