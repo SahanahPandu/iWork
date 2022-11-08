@@ -43,7 +43,7 @@ class CompactorPanelMyTaskListDetailsState
               Padding(
                 padding: Orientations().isTabletPortrait(context)
                     ? const EdgeInsets.fromLTRB(22, 20, 0, 20)
-                    : const EdgeInsets.fromLTRB(40, 32, 0, 24),
+                    : const EdgeInsets.fromLTRB(40, 30, 0, 22),
                 child: Text(
                   widget.data.namaLaluan,
                   style: TextStyle(
@@ -85,7 +85,7 @@ class CompactorPanelMyTaskListDetailsState
           Padding(
             padding: Orientations().isTabletPortrait(context)
                 ? const EdgeInsets.fromLTRB(22, 0, 22, 10)
-                : const EdgeInsets.fromLTRB(40, 0, 40, 16),
+                : const EdgeInsets.fromLTRB(40, 0, 40, 12),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -124,7 +124,7 @@ class CompactorPanelMyTaskListDetailsState
           Padding(
             padding: Orientations().isTabletPortrait(context)
                 ? const EdgeInsets.fromLTRB(22, 0, 22, 10)
-                : const EdgeInsets.fromLTRB(40, 0, 40, 16),
+                : const EdgeInsets.fromLTRB(40, 0, 40, 12),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -163,7 +163,7 @@ class CompactorPanelMyTaskListDetailsState
           Padding(
             padding: Orientations().isTabletPortrait(context)
                 ? const EdgeInsets.fromLTRB(22, 0, 22, 10)
-                : const EdgeInsets.fromLTRB(40, 0, 40, 16),
+                : const EdgeInsets.fromLTRB(40, 0, 40, 12),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -259,10 +259,10 @@ class CompactorPanelMyTaskListDetailsState
         widget.button == true
             ? Padding(
                 padding: const EdgeInsets.only(
-                    left: 10, right: 10, top: 10, bottom: 15),
+                    left: 20, right: 20, top: 0, bottom: 20),
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const <Widget>[StartEndWorkSlideBar()]))
+                    children: <Widget>[StartEndWorkSlideBar(data: widget.data)]))
             : const SizedBox()
       ],
     );

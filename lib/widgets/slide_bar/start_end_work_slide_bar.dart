@@ -8,6 +8,7 @@ import 'package:shimmer/shimmer.dart';
 import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../../config/string.dart';
+import '../../models/laluan.dart';
 import '../../utils/calendar/time.dart';
 import '../../utils/device/orientations.dart';
 import '../../utils/device/sizes.dart';
@@ -18,7 +19,8 @@ import '../cards/my_task/compactor_panel/compactor_panel_my_task_list_details.da
 typedef StringCallback = void Function(String val);
 
 class StartEndWorkSlideBar extends StatefulWidget {
-  const StartEndWorkSlideBar({Key? key}) : super(key: key);
+  final Laluan data;
+  const StartEndWorkSlideBar({Key? key, required this.data}) : super(key: key);
 
   @override
   State<StartEndWorkSlideBar> createState() => _StartEndWorkSlideBarState();
@@ -33,7 +35,6 @@ class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
   Color borderColor = greenCustom;
   Color boxColor = white;
   String slideText = startWork;
-
   bool enableSlide = false;
   bool endTime = false;
   bool completed = false;
@@ -54,7 +55,7 @@ class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
             decoration: BoxDecoration(
               color: iconColor,
               borderRadius: const BorderRadius.all(
-                Radius.circular(25.0),
+                Radius.circular(25),
               ),
             ),
             child: Icon(Icons.double_arrow_rounded,
@@ -81,9 +82,9 @@ class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
             color: boxColor,
             border: Border.all(
               color: borderColor,
-              width: 1.0,
+              width: 1,
             ),
-            borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+            borderRadius: const BorderRadius.all(Radius.circular(8)),
           ),
         ),
         backgroundBuilder: (context, state, child) => ClipRect(
@@ -114,9 +115,9 @@ class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
                   return showAlertDialog(
                       context,
                       confirmation,
+                      cancel,
                       statusTask == 2 ? confirmEndWork : confirmStartWork,
-                      statusTask == 2 ? endWorkText : startWorkText,
-                      cancel);
+                      statusTask == 2 ? endWorkText : startWorkText);
                 }).then((actionText) {
                 if (actionText == startWorkText) {
                   _setTaskState(endWork, red, red, red, white, 2);

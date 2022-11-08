@@ -36,7 +36,6 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
     GlobalKey<FormState>(),
     GlobalKey<FormState>(),
     GlobalKey<FormState>(),
-    GlobalKey<FormState>(),
     GlobalKey<FormState>()
   ];
 
@@ -557,7 +556,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                           1, TextInputType.number, km)
                                       : _buildInactiveTextField(
                                           _totalKM,
-                                          "km",
+                                          km,
                                         )),
                             )
                           ]),
@@ -703,7 +702,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                               ? 260
                                               : 220,
                                           child: empty
-                                              ? _valueTextFormBuild(3,
+                                              ? _valueTextFormBuild(2,
                                                   TextInputType.number, litre)
                                               : _buildInactiveTextField(
                                                   _diesel,
@@ -721,7 +720,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                               : 220,
                                           child: empty
                                               ? _valueTextFormBuild(
-                                                  4, TextInputType.number, rm)
+                                                  3, TextInputType.number, rm)
                                               : _buildInactiveTextField(
                                                   _rm,
                                                   rm,
@@ -736,14 +735,14 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                           height: 36,
                                           width: 220,
                                           child: _valueTextFormBuild(
-                                              3, TextInputType.number, litre)),
+                                              2, TextInputType.number, litre)),
                                       const SizedBox(height: 18),
                                       SizedBox(
                                           height: 36,
                                           width: 220,
                                           child: empty
                                               ? _valueTextFormBuild(
-                                                  4, TextInputType.number, rm)
+                                                  3, TextInputType.number, rm)
                                               : _buildInactiveTextField(
                                                   _rm,
                                                   rm,
@@ -904,7 +903,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                     : 220,
                                 child: empty
                                     ? _valueTextFormBuild(
-                                        5, TextInputType.number, "", false)
+                                        4, TextInputType.number, "", false)
                                     : _buildInactiveTextField(_rm, "", false),
                               ),
                             )
@@ -2727,6 +2726,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
     );
   }
 
+  /// Disabled Radio Button (fetch data from db)
   Row _buildInactiveRadio(String dbData, String yes, String no,
       [MainAxisAlignment? align = MainAxisAlignment.start]) {
     return Row(
@@ -2783,6 +2783,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
     );
   }
 
+  /// Value TextField (Card 2 ~ Card 3 input)
   Form _valueTextFormBuild(int idx, TextInputType type,
       [String? label = "", bool? icon = true]) {
     return Form(
@@ -2792,6 +2793,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
           keyboardType: type,
           textAlignVertical: TextAlignVertical.center,
           autovalidateMode: AutovalidateMode.onUserInteraction,
+          textInputAction: TextInputAction.next,
           maxLines: 1,
           inputFormatters: [LengthLimitingTextInputFormatter(10)],
           decoration: InputDecoration(
@@ -2848,6 +2850,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
         ));
   }
 
+  /// Catatan TextField
   TextField _textFieldBuild(int idx) {
     return TextField(
       key: _textKeys[idx],
@@ -2929,6 +2932,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
     ]);
   }
 
+  /// Disabled TextField for value in Card 2 & Card 3 input
   TextFormField _buildInactiveTextField(TextEditingController controller,
       [String? label = "", bool? icon = true]) {
     return TextFormField(
