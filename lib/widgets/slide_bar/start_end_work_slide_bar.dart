@@ -20,6 +20,7 @@ typedef StringCallback = void Function(String val);
 
 class StartEndWorkSlideBar extends StatefulWidget {
   final Laluan data;
+
   const StartEndWorkSlideBar({Key? key, required this.data}) : super(key: key);
 
   @override
@@ -49,7 +50,7 @@ class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
             : Sizes().screenWidth(context),
         controller: _controller,
         height: Orientations().isLandscape(context) ? 45 : 40,
-        toggleWidth: Orientations().isLandscape(context) ? 35.0 : 31,
+        toggleWidth: Orientations().isLandscape(context) ? 35 : 31,
         sliderBehavior: SliderBehavior.stretch,
         foregroundChild: Container(
             decoration: BoxDecoration(
@@ -115,8 +116,8 @@ class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
                   return showAlertDialog(
                       context,
                       confirmation,
-                      cancel,
                       statusTask == 2 ? confirmEndWork : confirmStartWork,
+                      cancel,
                       statusTask == 2 ? endWorkText : startWorkText);
                 }).then((actionText) {
                 if (actionText == startWorkText) {

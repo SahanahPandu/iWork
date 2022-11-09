@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../../../config/config.dart';
+import '../../../../config/font.dart';
 import '../../../../config/palette.dart';
-import '../../../../config/string.dart';
 import '../../../../models/laluan.dart';
 import '../../../../utils/device/orientations.dart';
 import '../../../../utils/icon/custom_icon.dart';
 import '../../../../widgets/slide_bar/start_end_work_slide_bar.dart';
+import '../../../container/status_container.dart';
 
 class CompactorPanelMyTaskListDetails extends StatefulWidget {
   final Laluan data;
@@ -52,6 +53,12 @@ class CompactorPanelMyTaskListDetailsState
                       fontWeight: FontWeight.w500),
                 ),
               ),
+              StatusContainer(
+                  type: "Laluan",
+                  status: widget.data.status,
+                  statusId: widget.data.idStatus,
+                  fontWeight: statusFontWeight)
+              /*
               Container(
                 decoration: BoxDecoration(
                   color: statusTask == 1
@@ -78,7 +85,7 @@ class CompactorPanelMyTaskListDetailsState
                     ),
                   ),
                 ),
-              ),
+              ),*/
             ],
           ),
           //No Kenderaan
@@ -262,7 +269,9 @@ class CompactorPanelMyTaskListDetailsState
                     left: 20, right: 20, top: 0, bottom: 20),
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[StartEndWorkSlideBar(data: widget.data)]))
+                    children: <Widget>[
+                      StartEndWorkSlideBar(data: widget.data)
+                    ]))
             : const SizedBox()
       ],
     );

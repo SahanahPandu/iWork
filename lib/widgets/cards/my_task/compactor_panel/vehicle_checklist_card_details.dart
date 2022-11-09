@@ -25,6 +25,8 @@ class _VehicleChecklistCardDetailsState
     extends State<VehicleChecklistCardDetails> {
   Color alterColorBefore = greyCustom;
   Color alterColorAfter = greyCustom;
+  Color buttonColor = greenCustom;
+  Color buttonTextColor = white;
 
   @override
   Widget build(BuildContext context) {
@@ -95,14 +97,18 @@ class _VehicleChecklistCardDetailsState
         ),
         Container(
           margin: tabletTaskCardMargin(context),
-          height: 40,
+          height: 42,
           width: 330,
           child: ElevatedButton(
             onPressed: () {
-              _navigateAndDisplaySelection(context);
+              if (completedFirstVc && !completedSecondVc) {
+                null;
+              } else {
+                _navigateAndDisplaySelection(context);
+              }
             },
             style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(greenCustom),
+              backgroundColor: MaterialStateProperty.all(buttonColor),
               elevation: MaterialStateProperty.all(0),
               overlayColor:
                   MaterialStateColor.resolveWith((states) => green800),
@@ -111,11 +117,12 @@ class _VehicleChecklistCardDetailsState
                   Size(Sizes().screenWidth(context), 40)),
               shape: MaterialStateProperty.all(
                 RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius: BorderRadius.circular(10),
                 ),
               ),
             ),
-            child: Text(vc, style: TextStyle(fontSize: 15, color: white)),
+            child: Text(vc,
+                style: TextStyle(fontSize: 15, color: buttonTextColor)),
           ),
         ),
       ],
@@ -139,6 +146,8 @@ class _VehicleChecklistCardDetailsState
       if (completedFirstVc && !completedSecondVc) {
         alterColorBefore = Colors.green;
         alterColorAfter = Colors.grey;
+        buttonColor = grey200;
+        buttonTextColor = grey400;
       } else if (completedFirstVc && completedSecondVc) {
         alterColorBefore = Colors.green;
         alterColorAfter = Colors.green;

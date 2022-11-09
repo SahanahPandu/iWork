@@ -13,7 +13,7 @@ String emptyPassword = 'Sila masukkan kata laluan anda';
 String scheduleList = 'Tugasan Saya';
 String todayTask = 'Tugasan Hari Ini';
 
-String taskIdle = 'Belum Dimulakan';
+String taskIdle = 'Belum Mula';
 String taskStarted = 'Sedang Bertugas';
 String taskEnded = 'Tugasan Selesai';
 String slidedStartTime = '';

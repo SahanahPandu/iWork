@@ -14,6 +14,7 @@ import '../../../utils/calendar/date.dart';
 import '../../../utils/device/orientations.dart';
 import '../../../utils/device/sizes.dart';
 import '../../../widgets/alert/alert_dialog.dart';
+import '../../../widgets/alert/lottie_alert_dialog.dart';
 import '../../../widgets/alert/toast.dart';
 import '../../../widgets/custom_scroll/custom_scroll.dart';
 
@@ -51,8 +52,8 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
   final _colorResult = List<Color>.generate(11, (index) => grey400);
 
   /// Container expand/collapse boolean
-  final formOpenFlag = List<bool>.generate(11, (index) => false);
-  bool formOpenFlagDefault = true;
+  final formExpandFlag = List<bool>.generate(11, (index) => false);
+  bool formExpandFlagDefault = true;
   bool _valid = false;
   bool empty = true;
   bool _incompleteRadioButton = false;
@@ -512,8 +513,8 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                       ? 260
                                       : 220,
                                   child: empty
-                                      ? _valueTextFormBuild(
-                                          0, TextInputType.number, km)
+                                      ? _valueTextFormBuild(0, _odoReader,
+                                          TextInputType.number, km)
                                       : _buildInactiveTextField(
                                           _odoReader,
                                           "km",
@@ -542,7 +543,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                       : 220,
                                   child: empty
                                       ? _valueTextFormBuild(
-                                          1, TextInputType.number, km)
+                                          1, _totalKM, TextInputType.number, km)
                                       : _buildInactiveTextField(
                                           _totalKM,
                                           km,
@@ -691,7 +692,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                               ? 260
                                               : 220,
                                           child: empty
-                                              ? _valueTextFormBuild(2,
+                                              ? _valueTextFormBuild(2, _diesel,
                                                   TextInputType.number, litre)
                                               : _buildInactiveTextField(
                                                   _diesel,
@@ -708,8 +709,8 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                               ? 260
                                               : 220,
                                           child: empty
-                                              ? _valueTextFormBuild(
-                                                  3, TextInputType.number, rm)
+                                              ? _valueTextFormBuild(3, _rm,
+                                                  TextInputType.number, rm)
                                               : _buildInactiveTextField(
                                                   _rm,
                                                   rm,
@@ -723,15 +724,20 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                       SizedBox(
                                           height: 36,
                                           width: 220,
-                                          child: _valueTextFormBuild(
-                                              2, TextInputType.number, litre)),
+                                          child: empty
+                                              ? _valueTextFormBuild(2, _diesel,
+                                                  TextInputType.number, litre)
+                                              : _buildInactiveTextField(
+                                                  _diesel,
+                                                  litre,
+                                                )),
                                       const SizedBox(height: 18),
                                       SizedBox(
                                           height: 36,
                                           width: 220,
                                           child: empty
-                                              ? _valueTextFormBuild(
-                                                  3, TextInputType.number, rm)
+                                              ? _valueTextFormBuild(3, _rm,
+                                                  TextInputType.number, rm)
                                               : _buildInactiveTextField(
                                                   _rm,
                                                   rm,
@@ -891,9 +897,9 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                     ? 260
                                     : 220,
                                 child: empty
-                                    ? _valueTextFormBuild(
-                                        4, TextInputType.number, "", false)
-                                    : _buildInactiveTextField(_rm, "", false),
+                                    ? _valueTextFormBuild(4, _kad,
+                                        TextInputType.number, "", false)
+                                    : _buildInactiveTextField(_kad, "", false),
                               ),
                             )
                           ]),
@@ -1062,12 +1068,12 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                     key: GlobalKey(),
                     tilePadding:
                         const EdgeInsets.symmetric(vertical: 5, horizontal: 25),
-                    initiallyExpanded: formOpenFlagDefault,
+                    initiallyExpanded: formExpandFlagDefault,
                     onExpansionChanged: (d) {
                       Timer(const Duration(milliseconds: 300), () {
                         setState(() {
-                          formOpenFlag[0] = !d;
-                          formOpenFlagDefault = d;
+                          formExpandFlag[0] = !d;
+                          formExpandFlagDefault = d;
                         });
                       });
                     },
@@ -1128,9 +1134,10 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                 onPressed: () {
                                   Timer(const Duration(milliseconds: 450), () {
                                     setState(() {
-                                      formOpenFlagDefault =
-                                          !formOpenFlagDefault;
-                                      formOpenFlag[0] = !formOpenFlagDefault;
+                                      formExpandFlagDefault =
+                                          !formExpandFlagDefault;
+                                      formExpandFlag[0] =
+                                          !formExpandFlagDefault;
                                     });
                                   });
                                 },
@@ -1165,12 +1172,12 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                         key: GlobalKey(),
                         tilePadding: const EdgeInsets.symmetric(
                             vertical: 5, horizontal: 25),
-                        initiallyExpanded: formOpenFlag[0],
+                        initiallyExpanded: formExpandFlag[0],
                         onExpansionChanged: (d) {
                           Timer(const Duration(milliseconds: 300), () {
                             setState(() {
-                              formOpenFlagDefault = !d;
-                              formOpenFlag[0] = d;
+                              formExpandFlagDefault = !d;
+                              formExpandFlag[0] = d;
                             });
                           });
                         },
@@ -1255,8 +1262,8 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                                 const Duration(
                                                     milliseconds: 450), () {
                                               setState(() {
-                                                formOpenFlagDefault = true;
-                                                formOpenFlag[0] = false;
+                                                formExpandFlagDefault = true;
+                                                formExpandFlag[0] = false;
                                               });
                                             });
                                           },
@@ -1286,8 +1293,8 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                                 const Duration(
                                                     milliseconds: 450), () {
                                               setState(() {
-                                                formOpenFlag[0] = false;
-                                                formOpenFlag[1] = true;
+                                                formExpandFlag[0] = false;
+                                                formExpandFlag[1] = true;
                                               });
                                             });
                                           },
@@ -1319,12 +1326,12 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                         key: GlobalKey(),
                         tilePadding: const EdgeInsets.symmetric(
                             vertical: 5, horizontal: 25),
-                        initiallyExpanded: formOpenFlag[1],
+                        initiallyExpanded: formExpandFlag[1],
                         onExpansionChanged: (d) {
                           Timer(const Duration(milliseconds: 350), () {
                             setState(() {
-                              formOpenFlag[0] = !d;
-                              formOpenFlag[1] = d;
+                              formExpandFlag[0] = !d;
+                              formExpandFlag[1] = d;
                             });
                           });
                         },
@@ -1416,8 +1423,8 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                               const Duration(milliseconds: 450),
                                               () {
                                             setState(() {
-                                              formOpenFlag[0] = true;
-                                              formOpenFlag[1] = false;
+                                              formExpandFlag[0] = true;
+                                              formExpandFlag[1] = false;
                                             });
                                           });
                                         },
@@ -1447,9 +1454,9 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                               const Duration(milliseconds: 450),
                                               () {
                                             setState(() {
-                                              formOpenFlag[1] =
-                                                  !formOpenFlag[1];
-                                              formOpenFlag[2] = true;
+                                              formExpandFlag[1] =
+                                                  !formExpandFlag[1];
+                                              formExpandFlag[2] = true;
                                             });
                                           });
                                         },
@@ -1480,12 +1487,12 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                         key: GlobalKey(),
                         tilePadding: const EdgeInsets.symmetric(
                             vertical: 5, horizontal: 25),
-                        initiallyExpanded: formOpenFlag[2],
+                        initiallyExpanded: formExpandFlag[2],
                         onExpansionChanged: (d) {
                           Timer(const Duration(milliseconds: 350), () {
                             setState(() {
-                              formOpenFlag[1] = !d;
-                              formOpenFlag[2] = d;
+                              formExpandFlag[1] = !d;
+                              formExpandFlag[2] = d;
                             });
                           });
                         },
@@ -1586,8 +1593,8 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                               const Duration(milliseconds: 450),
                                               () {
                                             setState(() {
-                                              formOpenFlag[1] = true;
-                                              formOpenFlag[2] = false;
+                                              formExpandFlag[1] = true;
+                                              formExpandFlag[2] = false;
                                             });
                                           });
                                         },
@@ -1617,9 +1624,9 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                               const Duration(milliseconds: 450),
                                               () {
                                             setState(() {
-                                              formOpenFlag[2] =
-                                                  !formOpenFlag[2];
-                                              formOpenFlag[3] = true;
+                                              formExpandFlag[2] =
+                                                  !formExpandFlag[2];
+                                              formExpandFlag[3] = true;
                                             });
                                           });
                                         },
@@ -1650,12 +1657,12 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                         key: GlobalKey(),
                         tilePadding: const EdgeInsets.symmetric(
                             vertical: 5, horizontal: 25),
-                        initiallyExpanded: formOpenFlag[3],
+                        initiallyExpanded: formExpandFlag[3],
                         onExpansionChanged: (d) {
                           Timer(const Duration(milliseconds: 350), () {
                             setState(() {
-                              formOpenFlag[2] = !d;
-                              formOpenFlag[3] = d;
+                              formExpandFlag[2] = !d;
+                              formExpandFlag[3] = d;
                             });
                           });
                         },
@@ -1817,8 +1824,8 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                               const Duration(milliseconds: 450),
                                               () {
                                             setState(() {
-                                              formOpenFlag[2] = true;
-                                              formOpenFlag[3] = false;
+                                              formExpandFlag[2] = true;
+                                              formExpandFlag[3] = false;
                                             });
                                           });
                                         },
@@ -1848,9 +1855,9 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                               const Duration(milliseconds: 450),
                                               () {
                                             setState(() {
-                                              formOpenFlag[3] =
-                                                  !formOpenFlag[3];
-                                              formOpenFlag[4] = true;
+                                              formExpandFlag[3] =
+                                                  !formExpandFlag[3];
+                                              formExpandFlag[4] = true;
                                             });
                                           });
                                         },
@@ -1881,12 +1888,12 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                         key: GlobalKey(),
                         tilePadding: const EdgeInsets.symmetric(
                             vertical: 5, horizontal: 25),
-                        initiallyExpanded: formOpenFlag[4],
+                        initiallyExpanded: formExpandFlag[4],
                         onExpansionChanged: (d) {
                           Timer(const Duration(milliseconds: 350), () {
                             setState(() {
-                              formOpenFlag[3] = !d;
-                              formOpenFlag[4] = d;
+                              formExpandFlag[3] = !d;
+                              formExpandFlag[4] = d;
                             });
                           });
                         },
@@ -1960,8 +1967,8 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                               const Duration(milliseconds: 450),
                                               () {
                                             setState(() {
-                                              formOpenFlag[3] = true;
-                                              formOpenFlag[4] = false;
+                                              formExpandFlag[3] = true;
+                                              formExpandFlag[4] = false;
                                             });
                                           });
                                         },
@@ -1991,9 +1998,9 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                               const Duration(milliseconds: 450),
                                               () {
                                             setState(() {
-                                              formOpenFlag[4] =
-                                                  !formOpenFlag[4];
-                                              formOpenFlag[5] = true;
+                                              formExpandFlag[4] =
+                                                  !formExpandFlag[4];
+                                              formExpandFlag[5] = true;
                                             });
                                           });
                                         },
@@ -2024,12 +2031,12 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                         key: GlobalKey(),
                         tilePadding: const EdgeInsets.symmetric(
                             vertical: 5, horizontal: 25),
-                        initiallyExpanded: formOpenFlag[5],
+                        initiallyExpanded: formExpandFlag[5],
                         onExpansionChanged: (d) {
                           Timer(const Duration(milliseconds: 350), () {
                             setState(() {
-                              formOpenFlag[4] = !d;
-                              formOpenFlag[5] = d;
+                              formExpandFlag[4] = !d;
+                              formExpandFlag[5] = d;
                             });
                           });
                         },
@@ -2109,8 +2116,8 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                               const Duration(milliseconds: 450),
                                               () {
                                             setState(() {
-                                              formOpenFlag[4] = true;
-                                              formOpenFlag[5] = false;
+                                              formExpandFlag[4] = true;
+                                              formExpandFlag[5] = false;
                                             });
                                           });
                                         },
@@ -2140,9 +2147,9 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                               const Duration(milliseconds: 450),
                                               () {
                                             setState(() {
-                                              formOpenFlag[5] =
-                                                  !formOpenFlag[5];
-                                              formOpenFlag[6] = true;
+                                              formExpandFlag[5] =
+                                                  !formExpandFlag[5];
+                                              formExpandFlag[6] = true;
                                             });
                                           });
                                         },
@@ -2173,12 +2180,12 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                         key: GlobalKey(),
                         tilePadding: const EdgeInsets.symmetric(
                             vertical: 5, horizontal: 25),
-                        initiallyExpanded: formOpenFlag[6],
+                        initiallyExpanded: formExpandFlag[6],
                         onExpansionChanged: (d) {
                           Timer(const Duration(milliseconds: 350), () {
                             setState(() {
-                              formOpenFlag[5] = !d;
-                              formOpenFlag[6] = d;
+                              formExpandFlag[5] = !d;
+                              formExpandFlag[6] = d;
                             });
                           });
                         },
@@ -2256,8 +2263,8 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                               const Duration(milliseconds: 450),
                                               () {
                                             setState(() {
-                                              formOpenFlag[5] = true;
-                                              formOpenFlag[6] = false;
+                                              formExpandFlag[5] = true;
+                                              formExpandFlag[6] = false;
                                             });
                                           });
                                         },
@@ -2287,9 +2294,9 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                               const Duration(milliseconds: 450),
                                               () {
                                             setState(() {
-                                              formOpenFlag[6] =
-                                                  !formOpenFlag[6];
-                                              formOpenFlag[7] = true;
+                                              formExpandFlag[6] =
+                                                  !formExpandFlag[6];
+                                              formExpandFlag[7] = true;
                                             });
                                           });
                                         },
@@ -2320,12 +2327,12 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                         key: GlobalKey(),
                         tilePadding: const EdgeInsets.symmetric(
                             vertical: 5, horizontal: 25),
-                        initiallyExpanded: formOpenFlag[7],
+                        initiallyExpanded: formExpandFlag[7],
                         onExpansionChanged: (d) {
                           Timer(const Duration(milliseconds: 350), () {
                             setState(() {
-                              formOpenFlag[6] = !d;
-                              formOpenFlag[7] = d;
+                              formExpandFlag[6] = !d;
+                              formExpandFlag[7] = d;
                             });
                           });
                         },
@@ -2410,8 +2417,8 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                               const Duration(milliseconds: 450),
                                               () {
                                             setState(() {
-                                              formOpenFlag[6] = true;
-                                              formOpenFlag[7] = false;
+                                              formExpandFlag[6] = true;
+                                              formExpandFlag[7] = false;
                                             });
                                           });
                                         },
@@ -2441,9 +2448,9 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                               const Duration(milliseconds: 450),
                                               () {
                                             setState(() {
-                                              formOpenFlag[7] =
-                                                  !formOpenFlag[7];
-                                              formOpenFlag[8] = true;
+                                              formExpandFlag[7] =
+                                                  !formExpandFlag[7];
+                                              formExpandFlag[8] = true;
                                             });
                                           });
                                         },
@@ -2474,12 +2481,12 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                         key: GlobalKey(),
                         tilePadding: const EdgeInsets.symmetric(
                             vertical: 5, horizontal: 25),
-                        initiallyExpanded: formOpenFlag[8],
+                        initiallyExpanded: formExpandFlag[8],
                         onExpansionChanged: (d) {
                           Timer(const Duration(milliseconds: 350), () {
                             setState(() {
-                              formOpenFlag[7] = !d;
-                              formOpenFlag[8] = d;
+                              formExpandFlag[7] = !d;
+                              formExpandFlag[8] = d;
                             });
                           });
                         },
@@ -2556,8 +2563,8 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                               const Duration(milliseconds: 450),
                                               () {
                                             setState(() {
-                                              formOpenFlag[7] = true;
-                                              formOpenFlag[8] = false;
+                                              formExpandFlag[7] = true;
+                                              formExpandFlag[8] = false;
                                             });
                                           });
                                         },
@@ -2587,9 +2594,9 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                               const Duration(milliseconds: 450),
                                               () {
                                             setState(() {
-                                              formOpenFlag[8] =
-                                                  !formOpenFlag[8];
-                                              formOpenFlag[9] = true;
+                                              formExpandFlag[8] =
+                                                  !formExpandFlag[8];
+                                              formExpandFlag[9] = true;
                                             });
                                           });
                                         },
@@ -2620,12 +2627,12 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                         key: GlobalKey(),
                         tilePadding: const EdgeInsets.symmetric(
                             vertical: 5, horizontal: 25),
-                        initiallyExpanded: formOpenFlag[9],
+                        initiallyExpanded: formExpandFlag[9],
                         onExpansionChanged: (d) {
                           Timer(const Duration(milliseconds: 350), () {
                             setState(() {
-                              formOpenFlag[8] = !d;
-                              formOpenFlag[9] = d;
+                              formExpandFlag[8] = !d;
+                              formExpandFlag[9] = d;
                             });
                           });
                         },
@@ -2703,8 +2710,8 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                               const Duration(milliseconds: 450),
                                               () {
                                             setState(() {
-                                              formOpenFlag[8] = true;
-                                              formOpenFlag[9] = false;
+                                              formExpandFlag[8] = true;
+                                              formExpandFlag[9] = false;
                                             });
                                           });
                                         },
@@ -2802,12 +2809,15 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
   }
 
   /// Value TextField (Card 2 ~ Card 3 input)
-  Form _valueTextFormBuild(int idx, TextInputType type,
+  Form _valueTextFormBuild(
+      int idx, TextEditingController controller, TextInputType type,
       [String? label = "", bool? icon = true]) {
     return Form(
         key: _valueKey[idx],
         child: TextFormField(
+          controller: controller,
           cursorColor: greenCustom,
+          cursorWidth: 1.2,
           keyboardType: type,
           textAlignVertical: TextAlignVertical.center,
           autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -2847,16 +2857,23 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                       height: Orientations().isLandscape(context) ? 40 : 36),
               errorStyle: const TextStyle(height: 0),
               focusColor: green,
+              errorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(borderRadiusCircular),
+                  borderSide: BorderSide(width: 0.8, color: redCustom)),
               enabledBorder: OutlineInputBorder(
-                  borderRadius: const BorderRadius.all(Radius.circular(4)),
-                  borderSide: BorderSide(width: 1, color: borderTextColor)),
+                  borderRadius: BorderRadius.circular(borderRadiusCircular),
+                  borderSide: BorderSide(
+                      width: 0.8,
+                      color: controller.text == ""
+                          ? borderTextColor
+                          : greenCustom)),
               border: const OutlineInputBorder(),
               focusedErrorBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: greenCustom),
+                borderSide: BorderSide(width: 0.8, color: greenCustom),
                 borderRadius: BorderRadius.circular(borderRadiusCircular),
               ),
               focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: greenCustom),
+                borderSide: BorderSide(width: 0.8, color: greenCustom),
                 borderRadius: BorderRadius.circular(borderRadiusCircular),
               )),
           validator: (value) {
@@ -2875,20 +2892,26 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
       child: TextField(
         controller: _remarkController[idx],
         maxLines: 5,
-        cursorColor: green,
+        cursorWidth: 1.2,
+        cursorColor: greenCustom,
         keyboardType: TextInputType.text,
         textInputAction: TextInputAction.done,
         onSubmitted: (value) {
           _remarkController[idx].text = value.toString();
         },
         decoration: InputDecoration(
-            focusColor: green,
+            contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+            focusColor: greenCustom,
             enabledBorder: OutlineInputBorder(
-                borderRadius: const BorderRadius.all(Radius.circular(5)),
-                borderSide: BorderSide(width: 1, color: grey300)),
+                borderRadius: BorderRadius.circular(borderRadiusCircular),
+                borderSide: BorderSide(
+                    width: 0.8,
+                    color: _remarkController[idx].text == ""
+                        ? borderTextColor
+                        : greenCustom)),
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: green),
-              borderRadius: BorderRadius.circular(5),
+              borderSide: BorderSide(color: greenCustom),
+              borderRadius: BorderRadius.circular(borderRadiusCircular),
             ),
             labelText: 'Catatan',
             alignLabelWithHint: true,
@@ -3088,20 +3111,27 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
             return showAlertDialog(
                 context,
                 confirmation,
-                "Hantar semakan kenderaan sekarang? Pastikan maklumat diisi adalah betul.",
+                widget.before
+                    ? Orientations().isTabletPortrait(context)
+                        ? "Hantar borang semakan kenderaan sekarang (sebelum keluar) sekarang? Pastikan maklumat yang diisi adalah tepat."
+                        : "Hantar borang semakan kenderaan sekarang (sebelum \nkeluar) sekarang? Pastikan maklumat yang diisi \nadalah tepat."
+                    : Orientations().isTabletPortrait(context)
+                        ? "Hantar borang semakan kenderaan sekarang (selepas balik) sekarang? Pastikan maklumat yang diisi adalah tepat."
+                        : "Hantar borang semakan kenderaan sekarang (selepas \nbalik) sekarang? Pastikan maklumat yang diisi \nadalah tepat.",
                 cancel,
-                yes);
+                submit);
           }).then((actionText) {
-        if (actionText == yes) {
+        if (actionText == submit) {
           if (completedFirstVc && !completedSecondVc) {
             completedSecondVc = true;
           }
           completedFirstVc = true;
-          showSuccessToast(context,
-              "Borang semakan kenderaan berjaya dihantar kepada penyelia anda!");
-          Future.delayed(const Duration(seconds: 3), () {
-            Navigator.pop(context, 'refresh');
-          });
+          Navigator.pop(context, true);
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return showLottieAlertDialog(context, _textBuilder(), null);
+              });
         }
       });
     } else {
@@ -3109,5 +3139,18 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
       showErrorToast(
           context, "Sila isikan borang semakan kenderaan sebelum dihantar");
     }
+  }
+
+  Text _textBuilder() {
+    return Text(
+        widget.before
+            ? "Borang semakan kenderaan (sebelum keluar) telah berjaya \n dihantar kepada Penyelia untuk disemak."
+            : "Borang semakan kenderaan (selepas balik) telah berjaya \n dihantar kepada Penyelia untuk disemak.",
+        textAlign: TextAlign.center,
+        style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.w400,
+            color: greyCustom,
+            height: 1.5));
   }
 }

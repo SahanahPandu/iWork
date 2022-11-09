@@ -13,8 +13,8 @@ double borderRadiusCircular = 4;
 
 EdgeInsets tabletTaskCardMargin(BuildContext context) =>
     Orientations().isLandscape(context)
-        ? const EdgeInsets.only(bottom: 15)
-        : const EdgeInsets.only(bottom: 15, left: 15, right: 15);
+        ? const EdgeInsets.only(bottom: 20)
+        : const EdgeInsets.only(bottom: 20, left: 20, right: 20);
 
 double gridRatio(BuildContext context) =>
     Orientations().isLandscape(context) ? 1.72 : 1.155;

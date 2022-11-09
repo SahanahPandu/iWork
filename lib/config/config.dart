@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 /// * GLOBAL VARIABLE LIST
 /// ** Task **
-/// '1' = belum dimulakan
+/// '1' = belum mula
 /// '2' = sedang bertugas
 /// '3' = tugasan selesai'
 int statusTask = 1;
