@@ -34,3 +34,6 @@ ValueNotifier<bool> button = ValueNotifier(true);
 
 /// ** Select All Button **
 ValueNotifier <bool> allSelected = ValueNotifier(false);
+
+/// ** Schedule & Vehicle Checklist Status **
+ValueNotifier <int> scheduleVcStatus = ValueNotifier(0);

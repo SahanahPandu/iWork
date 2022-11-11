@@ -1,3 +1,4 @@
+/// Will enable app connectivity checking once app is integrated with server
 import 'dart:async';
 import 'dart:io';
 

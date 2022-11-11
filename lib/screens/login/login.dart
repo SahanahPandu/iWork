@@ -7,10 +7,9 @@ import '../../config/palette.dart';
 import '../../config/resource.dart';
 import '../../config/string.dart';
 import '../../utils/authentication/auth.dart';
-import '../../utils/icon/custom_icon.dart';
 import '../../utils/device/devices.dart';
 import '../../utils/device/sizes.dart';
-import '../../utils/device/uuid.dart';
+import '../../utils/icon/custom_icon.dart';
 import '../../widgets/alert/snackbar.dart';
 import '../../widgets/alert/toast.dart';
 
@@ -34,7 +33,9 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     _pageController = PageController();
-    Uuid().getDeviceIdentifier();
+    // Uuid().getDeviceIdentifier();
+    //  LoginApi.authenticateUser('BLQ3994', '12345678', '3',
+    //    'FVGUibeseiuwgh98w4t3042ut0jc!2@xhtr4pldqn--10');
     super.initState();
   }
 

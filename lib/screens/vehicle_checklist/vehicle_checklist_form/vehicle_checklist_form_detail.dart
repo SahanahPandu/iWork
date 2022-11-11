@@ -2856,7 +2856,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                   : SizedBox(
                       height: Orientations().isLandscape(context) ? 40 : 36),
               errorStyle: const TextStyle(height: 0),
-              focusColor: green,
+              focusColor: greenCustom,
               errorBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(borderRadiusCircular),
                   borderSide: BorderSide(width: 0.8, color: redCustom)),
@@ -2900,7 +2900,8 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
           _remarkController[idx].text = value.toString();
         },
         decoration: InputDecoration(
-            contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+            contentPadding:
+                const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
             focusColor: greenCustom,
             enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(borderRadiusCircular),

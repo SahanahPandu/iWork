@@ -33,6 +33,16 @@ class _CompactorTaskListState extends State<CompactorTaskList> {
     _loadVcData = VehicleChecklistApi.getVehicleChecklistData(context);
   }
 
+  /// --------------------------------------------------------------------------------------------
+  ///  CONDITION    ||        VC                        ||        Schedule
+  /// --------------------------------------------------------------------------------------------
+  ///     0         ||    Null                          ||    Null
+  ///     1         ||    Not started                   ||    Not started
+  ///     2         ||    Done Before VC (In Progress)  ||    Not started
+  ///     3         ||    Done Before VC (In Progress)  ||    In progress (slided start work)
+  ///     4         ||    Done Before VC (In progress)  ||    Completed (slided start & end work)
+  ///     5         ||    Done Before & After VC (Done) ||    Completed (slided start & end work)
+  /// --------------------------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List>(
@@ -116,23 +126,22 @@ class _CompactorTaskListState extends State<CompactorTaskList> {
   //------------------------------------------------------
   // Build card details for vc/tasks.
   //------------------------------------------------------
-  SizedBox buildTabletCard(redirect) {
-    return SizedBox(
-        child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: white,
-                    boxShadow: [
-                      BoxShadow(
-                          color: cardListShadowColor.withOpacity(0.06),
-                          offset: const Offset(0, 2),
-                          blurRadius: 12,
-                          spreadRadius: 0.5)
-                    ]),
-                child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 6),
-                    child: redirect))));
+  Padding buildTabletCard(redirect) {
+    return Padding(
+        padding: const EdgeInsets.all(10),
+        child: Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: white,
+                boxShadow: [
+                  BoxShadow(
+                      color: cardListShadowColor.withOpacity(0.06),
+                      offset: const Offset(0, 2),
+                      blurRadius: 12,
+                      spreadRadius: 0.5)
+                ]),
+            child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 6),
+                child: redirect)));
   }
 }
