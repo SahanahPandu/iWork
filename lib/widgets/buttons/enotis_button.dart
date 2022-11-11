@@ -1,12 +1,16 @@
 import 'dart:async';
-import 'package:eswm/config/string.dart';
-import 'package:flutter/material.dart';
 
-import 'package:eswm/utils/device.dart';
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+//import files
 import '../../config/dimen.dart';
 import '../../config/palette.dart';
-import '../../utils/date.dart';
+import '../../config/string.dart';
+import '../../utils/calendar/date.dart';
+import '../../utils/device/sizes.dart';
 import '../alert/alert_dialog.dart';
+import '../alert/lottie_alert_dialog.dart';
 
 class ENotisButton extends StatefulWidget {
   const ENotisButton({Key? key}) : super(key: key);
@@ -19,17 +23,16 @@ class _ENotisButtonState extends State<ENotisButton>
     with TickerProviderStateMixin {
   double _scaleText = 1;
   late AnimationController _controllerText;
-  final Devices _device = Devices();
   String todayDate = Date.getTodayDate();
 
   @override
   void initState() {
     _controllerText = AnimationController(
       vsync: this,
-      lowerBound: 0.97,
+      lowerBound: 0.96,
       upperBound: 1,
       value: 1,
-      duration: const Duration(milliseconds: 200),
+      duration: const Duration(milliseconds: 300),
     );
     _controllerText.addListener(() {
       setState(() {
@@ -38,7 +41,7 @@ class _ENotisButtonState extends State<ENotisButton>
     });
     super.initState();
   }
-  
+
   @override
   void dispose() {
     _controllerText.dispose();
@@ -48,12 +51,16 @@ class _ENotisButtonState extends State<ENotisButton>
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: _device.screenWidth(context) * (buttonEcutiWidth(context)),
-      height: _device.screenHeight(context) * (buttonHeight(context)),
+      width: Sizes().screenWidth(context) * (buttonEcutiWidth(context)),
+      height: Sizes().screenHeight(context) * (buttonHeight(context)),
       child: GestureDetector(
         behavior: HitTestBehavior.translucent,
         onTap: () {
-          _controllerText.reverse();
+          if (_controllerText.isCompleted) {
+            _controllerText.reverse();
+          } else {
+            _controllerText.forward(from: 0.5);
+          }
           showDialog(
               context: context,
               builder: (BuildContext context) {
@@ -65,7 +72,16 @@ class _ENotisButtonState extends State<ENotisButton>
                     yes);
               }).then((actionText) {
             if (actionText == yes) {
-              // Navigator.pop(context);
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return showLottieAlertDialog(context, _textBuilder(), null);
+                  });
+              // Navigator.push(
+              //     context,
+              //     PageTransition(
+              //         child: CustomDialog(text: _textBuilder()),
+              //         type: PageTransitionType.fade));
             }
           });
         },
@@ -103,5 +119,30 @@ class _ENotisButtonState extends State<ENotisButton>
         ),
       ),
     );
+  }
+
+  RichText _textBuilder() {
+    return RichText(
+        textAlign: TextAlign.center,
+        text: TextSpan(
+            text: "Peringatan e-Notis anda pada \n",
+            style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w400,
+                color: greyCustom,
+                height: 1.5),
+            children: <TextSpan>[
+              TextSpan(
+                  text:
+                      " ${DateFormat("dd MMMM yyyy", 'ms').format(DateTime.now())}",
+                  style: TextStyle(
+                      fontSize: 15, fontWeight: FontWeight.w400, color: green)),
+              TextSpan(
+                  text: " berjaya dihantar kepada BA",
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      color: greyCustom))
+            ]));
   }
 }

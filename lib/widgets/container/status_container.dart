@@ -1,28 +1,29 @@
-// ignore_for_file: must_be_immutable
-import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/material.dart';
 
 //import files
-import 'package:eswm/config/palette.dart';
+import '../../config/palette.dart';
 
 class StatusContainer extends StatefulWidget {
-  String type;
+  final String type;
 
   //Color boxColor;
-  String status;
-  int statusId;
+  final String status;
+  final int statusId;
 
   //Color textColor;
-  FontWeight fontWeight;
+  final FontWeight fontWeight;
+  final bool? roundedCorner;
 
-  StatusContainer(
+  const StatusContainer(
       {Key? key,
       required this.type,
       // required this.boxColor,
       required this.status,
       required this.statusId,
       // required this.textColor,
-      required this.fontWeight})
+      required this.fontWeight,
+      this.roundedCorner = false})
       : super(key: key);
 
   @override
@@ -49,7 +50,8 @@ class _StatusContainerState extends State<StatusContainer> {
       }
     } else if (widget.type == "Cuti") {
       if (widget.statusId == 1) {
-        //Dalam Proses
+        //Dalam Proses (PRA)
+        //Baru (SV)
         // textColor = blueStatusText;
         // boxColor = blueStatusBox;
         textColor = orangeStatusText;
@@ -69,13 +71,17 @@ class _StatusContainerState extends State<StatusContainer> {
       }
     } else if (widget.type == "Laporan") {
       if (widget.statusId == 1) {
-        //Baharu
-        textColor = blueStatusText;
-        boxColor = blueStatusBox;
-      } else if (widget.statusId == 2 || widget.statusId == 4) {
-        //Diterima SV || Disahkan BA
+        //Dalam Proses
+        // textColor = blueStatusText;
+        // boxColor = blueStatusBox;
         textColor = orangeStatusText;
         boxColor = orangeStatusBox;
+      } else if (widget.statusId == 2 || widget.statusId == 4) {
+        //Diterima SV || Disahkan BA
+        // textColor = orangeStatusText;
+        // boxColor = orangeStatusBox;
+        textColor = greenStatusText;
+        boxColor = greenStatusBox;
       } else if (widget.statusId == 3 || widget.statusId == 5) {
         //Ditolak SV || Ditolak BA
         textColor = redStatusText;
@@ -96,16 +102,20 @@ class _StatusContainerState extends State<StatusContainer> {
 
         textColor = greenStatusText;
         boxColor = greenStatusBox;
+      } else if (widget.statusId == 3) {
+        //Tunda
+        textColor = redStatusText;
+        boxColor = redStatusBox;
       }
     } else if (widget.type == "Akbk") {
       if (widget.statusId == 1) {
-        //Baharu
-        textColor = blueStatusText;
-        boxColor = blueStatusBox;
-      } else if (widget.statusId == 2) {
-        //Dalam Proses
+        //Baru
         textColor = orangeStatusText;
         boxColor = orangeStatusBox;
+      } else if (widget.statusId == 2) {
+        //Dalam Proses
+        textColor = blueStatusText;
+        boxColor = blueStatusBox;
       } else if (widget.statusId == 3) {
         //Selesai
         textColor = greenStatusText;
@@ -114,9 +124,13 @@ class _StatusContainerState extends State<StatusContainer> {
     } else if (widget.type == "vc") {
       if (widget.statusId == 1) {
         //Baharu
+        textColor = orangeStatusText;
+        boxColor = orangeStatusBox;
+      } else if (widget.statusId == 2) {
+        //Sedang bertugas
         textColor = blueStatusText;
         boxColor = blueStatusBox;
-      } else if (widget.statusId == 2) {
+      } else if (widget.statusId == 3) {
         //Selesai
         textColor = greenStatusText;
         boxColor = greenStatusBox;
@@ -151,13 +165,17 @@ class _StatusContainerState extends State<StatusContainer> {
       child: FittedBox(
         fit: BoxFit.contain,
         child: Container(
-          padding: const EdgeInsets.all(8),
+          padding: widget.roundedCorner!
+              ? const EdgeInsets.all(6)
+              : const EdgeInsets.all(8),
           decoration: BoxDecoration(
             color: statusBoxColor,
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(6),
-              bottomLeft: Radius.circular(6),
-            ),
+            borderRadius: widget.roundedCorner!
+                ? BorderRadius.circular(6)
+                : const BorderRadius.only(
+                    topLeft: Radius.circular(6),
+                    bottomLeft: Radius.circular(6),
+                  ),
           ),
           child: AutoSizeText(
             widget.status,

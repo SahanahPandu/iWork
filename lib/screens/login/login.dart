@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+//import files
 import '../../config/dimen.dart';
-import '../../config/string.dart';
 import '../../config/palette.dart';
 import '../../config/resource.dart';
+import '../../config/string.dart';
 import '../../utils/authentication/auth.dart';
-import '../../utils/custom_icon.dart';
-import '../../utils/device.dart';
-import '../../widgets/alert/toast.dart';
+import '../../utils/device/devices.dart';
+import '../../utils/device/sizes.dart';
+import '../../utils/icon/custom_icon.dart';
 import '../../widgets/alert/snackbar.dart';
+import '../../widgets/alert/toast.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -20,7 +22,6 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final Devices _device = Devices();
   late PageController _pageController;
   final List<String> _images = [sliderImg_1, sliderImg_2, sliderImg_3];
 
@@ -32,6 +33,9 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     _pageController = PageController();
+    // Uuid().getDeviceIdentifier();
+    //  LoginApi.authenticateUser('BLQ3994', '12345678', '3',
+    //    'FVGUibeseiuwgh98w4t3042ut0jc!2@xhtr4pldqn--10');
     super.initState();
   }
 
@@ -64,10 +68,14 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Column(
         children: <Widget>[
           _buildSliderColumn(context),
-          _buildSpace(context, 0.03),
+          Devices().isPhone()
+              ? _buildSpace(context, 0.03)
+              : _buildSpace(context, 0.025),
           _buildForm(context),
           _forgotPasswordButton(),
-          _buildSpace(context, 0.01),
+          Devices().isPhone()
+              ? _buildSpace(context, 0.01)
+              : _buildSpace(context, 0.005),
           _loginButton(context),
         ],
       ),
@@ -78,8 +86,8 @@ class _LoginScreenState extends State<LoginScreen> {
     return Column(
       children: [
         SizedBox(
-          width: _device.screenWidth(context),
-          height: sliderSize(context),
+          width: Sizes().screenWidth(context),
+          height: sliderHeight(context),
           child: ScrollConfiguration(
             behavior:
                 const MaterialScrollBehavior().copyWith(overscroll: false),
@@ -100,7 +108,9 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         Center(
           child: Text(
-            "Lakukan tugasan dengan mudah \n melalui aplikasi",
+            Devices().isPhone()
+                ? "Lakukan tugasan dengan mudah \n melalui aplikasi"
+                : "Lakukan tugasan dengan mudah melalui aplikasi",
             textAlign: TextAlign.center,
             style: TextStyle(
                 fontSize: 15,
@@ -111,7 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         Center(
           child: Padding(
-            padding: const EdgeInsets.only(top: 10, bottom: 10),
+            padding: const EdgeInsets.only(top: 8, bottom: 8),
             child: Text(
               "Mula guna iWork",
               textAlign: TextAlign.center,
@@ -137,36 +147,15 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-/*_imageAnimation(PageController animation, images, pagePosition) {
-    return AnimatedBuilder(
-      animation: animation,
-      builder: (context, widget) {
-        return SizedBox(
-          width: 200,
-          height: 200,
-          child: widget,
-        );
-      },
-      child: Column(
-        children: [
-          Container(
-            margin: const EdgeInsets.all(10),
-            child: Image.asset(images[pagePosition]),
-          ),
-        ],
-      ),
-    );
-  }*/
-
   SmoothPageIndicator _indicators(imagesLength, currentIndex) {
     return SmoothPageIndicator(
         controller: _pageController,
         count: imagesLength,
         effect: WormEffect(
-            dotHeight: 8,
-            dotWidth: 8,
+            dotHeight: Devices().isPhone() ? 8 : 9,
+            dotWidth: Devices().isPhone() ? 8 : 9,
             dotColor: grey200,
-            activeDotColor: green),
+            activeDotColor: greenCustom),
         onDotClicked: (currentIndex) {});
   }
 
@@ -179,7 +168,7 @@ class _LoginScreenState extends State<LoginScreen> {
         key: _formKey,
         child: Column(
           children: <Widget>[
-            _idBox(_device.isTablet() ? compactorID : staffID),
+            _idBox(Devices().isTablet() ? compactorID : staffID),
             _buildSpace(context, 0.03),
             _passwordBox(),
           ],
@@ -190,7 +179,8 @@ class _LoginScreenState extends State<LoginScreen> {
     return SizedBox(
       child: TextFormField(
         textInputAction: TextInputAction.next,
-        cursorColor: green,
+        cursorColor: greenCustom,
+        cursorWidth: 1.2,
         onSaved: (value) {
           _userIdInput = value!;
         },
@@ -205,22 +195,22 @@ class _LoginScreenState extends State<LoginScreen> {
             hintMaxLines: 1,
             filled: true,
             fillColor: white,
-            focusColor: green,
+            focusColor: greenCustom,
             isDense: true,
             border: const OutlineInputBorder(),
             errorStyle: const TextStyle(fontSize: 10, height: 0.3),
             errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
-                borderSide: BorderSide(color: red)),
+                borderSide: BorderSide(color: red, width: 0.5)),
             focusedErrorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
-                borderSide: BorderSide(color: green)),
+                borderSide: BorderSide(color: greenCustom, width: 0.5)),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: borderTextColor),
+              borderSide: BorderSide(color: borderTextColor, width: 0.8),
             ),
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: green),
+              borderSide: BorderSide(color: greenCustom, width: 0.5),
               borderRadius: BorderRadius.circular(8),
             ),
             labelStyle: TextStyle(
@@ -234,7 +224,8 @@ class _LoginScreenState extends State<LoginScreen> {
     return SizedBox(
       child: TextFormField(
         textInputAction: TextInputAction.done,
-        cursorColor: green,
+        cursorColor: greenCustom,
+        cursorWidth: 1.2,
         obscureText: _isObscure,
         onSaved: (val) {
           _passwordInput = val!;
@@ -251,21 +242,21 @@ class _LoginScreenState extends State<LoginScreen> {
             filled: true,
             fillColor: white,
             isDense: true,
-            focusColor: green,
+            focusColor: greenCustom,
             border: const OutlineInputBorder(),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: borderTextColor),
+              borderSide: BorderSide(color: borderTextColor, width: 0.8),
             ),
             errorStyle: const TextStyle(fontSize: 10, height: 0.3),
             errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
-                borderSide: BorderSide(color: red)),
+                borderSide: BorderSide(color: red, width: 0.5)),
             focusedErrorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
-                borderSide: BorderSide(color: green)),
+                borderSide: BorderSide(color: greenCustom, width: 0.5)),
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: green),
+              borderSide: BorderSide(color: greenCustom, width: 0.5),
               borderRadius: BorderRadius.circular(8),
             ),
             labelStyle: TextStyle(
@@ -309,15 +300,15 @@ class _LoginScreenState extends State<LoginScreen> {
         //  print("user password = $passwordInput");
       },
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(buttonColor),
+        backgroundColor: MaterialStateProperty.all(greenCustom),
         elevation: MaterialStateProperty.all(0),
         overlayColor: MaterialStateColor.resolveWith((states) => green800),
         shadowColor: MaterialStateProperty.all(grey900),
         minimumSize:
-            MaterialStateProperty.all(Size(_device.screenWidth(context), 46)),
+            MaterialStateProperty.all(Size(Sizes().screenWidth(context), 46)),
         shape: MaterialStateProperty.all(
           RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(6),
+            borderRadius: BorderRadius.circular(8),
           ),
         ),
       ),
@@ -329,7 +320,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   SizedBox _buildSpace(BuildContext context, double size) {
     return SizedBox(
-      height: _device.screenHeight(context) * size,
+      height: Sizes().screenHeight(context) * size,
     );
   }
 }

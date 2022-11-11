@@ -1,17 +1,18 @@
-// ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 //import files
-import 'package:eswm/config/palette.dart';
-import 'package:page_transition/page_transition.dart';
+import '../../config/palette.dart';
 import '../../screens/employee_list/employee_list.dart';
 
 class GantiPekerjaButton extends StatefulWidget {
-  Function(dynamic)? assignedEmployee;
-  String buttonText;
+  final dynamic absentEmployee;
+  final Function(dynamic)? assignedEmployee;
+  final String buttonText;
 
-  GantiPekerjaButton({
+  const GantiPekerjaButton({
     Key? key,
+    this.absentEmployee,
     this.assignedEmployee,
     required this.buttonText,
   }) : super(key: key);
@@ -24,29 +25,29 @@ class _GantiPekerjaButtonState extends State<GantiPekerjaButton> {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.all(12),
-          primary: Colors.white,
-          shadowColor: Colors.white,
-          elevation: 5,
-          shape: RoundedRectangleBorder(
-            side: const BorderSide(color: Colors.red),
-            borderRadius: BorderRadius.circular(borderRadiusCircular),
-          )),
+      style: ButtonStyle(
+          elevation: MaterialStateProperty.all(0),
+          shape: MaterialStateProperty.all(
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          ),
+          backgroundColor: MaterialStateProperty.all(white)),
       onPressed: () {
         Navigator.push(
             context,
             PageTransition(
                 type: PageTransitionType.fade,
                 child: EmployeeList(
+                  absentEmployee: widget.absentEmployee,
                   assignedEmployee: widget.assignedEmployee,
                 )));
       },
       child: Text(
         widget.buttonText,
         style: const TextStyle(
-          color: Colors.red,
-          fontSize: 15,
+          color: Color(0xff34A853),
+          fontSize: 13,
+          fontWeight: FontWeight.w400,
+          decoration: TextDecoration.underline,
         ),
       ),
     );

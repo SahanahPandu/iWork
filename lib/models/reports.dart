@@ -6,6 +6,8 @@ class Reports {
   final String namaSubLaluan;
   final int idKenderaan;
   final String noKenderaan;
+  final String tarikh;
+  final String masa;
   final int idTaman;
   final String namaTaman;
   final int idJalan;
@@ -31,6 +33,8 @@ class Reports {
       required this.namaSubLaluan,
       required this.idKenderaan,
       required this.noKenderaan,
+      required this.tarikh,
+      required this.masa,
       required this.idTaman,
       required this.namaTaman,
       required this.idJalan,
@@ -56,6 +60,8 @@ class Reports {
       namaSubLaluan: json['namaSubLaluan'] ?? "",
       idKenderaan: json['idKenderaan'] ?? 0,
       noKenderaan: json['noKenderaan'] ?? "",
+      tarikh: json['tarikh'] ?? "",
+      masa: json['masa'] ?? "",
       idTaman: json['idTaman'] ?? 0,
       namaTaman: json['namaTaman'] ?? "",
       idJalan: json['idJalan'] ?? 0,

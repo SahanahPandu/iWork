@@ -1,9 +1,10 @@
-import 'package:eswm/providers/workshop_vehicle_api.dart';
-import 'package:eswm/screens/workshop_vehicle/workshop_vehicle_details.dart';
 import 'package:flutter/material.dart';
 
+//import files
 import '../../config/palette.dart';
-import '../../utils/custom_icon.dart';
+import '../../providers/workshop_vehicle_api.dart';
+import '../../utils/icon/custom_icon.dart';
+import 'workshop_vehicle_details.dart';
 
 class WorkshopVehicleMain extends StatefulWidget {
   const WorkshopVehicleMain({Key? key}) : super(key: key);
@@ -116,21 +117,19 @@ class _WorkshopVehicleMainState extends State<WorkshopVehicleMain> {
                                       child: Container(
                                         decoration: BoxDecoration(
                                           color: white,
-                                          border:
-                                              Border.all(color: borderColor),
                                           borderRadius: const BorderRadius.all(
                                               Radius.circular(12)),
                                           boxShadow: [
                                             BoxShadow(
-                                                color:
-                                                    Colors.grey.withOpacity(.3),
-                                                blurRadius: 3,
-                                                spreadRadius: 0.5,
-                                                offset: const Offset(0, 2))
+                                                color: cardShadowColor,
+                                                offset: const Offset(0, 2),
+                                                blurRadius: 10,
+                                                spreadRadius: 0.5)
                                           ],
                                         ),
                                         child: Padding(
-                                          padding: const EdgeInsets.all(16),
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 5),
                                           child: WorkshopVehicleDetails(
                                             data: dataFuture[index],
                                           ),

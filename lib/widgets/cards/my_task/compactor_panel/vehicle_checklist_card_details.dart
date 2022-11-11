@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
+//import files
 import '../../../../config/config.dart';
 import '../../../../config/dimen.dart';
 import '../../../../config/palette.dart';
 import '../../../../config/string.dart';
 import '../../../../models/vc/vc.dart';
-import '../../../../screens/vehicle_checklist/vehicle_checklist_form/vehicle_checklist_form_detail.dart';
-import '../../../../utils/device.dart';
+import '../../../../utils/device/sizes.dart';
+import '../../../tabs/vehicle_checklist_tab/vehicle_checklist_form_tab/vehicle_checklist_form_tab.dart';
 
 class VehicleChecklistCardDetails extends StatefulWidget {
   final VehicleChecklist data;
@@ -22,10 +23,10 @@ class VehicleChecklistCardDetails extends StatefulWidget {
 
 class _VehicleChecklistCardDetailsState
     extends State<VehicleChecklistCardDetails> {
-  final Devices _device = Devices();
-
-  Color alterColorBefore = Colors.grey;
-  Color alterColorAfter = Colors.grey;
+  Color alterColorBefore = greyCustom;
+  Color alterColorAfter = greyCustom;
+  Color buttonColor = greenCustom;
+  Color buttonTextColor = white;
 
   @override
   Widget build(BuildContext context) {
@@ -37,18 +38,17 @@ class _VehicleChecklistCardDetailsState
           children: [
             SizedBox(
               child: Padding(
-                  padding: const EdgeInsets.all(18.0),
+                  padding: const EdgeInsets.fromLTRB(40, 32, 0, 25),
                   child: Text(
                     vc,
                     style: TextStyle(
-                        fontSize: 19,
-                        color: grey800,
-                        fontWeight: FontWeight.w900),
+                        fontSize: 18,
+                        color: blackCustom,
+                        fontWeight: FontWeight.w500),
                   )),
             ),
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+              padding: const EdgeInsets.fromLTRB(40, 0, 0, 16),
               child: Row(
                 children: [
                   Icon(
@@ -57,22 +57,21 @@ class _VehicleChecklistCardDetailsState
                     color: alterColorBefore,
                   ),
                   const SizedBox(
-                    width: 8,
+                    width: 16,
                   ),
                   Text(
                     "Sebelum Bertugas",
                     style: TextStyle(
-                      fontSize: 15,
+                      fontSize: 16,
                       color: alterColorBefore,
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
                 ],
               ),
             ),
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+              padding: const EdgeInsets.fromLTRB(40, 0, 0, 16),
               child: Row(
                 children: [
                   Icon(
@@ -81,14 +80,14 @@ class _VehicleChecklistCardDetailsState
                     color: alterColorAfter,
                   ),
                   const SizedBox(
-                    width: 8,
+                    width: 16,
                   ),
                   Text(
                     "Selepas Bertugas",
                     style: TextStyle(
-                      fontSize: 15,
+                      fontSize: 16,
                       color: alterColorAfter,
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
                 ],
@@ -98,22 +97,32 @@ class _VehicleChecklistCardDetailsState
         ),
         Container(
           margin: tabletTaskCardMargin(context),
-          height: 45.0,
-          width: 350,
+          height: 42,
+          width: 330,
           child: ElevatedButton(
             onPressed: () {
-              _navigateAndDisplaySelection(context);
+              if (completedFirstVc && !completedSecondVc) {
+                null;
+              } else {
+                _navigateAndDisplaySelection(context);
+              }
             },
             style: ButtonStyle(
-                shape: MaterialStateProperty.all(
-                  RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                      side: BorderSide(color: green)),
+              backgroundColor: MaterialStateProperty.all(buttonColor),
+              elevation: MaterialStateProperty.all(0),
+              overlayColor:
+                  MaterialStateColor.resolveWith((states) => green800),
+              shadowColor: MaterialStateProperty.all(grey900),
+              minimumSize: MaterialStateProperty.all(
+                  Size(Sizes().screenWidth(context), 40)),
+              shape: MaterialStateProperty.all(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                minimumSize: MaterialStateProperty.all(
-                    Size(_device.screenWidth(context), 45)),
-                backgroundColor: MaterialStateProperty.all(white)),
-            child: Text(vc, style: TextStyle(fontSize: 15, color: green)),
+              ),
+            ),
+            child: Text(vc,
+                style: TextStyle(fontSize: 15, color: buttonTextColor)),
           ),
         ),
       ],
@@ -125,7 +134,7 @@ class _VehicleChecklistCardDetailsState
         context,
         PageTransition(
             type: PageTransitionType.fade,
-            child: VehicleChecklistDetail(data: widget.data)));
+            child: VehicleChecklistFormTab(data: widget.data)));
     if (!mounted) return;
     if (refresh == true) {
       _changeStatus();
@@ -137,6 +146,8 @@ class _VehicleChecklistCardDetailsState
       if (completedFirstVc && !completedSecondVc) {
         alterColorBefore = Colors.green;
         alterColorAfter = Colors.grey;
+        buttonColor = grey200;
+        buttonTextColor = grey400;
       } else if (completedFirstVc && completedSecondVc) {
         alterColorBefore = Colors.green;
         alterColorAfter = Colors.green;

@@ -1,20 +1,20 @@
-// ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
 
+//import files
 import '../../config/palette.dart';
 import '../../screens/e_cuti/leave_form.dart';
 import '../../screens/e_cuti/leave_list.dart';
 import '../../screens/reports/report_form.dart';
 import '../../screens/reports/report_list.dart';
-import '../../utils/custom_icon.dart';
+import '../../utils/icon/custom_icon.dart';
 
 class Tabs extends StatefulWidget {
-  String screen;
-  dynamic data;
-  String tabTitle;
-  dynamic dataLaluan;
+  final String screen;
+  final dynamic data;
+  final String tabTitle;
+  final dynamic dataLaluan;
 
-  Tabs(
+  const Tabs(
       {Key? key,
       required this.screen,
       required this.data,

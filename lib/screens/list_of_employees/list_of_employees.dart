@@ -1,19 +1,23 @@
-// ignore_for_file: must_be_immutable
+// import 'package:eswm/models/penyelia_checkbox.dart';
 import 'package:flutter/material.dart';
 
 //import files
-import 'package:eswm/providers/pekerja_api.dart';
-import 'package:eswm/widgets/cards/cards.dart';
+import '../../config/palette.dart';
+import '../../providers/pekerja_api.dart';
+import '../../widgets/cards/cards.dart';
+import 'list_of_employee_details.dart';
 
 class ListOfEmployees extends StatefulWidget {
-  dynamic idPekerja;
-  dynamic idSv;
-  int? idStatus;
-  String? searchedName;
-  Function(dynamic)? assignedEmployee;
+  final String? type;
+  final dynamic idPekerja;
+  final List<dynamic>? idSv;
+  final int? idStatus;
+  final String? searchedName;
+  final Function(dynamic)? assignedEmployee;
 
-  ListOfEmployees({
+  const ListOfEmployees({
     Key? key,
+    this.type,
     this.idPekerja,
     this.idSv,
     this.idStatus,
@@ -34,64 +38,90 @@ class _ListOfEmployeesState extends State<ListOfEmployees> {
         const SizedBox(
           height: 3,
         ),
-        FutureBuilder<List>(
-            future: PekerjaApi.getPekerjaData(context),
-            builder: (context, snapshot) {
-              var dataFuture = snapshot.data;
-              //List<dynamic> newList = [];
-              switch (snapshot.connectionState) {
-                case ConnectionState.waiting:
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-
-                default:
-                  if (snapshot.hasError) {
+        Expanded(
+          child: FutureBuilder<List>(
+              future: PekerjaApi.getPekerjaData(context),
+              builder: (context, snapshot) {
+                var dataFuture = snapshot.data;
+                //List<dynamic> newList = [];
+                switch (snapshot.connectionState) {
+                  case ConnectionState.waiting:
                     return const Center(
-                      child: Text("Some error occurred!"),
+                      child: CircularProgressIndicator(),
                     );
-                  } else {
-                    //checking if there is idPekerja is passed, else show all
-                    if (widget.idPekerja != null) {
-                      dataFuture!.removeWhere(
-                          (item) => !widget.idPekerja.contains(item.id));
-                    }
 
-                    //checking if there is idSv is passed, else show all
-                    if (widget.idSv != null && widget.idSv.isNotEmpty) {
-                      dataFuture!.removeWhere(
-                          (item) => !widget.idSv.contains(item.idSv));
-                    }
+                  default:
+                    if (snapshot.hasError) {
+                      return const Center(
+                        child: Text("Some error occurred!"),
+                      );
+                    } else {
+                      //checking if there is idPekerja is passed, else show all
+                      if (widget.idPekerja != null) {
+                        dataFuture!.removeWhere(
+                            (item) => !widget.idPekerja.contains(item.id));
+                      }
 
-                    //checking attendance id status
-                    if (widget.idStatus != null) {
-                      dataFuture!.removeWhere(
-                          (item) => item.idAttStatus != widget.idStatus);
-                    }
+                      //checking if there is idSv is passed, else show all, list of selected sv
+                      if (widget.idSv != null && widget.idSv!.isNotEmpty) {
+                        dataFuture!.removeWhere(
+                            (item) => !widget.idSv!.contains(item.idSv));
+                      }
 
-                    //checking searching string
-                    if (widget.searchedName != null) {
-                      dataFuture = dataFuture!
-                          .where((item) => item.name
-                              .toLowerCase()
-                              .contains(widget.searchedName!.toLowerCase()))
-                          .toList();
-                    }
+                      //checking attendance id status, Hadir/Tidak Hadir
+                      if (widget.idStatus != null) {
+                        dataFuture!.removeWhere(
+                            (item) => item.idAttStatus != widget.idStatus);
+                      }
 
-                    return ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: dataFuture!.length,
-                        itemBuilder: (context, index) {
-                          return Cards(
-                            type: "Senarai Pekerja",
-                            data: dataFuture![index],
-                            assignedEmployee: widget.assignedEmployee,
-                          );
-                        });
-                  }
-              }
-            }),
+                      //checking searching string , from searching box
+                      if (widget.searchedName != null) {
+                        // print("Searching name: ${widget.searchedName}");
+                        dataFuture = dataFuture!
+                            .where((item) => item.name
+                                .toLowerCase()
+                                .contains(widget.searchedName!.toLowerCase()))
+                            .toList();
+                      }
+
+                      return widget.type != null
+                          ? ListView.separated(
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              scrollDirection: Axis.vertical,
+                              separatorBuilder: (context, index) {
+                                return Divider(
+                                  thickness: 0.5,
+                                  color: dividerColor,
+                                );
+                              },
+                              itemCount: dataFuture!.length,
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  margin: const EdgeInsets.only(bottom: 24),
+                                  child: ListOfEmployeeDetails(
+                                    type: widget.type,
+                                    data: dataFuture![index],
+                                    assignedEmployee: widget.assignedEmployee,
+                                  ),
+                                );
+                              },
+                            )
+                          : ListView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: dataFuture!.length,
+                              itemBuilder: (context, index) {
+                                return Cards(
+                                  type: "Senarai Pekerja",
+                                  data: dataFuture![index],
+                                  assignedEmployee: widget.assignedEmployee,
+                                );
+                              });
+                    }
+                }
+              }),
+        ),
       ],
     );
   }

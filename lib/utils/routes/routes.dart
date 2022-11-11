@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
-import 'package:eswm/root.dart';
-import 'package:eswm/screens/compactor_panel/compactor_panel.dart';
-import 'package:eswm/screens/home/home.dart';
-import 'package:eswm/screens/login/login.dart';
-import 'package:eswm/screens/pra/pra.dart';
-import 'package:eswm/screens/supervisor/supervisor.dart';
-import 'package:eswm/screens/notifications/notifications.dart';
-import 'package:eswm/screens/splash/splash_main.dart';
+//import files
+import '../../root.dart';
+import '../../screens/compactor_panel/compactor_panel.dart';
+import '../../screens/home/home.dart';
+import '../../screens/login/login.dart';
+import '../../screens/notifications/notifications.dart';
+import '../../screens/pra/pra.dart';
+import '../../screens/splash/splash_main.dart';
+import '../../screens/supervisor/supervisor.dart';
 
 class Routes {
   static const routeRoot = "/";

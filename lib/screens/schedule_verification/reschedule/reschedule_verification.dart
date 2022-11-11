@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
+//import files
 import '../../../providers/pekerja_api.dart';
 import '../../../widgets/cards/verification_task/reschedule/verify_reschedule_list_details.dart';
 
@@ -42,7 +43,7 @@ class _RescheduleVerificationState extends State<RescheduleVerification> {
               return ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: 2,
+                itemCount: 3,
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {
@@ -54,6 +55,7 @@ class _RescheduleVerificationState extends State<RescheduleVerification> {
                     },
                     child: VerifyRescheduleListDetails(
                       data: dataFuture![index],
+                      index: index,
                     ),
                   );
                 },

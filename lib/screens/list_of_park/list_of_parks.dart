@@ -1,54 +1,49 @@
-// ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
 
+//import files
 import '../../config/config.dart';
+import '../../config/dimen.dart';
 import '../../config/font.dart';
 import '../../config/palette.dart';
 import '../../providers/taman_api.dart';
-import '../../utils/device.dart';
+import '../../utils/device/orientations.dart';
+import '../../utils/icon/custom_icon.dart';
+import '../../widgets/custom_scroll/custom_scroll.dart';
 
 class ListOfParks extends StatefulWidget {
-  Function(dynamic, dynamic)? showSenaraiJalan;
-  String hintText;
-  double fontSize;
-  int borderCondition;
-  Color fillColor;
-  int iconCondition;
-  String data;
+  final int? subRoutesId;
+  final Function(dynamic, dynamic)? showSenaraiJalan;
+  final String hintText;
+  final double fontSize;
+  final Color fillColor;
+  final int iconCondition;
+  final String data;
+  final String? screen;
 
-  ListOfParks(
+  const ListOfParks(
       {Key? key,
+      this.subRoutesId,
       required this.showSenaraiJalan,
       required this.hintText,
       required this.fontSize,
-      required this.borderCondition,
       required this.fillColor,
       required this.iconCondition,
-      required this.data})
+      required this.data,
+      this.screen})
       : super(key: key);
 
   @override
-  State<ListOfParks> createState() => _ListOfParksState();
+  ListOfParksState createState() => ListOfParksState();
 }
 
-class _ListOfParksState extends State<ListOfParks> {
-  final TextEditingController _namaTaman = TextEditingController();
-  final Devices _device = Devices();
-
-  int totalTaman = 0;
+class ListOfParksState extends State<ListOfParks> {
+  final TextEditingController namaTaman = TextEditingController();
+  int selectedIndex = -2;
 
   getTotalData() {
-    TamanApi.getTamanData(context).then((value) {
-      if (value.isNotEmpty) {
-        setState(() {
-          totalTaman = value.length;
-        });
-      }
-    });
-
     if (widget.data != "") {
       setState(() {
-        _namaTaman.text = widget.data;
+        namaTaman.text = widget.data;
       });
     }
   }
@@ -62,23 +57,26 @@ class _ListOfParksState extends State<ListOfParks> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      borderRadius:
-          userRole == 200 ? null : BorderRadius.circular(borderRadiusCircular),
       onTap: () {
-        if (widget.iconCondition == 1) {
+        if (widget.iconCondition == 1 && widget.subRoutesId != 0) {
           showListOfParks();
         }
       },
       child: TextFormField(
-        controller: _namaTaman,
+        style: const TextStyle(
+          fontSize: 15,
+          color: Color(0xff2B2B2B),
+          fontWeight: FontWeight.w400,
+        ),
+        controller: namaTaman,
         readOnly: true,
         enabled: false,
         decoration: InputDecoration(
           filled: true,
           fillColor: widget.fillColor,
-          contentPadding: userRole == 200
-              ? const EdgeInsets.all(8)
-              : const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+          contentPadding: userRole == 100
+              ? const EdgeInsets.symmetric(vertical: 15, horizontal: 20)
+              : const EdgeInsets.all(8),
           hintText: widget.hintText,
           hintStyle: TextStyle(
             fontSize: widget.fontSize,
@@ -92,30 +90,36 @@ class _ListOfParksState extends State<ListOfParks> {
                   color: Color(0xff2B2B2B),
                 )
               : null,
-          labelText: widget.borderCondition == 1 && widget.iconCondition == 1
-              ? widget.hintText
-              : null,
-          labelStyle: widget.borderCondition == 1 && widget.iconCondition == 1
-              ? TextStyle(
-                  fontSize: widget.fontSize,
-                  color: labelTextColor,
-                  fontWeight: textFormFieldLabelFontWeight,
-                )
-              : null,
+          label: const Text('Taman'),
+          labelStyle: TextStyle(
+            fontSize: widget.fontSize,
+            color: labelTextColor,
+            fontWeight: textFormFieldLabelFontWeight,
+          ),
           disabledBorder: OutlineInputBorder(
-            borderSide: widget.borderCondition == 0
-                ? BorderSide.none
-                : BorderSide(
-                    width: borderSideWidth,
-                    color: _namaTaman.text != '' && widget.iconCondition == 1
-                        ? (userRole == 200 ? enabledBorderWithText : grey100)
-                        : (userRole == 200
-                            ? enabledBorderWithoutText
-                            : grey100),
-                  ),
+            borderSide: BorderSide(
+              width: borderSideWidth,
+              color: namaTaman.text != '' &&
+                      widget.iconCondition == 1 &&
+                      widget.screen == null
+                  ? (enabledBorderWithText)
+                  : (enabledBorderWithoutText),
+            ),
+            borderRadius: BorderRadius.circular(borderRadiusCircular),
+          ),
+          errorStyle: const TextStyle(height: 0),
+          errorBorder: OutlineInputBorder(
+            borderSide: BorderSide(width: borderSideWidth, color: Colors.red),
             borderRadius: BorderRadius.circular(borderRadiusCircular),
           ),
         ),
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return '';
+          }
+
+          return null;
+        },
       ),
     );
   }
@@ -130,134 +134,176 @@ class _ListOfParksState extends State<ListOfParks> {
           ),
         ),
         constraints: userRole == 100
-            ? (_device.isLandscape(context)
+            ? (Orientations().isLandscape(context)
                 ? const BoxConstraints(maxWidth: 500, maxHeight: 400)
                 : const BoxConstraints(maxWidth: 500, maxHeight: 450))
-            : null,
+            : const BoxConstraints(maxHeight: 380),
         context: context,
         builder: (builder) {
-          return SizedBox(
-            height: userRole == 100
-                ? null
-                : MediaQuery.of(context).size.height * 0.5,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(
-                    top: userRole == 200 ? 25 : 30,
-                    left: userRole == 200 ? 25 : 30,
-                    bottom: 10,
-                  ),
-                  child: Text(
-                    "${totalTaman.toString()} Senarai Taman",
-                    style: TextStyle(
-                      color: Colors.grey.shade500,
-                      fontSize: userRole == 100 || userRole == 200 ? 16 : 14,
-                      fontWeight: userRole == 100 || userRole == 200
-                          ? FontWeight.w500
-                          : FontWeight.w600,
-                    ),
-                  ),
-                ),
-                FutureBuilder<List>(
-                  future: TamanApi.getTamanData(context),
-                  builder: (context, snapshot) {
-                    final dataFuture = snapshot.data;
-
-                    switch (snapshot.connectionState) {
-                      case ConnectionState.waiting:
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-
-                      default:
-                        if (snapshot.hasError) {
-                          return const Center(
-                            child: Text("Some error occured!"),
-                          );
-                        } else {
-                          return Expanded(
-                            child: Container(
-                              margin: const EdgeInsets.symmetric(
-                                horizontal: 10,
-                              ),
-                              padding: userRole == 200
-                                  ? const EdgeInsets.all(6)
-                                  : const EdgeInsets.symmetric(
-                                      horizontal: 20, vertical: 10),
-                              child: ListView.builder(
-                                physics: userRole == 200
-                                    ? const ScrollPhysics()
-                                    : const BouncingScrollPhysics(),
-                                shrinkWrap: true,
-                                itemCount: dataFuture!.length,
-                                itemBuilder: (context, index) {
-                                  return InkWell(
-                                    onTap: () {
-                                      if (widget.showSenaraiJalan != null) {
-                                        widget.showSenaraiJalan!(
-                                            dataFuture[index].id,
-                                            dataFuture[index].namaTaman);
-                                      }
-
-                                      setState(() {
-                                        _namaTaman.text =
-                                            dataFuture[index].namaTaman;
-
-                                        Navigator.pop(context);
-                                      });
-                                    },
-                                    child: Container(
-                                      margin: userRole == 200
-                                          ? const EdgeInsets.symmetric(
-                                              vertical: 12)
-                                          : null,
-                                      padding: userRole == 200
-                                          ? const EdgeInsets.all(6)
-                                          : (userRole == 100
-                                              ? const EdgeInsets.symmetric(
-                                                  vertical: 23, horizontal: 5)
-                                              : (const EdgeInsets.symmetric(
-                                                  vertical: 18,
-                                                  horizontal: 4))),
-                                      decoration: BoxDecoration(
-                                        border: Border(
-                                          top: BorderSide.none,
-                                          bottom: BorderSide(
-                                            color: grey400,
-                                            width: userRole == 200 ? 0.9 : 0.3,
-                                            style: BorderStyle.solid,
-                                          ),
-                                        ),
-                                      ),
-                                      child: Text(
-                                        dataFuture[index].namaTaman,
-                                        style: TextStyle(
-                                          color: Colors.black87,
-                                          fontSize:
-                                              userRole == 100 || userRole == 200
-                                                  ? 16
-                                                  : 14,
-                                          fontWeight:
-                                              userRole == 100 || userRole == 200
-                                                  ? FontWeight.w500
-                                                  : FontWeight.w600,
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                },
+          return Container(
+              padding: const EdgeInsets.only(top: 5),
+              child: ScrollConfiguration(
+                  behavior: CustomScrollBehavior(),
+                  child: SingleChildScrollView(
+                      child: Wrap(children: [
+                    Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Divider(
+                            thickness: 0.5,
+                            color: Color(0xff969696),
+                            indent: 160,
+                            endIndent: 160,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                              top: 20,
+                              left: 30,
+                              bottom: 10,
+                            ),
+                            child: Text(
+                              "Pilih Taman",
+                              style: TextStyle(
+                                color: greyCustom,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
-                          );
-                        }
-                    }
-                  },
-                ),
-              ],
-            ),
-          );
+                          ),
+                          const Padding(
+                            padding:
+                                EdgeInsets.only(left: 26, right: 26, top: 8),
+                            child: Divider(height: 0.5),
+                          ),
+                          Padding(
+                              padding: const EdgeInsets.only(bottom: 10),
+                              child: FutureBuilder<List>(
+                                  future: TamanApi.getTamanData(context),
+                                  builder: (context, snapshot) {
+                                    final dataFuture = snapshot.data;
+                                    switch (snapshot.connectionState) {
+                                      case ConnectionState.waiting:
+                                        return const Center(
+                                          child: CircularProgressIndicator(),
+                                        );
+                                      default:
+                                        if (snapshot.hasError) {
+                                          return const Center(
+                                            child: Text("Some error occured!"),
+                                          );
+                                        } else {
+                                          //checking if there is sub laluan id is passed, else show all
+                                          if (widget.subRoutesId != null &&
+                                              widget.subRoutesId != 0) {
+                                            dataFuture!.removeWhere((item) =>
+                                                item.idSubLaluan !=
+                                                widget.subRoutesId);
+                                          }
+                                          if (dataFuture!.isEmpty) {
+                                            return Center(
+                                              child: Container(
+                                                margin:
+                                                    const EdgeInsets.all(20),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    const Icon(
+                                                        CustomIcon.exclamation,
+                                                        color: Colors.orange,
+                                                        size: 14),
+                                                    const SizedBox(width: 10),
+                                                    Text(
+                                                        "Tiada senarai taman dijumpai",
+                                                        style: TextStyle(
+                                                            color: grey500)),
+                                                  ],
+                                                ),
+                                              ),
+                                            );
+                                          } else {
+                                            return Container(
+                                                margin:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 10),
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 15),
+                                                child: ListView.builder(
+                                                    physics:
+                                                        const NeverScrollableScrollPhysics(),
+                                                    shrinkWrap: true,
+                                                    itemCount:
+                                                        dataFuture.length,
+                                                    itemBuilder:
+                                                        (context, index) {
+                                                      return InkWell(
+                                                          onTap: () {
+                                                            if (widget
+                                                                    .showSenaraiJalan !=
+                                                                null) {
+                                                              widget.showSenaraiJalan!(
+                                                                  dataFuture[
+                                                                          index]
+                                                                      .id,
+                                                                  dataFuture[
+                                                                          index]
+                                                                      .namaTaman);
+                                                            }
+                                                            setState(() {
+                                                              namaTaman.text =
+                                                                  dataFuture[
+                                                                          index]
+                                                                      .namaTaman;
+                                                              if (namaTaman
+                                                                      .text !=
+                                                                  "") {
+                                                                selectedIndex =
+                                                                    index;
+                                                              }
+                                                              Navigator.pop(
+                                                                  context);
+                                                            });
+                                                          },
+                                                          child: Container(
+                                                              margin: const EdgeInsets
+                                                                      .symmetric(
+                                                                  vertical: 16),
+                                                              child: Row(
+                                                                  children: [
+                                                                    Icon(
+                                                                        namaTaman.text != "" && selectedIndex == index
+                                                                            ? Icons
+                                                                                .check
+                                                                            : null,
+                                                                        color:
+                                                                            green,
+                                                                        size:
+                                                                            18),
+                                                                    const SizedBox(
+                                                                        width:
+                                                                            8),
+                                                                    Text(
+                                                                        dataFuture[index]
+                                                                            .namaTaman,
+                                                                        style:
+                                                                            TextStyle(
+                                                                          color:
+                                                                              blackCustom,
+                                                                          fontSize:
+                                                                              15,
+                                                                          fontWeight: namaTaman.text != "" && selectedIndex == index
+                                                                              ? FontWeight.w600
+                                                                              : FontWeight.w400,
+                                                                        ))
+                                                                  ])));
+                                                    }));
+                                          }
+                                        }
+                                    }
+                                  }))
+                        ])
+                  ]))));
         });
     return null;
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
+//import files
 import '../../../providers/cuti_api.dart';
 import '../../../widgets/cards/verification_task/ecuti/verify_ecuti_list_details.dart';
 import 'ecuti_approval/ecuti_approval_main.dart';
@@ -56,6 +57,7 @@ class _EcutiVerificationState extends State<EcutiVerification> {
                     },
                     child: VerifyEcutiListDetails(
                       data: dataFuture![index],
+                      index: index,
                     ),
                   );
                 },

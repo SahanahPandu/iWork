@@ -1,17 +1,17 @@
-// ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
 
 //import files
 import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../../models/jalan.dart';
+import '../../utils/icon/custom_icon.dart';
 import '../../widgets/modal_bottom_sheet/navigation_options.dart';
 
 class ListOfRoadDetails extends StatefulWidget {
-  Jalan data;
-  int index;
+  final Jalan data;
+  final int index;
 
-  ListOfRoadDetails({Key? key, required this.data, required this.index})
+  const ListOfRoadDetails({Key? key, required this.data, required this.index})
       : super(key: key);
 
   @override
@@ -21,136 +21,57 @@ class ListOfRoadDetails extends StatefulWidget {
 class _ListOfRoadDetailsState extends State<ListOfRoadDetails> {
   @override
   Widget build(BuildContext context) {
-    if (userRole == 100) {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Container(
-            margin: const EdgeInsets.symmetric(
-              horizontal: 10,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text(
-                  widget.data.namaJalan,
-                  style: TextStyle(
-                    color: Colors.grey.shade800,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                Text(
-                  "Jumlah Tong ${widget.data.jumlahTong}",
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: grey400,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(
-            width: 22,
-            height: 22,
-            child: ElevatedButton(
-              onPressed: () {
-                showNavigationOptions(context);
-              },
-              style: ElevatedButton.styleFrom(
-                primary: const Color(0xffc9ffd7),
-                padding: const EdgeInsets.all(0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50),
-                ),
-              ),
-              child: const Icon(
-                Icons.near_me_rounded,
-                color: Colors.green,
-                size: 15,
-              ),
-            ),
-          )
-        ],
-      );
-    }
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        //left side
-        Row(
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "${(widget.index + 1)}. ${widget.data.namaJalan}",
+              widget.data.namaJalan,
               style: TextStyle(
-                  color: Colors.grey.shade800,
-                  fontSize: userRole == 200 ? 16 : 14,
-                  fontWeight:
-                      userRole == 200 ? FontWeight.w500 : FontWeight.w600),
+                  color: blackCustom,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400),
             ),
             const SizedBox(
-              width: 10,
+              height: 6,
             ),
-            SizedBox(
-              width: userRole == 200 ? 28 : 20,
-              height: userRole == 200 ? 28 : 20,
-              child: ElevatedButton(
-                onPressed: () {
-                  showNavigationOptions(context);
-                },
-                style: ElevatedButton.styleFrom(
-                  primary: const Color(0xffc9ffd7),
-                  padding: const EdgeInsets.all(0),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                ),
-                child: Icon(
-                  Icons.near_me_rounded,
-                  color: Colors.green,
-                  size: userRole == 200 ? 20 : 16,
-                ),
+            Text(
+              "${widget.data.jumlahTong} tong",
+              style: TextStyle(
+                fontSize: 16,
+                color: greyCustom,
+                fontWeight: FontWeight.w400,
               ),
-            )
+            ),
           ],
+        ),
+        SizedBox(
+          width: 30,
+          height: 30,
+          child: ElevatedButton(
+            onPressed: () {
+              showNavigationOptions(context);
+            },
+            style: ButtonStyle(
+                padding: MaterialStateProperty.all(EdgeInsets.zero),
+                elevation: MaterialStateProperty.all(0),
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50)),
+                ),
+                overlayColor:
+                    MaterialStateProperty.all(const Color(0xff95e7ae)),
+                backgroundColor:
+                    MaterialStateProperty.all(const Color(0xe0e0fde8))),
+            child: Icon(
+              CustomIcon.navigation,
+              color: Colors.green,
+              size: userRole == 100 ? 28 : 25,
+            ),
+          ),
         ),
-        //right side
-        Row(
-          children: [
-            Text(
-              "Jumlah Tong",
-              style: TextStyle(
-                color: Colors.grey.shade400,
-                fontSize: userRole == 200 ? 16 : 14,
-                fontWeight: userRole == 200 ? FontWeight.w500 : FontWeight.w600,
-              ),
-            ),
-            const SizedBox(
-              width: 7,
-            ),
-            Container(
-              width: userRole == 200 ? 28 : 20,
-              height: userRole == 200 ? 25 : 18,
-              decoration: const BoxDecoration(
-                color: Color.fromARGB(255, 204, 220, 255),
-                borderRadius: BorderRadius.all(Radius.circular(5)),
-              ),
-              child: Center(
-                child: Text(
-                  "${widget.data.jumlahTong}",
-                  style: TextStyle(
-                    fontSize: userRole == 200 ? 17 : 14,
-                    color: Colors.black87,
-                    fontWeight:
-                        userRole == 200 ? FontWeight.w700 : FontWeight.w600,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        )
       ],
     );
   }

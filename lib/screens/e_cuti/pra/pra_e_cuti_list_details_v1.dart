@@ -1,16 +1,14 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
 
 //import files
-import '../../../config/font.dart';
 import '../../../../models/cuti.dart';
 import '../../../../widgets/container/status_container.dart';
+import '../../../config/font.dart';
 
 class PraECutiListDetails extends StatefulWidget {
-  Cuti data;
+  final Cuti data;
 
-  PraECutiListDetails({Key? key, required this.data}) : super(key: key);
+  const PraECutiListDetails({Key? key, required this.data}) : super(key: key);
 
   @override
   State<PraECutiListDetails> createState() => _PraECutiListDetailsState();

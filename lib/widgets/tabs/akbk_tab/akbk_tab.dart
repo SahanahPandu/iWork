@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
+//import files
 import '../../../config/palette.dart';
-import '../../../utils/custom_icon.dart';
+import '../../../utils/icon/custom_icon.dart';
 import 'akbk_tab_bar_view/akbk_form_tab_bar_view.dart';
 import 'akbk_tab_bar_view/akbk_list_tab_bar_view.dart';
 
@@ -49,8 +50,7 @@ class _AkbkMainTabState extends State<AkbkMainTab>
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                icon: Icon(CustomIcon.arrowBack,
-                    color: blackCustom, size: 22),
+                icon: Icon(CustomIcon.arrowBack, color: blackCustom, size: 22),
               ),
               title: Center(
                 child: Text(
@@ -75,11 +75,11 @@ class _AkbkMainTabState extends State<AkbkMainTab>
             ),
           ),
         ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          child: Column(
-            children: [
-              Container(
+        body: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+              child: Container(
                 height: 55,
                 decoration: BoxDecoration(
                   color: tabBoxColor,
@@ -88,8 +88,7 @@ class _AkbkMainTabState extends State<AkbkMainTab>
                   ),
                 ),
                 child: TabBar(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                  padding: const EdgeInsets.all(10),
                   controller: _tabController,
                   indicator: BoxDecoration(
                       borderRadius: BorderRadius.circular(
@@ -104,10 +103,10 @@ class _AkbkMainTabState extends State<AkbkMainTab>
                         ),
                       ]),
                   labelColor: blackCustom,
-                  labelStyle:
-                  const TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
-                  unselectedLabelStyle:
-                  const TextStyle(fontWeight: FontWeight.w400, fontSize: 14),
+                  labelStyle: const TextStyle(
+                      fontWeight: FontWeight.w600, fontSize: 15),
+                  unselectedLabelStyle: const TextStyle(
+                      fontWeight: FontWeight.w400, fontSize: 14),
                   unselectedLabelColor: greyCustom,
                   tabs: const [
                     Tab(
@@ -119,7 +118,11 @@ class _AkbkMainTabState extends State<AkbkMainTab>
                   ],
                 ),
               ),
-              Expanded(
+            ),
+            ScrollConfiguration(
+              behavior:
+                  const MaterialScrollBehavior().copyWith(overscroll: false),
+              child: Expanded(
                 child: TabBarView(
                   controller: _tabController,
                   children: const [
@@ -128,8 +131,8 @@ class _AkbkMainTabState extends State<AkbkMainTab>
                   ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ));
   }
 }

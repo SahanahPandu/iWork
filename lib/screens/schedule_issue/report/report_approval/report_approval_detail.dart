@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
+//import files
+import '../../../../config/dimen.dart';
 import '../../../../config/palette.dart';
 import '../../../../models/reports.dart';
-import '../../../../utils/device.dart';
+import '../../../../utils/device/sizes.dart';
 import '../../../../widgets/image_viewer/image_viewer.dart';
 
 class ReportApprovalDetail extends StatefulWidget {
@@ -18,6 +20,8 @@ class ReportApprovalDetail extends StatefulWidget {
 }
 
 class _ReportApprovalDetailState extends State<ReportApprovalDetail> {
+  final TextEditingController _laluan = TextEditingController();
+  final TextEditingController _vehicleNo = TextEditingController();
   final TextEditingController _subLaluan = TextEditingController();
   final TextEditingController _taman = TextEditingController();
   final TextEditingController _jalan = TextEditingController();
@@ -103,12 +107,16 @@ class _ReportApprovalDetailState extends State<ReportApprovalDetail> {
   }
 
   void _setMainReportText() {
-    if (widget.data.namaSubLaluan != "" ||
+    if (widget.data.namaLaluan != "" ||
+        widget.data.noKenderaan != "" ||
+        widget.data.namaSubLaluan != "" ||
         widget.data.namaTaman != "" ||
         widget.data.namaJalan != "" ||
         widget.data.jenisHalangan != "" ||
         widget.data.catatan != "") {
       setState(() {
+        _laluan.text = widget.data.namaLaluan;
+        _vehicleNo.text = widget.data.noKenderaan;
         _subLaluan.text = widget.data.namaSubLaluan;
         _taman.text = widget.data.namaTaman;
         _jalan.text = widget.data.namaJalan;
@@ -132,6 +140,8 @@ class _ReportApprovalDetailState extends State<ReportApprovalDetail> {
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      _buildTextForm(_laluan, "Laluan"),
+      _buildTextForm(_vehicleNo, "No Kenderaan"),
       _buildTextForm(_subLaluan, "Sub Laluan"),
       _buildTextForm(_taman, "Taman"),
       _buildTextForm(_jalan, "Jalan"),
@@ -154,8 +164,7 @@ class _ReportApprovalDetailState extends State<ReportApprovalDetail> {
                   tag: "imgTag",
                   child: Container(
                     constraints: BoxConstraints(
-                        maxHeight: 280,
-                        minWidth: Devices().screenWidth(context)),
+                        maxHeight: 280, minWidth: Sizes().screenWidth(context)),
                     padding: const EdgeInsets.all(5),
                     child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),
@@ -218,7 +227,7 @@ class _ReportApprovalDetailState extends State<ReportApprovalDetail> {
               width: 0.5,
               color: borderTextColor,
             ),
-            borderRadius: BorderRadius.circular(4),
+            borderRadius: BorderRadius.circular(borderRadiusCircular),
           ),
         ),
       ),
@@ -226,6 +235,7 @@ class _ReportApprovalDetailState extends State<ReportApprovalDetail> {
   }
 
   int _getReportStatus(int reportStatus) {
+    //reportStatus = can refer to file report_approval_main > _loadReportStatus()
     return _condition = reportStatus;
   }
 
@@ -279,7 +289,7 @@ class _ReportApprovalDetailState extends State<ReportApprovalDetail> {
           ),
         ),
         _buildTextForm(_svStatus, "Status Laporan"),
-        _buildTextForm(_svFeedback, "Maklumbalas Penyelia", true),
+        _buildTextForm(_svFeedback, "Maklumbalas Penyelia", true)
       ],
     );
   }

@@ -1,7 +1,8 @@
 import 'package:flutter_device_type/flutter_device_type.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:eswm/utils/authentication/role.dart';
+//import files
+import 'role.dart';
 
 class Auth {
   static Future<void> handleLogin(String userID, int? role) async {

@@ -1,22 +1,24 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
 //import files
 import '../../config/config.dart';
 import '../../config/palette.dart';
-import '../../screens/e_cuti/e_cuti.dart';
+import '../../screens/e_cuti/leave_form.dart';
 import '../../screens/e_cuti/pra/pra_e_cuti_list_details.dart';
 import '../../screens/e_cuti/supervisor/supervisor_leave_list_details.dart';
 import '../../screens/list_of_road/list_of_road_details.dart';
+import '../../screens/reports/report_form.dart';
 import '../../screens/reports/report_list_details.dart';
-import '../../screens/reports/reports.dart';
 import '../../screens/schedule_issue/report/report_approval/report_approval_main.dart';
 import '../../screens/schedule_verification/ecuti/ecuti_approval/ecuti_approval_main.dart';
 import '../../screens/work_schedule/work_schedule.dart';
-import './my_task/pra/pra_my_task_list_details.dart';
+import '../app_bar/app_bar_widget.dart';
 import 'my_task/ba/ba_my_task_list_details.dart';
 import 'my_task/eo/eo_my_task_list_details.dart';
+import './my_task/pra/pra_my_task_list_details.dart';
 import 'my_task/supervisor/supervisor_my_task_list_details.dart';
 
 class ListCard extends StatefulWidget {
@@ -43,10 +45,10 @@ class _ListCardState extends State<ListCard> with TickerProviderStateMixin {
   void initState() {
     _controllerCard = AnimationController(
       vsync: this,
-      lowerBound: 0.98,
+      lowerBound: 0.97,
       upperBound: 1,
       value: 1,
-      duration: const Duration(milliseconds: 200),
+      duration: const Duration(milliseconds: 250),
     );
     _controllerCard.addListener(() {
       setState(() {
@@ -78,7 +80,7 @@ class _ListCardState extends State<ListCard> with TickerProviderStateMixin {
       } else if (userRole == 400) {
         //eo
         return EOMyTaskListDetails(data: widget.data);
-      } else if (userRole == 500) {
+      } else if (userRole == 500 || userRole == 600 || userRole == 700) {
         //BA
         return BAMyTaskListDetails(data: widget.data);
       }
@@ -93,13 +95,21 @@ class _ListCardState extends State<ListCard> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: userRole == 200
-            ? const EdgeInsets.only(bottom: 8)
-            : const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+        padding: userRole == 200 &&
+                (widget.type == "Laluan" || widget.type == "Laporan")
+            ? const EdgeInsets.only(bottom: 16)
+            : userRole == 200 && widget.type == "Cuti"
+                ? const EdgeInsets.only(bottom: 24)
+                : const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
         child: GestureDetector(
             behavior: HitTestBehavior.translucent,
             onTap: () {
               _controllerCard.reverse();
+              if (_controllerCard.isCompleted) {
+                _controllerCard.reverse();
+              } else {
+                _controllerCard.forward(from: 0);
+              }
               Navigator.push(
                   context,
                   PageTransition(
@@ -109,7 +119,7 @@ class _ListCardState extends State<ListCard> with TickerProviderStateMixin {
               _controllerCard.reverse();
             },
             onTapUp: (dp) {
-              Timer(const Duration(milliseconds: 200), () {
+              Timer(const Duration(milliseconds: 250), () {
                 _controllerCard.fling();
               });
             },
@@ -118,47 +128,24 @@ class _ListCardState extends State<ListCard> with TickerProviderStateMixin {
             },
             child: Transform.scale(
               scale: _scaleCard,
-              child: userRole == 200
-                  ? Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(14),
-                        shape: BoxShape.rectangle,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.shade300,
-                            blurRadius: 5,
-                            offset: const Offset(0, 4),
-                            spreadRadius: 1,
-                            blurStyle: BlurStyle.normal,
-                          ),
-                        ],
-                      ),
-                      child: Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(14),
-                        ),
-                        elevation: 0,
-                        child: Container(
-                          margin: const EdgeInsets.only(top: 16, bottom: 24),
-                          child: getWidget(),
-                        ),
-                      ),
-                    )
-                  : Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(14),
-                        color: white,
-                        boxShadow: [
-                          BoxShadow(
-                              color: cardShadowColor,
-                              offset: const Offset(0, 2),
-                              blurRadius: 10,
-                              spreadRadius: 0.5)
-                        ],
-                      ),
-                      child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 5),
-                          child: getWidget())),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(14),
+                  color: white,
+                  boxShadow: [
+                    BoxShadow(
+                        color: cardShadowColor,
+                        offset: const Offset(0, 2),
+                        blurRadius: 10,
+                        spreadRadius: 0.5)
+                  ],
+                ),
+                child: userRole != 200
+                    ? Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5),
+                        child: getWidget())
+                    : getWidget(),
+              ),
             )));
   }
 
@@ -166,7 +153,12 @@ class _ListCardState extends State<ListCard> with TickerProviderStateMixin {
     if (widget.type == "Cuti") {
       if (userRole == 100 || userRole == 200) {
         //comp || pra
-        return ECuti(screen: "2", data: widget.data);
+
+        return Scaffold(
+          backgroundColor: white,
+          appBar: const AppBarWidget(title: "E-Cuti"),
+          body: LeaveForm(screen: "2", data: widget.data),
+        );
       } else if (userRole == 300) {
         //sv
         return EcutiApprovalMain(data: widget.data);
@@ -179,7 +171,12 @@ class _ListCardState extends State<ListCard> with TickerProviderStateMixin {
     } else if (widget.type == "Laporan") {
       if (userRole == 100 || userRole == 200) {
         // comp || pra
-        return ReportsPage(screen: "4", data: widget.data, dataLaluan: null);
+        //return ReportsPage(screen: "4", data: widget.data, dataLaluan: null);
+        return Scaffold(
+          backgroundColor: white,
+          appBar: AppBarWidget(title: "L${widget.data.id}"),
+          body: ReportForm(screen: "4", data: widget.data, dataLaluan: null),
+        );
       } else if (userRole == 300) {
         // sv
         return ReportApprovalMain(data: widget.data);

@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 //import files
-import 'ba/ba_today_task_details.dart';
-import 'compactor_panel/compactor_panel_today_task_details.dart';
-import 'eo/eo_today_task_details.dart';
-import 'supervisor/supervisor_today_task_details.dart';
-import 'pra/pra_today_task_details.dart';
 import '../../../config/config.dart';
 import '../../../config/dimen.dart';
 import '../../../config/palette.dart';
 import '../../../config/resource.dart';
 import '../../../config/string.dart';
-import '../../../utils/device.dart';
+import '../../../utils/device/orientations.dart';
+import '../../../utils/device/sizes.dart';
+import 'ba/ba_today_task_details.dart';
+import 'compactor_panel/compactor_panel_today_task_details.dart';
+import 'eo/eo_today_task_details.dart';
+import 'pra/pra_today_task_details.dart';
+import 'supervisor/supervisor_today_task_details.dart';
 
 class TodayTaskCard extends StatefulWidget {
   const TodayTaskCard({Key? key}) : super(key: key);
@@ -24,7 +25,6 @@ class TodayTaskCard extends StatefulWidget {
 class _TodayTaskCardState extends State<TodayTaskCard> {
   late String timeIn = "";
   late String timeOut = "";
-  final Devices _device = Devices();
 
   getTimeLog(actionText) {
     String currentTime = DateFormat("hh:mm a").format(DateTime.now());
@@ -45,11 +45,11 @@ class _TodayTaskCardState extends State<TodayTaskCard> {
     return Container(
       //margin: const EdgeInsets.all(2),
       padding: EdgeInsets.all(taskCardPadding),
-      width: _device.screenWidth(context),
+      width: Sizes().screenWidth(context),
       height: userRole == 200
           ? 240
           : (userRole == 100
-              ? (_device.isLandscape(context) ? 210 : 230)
+              ? (Orientations().isLandscape(context) ? 210 : 230)
               : 200),
       decoration: BoxDecoration(
         boxShadow: userRole == 200
@@ -90,8 +90,7 @@ class _TodayTaskCardState extends State<TodayTaskCard> {
   StatefulWidget assignRoleTaskDetails() {
     switch (userRole) {
       case 100:
-        return CompactorPanelTodayTaskDetails(
-            timeIn: timeIn, timeOut: timeOut, getTimeLog: getTimeLog);
+        return const CompactorPanelTodayTaskDetails();
       case 200:
         return PraTodayTaskDetails(
             timeIn: timeIn, timeOut: timeOut, getTimeLog: getTimeLog);
@@ -99,11 +98,9 @@ class _TodayTaskCardState extends State<TodayTaskCard> {
         return SupervisorTodayTaskDetails(
             timeIn: timeIn, timeOut: timeOut, getTimeLog: getTimeLog);
       case 400:
-        return EOTodayTaskDetails(
-            timeIn: timeIn, timeOut: timeOut, getTimeLog: getTimeLog);
+        return const EOTodayTaskDetails();
       case 500:
-        return BATodayTaskDetails(
-            timeIn: timeIn, timeOut: timeOut, getTimeLog: getTimeLog);
+        return const BATodayTaskDetails();
     }
     return Scaffold(
       body: Center(

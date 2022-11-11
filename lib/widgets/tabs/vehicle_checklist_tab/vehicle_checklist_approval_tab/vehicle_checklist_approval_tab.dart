@@ -1,13 +1,16 @@
-import 'package:eswm/widgets/tabs/vehicle_checklist_tab/vehicle_checklist_approval_tab/vehicle_checklist_approval_tab_bar_view/vehicle_checklist_approval_before_tab_bar_view.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
+//import files
 import '../../../../config/palette.dart';
 import '../../../../config/string.dart';
 import '../../../../models/vc/vc.dart';
-import '../../../../utils/custom_icon.dart';
-import '../../../../utils/device.dart';
+import '../../../../utils/device/sizes.dart';
+import '../../../../utils/icon/custom_icon.dart';
 import '../../../alert/alert_dialog.dart';
+import '../../../alert/lottie_alert_dialog.dart';
 import 'vehicle_checklist_approval_tab_bar_view/vehicle_checklist_approval_after_tab_bar_view.dart';
+import 'vehicle_checklist_approval_tab_bar_view/vehicle_checklist_approval_before_tab_bar_view.dart';
 
 class VehicleChecklistApprovalTab extends StatefulWidget {
   final VehicleChecklist data;
@@ -84,56 +87,65 @@ class _VehicleChecklistApprovalTabState
           ),
         ),
         body: Padding(
-          padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
+          padding: const EdgeInsets.only(top: 10),
           child: Column(
             children: [
-              Container(
-                height: 55,
-                decoration: BoxDecoration(
-                  color: tabBoxColor,
-                  borderRadius: BorderRadius.circular(
-                    46,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Container(
+                  height: 55,
+                  decoration: BoxDecoration(
+                    color: tabBoxColor,
+                    borderRadius: BorderRadius.circular(
+                      46,
+                    ),
+                  ),
+                  child: TabBar(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 10),
+                    controller: _tabController,
+                    indicator: BoxDecoration(
+                        borderRadius: BorderRadius.circular(
+                          46,
+                        ),
+                        color: white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: tabShadowColor,
+                            blurRadius: 1,
+                            offset: const Offset(0.0, 2.0),
+                          ),
+                        ]),
+                    labelColor: blackCustom,
+                    labelStyle: const TextStyle(
+                        fontWeight: FontWeight.w600, fontSize: 15),
+                    unselectedLabelStyle: const TextStyle(
+                        fontWeight: FontWeight.w400, fontSize: 14),
+                    unselectedLabelColor: greyCustom,
+                    tabs: const [
+                      Tab(
+                        text: 'Sebelum',
+                      ),
+                      Tab(
+                        text: 'Selepas',
+                      ),
+                    ],
                   ),
                 ),
-                child: TabBar(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                  controller: _tabController,
-                  indicator: BoxDecoration(
-                      borderRadius: BorderRadius.circular(
-                        46,
-                      ),
-                      color: white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: tabShadowColor,
-                          blurRadius: 1,
-                          offset: const Offset(0.0, 2.0),
-                        ),
-                      ]),
-                  labelColor: blackCustom,
-                  labelStyle: const TextStyle(
-                      fontWeight: FontWeight.w600, fontSize: 15),
-                  unselectedLabelStyle: const TextStyle(
-                      fontWeight: FontWeight.w400, fontSize: 14),
-                  unselectedLabelColor: greyCustom,
-                  tabs: const [
-                    Tab(
-                      text: 'Sebelum',
-                    ),
-                    Tab(
-                      text: 'Selepas',
-                    ),
-                  ],
-                ),
               ),
-              Expanded(
-                child: TabBarView(
-                  controller: _tabController,
-                  children: [
-                    VehicleChecklistApprovalBeforeTabbarView(data: widget.data),
-                    VehicleChecklistApprovalAfterTabbarView(data: widget.data),
-                  ],
+              ScrollConfiguration(
+                behavior:
+                    const MaterialScrollBehavior().copyWith(overscroll: false),
+                child: Expanded(
+                  child: TabBarView(
+                    controller: _tabController,
+                    children: [
+                      VehicleChecklistApprovalBeforeTabbarView(
+                          data: widget.data),
+                      VehicleChecklistApprovalAfterTabbarView(
+                          data: widget.data),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -163,8 +175,8 @@ class _VehicleChecklistApprovalTabState
                   overlayColor:
                       MaterialStateColor.resolveWith((states) => green800),
                   minimumSize: MaterialStateProperty.all(
-                      Size(Devices().screenWidth(context), 41)),
-                  backgroundColor: MaterialStateProperty.all(green)),
+                      Size(Sizes().screenWidth(context), 41)),
+                  backgroundColor: MaterialStateProperty.all(greenCustom)),
               child: Text('Sahkan',
                   style: TextStyle(
                       color: white, fontSize: 14, fontWeight: FontWeight.w700)),
@@ -179,13 +191,66 @@ class _VehicleChecklistApprovalTabState
                           "Tidak",
                           "Ya, Sahkan");
                     }).then((actionText) {
-                  if (actionText == "Sahkan") {
+                  if (actionText == "Ya, Sahkan") {
                     Navigator.pop(context);
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return showLottieAlertDialog(
+                              context, _textBuilder(), null);
+                        });
+                    // Navigator.push(
+                    //     context,
+                    //     PageTransition(
+                    //         child: CustomDialog(text: _textBuilder()),
+                    //         type: PageTransitionType.fade));
                   }
                 });
               },
             ),
           ),
         ));
+  }
+
+  RichText _textBuilder() {
+    return RichText(
+        textAlign: TextAlign.center,
+        text: TextSpan(
+            text: "Borang semakan pada ",
+            style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w400,
+                color: greyCustom,
+                height: 1.5),
+            children: <TextSpan>[
+              TextSpan(
+                  text: DateFormat("dd MMMM yyyy", 'ms').format(DateTime.now()),
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      color: greenCustom,
+                      height: 1.5)),
+              TextSpan(
+                  text: " \nbagi kenderaan",
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      color: greyCustom,
+                      height: 1.5)),
+              TextSpan(
+                  text: " ${widget.data.noKenderaan} ",
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      color: greenCustom,
+                      height: 1.5)),
+              TextSpan(
+                  text: "telah \nberjaya disahkan oleh anda",
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      color: greyCustom,
+                      height: 1.5))
+            ]));
   }
 }

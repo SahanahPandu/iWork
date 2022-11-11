@@ -1,14 +1,14 @@
 class SenaraiStaf {
-  final String staf_1;
-  final String staf_2;
-  final String staf_3;
+  final String staf1Img;
+  final String staf2Img;
+  final String staf3Img;
 
   SenaraiStaf(
-      {required this.staf_1, required this.staf_2, required this.staf_3});
+      {required this.staf1Img, required this.staf2Img, required this.staf3Img});
 
   static SenaraiStaf fromJson(json) => SenaraiStaf(
-        staf_1: json["staf_1"],
-        staf_2: json["staf_2"],
-        staf_3: json["staf_3"],
+        staf1Img: json["staf1Img"],
+        staf2Img: json["staf2Img"],
+        staf3Img: json["staf3Img"],
       );
 }

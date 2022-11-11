@@ -1,14 +1,13 @@
-// ignore_for_file: must_be_immutable
-
-import 'package:eswm/widgets/cards/cards.dart';
 import 'package:flutter/material.dart';
 
+//import files
 import '../../providers/pekerja_api.dart';
+import '../../widgets/cards/cards.dart';
 
 class ReassignEmployeeList extends StatefulWidget {
-  String? namaLaluan;
+  final String? namaLaluan;
 
-  ReassignEmployeeList({Key? key, this.namaLaluan}) : super(key: key);
+  const ReassignEmployeeList({Key? key, this.namaLaluan}) : super(key: key);
 
   @override
   State<ReassignEmployeeList> createState() => _ReassignEmployeeListState();
@@ -40,37 +39,25 @@ class _ReassignEmployeeListState extends State<ReassignEmployeeList> {
                       .contains(
                           item.tiedLaluan)); // removed all non related staff
                   dataFuture.removeWhere((item) =>
-                      item.idAttStatus == 1); // removed employee that "Hadir"
+                      item.idAttStatus ==
+                      1); // removed employee that "Hadir" because this list only show absent
                 }
 
-                return Column(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 15),
-                      child: ListView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: dataFuture!.length,
-                          itemBuilder: (context, index) {
-                            return Column(
-                              children: [
-                                Cards(
-                                  type: "Reassign Pekerja",
-                                  data: dataFuture[index],
-                                ),
-                                const SizedBox(
-                                  height: 12,
-                                ),
-                              ],
-                            );
-                          }),
-                    ),
-                    //put this at the end of the column widget list ,
-                    //because to able scroll all item without being covered by the button at the bottom
-                    const SizedBox(
-                      height: 100,
-                    ),
-                  ],
+                return Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 15),
+                  child: ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: dataFuture!.length,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          margin: const EdgeInsets.only(bottom: 16),
+                          child: Cards(
+                            type: "Reassign Pekerja",
+                            data: dataFuture[index],
+                          ),
+                        );
+                      }),
                 );
               }
           }

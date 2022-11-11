@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
+//import files
+import '../../../../config/config.dart';
 import '../../../../config/palette.dart';
 import '../../../../config/string.dart';
 import '../../../../providers/pekerja_api.dart';
-import '../../../../utils/custom_icon.dart';
-import '../../../../utils/device.dart';
+import '../../../../utils/device/sizes.dart';
+import '../../../../utils/icon/custom_icon.dart';
 import '../../../../widgets/alert/alert_dialog.dart';
+import '../../../../widgets/alert/lottie_alert_dialog.dart';
+import '../../../../widgets/custom_scroll/custom_scroll.dart';
 import 'attendance_verification_detail_list.dart';
 
 class AttendanceVerificationList extends StatefulWidget {
@@ -18,8 +23,9 @@ class AttendanceVerificationList extends StatefulWidget {
 
 class _AttendanceVerificationListState
     extends State<AttendanceVerificationList> {
-  final Devices _device = Devices();
   late Future<List> _loadPekerjaData;
+  IconData icon = CustomIcon.checkBoxEmpty;
+  Color iconColor = grey600;
 
   @override
   void initState() {
@@ -30,87 +36,157 @@ class _AttendanceVerificationListState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: appBarBgColor,
-          elevation: 1,
-          shadowColor: white,
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(CustomIcon.arrowBack,
-                color: blackCustom, size: 22),
-          ),
-          title: Center(
-            child: Text(
-              "Pengesahan",
-              style: TextStyle(
-                fontSize: 15,
-                color: grey800,
-                fontWeight: FontWeight.w700,
+        backgroundColor: white,
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(kToolbarHeight),
+          child: Container(
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                color: barShadowColor,
+                offset: const Offset(0, 3),
+                blurRadius: 8,
+              )
+            ]),
+            child: AppBar(
+              backgroundColor: white,
+              elevation: 0,
+              leading: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(CustomIcon.arrowBack, color: blackCustom, size: 22),
               ),
+              title: Center(
+                child: Text(
+                  "Pengesahan Kehadiran",
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: blackCustom,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ),
+              actions: [
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    CustomIcon.filter,
+                    color: blackCustom,
+                    size: 13,
+                  ),
+                ),
+              ],
             ),
           ),
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: Icon(
-                CustomIcon.filter,
-                color: blackCustom,
-                size: 13,
-              ),
-            ),
-          ],
         ),
-        body: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
+        body: Padding(
+          padding: const EdgeInsets.only(top: 15),
           child: Column(
             children: [
               Container(
-                  alignment: Alignment.centerLeft,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: white,
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                      topRight: Radius.circular(30),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: grey200,
+                          offset: const Offset(0, -4),
+                          blurRadius: 10,
+                          spreadRadius: 0.5)
+                    ],
+                  ),
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                   child: Text("Senarai Pekerja",
                       style: TextStyle(
-                          color: grey500, fontWeight: FontWeight.w700))),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: FutureBuilder<List>(
-                  future: _loadPekerjaData,
-                  builder: (context, snapshot) {
-                    final dataFuture = snapshot.data;
-
-                    switch (snapshot.connectionState) {
-                      case ConnectionState.waiting:
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-
-                      default:
-                        if (snapshot.hasError) {
-                          return const Center(
-                            child: Text("Some errors occurred!"),
-                          );
-                        } else {
-                          return ListView.builder(
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: dataFuture!.length,
-                            itemBuilder: (context, index) {
-                              if (dataFuture.length > 1) {
-                                return Container(
-                                  color: white,
-                                  child: AttendanceVerificationDetailList(
-                                    data: dataFuture[index],
-                                  ),
-                                );
+                          color: blackCustom,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600))),
+              Expanded(
+                child: ScrollConfiguration(
+                  behavior: CustomScrollBehavior(),
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 10),
+                            child: Row(
+                              children: [
+                                InkWell(
+                                    onTap: () {
+                                      if (icon == CustomIcon.checkBoxEmpty) {
+                                        icon = CustomIcon.checkedBox;
+                                        iconColor = greenCustom;
+                                        allSelected.value = true;
+                                      } else {
+                                        icon = CustomIcon.checkBoxEmpty;
+                                        iconColor = greyCustom;
+                                        allSelected.value = false;
+                                      }
+                                      setState(() {});
+                                    },
+                                    child:
+                                        Icon(icon, color: iconColor, size: 18)),
+                                const SizedBox(width: 10),
+                                Text(
+                                  "Pilih semua",
+                                  style: TextStyle(
+                                      color: blackCustom,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 15),
+                                )
+                              ],
+                            ),
+                          ),
+                          FutureBuilder<List>(
+                            future: _loadPekerjaData,
+                            builder: (context, snapshot) {
+                              final dataFuture = snapshot.data;
+                              switch (snapshot.connectionState) {
+                                case ConnectionState.waiting:
+                                  return const Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                default:
+                                  if (snapshot.hasError) {
+                                    return const Center(
+                                      child: Text("Some errors occurred!"),
+                                    );
+                                  } else {
+                                    return ListView.builder(
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      itemCount: dataFuture!.length,
+                                      itemBuilder: (context, index) {
+                                        if (dataFuture.length > 1) {
+                                          return Container(
+                                            color: white,
+                                            child:
+                                                AttendanceVerificationDetailList(
+                                              data: dataFuture[index],
+                                              index: index,
+                                            ),
+                                          );
+                                        }
+                                        return Container();
+                                      },
+                                    );
+                                  }
                               }
-                              return Container();
                             },
-                          );
-                        }
-                    }
-                  },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
               )
             ],
@@ -141,7 +217,7 @@ class _AttendanceVerificationListState
                   overlayColor:
                       MaterialStateColor.resolveWith((states) => green800),
                   minimumSize: MaterialStateProperty.all(
-                      Size(_device.screenWidth(context), 41)),
+                      Size(Sizes().screenWidth(context), 41)),
                   backgroundColor: MaterialStateProperty.all(green)),
               child: Text('Sahkan Kehadiran',
                   style: TextStyle(
@@ -153,17 +229,53 @@ class _AttendanceVerificationListState
                       return showAlertDialog(
                           context,
                           confirmation,
-                          "Sahkan kehadiran untuk pekerja yang hadir?",
+                          "Sahkan kehadiran pekerja yang hadir pada hari ini?",
                           cancel,
                           "Sahkan");
                     }).then((actionText) {
                   if (actionText == "Sahkan") {
                     Navigator.pop(context, 'refreshAttendance');
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return showLottieAlertDialog(
+                              context, _textBuilder(), null);
+                        });
+                    // Navigator.push(
+                    //     context,
+                    //     PageTransition(
+                    //         child: CustomDialog(text: _textBuilder()),
+                    //         type: PageTransitionType.fade));
                   }
                 });
               },
             ),
           ),
         ));
+  }
+
+  RichText _textBuilder() {
+    return RichText(
+        textAlign: TextAlign.center,
+        text: TextSpan(
+            text: "Kehadiran pekerja subordinat anda \npada",
+            style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w400,
+                color: greyCustom,
+                height: 1.5),
+            children: <TextSpan>[
+              TextSpan(
+                  text:
+                      " ${DateFormat("dd MMMM yyyy", 'ms').format(DateTime.now())}",
+                  style: TextStyle(
+                      fontSize: 15, fontWeight: FontWeight.w400, color: green)),
+              TextSpan(
+                  text: " telah berjaya disahkan",
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      color: greyCustom))
+            ]));
   }
 }

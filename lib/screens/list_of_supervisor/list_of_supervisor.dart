@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
 
 //import files
-import 'package:eswm/providers/penyelia_api.dart';
-import '../../config/config.dart';
-import '../../config/palette.dart';
+import '../../config/dimen.dart';
+import '../../models/penyelia_checkbox.dart';
+import '../../providers/penyelia_api.dart';
+import '../../utils/device/sizes.dart';
 
-void showListOfSupervisor(passContext, updateSvNameList) {
+Widget? showListOfSupervisor(passContext, updateSvNameList) {
   showModalBottomSheet(
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      context: passContext,
-      builder: (BuildContext context) {
+    isScrollControlled: true,
+    backgroundColor: Colors.transparent,
+    context: passContext,
+    builder: (BuildContext context) {
+      return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
         return GestureDetector(
           behavior: HitTestBehavior.opaque,
           onTap: () {
             Navigator.of(context).pop();
           },
           child: DraggableScrollableSheet(
-            initialChildSize: 0.5,
-            minChildSize: 0.1,
-            maxChildSize: 0.5,
+            initialChildSize: 0.6,
             builder: (_, scrollController) => Container(
               decoration: const BoxDecoration(
                 color: Colors.white,
@@ -27,13 +28,24 @@ void showListOfSupervisor(passContext, updateSvNameList) {
                   top: Radius.circular(20),
                 ),
               ),
-              padding: const EdgeInsets.all(15),
-              child: ListView(
-                physics: const BouncingScrollPhysics(),
-                controller: scrollController,
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  const SizedBox(
+                    height: 2,
+                  ),
+                  const Divider(
+                    thickness: 1,
+                    color: Color(0xff969696),
+                    indent: 170,
+                    endIndent: 170,
+                  ),
+                  const SizedBox(
+                    height: 24,
+                  ),
                   const Text(
-                    "Senarai Penyelia",
+                    "Pilih Penyelia",
                     style: TextStyle(
                       color: Color(0xff969696),
                       fontSize: 15,
@@ -41,70 +53,102 @@ void showListOfSupervisor(passContext, updateSvNameList) {
                     ),
                   ),
                   const SizedBox(
-                    height: 10,
+                    height: 16,
                   ),
-                  FutureBuilder<List>(
-                      future: PenyeliaApi.getPenyeliaData(passContext),
-                      builder: (context, snapshot) {
-                        final dataFuture = snapshot.data;
+                  const Divider(
+                    thickness: 1,
+                    color: Color(0xffE5E5E5),
+                  ),
+                  const SizedBox(
+                    height: 24,
+                  ),
+                  Expanded(
+                    child: FutureBuilder<List>(
+                        future: PenyeliaApi.getPenyeliaData(passContext),
+                        builder: (context, snapshot) {
+                          final dataFuture = snapshot.data;
 
-                        switch (snapshot.connectionState) {
-                          case ConnectionState.waiting:
-                            return const Center(
-                              child: CircularProgressIndicator(),
-                            );
-
-                          default:
-                            if (snapshot.hasError) {
+                          switch (snapshot.connectionState) {
+                            case ConnectionState.waiting:
                               return const Center(
-                                child: Text("Some error occured!"),
+                                child: CircularProgressIndicator(),
                               );
-                            } else {
-                              return ListView.builder(
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemCount: dataFuture!.length,
-                                  itemBuilder: (context, index) {
-                                    return InkWell(
-                                      onTap: () {
-                                        updateSvNameList(dataFuture[index]);
-                                        Navigator.pop(context);
-                                      },
-                                      child: Container(
-                                        padding: userRole == 100
-                                            ? const EdgeInsets.symmetric(
-                                                vertical: 23, horizontal: 5)
-                                            : const EdgeInsets.symmetric(
-                                                vertical: 10),
-                                        decoration: BoxDecoration(
-                                          border: Border(
-                                            top: BorderSide.none,
-                                            bottom: BorderSide(
-                                              color: grey400,
-                                              width:
-                                                  userRole == 100 ? 0.3 : 0.9,
-                                              style: BorderStyle.solid,
-                                            ),
-                                          ),
-                                        ),
-                                        child: Text(
-                                          dataFuture[index].name,
-                                          style: const TextStyle(
-                                            color: Color(0xff2b2b2b),
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  });
-                            }
-                        }
-                      }),
+
+                            default:
+                              if (snapshot.hasError) {
+                                return const Center(
+                                  child: Text("Some error occured!"),
+                                );
+                              } else {
+                                List<PenyeliaCheckBox>? newListData = dataFuture
+                                    ?.map((data) => PenyeliaCheckBox(
+                                        idPenyelia: data.id,
+                                        namaPenyelia: data.name))
+                                    .toList();
+
+                                return ListView.builder(
+                                    physics: const BouncingScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemCount: newListData!.length,
+                                    itemBuilder: (context, index) {
+                                      return svCheckBoxList(newListData[index]);
+                                    });
+                              }
+                          }
+                        }),
+                  ),
+                  Container(
+                    width: Sizes().screenWidth(context),
+                    margin: const EdgeInsets.all(10),
+                    child: selectButton(passContext, updateSvNameList, []),
+                  ),
                 ],
               ),
             ),
           ),
         );
       });
+    },
+  );
+  return null;
 }
+
+Widget selectButton(
+    BuildContext passContext, Function updateSvNameList, selectedName) {
+  return ElevatedButton(
+    style: ElevatedButton.styleFrom(
+        primary: const Color(0xff34A853),
+        shadowColor: Colors.white,
+        elevation: 5,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(borderRadiusCircular),
+        )),
+    onPressed: () {
+      Navigator.pop(passContext);
+      updateSvNameList(selectedName);
+    },
+    child: const Text(
+      "Pilih",
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: 15,
+        fontWeight: FontWeight.w600,
+      ),
+    ),
+  );
+}
+
+Widget svCheckBoxList(PenyeliaCheckBox dataPenyelia) => StatefulBuilder(
+      builder: (BuildContext context, StateSetter setState) {
+        return CheckboxListTile(
+          contentPadding: EdgeInsets.zero,
+          visualDensity: VisualDensity.compact,
+          controlAffinity: ListTileControlAffinity.leading,
+          title: Text(dataPenyelia.namaPenyelia),
+          value: dataPenyelia.valueCheckbox,
+          activeColor: const Color(0xff34A853),
+          onChanged: (newValue) =>
+              setState(() => dataPenyelia.valueCheckbox = newValue!),
+        );
+      },
+    );

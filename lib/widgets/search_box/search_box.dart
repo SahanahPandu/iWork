@@ -1,14 +1,14 @@
-// ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
 
-import 'package:eswm/config/font.dart';
-import 'package:eswm/config/palette.dart';
+//import files
+import '../../config/font.dart';
+import '../../config/palette.dart';
 
 class SearchBoxWidget extends StatefulWidget {
-  String? labelText;
-  Function(dynamic)? searchedName;
+  final String? labelText;
+  final Function(dynamic)? searchedName;
 
-  SearchBoxWidget({Key? key, this.labelText, this.searchedName})
+  const SearchBoxWidget({Key? key, this.labelText, this.searchedName})
       : super(key: key);
 
   @override
@@ -18,6 +18,7 @@ class SearchBoxWidget extends StatefulWidget {
 class _SearchBoxWidgetState extends State<SearchBoxWidget> {
   final TextEditingController _search = TextEditingController();
   IconData searchboxIcon = Icons.search;
+  Color borderColor = const Color(0xffDDDFE2);
 
   @override
   Widget build(BuildContext context) {
@@ -25,24 +26,24 @@ class _SearchBoxWidgetState extends State<SearchBoxWidget> {
       controller: _search,
       decoration: InputDecoration(
         filled: true,
-        fillColor: textFormFieldFillColor,
+        fillColor: Colors.white,
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
             width: 1.0,
-            color: Colors.grey.shade500,
+            color: borderColor,
           ),
           borderRadius: BorderRadius.circular(
-            10,
+            4,
           ),
           gapPadding: 6.0,
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
             width: 1.0,
-            color: Colors.grey.shade500,
+            color: borderColor,
           ),
           borderRadius: BorderRadius.circular(
-            10,
+            4,
           ),
           gapPadding: 6.0,
         ),
@@ -53,21 +54,29 @@ class _SearchBoxWidgetState extends State<SearchBoxWidget> {
           color: labelTextColor,
           fontWeight: textFormFieldLabelFontWeight,
         ),
-        suffixIcon: InkWell(
-            onTap: () {
-              if (searchboxIcon == Icons.close) {
-                setState(() {
-                  widget.searchedName!("");
-                  _search.text = "";
-                  searchboxIcon = Icons.search;
-                });
-              }
-            },
-            child: Icon(
-              searchboxIcon,
-              size: 25,
-              color: Colors.black87,
-            )),
+        prefixIcon: searchboxIcon == Icons.search
+            ? const Icon(
+                Icons.search,
+                size: 25,
+                color: Color(0xffA4A4A4),
+              )
+            : null,
+        suffixIcon: searchboxIcon == Icons.close
+            ? InkWell(
+                onTap: () {
+                  setState(() {
+                    widget.searchedName!("");
+                    _search.text = "";
+                    searchboxIcon = Icons.search;
+                  });
+                },
+                child: Icon(
+                  searchboxIcon,
+                  size: 25,
+                  color: const Color(0xffA4A4A4),
+                ),
+              )
+            : null,
       ),
       onChanged: (value) {
         widget.searchedName!(value);

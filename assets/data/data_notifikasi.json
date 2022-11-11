@@ -6,7 +6,8 @@
         "dataId":"01",
         "descId":1,
         "description": "Penyelia telah menugaskan anda untuk bekerja pada 25/5/2022. Lihat perincian",
-        "readIdStatus":2
+        "readIdStatus":1,
+        "dateReceived": "2022-09-22 16:10:50.000"
     
     },
     {
@@ -16,7 +17,8 @@
         "dataId":"01",
         "descId":1,
         "description": "Kehadiran anda pada 20/5/2022 telah disahkan oleh penyelia.",
-        "readIdStatus":1
+        "readIdStatus":1,
+        "dateReceived": "2022-09-22 10:04:50.000"
     },
     {
         "id":3,
@@ -25,7 +27,8 @@
         "dataId":1,
         "descId":1,
         "description": "Menunggu perngesahan bagi permohonanan E-Cuti - PRA Suhaimi.",
-        "readIdStatus":1
+        "readIdStatus":2,
+        "dateReceived": "2022-09-20 15:04:50.000"
     }
     ,
     {
@@ -35,7 +38,8 @@
         "dataId":3,
         "descId":1,
         "description": "BA telah mengesahkan Laporan Halangan untuk Laluan JHBP01-C02",
-        "readIdStatus":1
+        "readIdStatus":1,
+        "dateReceived": "2022-09-22 15:04:50.000"
     },
     {
         "id":5,
@@ -44,6 +48,7 @@
         "dataId":"01",
         "descId":1,
         "description": "Tugasan untuk Laluan JHBP01-C02 telah bermula pada 7.40 pagi.",
-        "readIdStatus":1
+        "readIdStatus":2,
+        "dateReceived": "2022-09-20 15:04:50.000"
     }
 ]

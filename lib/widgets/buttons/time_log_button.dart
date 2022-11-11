@@ -1,28 +1,21 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:eswm/config/config.dart';
-import 'package:eswm/utils/custom_icon.dart';
 
 //import files
-import 'package:eswm/screens/time_log/time_log.dart';
 import '../../config/palette.dart';
-// import '../../config/dimen.dart';
-// import '../../utils/device.dart';
+import '../../screens/time_log/time_log.dart';
+import '../../utils/icon/custom_icon.dart';
 
 class TimeLogButton extends StatefulWidget {
-  Function getTimeLog;
+  final Function getTimeLog;
 
-  TimeLogButton({Key? key, required this.getTimeLog}) : super(key: key);
+  const TimeLogButton({Key? key, required this.getTimeLog}) : super(key: key);
 
   @override
   State<TimeLogButton> createState() => _TimeLogButtonState();
 }
 
 class _TimeLogButtonState extends State<TimeLogButton> {
-  //final Devices _device = Devices();
-
   Color buttonColor = const Color(0xff52A834);
   Color buttonTextColor = Colors.white;
   Color buttonOverlayColor = green800;
@@ -64,26 +57,17 @@ class _TimeLogButtonState extends State<TimeLogButton> {
       width: 190,
       height: 46,
       child: ElevatedButton.icon(
-        style: userRole == 200
-            ? ElevatedButton.styleFrom(
-                primary: buttonColor,
-                padding: const EdgeInsets.all(13),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(26),
-                ),
-                elevation: 5,
-              )
-            : ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(buttonColor),
-                elevation: MaterialStateProperty.all(5),
-                overlayColor: MaterialStateColor.resolveWith(
-                    (states) => buttonOverlayColor),
-                shape: MaterialStateProperty.all(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(26),
-                  ),
-                ),
-              ),
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(buttonColor),
+          elevation: MaterialStateProperty.all(5),
+          overlayColor:
+              MaterialStateColor.resolveWith((states) => buttonOverlayColor),
+          shape: MaterialStateProperty.all(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(26),
+            ),
+          ),
+        ),
         onPressed: () {
           if (buttonColor != const Color(0xffD9D9D9)) {
             changeButtonColor();

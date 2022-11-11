@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../config/config.dart';
-import '../../utils/device.dart';
-
-final Devices _device = Devices();
+//import files
+import '../../config/palette.dart';
+import '../../utils/device/sizes.dart';
 
 Widget? showNavigationOptions(BuildContext context) {
   showModalBottomSheet(
-      constraints: userRole == 100
-          ? (_device.isLandscape(context)
-              ? const BoxConstraints(maxWidth: 500, maxHeight: 150)
-              : const BoxConstraints(maxWidth: 500, maxHeight: 120))
-          : null,
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
@@ -22,26 +16,69 @@ Widget? showNavigationOptions(BuildContext context) {
       context: context,
       builder: (builder) {
         return SizedBox(
-          height: MediaQuery.of(context).size.height * 0.2,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          height: Sizes().screenHeight(context) * 0.3,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                margin: const EdgeInsets.all(8),
-                width: userRole == 100 ? 150 : 120,
-                height: userRole == 100 ? 100 : 100,
-                child: Image.asset(
-                  'assets/image/waze_logo.png',
-                  fit: BoxFit.fill,
+              const SizedBox(
+                height: 2,
+              ),
+              const Divider(
+                thickness: 1,
+                color: Color(0xff969696),
+                indent: 170,
+                endIndent: 170,
+              ),
+              const Padding(
+                padding: EdgeInsets.only(
+                  top: 24,
+                  left: 24,
+                  bottom: 16,
+                ),
+                child: Text(
+                  "Navigasi ke lokasi",
+                  style: TextStyle(
+                    color: Color(0xff969696),
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
+              const Divider(
+                thickness: 1,
+                color: Color(0xffE5E5E5),
+                indent: 25,
+                endIndent: 25,
+              ),
               Container(
-                margin: const EdgeInsets.all(8),
-                width: userRole == 100 ? 150 : 120,
-                height: userRole == 100 ? 100 : 100,
-                child: Image.asset(
-                  'assets/image/google_map_logo.png',
-                  fit: BoxFit.fill,
+                margin: const EdgeInsets.only(
+                  left: 24,
+                  top: 10,
+                  right: 24,
+                ),
+                child: Text(
+                  "Waze",
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: blackCustom,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 24,
+              ),
+              Container(
+                margin: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                ),
+                child: Text(
+                  "Google Maps",
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: blackCustom,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
               ),
             ],

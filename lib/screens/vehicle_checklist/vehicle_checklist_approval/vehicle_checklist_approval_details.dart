@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
 
+//import files
 import '../../../config/font.dart';
 import '../../../config/palette.dart';
 import '../../../models/vc/vc.dart';
-import '../../../utils/custom_icon.dart';
-import '../../../utils/device.dart';
+import '../../../utils/icon/custom_icon.dart';
 import '../../../widgets/container/status_container.dart';
-import '../../../widgets/tabs/vehicle_checklist_tab/vehicle_checklist_approval_tab/vehicle_checklist_approval_tab.dart';
 
 class VehicleChecklistApprovalDetails extends StatefulWidget {
   final VehicleChecklist data;
@@ -29,12 +27,15 @@ class _VehicleChecklistApprovalDetailsState
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              widget.data.noLaluan,
-              style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  color: blackCustom,
-                  fontSize: 16),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+              child: Text(
+                widget.data.noLaluan,
+                style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    color: blackCustom,
+                    fontSize: 16),
+              ),
             ),
             StatusContainer(
               type: "vc",
@@ -45,7 +46,7 @@ class _VehicleChecklistApprovalDetailsState
           ],
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -53,7 +54,7 @@ class _VehicleChecklistApprovalDetailsState
                 children: [
                   Icon(
                     CustomIcon.truckFill,
-                    size: 15,
+                    size: 16,
                     color: activeColor,
                   ),
                   const SizedBox(
@@ -61,29 +62,29 @@ class _VehicleChecklistApprovalDetailsState
                   ),
                   Text('No. Kenderaan',
                       style: TextStyle(
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w400,
                           color: greyCustom,
-                          fontSize: 14)),
+                          fontSize: 15)),
                 ],
               ),
               Text(widget.data.noKenderaan,
                   style: TextStyle(
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w600,
                       color: blackCustom,
-                      fontSize: 14)),
+                      fontSize: 15)),
             ],
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
                 children: [
                   Icon(
-                    CustomIcon.timerOutline,
-                    size: 15,
+                    CustomIcon.timerFill,
+                    size: 16,
                     color: activeColor,
                   ),
                   const SizedBox(
@@ -91,46 +92,19 @@ class _VehicleChecklistApprovalDetailsState
                   ),
                   Text('Keluar/Balik',
                       style: TextStyle(
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w400,
                           color: greyCustom,
-                          fontSize: 14)),
+                          fontSize: 15)),
                 ],
               ),
               Text('${widget.data.masaKeluar} / ${widget.data.masaBalik}',
                   style: TextStyle(
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w600,
                       color: blackCustom,
-                      fontSize: 14)),
+                      fontSize: 15)),
             ],
           ),
-        ),
-        Padding(
-            padding: const EdgeInsets.only(top: 18, left: 10, right: 10),
-            child: ElevatedButton(
-              style: ButtonStyle(
-                  elevation: MaterialStateProperty.all(0),
-                  shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0)),
-                  ),
-                  overlayColor:
-                      MaterialStateColor.resolveWith((states) => green800),
-                  minimumSize: MaterialStateProperty.all(
-                      Size(Devices().screenWidth(context), 41)),
-                  backgroundColor: MaterialStateProperty.all(green)),
-              child: Text('Sahkan Semakan Kenderaan',
-                  style: TextStyle(
-                      color: white, fontSize: 14, fontWeight: FontWeight.w700)),
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    PageTransition(
-                        type: PageTransitionType.fade,
-                        child: VehicleChecklistApprovalTab(
-                          data: widget.data,
-                        )));
-              },
-            ))
+        )
       ],
     );
   }

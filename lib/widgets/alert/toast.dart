@@ -1,12 +1,13 @@
 import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+//import files
 import '../../config/config.dart';
 import '../../config/palette.dart';
-import '../../utils/device.dart';
-
-final Devices _device = Devices();
+import '../../utils/device/orientations.dart';
+import '../../utils/device/sizes.dart';
 
 void showSuccessToast(BuildContext context, String message,
     {bool shouldDismiss = true}) {
@@ -66,13 +67,13 @@ void _showToast(BuildContext context, String message, Color color,
                             bottom: Radius.circular(10)),
                         color: color),
                     width: userRole == 100
-                        ? (_device.isLandscape(context)
-                            ? _device.screenWidth(context) - 100
-                            : _device.screenWidth(context) - 60)
-                        : _device.screenWidth(context) - 50,
-                    height: _device.isLandscape(context)
-                        ? _device.screenHeight(context) / 10
-                        : _device.screenHeight(context) / 17,
+                        ? (Orientations().isLandscape(context)
+                            ? Sizes().screenWidth(context) - 100
+                            : Sizes().screenWidth(context) - 60)
+                        : Sizes().screenWidth(context) - 50,
+                    height: Orientations().isLandscape(context)
+                        ? Sizes().screenHeight(context) / 10
+                        : Sizes().screenHeight(context) / 17,
                     padding: const EdgeInsets.all(5),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -96,8 +97,9 @@ void _showToast(BuildContext context, String message, Color color,
                             style: TextStyle(
                                 decoration: TextDecoration.none,
                                 color: white,
-                                fontSize:
-                                    _device.isLandscape(context) ? 16 : 14,
+                                fontSize: Orientations().isLandscape(context)
+                                    ? 16
+                                    : 14,
                                 fontWeight: FontWeight.w500),
                           ),
                         )

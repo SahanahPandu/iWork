@@ -42,27 +42,28 @@ Color greyCustom = const Color.fromRGBO(150, 150, 150, 1);
 Color redCustom = const Color.fromRGBO(224, 65, 65, 1);
 Color greenCustom = const Color.fromRGBO(52, 168, 83, 1);
 
-Color buttonColor = const Color.fromRGBO(82, 168, 83, 1);
+Color okTextColor = const Color.fromRGBO(160, 253, 87, 1);
+Color ngTextColor = const Color.fromRGBO(229, 27, 27, 1);
+Color hoverColor = const Color(0xf5089eaf);
+Color callColor = const Color.fromRGBO(52, 168, 83, 1);
 Color activeColor = const Color.fromRGBO(50, 105, 248, 1);
 Color activeBoxColor = const Color.fromRGBO(238, 248, 255, 1);
 Color tabBoxColor = const Color.fromRGBO(242, 246, 255, 1);
 Color tabShadowColor = const Color.fromRGBO(7, 64, 173, 0.08);
 Color cardShadowColor = const Color.fromRGBO(13, 46, 97, 0.1);
+Color cardListShadowColor = const Color.fromRGBO(0, 0, 0, 0.08);
 Color barShadowColor = const Color.fromRGBO(0, 0, 0, 0.04);
+Color shadowColor = const Color.fromRGBO(0, 0, 0, 0.06);
 Color primaryTextColor = const Color.fromRGBO(35, 45, 66, 1);
 Color secondaryTextColor = const Color.fromRGBO(138, 146, 166, 1);
 Color borderColor = const Color(0xE0EFEFEF);
 Color borderTextColor = const Color.fromRGBO(221, 223, 226, 1);
 Color labelColor = const Color.fromRGBO(164, 164, 164, 1);
 Color fillColor = const Color.fromRGBO(251, 251, 251, 1);
+Color dividerColor = const Color.fromRGBO(229, 229, 229, 1);
 
 //------Text Form Field--------------------------------------------------------
-Color textFormFieldFillColor = const Color(0xffFBFBFB);
-
-//border setting
-//double borderSideWidth = 1.5;
-double borderSideWidth = 1;
-double borderRadiusCircular = 8;
+Color textFormFieldFillColor = const Color(0x33DDDFE2);
 
 //border color
 Color focusedBorder = Colors.green;

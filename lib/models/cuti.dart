@@ -9,31 +9,39 @@ class Cuti {
   final String lampiran;
   final String catatan;
   final String pemohon;
+  final String designation;
   final String approvalBy;
+  final String maklumbalasSV;
 
-  const Cuti(
-      {required this.id,
-      required this.idJenisCuti,
-      required this.jenisCuti,
-      required this.idStatus,
-      required this.status,
-      required this.tarikhMula,
-      required this.tarikhTamat,
-      required this.lampiran,
-      required this.catatan,
-      required this.pemohon,
-      required this.approvalBy});
+  const Cuti({
+    required this.id,
+    required this.idJenisCuti,
+    required this.jenisCuti,
+    required this.idStatus,
+    required this.status,
+    required this.tarikhMula,
+    required this.tarikhTamat,
+    required this.lampiran,
+    required this.catatan,
+    required this.pemohon,
+    required this.designation,
+    required this.approvalBy,
+    required this.maklumbalasSV,
+  });
 
   static Cuti fromJson(json) => Cuti(
-      id: json['id'] ?? 0,
-      idJenisCuti: json['idJenisCuti'] ?? 0,
-      jenisCuti: json['jenisCuti'] ?? "",
-      idStatus: json['idStatus'] ?? 0,
-      status: json['status'] ?? "",
-      tarikhMula: json['tarikhMula'] ?? "",
-      tarikhTamat: json['tarikhTamat'] ?? "",
-      lampiran: json['lampiran'] ?? "",
-      catatan: json['catatan'] ?? "",
-      pemohon: json['pemohon'] ?? "",
-      approvalBy: json['approvalBy'] ?? "");
+        id: json['id'] ?? 0,
+        idJenisCuti: json['idJenisCuti'] ?? 0,
+        jenisCuti: json['jenisCuti'] ?? "",
+        idStatus: json['idStatus'] ?? 0,
+        status: json['status'] ?? "",
+        tarikhMula: json['tarikhMula'] ?? "",
+        tarikhTamat: json['tarikhTamat'] ?? "",
+        lampiran: json['lampiran'] ?? "",
+        catatan: json['catatan'] ?? "",
+        pemohon: json['pemohon'] ?? "",
+        designation: json['designation'] ?? "",
+        approvalBy: json['approvalBy'] ?? "",
+        maklumbalasSV: json['maklumbalasSV'] ?? "",
+      );
 }

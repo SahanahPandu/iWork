@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
+//import files
 import '../../config/dimen.dart';
 import '../../config/palette.dart';
 import '../../config/resource.dart';
-import '../../utils/device.dart';
+import '../../utils/device/devices.dart';
+import '../../utils/device/sizes.dart';
 import '../login/login.dart';
 
 class SplashMain extends StatefulWidget {
@@ -13,9 +15,7 @@ class SplashMain extends StatefulWidget {
   State<SplashMain> createState() => _SplashMainState();
 }
 
-class _SplashMainState extends State<SplashMain>
-    with TickerProviderStateMixin {
-  final Devices _device = Devices();
+class _SplashMainState extends State<SplashMain> with TickerProviderStateMixin {
   var expanded = false;
   final transitionDuration = const Duration(seconds: 1);
 
@@ -39,8 +39,8 @@ class _SplashMainState extends State<SplashMain>
             child: SingleChildScrollView(
               reverse: true,
               child: Container(
-                width: _device.screenWidth(context),
-                height: _device.screenHeight(context),
+                width: Sizes().screenWidth(context),
+                height: Sizes().screenHeight(context),
                 color: white,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -48,8 +48,20 @@ class _SplashMainState extends State<SplashMain>
                     AnimatedContainer(
                       duration: transitionDuration,
                       curve: Curves.fastOutSlowIn,
-                      height: !expanded ? 240 : logoHeight(context),
-                      width: !expanded ? 240 : logoWidth(context),
+                      height: Devices().isPhone()
+                          ? !expanded
+                              ? 200
+                              : logoHeight(context)
+                          : !expanded
+                              ? 300
+                              : logoHeight(context),
+                      width: Devices().isPhone()
+                          ? !expanded
+                              ? 240
+                              : logoWidth(context)
+                          : !expanded
+                              ? 350
+                              : logoWidth(context),
                       child: Image.asset(
                         splashImg,
                       ),

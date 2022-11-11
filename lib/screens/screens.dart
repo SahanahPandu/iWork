@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
+//import files
 import '../config/config.dart';
 import '../config/resource.dart';
 import '../config/string.dart';
@@ -47,6 +48,8 @@ class _ScreensState extends State<Screens> {
       case 400:
         return const EO();
       case 500:
+      case 600:
+      case 700:
         return const BA();
       default:
         return Scaffold(

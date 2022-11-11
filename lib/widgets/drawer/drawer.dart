@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
+//import files
 import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../../config/resource.dart';
 import '../../config/string.dart';
 import '../../data/data_drawer.dart';
 import '../../screens/e_cuti/e_cuti.dart';
-import '../../screens/e_cuti/supervisor/supervisor_leave_list.dart';
-import '../../screens/reports/reports.dart';
+import '../../screens/reports/report_list_main.dart';
 import '../../screens/schedule_all/schedule_all_main.dart';
-import '../../screens/schedule_issue/schedule_issue_main.dart';
+import '../../screens/schedule_issue/report/report_approval_list_main.dart';
 import '../../screens/schedule_shift/schedule_shift_main.dart';
 import '../../screens/vehicle_checklist/vehicle_checklist_approval/vehicle_checklist_approval_main.dart';
+import '../../screens/vehicle_checklist/vehicle_checklist_list/vehicle_checklist_list_main.dart';
 import '../../screens/workshop_vehicle/workshop_vehicle_main.dart';
 import '../../utils/authentication/auth.dart';
-import '../../utils/device.dart';
+import '../../utils/device/sizes.dart';
 import '../alert/alert_dialog.dart';
 import '../tabs/akbk_tab/akbk_tab.dart';
+import '../tabs/ecuti_approval_tab/ecuti_approval_tab.dart';
 
 class DrawerBuild extends StatefulWidget {
   const DrawerBuild({Key? key}) : super(key: key);
@@ -27,7 +29,6 @@ class DrawerBuild extends StatefulWidget {
 }
 
 class _DrawerBuildState extends State<DrawerBuild> {
-  final Devices _device = Devices();
   String name = "";
   String role = "";
   final List<bool> _isHighlighted = [
@@ -86,163 +87,168 @@ class _DrawerBuildState extends State<DrawerBuild> {
             topRight: Radius.circular(14), bottomRight: Radius.circular(14)),
         child: Drawer(
           backgroundColor: white,
-          child: ListView(physics: const BouncingScrollPhysics(), children: [
-            Container(
-              alignment: Alignment.centerLeft,
-              height: _device.isLandscape(context) ? 80 : 110.0,
-              child: DrawerHeader(
-                  decoration: BoxDecoration(
-                    color: transparent,
-                  ),
-                  child: Row(
-                    children: [
-                      Stack(
-                          clipBehavior: Clip.hardEdge,
-                          alignment: AlignmentDirectional.center,
-                          fit: StackFit.loose,
-                          children: <Widget>[
-                            Container(
-                              height: _device.isLandscape(context) ? 52 : 62,
-                              width: _device.isLandscape(context) ? 52 : 62,
-                              decoration: BoxDecoration(
-                                  color: transparent,
-                                  border: Border.all(color: grey300),
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(10))),
-                            ),
-                            Padding(
-                              padding: _device.isLandscape(context)
-                                  ? const EdgeInsets.all(2)
-                                  : const EdgeInsets.all(0),
-                              child: ClipRRect(
+          child: Theme(
+            data: Theme.of(context).copyWith(useMaterial3: true),
+            child: ListView(children: [
+              Container(
+                alignment: Alignment.centerLeft,
+                height: 110.0,
+                child: DrawerHeader(
+                    decoration: BoxDecoration(
+                      color: white,
+                    ),
+                    child: Row(
+                      children: [
+                        Stack(
+                            clipBehavior: Clip.hardEdge,
+                            alignment: AlignmentDirectional.center,
+                            fit: StackFit.loose,
+                            children: <Widget>[
+                              Container(
+                                height: 62,
+                                width: 62,
+                                decoration: BoxDecoration(
+                                    color: transparent,
+                                    border: Border.all(color: grey300),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(10))),
+                              ),
+                              ClipRRect(
                                   borderRadius: BorderRadius.circular(10),
                                   child: FittedBox(
                                     fit: BoxFit.fill,
                                     child: Image.asset(
                                       userImg,
-                                      height: _device.isLandscape(context)
-                                          ? 50
-                                          : 58,
-                                      width: _device.isLandscape(context)
-                                          ? 50
-                                          : 58,
+                                      height: 58,
+                                      width: 58,
                                     ),
-                                  )),
-                            )
-                          ]),
-                      const SizedBox(
-                        width: 15,
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            '''Muhammad Amiruddin Bin \nAriffin''',
-                            overflow: TextOverflow.visible,
-                            maxLines: 2,
-                            style: TextStyle(
-                                color: blackCustom,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600),
-                          ),
-                          const SizedBox(height: 4),
-                          Row(
-                            children: [
-                              Text(
-                                "SWK2210020  •",
-                                style: TextStyle(
-                                    color: greyCustom,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w400),
+                                  ))
+                            ]),
+                        const SizedBox(
+                          width: 15,
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '''Muhammad Amiruddin Bin \nAriffin''',
+                              overflow: TextOverflow.visible,
+                              maxLines: 2,
+                              style: TextStyle(
+                                  color: blackCustom,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                            const SizedBox(height: 4),
+                            Row(
+                              children: [
+                                Text(
+                                  "SWK2210020",
+                                  style: TextStyle(
+                                      color: greyCustom,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                                const SizedBox(width: 6),
+                                Icon(
+                                  Icons.fiber_manual_record,
+                                  size: 5,
+                                  color: greyCustom,
+                                ),
+                                const SizedBox(width: 6),
+                                Text(
+                                  role,
+                                  style: TextStyle(
+                                      color: greyCustom,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    )),
+              ),
+              SizedBox(
+                  height: Sizes().screenHeight(context) * 0.75,
+                  child: Theme(
+                    data: Theme.of(context).copyWith(useMaterial3: true),
+                    child: ListView.builder(
+                        itemCount: _getList().length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            child: ListTile(
+                              minLeadingWidth: 25,
+                              tileColor:
+                                  _isHighlighted[index] ? activeBoxColor : null,
+                              leading: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 10),
+                                    child: Icon(
+                                      _isHighlighted[index]
+                                          ? _getList()[index].iconFill
+                                          : _getList()[index].iconOutline,
+                                      color: _isHighlighted[index]
+                                          ? activeColor
+                                          : _getList()[index].titleColor,
+                                      size: 16,
+                                    ),
+                                  ),
+                                ],
                               ),
-                              const SizedBox(width: 6),
-                              Text(
-                                role,
-                                style: TextStyle(
-                                    color: greyCustom,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w400),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
-                  )),
-            ),
-            SizedBox(
-                height: _device.screenHeight(context) * 0.75,
-                child: ListView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: _getList().length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: ListTile(
-                          minLeadingWidth: 25,
-                          tileColor:
-                              _isHighlighted[index] ? activeBoxColor : null,
-                          leading: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(left: 10),
-                                child: Icon(
-                                  _isHighlighted[index]
-                                      ? _getList()[index].iconFill
-                                      : _getList()[index].iconOutline,
-                                  color: _isHighlighted[index]
-                                      ? activeColor
-                                      : _getList()[index].titleColor,
-                                  size: 16,
+                              title: Container(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  _getList()[index].title,
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      color: _isHighlighted[index]
+                                          ? activeColor
+                                          : _getList()[index].titleColor,
+                                      fontWeight: _isHighlighted[index]
+                                          ? FontWeight.w500
+                                          : FontWeight.w400),
                                 ),
                               ),
-                            ],
-                          ),
-                          title: Container(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              _getList()[index].title,
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  color: _isHighlighted[index]
-                                      ? activeColor
-                                      : _getList()[index].titleColor,
-                                  fontWeight: _isHighlighted[index]
-                                      ? FontWeight.w500
-                                      : FontWeight.w400),
-                            ),
-                          ),
-                          onTap: () {
-                            for (int i = 0; i < _isHighlighted.length; i++) {
-                              setState(() {
-                                if (index == i) {
-                                  _isHighlighted[index] = true;
-                                } else {
-                                  _isHighlighted[i] = false;
+                              onTap: () {
+                                for (int i = 0;
+                                    i < _isHighlighted.length;
+                                    i++) {
+                                  setState(() {
+                                    if (index == i) {
+                                      _isHighlighted[index] = true;
+                                    } else {
+                                      _isHighlighted[i] = false;
+                                    }
+                                  });
                                 }
-                              });
-                            }
-                            _getDrawerRoute(index, context);
-                          },
-                        ),
-                      );
-                    })),
-            ListTile(
-              title: Padding(
-                padding: const EdgeInsets.only(left: 20),
-                child: Text(
-                  'Aplikasi V0.2',
-                  style: (TextStyle(
-                      color: grey500,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 12)),
+                                _getDrawerRoute(index, context);
+                              },
+                            ),
+                          );
+                        }),
+                  )),
+              ListTile(
+                visualDensity: const VisualDensity(vertical: -4),
+                title: Padding(
+                  padding: const EdgeInsets.only(left: 20),
+                  child: Text(
+                    'Aplikasi V0.2',
+                    style: (TextStyle(
+                        color: grey500,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 12)),
+                  ),
                 ),
+                onTap: () {},
               ),
-              onTap: () {},
-            ),
-          ]),
+            ]),
+          ),
         ),
       ),
     );
@@ -258,6 +264,8 @@ class _DrawerBuildState extends State<DrawerBuild> {
         return svDrawerList;
       case 400: //eo
       case 500: //ba
+      case 600: //sam
+      case 700: //rom
         return eoBaDrawerList;
     }
     return praDrawerList;
@@ -281,13 +289,16 @@ class _DrawerBuildState extends State<DrawerBuild> {
                 context,
                 PageTransition(
                     type: PageTransitionType.fade,
-                    child: ReportsPage(
-                      screen: "6",
-                      data: null,
-                      dataLaluan: null,
-                    )));
+                    child: const ReportListMain()));
             break;
 
+          case 3:
+            Navigator.push(
+                context,
+                PageTransition(
+                    type: PageTransitionType.fade,
+                    child: const VehicleChecklistListMain()));
+            break;
           case 5: //logout
             _userLogout(context);
             break;
@@ -302,7 +313,7 @@ class _DrawerBuildState extends State<DrawerBuild> {
                 context,
                 PageTransition(
                     type: PageTransitionType.fade,
-                    child: ECuti(
+                    child: const ECuti(
                       screen: "5",
                       data: null,
                     )));
@@ -317,14 +328,12 @@ class _DrawerBuildState extends State<DrawerBuild> {
             break;
           case 3: //Laporan
             Navigator.push(
-                context,
-                PageTransition(
-                    type: PageTransitionType.fade,
-                    child: ReportsPage(
-                      screen: "6",
-                      data: null,
-                      dataLaluan: null,
-                    )));
+              context,
+              PageTransition(
+                type: PageTransitionType.fade,
+                child: const ReportListMain(),
+              ),
+            );
             break;
           case 6: //logout
             _userLogout(context);
@@ -336,6 +345,8 @@ class _DrawerBuildState extends State<DrawerBuild> {
       case 300: //supervisor
       case 400: //eo
       case 500: //ba
+      case 600: //sam
+      case 700: //rom
         switch (idx) {
           case 1: // ECuti
             Navigator.pop(context);
@@ -343,7 +354,7 @@ class _DrawerBuildState extends State<DrawerBuild> {
                 context,
                 PageTransition(
                     type: PageTransitionType.fade,
-                    child: const SupervisorLeaveList()));
+                    child: const EcutiApprovalTab()));
             break;
           case 2: // Jadual tugasan
             Navigator.pop(context);
@@ -367,10 +378,7 @@ class _DrawerBuildState extends State<DrawerBuild> {
                 context,
                 PageTransition(
                     type: PageTransitionType.fade,
-                    child: const ScheduleIssueMainScreen(
-                      fromHome: false,
-                      issueType: 'laporan',
-                    )));
+                    child: const ReportApprovalListMain()));
             break;
           case 5: // AKBK form
             Navigator.pop(context);
@@ -409,7 +417,7 @@ class _DrawerBuildState extends State<DrawerBuild> {
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return showAlertDialog(context, reminder, confirmLogout, yes, cancel);
+          return showAlertDialog(context, reminder, confirmLogout, cancel, yes);
         }).then((actionText) {
       if (actionText == yes) {
         Auth.handleLogout();

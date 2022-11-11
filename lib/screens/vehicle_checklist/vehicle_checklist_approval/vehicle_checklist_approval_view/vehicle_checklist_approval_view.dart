@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//import files
 import '../../../../config/palette.dart';
 import '../../../../models/vc/vc.dart';
 
@@ -29,7 +30,7 @@ class _VehicleChecklistApprovalViewState
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -37,14 +38,13 @@ class _VehicleChecklistApprovalViewState
           Container(
             decoration: BoxDecoration(
               color: white,
-              border: Border.all(color: borderColor),
               borderRadius: const BorderRadius.all(Radius.circular(8)),
               boxShadow: [
                 BoxShadow(
-                    color: Colors.grey.withOpacity(.3),
-                    blurRadius: 3,
-                    spreadRadius: 0.5,
-                    offset: const Offset(0, 2))
+                    color: cardShadowColor,
+                    offset: const Offset(0, 2),
+                    blurRadius: 10,
+                    spreadRadius: 0.5)
               ],
             ),
             child: Padding(
@@ -52,50 +52,45 @@ class _VehicleChecklistApprovalViewState
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(widget.data.noKenderaan,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          color: primaryTextColor,
-                          fontSize: 16)),
                   Padding(
-                    padding: const EdgeInsets.only(top: 25, bottom: 10),
+                    padding: const EdgeInsets.only(top: 12, bottom: 12),
                     child: _buildTextRow('Tarikh', widget.data.tarikh),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow('No. Laluan', widget.data.noLaluan),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 5),
+                    padding: const EdgeInsets.only(bottom: 12),
+                    child:
+                        _buildTextRow('No. Kenderaan', widget.data.noKenderaan),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: before
                         ? _buildTextRow('Masa Keluar', widget.data.masaKeluar)
                         : _buildTextRow('Masa Masuk', widget.data.masaBalik),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 12),
+                    child: _buildTextRow('Status', widget.data.status),
                   ),
                 ],
               ),
             ),
           ),
-          const SizedBox(height: 18),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 5),
-            child: Text('Perincian maklumat di bawah:',
-                style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    color: secondaryTextColor,
-                    fontSize: 14)),
-          ),
+          const SizedBox(height: 16),
           //Perincian Card 1
           Container(
             decoration: BoxDecoration(
               color: white,
-              border: Border.all(color: borderColor),
               borderRadius: const BorderRadius.all(Radius.circular(8)),
               boxShadow: [
                 BoxShadow(
-                    color: Colors.grey.withOpacity(.3),
-                    blurRadius: 3,
-                    spreadRadius: 0.5,
-                    offset: const Offset(0, 2))
+                    color: cardShadowColor,
+                    offset: const Offset(0, 2),
+                    blurRadius: 10,
+                    spreadRadius: 0.5)
               ],
             ),
             child: Padding(
@@ -104,9 +99,11 @@ class _VehicleChecklistApprovalViewState
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: 5, bottom: 10),
+                    padding: const EdgeInsets.only(top: 5, bottom: 12),
                     child: _buildTextRow(
-                        'Bacaan Odometer',
+                        before
+                            ? 'Bacaan Odometer (Keluar)'
+                            : 'Bacaan Odometer (Masuk)',
                         before
                             ? widget.data.sebelum.vcItem.odometer.bacaanOdo
                                 .toString()
@@ -114,7 +111,15 @@ class _VehicleChecklistApprovalViewState
                                 .toString()),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 12),
+                    child: _buildTextRow(
+                        'Odometer Berfungsi',
+                        before
+                            ? widget.data.sebelum.vcItem.odometer.odoFungsi
+                            : widget.data.selepas.vcItem.odometer.odoFungsi),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
                         'Jumlah Pengunaan KM Harian',
                         before
@@ -124,20 +129,81 @@ class _VehicleChecklistApprovalViewState
                                 .toString()),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
-                        'Odometer Berfungsi',
-                        before
-                            ? widget.data.sebelum.vcItem.odometer.odoFungsi
-                            : widget.data.selepas.vcItem.odometer.odoFungsi),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
-                    child: _buildTextRow(
-                        'No AKBK',
+                        'No AKBK (Laporan Kerosakan)',
                         before
                             ? widget.data.sebelum.vcItem.odometer.noAkbk
                             : widget.data.selepas.vcItem.odometer.noAkbk),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+          //Card Perincian 1.5
+          Container(
+            decoration: BoxDecoration(
+              color: white,
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
+              boxShadow: [
+                BoxShadow(
+                    color: cardShadowColor,
+                    offset: const Offset(0, 2),
+                    blurRadius: 10,
+                    spreadRadius: 0.5)
+              ],
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5, bottom: 12),
+                    child: _buildTextRow(
+                        'Diesel Diisi',
+                        before
+                            ? widget.data.sebelum.vcItem.fuel.liter.toString()
+                            : widget.data.selepas.vcItem.fuel.liter.toString()),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 12),
+                    child: _buildTextRow(
+                        'Serah Resit Minyak Diesel',
+                        before
+                            ? widget.data.sebelum.vcItem.fuel.resit
+                            : widget.data.selepas.vcItem.fuel.resit),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 12),
+                    child: _buildTextRow(
+                        'Guna Diesel Fleet Card',
+                        before
+                            ? widget.data.sebelum.vcItem.fuel.fleetCard
+                            : widget.data.selepas.vcItem.fuel.fleetCard),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 12),
+                    child: _buildTextRow(
+                        'No. Kad (5 digit terakhir)',
+                        before
+                            ? widget.data.sebelum.vcItem.fuel.noFleetCard
+                                .toString()
+                            : widget.data.selepas.vcItem.fuel.noFleetCard
+                                .toString()),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 12),
+                    child: _buildTextRow(
+                        before
+                            ? 'Paras Meter Minyak (Sebelum Keluar)'
+                            : 'Paras Meter Minyak (Sebelum Masuk)',
+                        before
+                            ? widget.data.sebelum.vcItem.fuel.fuelLevel
+                                .toString()
+                            : widget.data.selepas.vcItem.fuel.fuelLevel
+                                .toString()),
                   ),
                 ],
               ),
@@ -148,14 +214,13 @@ class _VehicleChecklistApprovalViewState
           Container(
             decoration: BoxDecoration(
               color: white,
-              border: Border.all(color: borderColor),
               borderRadius: const BorderRadius.all(Radius.circular(8)),
               boxShadow: [
                 BoxShadow(
-                    color: Colors.grey.withOpacity(.3),
-                    blurRadius: 3,
-                    spreadRadius: 0.5,
-                    offset: const Offset(0, 2))
+                    color: cardShadowColor,
+                    offset: const Offset(0, 2),
+                    blurRadius: 10,
+                    spreadRadius: 0.5)
               ],
             ),
             child: Padding(
@@ -167,29 +232,29 @@ class _VehicleChecklistApprovalViewState
                       padding: const EdgeInsets.only(top: 5, bottom: 15),
                       child: Text('1. Dokument Perjalanan',
                           style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              color: secondaryTextColor,
-                              fontSize: 14))),
+                              fontWeight: FontWeight.w600,
+                              color: darkBlue,
+                              fontSize: 15))),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
-                        'Puspakom Disc',
+                        '1.1 Puspakom Disc',
                         before
                             ? widget.data.sebelum.vcItem.document.puspakomDisc
                             : widget.data.selepas.vcItem.document.puspakomDisc),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
-                        'Cukai Jalan',
+                        '1.2 Cukai Jalan',
                         before
                             ? widget.data.sebelum.vcItem.document.cukaiJalan
                             : widget.data.selepas.vcItem.document.cukaiJalan),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
-                        'Lesen Pembawa A/Permit',
+                        '1.3 Lesen Pembawa A/Permit',
                         before
                             ? widget.data.sebelum.vcItem.document.lesen
                             : widget.data.selepas.vcItem.document.lesen),
@@ -203,14 +268,13 @@ class _VehicleChecklistApprovalViewState
           Container(
             decoration: BoxDecoration(
               color: white,
-              border: Border.all(color: borderColor),
               borderRadius: const BorderRadius.all(Radius.circular(8)),
               boxShadow: [
                 BoxShadow(
-                    color: Colors.grey.withOpacity(.3),
-                    blurRadius: 3,
-                    spreadRadius: 0.5,
-                    offset: const Offset(0, 2))
+                    color: cardShadowColor,
+                    offset: const Offset(0, 2),
+                    blurRadius: 10,
+                    spreadRadius: 0.5)
               ],
             ),
             child: Padding(
@@ -222,29 +286,29 @@ class _VehicleChecklistApprovalViewState
                       padding: const EdgeInsets.only(top: 5, bottom: 15),
                       child: Text('2. Pemeriksaan Tayar',
                           style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              color: secondaryTextColor,
-                              fontSize: 14))),
+                              fontWeight: FontWeight.w600,
+                              color: darkBlue,
+                              fontSize: 15))),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
-                        'Bahagian bunga tayar diperiksa',
+                        '2.1 Bahagian bunga tayar',
                         before
                             ? widget.data.sebelum.vcItem.tyre.bungaTayar
                             : widget.data.selepas.vcItem.tyre.bungaTayar),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
-                        'Nut tayar diperiksa',
+                        '2.2 Nut tayar',
                         before
                             ? widget.data.sebelum.vcItem.tyre.nutTayar
                             : widget.data.selepas.vcItem.tyre.nutTayar),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
-                        'Tekanan angin diperiksa',
+                        '2.3 Tekanan angin',
                         before
                             ? widget.data.sebelum.vcItem.tyre.tekananTayar
                             : widget.data.selepas.vcItem.tyre.tekananTayar),
@@ -258,14 +322,13 @@ class _VehicleChecklistApprovalViewState
           Container(
             decoration: BoxDecoration(
               color: white,
-              border: Border.all(color: borderColor),
               borderRadius: const BorderRadius.all(Radius.circular(8)),
               boxShadow: [
                 BoxShadow(
-                    color: Colors.grey.withOpacity(.3),
-                    blurRadius: 3,
-                    spreadRadius: 0.5,
-                    offset: const Offset(0, 2))
+                    color: cardShadowColor,
+                    offset: const Offset(0, 2),
+                    blurRadius: 10,
+                    spreadRadius: 0.5)
               ],
             ),
             child: Padding(
@@ -277,13 +340,13 @@ class _VehicleChecklistApprovalViewState
                       padding: const EdgeInsets.only(top: 5, bottom: 15),
                       child: Text('3. Sistem Mampatan',
                           style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              color: secondaryTextColor,
-                              fontSize: 14))),
+                              fontWeight: FontWeight.w600,
+                              color: darkBlue,
+                              fontSize: 15))),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
-                        'Sistem Hidraulik & Minyak',
+                        '3.1 Sistem Hidraulik & Minyak',
                         before
                             ? widget
                                 .data.sebelum.vcItem.mampatan.sistemHidraulik
@@ -291,36 +354,36 @@ class _VehicleChecklistApprovalViewState
                                 .data.selepas.vcItem.mampatan.sistemHidraulik),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
-                        'PTD/PAM',
+                        '3.2 PTO/PAM',
                         before
                             ? widget.data.sebelum.vcItem.mampatan.ptdPam
                             : widget.data.selepas.vcItem.mampatan.ptdPam),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
-                        'Semua penutup diperiksa',
+                        '3.3 Semua penutup diperiksa',
                         before
                             ? widget.data.sebelum.vcItem.mampatan.allPenutup
                             : widget.data.selepas.vcItem.mampatan.allPenutup),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
-                        'Buang air dalam tabung angin',
+                        '3.4 Buang air dalam tabung angin',
                         before
                             ? widget.data.sebelum.vcItem.mampatan.buangAir
                             : widget.data.selepas.vcItem.mampatan.buangAir),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
-                        'Sistem LEACHATE diperiksa',
+                        '3.5 Sistem Leachate diperiksa',
                         before
                             ? widget.data.sebelum.vcItem.mampatan.leachate
-                            : widget.data.sebelum.vcItem.mampatan.leachate),
+                            : widget.data.selepas.vcItem.mampatan.leachate),
                   ),
                 ],
               ),
@@ -331,14 +394,13 @@ class _VehicleChecklistApprovalViewState
           Container(
             decoration: BoxDecoration(
               color: white,
-              border: Border.all(color: borderColor),
               borderRadius: const BorderRadius.all(Radius.circular(8)),
               boxShadow: [
                 BoxShadow(
-                    color: Colors.grey.withOpacity(.3),
-                    blurRadius: 3,
-                    spreadRadius: 0.5,
-                    offset: const Offset(0, 2))
+                    color: cardShadowColor,
+                    offset: const Offset(0, 2),
+                    blurRadius: 10,
+                    spreadRadius: 0.5)
               ],
             ),
             child: Padding(
@@ -350,53 +412,53 @@ class _VehicleChecklistApprovalViewState
                       padding: const EdgeInsets.only(top: 5, bottom: 15),
                       child: Text('4. Sistem Lampu',
                           style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              color: secondaryTextColor,
-                              fontSize: 14))),
+                              fontWeight: FontWeight.w600,
+                              color: darkBlue,
+                              fontSize: 15))),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
-                        'Lampu utama & belakang',
+                        '4.1 Lampu utama & belakang',
                         before
                             ? widget.data.sebelum.vcItem.light.lampuUtama
                             : widget.data.selepas.vcItem.light.lampuUtama),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
-                        'Lampu berhenti',
+                        '4.2 Lampu berhenti',
                         before
                             ? widget.data.sebelum.vcItem.light.lampuHenti
                             : widget.data.selepas.vcItem.light.lampuHenti),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
-                        'Lampu isyarat',
+                        '4.3 Lampu isyarat',
                         before
                             ? widget.data.sebelum.vcItem.light.lampuIsyarat
                             : widget.data.selepas.vcItem.light.lampuIsyarat),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
-                        'Lampu kecemasan (Hazard Light)',
+                        '4.4 Lampu kecemasan',
                         before
                             ? widget.data.sebelum.vcItem.light.lampuKecemasan
                             : widget.data.selepas.vcItem.light.lampuKecemasan),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
-                        'Lampu isyarat (Beacon Light)',
+                        '4.5 Lampu isyarat sedang befungsi',
                         before
                             ? widget.data.sebelum.vcItem.light.lampuBeacon
                             : widget.data.selepas.vcItem.light.lampuBeacon),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
-                        'Lampu nombor plet',
+                        '4.6 Lampu no. plat',
                         before
                             ? widget.data.sebelum.vcItem.light.lampuPlet
                             : widget.data.selepas.vcItem.light.lampuPlet),
@@ -410,14 +472,13 @@ class _VehicleChecklistApprovalViewState
           Container(
             decoration: BoxDecoration(
               color: white,
-              border: Border.all(color: borderColor),
               borderRadius: const BorderRadius.all(Radius.circular(8)),
               boxShadow: [
                 BoxShadow(
-                    color: Colors.grey.withOpacity(.3),
-                    blurRadius: 3,
-                    spreadRadius: 0.5,
-                    offset: const Offset(0, 2))
+                    color: cardShadowColor,
+                    offset: const Offset(0, 2),
+                    blurRadius: 10,
+                    spreadRadius: 0.5)
               ],
             ),
             child: Padding(
@@ -429,13 +490,13 @@ class _VehicleChecklistApprovalViewState
                       padding: const EdgeInsets.only(top: 5, bottom: 15),
                       child: Text('5. Sistem Enjin dan Driveline',
                           style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              color: secondaryTextColor,
-                              fontSize: 14))),
+                              fontWeight: FontWeight.w600,
+                              color: darkBlue,
+                              fontSize: 15))),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
-                        'Dipstik minyak enjin',
+                        '5.1 Dipstik minyak enjin',
                         before
                             ? widget
                                 .data.sebelum.vcItem.engine.dipstikMinyakEnjin
@@ -443,42 +504,42 @@ class _VehicleChecklistApprovalViewState
                                 .data.selepas.vcItem.engine.dipstikMinyakEnjin),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
-                        'Paras minyak enjin',
+                        '5.2 Paras minyak enjin',
                         before
                             ? widget.data.sebelum.vcItem.engine.parasMinyak
                             : widget.data.selepas.vcItem.engine.parasMinyak),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
-                        'Penutup minyak enjin',
+                        '5.3 Penutup minyak enjin',
                         before
                             ? widget.data.sebelum.vcItem.engine.penutupMinyak
                             : widget.data.selepas.vcItem.engine.penutupMinyak),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
-                        'Paras Air radiator',
+                        '5.4 Paras air radiator',
                         before
                             ? widget.data.sebelum.vcItem.engine.parasAirRadiator
                             : widget
                                 .data.selepas.vcItem.engine.parasAirRadiator),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
-                        'Paras Expansion Tank',
+                        '5.5 Paras Expansion Tank',
                         before
                             ? widget.data.sebelum.vcItem.engine.parasExpansion
                             : widget.data.selepas.vcItem.engine.parasExpansion),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
-                        'Dipstik minyak Auto Transmission',
+                        '5.6 Dipstik minyak Auto Transmission',
                         before
                             ? widget.data.sebelum.vcItem.engine
                                 .dipstikMintakTransmission
@@ -486,9 +547,9 @@ class _VehicleChecklistApprovalViewState
                                 .dipstikMintakTransmission),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
-                        'Paras minyak Auto Transmission',
+                        '5.7 Paras minyak Auto Transmission',
                         before
                             ? widget.data.sebelum.vcItem.engine
                                 .parasMinyakTransmission
@@ -496,9 +557,9 @@ class _VehicleChecklistApprovalViewState
                                 .parasMinyakTransmission),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
-                        'Paras minyak Power Steering',
+                        '5.8 Paras minyak power steering',
                         before
                             ? widget
                                 .data.sebelum.vcItem.engine.parasMinyakSteering
@@ -506,18 +567,18 @@ class _VehicleChecklistApprovalViewState
                                 .parasMinyakSteering),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
-                        'Paras minyak brek',
+                        '5.9 Paras minyak brek',
                         before
                             ? widget.data.sebelum.vcItem.engine.parasMinyakBrek
                             : widget
                                 .data.selepas.vcItem.engine.parasMinyakBrek),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
-                        'Sistem cengkaman sistem brek',
+                        '5.10 Sistem cengkaman sistem brek',
                         before
                             ? widget.data.sebelum.vcItem.engine
                                 .sistemCengkamanSistemBrek
@@ -525,9 +586,9 @@ class _VehicleChecklistApprovalViewState
                                 .sistemCengkamanSistemBrek),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
-                        'Paras minyak sistem clutch',
+                        '5.11 Paras minyak sistem clutch',
                         before
                             ? widget
                                 .data.sebelum.vcItem.engine.parasMinyakClutch
@@ -535,41 +596,41 @@ class _VehicleChecklistApprovalViewState
                                 .data.selepas.vcItem.engine.parasMinyakClutch),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
-                        'Sistem clutch',
+                        '5.12 Sistem clutch berfungsi baik',
                         before
                             ? widget.data.sebelum.vcItem.engine.sistemClutch
                             : widget.data.selepas.vcItem.engine.sistemClutch),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
-                        'Paras air wiper tank',
+                        '5.13 Paras air wiper tank',
                         before
                             ? widget.data.sebelum.vcItem.engine.parasAirWiper
                             : widget.data.selepas.vcItem.engine.parasAirWiper),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
-                        'Keadaan wiper (L & R)',
+                        '5.14 Keadaan wiper (kiri & kanan)',
                         before
                             ? widget.data.sebelum.vcItem.engine.keadaanWiper
                             : widget.data.selepas.vcItem.engine.keadaanWiper),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
-                        'Paras air bateri No. 1 & 2',
+                        '5.15 Paras air bateri No. 1 & No. 2',
                         before
                             ? widget.data.sebelum.vcItem.engine.parasAirBateri
                             : widget.data.selepas.vcItem.engine.parasAirBateri),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
-                        'Keadaan asap ekzos',
+                        '5.16 Keadaan asap ekzos',
                         before
                             ? widget.data.sebelum.vcItem.engine.asapEkzos
                             : widget.data.selepas.vcItem.engine.asapEkzos),
@@ -583,14 +644,13 @@ class _VehicleChecklistApprovalViewState
           Container(
             decoration: BoxDecoration(
               color: white,
-              border: Border.all(color: borderColor),
               borderRadius: const BorderRadius.all(Radius.circular(8)),
               boxShadow: [
                 BoxShadow(
-                    color: Colors.grey.withOpacity(.3),
-                    blurRadius: 3,
-                    spreadRadius: 0.5,
-                    offset: const Offset(0, 2))
+                    color: cardShadowColor,
+                    offset: const Offset(0, 2),
+                    blurRadius: 10,
+                    spreadRadius: 0.5)
               ],
             ),
             child: Padding(
@@ -602,21 +662,21 @@ class _VehicleChecklistApprovalViewState
                       padding: const EdgeInsets.only(top: 5, bottom: 15),
                       child: Text('6. Bahagian Luaran',
                           style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              color: secondaryTextColor,
-                              fontSize: 14))),
+                              fontWeight: FontWeight.w600,
+                              color: darkBlue,
+                              fontSize: 15))),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
-                        'Cermin pandang belakang & sisi',
+                        '6.1 Cermin pandang belakang & sisi',
                         before
                             ? widget.data.sebelum.vcItem.outside.cermin
                             : widget.data.selepas.vcItem.outside.cermin),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
-                        'Hon diperiksa',
+                        '6.2 Hon',
                         before
                             ? widget.data.sebelum.vcItem.outside.hon
                             : widget.data.selepas.vcItem.outside.hon),
@@ -630,14 +690,13 @@ class _VehicleChecklistApprovalViewState
           Container(
             decoration: BoxDecoration(
               color: white,
-              border: Border.all(color: borderColor),
               borderRadius: const BorderRadius.all(Radius.circular(8)),
               boxShadow: [
                 BoxShadow(
-                    color: Colors.grey.withOpacity(.3),
-                    blurRadius: 3,
-                    spreadRadius: 0.5,
-                    offset: const Offset(0, 2))
+                    color: cardShadowColor,
+                    offset: const Offset(0, 2),
+                    blurRadius: 10,
+                    spreadRadius: 0.5)
               ],
             ),
             child: Padding(
@@ -649,13 +708,13 @@ class _VehicleChecklistApprovalViewState
                       padding: const EdgeInsets.only(top: 5, bottom: 15),
                       child: Text('7. Peralatan Keselamatan',
                           style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              color: secondaryTextColor,
-                              fontSize: 14))),
+                              fontWeight: FontWeight.w600,
+                              color: darkBlue,
+                              fontSize: 15))),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
-                        'Penanda amaran kecemasan',
+                        '7.1 Penanda amaran kecemasan',
                         before
                             ? widget.data.sebelum.vcItem.safetyThings
                                 .penandaKecemasan
@@ -663,18 +722,18 @@ class _VehicleChecklistApprovalViewState
                                 .penandaKecemasan),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
-                        'Alat pemadam api',
+                        '7.2 Alat pemadam api',
                         before
                             ? widget.data.sebelum.vcItem.safetyThings.pemadamApi
                             : widget
                                 .data.selepas.vcItem.safetyThings.pemadamApi),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
-                        'Kotak kecemasan (First Aid Box)',
+                        '7.3 Kotak kecemasan (First Aid Kit)',
                         before
                             ? widget
                                 .data.sebelum.vcItem.safetyThings.kotakKecemasan
@@ -690,14 +749,13 @@ class _VehicleChecklistApprovalViewState
           Container(
             decoration: BoxDecoration(
               color: white,
-              border: Border.all(color: borderColor),
               borderRadius: const BorderRadius.all(Radius.circular(8)),
               boxShadow: [
                 BoxShadow(
-                    color: Colors.grey.withOpacity(.3),
-                    blurRadius: 3,
-                    spreadRadius: 0.5,
-                    offset: const Offset(0, 2))
+                    color: cardShadowColor,
+                    offset: const Offset(0, 2),
+                    blurRadius: 10,
+                    spreadRadius: 0.5)
               ],
             ),
             child: Padding(
@@ -709,22 +767,22 @@ class _VehicleChecklistApprovalViewState
                       padding: const EdgeInsets.only(top: 5, bottom: 15),
                       child: Text('8. Kebersihan Kenderaan',
                           style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              color: secondaryTextColor,
-                              fontSize: 14))),
+                              fontWeight: FontWeight.w600,
+                              color: darkBlue,
+                              fontSize: 15))),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
-                        'Kebersihan dalam kokpit (kabin)',
+                        '8.1 Dalam kokpit (kabin) Pemandu',
                         before
                             ? widget.data.sebelum.vcItem.cleanliness.dalamKokpit
                             : widget
                                 .data.selepas.vcItem.cleanliness.dalamKokpit),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
-                        'Kebersihan sekitar luaran badan trak',
+                        '8.2 Sekitar luaran badan trak',
                         before
                             ? widget
                                 .data.sebelum.vcItem.cleanliness.luarBadanTrak
@@ -740,14 +798,13 @@ class _VehicleChecklistApprovalViewState
           Container(
             decoration: BoxDecoration(
               color: white,
-              border: Border.all(color: borderColor),
               borderRadius: const BorderRadius.all(Radius.circular(8)),
               boxShadow: [
                 BoxShadow(
-                    color: Colors.grey.withOpacity(.3),
-                    blurRadius: 3,
-                    spreadRadius: 0.5,
-                    offset: const Offset(0, 2))
+                    color: cardShadowColor,
+                    offset: const Offset(0, 2),
+                    blurRadius: 10,
+                    spreadRadius: 0.5)
               ],
             ),
             child: Padding(
@@ -759,13 +816,13 @@ class _VehicleChecklistApprovalViewState
                       padding: const EdgeInsets.only(top: 5, bottom: 15),
                       child: Text('9. Kebersihan Bin Lifter',
                           style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              color: secondaryTextColor,
-                              fontSize: 14))),
+                              fontWeight: FontWeight.w600,
+                              color: darkBlue,
+                              fontSize: 15))),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
-                        'Bin lifter dicuci oleh pemandu',
+                        '9.1 Bin lifter dicuci oleh pemandu',
                         before
                             ? widget.data.sebelum.vcItem.binLifterCleanliness
                                 .binDicuci
@@ -781,14 +838,13 @@ class _VehicleChecklistApprovalViewState
           Container(
             decoration: BoxDecoration(
               color: white,
-              border: Border.all(color: borderColor),
               borderRadius: const BorderRadius.all(Radius.circular(8)),
               boxShadow: [
                 BoxShadow(
-                    color: Colors.grey.withOpacity(.3),
-                    blurRadius: 3,
-                    spreadRadius: 0.5,
-                    offset: const Offset(0, 2))
+                    color: cardShadowColor,
+                    offset: const Offset(0, 2),
+                    blurRadius: 10,
+                    spreadRadius: 0.5)
               ],
             ),
             child: Padding(
@@ -800,13 +856,13 @@ class _VehicleChecklistApprovalViewState
                       padding: const EdgeInsets.only(top: 5, bottom: 15),
                       child: Text('10. Kemalangan',
                           style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              color: secondaryTextColor,
-                              fontSize: 14))),
+                              fontWeight: FontWeight.w600,
+                              color: darkBlue,
+                              fontSize: 15))),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
-                        'Terlibat dengan kemalangan',
+                        '10.1 Anda terlibat dengan kemalangan?',
                         before
                             ? widget
                                 .data.sebelum.vcItem.accident.terlibatKemalangan
@@ -814,9 +870,9 @@ class _VehicleChecklistApprovalViewState
                                 .terlibatKemalangan),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
-                        'Nombor kenderaan pihak ketiga',
+                        '10.2 No. kenderaan pihak ketiga',
                         before
                             ? widget.data.sebelum.vcItem.accident
                                 .noKenderaanPartiKetiga
@@ -832,14 +888,13 @@ class _VehicleChecklistApprovalViewState
           Container(
             decoration: BoxDecoration(
               color: white,
-              border: Border.all(color: borderColor),
               borderRadius: const BorderRadius.all(Radius.circular(8)),
               boxShadow: [
                 BoxShadow(
-                    color: Colors.grey.withOpacity(.3),
-                    blurRadius: 3,
-                    spreadRadius: 0.5,
-                    offset: const Offset(0, 2))
+                    color: cardShadowColor,
+                    offset: const Offset(0, 2),
+                    blurRadius: 10,
+                    spreadRadius: 0.5)
               ],
             ),
             child: Padding(
@@ -851,22 +906,22 @@ class _VehicleChecklistApprovalViewState
                       padding: const EdgeInsets.only(top: 5, bottom: 15),
                       child: Text('11. Fizikal Kenderaan',
                           style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              color: secondaryTextColor,
-                              fontSize: 14))),
+                              fontWeight: FontWeight.w600,
+                              color: darkBlue,
+                              fontSize: 15))),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
-                        'Sampah dalam kompaktor',
+                        '11.1 Sampah dalam kompaktor',
                         before
                             ? widget.data.sebelum.vcItem.vehiclePhysical.sampah
                             : widget
                                 .data.selepas.vcItem.vehiclePhysical.sampah),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
-                        'Keadaan fizikal/kecacatan pada trak',
+                        '11.2 Keadaan fizikal/kecacatan pada trak',
                         before
                             ? widget
                                 .data.sebelum.vcItem.vehiclePhysical.kecacatan
@@ -888,14 +943,10 @@ class _VehicleChecklistApprovalViewState
       children: [
         Text(object,
             style: TextStyle(
-                fontWeight: FontWeight.w500,
-                color: primaryTextColor,
-                fontSize: 14)),
+                fontWeight: FontWeight.w400, color: greyCustom, fontSize: 15)),
         Text(data,
             style: TextStyle(
-                fontWeight: FontWeight.w500,
-                color: secondaryTextColor,
-                fontSize: 14)),
+                fontWeight: FontWeight.w600, color: blackCustom, fontSize: 15)),
       ],
     );
   }

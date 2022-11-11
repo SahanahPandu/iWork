@@ -17,6 +17,7 @@ class Laluan {
   final String isu;
   final String kehadiran;
   final String leaderContact;
+  final String penyelia;
   final SenaraiStaf senaraiStaf;
 
   Laluan(
@@ -36,6 +37,7 @@ class Laluan {
       required this.isu,
       required this.kehadiran,
       required this.leaderContact,
+      required this.penyelia,
       required this.senaraiStaf});
 
   static Laluan fromJson(json) => Laluan(
@@ -55,6 +57,7 @@ class Laluan {
         isu: json['isu'] ?? "",
         kehadiran: json['kehadiran'] ?? "",
         leaderContact: json['leaderContact'] ?? "",
+        penyelia: json['penyelia'] ?? "",
         senaraiStaf: SenaraiStaf.fromJson(json['senaraiStaf']),
       );
 }

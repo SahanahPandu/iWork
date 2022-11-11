@@ -1,23 +1,22 @@
-// ignore_for_file: must_be_immutable
-
-import 'package:eswm/providers/jenis_cuti_api.dart';
 import 'package:flutter/material.dart';
 
 //import files
 import '../../config/config.dart';
+import '../../config/dimen.dart';
 import '../../config/font.dart';
 import '../../config/palette.dart';
-import '../../utils/device.dart';
+import '../../providers/jenis_cuti_api.dart';
+import '../../utils/device/sizes.dart';
 
 class ListOfLeaveType extends StatefulWidget {
-  String hintText;
-  double fontSize;
-  int borderCondition;
-  Color fillColor;
-  int iconCondition;
-  String data;
+  final String hintText;
+  final double fontSize;
+  final int borderCondition;
+  final Color fillColor;
+  final int iconCondition;
+  final dynamic data;
 
-  ListOfLeaveType(
+  const ListOfLeaveType(
       {Key? key,
       required this.hintText,
       required this.fontSize,
@@ -32,8 +31,6 @@ class ListOfLeaveType extends StatefulWidget {
 }
 
 class _ListOfLeaveTypeState extends State<ListOfLeaveType> {
-  final TextEditingController _jenisCuti = TextEditingController();
-  final Devices _device = Devices();
   int totalJenisCuti = 0;
 
   getTotalData() {
@@ -45,11 +42,11 @@ class _ListOfLeaveTypeState extends State<ListOfLeaveType> {
       }
     });
 
-    if (widget.data != "") {
-      setState(() {
-        _jenisCuti.text = widget.data;
-      });
-    }
+    // if (widget.data != "") {
+    //   setState(() {
+    //     _jenisCuti.text = widget.data;
+    //   });
+    // }
   }
 
   @override
@@ -60,24 +57,25 @@ class _ListOfLeaveTypeState extends State<ListOfLeaveType> {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      borderRadius:
-          userRole == 100 ? BorderRadius.circular(borderRadiusCircular) : null,
+    return GestureDetector(
       onTap: () {
         if (widget.iconCondition == 1) {
           showListOfLeaveType();
         }
       },
       child: TextFormField(
-        controller: _jenisCuti,
+        style: const TextStyle(
+          fontSize: 15,
+          color: Color(0xff2B2B2B),
+          fontWeight: FontWeight.w400,
+        ),
+        controller: widget.data,
         readOnly: true,
         enabled: false,
         decoration: InputDecoration(
           filled: true,
           fillColor: widget.fillColor,
-          contentPadding: userRole == 100
-              ? const EdgeInsets.symmetric(vertical: 15, horizontal: 20)
-              : const EdgeInsets.all(8),
+          contentPadding: const EdgeInsets.all(8),
           hintText: widget.hintText,
           hintStyle: TextStyle(
             fontSize: widget.fontSize,
@@ -91,30 +89,34 @@ class _ListOfLeaveTypeState extends State<ListOfLeaveType> {
                   color: Color(0xff2B2B2B),
                 )
               : null,
-          labelText: widget.borderCondition == 1 && widget.iconCondition == 1
-              ? widget.hintText
-              : null,
-          labelStyle: widget.borderCondition == 1 && widget.iconCondition == 1
-              ? TextStyle(
-                  fontSize: widget.fontSize,
-                  color: labelTextColor,
-                  fontWeight: textFormFieldLabelFontWeight,
-                )
-              : null,
+          label: Text(widget.hintText),
+          labelStyle: TextStyle(
+            fontSize: widget.fontSize,
+            color: labelTextColor,
+            fontWeight: textFormFieldLabelFontWeight,
+          ),
+          errorStyle: const TextStyle(height: 0),
+          errorBorder: OutlineInputBorder(
+            borderSide: BorderSide(width: borderSideWidth, color: Colors.red),
+            borderRadius: BorderRadius.circular(borderRadiusCircular),
+          ),
           disabledBorder: OutlineInputBorder(
-            borderSide: widget.borderCondition == 0
-                ? BorderSide.none
-                : BorderSide(
-                    width: borderSideWidth,
-                    color: _jenisCuti.text != '' && widget.iconCondition == 1
-                        ? (userRole == 100 ? grey100 : enabledBorderWithText)
-                        : (userRole == 100
-                            ? grey100
-                            : enabledBorderWithoutText),
-                  ),
+            borderSide: BorderSide(
+              width: borderSideWidth,
+              color: widget.data.text != '' && widget.iconCondition == 1
+                  ? (enabledBorderWithText)
+                  : (enabledBorderWithoutText),
+            ),
             borderRadius: BorderRadius.circular(borderRadiusCircular),
           ),
         ),
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return '';
+          }
+
+          return null;
+        },
       ),
     );
   }
@@ -128,21 +130,10 @@ class _ListOfLeaveTypeState extends State<ListOfLeaveType> {
             topRight: Radius.circular(20),
           ),
         ),
-        constraints: userRole == 100
-            ? (_device.isLandscape(context)
-                ? const BoxConstraints(maxWidth: 500, maxHeight: 400)
-                : const BoxConstraints(
-                    maxWidth: 500,
-                    minHeight: 200,
-                    maxHeight: 450,
-                  ))
-            : null,
         context: context,
         builder: (builder) {
           return SizedBox(
-            height: userRole == 100
-                ? null
-                : MediaQuery.of(context).size.height * 0.3,
+            height: Sizes().screenHeight(context) * 0.3,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -204,16 +195,13 @@ class _ListOfLeaveTypeState extends State<ListOfLeaveType> {
                                       horizontal: 20, vertical: 10)
                                   : const EdgeInsets.all(6),
                               child: ListView.builder(
-                                physics: userRole == 100
-                                    ? const BouncingScrollPhysics()
-                                    : const ScrollPhysics(),
                                 shrinkWrap: true,
                                 itemCount: dataFuture!.length,
                                 itemBuilder: (context, index) {
                                   return InkWell(
                                     onTap: () {
                                       setState(() {
-                                        _jenisCuti.text =
+                                        widget.data.text =
                                             dataFuture[index].jenisCuti;
 
                                         Navigator.pop(context);

@@ -1,17 +1,20 @@
-// ignore_for_file: must_be_immutable
+import 'package:auto_size_text/auto_size_text.dart';
 import "package:flutter/material.dart";
 
 //import files
-
-import 'package:eswm/models/pekerja.dart';
+import '../../config/dimen.dart';
 import '../../config/palette.dart';
+import '../../models/pekerja.dart';
+import '../../widgets/buttons/select_employee_button.dart';
 
 class ListOfEmployeeDetails extends StatefulWidget {
-  Pekerja? data;
-  Function(dynamic)? assignedEmployee;
+  final String? type;
+  final Pekerja? data;
+  final Function(dynamic)? assignedEmployee;
 
-  ListOfEmployeeDetails({
+  const ListOfEmployeeDetails({
     Key? key,
+    this.type,
     this.data,
     this.assignedEmployee,
   }) : super(key: key);
@@ -21,189 +24,157 @@ class ListOfEmployeeDetails extends StatefulWidget {
 }
 
 class _ListOfEmployeeDetailsState extends State<ListOfEmployeeDetails> {
+  selectEmployee() {
+    widget.assignedEmployee!(widget.data);
+    Navigator.pop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        //Avatar, nama and status
-        ClipRect(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Expanded(
-                flex: 0,
-                child: Material(
-                  elevation: 3,
-                  shadowColor: Colors.grey,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(5),
-                  ),
-                  child: SizedBox(
-                    height: 45,
-                    width: 45,
-                    child: Icon(
-                      Icons.account_box_rounded,
-                      color: Colors.black54,
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                width: 15,
-              ),
-              //Nama
-              Expanded(
-                flex: 3,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      widget.data!.name,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 15,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    Text(
-                      widget.data!.designCat,
-                      style: TextStyle(
-                        color: Colors.grey.shade600,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 11,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              //Status
-              // StatusContainer(
-              //   type: "Kehadiran",
-              //   status: widget.data!.attStatus,
-              //   statusId: widget.data!.idAttStatus,
-              //   fontWeight: statusFontWeight,
-              // ),
-            ],
-          ),
-        ),
-        const SizedBox(
-          height: 25,
-        ),
-        //Kemahiran
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                Icon(
-                  Icons.psychology,
-                  size: 18,
-                  color: blue,
+            Stack(
+              clipBehavior: Clip.hardEdge,
+              alignment: AlignmentDirectional.center,
+              fit: StackFit.loose,
+              children: <Widget>[
+                Container(
+                  height: 64,
+                  width: 64,
+                  decoration: BoxDecoration(
+                      color: transparent,
+                      border: Border.all(color: grey200),
+                      borderRadius: const BorderRadius.all(Radius.circular(4))),
                 ),
-                const SizedBox(
-                  width: 15,
-                ),
-                Text(
-                  "Kemahiran",
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: grey400,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+                ClipRRect(
+                    borderRadius: BorderRadius.circular(borderRadiusCircular),
+                    child: FittedBox(
+                      fit: BoxFit.fill,
+                      child: Image.network(widget.data!.displayPicture,
+                          height: 56,
+                          width: 56, loadingBuilder: (BuildContext context,
+                              Widget child, ImageChunkEvent? loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2.5,
+                              color: green,
+                              value: loadingProgress.expectedTotalBytes != null
+                                  ? loadingProgress.cumulativeBytesLoaded /
+                                      loadingProgress.expectedTotalBytes!
+                                  : null,
+                            ),
+                          ),
+                        );
+                      }),
+                    ))
               ],
             ),
-            Text(
-              widget.data!.skills,
-              style: TextStyle(
-                fontSize: 14,
-                color: black87,
-                fontWeight: FontWeight.w700,
+            //gap between avatar and text
+            const SizedBox(
+              width: 15,
+            ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: _textSize().width,
+                    height: _textSize().height,
+                    child: Text(
+                      widget.data!.name,
+                      style: textStyle,
+                      softWrap: true,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Row(
+                    children: [
+                      Text(
+                        widget.data!.designCat,
+                        style: TextStyle(
+                            color: greyCustom,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400),
+                      ),
+                      const SizedBox(width: 6),
+                      Icon(
+                        Icons.fiber_manual_record,
+                        size: 5,
+                        color: greyCustom,
+                      ),
+                      const SizedBox(width: 6),
+                      Text(
+                        widget.data!.skills,
+                        style: TextStyle(
+                            color: greyCustom,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ],
+                  ),
+
+                  if (widget.data!.idAttStatus == 2)
+                    const SizedBox(
+                      height: 16,
+                    ),
+                  //Status kehadiran
+                  // this status only show for employee that absent
+                  if (widget.data!.idAttStatus == 2)
+                    FittedBox(
+                      fit: BoxFit.contain,
+                      child: Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: orangeStatusBox,
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        child: AutoSizeText(
+                          widget.data!.attStatus,
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: orangeStatusText,
+                            fontWeight: FontWeight.w600,
+                          ),
+                          maxLines: 1,
+                        ),
+                      ),
+                    ),
+                ],
               ),
-            )
+            ),
           ],
         ),
-        const SizedBox(
-          height: 12,
-        ),
-        //Masuk Kerja / Keluar Kerja
-        // Row(
-        //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //   children: [
-        //     Row(
-        //       children: [
-        //         Icon(
-        //           //Icons.timer_outlined,
-        //           CustomIcon.timerOutline,
-        //           size: 18,
-        //           color: blue,
-        //         ),
-        //         const SizedBox(
-        //           width: 15,
-        //         ),
-        //         Text(
-        //           "Masuk/Keluar Kerja",
-        //           style: TextStyle(
-        //             fontSize: 15,
-        //             // color: Colors.grey.shade800,
-        //             // fontWeight: FontWeight.w700,
-        //             color: grey400,
-        //             fontWeight: FontWeight.w600,
-        //           ),
-        //         ),
-        //       ],
-        //     ),
-        //     if (widget.data!.timeIn != "" && widget.data!.timeOut != "")
-        //       const SizedBox(
-        //         width: 25,
-        //       ),
-        //     (widget.data!.timeIn != "" && widget.data!.timeOut != "")
-        //         ? Expanded(
-        //             flex: 2,
-        //             child: Text(
-        //               "${widget.data!.timeIn} / ${widget.data!.timeOut}",
-        //               style: TextStyle(
-        //                 fontSize: 15,
-        //                 // color: Colors.black45,
-        //                 // fontWeight: FontWeight.w500,
-        //                 color: black87,
-        //                 fontWeight: FontWeight.w700,
-        //                 overflow: (widget.data!.timeIn != "" &&
-        //                         widget.data!.timeOut != "")
-        //                     ? TextOverflow.visible
-        //                     : null,
-        //               ),
-        //             ),
-        //           )
-        //         : Text(
-        //             (widget.data!.timeIn == "" && widget.data!.timeOut == "")
-        //                 ? "--:-- / --:/--"
-        //                 : (widget.data!.timeIn == "")
-        //                     ? "--:-- / ${widget.data!.timeOut}"
-        //                     : (widget.data!.timeOut == "")
-        //                         ? "${widget.data!.timeIn} / --:--"
-        //                         : "${widget.data!.timeIn} / ${widget.data!.timeOut}",
-        //             style: TextStyle(
-        //               fontSize: 15,
-        //               // color: Colors.black45,
-        //               // fontWeight: FontWeight.w500,
-        //               color: black87,
-        //               fontWeight: FontWeight.w700,
-        //               overflow: (widget.data!.timeIn != "" &&
-        //                       widget.data!.timeOut != "")
-        //                   ? TextOverflow.visible
-        //                   : null,
-        //             ),
-        //           ),
-        //   ],
-        // ),
-        // const SizedBox(
-        //   height: 15,
-        // ),
+        //button pilih pekerja
+        if (widget.data!.idAttStatus == 1 && widget.type == "Senarai Hadir")
+          Align(
+            alignment: Alignment.topRight,
+            child: SizedBox(
+              width: 104,
+              height: 36,
+              child: SelectEmployeeButton(onClick: selectEmployee),
+            ),
+          ),
       ],
     );
+  }
+
+  final TextStyle textStyle =
+      TextStyle(color: blackCustom, fontSize: 15, fontWeight: FontWeight.w600);
+
+  Size _textSize() {
+    final TextPainter textPainter = TextPainter(
+        text: TextSpan(text: widget.data!.name, style: textStyle),
+        maxLines: 2,
+        textDirection: TextDirection.ltr)
+      ..layout(minWidth: 0, maxWidth: 220);
+    return textPainter.size;
   }
 }

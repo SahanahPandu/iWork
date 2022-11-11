@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
+//import files
 import '../../../config/palette.dart';
 import '../../../providers/jalan_api.dart';
-import '../../../utils/device.dart';
+import '../../../utils/device/orientations.dart';
 import '../list_of_road_details.dart';
 
 class CompListOfRoad extends StatefulWidget {
@@ -18,8 +19,6 @@ class CompListOfRoad extends StatefulWidget {
 }
 
 class _CompListOfRoadState extends State<CompListOfRoad> {
-  final Devices _device = Devices();
-
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -51,7 +50,7 @@ class _CompListOfRoadState extends State<CompListOfRoad> {
             ),
           ),
           Container(
-            constraints: _device.isLandscape(context)
+            constraints: Orientations().isLandscape(context)
                 ? const BoxConstraints(maxHeight: 360)
                 : const BoxConstraints(maxHeight: 420),
             child: FutureBuilder<List>(

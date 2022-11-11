@@ -1,24 +1,30 @@
-// ignore_for_file: must_be_immutable
-
-import 'package:eswm/config/config.dart';
-import 'package:eswm/screens/list_of_road/list_of_road_details.dart';
 import 'package:flutter/material.dart';
 
 //import files
+import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../../config/string.dart';
 import '../../providers/jalan_api.dart';
+import '../../utils/device/orientations.dart';
+import '../../utils/device/sizes.dart';
+import '../../utils/icon/custom_icon.dart';
+import 'list_of_road_details.dart';
 
 class ListOfRoad extends StatefulWidget {
-  int idTaman;
+  final int idTaman;
 
-  ListOfRoad({Key? key, required this.idTaman}) : super(key: key);
+  const ListOfRoad({
+    Key? key,
+    required this.idTaman,
+  }) : super(key: key);
 
   @override
   State<ListOfRoad> createState() => _ListOfRoadState();
 }
 
 class _ListOfRoadState extends State<ListOfRoad> {
+  int totalJalan = 0;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -26,16 +32,25 @@ class _ListOfRoadState extends State<ListOfRoad> {
       children: [
         Container(
           margin: const EdgeInsets.only(
-            top: 15,
-            left: 22,
-            bottom: 8,
+            top: 16,
           ),
-          child: Text(
-            "Senarai Jalan",
-            style: TextStyle(
-              fontSize: userRole == 100 || userRole == 200 ? 17 : 16,
-              color: Colors.grey.shade400,
-              fontWeight: FontWeight.w500,
+          color: const Color(0xffF7FBFF),
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          child: Padding(
+            padding: userRole == 100 && Orientations().isTabletPortrait(context)
+                ? const EdgeInsets.only(left: 60)
+                : const EdgeInsets.only(left: 32),
+            child: Row(
+              children: [
+                Text(
+                  "Senarai Jalan ",
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: blackCustom,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ],
             ),
           ),
         ),
@@ -62,54 +77,57 @@ class _ListOfRoadState extends State<ListOfRoad> {
                       newList.add(dataFuture[i]);
                     }
                   }
+
                   if (newList.isEmpty) {
-                    return SizedBox(
-                      height: 50,
+                    return Container(
+                      color: white,
+                      height: userRole == 200
+                          ? Sizes().screenHeight(context) * 0.24
+                          : Sizes().screenHeight(context) * 0.18,
                       child: Container(
-                        margin: const EdgeInsets.fromLTRB(25, 15, 25, 10),
+                        margin: userRole == 100 &&
+                                Orientations().isTabletPortrait(context)
+                            ? const EdgeInsets.symmetric(
+                                horizontal: 60, vertical: 40)
+                            : const EdgeInsets.symmetric(
+                                horizontal: 25, vertical: 15),
                         alignment: Alignment.topLeft,
-                        child: Text(
-                          notFoundStreet,
-                          style: TextStyle(color: grey400),
+                        child: Row(
+                          children: [
+                            const Icon(CustomIcon.exclamation,
+                                color: Colors.orange, size: 14),
+                            const SizedBox(width: 10),
+                            Text(
+                              notFoundStreet,
+                              style: TextStyle(color: grey400),
+                            ),
+                          ],
                         ),
                       ),
                     );
                   }
-                  return Container(
-                    margin: const EdgeInsets.symmetric(
-                      horizontal: 15,
-                    ),
-                    child: ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: newList.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: userRole == 200
-                              ? const EdgeInsets.only(bottom: 3)
-                              : const EdgeInsets.only(bottom: 5),
-                          child: GestureDetector(
-                            onTap: () {},
-                            child: SizedBox(
-                              height: userRole == 200 ? 80 : 70,
-                              child: Card(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                shadowColor: Colors.grey.shade50,
-                                elevation: userRole == 200 ? 5 : 2,
-                                child: Padding(
-                                    padding: userRole == 200
-                                        ? const EdgeInsets.all(8)
-                                        : const EdgeInsets.all(15),
-                                    child: ListOfRoadDetails(
-                                        data: newList[index], index: index)),
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
+                  return ListView.separated(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    separatorBuilder: (context, index) {
+                      return Divider(
+                        thickness: 0.5,
+                        color: dividerColor,
+                      );
+                    },
+                    itemCount: newList.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        margin: userRole == 100 &&
+                                Orientations().isTabletPortrait(context)
+                            ? const EdgeInsets.fromLTRB(60, 20, 60, 20)
+                            : const EdgeInsets.fromLTRB(32, 24, 34, 20),
+                        child: ListOfRoadDetails(
+                          data: newList[index],
+                          index: index,
+                        ),
+                      );
+                    },
                   );
                 }
             }

@@ -13,13 +13,13 @@ String emptyPassword = 'Sila masukkan kata laluan anda';
 String scheduleList = 'Tugasan Saya';
 String todayTask = 'Tugasan Hari Ini';
 
-String taskIdle = 'Belum Dimulakan';
+String taskIdle = 'Belum Mula';
 String taskStarted = 'Sedang Bertugas';
 String taskEnded = 'Tugasan Selesai';
 String slidedStartTime = '';
 String slidedEndTime = '';
 
-String vc = 'Semakan Kenderaan';
+String vc = 'Semak Kenderaan';
 String startWorkText = 'Mula Kerja';
 String endWorkText = 'Tamat Kerja';
 String startWork = 'Leretkan Ke Kanan Untuk Mula Tugas';
@@ -30,34 +30,36 @@ String confirmEndWork =
 String endWork = 'Leretkan Ke Kiri Untuk Tamat Tugas';
 String doVcFirst =
     'Pastikan anda mengisi borang semak kenderaan terlebih dahulu sebelum memulakan tugasan kerja';
-String notFoundStreet = 'Tiada Senarai Jalan dijumpai!';
+String notFoundStreet = 'Tiada senarai jalan dijumpai!';
 String noEmployeeFound = 'Tiada Senarai Pekerja dijumpai!';
-String fillUpVC =
-    'Lengkapkan borang semakan kenderaan sebelum keluar di bawah :';
+String fillUpVC = 'Lengkapkan borang semakan kenderaan (Sebelum Keluar):';
 String date = 'Tarikh';
-String streetNo = 'No Laluan';
+String streetNo = 'No. Laluan';
 String outTime = 'Masa Keluar';
 String inTime = 'Masa Balik';
 String status = 'Status';
 String odometer = 'Odometer';
-String odometerLvl = 'Bacaan Odometer (KELUAR)';
+String odometerLvl = 'Bacaan Odometer (Keluar)';
 String odometerFunc = 'Odometer berfungsi';
 String totalKM = 'Jumlah Penggunaan KM Harian';
 String akbkNo = 'No. AKBK (Laporan Kerosakan)';
 String dieselFill = 'Diesel Diisi';
-String passReceipt = 'Diserahkan Resit Minyak Diesel';
+String passReceipt = 'Serah Resit Minyak Diesel';
 String fleetCard = 'Penggunaan Diesel Fleet Card';
 String cardNo = 'No. Kad (Lima no. terakhir)';
-String fuelLvl = 'Tandakan Paras Meter Minyak Sebelum Keluar';
+String fuelLvl = 'Paras Meter Sebelum Keluar';
 
 String km = 'km';
-String litre = 'Liter';
+String litre = 'liter';
 String rm = 'RM';
 
 String has = 'Ada';
+String dont = 'Tiada';
 String yes = 'Ya';
-String no = 'Tiada';
+String no = 'Tidak';
 String cancel = 'Batal';
+String submit = 'Hantar';
+String yesConfirm = 'Ya, pasti';
 String confirmBack = 'Adakah anda pasti untuk kembali?';
 String fillVc =
     'Pastikan anda mengisi borang semak kenderaan terlebih dahulu sebelum memulakan tugasan kerja.';

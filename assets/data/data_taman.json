@@ -1,26 +1,32 @@
 [
     {
         "id":1,
+        "idSubLaluan":1,
         "namaTaman":"Pekan Bukit Pasir"
     },
     {
         "id":2,
+        "idSubLaluan":1,
         "namaTaman":"Taman Cemerlang Indah"
     },
     {
         "id":3,
+        "idSubLaluan":2,
         "namaTaman":"Taman Cemerlang Jaya"
     },
     {
         "id":4,
+        "idSubLaluan":2,
         "namaTaman":"Taman Cemerlang Ria"
     },
     {
         "id":5,
+        "idSubLaluan":2,
         "namaTaman":"Taman Desa"
     },
     {
         "id":6,
+        "idSubLaluan":3,
         "namaTaman":"Taman Permainan"
     }
 ]

@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
+//import files
+import '../../../config/config.dart';
+import '../../../config/dimen.dart';
 import '../../../config/palette.dart';
 import '../../../providers/vehicle_checklist_api.dart';
-import '../../../utils/custom_icon.dart';
+import '../../../utils/icon/custom_icon.dart';
+import '../../../widgets/tabs/vehicle_checklist_tab/vehicle_checklist_approval_tab/vehicle_checklist_approval_tab.dart';
 import 'vehicle_checklist_approval_details.dart';
 
 class VehicleChecklistApprovalMain extends StatefulWidget {
@@ -45,8 +50,7 @@ class _VehicleChecklistApprovalMainState
               onPressed: () {
                 Navigator.pop(context);
               },
-              icon: Icon(CustomIcon.arrowBack,
-                  color: blackCustom, size: 22),
+              icon: Icon(CustomIcon.arrowBack, color: blackCustom, size: 22),
             ),
             title: Center(
               child: Text(
@@ -103,65 +107,130 @@ class _VehicleChecklistApprovalMainState
                     default:
                       if (snapshot.hasError) {
                         return const Center(
-                          child: Text("Some errors occurred!"),
-                        );
+                            child: Text("Some errors occurred!"));
                       } else {
-                        return ListView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: dataFuture!.length,
-                          itemBuilder: (context, index) {
-                            if (dataFuture.isNotEmpty) {
-                              return GestureDetector(
-                                onTap: () {
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 8, horizontal: 10),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: white,
-                                      border: Border.all(color: borderColor),
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(12)),
-                                      boxShadow: [
-                                        BoxShadow(
-                                            color: Colors.grey.withOpacity(.3),
-                                            blurRadius: 3,
-                                            spreadRadius: 0.5,
-                                            offset: const Offset(0, 2))
-                                      ],
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(16),
-                                      child: VehicleChecklistApprovalDetails(
-                                        data: dataFuture[index],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              );
-                            } else {
-                              Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20, vertical: 10),
-                                  child: Text(
-                                    "Tiada rekod dijumpai",
-                                    style: TextStyle(
-                                        color: grey500,
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w500),
-                                  ));
-                            }
-                            return Container();
-                          },
-                        );
+                        if (userRole == 100) {
+                          return Expanded(
+                              child: Container(
+                            height: 500,
+                            margin: const EdgeInsets.all(10),
+                            child: GridView.builder(
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2,
+                                      crossAxisSpacing: axisSpacing(context),
+                                      mainAxisSpacing: axisSpacing(context),
+                                      childAspectRatio: 2.8),
+                              physics: const BouncingScrollPhysics(),
+                              itemCount: dataFuture!.length,
+                              itemBuilder: (context, i) {
+                                return GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          PageTransition(
+                                              type: PageTransitionType.fade,
+                                              child:
+                                                  VehicleChecklistApprovalTab(
+                                                data: dataFuture[i],
+                                              )));
+                                      //print("index clicked ${i - 1}");
+                                    },
+                                    child: buildTabletCard(
+                                        VehicleChecklistApprovalDetails(
+                                      data: dataFuture[i],
+                                    )));
+                              },
+                            ),
+                          ));
+                        } else {
+                          return ListView.builder(
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: dataFuture!.length,
+                            itemBuilder: (context, index) {
+                              if (dataFuture.isNotEmpty) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        PageTransition(
+                                            type: PageTransitionType.fade,
+                                            child: VehicleChecklistApprovalTab(
+                                              data: dataFuture[index],
+                                            )));
+                                  },
+                                  child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 8, horizontal: 10),
+                                      child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(14),
+                                            color: white,
+                                            boxShadow: [
+                                              BoxShadow(
+                                                  color: cardShadowColor,
+                                                  offset: const Offset(0, 2),
+                                                  blurRadius: 10,
+                                                  spreadRadius: 0.5)
+                                            ],
+                                          ),
+                                          child: Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 16),
+                                              child:
+                                                  VehicleChecklistApprovalDetails(
+                                                data: dataFuture[index],
+                                              )))),
+                                );
+                              } else {
+                                Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20, vertical: 10),
+                                    child: Text(
+                                      "Tiada rekod dijumpai",
+                                      style: TextStyle(
+                                          color: grey500,
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w500),
+                                    ));
+                              }
+                              return Container();
+                            },
+                          );
+                        }
                       }
                   }
                 },
               ),
             )
           ],
+        ),
+      ),
+    );
+  }
+
+  //------------------------------------------------------
+  // Build card details for report lists.
+  //------------------------------------------------------
+  SizedBox buildTabletCard(redirect) {
+    return SizedBox(
+      child: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: white,
+              boxShadow: [
+                BoxShadow(
+                    color: cardListShadowColor.withOpacity(0.06),
+                    offset: const Offset(0, 2),
+                    blurRadius: 12,
+                    spreadRadius: 0.5)
+              ]),
+          child: Padding(padding: const EdgeInsets.all(10), child: redirect),
         ),
       ),
     );

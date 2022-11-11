@@ -1,0 +1,29 @@
+[
+  {
+    "day1": {
+      "date": "12/9/2022",
+      "timeIn": "08:00 pagi",
+      "timeOut": "12:00 petang"
+    },
+    "day2": {
+      "date": "13/9/2022",
+      "timeIn": "08:00 pagi",
+      "timeOut": "12:00 petang"
+    },
+    "day3": {
+      "date": "14/9/2022",
+      "timeIn": "08:10 pagi",
+      "timeOut": "12:00 petang"
+    },
+    "day4": {
+      "date": "15/9/2022",
+      "timeIn": "08:00 pagi",
+      "timeOut": "12:00 petang"
+    },
+    "day5": {
+      "date": "16/9/2022",
+      "timeIn": "08:00 pagi",
+      "timeOut": "12:00 petang"
+    }
+  }
+]

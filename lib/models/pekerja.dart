@@ -3,6 +3,7 @@ class Pekerja {
   final String name;
   final String designCat;
   final String designation;
+  final String displayPicture;
   final int idAttStatus;
   final String attStatus;
   final String skills;
@@ -18,6 +19,7 @@ class Pekerja {
       required this.name,
       required this.designCat,
       required this.designation,
+      required this.displayPicture,
       required this.idAttStatus,
       required this.attStatus,
       required this.skills,
@@ -33,6 +35,7 @@ class Pekerja {
         name: json['name'] ?? "",
         designCat: json['designCat'] ?? "",
         designation: json['designation'] ?? "",
+        displayPicture: json['displayPicture'] ?? "",
         idAttStatus: json['idAttStatus'] ?? 0,
         attStatus: json['attStatus'] ?? "",
         skills: json['skills'] ?? "",

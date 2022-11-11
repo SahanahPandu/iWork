@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../screens/akbk/akbk_form.dart';
+//import files
+import '../../../../screens/akbk/akbk_form/akbk_form_main.dart';
 
 class AkbkFormTabbarView extends StatefulWidget {
   const AkbkFormTabbarView({Key? key}) : super(key: key);

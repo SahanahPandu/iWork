@@ -2,14 +2,17 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+//import files
 import '../../../../config/config.dart';
+import '../../../../config/dimen.dart';
 import '../../../../config/palette.dart';
 import '../../../../config/string.dart';
 import '../../../../models/reports.dart';
-import '../../../../utils/custom_icon.dart';
-import '../../../../utils/device.dart';
+import '../../../../utils/device/sizes.dart';
+import '../../../../utils/icon/custom_icon.dart';
 import '../../../../widgets/alert/alert_dialog.dart';
-import '../../../../widgets/modal_bottom_sheet/acceptance_options.dart';
+import '../../../../widgets/alert/lottie_alert_dialog.dart';
+import '../../../../widgets/modal_bottom_sheet/custom_bottom_sheet_options.dart';
 import 'report_approval_detail.dart';
 
 class ReportApprovalMain extends StatefulWidget {
@@ -24,9 +27,6 @@ class ReportApprovalMain extends StatefulWidget {
 class _ReportApprovalMainState extends State<ReportApprovalMain> {
   final ExpandableController _reportController =
       ExpandableController(initialExpanded: false);
-  final Devices _device = Devices();
-  final TextEditingController _laluan = TextEditingController();
-  final TextEditingController _vehicleNo = TextEditingController();
   final TextEditingController _rStatus = TextEditingController();
   final TextEditingController _unitUkur = TextEditingController();
   final TextEditingController _odometer = TextEditingController();
@@ -51,23 +51,15 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
   void initState() {
     iconColor = grey500;
     _loadReportStatus(widget.data.idStatus, widget.data.jenisHalangan);
-    _setMainReportText();
     _setSvFeedbackText();
     _setBaFeedbackText();
     super.initState();
   }
 
-  void _setMainReportText() {
-    if (widget.data.namaLaluan != "") {
-      setState(() {
-        _laluan.text = widget.data.namaLaluan;
-      });
-    }
-    if (widget.data.noKenderaan != "") {
-      setState(() {
-        _vehicleNo.text = widget.data.noKenderaan;
-      });
-    }
+  void updateValue(string) {
+    setState(() {
+      _rStatus.text = string;
+    });
   }
 
   void _setSvFeedbackText() {
@@ -104,105 +96,107 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: white,
-        appBar: AppBar(
-          backgroundColor: appBarBgColor,
-          elevation: 1,
-          shadowColor: white,
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(CustomIcon.arrowBack, color: blackCustom, size: 22),
-          ),
-          title: Center(
-            child: Text(
-              "Laporan ${widget.data.id}",
-              style: TextStyle(
-                fontSize: 15,
-                color: grey800,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-          ),
-          actions: const [
-            SizedBox(
-              width: 50,
-            )
-          ],
-        ),
-        body: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: ExpandableNotifier(
-            controller: _reportController,
+        appBar: PreferredSize(
+            preferredSize: const Size.fromHeight(kToolbarHeight),
             child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 15),
-                    child: Text("Butiran maklumat laporan:",
-                        style: TextStyle(
-                            color: blackCustom,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w400)),
-                  ),
-                  _buildTextForm(_laluan, "Laluan"),
-                  _buildTextForm(_vehicleNo, "No Kenderaan"),
-                  ScrollOnExpand(
-                    scrollOnCollapse: false,
-                    scrollOnExpand: true,
-                    child: Expandable(
-                      collapsed: Container(),
-                      expanded: ReportApprovalDetail(
-                          data: widget.data, reportStatus: condition),
+              decoration: BoxDecoration(boxShadow: [
+                BoxShadow(
+                  color: barShadowColor,
+                  offset: const Offset(0, 3),
+                  blurRadius: 8,
+                )
+              ]),
+              child: AppBar(
+                backgroundColor: white,
+                elevation: 0,
+                leading: IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon:
+                      Icon(CustomIcon.arrowBack, color: blackCustom, size: 22),
+                ),
+                title: Center(
+                  child: Text(
+                    'Laporan ${widget.data.id}',
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: blackCustom,
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
-                  const SizedBox(height: 15),
-                  ExpandableButton(
-                    child: InkWell(
-                      onTap: () {
-                        _reportController.toggle();
-                        _reportController.expanded
-                            ? setState(() {
-                                iconColor = green;
-                              })
-                            : setState(() {
-                                iconColor = grey500;
-                              });
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Text(
-                            _reportController.expanded
-                                ? "Lihat lebih sikit"
-                                : "Lihat lebih banyak",
-                            style: TextStyle(
-                              fontSize: 12,
-                              color:
-                                  _reportController.expanded ? green : darkBlue,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          const SizedBox(width: 10),
-                          Icon(
-                            _reportController.expanded
-                                ? Icons.keyboard_arrow_up_rounded
-                                : Icons.keyboard_arrow_down_rounded,
-                            size: 14,
-                            color:
-                                _reportController.expanded ? green : darkBlue,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 25),
-                  const Divider(height: 0.5),
-                  _buildReportSections(context, condition),
+                ),
+                actions: const [
+                  SizedBox(width: 50),
                 ],
               ),
+            )),
+        body: ScrollConfiguration(
+          behavior: const MaterialScrollBehavior().copyWith(overscroll: false),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                ExpandableNotifier(
+                  controller: _reportController,
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 15),
+                          child: ExpandableButton(
+                            child: InkWell(
+                              highlightColor: white,
+                              onTap: () {
+                                _reportController.toggle();
+                                _reportController.expanded
+                                    ? setState(() {
+                                        iconColor = green;
+                                      })
+                                    : setState(() {
+                                        iconColor = grey500;
+                                      });
+                              },
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text("Butiran maklumat laporan:",
+                                      style: TextStyle(
+                                          color: blackCustom,
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w400)),
+                                  Icon(
+                                    _reportController.expanded
+                                        ? CustomIcon.expand
+                                        : CustomIcon.collapse,
+                                    size: 16,
+                                    color: activeColor,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        ScrollOnExpand(
+                          scrollOnCollapse: false,
+                          scrollOnExpand: true,
+                          child: Expandable(
+                            collapsed: Container(),
+                            expanded: ReportApprovalDetail(
+                                data: widget.data, reportStatus: condition),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        const Divider(height: 0.5),
+                        _buildReportSections(context, condition),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ),
@@ -230,7 +224,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
                   overlayColor:
                       MaterialStateColor.resolveWith((states) => green800),
                   minimumSize: MaterialStateProperty.all(
-                      Size(Devices().screenWidth(context), 41)),
+                      Size(Sizes().screenWidth(context), 41)),
                   backgroundColor: MaterialStateProperty.all(green)),
               child: Text('Hantar',
                   style: TextStyle(
@@ -239,11 +233,21 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
                 showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      return showAlertDialog(context, confirmation,
-                          "Sahkan borang laporan ini?", cancel, "Sahkan");
+                      return showAlertDialog(
+                          context,
+                          confirmation,
+                          "Anda pasti untuk hantar sekarang? Maklumbalas ini akan dihantar kepada PRA dan BA.",
+                          cancel,
+                          submit);
                     }).then((actionText) {
-                  if (actionText == "Sahkan") {
+                  if (actionText == submit) {
                     Navigator.pop(context);
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return showLottieAlertDialog(
+                              context, _textBuilder(), null);
+                        });
                   }
                 });
               },
@@ -252,32 +256,54 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
         ));
   }
 
+  RichText _textBuilder() {
+    return RichText(
+        textAlign: TextAlign.center,
+        text: TextSpan(
+            text: "Status telah dikemaskini dan dimaklumkan kepada PRA dan BA",
+            style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w400,
+                color: greyCustom,
+                height: 1.5)));
+  }
+
   Widget _buildReportSections(BuildContext context, int condition) {
     switch (condition) {
       case 1:
-        return _buildReportAcceptanceColumn(context, "Maklumbalas kepada PRA:");
+        return Column(
+          children: [
+            _buildReportAcceptanceColumn(context, "Maklumbalas kepada PRA:"),
+            _buildNote()
+          ],
+        );
       case 2:
         return Column(
           children: [
             _buildReportAcceptanceColumn(context, "Maklumbalas kepada PRA:"),
-            const SizedBox(height: 15),
+            _buildNote(),
+            const SizedBox(height: 20),
             const Divider(height: 0.5),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildReportAkbkMainColumn(context),
-                const SizedBox(height: 15),
-                const Divider(height: 0.5),
-                _buildReportAkbkSubColumn(context),
-              ],
-            )
+            //check here if SV accept or not the report
+            if (_rStatus.text == "Diterima")
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildReportAkbkMainColumn(context),
+                  const SizedBox(height: 15),
+                  const Divider(height: 0.5),
+                  const SizedBox(height: 15),
+                  _buildReportAkbkSubColumn(context),
+                ],
+              )
           ],
         );
       case 3:
         return Column(
           children: [
             _buildReportAcceptanceColumn(context, "Maklumbalas kepada PRA:"),
-            const SizedBox(height: 15),
+            _buildNote(),
+            const SizedBox(height: 20),
             const Divider(height: 0.5),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -285,7 +311,8 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
                 _buildReportAkbkMainColumn(context),
                 const SizedBox(height: 15),
                 const Divider(height: 0.5),
-                _buildReportAkbkTyreSubColumn(context)
+                const SizedBox(height: 15),
+                _buildReportAkbkTyreSubColumn(context),
               ],
             )
           ],
@@ -298,14 +325,14 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 15),
-              child: Text("Tindakan dari Penyelia:",
+              child: Text("Maklumbalas kepada PRA:",
                   style: TextStyle(
                       color: blackCustom,
                       fontSize: 15,
                       fontWeight: FontWeight.w400)),
             ),
             _buildTextForm(_svStatus, "Status"),
-            _buildTextForm(_svFeedback, "Maklumbalas Penyelia", true),
+            _buildTextForm(_svFeedback, "Maklumbalas", true),
           ],
         );
       case 7:
@@ -325,14 +352,14 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 15),
-              child: Text("Tindakan dari BA:",
+              child: Text("Pengesahan dari BA:",
                   style: TextStyle(
                       color: blackCustom,
                       fontSize: 15,
                       fontWeight: FontWeight.w400)),
             ),
             _buildTextForm(_baStatus, "Status"),
-            _buildTextForm(_baFeedback, "Maklumbalas Penyelia", true),
+            _buildTextForm(_baFeedback, "Maklumbalas", true),
           ],
         );
       default:
@@ -371,7 +398,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
               width: 0.5,
               color: borderTextColor,
             ),
-            borderRadius: BorderRadius.circular(4),
+            borderRadius: BorderRadius.circular(borderRadiusCircular),
           ),
         ),
       ),
@@ -391,7 +418,8 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
         child: InkWell(
           borderRadius: BorderRadius.circular(8),
           onTap: () {
-            showAcceptanceOptions(context, reportStatusList, 0.25, _kerosakan);
+            showBottomSheetOptions(
+                context, reportStatusList, 0.3, _kerosakan, null);
           },
           child: _buildInactiveTextField(_kerosakan, "Pilih Tarikh"),
         ),
@@ -402,7 +430,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SizedBox(
-              width: _device.screenWidth(context) * 0.41,
+              width: Sizes().screenWidth(context) * 0.41,
               child: InkWell(
                 borderRadius: BorderRadius.circular(8),
                 onTap: () {
@@ -413,7 +441,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
               ),
             ),
             SizedBox(
-              width: _device.screenWidth(context) * 0.42,
+              width: Sizes().screenWidth(context) * 0.42,
               child: InkWell(
                 borderRadius: BorderRadius.circular(8),
                 onTap: () {
@@ -431,7 +459,13 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
         child: InkWell(
           borderRadius: BorderRadius.circular(8),
           onTap: () {
-            showAcceptanceOptions(context, reportStatusList, 0.25, _kerosakan);
+            showBottomSheetOptions(
+              context,
+              reportStatusList,
+              0.3,
+              _kerosakan,
+              null,
+            );
           },
           child: _buildInactiveTextField(_kerosakan, "Pilih Kenderaan"),
         ),
@@ -441,7 +475,8 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
         child: InkWell(
           borderRadius: BorderRadius.circular(8),
           onTap: () {
-            showAcceptanceOptions(context, reportStatusList, 0.25, _kerosakan);
+            showBottomSheetOptions(
+                context, reportStatusList, 0.3, _kerosakan, null);
           },
           child: _buildInactiveTextField(_kerosakan, "Pilih Pekerja"),
         ),
@@ -466,7 +501,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
         context: context,
         builder: (builder) {
           return Container(
-            height: _device.screenHeight(context) * 0.3,
+            height: Sizes().screenHeight(context) * 0.3,
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Center(
               child: SizedBox(
@@ -528,8 +563,8 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
           child: InkWell(
             borderRadius: BorderRadius.circular(8),
             onTap: () {
-              showAcceptanceOptions(
-                  context, reportStatusList, 0.25, _kerosakan);
+              showBottomSheetOptions(
+                  context, reportStatusList, 0.25, _kerosakan, null);
             },
             child: _buildInactiveTextField(_kerosakan, "Sila Pilih Saiz Tayar"),
           ),
@@ -539,8 +574,8 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
           child: InkWell(
             borderRadius: BorderRadius.circular(8),
             onTap: () {
-              showAcceptanceOptions(
-                  context, reportStatusList, 0.25, _kerosakan);
+              showBottomSheetOptions(
+                  context, reportStatusList, 0.25, _kerosakan, null);
             },
             child:
                 _buildInactiveTextField(_kerosakan, "Sila Pilih Lokasi Tayar"),
@@ -551,8 +586,8 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
           child: InkWell(
             borderRadius: BorderRadius.circular(8),
             onTap: () {
-              showAcceptanceOptions(
-                  context, reportStatusList, 0.25, _kerosakan);
+              showBottomSheetOptions(
+                  context, reportStatusList, 0.25, _kerosakan, null);
             },
             child: _buildInactiveTextField(_kerosakan, "Sila Pilih Isu"),
           ),
@@ -574,8 +609,8 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
           child: InkWell(
             borderRadius: BorderRadius.circular(8),
             onTap: () {
-              showAcceptanceOptions(
-                  context, reportStatusList, 0.25, _kerosakan);
+              showBottomSheetOptions(
+                  context, reportStatusList, 0.25, _kerosakan, null);
             },
             child: _buildInactiveTextField(_kerosakan, "Jenis-jenis Kerosakan"),
           ),
@@ -599,10 +634,11 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
 
   Column _buildReportAkbkMainColumn(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 15),
-          child: Text("Lengkapkan borang AKBK di bawah untuk pengesahan BA:",
+          child: Text("Lengkapkan borang AKBK di bawah:",
               style: TextStyle(
                   color: blackCustom,
                   fontSize: 15,
@@ -617,7 +653,8 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
           child: InkWell(
             borderRadius: BorderRadius.circular(8),
             onTap: () {
-              showAcceptanceOptions(context, reportStatusList, 0.25, _unitUkur);
+              showBottomSheetOptions(
+                  context, reportStatusList, 0.3, _unitUkur, null);
             },
             child: _buildInactiveTextField(_unitUkur, "Unit Ukuran"),
           ),
@@ -627,7 +664,8 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
           child: InkWell(
             borderRadius: BorderRadius.circular(8),
             onTap: () {
-              showAcceptanceOptions(context, reportStatusList, 0.25, _odometer);
+              showBottomSheetOptions(
+                  context, reportStatusList, 0.3, _odometer, null);
             },
             child: _buildInactiveTextField(_odometer, "Keadaan Odometer"),
           ),
@@ -644,8 +682,10 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
   TextFormField _buildActiveTextField(TextInputType type, String label,
       [int? minLines = 1, int? maxLines = 1]) {
     return TextFormField(
+      textInputAction: TextInputAction.done,
       cursorColor: green,
-      cursorHeight: 18,
+      cursorHeight: 20,
+      cursorWidth: 1.2,
       keyboardType: type,
       minLines: minLines,
       maxLines: maxLines,
@@ -664,18 +704,18 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
         ),
         border: const OutlineInputBorder(),
         focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(4),
-            borderSide: BorderSide(color: green)),
+            borderRadius: BorderRadius.circular(borderRadiusCircular),
+            borderSide: BorderSide(color: green, width: 0.5)),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: green),
-          borderRadius: BorderRadius.circular(4),
+          borderSide: BorderSide(color: green, width: 0.5),
+          borderRadius: BorderRadius.circular(borderRadiusCircular),
         ),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
             width: 0.5,
             color: borderTextColor,
           ),
-          borderRadius: BorderRadius.circular(4),
+          borderRadius: BorderRadius.circular(borderRadiusCircular),
           //gapPadding: 6.0,
         ),
       ),
@@ -699,23 +739,43 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
           child: InkWell(
             borderRadius: BorderRadius.circular(8),
             onTap: () {
-              showAcceptanceOptions(context, reportStatusList, 0.25, _rStatus);
+              showBottomSheetOptions(
+                  context, reportStatusList, 0.3, _rStatus, updateValue);
             },
-            child: _buildInactiveTextField(_rStatus, "Pilih Status"),
+            child: _buildInactiveTextField(_rStatus, "Status"),
           ),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10),
           child: _buildActiveTextField(
-              TextInputType.multiline, "Isi maklumbalas di ruang ini", 1, 10),
-        )
+              TextInputType.multiline, "Maklumbalas", 1, 10),
+        ),
       ],
+    );
+  }
+
+  Padding _buildNote() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      child: Row(
+        children: [
+          Icon(CustomIcon.exclamation, color: blue, size: 14),
+          const SizedBox(width: 10),
+          Text(
+              "Laporan Halangan Kerja juga akan dihantar kepada\nBA untuk pengesahan.",
+              style: TextStyle(
+                  fontStyle: FontStyle.italic,
+                  fontSize: 13,
+                  height: 1.3,
+                  color: grey600))
+        ],
+      ),
     );
   }
 
   TextFormField _buildInactiveTextField(
       TextEditingController controller, String label,
-      [IconData? icon = Icons.arrow_drop_down]) {
+      [IconData? icon = CustomIcon.dropdown]) {
     return TextFormField(
       controller: controller,
       readOnly: true,
@@ -728,7 +788,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
             const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
         suffixIcon: Icon(
           icon,
-          size: 18,
+          size: 16,
           color: black87,
         ),
         labelText: label,
@@ -742,7 +802,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
             width: 0.5,
             color: borderTextColor,
           ),
-          borderRadius: BorderRadius.circular(4),
+          borderRadius: BorderRadius.circular(borderRadiusCircular),
           //gapPadding: 6.0,
         ),
       ),
@@ -751,7 +811,8 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
 
   void _loadReportStatus(int rptStatus, String rptType) {
     switch (rptStatus) {
-      //Baharu
+
+      //Baharu & Dalam Proses
       case 1:
         switch (userRole) {
           // sv -> need to accept/reject laluan/cuaca case from pra.

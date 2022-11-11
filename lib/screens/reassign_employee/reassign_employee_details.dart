@@ -1,15 +1,18 @@
-// ignore_for_file: must_be_immutable
+import 'dart:async';
 
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 //import files
-import '../../widgets/buttons/ganti_pekerja_button.dart';
+import '../../config/palette.dart';
+import '../employee_list/employee_list.dart';
 import '../list_of_employees/list_of_employee_details.dart';
 
 class ReassignEmployeeDetails extends StatefulWidget {
-  dynamic dataEmployee1; //absence employee
+  final dynamic dataEmployee1; //absence employee
 
-  ReassignEmployeeDetails({
+  const ReassignEmployeeDetails({
     Key? key,
     required this.dataEmployee1,
   }) : super(key: key);
@@ -20,11 +23,16 @@ class ReassignEmployeeDetails extends StatefulWidget {
 }
 
 class _ReassignEmployeeDetailsState extends State<ReassignEmployeeDetails> {
-  dynamic dataEmployee2; //assigned employee
+  //assigned employee
+  dynamic dataEmployee2;
+  Color textColor = greenCustom;
 
   getAssignedEmployeeDetails(dynamic data) {
+    //final buttonVisibility = StateInheritedWidget.of(context);
     if (data != null) {
+      // widget.visibility!();
       if (mounted) {
+        // showBottomButton();
         setState(() {
           dataEmployee2 = data;
         });
@@ -35,54 +43,122 @@ class _ReassignEmployeeDetailsState extends State<ReassignEmployeeDetails> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        ListOfEmployeeDetails(
-          data: widget.dataEmployee1!,
-          assignedEmployee: getAssignedEmployeeDetails,
+        absentEmployeeSection(),
+        const SizedBox(
+          height: 12,
         ),
-        if (dataEmployee2 == null)
-          SizedBox(
-            width: MediaQuery.of(context).size.width,
-            child: GantiPekerjaButton(
-              assignedEmployee: getAssignedEmployeeDetails,
-              buttonText: "Ganti Pekerja",
-            ),
-          ),
-
-        if (dataEmployee2 != null)
-          const SizedBox(
-            height: 10,
-          ),
         if (dataEmployee2 != null)
           const Center(
             child: Icon(
               Icons.swap_vertical_circle_rounded,
               size: 25,
-              color: Colors.green,
+              color: Color(0xff34A853),
             ),
           ),
-        if (dataEmployee2 != null)
-          const SizedBox(
-            height: 10,
-          ),
-        if (dataEmployee2 != null)
-          ListOfEmployeeDetails(
-            data: dataEmployee2,
-          ),
-        // if (dataEmployee2 != null)
-        //   const SizedBox(
-        //     height: 15,
-        //   ),
-        if (dataEmployee2 != null)
-          SizedBox(
-            width: MediaQuery.of(context).size.width,
-            child: GantiPekerjaButton(
-              assignedEmployee: getAssignedEmployeeDetails,
-              buttonText: "Tukar Pilihan",
-            ),
-          ),
+        assignedEmployeeSection(),
       ],
     );
   }
+
+  Widget absentEmployeeSection() {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 16),
+      child: ListOfEmployeeDetails(
+        data: widget.dataEmployee1!,
+        assignedEmployee: getAssignedEmployeeDetails,
+      ),
+    );
+  }
+
+  Widget assignedEmployeeSection() {
+    return InkWell(
+      onTap: () {
+        Timer(const Duration(milliseconds: 200), () {
+          setState(() {
+            textColor = greenCustom;
+          });
+        });
+        Navigator.push(
+            context,
+            PageTransition(
+                type: PageTransitionType.fade,
+                child: EmployeeList(
+                  absentEmployee: widget.dataEmployee1,
+                  assignedEmployee: getAssignedEmployeeDetails,
+                )));
+      },
+      onTapDown: (_) {
+        setState(() {
+          textColor = const Color(0xFF75BE72);
+        });
+      },
+      onTapUp: (_) {
+        setState(() {
+          textColor = greenCustom;
+        });
+      },
+      onTapCancel: () {
+        setState(() {
+          textColor = greenCustom;
+        });
+      },
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+        height: (dataEmployee2 == null) ? 100 : null,
+        color: dataEmployee2 != null ? const Color(0x4DEBFFF0) : Colors.white,
+        child: DottedBorder(
+          borderType: BorderType.RRect,
+          radius: const Radius.circular(8),
+          color: const Color(0xff34A853),
+          strokeWidth: 0.8,
+          dashPattern: const [3, 3],
+          child: (dataEmployee2 != null)
+              ? Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 16),
+                  child: ListOfEmployeeDetails(
+                    data: dataEmployee2,
+                  ),
+                )
+              : Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text("Ganti Pekerja",
+                          style: TextStyle(
+                            color: textColor,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w400,
+                            decoration: TextDecoration.underline,
+                          )),
+                    ],
+                  ),
+                ),
+        ),
+      ),
+    );
+  }
+
+// Widget? showBottomButton() {
+//   showBottomSheet(
+//     context: context,
+//     builder: (builder) {
+//       return SizedBox(
+//         height: MediaQuery.of(context).size.height * 0.1,
+//         width: MediaQuery.of(context).size.width,
+//         child: const BottomAppBar(
+//           elevation: 40,
+//           color: Colors.white,
+//           child: Padding(
+//             padding: EdgeInsets.symmetric(horizontal: 26, vertical: 17),
+//             child: SahkanGantiPekerjaButton(),
+//           ),
+//         ),
+//       );
+//     },
+//   );
+//   return null;
+// }
 }

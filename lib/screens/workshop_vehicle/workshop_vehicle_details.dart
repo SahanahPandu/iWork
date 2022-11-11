@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//import files
 import '../../config/font.dart';
 import '../../config/palette.dart';
 import '../../models/workshop_vehicle.dart';
@@ -22,12 +23,15 @@ class _WorkshopVehicleDetailsState extends State<WorkshopVehicleDetails> {
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            widget.data.vehicleNo,
-            style: TextStyle(
-                fontWeight: FontWeight.w700,
-                color: primaryTextColor,
-                fontSize: 16),
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: Text(
+              '${widget.data.vehicleNo} - ${widget.data.akbkNo}',
+              style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  color: primaryTextColor,
+                  fontSize: 16),
+            ),
           ),
           StatusContainer(
             type: "workshopVehicle",
@@ -38,7 +42,7 @@ class _WorkshopVehicleDetailsState extends State<WorkshopVehicleDetails> {
         ],
       ),
       Padding(
-        padding: const EdgeInsets.only(top: 20, bottom: 10),
+        padding: const EdgeInsets.fromLTRB(15, 10, 15, 15),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
