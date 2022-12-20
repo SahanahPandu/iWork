@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:eswm/models/task/pra/general_worker_task.dart';
 import 'package:eswm/providers/laluan_api.dart';
 import 'package:flutter/material.dart';

@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
@@ -58,7 +60,7 @@ class CompactorTaskApi {
           decodeBody = convertData.data!.schedules;
         }
       } else {
-        print ("ERROR");
+        print("ERROR");
       }
     } catch (e) {
       print(e);

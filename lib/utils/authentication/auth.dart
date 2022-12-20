@@ -1,4 +1,6 @@
 //import files
+// ignore_for_file: avoid_print
+
 import '../../config/config.dart';
 import '../../models/user/user_data.dart';
 import '../../providers/authenticate/login_api.dart';
