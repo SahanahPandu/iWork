@@ -23,7 +23,8 @@ class _ENotisButtonState extends State<ENotisButton>
     with TickerProviderStateMixin {
   double _scaleText = 1;
   late AnimationController _controllerText;
-  String todayDate = Date.getTodayDate();
+  String todayDate =
+      Date.getTheDate(DateTime.now().toString(), "dd/MM/yyyy", 'ms');
 
   @override
   void initState() {
@@ -75,7 +76,12 @@ class _ENotisButtonState extends State<ENotisButton>
               showDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    return showLottieAlertDialog(context, _textBuilder(), null);
+                    return showLottieAlertDialog(
+                      context,
+                      _textBuilder(),
+                      null,
+                      null,
+                    );
                   });
               // Navigator.push(
               //     context,

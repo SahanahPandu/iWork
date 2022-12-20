@@ -82,10 +82,14 @@ class _WorkScheduleState extends State<WorkSchedule> {
                 if (userRole == 100 || userRole == 200 && value != true) {
                   return Container(
                       margin: const EdgeInsets.only(right: 45),
-                      child: ReportButton(dataLaluan: widget.data));
+                      child: ReportButton(passData: widget.data));
                 } else if (userRole == 100 ||
                     userRole == 200 && value == true) {
-                  return ReportButton(dataLaluan: widget.data);
+                  // print('Sini ke? ');
+                  // return const ReportButton(
+                  //   dataLaluan: null,
+                  // );
+                  return ReportButton(passData: widget.data);
                 } else {
                   return Container();
                 }

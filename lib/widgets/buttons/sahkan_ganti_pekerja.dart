@@ -42,7 +42,12 @@ class _SahkanGantiPekerjaButtonState extends State<SahkanGantiPekerjaButton> {
               barrierDismissible: false,
               context: context,
               builder: (BuildContext context) {
-                return showLottieAlertDialog(context, successText(), null);
+                return showLottieAlertDialog(
+                  context,
+                  successText(),
+                  null,
+                  null,
+                );
               });
         });
       },

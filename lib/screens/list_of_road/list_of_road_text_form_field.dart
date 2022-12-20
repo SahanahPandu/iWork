@@ -5,9 +5,11 @@ import '../../config/config.dart';
 import '../../config/dimen.dart';
 import '../../config/font.dart';
 import '../../config/palette.dart';
+import '../../config/string.dart';
 import '../../providers/jalan_api.dart';
 import '../../utils/device/orientations.dart';
 import '../../utils/device/sizes.dart';
+import '../../utils/icon/custom_icon.dart';
 
 class ListOfRoadTextFormField extends StatefulWidget {
   final String text;
@@ -17,17 +19,21 @@ class ListOfRoadTextFormField extends StatefulWidget {
   final int iconCondition;
   final String data;
   final String? screen;
+  final int? scMainId;
+  final String? namaTaman;
 
-  const ListOfRoadTextFormField(
-      {Key? key,
-      required this.text,
-      required this.hintText,
-      required this.fontSize,
-      required this.fillColor,
-      required this.iconCondition,
-      required this.data,
-      this.screen})
-      : super(key: key);
+  const ListOfRoadTextFormField({
+    Key? key,
+    required this.text,
+    required this.hintText,
+    required this.fontSize,
+    required this.fillColor,
+    required this.iconCondition,
+    required this.data,
+    this.screen,
+    this.scMainId,
+    this.namaTaman,
+  }) : super(key: key);
 
   @override
   ListOfRoadTextFormFieldState createState() => ListOfRoadTextFormFieldState();
@@ -35,30 +41,32 @@ class ListOfRoadTextFormField extends StatefulWidget {
 
 class ListOfRoadTextFormFieldState extends State<ListOfRoadTextFormField> {
   final TextEditingController namaJalan = TextEditingController();
+  late int idJalan = 0;
+  int selectedIndex = -1;
 
   int totalJalan = 0;
 
-  getTotalData() {
-    JalanApi.getJalanData(context).then((value) {
-      if (value.isNotEmpty) {
-        setState(() {
-          totalJalan = value.length;
-        });
-      }
-    });
+  // getTotalData() {
+  //   JalanApi.getJalanData(context).then((value) {
+  //     if (value.isNotEmpty) {
+  //       setState(() {
+  //         totalJalan = value.length;
+  //       });
+  //     }
+  //   });
 
-    if (widget.data != "") {
-      setState(() {
-        namaJalan.text = widget.data;
-      });
-    }
-  }
+  //   if (widget.data != "") {
+  //     setState(() {
+  //       namaJalan.text = widget.data;
+  //     });
+  //   }
+  // }
 
-  @override
-  void initState() {
-    super.initState();
-    getTotalData();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   getTotalData();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -123,7 +131,7 @@ class ListOfRoadTextFormFieldState extends State<ListOfRoadTextFormField> {
           ),
         ),
         validator: (value) {
-          if (value == null || value.isEmpty) {
+          if ((value == null || value.isEmpty) && widget.screen != "4") {
             return '';
           }
 
@@ -150,9 +158,8 @@ class ListOfRoadTextFormFieldState extends State<ListOfRoadTextFormField> {
         context: context,
         builder: (builder) {
           return SizedBox(
-            height: userRole == 100
-                ? null
-                : Sizes().screenHeight(context) * 0.5,
+            height:
+                userRole == 100 ? null : Sizes().screenHeight(context) * 0.5,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -187,7 +194,7 @@ class ListOfRoadTextFormFieldState extends State<ListOfRoadTextFormField> {
                   endIndent: 25,
                 ),
                 FutureBuilder<List>(
-                  future: JalanApi.getJalanData(context),
+                  future: JalanApi.getDataJalan(widget.scMainId!),
                   builder: (context, snapshot) {
                     final dataFuture = snapshot.data;
 
@@ -207,47 +214,112 @@ class ListOfRoadTextFormFieldState extends State<ListOfRoadTextFormField> {
                             return Center(
                               child: Container(
                                 margin: const EdgeInsets.all(20),
-                                child: const Text("Tiada data"),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Icon(CustomIcon.exclamation,
+                                        color: Colors.orange, size: 14),
+                                    const SizedBox(width: 10),
+                                    Text("Tiada senarai jalan dijumpai",
+                                        style: TextStyle(color: grey500)),
+                                  ],
+                                ),
                               ),
                             );
                           } else {
+                            //checking if there is nama taman id is passed, else show all
+                            List<dynamic> newList = [];
+                            for (int i = 0; i < dataFuture.length; i++) {
+                              if (dataFuture[i].parkName == widget.namaTaman) {
+                                newList.add(dataFuture[i]);
+                              }
+                            }
+
+                            if (newList.isEmpty) {
+                              return Container(
+                                color: white,
+                                height: userRole == 200
+                                    ? Sizes().screenHeight(context) * 0.24
+                                    : Sizes().screenHeight(context) * 0.18,
+                                child: Container(
+                                  margin: userRole == 100 &&
+                                          Orientations()
+                                              .isTabletPortrait(context)
+                                      ? const EdgeInsets.symmetric(
+                                          horizontal: 60, vertical: 40)
+                                      : const EdgeInsets.symmetric(
+                                          horizontal: 25, vertical: 15),
+                                  alignment: Alignment.topLeft,
+                                  child: Row(
+                                    children: [
+                                      const Icon(CustomIcon.exclamation,
+                                          color: Colors.orange, size: 14),
+                                      const SizedBox(width: 10),
+                                      Text(
+                                        notFoundStreet,
+                                        style: TextStyle(color: grey400),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            }
+
                             return Expanded(
                               child: Container(
-                                margin: const EdgeInsets.symmetric(
-                                  horizontal: 10,
-                                ),
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 10),
-                                child: ListView.builder(
-                                  physics: const BouncingScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemCount: dataFuture.length,
-                                  itemBuilder: (context, index) {
-                                    return InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          namaJalan.text =
-                                              dataFuture[index].namaJalan;
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15),
+                                  child: ListView.builder(
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      itemCount: newList.length,
+                                      itemBuilder: (context, index) {
+                                        return InkWell(
+                                          onTap: () {
+                                            setState(() {
+                                              namaJalan.text =
+                                                  newList[index].streetName;
 
-                                          Navigator.pop(context);
-                                        });
-                                      },
-                                      child: Container(
-                                        margin: const EdgeInsets.symmetric(
-                                            vertical: 12),
-                                        child: Text(
-                                          dataFuture[index].namaJalan,
-                                          style: TextStyle(
-                                            color: blackCustom,
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.w400,
+                                              selectedIndex = index;
+                                              idJalan = newList[index].streetId;
+
+                                              Navigator.pop(context);
+                                            });
+                                          },
+                                          child: Container(
+                                            margin: const EdgeInsets.symmetric(
+                                                vertical: 16),
+                                            child: Row(
+                                              children: [
+                                                Icon(
+                                                    namaJalan.text != "" &&
+                                                            selectedIndex ==
+                                                                index
+                                                        ? Icons.check
+                                                        : null,
+                                                    color: green,
+                                                    size: 18),
+                                                const SizedBox(width: 8),
+                                                Text(newList[index].streetName,
+                                                    style: TextStyle(
+                                                      color: blackCustom,
+                                                      fontSize: 15,
+                                                      fontWeight: namaJalan
+                                                                      .text !=
+                                                                  "" &&
+                                                              selectedIndex ==
+                                                                  index
+                                                          ? FontWeight.w600
+                                                          : FontWeight.w400,
+                                                    ))
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
+                                        );
+                                      })),
                             );
                           }
                         }

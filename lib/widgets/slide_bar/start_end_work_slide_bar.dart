@@ -8,7 +8,7 @@ import 'package:shimmer/shimmer.dart';
 import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../../config/string.dart';
-import '../../models/laluan.dart';
+import '../../models/task/compactor/data/schedules/schedule.dart';
 import '../../utils/calendar/time.dart';
 import '../../utils/device/orientations.dart';
 import '../../utils/device/sizes.dart';
@@ -19,7 +19,7 @@ import '../cards/my_task/compactor_panel/compactor_panel_my_task_list_details.da
 typedef StringCallback = void Function(String val);
 
 class StartEndWorkSlideBar extends StatefulWidget {
-  final Laluan data;
+  final Schedule data;
 
   const StartEndWorkSlideBar({Key? key, required this.data}) : super(key: key);
 

@@ -1,17 +1,16 @@
-import 'package:shared_preferences/shared_preferences.dart';
-
 //import files
 import '../../config/config.dart';
 
 class Roles {
-  static const roleComp = "comp";
-  static const rolePra = "pra";
-  static const roleSv = "sv";
-  static const roleEo = "eo";
-  static const roleBa = "ba";
-  static const roleSam = "sam";
-  static const roleRom = "rom";
-  static const roleMech = "mech";
+  static const roleComp = "COMP";
+  static const rolePra = "PRA";
+  static const roleSv = "SV";
+  static const roleEo = "EO";
+  static const roleBa = "BA";
+  static const roleSam = "SAM";
+  static const roleRom = "ROM";
+  static const roleMech = "MECH";
+  static const roleContractor = "CONTRACTOR";
 
   static int? setRole(String roleID) {
     switch (roleID) {
@@ -31,14 +30,10 @@ class Roles {
         return userRole = 700;
       case roleMech:
         return userRole = 800;
+      case roleContractor:
+        return userRole = 1000;
       default:
         return userRole = 0;
     }
-  }
-
-  static Future<int> loadUserRole() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    userRole = prefs.getInt('role') ?? 0;
-    return userRole;
   }
 }

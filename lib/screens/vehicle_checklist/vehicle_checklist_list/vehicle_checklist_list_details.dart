@@ -75,7 +75,9 @@ class _VehicleChecklistListDetailsState
         children: [
           TableRow(children: [
             Text(
-              widget.vcData.tarikh == Date.getTodayDate()
+              widget.vcData.tarikh ==
+                      Date.getTheDate(
+                          DateTime.now().toString(), "dd/MM/yyyy", 'ms')
                   ? "Hari Ini"
                   : widget.vcData.tarikh,
               style: TextStyle(

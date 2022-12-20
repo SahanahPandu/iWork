@@ -7,6 +7,7 @@ import '../../config/palette.dart';
 import '../../config/resource.dart';
 import '../../config/string.dart';
 import '../../data/data_drawer.dart';
+import '../../providers/authenticate/logout_api.dart';
 import '../../screens/e_cuti/e_cuti.dart';
 import '../../screens/reports/report_list_main.dart';
 import '../../screens/schedule_all/schedule_all_main.dart';
@@ -15,9 +16,12 @@ import '../../screens/schedule_shift/schedule_shift_main.dart';
 import '../../screens/vehicle_checklist/vehicle_checklist_approval/vehicle_checklist_approval_main.dart';
 import '../../screens/vehicle_checklist/vehicle_checklist_list/vehicle_checklist_list_main.dart';
 import '../../screens/workshop_vehicle/workshop_vehicle_main.dart';
-import '../../utils/authentication/auth.dart';
+import '../../utils/device/devices.dart';
 import '../../utils/device/sizes.dart';
+import '../../utils/font/font.dart';
+import '../../utils/storage/local_pref.dart';
 import '../alert/alert_dialog.dart';
+import '../alert/toast.dart';
 import '../tabs/akbk_tab/akbk_tab.dart';
 import '../tabs/ecuti_approval_tab/ecuti_approval_tab.dart';
 
@@ -92,84 +96,99 @@ class _DrawerBuildState extends State<DrawerBuild> {
             child: ListView(children: [
               Container(
                 alignment: Alignment.centerLeft,
-                height: 110.0,
+                height: 110,
                 child: DrawerHeader(
                     decoration: BoxDecoration(
                       color: white,
                     ),
-                    child: Row(
-                      children: [
-                        Stack(
-                            clipBehavior: Clip.hardEdge,
-                            alignment: AlignmentDirectional.center,
-                            fit: StackFit.loose,
-                            children: <Widget>[
-                              Container(
-                                height: 62,
-                                width: 62,
-                                decoration: BoxDecoration(
-                                    color: transparent,
-                                    border: Border.all(color: grey300),
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(10))),
-                              ),
-                              ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: FittedBox(
-                                    fit: BoxFit.fill,
-                                    child: Image.asset(
-                                      userImg,
-                                      height: 58,
-                                      width: 58,
+                    child: Devices().isPhone()
+                        ? Row(
+                            children: [
+                              Stack(
+                                  clipBehavior: Clip.hardEdge,
+                                  alignment: AlignmentDirectional.center,
+                                  fit: StackFit.loose,
+                                  children: <Widget>[
+                                    Container(
+                                      height: 62,
+                                      width: 62,
+                                      decoration: BoxDecoration(
+                                          color: transparent,
+                                          border: Border.all(color: grey300),
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(10))),
                                     ),
-                                  ))
-                            ]),
-                        const SizedBox(
-                          width: 15,
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              '''Muhammad Amiruddin Bin \nAriffin''',
-                              overflow: TextOverflow.visible,
-                              maxLines: 2,
-                              style: TextStyle(
-                                  color: blackCustom,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w600),
-                            ),
-                            const SizedBox(height: 4),
-                            Row(
-                              children: [
-                                Text(
-                                  "SWK2210020",
-                                  style: TextStyle(
-                                      color: greyCustom,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w400),
+                                    ClipRRect(
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: FittedBox(
+                                          fit: BoxFit.fill,
+                                          child: Image.asset(
+                                            userImg,
+                                            height: 58,
+                                            width: 58,
+                                          ),
+                                        ))
+                                  ]),
+                              const SizedBox(
+                                width: 15,
+                              ),
+                              Expanded(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      width: Devices().isPhone()
+                                          ? _textSize(userInfo[4]).width
+                                          : _textSize(userInfo[2]).width,
+                                      child: Text(
+                                        Devices().isPhone()
+                                            ? userInfo[4] != ''
+                                                ? userInfo[4].toTitleCase()
+                                                : "User"
+                                            : userInfo[2].toUpperCase(),
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 2,
+                                        style: TextStyle(
+                                            color: blackCustom,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w600),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 4),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          userInfo[2] != ''
+                                              ? userInfo[2].toUpperCase()
+                                              : "User ID",
+                                          style: TextStyle(
+                                              color: greyCustom,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w400),
+                                        ),
+                                        const SizedBox(width: 6),
+                                        Icon(
+                                          Icons.fiber_manual_record,
+                                          size: 5,
+                                          color: greyCustom,
+                                        ),
+                                        const SizedBox(width: 6),
+                                        Text(
+                                          role,
+                                          style: TextStyle(
+                                              color: greyCustom,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w400),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
                                 ),
-                                const SizedBox(width: 6),
-                                Icon(
-                                  Icons.fiber_manual_record,
-                                  size: 5,
-                                  color: greyCustom,
-                                ),
-                                const SizedBox(width: 6),
-                                Text(
-                                  role,
-                                  style: TextStyle(
-                                      color: greyCustom,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w400),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
-                    )),
+                              ),
+                            ],
+                          )
+                        : SizedBox(height: 100, width: 160, child: Center(child: Image.asset(splashImg)))),
               ),
               SizedBox(
                   height: Sizes().screenHeight(context) * 0.75,
@@ -238,7 +257,7 @@ class _DrawerBuildState extends State<DrawerBuild> {
                 title: Padding(
                   padding: const EdgeInsets.only(left: 20),
                   child: Text(
-                    'Aplikasi V0.2',
+                    'Aplikasi V0.3',
                     style: (TextStyle(
                         color: grey500,
                         fontWeight: FontWeight.w500,
@@ -252,6 +271,18 @@ class _DrawerBuildState extends State<DrawerBuild> {
         ),
       ),
     );
+  }
+
+  final TextStyle textStyle =
+      TextStyle(color: blackCustom, fontSize: 15, fontWeight: FontWeight.w600);
+
+  Size _textSize(String data) {
+    final TextPainter textPainter = TextPainter(
+        text: TextSpan(text: data, style: textStyle),
+        maxLines: 2,
+        textDirection: TextDirection.ltr)
+      ..layout(minWidth: 0, maxWidth: Sizes().screenWidth(context));
+    return textPainter.size;
   }
 
   List _getList() {
@@ -418,11 +449,17 @@ class _DrawerBuildState extends State<DrawerBuild> {
         context: context,
         builder: (BuildContext context) {
           return showAlertDialog(context, reminder, confirmLogout, cancel, yes);
-        }).then((actionText) {
+        }).then((actionText) async {
       if (actionText == yes) {
-        Auth.handleLogout();
-        Navigator.pushNamedAndRemoveUntil(
-            context, '/splash', ModalRoute.withName('/splash'));
+        String result = await LogoutApi.logoutUser();
+        if (result == 'ok') {
+          LocalPrefs.removeLoginCredential();
+          Navigator.pushNamedAndRemoveUntil(
+              context, '/splash', ModalRoute.withName('/splash'));
+        } else {
+          showErrorToast(
+              context, "Log keluar tidak berjaya. Sila cuba semula!");
+        }
       }
     });
   }

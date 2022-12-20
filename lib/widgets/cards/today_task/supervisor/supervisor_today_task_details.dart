@@ -10,14 +10,12 @@ import '../../../buttons/time_log_button.dart';
 class SupervisorTodayTaskDetails extends StatefulWidget {
   final String timeIn;
   final String timeOut;
-  final Function getTimeLog;
 
-  const SupervisorTodayTaskDetails(
-      {Key? key,
-      required this.timeIn,
-      required this.timeOut,
-      required this.getTimeLog})
-      : super(key: key);
+  const SupervisorTodayTaskDetails({
+    Key? key,
+    required this.timeIn,
+    required this.timeOut,
+  }) : super(key: key);
 
   @override
   State<SupervisorTodayTaskDetails> createState() =>
@@ -31,7 +29,7 @@ class _SupervisorTodayTaskDetailsState
   @override
   void initState() {
     super.initState();
-    todayDate = Date.getTodayDate2();
+    todayDate = Date.getTheDate(DateTime.now().toString(), "dd MMM yyyy", 'ms');
   }
 
   @override
@@ -122,9 +120,9 @@ class _SupervisorTodayTaskDetailsState
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            TimeLogButton(getTimeLog: widget.getTimeLog),
-            const ENotisButton(),
+          children: const [
+            TimeLogButton(),
+            ENotisButton(),
           ],
         )
       ],

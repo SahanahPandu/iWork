@@ -33,7 +33,7 @@ double loginPadding(BuildContext context) => Devices().isPhone()
     ? (Orientations().isPortrait(context) ? 15 : 200)
     : (Orientations().isPortrait(context) ? 140 : 340);
 
-double sliderHeight(BuildContext context) => Devices().isPhone() ? 200 : 240;
+double sliderHeight(BuildContext context) => Devices().isPhone() ? 300 : 240;
 
 double logoHeight(BuildContext context) => Devices().isPhone() ? 60 : 80;
 

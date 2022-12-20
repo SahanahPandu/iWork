@@ -1,5 +1,7 @@
+import 'package:dio/dio.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:http_parser/http_parser.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:keyboard_visibility_pro/keyboard_visibility_pro.dart';
 
@@ -8,8 +10,8 @@ import '../../config/config.dart';
 import '../../config/dimen.dart';
 import '../../config/font.dart';
 import '../../config/palette.dart';
-import '../../models/laluan.dart';
-import '../../models/reports.dart';
+import '../../models/report/report_details/report_details_info.dart';
+import '../../providers/reports_api.dart';
 import '../../screens/reports/pra/pra_section_report_form.dart';
 import '../../utils/device/orientations.dart';
 import '../../utils/device/sizes.dart';
@@ -21,15 +23,16 @@ import '../list_of_sub_routes/list_of_sub_routes_text_form_field.dart';
 
 class ReportForm extends StatefulWidget {
   final String screen;
-  final Reports? data;
-  final Laluan? dataLaluan;
+  final dynamic
+      passData; // data task list , to get nama sub laluan and vehicle no
+  final dynamic data; // data report details, to get the report id
 
-  const ReportForm(
-      {Key? key,
-      required this.screen,
-      required this.data,
-      required this.dataLaluan})
-      : super(key: key);
+  const ReportForm({
+    Key? key,
+    required this.screen,
+    required this.passData,
+    this.data,
+  }) : super(key: key);
 
   @override
   State<ReportForm> createState() => _ReportFormState();
@@ -55,7 +58,7 @@ class _ReportFormState extends State<ReportForm> {
   double _height = 500;
   bool buttonVisibility = true;
   int iconCondition = 1;
-  int borderCondition = 1;
+  ReportDetailsInfo? currReportData;
 
   void onClick() {
     if (_height == 500) {
@@ -76,39 +79,114 @@ class _ReportFormState extends State<ReportForm> {
   }
 
   loadData() {
-    if (widget.screen == "3" || widget.screen == "4") {
-      //screen 3 = from Report form, screen 4 = from Report List, screen 6 = from drawer
-      setState(() {
-        textFieldFillColor =
-            widget.screen == "4" ? textFormFieldFillColor : Colors.white;
-        iconCondition = 0;
-        borderCondition = 0;
-        formTitleText =
-            widget.screen == "4" ? "Butiran maklumat laporan: " : formTitleText;
+    //to get nama laluan and no kenderaan
+    if (widget.passData != null) {
+      _namaLaluan.text = widget.passData.mainRoute;
+      _noKenderaan.text = widget.passData.vehicleNo;
+    }
 
-        _expandController.expanded = widget.screen == "3" ? true : false;
-        buttonVisibility = widget.screen == "4" ? false : true;
+    //set icon condition
+    iconCondition = 0;
 
-        //nama laluan
-        (widget.screen == "3" &&
-                widget.dataLaluan!.namaLaluan !=
-                    "") // from button Report in work shedule details
-            ? _namaLaluan.text = widget.dataLaluan!.namaLaluan
-            : (widget.screen == "4" &&
-                    widget.data!.namaLaluan != "") // from report list
-                ? _namaLaluan.text = widget.data!.namaLaluan
-                : _namaLaluan.text = namaLaluan;
+    if (widget.screen == "3" || widget.screen == "7") {
+      // clear form
+      // Screen 3 = From Report Button, Screen 7 = From tab (case: after submit form)
+      textFieldFillColor = Colors.white;
+      formTitleText = formTitleText;
+      _expandController.expanded = true;
+      buttonVisibility = true;
+    } else if (widget.screen == "4") {
+      // load form
+      // from Report List
+      textFieldFillColor = textFormFieldFillColor;
+      formTitleText = "Butiran maklumat laporan: ";
+      _expandController.expanded = false;
+      buttonVisibility = false;
 
-        //no kenderaan
-        (widget.screen == "3" &&
-                widget.dataLaluan!.noKenderaan !=
-                    "") // from button Report in work shedule details
-            ? _noKenderaan.text = widget.dataLaluan!.noKenderaan
-            : (widget.screen == "4" &&
-                    widget.data!.noKenderaan != "") // from report list
-                ? _noKenderaan.text = widget.data!.noKenderaan
-                : _noKenderaan.text = noKenderaan;
+      //fetch data based on report id
+      ReportsApi.getDetailLaporan(widget.data.id)!.then((theDetails) {
+        if (theDetails != null) {
+          //set read only UI
+          praSectionKey.currentState!.iconCondition = 0;
+          praSectionKey.currentState!.textFieldFillColor =
+              textFormFieldFillColor;
+          praSectionKey.currentState!.focusBorderColor = Colors.grey.shade300;
+          praSectionKey.currentState!.enableBorderWithTextColor =
+              Colors.grey.shade300;
+
+          //set data
+          namaSubLaluanKey.currentState!.namaSubLaluan.text =
+              theDetails.subRouteName;
+          namaTamanKey.currentState!.namaTaman.text = theDetails.park!.parkName;
+          namaJalanKey.currentState!.namaJalan.text =
+              theDetails.street!.streetName;
+          jenisHalanganKey.currentState!.jenisHalangan.text =
+              theDetails.obstacleType!.obsTypeName;
+          praSectionKey.currentState!.catatan.text = theDetails.remarks!;
+
+          if (theDetails.uploadFileId != null) {
+            String path = theDetails.uploadFileId!.filePath;
+            String findString = "localhost";
+            String replaceString = "10.0.2.2";
+            String thePath = path.replaceAll(findString, replaceString);
+
+            // have attachment
+            praSectionKey.currentState!.pathGambar = thePath;
+          }
+        }
       });
+    }
+  }
+
+  postNewReport() async {
+    //checking attachment data
+    String? imagePath;
+
+    if (praSectionKey.currentState!.gambarLampiran?.path != null) {
+      imagePath = praSectionKey.currentState!.gambarLampiran!.path;
+    } else {
+      imagePath = null;
+    }
+
+    //post data to the database
+    String getAccessToken = userInfo[1];
+
+    FormData formData = FormData.fromMap({
+      "sc_main_id":
+          userRole == 100 ? widget.passData?.id : widget.passData?.scMainId,
+      "sub_route_name": namaSubLaluanKey.currentState!.namaSubLaluan.text,
+      "park_id": namaTamanKey.currentState!.idTaman,
+      "street_id": namaJalanKey.currentState!.idJalan,
+      "obstacle_type_id": jenisHalanganKey.currentState!.idJenisHalangan,
+      "remarks": praSectionKey.currentState!.catatan.text,
+      "report_attachment": imagePath != null
+          ? await MultipartFile.fromFile(
+              praSectionKey.currentState!.gambarLampiran!.path,
+              filename: praSectionKey.currentState!.namaGambar,
+              contentType: MediaType(
+                "image",
+                "png,jpeg",
+              ),
+            )
+          : imagePath,
+    });
+
+    try {
+      Response response = await Dio().post(
+        'http://10.0.2.2:8000/api/report/new',
+        data: formData,
+        options: Options(headers: {
+          "authorization": "Bearer $getAccessToken",
+          "Content-Type": "multipart/form-data",
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        clearForm();
+      }
+    } on DioError catch (e) {
+      // ignore: avoid_print
+      print(e);
     }
   }
 
@@ -326,7 +404,10 @@ class _ReportFormState extends State<ReportForm> {
                                 tamanKey: namaTamanKey,
                                 jalanKey: namaJalanKey,
                                 jenisHalanganKey: jenisHalanganKey,
-                                data: widget.data,
+                                data: currReportData,
+                                scMainId: userRole == 100
+                                    ? widget.passData?.id
+                                    : widget.passData?.scMainId,
                                 updateButton: updateButtonVisibility,
                               ),
                             ),
@@ -380,7 +461,10 @@ class _ReportFormState extends State<ReportForm> {
                                 : Sizes().screenHeight(context) * 0.06,
                             child: ReportSubmitButton(
                               formKey: _reportFormKey,
+                              postData: postNewReport,
                               clearForm: clearForm,
+                              passData: widget.passData,
+                              // dataLaluan: widget.passData,
                             ),
                           ),
                         ),

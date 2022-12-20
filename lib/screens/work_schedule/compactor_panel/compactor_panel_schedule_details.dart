@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 //import files
 import '../../../config/font.dart';
 import '../../../config/palette.dart';
-import '../../../models/laluan.dart';
+import '../../../models/task/compactor/data/schedules/schedule.dart';
 import '../../../utils/device/orientations.dart';
 import '../../../utils/icon/custom_icon.dart';
 import '../../../widgets/container/status_container.dart';
 
 class CompactorPanelScheduleDetails extends StatefulWidget {
-  final Laluan? data;
+  final Schedule? data;
 
   const CompactorPanelScheduleDetails({Key? key, required this.data})
       : super(key: key);
@@ -33,7 +33,7 @@ class _CompactorPanelScheduleDetailsState
           children: [
             Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Text(widget.data!.namaLaluan,
+                child: Text(widget.data!.mainRoute,
                     style: TextStyle(
                       fontSize: 18,
                       color: white,
@@ -41,8 +41,8 @@ class _CompactorPanelScheduleDetailsState
                     ))),
             StatusContainer(
               type: "Laluan",
-              status: widget.data!.status,
-              statusId: widget.data!.idStatus,
+              status: widget.data!.statusCode.name,
+              statusId: widget.data!.statusCode,
               fontWeight: statusFontWeight,
               roundedCorner: true,
             )
@@ -69,7 +69,7 @@ class _CompactorPanelScheduleDetailsState
                     fontWeight: FontWeight.w400,
                   ))
             ]),
-            Text(widget.data!.noKenderaan,
+            Text(widget.data!.vehicleNo,
                 style: TextStyle(
                   fontSize: 16,
                   color: white,
@@ -97,7 +97,7 @@ class _CompactorPanelScheduleDetailsState
                     fontWeight: FontWeight.w400,
                   ))
             ]),
-            Text("${widget.data!.jumSubLaluan}",
+            Text("${widget.data!.totalSubRoute}",
                 style: TextStyle(
                   fontSize: 16,
                   color: white,
@@ -126,7 +126,7 @@ class _CompactorPanelScheduleDetailsState
                   ))
             ]),
             Text(
-              "${widget.data!.jumlahTaman}/${widget.data!.jumlahJalan}",
+              "${widget.data!.totalPark}/${widget.data!.totalStreet}",
               style: TextStyle(
                 fontSize: 16,
                 color: white,
@@ -156,7 +156,7 @@ class _CompactorPanelScheduleDetailsState
                   ))
             ]),
             Text(
-              widget.data!.jenisKutipan,
+              widget.data!.activityCode.activityName,
               style: TextStyle(
                 fontSize: 16,
                 color: white,
@@ -182,7 +182,7 @@ class _CompactorPanelScheduleDetailsState
                     fontWeight: FontWeight.w400,
                   ))
             ]),
-            Text("${widget.data!.mulaKerja} / ${widget.data!.tamatKerja}",
+            Text("${widget.data!.startWorkAt} / ${widget.data!.stopWorkAt}",
                 style: TextStyle(
                   fontSize: 16,
                   color: white,
@@ -240,9 +240,9 @@ class _CompactorPanelScheduleDetailsState
                                             ? portraitExpandBgColor
                                             : expandBgColor,
                                     radius: 28,
-                                    child: CircleAvatar(
+                                    child: const CircleAvatar(
                                       backgroundImage: NetworkImage(
-                                          widget.data!.senaraiStaf.staf3Img),
+                                          'https://i0.wp.com/i-panic.com/wp-content/uploads/2021/09/portrait-square-05.jpg?resize=400%2C400&ssl=1'),
                                       radius: 25.5,
                                     )))),
                         Positioned(
@@ -256,9 +256,9 @@ class _CompactorPanelScheduleDetailsState
                                             ? portraitExpandBgColor
                                             : expandBgColor,
                                     radius: 28,
-                                    child: CircleAvatar(
+                                    child: const CircleAvatar(
                                       backgroundImage: NetworkImage(
-                                          widget.data!.senaraiStaf.staf2Img),
+                                          'https://focusforensics.com/wp-content/uploads/staff-clayton_mccall-square.jpg'),
                                       radius: 25.5,
                                     )))),
                         Padding(
@@ -269,9 +269,9 @@ class _CompactorPanelScheduleDetailsState
                                         ? portraitExpandBgColor
                                         : expandBgColor,
                                 radius: 28,
-                                child: CircleAvatar(
+                                child: const CircleAvatar(
                                   backgroundImage: NetworkImage(
-                                      widget.data!.senaraiStaf.staf1Img),
+                                      'https://automateonline.com.au/wp-content/uploads/2019/02/portrait-square-04.jpg'),
                                   radius: 25.5,
                                 )))
                       ])))),

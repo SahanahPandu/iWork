@@ -5,40 +5,65 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 
 //import files
+import '../../models/user/error/login_error.dart';
 import '../../models/user/user.dart';
-import '../http/error/api_error.dart';
-import '../http/response/api_response.dart';
+import '../../utils/authentication/auth.dart';
 import '../http/service/http_service.dart';
 
 class LoginApi {
-  static Future<ApiResponse> authenticateUser(String loginId, String password,
+  static Future<String> authenticateUser(String loginId, String password,
       String userIdType, String deviceInfo) async {
-    ApiResponse apiResponse = ApiResponse();
-
     try {
-      final response = await http.post(HttpService().loginUrl, body: {
+      final response = await http.post(HttpService().loginUrl, headers: {
+        HttpHeaders.authorizationHeader: ''
+      }, body: {
         'login_id': loginId,
         'password': password,
         'user_type_id': userIdType,
         'device_info_1': deviceInfo
       });
-      print(response.statusCode);
-      print(response.body);
       switch (response.statusCode) {
+
+        /// Http Response : login success
         case 200:
-          print(userFromJson(response.body).message);
-          apiResponse.data = User.fromJson(json.decode(response.body)).message;
-          break;
+          var decodeUserData =
+              User.fromJson(json.decode(response.body)).data.userData;
+          if (decodeUserData.canLogin == 1) {
+            if (decodeUserData.accessToken != '' &&
+                User.fromJson(json.decode(response.body)).message ==
+                    "Successfully Login!") {
+              Auth.setUserInfo(decodeUserData);
+              return 'ok';
+            } else if (decodeUserData.accessToken == null) {
+              return 'token_ng';
+            }
+          } else {
+            return 'ng';
+          }
+          return 'ng';
+
+        /// Http Response : credential error
         case 401:
-          apiResponse.apiError = ApiError.fromJson(json.decode(response.body));
-          break;
+          if (LoginError.fromJson(json.decode(response.body)).message ==
+              "Unauthorized") {
+            return 'device_ng';
+          } else if (LoginError.fromJson(json.decode(response.body)).message ==
+              "Invalid Credentials") {
+            return 'wrong';
+          }
+          return 'wrong';
+
+        /// Http Response : validation error (like form validation, datatype errors)
+        case 422:
+          return 'wrong';
+
+        /// Http Response : Bad request, server error and others
         default:
-          apiResponse.apiError = ApiError.fromJson(json.decode(response.body));
-          break;
+          return 'ng';
       }
     } on SocketException {
-      apiResponse.apiError = ApiError(error: "Server error. Please retry");
+      //print("Connection error.Please retry ");
+      return 'error';
     }
-    return apiResponse;
   }
 }

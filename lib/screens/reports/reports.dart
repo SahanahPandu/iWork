@@ -6,15 +6,13 @@ import '../../widgets/tabs/tabs.dart';
 
 class ReportsPage extends StatefulWidget {
   final String screen;
-  final dynamic data;
-  final dynamic dataLaluan;
+  final dynamic passData;
 
-  const ReportsPage(
-      {Key? key,
-      required this.screen,
-      required this.data,
-      required this.dataLaluan})
-      : super(key: key);
+  const ReportsPage({
+    Key? key,
+    required this.screen,
+    required this.passData,
+  }) : super(key: key);
 
   @override
   State<ReportsPage> createState() => _ReportsPageState();
@@ -25,9 +23,8 @@ class _ReportsPageState extends State<ReportsPage> {
   Widget build(BuildContext context) {
     return Tabs(
       screen: widget.screen,
-      data: widget.data,
+      passData: widget.passData,
       title: reports,
-      dataLaluan: widget.dataLaluan,
     );
   }
 }

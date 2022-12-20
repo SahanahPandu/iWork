@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
 //import files
+import '../../../config/config.dart';
 import '../../../config/dimen.dart';
 import '../../../config/palette.dart';
 import '../../../providers/reports_api.dart';
@@ -10,19 +11,20 @@ import '../../../screens/reports/report_list_details.dart';
 import '../../app_bar/app_bar_widget.dart';
 
 class CompactorReportList extends StatefulWidget {
-  const CompactorReportList({Key? key}) : super(key: key);
+  final dynamic passData;
+  const CompactorReportList({Key? key, this.passData}) : super(key: key);
 
   @override
   State<CompactorReportList> createState() => _CompactorReportListState();
 }
 
 class _CompactorReportListState extends State<CompactorReportList> {
-  late Future<List> _loadReportData;
+  late Future<List<dynamic>>? _loadReportData;
 
   @override
   void initState() {
     super.initState();
-    _loadReportData = ReportsApi.getReportsData(context);
+    _loadReportData = ReportsApi.getDataLaporan(scheduleId);
   }
 
   @override
@@ -58,9 +60,10 @@ class _CompactorReportListState extends State<CompactorReportList> {
                                 appBar: AppBarWidget(
                                     title: "L${reportDataFuture[i].id}"),
                                 body: ReportForm(
-                                    screen: "4",
-                                    data: reportDataFuture[i],
-                                    dataLaluan: null),
+                                  screen: "4",
+                                  passData: widget.passData,
+                                  data: reportDataFuture[i],
+                                ),
                               )));
                       //print("index clicked ${i - 1}");
                     },

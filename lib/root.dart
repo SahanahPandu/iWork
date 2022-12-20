@@ -3,8 +3,9 @@
 import 'package:flutter/material.dart';
 
 //import files
-import 'utils/authentication/auth.dart';
+import 'config/config.dart';
 import 'utils/authentication/role.dart';
+import 'utils/storage/local_pref.dart';
 
 class Root extends StatefulWidget {
   const Root({Key? key}) : super(key: key);
@@ -21,15 +22,16 @@ class RootState extends State<Root> {
   }
 
   void _isUserLoggedIn() async {
-    String getInfo = await Auth.loadUserInfo();
-    int getRole = await Roles.loadUserRole();
-    // print("_info = $info, _role = $role, userRole config: $userRole");
-    if (getInfo == "" && getRole == 0) {
+    List getSavedUserData = await LocalPrefs.restoreUserInfo();
+    if (getSavedUserData.isEmpty && userRole == 0) {
       Navigator.pushNamedAndRemoveUntil(
           context, '/splash', ModalRoute.withName('/splash'));
     } else {
-      Navigator.pushNamedAndRemoveUntil(
-          context, '/home', ModalRoute.withName('/home'));
+      Roles.setRole(userInfo[3]);
+      if (userRole != 0) {
+        Navigator.pushNamedAndRemoveUntil(
+            context, '/home', ModalRoute.withName('/home'));
+      }
     }
   }
 

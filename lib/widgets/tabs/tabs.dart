@@ -13,17 +13,15 @@ import '../../widgets/app_bar/app_bar_widget.dart';
 
 class Tabs extends StatefulWidget {
   final String screen;
-  final dynamic data;
+  final dynamic passData;
   final String title;
-  final dynamic dataLaluan;
 
-  const Tabs(
-      {Key? key,
-      required this.screen,
-      required this.data,
-      required this.title,
-      required this.dataLaluan})
-      : super(key: key);
+  const Tabs({
+    Key? key,
+    required this.screen,
+    required this.passData,
+    required this.title,
+  }) : super(key: key);
 
   @override
   State<Tabs> createState() => _TabsState();
@@ -40,15 +38,16 @@ class _TabsState extends State<Tabs> with SingleTickerProviderStateMixin {
       return TabBarView(
         controller: _tabController,
         children: [
-          LeaveForm(screen: widget.screen, data: widget.data),
+          LeaveForm(screen: widget.screen, data: widget.passData),
           const LeaveList(),
         ],
       );
     } else if (widget.screen == "3" ||
         widget.screen == "4" ||
-        widget.screen == "6") {
+        widget.screen == "6" ||
+        widget.screen == "7") {
       //reports
-      //screen = "3" - report button (work schedule), screen = "4" - from record list , screen ="6" -  Laporan menu from drawer
+      //screen = "3" - report button (work schedule), screen = "4" - from record list , screen ="6" -  Laporan menu from drawer, screen = "7" - redirect after submit report form
 
       return TabBarView(
         physics: userRole == 100 ? const NeverScrollableScrollPhysics() : null,
@@ -56,10 +55,11 @@ class _TabsState extends State<Tabs> with SingleTickerProviderStateMixin {
         children: [
           ReportForm(
             screen: widget.screen,
-            data: widget.data,
-            dataLaluan: widget.dataLaluan,
+            passData: widget.passData,
           ),
-          const ReportList(),
+          ReportList(
+            passData: widget.passData,
+          ),
         ],
       );
     }
@@ -67,7 +67,12 @@ class _TabsState extends State<Tabs> with SingleTickerProviderStateMixin {
 
   @override
   void initState() {
-    _tabController = TabController(length: 2, vsync: this);
+    if (widget.screen == "7") {
+      _tabController = TabController(length: 2, vsync: this, initialIndex: 1);
+    } else {
+      _tabController = TabController(length: 2, vsync: this);
+    }
+
     super.initState();
   }
 

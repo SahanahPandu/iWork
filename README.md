@@ -1,6 +1,9 @@
 # iWork
 
-A new Flutter project.
+Front-end repository using flutter framework 
+and folder consists of app source code. iWork 
+project is an app development for SWM Environment 
+Collection operation.
 
 ## Getting Started
 

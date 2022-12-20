@@ -197,7 +197,11 @@ class _VehicleChecklistApprovalTabState
                         context: context,
                         builder: (BuildContext context) {
                           return showLottieAlertDialog(
-                              context, _textBuilder(), null);
+                            context,
+                            _textBuilder(),
+                            null,
+                            null,
+                          );
                         });
                     // Navigator.push(
                     //     context,

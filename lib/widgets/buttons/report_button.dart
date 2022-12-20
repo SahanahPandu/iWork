@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
 //import files
-import '../../models/laluan.dart';
+// import '../../models/laluan.dart';
 import '../../screens/reports/reports.dart';
 import '../../utils/icon/custom_icon.dart';
+// import '../../models/report/report_list/report_details.dart';
 
 class ReportButton extends StatefulWidget {
-  final Laluan? dataLaluan;
+  final dynamic passData;
 
-  const ReportButton({Key? key, required this.dataLaluan}) : super(key: key);
+  const ReportButton({Key? key, required this.passData}) : super(key: key);
 
   @override
   State<ReportButton> createState() => _ReportButtonState();
@@ -34,8 +35,7 @@ class _ReportButtonState extends State<ReportButton> {
                 type: PageTransitionType.fade,
                 child: ReportsPage(
                   screen: "3",
-                  data: null,
-                  dataLaluan: widget.dataLaluan!,
+                  passData: widget.passData,
                 )));
       },
     );

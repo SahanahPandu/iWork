@@ -117,7 +117,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
 
   @override
   void initState() {
-    _todayDate = Date.getTodayDate();
+    _todayDate = Date.getTheDate(DateTime.now().toString(), "dd/MM/yyyy", 'ms');
     if (widget.data.statusId != 1) {
       empty = false;
       if (widget.before) {
@@ -136,11 +136,15 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
         _puspakom = widget.data.sebelum.vcItem.document.puspakomDisc.toString();
         _tax = widget.data.sebelum.vcItem.document.cukaiJalan.toString();
         _lesen = widget.data.sebelum.vcItem.document.lesen.toString();
+        _remarkController[0].text =
+            widget.data.sebelum.vcItem.document.remarks.toString();
 
         /// Part 2 Tayar
         _tayar = widget.data.sebelum.vcItem.tyre.bungaTayar.toString();
         _nut = widget.data.sebelum.vcItem.tyre.nutTayar.toString();
         _angin = widget.data.sebelum.vcItem.tyre.tekananTayar.toString();
+        _remarkController[1].text =
+            widget.data.sebelum.vcItem.tyre.remarks.toString();
 
         /// Part 3 Mampatan
         _hidraulik =
@@ -149,6 +153,8 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
         _penutup = widget.data.sebelum.vcItem.mampatan.allPenutup.toString();
         _airTabung = widget.data.sebelum.vcItem.mampatan.buangAir.toString();
         _leachate = widget.data.sebelum.vcItem.mampatan.leachate.toString();
+        _remarkController[2].text =
+            widget.data.sebelum.vcItem.mampatan.remarks.toString();
 
         /// Part 4 Lampu
         _lampuUtama = widget.data.sebelum.vcItem.light.lampuUtama.toString();
@@ -159,6 +165,8 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
             widget.data.sebelum.vcItem.light.lampuKecemasan.toString();
         _lampuBeacon = widget.data.sebelum.vcItem.light.lampuBeacon.toString();
         _lampuPlet = widget.data.sebelum.vcItem.light.lampuPlet.toString();
+        _remarkController[3].text =
+            widget.data.sebelum.vcItem.light.remarks.toString();
 
         /// Part 5 Enjin
         _dipstik =
@@ -190,10 +198,14 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
         _airBateri =
             widget.data.sebelum.vcItem.engine.parasAirBateri.toString();
         _asapEkzos = widget.data.sebelum.vcItem.engine.asapEkzos.toString();
+        _remarkController[4].text =
+            widget.data.sebelum.vcItem.engine.remarks.toString();
 
         /// Part 6 Bahagian Luaran
         _cermin = widget.data.sebelum.vcItem.outside.cermin.toString();
         _hon = widget.data.sebelum.vcItem.outside.hon.toString();
+        _remarkController[5].text =
+            widget.data.sebelum.vcItem.outside.remarks.toString();
 
         /// Part 7 Keselamatan
         _penanda =
@@ -202,26 +214,36 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
             widget.data.sebelum.vcItem.safetyThings.pemadamApi.toString();
         _firstAid =
             widget.data.sebelum.vcItem.safetyThings.kotakKecemasan.toString();
+        _remarkController[6].text =
+            widget.data.sebelum.vcItem.safetyThings.remarks.toString();
 
         /// Part 8 Kebersihan Kenderaan
         _kabin = widget.data.sebelum.vcItem.cleanliness.dalamKokpit.toString();
         _badanTrak =
             widget.data.sebelum.vcItem.cleanliness.luarBadanTrak.toString();
+        _remarkController[7].text =
+            widget.data.sebelum.vcItem.cleanliness.remarks.toString();
 
         /// Part 9 Kebersihan Bin Lifter
         _binLifter = widget.data.sebelum.vcItem.binLifterCleanliness.binDicuci
             .toString();
+        _remarkController[8].text =
+            widget.data.sebelum.vcItem.binLifterCleanliness.remarks.toString();
 
         /// Part 10 Kemalangan
         _kemalangan =
             widget.data.sebelum.vcItem.accident.terlibatKemalangan.toString();
         _thirdParty = widget.data.sebelum.vcItem.accident.noKenderaanPartiKetiga
             .toString();
+        _remarkController[9].text =
+            widget.data.sebelum.vcItem.accident.remarks.toString();
 
         /// Part 11 Fizikal Kenderaan
         _sampah = widget.data.sebelum.vcItem.vehiclePhysical.sampah.toString();
         _fizikal =
             widget.data.sebelum.vcItem.vehiclePhysical.kecacatan.toString();
+        _remarkController[10].text =
+            widget.data.sebelum.vcItem.vehiclePhysical.remarks.toString();
       } else {
         _odoReader.text =
             widget.data.selepas.vcItem.odometer.bacaanOdo.toString();
@@ -238,11 +260,15 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
         _puspakom = widget.data.selepas.vcItem.document.puspakomDisc.toString();
         _tax = widget.data.selepas.vcItem.document.cukaiJalan.toString();
         _lesen = widget.data.selepas.vcItem.document.lesen.toString();
+        _remarkController[0].text =
+            widget.data.selepas.vcItem.document.remarks.toString();
 
         /// Part 2 Tayar
         _tayar = widget.data.selepas.vcItem.tyre.bungaTayar.toString();
         _nut = widget.data.selepas.vcItem.tyre.nutTayar.toString();
         _angin = widget.data.selepas.vcItem.tyre.tekananTayar.toString();
+        _remarkController[1].text =
+            widget.data.selepas.vcItem.tyre.remarks.toString();
 
         /// Part 3 Mampatan
         _hidraulik =
@@ -251,6 +277,8 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
         _penutup = widget.data.selepas.vcItem.mampatan.allPenutup.toString();
         _airTabung = widget.data.selepas.vcItem.mampatan.buangAir.toString();
         _leachate = widget.data.selepas.vcItem.mampatan.leachate.toString();
+        _remarkController[2].text =
+            widget.data.selepas.vcItem.mampatan.remarks.toString();
 
         /// Part 4 Lampu
         _lampuUtama = widget.data.selepas.vcItem.light.lampuUtama.toString();
@@ -261,6 +289,8 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
             widget.data.selepas.vcItem.light.lampuKecemasan.toString();
         _lampuBeacon = widget.data.selepas.vcItem.light.lampuBeacon.toString();
         _lampuPlet = widget.data.selepas.vcItem.light.lampuPlet.toString();
+        _remarkController[3].text =
+            widget.data.selepas.vcItem.light.remarks.toString();
 
         /// Part 5 Enjin
         _dipstik =
@@ -292,10 +322,14 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
         _airBateri =
             widget.data.selepas.vcItem.engine.parasAirBateri.toString();
         _asapEkzos = widget.data.selepas.vcItem.engine.asapEkzos.toString();
+        _remarkController[4].text =
+            widget.data.selepas.vcItem.engine.remarks.toString();
 
         /// Part 6 Bahagian Luaran
         _cermin = widget.data.selepas.vcItem.outside.cermin.toString();
         _hon = widget.data.selepas.vcItem.outside.hon.toString();
+        _remarkController[5].text =
+            widget.data.selepas.vcItem.outside.remarks.toString();
 
         /// Part 7 Keselamatan
         _penanda =
@@ -304,26 +338,36 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
             widget.data.selepas.vcItem.safetyThings.pemadamApi.toString();
         _firstAid =
             widget.data.selepas.vcItem.safetyThings.kotakKecemasan.toString();
+        _remarkController[6].text =
+            widget.data.selepas.vcItem.safetyThings.remarks.toString();
 
         /// Part 8 Kebersihan Kenderaan
         _kabin = widget.data.selepas.vcItem.cleanliness.dalamKokpit.toString();
         _badanTrak =
             widget.data.selepas.vcItem.cleanliness.luarBadanTrak.toString();
+        _remarkController[7].text =
+            widget.data.selepas.vcItem.cleanliness.remarks.toString();
 
         /// Part 9 Kebersihan Bin Lifter
         _binLifter = widget.data.selepas.vcItem.binLifterCleanliness.binDicuci
             .toString();
+        _remarkController[8].text =
+            widget.data.selepas.vcItem.binLifterCleanliness.remarks.toString();
 
         /// Part 10 Kemalangan
         _kemalangan =
             widget.data.selepas.vcItem.accident.terlibatKemalangan.toString();
         _thirdParty = widget.data.selepas.vcItem.accident.noKenderaanPartiKetiga
             .toString();
+        _remarkController[9].text =
+            widget.data.selepas.vcItem.accident.remarks.toString();
 
         /// Part 11 Fizikal Kenderaan
         _sampah = widget.data.selepas.vcItem.vehiclePhysical.sampah.toString();
         _fizikal =
             widget.data.selepas.vcItem.vehiclePhysical.kecacatan.toString();
+        _remarkController[10].text =
+            widget.data.selepas.vcItem.vehiclePhysical.remarks.toString();
       }
     }
     super.initState();
@@ -1114,7 +1158,9 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                               color: white,
                               padding: const EdgeInsets.fromLTRB(0, 15, 0, 20),
                               height: 100,
-                              child: _textFieldBuild(0),
+                              child: empty
+                                  ? _textFieldBuild(0)
+                                  : _inactiveTextFieldBuild(0),
                             ),
                             Align(
                               alignment: Alignment.bottomRight,
@@ -1233,7 +1279,9 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                     padding:
                                         const EdgeInsets.fromLTRB(0, 15, 0, 20),
                                     height: 100,
-                                    child: _textFieldBuild(1),
+                                    child: empty
+                                        ? _textFieldBuild(1)
+                                        : _inactiveTextFieldBuild(1),
                                   ),
                                   Row(
                                       mainAxisAlignment: MainAxisAlignment.end,
@@ -1394,7 +1442,9 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                   padding:
                                       const EdgeInsets.fromLTRB(0, 15, 0, 20),
                                   height: 100,
-                                  child: _textFieldBuild(2),
+                                  child: empty
+                                      ? _textFieldBuild(2)
+                                      : _inactiveTextFieldBuild(2),
                                 ),
                                 Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
@@ -1564,7 +1614,9 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                   padding:
                                       const EdgeInsets.fromLTRB(0, 15, 0, 20),
                                   height: 100,
-                                  child: _textFieldBuild(3),
+                                  child: empty
+                                      ? _textFieldBuild(3)
+                                      : _inactiveTextFieldBuild(3),
                                 ),
                                 Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
@@ -1795,7 +1847,9 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                   padding:
                                       const EdgeInsets.fromLTRB(0, 15, 0, 20),
                                   height: 100,
-                                  child: _textFieldBuild(4),
+                                  child: empty
+                                      ? _textFieldBuild(4)
+                                      : _inactiveTextFieldBuild(4),
                                 ),
                                 Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
@@ -1938,7 +1992,9 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                   padding:
                                       const EdgeInsets.fromLTRB(0, 15, 0, 20),
                                   height: 100,
-                                  child: _textFieldBuild(5),
+                                  child: empty
+                                      ? _textFieldBuild(5)
+                                      : _inactiveTextFieldBuild(5),
                                 ),
                                 Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
@@ -2087,7 +2143,9 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                   padding:
                                       const EdgeInsets.fromLTRB(0, 15, 0, 20),
                                   height: 100,
-                                  child: _textFieldBuild(6),
+                                  child: empty
+                                      ? _textFieldBuild(6)
+                                      : _inactiveTextFieldBuild(6),
                                 ),
                                 Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
@@ -2234,7 +2292,9 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                   padding:
                                       const EdgeInsets.fromLTRB(0, 15, 0, 20),
                                   height: 100,
-                                  child: _textFieldBuild(7),
+                                  child: empty
+                                      ? _textFieldBuild(7)
+                                      : _inactiveTextFieldBuild(7),
                                 ),
                                 Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
@@ -2388,7 +2448,9 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                   padding:
                                       const EdgeInsets.fromLTRB(0, 15, 0, 20),
                                   height: 100,
-                                  child: _textFieldBuild(8),
+                                  child: empty
+                                      ? _textFieldBuild(8)
+                                      : _inactiveTextFieldBuild(8),
                                 ),
                                 Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
@@ -2534,7 +2596,9 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                   padding:
                                       const EdgeInsets.fromLTRB(0, 15, 0, 20),
                                   height: 100,
-                                  child: _textFieldBuild(9),
+                                  child: empty
+                                      ? _textFieldBuild(9)
+                                      : _inactiveTextFieldBuild(9),
                                 ),
                                 Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
@@ -2681,7 +2745,9 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                   padding:
                                       const EdgeInsets.fromLTRB(0, 15, 0, 20),
                                   height: 100,
-                                  child: _textFieldBuild(10),
+                                  child: empty
+                                      ? _textFieldBuild(10)
+                                      : _inactiveTextFieldBuild(10),
                                 ),
                                 Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
@@ -2720,27 +2786,33 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                                 TextStyle(color: blackCustom)),
                                       ),
                                       const SizedBox(width: 20),
-                                      ElevatedButton(
-                                        style: ButtonStyle(
-                                            elevation:
-                                                MaterialStateProperty.all(0),
-                                            shape: MaterialStateProperty.all(
-                                              RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          8.0)),
-                                            ),
-                                            overlayColor:
-                                                MaterialStateColor.resolveWith(
-                                                    (states) => green800),
-                                            backgroundColor:
-                                                MaterialStateProperty.all(
-                                                    greenCustom)),
-                                        onPressed: () {
-                                          _handleSubmittedData(context);
-                                        },
-                                        child: const Text("Hantar"),
-                                      ),
+                                      empty
+                                          ? ElevatedButton(
+                                              style: ButtonStyle(
+                                                  elevation:
+                                                      MaterialStateProperty
+                                                          .all(0),
+                                                  shape:
+                                                      MaterialStateProperty.all(
+                                                    RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8.0)),
+                                                  ),
+                                                  overlayColor:
+                                                      MaterialStateColor
+                                                          .resolveWith(
+                                                              (states) =>
+                                                                  green800),
+                                                  backgroundColor:
+                                                      MaterialStateProperty.all(
+                                                          greenCustom)),
+                                              onPressed: () {
+                                                _handleSubmittedData(context);
+                                              },
+                                              child: const Text("Hantar"),
+                                            )
+                                          : const SizedBox(),
                                     ])
                               ]))
                         ]))),
@@ -2777,7 +2849,10 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                   : const SizedBox()
             ]),
             const SizedBox(width: 16),
-            Text(yes),
+            Text(
+              yes,
+              style: TextStyle(color: dbData == yes ? blackCustom : grey300),
+            ),
           ],
         ),
         const SizedBox(width: 56),
@@ -2801,7 +2876,8 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                   : const SizedBox()
             ]),
             const SizedBox(width: 16),
-            Text(no),
+            Text(no,
+                style: TextStyle(color: dbData == no ? blackCustom : grey300)),
           ],
         )
       ],
@@ -2982,6 +3058,42 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
     ]);
   }
 
+  /// Disabled Catatan TextField
+  Form _inactiveTextFieldBuild(int idx) {
+    return Form(
+      key: _textKeys[idx],
+      child: TextField(
+        controller: _remarkController[idx],
+        maxLines: 5,
+        readOnly: true,
+        enabled: false,
+        cursorWidth: 1.2,
+        cursorColor: greenCustom,
+        keyboardType: TextInputType.text,
+        textInputAction: TextInputAction.done,
+        onSubmitted: (value) {
+          _remarkController[idx].text = value.toString();
+        },
+        decoration: InputDecoration(
+            fillColor: fillColor,
+            filled: true,
+            contentPadding:
+                const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+            disabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                width: 0.5,
+                color: borderTextColor,
+              ),
+              borderRadius: BorderRadius.circular(borderRadiusCircular),
+              //gapPadding: 6.0,
+            ),
+            labelText: 'Catatan',
+            alignLabelWithHint: true,
+            labelStyle: TextStyle(color: grey400, fontSize: 14)),
+      ),
+    );
+  }
+
   /// Disabled TextField for value in Card 2 & Card 3 input
   TextFormField _buildInactiveTextField(TextEditingController controller,
       [String? label = "", bool? icon = true]) {
@@ -3131,7 +3243,12 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
           showDialog(
               context: context,
               builder: (BuildContext context) {
-                return showLottieAlertDialog(context, _textBuilder(), null);
+                return showLottieAlertDialog(
+                  context,
+                  _textBuilder(),
+                  null,
+                  null,
+                );
               });
         }
       });

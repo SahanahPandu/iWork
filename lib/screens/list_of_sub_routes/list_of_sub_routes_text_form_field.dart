@@ -16,7 +16,8 @@ class ListOfSubRoutesTextFormField extends StatefulWidget {
   final int iconCondition;
   final String data;
   final String? screen;
-  final Function(dynamic, dynamic)? getSubLaluanId;
+  final int? scMainId;
+  final Function(dynamic)? getSubLaluanName;
 
   const ListOfSubRoutesTextFormField({
     Key? key,
@@ -26,7 +27,8 @@ class ListOfSubRoutesTextFormField extends StatefulWidget {
     required this.iconCondition,
     required this.data,
     this.screen,
-    this.getSubLaluanId,
+    this.getSubLaluanName,
+    this.scMainId,
   }) : super(key: key);
 
   @override
@@ -113,7 +115,7 @@ class ListOfSubRoutesTextFormFieldState
           ),
         ),
         validator: (value) {
-          if (value == null || value.isEmpty) {
+          if ((value == null || value.isEmpty) && widget.screen != "4") {
             return '';
           }
 
@@ -176,7 +178,8 @@ class ListOfSubRoutesTextFormFieldState
                       Padding(
                         padding: const EdgeInsets.only(bottom: 10),
                         child: FutureBuilder<List>(
-                          future: SubLaluanApi.getSubLaluanData(context),
+                          future:
+                              SubLaluanApi.getDataSubLaluan(widget.scMainId),
                           builder: (context, snapshot) {
                             final dataFuture = snapshot.data;
 
@@ -214,15 +217,13 @@ class ListOfSubRoutesTextFormFieldState
                                           return InkWell(
                                             onTap: () {
                                               setState(() {
-                                                widget.getSubLaluanId != null
-                                                    ? widget.getSubLaluanId!(
-                                                        dataFuture[index].id,
+                                                widget.getSubLaluanName != null
+                                                    ? widget.getSubLaluanName!(
                                                         dataFuture[index]
-                                                            .namaSubLaluan)
+                                                            .subRoute)
                                                     : null;
                                                 namaSubLaluan.text =
-                                                    dataFuture[index]
-                                                        .namaSubLaluan;
+                                                    dataFuture[index].subRoute;
                                                 selectedIndex = index;
                                                 Navigator.pop(context);
                                               });
@@ -242,7 +243,7 @@ class ListOfSubRoutesTextFormFieldState
                                                   const SizedBox(width: 8),
                                                   Text(
                                                       dataFuture[index]
-                                                          .namaSubLaluan,
+                                                          .subRoute,
                                                       style: TextStyle(
                                                         color: blackCustom,
                                                         fontSize: 15,

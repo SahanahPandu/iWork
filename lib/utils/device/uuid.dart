@@ -6,6 +6,7 @@ class Uuid {
   /// Query device's (Android & ios) UUID for user login auth.
   /// UUID will be reset if device performed factory reset
   /// iOS -> identifierForVendor: An alphanumeric string that uniquely identifies a device to the app’s vendor.
+  /// not available for below iphone 7
   /// Android -> androidId: The Android hardware device ID that is unique between the device + user and app signing.
   Future<String?> getDeviceIdentifier() async {
     String? deviceIdentifier = "unknown";

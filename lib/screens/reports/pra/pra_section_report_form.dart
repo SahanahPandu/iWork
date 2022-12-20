@@ -1,7 +1,5 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-
 // ignore: depend_on_referenced_packages
 import 'package:path/path.dart';
 
@@ -10,7 +8,6 @@ import '../../../config/config.dart';
 import '../../../config/dimen.dart';
 import '../../../config/font.dart';
 import '../../../config/palette.dart';
-import '../../../models/reports.dart';
 import '../../../utils/device/sizes.dart';
 import '../../../widgets/buttons/change_image_upload.dart';
 import '../../../widgets/buttons/upload_image_button.dart';
@@ -18,6 +15,7 @@ import '../../list_of_obstacles/list_of_obstacles.dart';
 import '../../list_of_park/list_of_parks.dart';
 import '../../list_of_road/list_of_road_text_form_field.dart';
 import '../../list_of_sub_routes/list_of_sub_routes_text_form_field.dart';
+import '../../../models/report/report_details/report_details_info.dart';
 
 class PraSectionReportForm extends StatefulWidget {
   final String screen;
@@ -25,7 +23,8 @@ class PraSectionReportForm extends StatefulWidget {
   final GlobalKey<ListOfParksState>? tamanKey;
   final GlobalKey<ListOfRoadTextFormFieldState>? jalanKey;
   final GlobalKey<ListOfObstaclesState>? jenisHalanganKey;
-  final Reports? data;
+  final ReportDetailsInfo? data;
+  final int? scMainId;
   final Function? updateButton;
 
   const PraSectionReportForm({
@@ -36,6 +35,7 @@ class PraSectionReportForm extends StatefulWidget {
     this.jalanKey,
     this.jenisHalanganKey,
     this.data,
+    this.scMainId,
     this.updateButton,
   }) : super(key: key);
 
@@ -44,54 +44,26 @@ class PraSectionReportForm extends StatefulWidget {
 }
 
 class PraSectionReportFormState extends State<PraSectionReportForm> {
+  final tamanKey = GlobalKey<ListOfParksState>();
   final TextEditingController namaSubLaluan = TextEditingController();
-  final TextEditingController catatan = TextEditingController();
+  TextEditingController catatan = TextEditingController();
   final FocusNode _catatanFocusNode = FocusNode();
 
   Color textFieldFillColor = Colors.white;
   Color focusBorderColor = focusedBorder;
   Color enableBorderWithTextColor = enabledBorderWithText;
   int iconCondition = 1;
+  String subLaluan = "";
+  int idTaman = 0;
   String namaTaman = "";
   String namaJalan = "";
   String jenisHalangan = "";
-  String subLaluan = "";
+
   File? gambarLampiran;
   String namaGambar = "";
+  String? pathGambar;
 
   double spacingHeight = userRole == 100 ? 30 : 20;
-
-  loadData() {
-    if (widget.screen == "4") {
-      //from report list
-      setState(() {
-        textFieldFillColor = textFormFieldFillColor;
-        focusBorderColor = Colors.grey.shade300;
-        enableBorderWithTextColor = Colors.grey.shade300;
-        iconCondition = 0;
-
-        if (widget.data!.namaSubLaluan != "") {
-          subLaluan = widget.data!.namaSubLaluan;
-        }
-
-        if (widget.data!.namaTaman != "") {
-          namaTaman = widget.data!.namaTaman;
-        }
-
-        if (widget.data!.namaJalan != "") {
-          namaJalan = widget.data!.namaJalan;
-        }
-
-        if (widget.data!.jenisHalangan != "") {
-          jenisHalangan = widget.data!.jenisHalangan;
-        }
-
-        if (widget.data!.catatan != "") {
-          catatan.text = widget.data!.catatan;
-        }
-      });
-    }
-  }
 
   getImageName(fileName) {
     setState(() {
@@ -100,10 +72,18 @@ class PraSectionReportFormState extends State<PraSectionReportForm> {
     });
   }
 
-  @override
-  void initState() {
-    super.initState();
-    loadData();
+  updateSenaraiTaman([name]) {
+    setState(() {
+      tamanKey.currentState?.namaTaman.clear();
+      subLaluan = name;
+    });
+  }
+
+  updateShowSenaraiJalan(id, [name]) {
+    setState(() {
+      idTaman = id;
+      namaTaman = name;
+    });
   }
 
   @override
@@ -122,6 +102,9 @@ class PraSectionReportFormState extends State<PraSectionReportForm> {
           fillColor: textFieldFillColor,
           iconCondition: iconCondition,
           data: subLaluan,
+          screen: widget.screen,
+          scMainId: widget.scMainId,
+          getSubLaluanName: updateSenaraiTaman,
         ),
         SizedBox(
           height: spacingHeight,
@@ -129,12 +112,15 @@ class PraSectionReportFormState extends State<PraSectionReportForm> {
         //Taman
         ListOfParks(
           key: widget.tamanKey,
-          showSenaraiJalan: null,
           hintText: 'Taman',
           fontSize: 15,
           fillColor: textFieldFillColor,
           iconCondition: iconCondition,
           data: namaTaman,
+          screen: widget.screen,
+          scMainId: widget.scMainId,
+          subRoutesName: subLaluan,
+          updateSenaraiJalan: updateShowSenaraiJalan,
         ),
 
         SizedBox(
@@ -149,6 +135,9 @@ class PraSectionReportFormState extends State<PraSectionReportForm> {
           fillColor: textFieldFillColor,
           iconCondition: iconCondition,
           data: namaJalan,
+          screen: widget.screen,
+          scMainId: widget.scMainId,
+          namaTaman: namaTaman,
         ),
 
         SizedBox(
@@ -163,13 +152,15 @@ class PraSectionReportFormState extends State<PraSectionReportForm> {
           fillColor: textFieldFillColor,
           iconCondition: iconCondition,
           data: jenisHalangan,
+          screen: widget.screen,
         ),
 
         SizedBox(
           height: spacingHeight,
         ),
         //Gambar
-        if (gambarLampiran == null && widget.screen == "3")
+        if (gambarLampiran == null &&
+            (widget.screen == "3" || widget.screen == "7"))
           SizedBox(
             width: Sizes().screenWidth(context),
             child: UploadImageButton(getImageName: getImageName),
@@ -195,7 +186,8 @@ class PraSectionReportFormState extends State<PraSectionReportForm> {
                 child: gambarLampiran != null
                     ? ClipRRect(
                         clipBehavior: Clip.hardEdge,
-                        borderRadius: const BorderRadius.all(Radius.circular(4)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(4)),
                         child: Image.file(
                           gambarLampiran!,
                           width: double.infinity,
@@ -203,14 +195,30 @@ class PraSectionReportFormState extends State<PraSectionReportForm> {
                           fit: BoxFit.cover,
                         ),
                       )
-                    : Center(
-                        child: Text(
-                          "Tiada Gambar",
-                          style: TextStyle(
-                            color: greyCustom,
+                    : pathGambar != null
+                        ? ClipRRect(
+                            clipBehavior: Clip.hardEdge,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(4)),
+                            child: Image.network(
+                              pathGambar!,
+                              width: double.infinity,
+                              height: double.infinity,
+                              fit: BoxFit.cover,
+                              errorBuilder: (BuildContext context,
+                                  Object exception, StackTrace? stackTrace) {
+                                return const Text('Opps');
+                              },
+                            ),
+                          )
+                        : Center(
+                            child: Text(
+                              "Tiada Gambar",
+                              style: TextStyle(
+                                color: greyCustom,
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
               ),
               if (widget.screen != "4")
                 const SizedBox(

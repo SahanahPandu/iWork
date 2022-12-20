@@ -102,7 +102,7 @@ class _ReportListMainState extends State<ReportListMain> {
                         padding: EdgeInsets.all(12),
                         child: CardListView(
                           type: "Laporan",
-                          topCardStatus: null,
+                          topCardStatus: null
                         ),
                       )
               ],

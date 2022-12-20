@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../../../config/palette.dart';
-import '../../../../models/laluan.dart';
 import '../../../config/font.dart';
 import '../../../utils/icon/custom_icon.dart';
 import '../../../widgets/container/status_container.dart';
+import '../../../models/schedule/schedule_details.dart';
 
 class PraWorkScheduleDetails extends StatefulWidget {
-  final Laluan data;
+  final ScheduleDetails? data;
 
   const PraWorkScheduleDetails({Key? key, required this.data})
       : super(key: key);
@@ -38,7 +38,9 @@ class _PraWorkScheduleDetailsState extends State<PraWorkScheduleDetails> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Text(
-                  widget.data.namaLaluan,
+                  widget.data?.mainRoute != null
+                      ? widget.data!.mainRoute
+                      : "Sub Laluan",
                   style: TextStyle(
                     fontSize: 16,
                     color: white,
@@ -48,8 +50,12 @@ class _PraWorkScheduleDetailsState extends State<PraWorkScheduleDetails> {
               ),
               StatusContainer(
                 type: "Laluan",
-                status: widget.data.status,
-                statusId: widget.data.idStatus,
+                status: widget.data?.statusCode?.name != null
+                    ? widget.data!.statusCode!.name
+                    : "Sedang Bertugas",
+                statusId: widget.data?.statusCode != null
+                    ? widget.data!.statusCode
+                    : "SBT",
                 fontWeight: statusFontWeight,
                 roundedCorner: true,
               ),
@@ -87,7 +93,9 @@ class _PraWorkScheduleDetailsState extends State<PraWorkScheduleDetails> {
                   ],
                 ),
                 Text(
-                  widget.data.noKenderaan,
+                  widget.data?.vehicleNo != null
+                      ? widget.data!.vehicleNo
+                      : "Vehicle",
                   style: TextStyle(
                     fontSize: 15,
                     color: white,
@@ -129,7 +137,7 @@ class _PraWorkScheduleDetailsState extends State<PraWorkScheduleDetails> {
                   ],
                 ),
                 Text(
-                  "${widget.data.jumSubLaluan}",
+                  "${widget.data?.totalSubRoute != null ? widget.data!.totalSubRoute : "Total Sub Route"}",
                   style: TextStyle(
                     fontSize: 15,
                     color: white,
@@ -171,7 +179,7 @@ class _PraWorkScheduleDetailsState extends State<PraWorkScheduleDetails> {
                   ],
                 ),
                 Text(
-                  "${widget.data.jumlahTaman}/${widget.data.jumlahJalan}",
+                  "${widget.data?.totalPark != null ? widget.data!.totalPark : "Total Park"}/${widget.data?.totalStreet != null ? widget.data!.totalStreet : "Total Street"}",
                   style: TextStyle(
                     fontSize: 15,
                     color: white,
@@ -213,7 +221,9 @@ class _PraWorkScheduleDetailsState extends State<PraWorkScheduleDetails> {
                   ],
                 ),
                 Text(
-                  widget.data.jenisKutipan,
+                  widget.data?.activityCode?.activityName != null
+                      ? widget.data!.activityCode!.activityName
+                      : "activity",
                   style: TextStyle(
                     fontSize: 15,
                     color: white,

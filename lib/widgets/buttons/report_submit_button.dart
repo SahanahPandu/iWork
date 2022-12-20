@@ -9,12 +9,16 @@ import '../alert/snackbar.dart';
 
 class ReportSubmitButton extends StatefulWidget {
   final GlobalKey<FormState>? formKey;
+  final Function? postData;
   final Function? clearForm;
+  final dynamic passData;
 
   const ReportSubmitButton({
     Key? key,
     this.formKey,
+    this.postData,
     this.clearForm,
+    this.passData,
   }) : super(key: key);
 
   @override
@@ -47,14 +51,15 @@ class _ReportSubmitButtonState extends State<ReportSubmitButton> {
                   );
                 }).then((actionText) {
               if (actionText == submit) {
-                widget.clearForm!();
+                //post data to the database
+                widget.postData != null ? widget.postData!() : null;
 
                 showDialog(
                     barrierDismissible: false,
                     context: context,
                     builder: (BuildContext context) {
-                      return showLottieAlertDialog(
-                          context, _textBuilder(), widget.clearForm!);
+                      return showLottieAlertDialog(context, _textBuilder(),
+                          widget.clearForm!, widget.passData);
                     });
               }
             });

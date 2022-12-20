@@ -1,8 +1,10 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:simple_ripple_animation/simple_ripple_animation.dart';
 
 //import files
+import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../alert/alert_dialog.dart';
 import '../alert/lottie_alert_dialog.dart';
@@ -24,7 +26,6 @@ class _TimeLogRippleButtonState extends State<TimeLogRippleButton> {
   Widget build(BuildContext context) {
     return RippleAnimation(
       delay: const Duration(milliseconds: 100),
-      //duration: const Duration(milliseconds: 2000),
       repeat: true,
       color: widget.btnColor,
       minRadius: 40,
@@ -40,31 +41,64 @@ class _TimeLogRippleButtonState extends State<TimeLogRippleButton> {
                     "Adakah anda pasti untuk ${widget.btnText} sekarang?",
                     "Batal",
                     widget.btnText);
-              }).then((actionText) {
+              }).then((actionText) async {
+            // Navigator.pop(context, actionText);
             if (actionText == "Masuk Kerja") {
-              Navigator.pop(context, actionText);
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return showLottieAlertDialog(context, _textBuilder(), null);
+              //get clock in time into db
+              try {
+                Response response = await Dio().post(
+                  'http://10.0.2.2:8000/api/attendance/start-work',
+                  options: Options(headers: {
+                    "authorization": "Bearer ${userInfo[1]}",
+                  }),
+                );
+
+                if (response.statusCode == 200) {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return showLottieAlertDialog(
+                          context,
+                          _textBuilder(),
+                          null,
+                          null,
+                        );
+                      }).then((value) {
+                    Navigator.pop(context, actionText);
                   });
-              // Navigator.push(
-              //     context,
-              //     PageTransition(
-              //         child: CustomDialog(text: _textBuilder()),
-              //         type: PageTransitionType.fade));
+                }
+              } on DioError catch (e) {
+                // ignore: avoid_print
+                print(e);
+              }
             } else if (actionText == "Tamat Kerja") {
-              Navigator.pop(context, actionText);
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return showLottieAlertDialog(context, _textBuilder(), null);
+              //get clock out time into db
+              try {
+                Response response = await Dio().post(
+                  'http://10.0.2.2:8000/api/attendance/end-work',
+                  options: Options(headers: {
+                    "authorization": "Bearer ${userInfo[1]}",
+                  }),
+                );
+
+                if (response.statusCode == 200) {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return showLottieAlertDialog(
+                          context,
+                          _textBuilder(),
+                          null,
+                          null,
+                        );
+                      }).then((value) {
+                    Navigator.pop(context, actionText);
                   });
-              // Navigator.push(
-              //     context,
-              //     PageTransition(
-              //         child: CustomDialog(text: _textBuilder()),
-              //         type: PageTransitionType.fade));
+                }
+              } on DioError catch (e) {
+                // ignore: avoid_print
+                print(e);
+              }
             }
           });
         },

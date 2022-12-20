@@ -1,5 +1,5 @@
+import 'package:eswm/widgets/buttons/time_log_button.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 //import files
 import '../../../config/config.dart';
@@ -14,30 +14,26 @@ import 'pra/pra_today_task_details.dart';
 import 'supervisor/supervisor_today_task_details.dart';
 
 class TodayTaskCard extends StatefulWidget {
-  const TodayTaskCard({Key? key}) : super(key: key);
+  final String? workTime;
+  final String timeIn;
+  final String timeOut;
+  final Function? refresh;
+  final GlobalKey<TimeLogButtonState>? timeLogButtonKey;
+
+  const TodayTaskCard({
+    Key? key,
+    this.workTime,
+    required this.timeIn,
+    required this.timeOut,
+    this.refresh,
+    this.timeLogButtonKey,
+  }) : super(key: key);
 
   @override
   State<TodayTaskCard> createState() => _TodayTaskCardState();
 }
 
 class _TodayTaskCardState extends State<TodayTaskCard> {
-  late String timeIn = "";
-  late String timeOut = "";
-
-  getTimeLog(actionText) {
-    String currentTime = DateFormat("hh:mm a").format(DateTime.now());
-
-    if (actionText == "Masuk Kerja") {
-      setState(() {
-        timeIn = currentTime;
-      });
-    } else if (actionText == "Tamat Kerja") {
-      setState(() {
-        timeOut = currentTime;
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -55,10 +51,17 @@ class _TodayTaskCardState extends State<TodayTaskCard> {
         return const CompactorPanelTodayTaskDetails();
       case 200:
         return PraTodayTaskDetails(
-            timeIn: timeIn, timeOut: timeOut, getTimeLog: getTimeLog);
+          timeIn: widget.timeIn,
+          timeOut: widget.timeOut,
+          workTime: widget.workTime,
+          refresh: widget.refresh,
+          timeLogButtonKey: widget.timeLogButtonKey,
+        );
       case 300:
         return SupervisorTodayTaskDetails(
-            timeIn: timeIn, timeOut: timeOut, getTimeLog: getTimeLog);
+          timeIn: widget.timeIn,
+          timeOut: widget.timeOut,
+        );
       case 400:
         return const EOTodayTaskDetails();
       case 500:

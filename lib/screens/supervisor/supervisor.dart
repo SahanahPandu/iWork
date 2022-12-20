@@ -69,7 +69,7 @@ class _SupervisorState extends State<Supervisor> {
               height: 5,
             ),
             Text(
-              Date.getTodayDate(),
+              Date.getTheDate(DateTime.now().toString(), "dd/MM/yyyy", 'ms'),
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
@@ -123,7 +123,11 @@ class _SupervisorState extends State<Supervisor> {
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: SizedBox(
               //height: Sizes().screenHeight(context) * 0.26,
-              child: TodayTaskCard(),
+              child: TodayTaskCard(
+                workTime: "",
+                timeIn: "",
+                timeOut: "",
+              ),
             ),
           ),
         ],

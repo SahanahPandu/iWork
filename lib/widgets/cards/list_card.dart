@@ -25,13 +25,15 @@ class ListCard extends StatefulWidget {
   final dynamic data;
   final String type;
   final int listIndex;
+  final dynamic passData;
 
-  const ListCard(
-      {Key? key,
-      required this.data,
-      required this.type,
-      required this.listIndex})
-      : super(key: key);
+  const ListCard({
+    Key? key,
+    required this.data,
+    required this.type,
+    required this.listIndex,
+    this.passData,
+  }) : super(key: key);
 
   @override
   State<ListCard> createState() => _ListCardState();
@@ -175,7 +177,11 @@ class _ListCardState extends State<ListCard> with TickerProviderStateMixin {
         return Scaffold(
           backgroundColor: white,
           appBar: AppBarWidget(title: "L${widget.data.id}"),
-          body: ReportForm(screen: "4", data: widget.data, dataLaluan: null),
+          body: ReportForm(
+            screen: "4",
+            passData: widget.passData,
+            data: widget.data,
+          ),
         );
       } else if (userRole == 300) {
         // sv

@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 //import files
 import '../../config/config.dart';
 import '../../config/palette.dart';
-import '../../models/jalan.dart';
+import '../../models/schedule/filter/schedule_filter_streets.dart';
 import '../../utils/icon/custom_icon.dart';
 import '../../widgets/modal_bottom_sheet/navigation_options.dart';
 
 class ListOfRoadDetails extends StatefulWidget {
-  final Jalan data;
+  final ScheduleFilterStreets data;
   final int index;
 
   const ListOfRoadDetails({Key? key, required this.data, required this.index})
@@ -28,7 +28,7 @@ class _ListOfRoadDetailsState extends State<ListOfRoadDetails> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              widget.data.namaJalan,
+              widget.data.streetName,
               style: TextStyle(
                   color: blackCustom,
                   fontSize: 16,
@@ -38,7 +38,8 @@ class _ListOfRoadDetailsState extends State<ListOfRoadDetails> {
               height: 6,
             ),
             Text(
-              "${widget.data.jumlahTong} tong",
+              //"${widget.data.jumlahTong} tong",
+              "1 tong",
               style: TextStyle(
                 fontSize: 16,
                 color: greyCustom,

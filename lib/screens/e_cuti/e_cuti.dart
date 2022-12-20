@@ -20,9 +20,8 @@ class _ECutiState extends State<ECuti> {
   Widget build(BuildContext context) {
     return Tabs(
       screen: widget.screen,
-      data: widget.data,
+      passData: widget.data,
       title: eCuti,
-      dataLaluan: null,
     );
   }
 }

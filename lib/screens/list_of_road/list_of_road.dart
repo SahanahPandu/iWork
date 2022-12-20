@@ -12,10 +12,12 @@ import 'list_of_road_details.dart';
 
 class ListOfRoad extends StatefulWidget {
   final int idTaman;
+  final int? scMainId;
 
   const ListOfRoad({
     Key? key,
     required this.idTaman,
+    this.scMainId,
   }) : super(key: key);
 
   @override
@@ -55,7 +57,7 @@ class _ListOfRoadState extends State<ListOfRoad> {
           ),
         ),
         FutureBuilder<List>(
-          future: JalanApi.getJalanData(context),
+          future: JalanApi.getDataJalan(widget.scMainId!),
           builder: (context, snapshot) {
             final dataFuture = snapshot.data;
             List<dynamic> newList = [];
@@ -73,7 +75,7 @@ class _ListOfRoadState extends State<ListOfRoad> {
                   );
                 } else {
                   for (int i = 0; i < dataFuture!.length; i++) {
-                    if (dataFuture[i].idTaman == widget.idTaman) {
+                    if (dataFuture[i].parkId == widget.idTaman) {
                       newList.add(dataFuture[i]);
                     }
                   }

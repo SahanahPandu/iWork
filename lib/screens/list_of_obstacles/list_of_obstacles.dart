@@ -8,6 +8,7 @@ import '../../config/palette.dart';
 import '../../providers/halangan_api.dart';
 import '../../utils/device/orientations.dart';
 import '../../utils/device/sizes.dart';
+import '../../utils/icon/custom_icon.dart';
 
 class ListOfObstacles extends StatefulWidget {
   final String text;
@@ -35,6 +36,7 @@ class ListOfObstacles extends StatefulWidget {
 
 class ListOfObstaclesState extends State<ListOfObstacles> {
   final TextEditingController jenisHalangan = TextEditingController();
+  late int idJenisHalangan = 0;
 
   int totalHalangan = 0;
 
@@ -123,7 +125,7 @@ class ListOfObstaclesState extends State<ListOfObstacles> {
           ),
         ),
         validator: (value) {
-          if (value == null || value.isEmpty) {
+          if ((value == null || value.isEmpty) && widget.screen != "4") {
             return '';
           }
 
@@ -185,8 +187,8 @@ class ListOfObstaclesState extends State<ListOfObstacles> {
                   indent: 25,
                   endIndent: 25,
                 ),
-                FutureBuilder<List>(
-                  future: HalanganApi.getHalanganData(context),
+                FutureBuilder<List<dynamic>?>(
+                  future: HalanganApi.getDataJenisHalangan(),
                   builder: (context, snapshot) {
                     final dataFuture = snapshot.data;
 
@@ -206,7 +208,17 @@ class ListOfObstaclesState extends State<ListOfObstacles> {
                             return Center(
                               child: Container(
                                 margin: const EdgeInsets.all(20),
-                                child: const Text("Tiada data"),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Icon(CustomIcon.exclamation,
+                                        color: Colors.orange, size: 14),
+                                    const SizedBox(width: 10),
+                                    Text(
+                                        "Tiada senarai jenis halangan dijumpai",
+                                        style: TextStyle(color: grey500)),
+                                  ],
+                                ),
                               ),
                             );
                           } else {
@@ -228,7 +240,9 @@ class ListOfObstaclesState extends State<ListOfObstacles> {
                                       onTap: () {
                                         setState(() {
                                           jenisHalangan.text =
-                                              dataFuture[index].namaHalangan;
+                                              dataFuture[index].name;
+                                          idJenisHalangan =
+                                              dataFuture[index].id;
 
                                           Navigator.pop(context);
                                         });
@@ -237,7 +251,7 @@ class ListOfObstaclesState extends State<ListOfObstacles> {
                                         margin: const EdgeInsets.symmetric(
                                             vertical: 12),
                                         child: Text(
-                                          dataFuture[index].namaHalangan,
+                                          dataFuture[index].name,
                                           style: TextStyle(
                                             color: blackCustom,
                                             fontSize: 15,

@@ -4,7 +4,7 @@ import 'package:page_transition/page_transition.dart';
 //import files
 import '../../../config/dimen.dart';
 import '../../../config/palette.dart';
-import '../../../providers/laluan_api.dart';
+import '../../../providers/task/compactor_task_api.dart';
 import '../../../providers/vehicle_checklist_api.dart';
 import '../../../screens/work_schedule/compactor_panel/compactor_panel_schedule_main.dart';
 import '../../../utils/device/orientations.dart';
@@ -23,13 +23,13 @@ class CompactorTaskList extends StatefulWidget {
 }
 
 class _CompactorTaskListState extends State<CompactorTaskList> {
-  late Future<List> _loadLaluanData;
   late Future<List> _loadVcData;
+  Future<List<dynamic>>? _loadLaluanData;
 
   @override
   void initState() {
     super.initState();
-    _loadLaluanData = LaluanApi.getLaluanData(context);
+    _loadLaluanData = CompactorTaskApi.getCompactorSchedule();
     _loadVcData = VehicleChecklistApi.getVehicleChecklistData(context);
   }
 

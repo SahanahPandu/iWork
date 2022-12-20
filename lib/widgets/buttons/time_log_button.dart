@@ -7,15 +7,22 @@ import '../../screens/time_log/time_log.dart';
 import '../../utils/icon/custom_icon.dart';
 
 class TimeLogButton extends StatefulWidget {
-  final Function getTimeLog;
+  final String? timeIn;
+  final String? timeOut;
+  final Function? refresh;
 
-  const TimeLogButton({Key? key, required this.getTimeLog}) : super(key: key);
+  const TimeLogButton({
+    Key? key,
+    this.timeIn,
+    this.timeOut,
+    this.refresh,
+  }) : super(key: key);
 
   @override
-  State<TimeLogButton> createState() => _TimeLogButtonState();
+  TimeLogButtonState createState() => TimeLogButtonState();
 }
 
-class _TimeLogButtonState extends State<TimeLogButton> {
+class TimeLogButtonState extends State<TimeLogButton> {
   Color buttonColor = const Color(0xff52A834);
   Color buttonTextColor = Colors.white;
   Color buttonOverlayColor = green800;
@@ -31,24 +38,71 @@ class _TimeLogButtonState extends State<TimeLogButton> {
               btnText: buttonText,
               btnColor: buttonColor,
             ))).then((actionText) {
-      widget.getTimeLog(actionText);
       if (actionText == "Masuk Kerja") {
+        if (widget.refresh != null) {
+          widget.refresh!("Tamat Kerja", const Color(0xffE04141), Colors.white,
+              Colors.white, red900);
+        }
+
         setState(() {
+          print('Set state button');
           buttonText = "Tamat Kerja";
           buttonColor = const Color(0xffE04141);
           buttonOverlayColor = red900;
         });
+        print('Tekan Masuk Kerja');
       } else if (actionText == "Tamat Kerja") {
-        setState(() {
-          //disabled button
-          buttonText = "Masuk Kerja";
-          buttonColor = const Color(0xffD9D9D9);
-          buttonTextColor = const Color(0xff969696);
-          iconColor = const Color(0xff969696);
-          buttonOverlayColor = const Color(0xffD9D9D9);
-        });
+        // setState(() {
+        //   //disabled button
+        //   buttonText = "Masuk Kerja";
+        //   buttonColor = const Color(0xffD9D9D9);
+        //   buttonTextColor = const Color(0xff969696);
+        //   iconColor = const Color(0xff969696);
+        //   buttonOverlayColor = const Color(0xffD9D9D9);
+        // });
+
+        if (widget.refresh != null) {
+          widget.refresh!(
+              "Masuk Kerja",
+              const Color(0xffD9D9D9),
+              const Color(0xff969696),
+              const Color(0xff969696),
+              const Color(0xffD9D9D9));
+        }
+        print('Tekan Tamat Kerja');
       }
     });
+  }
+
+  loadButton() {
+    if ((widget.timeIn != null && widget.timeIn != "") &&
+        (widget.timeOut != null && widget.timeOut != "")) {
+      //have time in and time out
+      print('Both ada');
+
+      buttonText = "Masuk Kerja";
+      buttonColor = const Color(0xffD9D9D9);
+      buttonTextColor = const Color(0xff969696);
+      iconColor = const Color(0xff969696);
+      buttonOverlayColor = const Color(0xffD9D9D9);
+    } else if ((widget.timeIn != null && widget.timeIn != "") &&
+        (widget.timeOut == null && widget.timeOut == "")) {
+      //have time in but no time out
+      print('Clock In ada');
+      buttonText = "Tamat Kerja";
+      buttonColor = const Color(0xffE04141);
+      buttonOverlayColor = red900;
+    } else if ((widget.timeIn == null && widget.timeIn == "") &&
+        (widget.timeOut != null && widget.timeOut != "")) {
+      //have time out but no time in
+      print('Clock Out ada');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    loadButton();
   }
 
   @override

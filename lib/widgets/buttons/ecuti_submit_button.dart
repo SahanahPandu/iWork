@@ -52,7 +52,11 @@ class _EcutiSubmitButtonState extends State<EcutiSubmitButton> {
                     context: context,
                     builder: (BuildContext context) {
                       return showLottieAlertDialog(
-                          context, _textBuilder(), widget.clearForm!);
+                        context,
+                        _textBuilder(),
+                        widget.clearForm!,
+                        null,
+                      );
                     });
               }
             });

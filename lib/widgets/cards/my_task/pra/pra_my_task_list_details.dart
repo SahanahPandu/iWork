@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../../../config/font.dart';
-import '../../../../models/laluan.dart';
+import '../../../../models/task/pra/task_list.dart';
 import '../../../../utils/icon/custom_icon.dart';
 import '../../../container/status_container.dart';
 
 class PraMyTaskListDetails extends StatefulWidget {
-  final Laluan data;
+  final TaskList data;
 
   const PraMyTaskListDetails({Key? key, required this.data}) : super(key: key);
 
@@ -34,7 +34,7 @@ class _PraMyTaskListDetailsState extends State<PraMyTaskListDetails> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
-                  widget.data.namaLaluan,
+                  widget.data.mainRoute,
                   style: const TextStyle(
                       fontSize: 16,
                       color: Color(0xff2B2B2B),
@@ -43,8 +43,8 @@ class _PraMyTaskListDetailsState extends State<PraMyTaskListDetails> {
               ),
               StatusContainer(
                 type: "Laluan",
-                status: widget.data.status,
-                statusId: widget.data.idStatus,
+                status: widget.data.statusCode.name,
+                statusId: widget.data.statusCode,
                 fontWeight: statusFontWeight,
               ),
             ],
@@ -79,7 +79,7 @@ class _PraMyTaskListDetailsState extends State<PraMyTaskListDetails> {
                   ],
                 ),
                 Text(
-                  widget.data.noKenderaan,
+                  widget.data.vehicleNo,
                   style: TextStyle(
                     fontSize: 15,
                     color: inputColor,
@@ -120,7 +120,7 @@ class _PraMyTaskListDetailsState extends State<PraMyTaskListDetails> {
                   ],
                 ),
                 Text(
-                  "${widget.data.jumSubLaluan}",
+                  "${widget.data.totalSubRoute}",
                   style: TextStyle(
                     fontSize: 15,
                     color: inputColor,
@@ -163,7 +163,7 @@ class _PraMyTaskListDetailsState extends State<PraMyTaskListDetails> {
                   ],
                 ),
                 Text(
-                  "${widget.data.jumlahTaman}/${widget.data.jumlahJalan}",
+                  "${widget.data.totalPark}/${widget.data.totalStreet}",
                   style: TextStyle(
                     fontSize: 15,
                     color: inputColor,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 //import files
+import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../../utils/calendar/date.dart';
 import '../../utils/device/orientations.dart';
@@ -66,7 +67,7 @@ class _CompactorPanelState extends State<CompactorPanel> {
                     borderRadius: BorderRadius.circular(12)),
                 child: Center(
                     child: Text(
-                  "BLW 7096",
+                  userInfo[2],
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       color: white, fontWeight: FontWeight.w600, fontSize: 18),
@@ -90,7 +91,7 @@ class _CompactorPanelState extends State<CompactorPanel> {
             height: 5,
           ),
           Text(
-            Date.getTodayDate(),
+            Date.getTheDate(DateTime.now().toString(), "dd/MM/yyyy", 'ms'),
             style: TextStyle(
               fontSize: 26,
               fontWeight: FontWeight.w600,
@@ -167,25 +168,29 @@ class _CompactorPanelState extends State<CompactorPanel> {
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
+            children: [
           Padding(
-            padding: EdgeInsets.only(left: 48, top: 10, bottom: 5),
+            padding: const EdgeInsets.only(left: 48, top: 10, bottom: 5),
             child: Text(
-              "BLW 7096",
+              userInfo[2],
               textAlign: TextAlign.left,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 28,
                 fontWeight: FontWeight.w600,
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.symmetric(horizontal: 44),
-            child: TodayTaskCard(),
+            child: TodayTaskCard(
+              workTime: "",
+              timeIn: "",
+              timeOut: "",
+            ),
           )
         ]));
   }

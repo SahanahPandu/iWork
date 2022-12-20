@@ -10,8 +10,10 @@ import '../list_of_sub_routes/list_of_sub_routes_text_form_field.dart';
 
 class StreetSearch extends StatefulWidget {
   final double? height;
+  final int? scMainId;
 
-  const StreetSearch({Key? key, this.height = 0.555}) : super(key: key);
+  const StreetSearch({Key? key, this.height = 0.555, this.scMainId})
+      : super(key: key);
 
   @override
   State<StreetSearch> createState() => _StreetSearchState();
@@ -23,15 +25,15 @@ class _StreetSearchState extends State<StreetSearch> {
   bool _showSenaraiJalan = false;
   int idTaman = 0;
   int iconCondition = 1;
-  int idSubLaluan = 0;
+  // int idSubLaluan = 0;
   String namaTaman = "";
   String namaSublaluan = "";
 
-  updateSenaraiTaman(id, [name]) {
+  updateSenaraiTaman([name]) {
     setState(() {
       tamanKey.currentState?.namaTaman.clear();
       _showSenaraiTaman = true;
-      idSubLaluan = id;
+      // idSubLaluan = id;
       namaSublaluan = name;
     });
   }
@@ -67,7 +69,8 @@ class _StreetSearchState extends State<StreetSearch> {
                 iconCondition: iconCondition,
                 data: namaSublaluan,
                 screen: "Work Schedule",
-                getSubLaluanId: updateSenaraiTaman,
+                scMainId: widget.scMainId,
+                getSubLaluanName: updateSenaraiTaman,
               ),
             ),
 
@@ -82,14 +85,15 @@ class _StreetSearchState extends State<StreetSearch> {
                     ),
                     child: ListOfParks(
                       key: tamanKey,
-                      subRoutesId: idSubLaluan,
-                      showSenaraiJalan: updateShowSenaraiJalan,
                       hintText: 'Senarai Taman',
                       fontSize: 15,
                       fillColor: Colors.white,
                       iconCondition: iconCondition,
                       data: namaTaman,
                       screen: "Work Schedule",
+                      scMainId: widget.scMainId,
+                      subRoutesName: namaSublaluan,
+                      updateSenaraiJalan: updateShowSenaraiJalan,
                     ),
                   )
                 : Container(
@@ -99,14 +103,15 @@ class _StreetSearchState extends State<StreetSearch> {
                     ),
                     child: ListOfParks(
                       key: tamanKey,
-                      subRoutesId: idSubLaluan,
-                      showSenaraiJalan: updateShowSenaraiJalan,
                       hintText: 'Senarai Taman',
                       fontSize: 15,
                       fillColor: const Color(0xfff8f7f7),
                       iconCondition: iconCondition,
                       data: namaTaman,
                       screen: "Work Schedule",
+                      scMainId: widget.scMainId,
+                      subRoutesName: namaSublaluan,
+                      updateSenaraiJalan: updateShowSenaraiJalan,
                     ),
                   ),
 
@@ -114,6 +119,7 @@ class _StreetSearchState extends State<StreetSearch> {
             if (_showSenaraiJalan)
               ListOfRoad(
                 idTaman: idTaman,
+                scMainId: widget.scMainId,
               ),
           ],
         ));

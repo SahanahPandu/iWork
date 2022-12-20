@@ -10,8 +10,9 @@ import '../../widgets/listview/card_list_view.dart';
 
 class ReportList extends StatefulWidget {
   final String? screen;
+  final dynamic passData;
 
-  const ReportList({Key? key, this.screen}) : super(key: key);
+  const ReportList({Key? key, this.screen, this.passData}) : super(key: key);
 
   @override
   State<ReportList> createState() => _ReportListState();
@@ -28,7 +29,7 @@ class _ReportListState extends State<ReportList> {
                 padding: Orientations().isTabletPortrait(context)
                     ? const EdgeInsets.symmetric(horizontal: 5)
                     : const EdgeInsets.symmetric(horizontal: 50),
-                child: const CompactorReportList(),
+                child: CompactorReportList(passData: widget.passData),
               )
             : Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,9 +51,10 @@ class _ReportListState extends State<ReportList> {
                   ),
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 10),
-                    child: const CardListView(
+                    child: CardListView(
                       type: "Laporan",
                       topCardStatus: null,
+                      passData: widget.passData,
                     ),
                   ),
                 ],

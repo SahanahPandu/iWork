@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import '../../../../config/config.dart';
 import '../../../../config/font.dart';
 import '../../../../config/palette.dart';
-import '../../../../models/laluan.dart';
+import '../../../../models/task/compactor/data/schedules/schedule.dart';
 import '../../../../utils/device/orientations.dart';
 import '../../../../utils/icon/custom_icon.dart';
 import '../../../../widgets/slide_bar/start_end_work_slide_bar.dart';
 import '../../../container/status_container.dart';
 
 class CompactorPanelMyTaskListDetails extends StatefulWidget {
-  final Laluan data;
+  final Schedule data;
   final bool button;
 
   const CompactorPanelMyTaskListDetails(
@@ -46,7 +46,7 @@ class CompactorPanelMyTaskListDetailsState
                     ? const EdgeInsets.fromLTRB(22, 20, 0, 20)
                     : const EdgeInsets.fromLTRB(40, 30, 0, 22),
                 child: Text(
-                  widget.data.namaLaluan,
+                  widget.data.mainRoute,
                   style: TextStyle(
                       fontSize: 18,
                       color: blackCustom,
@@ -55,8 +55,8 @@ class CompactorPanelMyTaskListDetailsState
               ),
               StatusContainer(
                   type: "Laluan",
-                  status: widget.data.status,
-                  statusId: widget.data.idStatus,
+                  status: widget.data.statusCode.name,
+                  statusId: widget.data.statusCode,
                   fontWeight: statusFontWeight)
               /*
               Container(
@@ -117,7 +117,7 @@ class CompactorPanelMyTaskListDetailsState
                   ],
                 ),
                 Text(
-                  widget.data.noKenderaan,
+                  widget.data.vehicleNo,
                   style: TextStyle(
                     fontSize: Orientations().isLandscape(context) ? 16 : 14,
                     color: blackCustom,
@@ -156,7 +156,7 @@ class CompactorPanelMyTaskListDetailsState
                   ],
                 ),
                 Text(
-                  "${widget.data.jumSubLaluan}",
+                  "${widget.data.totalSubRoute}",
                   style: TextStyle(
                     fontSize: Orientations().isLandscape(context) ? 16 : 14,
                     color: blackCustom,
@@ -195,7 +195,7 @@ class CompactorPanelMyTaskListDetailsState
                   ],
                 ),
                 Text(
-                  "${widget.data.jumlahTaman}/${widget.data.jumlahJalan}",
+                  "${widget.data.totalPark}/${widget.data.totalStreet}",
                   style: TextStyle(
                     fontSize: Orientations().isLandscape(context) ? 16 : 14,
                     color: blackCustom,

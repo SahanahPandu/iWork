@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 //import files
 import '../../../config/font.dart';
 import '../../../config/palette.dart';
-import '../../../models/laluan.dart';
+import '../../../models/schedule/schedule_details.dart';
+// import '../../../models/laluan.dart';
+import '../../../providers/jadual_api.dart';
 import '../../../widgets/container/status_container.dart';
 import '../../../widgets/slivers/expand_collapse_header/expand_collapse_header.dart';
 import '../../list_of_park/list_of_parks.dart';
@@ -11,7 +13,7 @@ import '../../street_search/street_search.dart';
 import 'pra_work_schedule_details.dart';
 
 class PraWorkScheduleMain extends StatefulWidget {
-  final Laluan? data;
+  final dynamic data;
 
   const PraWorkScheduleMain({Key? key, required this.data}) : super(key: key);
 
@@ -22,6 +24,24 @@ class PraWorkScheduleMain extends StatefulWidget {
 class _PraWorkScheduleMainState extends State<PraWorkScheduleMain> {
   final tamanKey = GlobalKey<ListOfParksState>();
   Color collapseBgColor = const Color(0xff2b7fe8);
+  ScheduleDetails? scheduleList;
+
+  @override
+  void initState() {
+    getTheData();
+    super.initState();
+  }
+
+  void getTheData() {
+    Future<ScheduleDetails?>? list =
+        JadualApi.getDataJadual(widget.data!.scMainId);
+
+    list!.then((data) {
+      setState(() {
+        scheduleList = data;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,10 +64,10 @@ class _PraWorkScheduleMainState extends State<PraWorkScheduleMain> {
   }
 
   SafeArea _scrollBody() {
-    return const SafeArea(
+    return SafeArea(
 
         /// 0.438 = headerExpandedHeight + 0.038
-        child: StreetSearch(height: 0.438));
+        child: StreetSearch(height: 0.438, scMainId: widget.data?.scMainId));
   }
 
   Row _collapseTitle() {
@@ -56,7 +76,9 @@ class _PraWorkScheduleMainState extends State<PraWorkScheduleMain> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Text(
-            widget.data!.namaLaluan,
+            scheduleList?.mainRoute != null
+                ? scheduleList!.mainRoute
+                : "Sub Laluan",
             style: TextStyle(
               color: white,
               fontWeight: FontWeight.w700,
@@ -67,8 +89,12 @@ class _PraWorkScheduleMainState extends State<PraWorkScheduleMain> {
         const SizedBox(width: 10),
         StatusContainer(
           type: "Laluan",
-          status: widget.data!.status,
-          statusId: widget.data!.idStatus,
+          status: scheduleList?.statusCode?.name != null
+              ? scheduleList!.statusCode!.name
+              : "Sedang Bertugas",
+          statusId: scheduleList?.statusCode != null
+              ? scheduleList!.statusCode
+              : "SBT",
           fontWeight: statusFontWeight,
           roundedCorner: true,
         )
@@ -83,7 +109,7 @@ class _PraWorkScheduleMainState extends State<PraWorkScheduleMain> {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: SizedBox(
             //height: Sizes().screenHeight(context) * 0.3,
-            child: PraWorkScheduleDetails(data: widget.data!),
+            child: PraWorkScheduleDetails(data: scheduleList),
           ))
     ]));
   }

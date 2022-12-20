@@ -68,7 +68,7 @@ class _BAState extends State<BA> {
               height: 5,
             ),
             Text(
-              Date.getTodayDate(),
+              Date.getTheDate(DateTime.now().toString(), "dd/MM/yyyy", 'ms'),
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
@@ -118,7 +118,11 @@ class _BAState extends State<BA> {
           ),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 18),
-            child: TodayTaskCard(),
+            child: TodayTaskCard(
+              workTime: "",
+              timeIn: "",
+              timeOut: "",
+            ),
           ),
           const SizedBox(height: 10)
         ],

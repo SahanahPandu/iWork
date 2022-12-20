@@ -11,26 +11,28 @@ import '../../utils/icon/custom_icon.dart';
 import '../../widgets/custom_scroll/custom_scroll.dart';
 
 class ListOfParks extends StatefulWidget {
-  final int? subRoutesId;
-  final Function(dynamic, dynamic)? showSenaraiJalan;
   final String hintText;
   final double fontSize;
   final Color fillColor;
   final int iconCondition;
   final String data;
   final String? screen;
+  final int? scMainId;
+  final String? subRoutesName;
+  final Function(dynamic, dynamic)? updateSenaraiJalan;
 
-  const ListOfParks(
-      {Key? key,
-      this.subRoutesId,
-      required this.showSenaraiJalan,
-      required this.hintText,
-      required this.fontSize,
-      required this.fillColor,
-      required this.iconCondition,
-      required this.data,
-      this.screen})
-      : super(key: key);
+  const ListOfParks({
+    Key? key,
+    required this.hintText,
+    required this.fontSize,
+    required this.fillColor,
+    required this.iconCondition,
+    required this.data,
+    this.screen,
+    this.scMainId,
+    this.subRoutesName,
+    required this.updateSenaraiJalan,
+  }) : super(key: key);
 
   @override
   ListOfParksState createState() => ListOfParksState();
@@ -38,6 +40,7 @@ class ListOfParks extends StatefulWidget {
 
 class ListOfParksState extends State<ListOfParks> {
   final TextEditingController namaTaman = TextEditingController();
+  late int idTaman = 0;
   int selectedIndex = -2;
 
   getTotalData() {
@@ -58,7 +61,7 @@ class ListOfParksState extends State<ListOfParks> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        if (widget.iconCondition == 1 && widget.subRoutesId != 0) {
+        if (widget.iconCondition == 1 && widget.subRoutesName != "") {
           showListOfParks();
         }
       },
@@ -114,7 +117,7 @@ class ListOfParksState extends State<ListOfParks> {
           ),
         ),
         validator: (value) {
-          if (value == null || value.isEmpty) {
+          if ((value == null || value.isEmpty) && widget.screen != "4") {
             return '';
           }
 
@@ -178,7 +181,8 @@ class ListOfParksState extends State<ListOfParks> {
                           Padding(
                               padding: const EdgeInsets.only(bottom: 10),
                               child: FutureBuilder<List>(
-                                  future: TamanApi.getTamanData(context),
+                                  future:
+                                      TamanApi.getDataTaman(widget.scMainId),
                                   builder: (context, snapshot) {
                                     final dataFuture = snapshot.data;
                                     switch (snapshot.connectionState) {
@@ -192,12 +196,14 @@ class ListOfParksState extends State<ListOfParks> {
                                             child: Text("Some error occured!"),
                                           );
                                         } else {
+                                          // print(
+                                          //     'Sub Laluan ID: ${widget.subRoutesId}');
                                           //checking if there is sub laluan id is passed, else show all
-                                          if (widget.subRoutesId != null &&
-                                              widget.subRoutesId != 0) {
+                                          if (widget.subRoutesName != null &&
+                                              widget.subRoutesName != "") {
                                             dataFuture!.removeWhere((item) =>
-                                                item.idSubLaluan !=
-                                                widget.subRoutesId);
+                                                item.subRoute !=
+                                                widget.subRoutesName);
                                           }
                                           if (dataFuture!.isEmpty) {
                                             return Center(
@@ -238,65 +244,79 @@ class ListOfParksState extends State<ListOfParks> {
                                                     itemBuilder:
                                                         (context, index) {
                                                       return InkWell(
-                                                          onTap: () {
-                                                            if (widget
-                                                                    .showSenaraiJalan !=
-                                                                null) {
-                                                              widget.showSenaraiJalan!(
-                                                                  dataFuture[
-                                                                          index]
-                                                                      .id,
-                                                                  dataFuture[
-                                                                          index]
-                                                                      .namaTaman);
+                                                        onTap: () {
+                                                          if (widget
+                                                                  .updateSenaraiJalan !=
+                                                              null) {
+                                                            widget.updateSenaraiJalan!(
+                                                                dataFuture[
+                                                                        index]
+                                                                    .parkId,
+                                                                dataFuture[
+                                                                        index]
+                                                                    .parkName);
+                                                          }
+                                                          setState(() {
+                                                            namaTaman.text =
+                                                                dataFuture[
+                                                                        index]
+                                                                    .parkName;
+                                                            if (namaTaman
+                                                                    .text !=
+                                                                "") {
+                                                              selectedIndex =
+                                                                  index;
                                                             }
-                                                            setState(() {
-                                                              namaTaman.text =
-                                                                  dataFuture[
-                                                                          index]
-                                                                      .namaTaman;
-                                                              if (namaTaman
-                                                                      .text !=
-                                                                  "") {
-                                                                selectedIndex =
-                                                                    index;
-                                                              }
-                                                              Navigator.pop(
-                                                                  context);
-                                                            });
-                                                          },
-                                                          child: Container(
-                                                              margin: const EdgeInsets
+                                                            idTaman =
+                                                                dataFuture[
+                                                                        index]
+                                                                    .parkId;
+                                                            Navigator.pop(
+                                                                context);
+                                                          });
+                                                        },
+                                                        child: Container(
+                                                          margin:
+                                                              const EdgeInsets
                                                                       .symmetric(
                                                                   vertical: 16),
-                                                              child: Row(
-                                                                  children: [
-                                                                    Icon(
-                                                                        namaTaman.text != "" && selectedIndex == index
-                                                                            ? Icons
-                                                                                .check
-                                                                            : null,
-                                                                        color:
-                                                                            green,
-                                                                        size:
-                                                                            18),
-                                                                    const SizedBox(
-                                                                        width:
-                                                                            8),
-                                                                    Text(
-                                                                        dataFuture[index]
-                                                                            .namaTaman,
-                                                                        style:
-                                                                            TextStyle(
-                                                                          color:
-                                                                              blackCustom,
-                                                                          fontSize:
-                                                                              15,
-                                                                          fontWeight: namaTaman.text != "" && selectedIndex == index
-                                                                              ? FontWeight.w600
-                                                                              : FontWeight.w400,
-                                                                        ))
-                                                                  ])));
+                                                          child: Row(
+                                                            children: [
+                                                              Icon(
+                                                                  namaTaman.text !=
+                                                                              "" &&
+                                                                          selectedIndex ==
+                                                                              index
+                                                                      ? Icons
+                                                                          .check
+                                                                      : null,
+                                                                  color: green,
+                                                                  size: 18),
+                                                              const SizedBox(
+                                                                  width: 8),
+                                                              Text(
+                                                                  dataFuture[
+                                                                          index]
+                                                                      .parkName,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color:
+                                                                        blackCustom,
+                                                                    fontSize:
+                                                                        15,
+                                                                    fontWeight: namaTaman.text !=
+                                                                                "" &&
+                                                                            selectedIndex ==
+                                                                                index
+                                                                        ? FontWeight
+                                                                            .w600
+                                                                        : FontWeight
+                                                                            .w400,
+                                                                  ))
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      );
                                                     }));
                                           }
                                         }

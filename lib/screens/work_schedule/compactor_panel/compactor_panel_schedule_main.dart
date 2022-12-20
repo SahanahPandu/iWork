@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 
 //import files
+import '../../../config/config.dart';
 import '../../../config/font.dart';
 import '../../../config/palette.dart';
-import '../../../models/laluan.dart';
+import '../../../models/schedule/schedule_details.dart';
+import '../../../models/task/compactor/data/schedules/schedule.dart';
+import '../../../providers/jadual_api.dart';
 import '../../../utils/device/orientations.dart';
 import '../../../utils/device/sizes.dart';
 import '../../../utils/icon/custom_icon.dart';
@@ -16,7 +19,7 @@ import '../../list_of_sub_routes/list_of_sub_routes_text_form_field.dart';
 import 'compactor_panel_schedule_details.dart';
 
 class CompactorPanelScheduleMain extends StatefulWidget {
-  final Laluan? data;
+  final Schedule? data;
 
   const CompactorPanelScheduleMain({Key? key, required this.data})
       : super(key: key);
@@ -28,6 +31,7 @@ class CompactorPanelScheduleMain extends StatefulWidget {
 
 class _CompactorPanelScheduleMainState
     extends State<CompactorPanelScheduleMain> {
+  ScheduleDetails? scheduleList;
   Color collapseBgColor = const Color(0xff3597f8);
   Color appbarColor = const Color(0xf93597f8);
   final tamanKey = GlobalKey<ListOfParksState>();
@@ -35,15 +39,29 @@ class _CompactorPanelScheduleMainState
   bool _showSenaraiJalan = false;
   int idTaman = 0;
   int iconCondition = 1;
-  int idSubLaluan = 0;
   String namaTaman = "";
   String namaSublaluan = "";
 
-  updateSenaraiTaman(id, [name]) {
+  @override
+  void initState() {
+    getTheData();
+    super.initState();
+  }
+
+  void getTheData() {
+    Future<ScheduleDetails?>? list = JadualApi.getDataJadual(widget.data!.id);
+    scheduleId = widget.data!.id.toString();
+    list!.then((value) {
+      setState(() {
+        scheduleList = value;
+      });
+    });
+  }
+
+  updateSenaraiTaman([name]) {
     setState(() {
       tamanKey.currentState?.namaTaman.clear();
       _showSenaraiTaman = true;
-      idSubLaluan = id;
       namaSublaluan = name;
     });
   }
@@ -122,7 +140,7 @@ class _CompactorPanelScheduleMainState
                     ? const EdgeInsets.only(right: 50, bottom: 20)
                     : const EdgeInsets.only(right: 80, bottom: 20),
                 child: ReportButton(
-                  dataLaluan: widget.data,
+                  passData: widget.data,
                 ))));
   }
 
@@ -190,7 +208,7 @@ class _CompactorPanelScheduleMainState
   Widget _collapseTitle() {
     return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
       Text(
-        widget.data!.namaLaluan,
+        widget.data!.mainRoute,
         style: TextStyle(
           color: white,
           fontWeight: FontWeight.w700,
@@ -200,8 +218,8 @@ class _CompactorPanelScheduleMainState
       const SizedBox(width: 20),
       StatusContainer(
         type: "Laluan",
-        status: widget.data!.status,
-        statusId: widget.data!.idStatus,
+        status: widget.data!.statusCode.name,
+        statusId: widget.data!.statusCode,
         fontWeight: statusFontWeight,
         roundedCorner: true,
       ),
@@ -227,11 +245,9 @@ class _CompactorPanelScheduleMainState
                                         child: CircleAvatar(
                                             backgroundColor: collapseBgColor,
                                             radius: 28,
-                                            child: CircleAvatar(
+                                            child: const CircleAvatar(
                                               backgroundImage: NetworkImage(
-                                                widget
-                                                    .data!.senaraiStaf.staf3Img,
-                                              ),
+                                                  'https://i0.wp.com/i-panic.com/wp-content/uploads/2021/09/portrait-square-05.jpg?resize=400%2C400&ssl=1'),
                                               //NetworkImage
                                               radius: 26,
                                             )))),
@@ -243,10 +259,9 @@ class _CompactorPanelScheduleMainState
                                         child: CircleAvatar(
                                             backgroundColor: collapseBgColor,
                                             radius: 28,
-                                            child: CircleAvatar(
+                                            child: const CircleAvatar(
                                               backgroundImage: NetworkImage(
-                                                  widget.data!.senaraiStaf
-                                                      .staf2Img),
+                                                  'https://focusforensics.com/wp-content/uploads/staff-clayton_mccall-square.jpg'),
                                               //NetworkImage
                                               radius: 26,
                                             )))),
@@ -256,9 +271,9 @@ class _CompactorPanelScheduleMainState
                                     child: CircleAvatar(
                                         backgroundColor: collapseBgColor,
                                         radius: 28,
-                                        child: CircleAvatar(
-                                          backgroundImage: NetworkImage(widget
-                                              .data!.senaraiStaf.staf1Img),
+                                        child: const CircleAvatar(
+                                          backgroundImage: NetworkImage(
+                                              'https://automateonline.com.au/wp-content/uploads/2019/02/portrait-square-04.jpg'),
                                           //NetworkImage
                                           radius: 26,
                                         )))
@@ -326,7 +341,8 @@ class _CompactorPanelScheduleMainState
                       iconCondition: iconCondition,
                       data: namaSublaluan,
                       screen: "Work Schedule",
-                      getSubLaluanId: updateSenaraiTaman,
+                      scMainId: widget.data!.id,
+                      getSubLaluanName: updateSenaraiTaman,
                     ),
                   ),
 
@@ -339,14 +355,15 @@ class _CompactorPanelScheduleMainState
                               left: 60, right: 60, bottom: 10),
                           child: ListOfParks(
                             key: tamanKey,
-                            subRoutesId: idSubLaluan,
-                            showSenaraiJalan: updateShowSenaraiJalan,
                             hintText: 'Senarai Taman',
                             fontSize: 15,
                             fillColor: Colors.white,
                             iconCondition: iconCondition,
                             data: namaTaman,
                             screen: "Work Schedule",
+                            subRoutesName: namaSublaluan,
+                            scMainId: widget.data!.id,
+                            updateSenaraiJalan: updateShowSenaraiJalan,
                           ),
                         )
                       : Container(
@@ -354,14 +371,15 @@ class _CompactorPanelScheduleMainState
                               left: 60, right: 60, bottom: 10),
                           child: ListOfParks(
                             key: tamanKey,
-                            subRoutesId: idSubLaluan,
-                            showSenaraiJalan: updateShowSenaraiJalan,
                             hintText: 'Senarai Taman',
                             fontSize: 15,
                             fillColor: const Color(0xfff8f7f7),
                             iconCondition: iconCondition,
                             data: namaTaman,
                             screen: "Work Schedule",
+                            subRoutesName: namaSublaluan,
+                            scMainId: widget.data!.id,
+                            updateSenaraiJalan: updateShowSenaraiJalan,
                           ),
                         ),
 
@@ -369,6 +387,7 @@ class _CompactorPanelScheduleMainState
                   if (_showSenaraiJalan)
                     ListOfRoad(
                       idTaman: idTaman,
+                      scMainId: widget.data!.id,
                     ),
                 ],
               )
@@ -389,7 +408,8 @@ class _CompactorPanelScheduleMainState
                           iconCondition: iconCondition,
                           data: namaSublaluan,
                           screen: "Work Schedule",
-                          getSubLaluanId: updateSenaraiTaman,
+                          scMainId: widget.data!.id,
+                          getSubLaluanName: updateSenaraiTaman,
                         ),
                       ),
 
@@ -402,14 +422,15 @@ class _CompactorPanelScheduleMainState
                               width: 300,
                               child: ListOfParks(
                                 key: tamanKey,
-                                subRoutesId: idSubLaluan,
-                                showSenaraiJalan: updateShowSenaraiJalan,
                                 hintText: 'Senarai Taman',
                                 fontSize: 15,
                                 fillColor: Colors.white,
                                 iconCondition: iconCondition,
                                 data: namaTaman,
                                 screen: "Work Schedule",
+                                subRoutesName: namaSublaluan,
+                                scMainId: widget.data!.id,
+                                updateSenaraiJalan: updateShowSenaraiJalan,
                               ),
                             )
                           : Container(
@@ -417,14 +438,15 @@ class _CompactorPanelScheduleMainState
                               width: 300,
                               child: ListOfParks(
                                 key: tamanKey,
-                                subRoutesId: idSubLaluan,
-                                showSenaraiJalan: updateShowSenaraiJalan,
                                 hintText: 'Senarai Taman',
                                 fontSize: 15,
                                 fillColor: grey100,
                                 iconCondition: iconCondition,
                                 data: namaTaman,
                                 screen: "Work Schedule",
+                                subRoutesName: namaSublaluan,
+                                scMainId: widget.data!.id,
+                                updateSenaraiJalan: updateShowSenaraiJalan,
                               ),
                             ),
                     ],
@@ -434,6 +456,7 @@ class _CompactorPanelScheduleMainState
                   if (_showSenaraiJalan)
                     ListOfRoad(
                       idTaman: idTaman,
+                      scMainId: widget.data!.id,
                     ),
                 ],
               ));

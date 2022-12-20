@@ -246,7 +246,11 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
                         context: context,
                         builder: (BuildContext context) {
                           return showLottieAlertDialog(
-                              context, _textBuilder(), null);
+                            context,
+                            _textBuilder(),
+                            null,
+                            null,
+                          );
                         });
                   }
                 });

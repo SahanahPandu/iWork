@@ -9,7 +9,7 @@ class StatusContainer extends StatefulWidget {
 
   //Color boxColor;
   final String status;
-  final int statusId;
+  final dynamic statusId;
 
   //Color textColor;
   final FontWeight fontWeight;
@@ -92,7 +92,7 @@ class _StatusContainerState extends State<StatusContainer> {
         boxColor = greenStatusBox;
       }
     } else if (widget.type == "Laluan") {
-      if (widget.statusId == 2) {
+      if (widget.statusId == "SBT") {
         //Sedang Bertugas
 
         textColor = blueStatusText;

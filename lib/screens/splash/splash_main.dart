@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 //import files
 import '../../config/dimen.dart';
@@ -21,14 +22,26 @@ class _SplashMainState extends State<SplashMain> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 2))
+    if (mounted) {
+      _expandLoginScreen();
+    }
+    super.initState();
+  }
+
+  void _expandLoginScreen() {
+    Future.delayed(const Duration(seconds: 1))
         .then((value) => setState(() => expanded = true))
         .then((value) => const Duration(seconds: 1));
-    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    Devices().isPhone()
+        ? SystemChrome.setPreferredOrientations([
+            DeviceOrientation.portraitUp,
+            DeviceOrientation.portraitDown,
+          ])
+        : null;
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: true,

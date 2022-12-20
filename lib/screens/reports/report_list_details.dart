@@ -4,17 +4,21 @@ import 'package:flutter/material.dart';
 import '../../config/config.dart';
 import '../../config/font.dart';
 import '../../config/palette.dart';
-import '../../models/reports.dart';
+import '../../models/report/report_list/report_details.dart';
+import '../../utils/calendar/date.dart';
 import '../../utils/device/orientations.dart';
 import '../../utils/icon/custom_icon.dart';
 import '../../widgets/container/status_container.dart';
 
 class ReportListDetails extends StatefulWidget {
-  final Reports data;
+  final ReportDetails data;
   final int index;
 
-  const ReportListDetails({Key? key, required this.data, required this.index})
-      : super(key: key);
+  const ReportListDetails({
+    Key? key,
+    required this.data,
+    required this.index,
+  }) : super(key: key);
 
   @override
   State<ReportListDetails> createState() => _ReportListDetailsState();
@@ -42,7 +46,7 @@ class _ReportListDetailsState extends State<ReportListDetails> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
                 child: Text(
-                  "L${widget.index + 1} - ${widget.data.namaLaluan}",
+                  "L${widget.data.id} - ${widget.data.schCollectionMain?.mainRoute}",
                   style: TextStyle(
                     fontSize: userRole == 100 ? 18 : 16,
                     color: inputColor,
@@ -52,8 +56,8 @@ class _ReportListDetailsState extends State<ReportListDetails> {
               ),
               StatusContainer(
                 type: "Laporan",
-                status: widget.data.status,
-                statusId: widget.data.idStatus,
+                status: widget.data.status!.statusName,
+                statusId: widget.data.status!.statusCode,
                 fontWeight: statusFontWeight,
               ),
             ],
@@ -92,7 +96,9 @@ class _ReportListDetailsState extends State<ReportListDetails> {
                   ),
                   Expanded(
                     child: Text(
-                      "${widget.data.tarikh},${widget.data.masa}",
+                      Date.getTheDate(widget.data.createdDatetime,
+                          "dd/MM/yyyy HH:mm a", null),
+                      // "${widget.data.tarikh},${widget.data.masa}",
                       style: TextStyle(
                         fontSize: userRole == 100 ? 16 : 15,
                         color: inputColor,
@@ -142,7 +148,7 @@ class _ReportListDetailsState extends State<ReportListDetails> {
                   Expanded(
                     child: Text(
                       textAlign: TextAlign.end,
-                      widget.data.namaTaman,
+                      widget.data.park!.parkName,
                       style: TextStyle(
                         fontSize: userRole == 100 ? 16 : 15,
                         color: inputColor,
@@ -191,7 +197,7 @@ class _ReportListDetailsState extends State<ReportListDetails> {
                   Expanded(
                     child: Text(
                       textAlign: TextAlign.end,
-                      widget.data.namaJalan,
+                      widget.data.street!.streetName,
                       style: TextStyle(
                         fontSize: userRole == 100 ? 16 : 15,
                         color: inputColor,
@@ -237,7 +243,7 @@ class _ReportListDetailsState extends State<ReportListDetails> {
                 Expanded(
                   child: Text(
                     textAlign: TextAlign.end,
-                    widget.data.jenisHalangan,
+                    widget.data.obstacleType!.obsTypeName,
                     style: TextStyle(
                       fontSize: userRole == 100 ? 16 : 15,
                       color: inputColor,

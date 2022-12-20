@@ -13,6 +13,7 @@ class CardListView extends StatefulWidget {
   final Function? topCardStatus;
   final String? screens;
   final dynamic cutiStatus;
+  final dynamic passData;
 
   const CardListView({
     Key? key,
@@ -20,6 +21,7 @@ class CardListView extends StatefulWidget {
     this.topCardStatus,
     this.screens,
     this.cutiStatus,
+    this.passData,
   }) : super(key: key);
 
   @override
@@ -33,11 +35,11 @@ class _CardListViewState extends State<CardListView> {
     if (widget.type == "Cuti") {
       list = CutiApi.getCutiData(context);
     } else if (widget.type == "Laluan") {
-      list = LaluanApi.getLaluanData(context);
+      list = LaluanApi.getDataLaluan();
     } else if (widget.type == "Senarai Jalan") {
       list = JalanApi.getJalanData(context);
     } else if (widget.type == "Laporan") {
-      list = ReportsApi.getReportsData(context);
+      list = ReportsApi.getDataLaporan(widget.passData.scMainId);
     } else {
       list = null;
     }
@@ -89,6 +91,7 @@ class _CardListViewState extends State<CardListView> {
                     data: dataFuture[index],
                     type: widget.type,
                     listIndex: index,
+                    passData: widget.passData,
                   );
                 },
               );
