@@ -58,7 +58,7 @@ class _ReportSubmitButtonState extends State<ReportSubmitButton> {
                     barrierDismissible: false,
                     context: context,
                     builder: (BuildContext context) {
-                      return showLottieAlertDialog(context, _textBuilder(),
+                      return showLottieAlertDialog(context, _textBuilder(), "7",
                           widget.clearForm!, widget.passData);
                     });
               }

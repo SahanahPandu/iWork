@@ -60,6 +60,7 @@ class _TimeLogRippleButtonState extends State<TimeLogRippleButton> {
                         return showLottieAlertDialog(
                           context,
                           _textBuilder(),
+                          "",
                           null,
                           null,
                         );
@@ -88,6 +89,7 @@ class _TimeLogRippleButtonState extends State<TimeLogRippleButton> {
                         return showLottieAlertDialog(
                           context,
                           _textBuilder(),
+                          "",
                           null,
                           null,
                         );

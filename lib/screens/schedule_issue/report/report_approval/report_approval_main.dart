@@ -248,6 +248,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
                           return showLottieAlertDialog(
                             context,
                             _textBuilder(),
+                            "",
                             null,
                             null,
                           );

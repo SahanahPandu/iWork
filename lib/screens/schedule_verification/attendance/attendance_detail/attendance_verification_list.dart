@@ -241,6 +241,7 @@ class _AttendanceVerificationListState
                           return showLottieAlertDialog(
                             context,
                             _textBuilder(),
+                            "",
                             null,
                             null,
                           );

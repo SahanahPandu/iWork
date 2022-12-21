@@ -323,6 +323,7 @@ class _ScheduleShiftMainState extends State<ScheduleShiftMain> {
                                 return showLottieAlertDialog(
                                   context,
                                   _textBuilder(),
+                                  "",
                                   null,
                                   null,
                                 );

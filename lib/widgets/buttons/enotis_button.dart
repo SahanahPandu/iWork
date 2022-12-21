@@ -79,6 +79,7 @@ class _ENotisButtonState extends State<ENotisButton>
                     return showLottieAlertDialog(
                       context,
                       _textBuilder(),
+                      "",
                       null,
                       null,
                     );

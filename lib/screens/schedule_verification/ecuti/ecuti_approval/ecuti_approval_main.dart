@@ -221,6 +221,7 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
                           return showLottieAlertDialog(
                             context,
                             _textBuilder(),
+                            "",
                             null,
                             null,
                           );

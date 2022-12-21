@@ -3246,6 +3246,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                 return showLottieAlertDialog(
                   context,
                   _textBuilder(),
+                  "",
                   null,
                   null,
                 );

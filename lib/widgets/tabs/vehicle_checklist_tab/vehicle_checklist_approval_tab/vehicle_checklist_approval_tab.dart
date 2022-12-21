@@ -199,6 +199,7 @@ class _VehicleChecklistApprovalTabState
                           return showLottieAlertDialog(
                             context,
                             _textBuilder(),
+                            "",
                             null,
                             null,
                           );

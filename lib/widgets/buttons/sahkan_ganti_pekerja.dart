@@ -45,6 +45,7 @@ class _SahkanGantiPekerjaButtonState extends State<SahkanGantiPekerjaButton> {
                 return showLottieAlertDialog(
                   context,
                   successText(),
+                  "",
                   null,
                   null,
                 );

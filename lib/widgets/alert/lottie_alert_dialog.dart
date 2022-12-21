@@ -11,8 +11,8 @@ import '../../utils/device/sizes.dart';
 import '../../utils/icon/custom_icon.dart';
 import '../tabs/tabs.dart';
 
-showLottieAlertDialog(
-    BuildContext context, contents, Function? clearForm, dynamic passData) {
+showLottieAlertDialog(BuildContext context, contents, String screen,
+    Function? clearForm, dynamic passData) {
   return AlertDialog(
     title: Align(
       alignment: Alignment.topRight,
@@ -27,7 +27,7 @@ showLottieAlertDialog(
                 PageTransition(
                     type: PageTransitionType.fade,
                     child: Tabs(
-                      screen: "7",
+                      screen: screen,
                       passData: passData,
                       title: reports,
                     )));

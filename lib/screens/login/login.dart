@@ -175,6 +175,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     return showLottieAlertDialog(
                       context,
                       _textBuilder(),
+                      "",
                       null,
                       null,
                     );
