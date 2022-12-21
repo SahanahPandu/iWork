@@ -1,19 +1,42 @@
+import 'package:json_annotation/json_annotation.dart';
+
+@JsonSerializable()
 class UserDetail {
+  int id;
+  String name;
+
+  @JsonKey(defaultValue: null)
+  String? loginId;
+
+  @JsonKey(defaultValue: null)
+  String? profilePic;
+
+  @JsonKey(defaultValue: null)
+  dynamic email;
+
+  @JsonKey(defaultValue: null)
+  int? supervisorId;
+
+  @JsonKey(defaultValue: null)
+  int? stateId;
+
+  @JsonKey(defaultValue: null)
+  int? stateGeneralId;
+
+  @JsonKey(defaultValue: null)
+  UserDetail? svUser;
+
   UserDetail({
-    this.id = 0,
-    this.name = '',
+    required this.id,
+    required this.name,
     this.loginId = '',
     this.profilePic = '',
     this.email = '',
     this.supervisorId = 0,
+    this.stateId,
+    this.stateGeneralId,
+    this.svUser,
   });
-
-  int id;
-  String name;
-  String loginId;
-  String profilePic;
-  dynamic email;
-  int supervisorId;
 
   factory UserDetail.fromJson(Map<String, dynamic> json) => UserDetail(
         id: json["id"],
@@ -22,6 +45,11 @@ class UserDetail {
         profilePic: json["profile_pic"],
         email: json["email"],
         supervisorId: json["supervisor_id"],
+        stateId: json['state_id'],
+        stateGeneralId: json['state_general_id'],
+        svUser: json["supervisor_user"] != null
+            ? UserDetail?.fromJson(json["supervisor_user"])
+            : null,
       );
 
   Map<String, dynamic> toJson() => {

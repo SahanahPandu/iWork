@@ -34,7 +34,7 @@ class LoginApi {
                     "Successfully Login!") {
               Auth.setUserInfo(decodeUserData);
               return 'ok';
-            } else if (decodeUserData.accessToken == null) {
+            } else if (decodeUserData.accessToken == "") {
               return 'token_ng';
             }
           } else {

@@ -1,7 +1,14 @@
+import 'package:json_annotation/json_annotation.dart';
+
+@JsonSerializable()
 class ObstacleTypes {
   final int id;
   final String name;
+
+  @JsonKey(defaultValue: null)
   final dynamic code;
+
+  @JsonKey(defaultValue: null)
   final dynamic category;
   final int? isAKBK;
 

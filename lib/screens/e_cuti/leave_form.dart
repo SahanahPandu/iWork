@@ -1,7 +1,10 @@
-import 'dart:async';
+// ignore_for_file: avoid_print
 
+import 'dart:async';
+import 'package:dio/dio.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:http_parser/http_parser.dart';
 import 'package:intl/intl.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:keyboard_visibility_pro/keyboard_visibility_pro.dart';
@@ -12,6 +15,7 @@ import '../../config/dimen.dart';
 import '../../config/font.dart';
 import '../../config/palette.dart';
 import '../../models/cuti.dart';
+import '../../models/ecuti/ecuti_details.dart';
 import '../../providers/jenis_cuti_api.dart';
 import '../../utils/device/orientations.dart';
 import '../../utils/device/sizes.dart';
@@ -21,7 +25,7 @@ import '../../widgets/buttons/upload_files_button.dart';
 
 class LeaveForm extends StatefulWidget {
   final String screen;
-  final Cuti? data;
+  final EcutiDetails? data;
 
   const LeaveForm({Key? key, required this.screen, this.data})
       : super(key: key);
@@ -50,12 +54,16 @@ class _LeaveFormState extends State<LeaveForm> {
   bool _lampiranDetailsVisibility = false;
   double spaceHeight = 24;
   String jenisCuti = "";
+  late int idJenisCuti = 0;
+  String tarikhMula = "";
+  String tarikhTamat = "";
   bool buttonVisibility = true;
   int iconCondition = 1;
   int borderCondition = 1;
   String formTitle = "Lengkapkan maklumat di bawah:";
   Color svRemarksBorder = enabledBorderWithText;
   String lampiran = "";
+  String pathLampiran = "";
   String leaveDate = "";
   int totalJenisCuti = 0;
 
@@ -66,26 +74,28 @@ class _LeaveFormState extends State<LeaveForm> {
       setState(() {
         formTitle = "Butiran permohonan E-Cuti: ";
         iconCondition = 2; //to disable click
-        _statusPenyelia.text = widget.data!.status;
+        _statusPenyelia.text = widget.data!.status!.name;
         textFieldFillColor = textFormFieldFillColor;
 
         //control expandable container
         //if from Status = 2 (Diluluskan Tanpa Lampiran) - only the container will default expand
-        if (widget.data?.idStatus != 2) {
+        if (widget.data?.status!.code != "EDTL") {
           _expandController = ExpandableController(initialExpanded: false);
-        } else if (widget.data?.idStatus == 2) {
+        } else if (widget.data?.status!.code == "EDTL") {
           _expandController = ExpandableController(initialExpanded: true);
         }
         ////////////////////////////////////////////////////////////////////
 
         //to control Lampiran button / details and also button visibility
-        int status = widget.data!.idStatus;
+        String status = widget.data!.status!.code;
 
-        if (status == 2) {
+        if (status == "EDTL") {
           //Diluluskan tanpa lampiran
           buttonVisibility = true;
         } else {
-          if ((status == 3 || status == 4) && widget.data!.lampiran == "") {
+          if ((status == "EDL" || status == "ETLK") &&
+              (widget.data!.uploadFile?.fileName == "" &&
+                  widget.data!.uploadFile?.fileName == null)) {
             //if status = 3 (Diluluskan) or status = 4 (Ditolak) and lampiran is null
             //hide the lampiran section
             buttonVisibility = false;
@@ -102,26 +112,36 @@ class _LeaveFormState extends State<LeaveForm> {
         ///////////////////////////////////////////////////////////////////
 
         // pass value from leave list
-        widget.data!.jenisCuti != ""
-            ? _jenisCuti.text = widget.data!.jenisCuti
+        widget.data!.leaveType?.name != ""
+            ? _jenisCuti.text = widget.data!.leaveType!.name
             : null;
 
-        widget.data!.tarikhMula != ""
-            ? _tarikhMula.text = widget.data!.tarikhMula
+        //load date data
+        String startDate = "";
+        String endDate = "";
+
+        if (widget.data?.dateFrom != "") {
+          String theConvStartDate = DateFormat("dd/MM/yyyy")
+              .format(DateTime.parse(widget.data!.dateFrom));
+          tarikhMula = theConvStartDate;
+        }
+
+        if (widget.data?.dateTo != "") {
+          String theConvEndDate = DateFormat("dd/MM/yyyy")
+              .format(DateTime.parse(widget.data!.dateTo));
+          tarikhTamat = theConvEndDate;
+        }
+
+        widget.data!.uploadFile?.fileName != ""
+            ? lampiran = widget.data!.uploadFile!.fileName
             : null;
 
-        widget.data!.tarikhTamat != ""
-            ? _tarikhTamat.text = widget.data!.tarikhTamat
+        widget.data!.remarks != ""
+            ? _catatan.text = widget.data!.remarks!
             : null;
 
-        widget.data!.lampiran != "" ? lampiran = widget.data!.lampiran : null;
-
-        widget.data!.catatan != ""
-            ? _catatan.text = widget.data!.catatan
-            : null;
-
-        if (widget.data!.maklumbalasSV != "") {
-          _maklumbalasPenyelia.text = widget.data!.maklumbalasSV;
+        if (widget.data!.remarksBySv != "") {
+          _maklumbalasPenyelia.text = widget.data!.remarksBySv!;
         } else {
           _maklumbalasPenyelia.text = "-";
           svRemarksBorder = enabledBorderWithoutText;
@@ -142,6 +162,59 @@ class _LeaveFormState extends State<LeaveForm> {
     });
   }
 
+  postNewLeave() async {
+    //check attachment
+    String? attachment;
+    String? attachmentPath;
+
+    if (lampiran != "") {
+      attachment = lampiran;
+    } else {
+      attachment = null;
+    }
+
+    if (pathLampiran != "") {
+      attachmentPath = pathLampiran;
+    } else {
+      attachmentPath = null;
+    }
+
+    //post data to the database
+    FormData formData = FormData.fromMap({
+      "leave_type_id": idJenisCuti,
+      "date_leave_from": tarikhMula,
+      "date_leave_to": tarikhTamat,
+      "leave_attachment": attachment != null
+          ? await MultipartFile.fromFile(
+              attachmentPath!,
+              filename: attachment,
+              contentType: MediaType(
+                "image",
+                "png,jpeg",
+              ),
+            )
+          : attachment,
+      "remarks": _catatan.text,
+    });
+
+    try {
+      Response response = await Dio().post(
+        'http://10.0.2.2:8000/api/attendance/ecuti/new',
+        data: formData,
+        options: Options(headers: {
+          "authorization": "Bearer ${userInfo[1]}",
+          "Content-Type": "multipart/form-data",
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        clearForm();
+      }
+    } on DioError catch (e) {
+      print(e);
+    }
+  }
+
   clearForm() {
     _formKey.currentState!.reset();
     _tarikhMula.clear();
@@ -151,13 +224,15 @@ class _LeaveFormState extends State<LeaveForm> {
     _catatan.clear();
     _jenisCuti.clear();
     lampiran = "";
+    pathLampiran = "";
     setState(() {});
   }
 
-  updateLampiran(String fileName) {
-    if (fileName != "") {
+  updateLampiran(String fileName, String filePath) {
+    if (fileName != "" && filePath != "") {
       setState(() {
         lampiran = fileName;
+        pathLampiran = filePath;
       });
     }
   }
@@ -190,7 +265,8 @@ class _LeaveFormState extends State<LeaveForm> {
         ],
         child: GestureDetector(
           onTap: () {
-            if (widget.data?.idStatus == null || widget.data?.idStatus == 2) {
+            if (widget.data?.status!.code == null ||
+                widget.data?.status!.code == "EDTL") {
               // only applicable for new form or leave status 2 - Diluluskan Tanpa Lampiran
               setState(() {
                 buttonVisibility = true;
@@ -198,7 +274,8 @@ class _LeaveFormState extends State<LeaveForm> {
             }
           },
           onVerticalDragDown: (details) {
-            if (widget.data?.idStatus == null || widget.data?.idStatus == 2) {
+            if (widget.data?.status!.code == null ||
+                widget.data?.status!.code == "EDTL") {
               setState(() {
                 buttonVisibility = true;
               });
@@ -322,8 +399,9 @@ class _LeaveFormState extends State<LeaveForm> {
                             SizedBox(
                               height: spaceHeight,
                             ),
-                            //Tarikh Mula & Tarikh Tamat
 
+                            //Tarikh Mula & Tarikh Tamat
+                            //leave date is use to pass to lotte prompt
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -357,6 +435,8 @@ class _LeaveFormState extends State<LeaveForm> {
                                           _tarikhMula.text =
                                               DateFormat("dd/MM/yyyy")
                                                   .format(getStartDate);
+                                          tarikhMula = DateFormat("yyyy-MM-dd")
+                                              .format(getStartDate);
                                           leaveDate = actualDate;
                                         });
                                       }
@@ -482,6 +562,8 @@ class _LeaveFormState extends State<LeaveForm> {
                                           _tarikhTamat.text =
                                               DateFormat("dd/MM/yyyy")
                                                   .format(getEndDate);
+                                          tarikhTamat = DateFormat("yyyy-MM-dd")
+                                              .format(getEndDate);
                                           leaveDate = actualDate;
                                         });
                                       }
@@ -614,6 +696,7 @@ class _LeaveFormState extends State<LeaveForm> {
                             child: EcutiSubmitButton(
                               formKey: _formKey,
                               data: leaveDate,
+                              postData: postNewLeave,
                               clearForm: clearForm,
                             ),
                           ),
@@ -910,8 +993,8 @@ class _LeaveFormState extends State<LeaveForm> {
                   indent: 25,
                   endIndent: 25,
                 ),
-                FutureBuilder<List>(
-                  future: JenisCutiApi.getJenisCutiData(context),
+                FutureBuilder<List<dynamic>?>(
+                  future: JenisCutiApi.getDataJenisCuti(),
                   builder: (context, snapshot) {
                     final dataFuture = snapshot.data;
 
@@ -927,43 +1010,62 @@ class _LeaveFormState extends State<LeaveForm> {
                             child: Text("Some error occured!"),
                           );
                         } else {
-                          return Expanded(
-                            child: Container(
-                              margin: const EdgeInsets.symmetric(
-                                horizontal: 10,
+                          if (dataFuture!.isEmpty) {
+                            return Center(
+                              child: Container(
+                                margin: const EdgeInsets.all(20),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Icon(CustomIcon.exclamation,
+                                        color: Colors.orange, size: 14),
+                                    const SizedBox(width: 10),
+                                    Text("Tiada senarai jenis cuti dijumpai",
+                                        style: TextStyle(color: grey500)),
+                                  ],
+                                ),
                               ),
-                              padding: const EdgeInsets.all(6),
-                              child: ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: dataFuture!.length,
-                                itemBuilder: (context, index) {
-                                  return GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        _jenisCuti.text =
-                                            dataFuture[index].jenisCuti;
+                            );
+                          } else {
+                            return Expanded(
+                              child: Container(
+                                margin: const EdgeInsets.symmetric(
+                                  horizontal: 10,
+                                ),
+                                padding: const EdgeInsets.all(6),
+                                child: ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: dataFuture.length,
+                                  itemBuilder: (context, index) {
+                                    return GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          _jenisCuti.text =
+                                              dataFuture[index].name;
+                                          idJenisCuti = dataFuture[index].id;
 
-                                        Navigator.pop(context);
-                                      });
-                                    },
-                                    child: Container(
-                                      margin: const EdgeInsets.symmetric(
-                                          vertical: 5),
-                                      padding: const EdgeInsets.all(6),
-                                      child: Text(
-                                        dataFuture[index].jenisCuti,
-                                        style: const TextStyle(
-                                          color: Color(0xff2B2B2B),
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w400,
+                                          Navigator.pop(context);
+                                        });
+                                      },
+                                      child: Container(
+                                        margin: const EdgeInsets.symmetric(
+                                            vertical: 5),
+                                        padding: const EdgeInsets.all(6),
+                                        child: Text(
+                                          dataFuture[index].name,
+                                          style: const TextStyle(
+                                            color: Color(0xff2B2B2B),
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w400,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  );
-                                },
+                                    );
+                                  },
+                                ),
                               ),
-                            ),
-                          );
+                            );
+                          }
                         }
                     }
                   },

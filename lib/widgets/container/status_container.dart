@@ -49,22 +49,22 @@ class _StatusContainerState extends State<StatusContainer> {
         boxColor = redStatusBox;
       }
     } else if (widget.type == "Cuti") {
-      if (widget.statusId == 1) {
+      if (widget.statusId == "EBC") {
         //Dalam Proses (PRA)
         //Baru (SV)
         // textColor = blueStatusText;
         // boxColor = blueStatusBox;
         textColor = orangeStatusText;
         boxColor = orangeStatusBox;
-      } else if (widget.statusId == 2) {
+      } else if (widget.statusId == "EDTL") {
         //Diluluskan Tanpa Lampiran
         textColor = orangeStatusText;
         boxColor = orangeStatusBox;
-      } else if (widget.statusId == 3) {
+      } else if (widget.statusId == "EDL") {
         //Diluluskan
         textColor = greenStatusText;
         boxColor = greenStatusBox;
-      } else if (widget.statusId == 4) {
+      } else if (widget.statusId == "ETLK") {
         //Tidak Diluluskan
         textColor = redStatusText;
         boxColor = redStatusBox;

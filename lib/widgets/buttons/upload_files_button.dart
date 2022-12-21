@@ -7,7 +7,7 @@ import '../../utils/media/file_picker.dart';
 
 class UploadFilesButton extends StatefulWidget {
   String lampiranName;
-  Function(String)? updateLampiran;
+  Function(String, String)? updateLampiran;
 
   UploadFilesButton({
     Key? key,
@@ -29,8 +29,7 @@ class _UploadFilesButtonState extends State<UploadFilesButton> {
           height: 42,
           child: ElevatedButton(
             onPressed: () async {
-              String getFileName = await FilePickerClass.getFilePathName();
-              widget.updateLampiran!(getFileName);
+              await FilePickerClass.getFilePathName(widget.updateLampiran);
             },
             style: ButtonStyle(
                 elevation: MaterialStateProperty.all(0),

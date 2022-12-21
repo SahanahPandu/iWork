@@ -1,7 +1,7 @@
-import './ecuti_details.dart';
+import 'package:eswm/models/ecuti/ecuti_paging.dart';
 
 class EcutiData {
-  final List<EcutiDetails?>? data;
+  final EcutiPaging? data;
   final String status;
   final String? message;
 
@@ -12,10 +12,7 @@ class EcutiData {
   });
 
   factory EcutiData.fromJson(json) => EcutiData(
-        data: json['data']['leave']
-                .map<EcutiDetails>(EcutiDetails.fromJson)
-                .toList() ??
-            [],
+        data: EcutiPaging.fromJson(json['data']),
         status: json['status'],
         message: json['message'],
       );

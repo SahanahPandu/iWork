@@ -1,21 +1,56 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 //import files
-import '../../../../models/cuti.dart';
 import '../../../../widgets/container/status_container.dart';
 import '../../../config/font.dart';
 import '../../../utils/icon/custom_icon.dart';
+import '../../../models/ecuti/ecuti_details.dart';
 
 class PraECutiListDetails extends StatefulWidget {
-  final Cuti data;
+  final EcutiDetails data;
 
-  const PraECutiListDetails({Key? key, required this.data}) : super(key: key);
+  const PraECutiListDetails({
+    Key? key,
+    required this.data,
+  }) : super(key: key);
 
   @override
   State<PraECutiListDetails> createState() => _PraECutiListDetailsState();
 }
 
 class _PraECutiListDetailsState extends State<PraECutiListDetails> {
+  String tarikhMula = "";
+  String tarikhTamat = "";
+
+  loadData() {
+    String startDate = "";
+    String endDate = "";
+
+    if (widget.data.dateFrom != "") {
+      String theConvStartDate =
+          DateFormat("dd/MM/yyyy").format(DateTime.parse(widget.data.dateFrom));
+      startDate = theConvStartDate;
+    }
+
+    if (widget.data.dateTo != "") {
+      String theConvEndDate =
+          DateFormat("dd/MM/yyyy").format(DateTime.parse(widget.data.dateTo));
+      endDate = theConvEndDate;
+    }
+
+    setState(() {
+      tarikhMula = startDate;
+      tarikhTamat = endDate;
+    });
+  }
+
+  @override
+  void initState() {
+    loadData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,7 +65,7 @@ class _PraECutiListDetailsState extends State<PraECutiListDetails> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
-                  widget.data.jenisCuti,
+                  widget.data.leaveType!.name,
                   style: const TextStyle(
                     fontSize: 16,
                     color: Color(0xff2B2B2B),
@@ -43,8 +78,8 @@ class _PraECutiListDetailsState extends State<PraECutiListDetails> {
               ),
               StatusContainer(
                 type: "Cuti",
-                status: widget.data.status,
-                statusId: widget.data.idStatus,
+                status: widget.data.status!.name,
+                statusId: widget.data.status!.code,
                 fontWeight: statusFontWeight,
               ),
             ],
@@ -57,9 +92,9 @@ class _PraECutiListDetailsState extends State<PraECutiListDetails> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Text(
-              (widget.data.tarikhMula != widget.data.tarikhTamat)
-                  ? "${widget.data.tarikhMula} - ${widget.data.tarikhTamat}"
-                  : widget.data.tarikhMula,
+              (tarikhMula != tarikhTamat)
+                  ? "$tarikhMula - $tarikhTamat"
+                  : tarikhMula,
               style: const TextStyle(
                 fontSize: 15,
                 color: Color(0xff969696),
@@ -69,14 +104,16 @@ class _PraECutiListDetailsState extends State<PraECutiListDetails> {
           ),
 
           //for status Diluluskan tanpa Lampiran only
-          if (widget.data.lampiran == "" &&
-              (widget.data.idJenisCuti == 1 || widget.data.idJenisCuti == 2))
+          if ((widget.data.uploadFile?.fileName == "" ||
+                  widget.data.uploadFile?.fileName == null) &&
+              widget.data.leaveType?.id == 2)
             const SizedBox(
               height: 24,
             ),
           //for status Diluluskan tanpa Lampiran only
-          if (widget.data.lampiran == "" &&
-              (widget.data.idJenisCuti == 1 || widget.data.idJenisCuti == 2))
+          if ((widget.data.uploadFile?.fileName == "" ||
+                  widget.data.uploadFile?.fileName == null) &&
+              widget.data.leaveType?.id == 2)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Row(children: const [

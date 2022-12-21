@@ -1,5 +1,8 @@
+import 'package:json_annotation/json_annotation.dart';
+import 'package:eswm/models/ecuti/leave_types.dart';
 import 'package:eswm/models/report/obstacle_types.dart';
 
+@JsonSerializable()
 class OptionDetails {
   final dynamic generalStatus;
   final dynamic reportStatus;
@@ -10,7 +13,15 @@ class OptionDetails {
   final dynamic sahStatus;
   final dynamic workerSchedule;
   final dynamic userTypes;
-  final dynamic leaveTypes;
+
+  @JsonKey(
+    defaultValue: [],
+  )
+  final List<LeaveTypes?>? leaveTypes;
+
+  @JsonKey(
+    defaultValue: [],
+  )
   final List<ObstacleTypes?>? obtacleTypes;
 
   OptionDetails({
@@ -37,9 +48,13 @@ class OptionDetails {
         sahStatus: json['sah_status'],
         workerSchedule: json['worker_schedule'],
         userTypes: json['user_types'],
-        leaveTypes: json['leave_types'],
-        obtacleTypes: json['obstacle_types']
-            .map<ObstacleTypes>(ObstacleTypes.fromJson)
-            .toList(),
+        leaveTypes: json['leave_types'] != null
+            ? json['leave_types'].map<LeaveTypes>(LeaveTypes.fromJson).toList()
+            : json['leave_types'],
+        obtacleTypes: json['obstacle_types'] != null
+            ? json['obstacle_types']
+                .map<ObstacleTypes>(ObstacleTypes.fromJson)
+                .toList()
+            : json['obstacle_types'],
       );
 }

@@ -33,7 +33,7 @@ class _CardListViewState extends State<CardListView> {
     Future<List<dynamic>>? list;
 
     if (widget.type == "Cuti") {
-      list = CutiApi.getCutiData(context);
+      list = CutiApi.getDataEcuti();
     } else if (widget.type == "Laluan") {
       list = LaluanApi.getDataLaluan();
     } else if (widget.type == "Senarai Jalan") {
@@ -69,7 +69,7 @@ class _CardListViewState extends State<CardListView> {
               //Filtering based on Cuti Status (if any)
               if (widget.type == "Cuti" && widget.cutiStatus != null) {
                 dataFuture!.removeWhere(
-                    (item) => !widget.cutiStatus.contains(item.idStatus));
+                    (item) => !widget.cutiStatus.contains(item.status.code));
               }
               //Filtering based on issued laluan cards
               if (widget.type == "Laluan" && widget.screens == "isu") {

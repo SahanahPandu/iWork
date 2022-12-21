@@ -66,11 +66,11 @@ class _LeaveListState extends State<LeaveList> {
                     dynamic status;
 
                     index == 1
-                        ? status = [1, 2]
+                        ? status = ["EBC", "EDP"]
                         : index == 2
-                            ? status = [3]
+                            ? status = ["EDL"]
                             : index == 3
-                                ? status = [4]
+                                ? status = ["ETLK"]
                                 : status = null;
 
                     setState(() {

@@ -1,24 +1,30 @@
 import 'package:json_annotation/json_annotation.dart';
+import '../user/user_data.dart';
 
 @JsonSerializable()
 class EcutiDetails {
   final int id;
 
-  //check the key is exist or the data is null
-  //default value will be null
   @JsonKey(defaultValue: null)
-  final dynamic userId;
+  final UserData? userId;
 
   final String dateFrom;
   final String dateTo;
+
+  @JsonKey(defaultValue: "")
   final String? remarks;
-  final String statusCode;
-  final int? uploadFileId;
-  final int leaveTypeId;
-  final String? remarksBySv;
-  final LeaveType? leaveType;
+
+  @JsonKey(defaultValue: null)
   final Status? status;
+
+  @JsonKey(defaultValue: null)
   final UploadFile? uploadFile;
+
+  @JsonKey(defaultValue: null)
+  final LeaveType? leaveType;
+
+  @JsonKey(defaultValue: "")
+  final String? remarksBySv;
 
   const EcutiDetails({
     required this.id,
@@ -26,32 +32,29 @@ class EcutiDetails {
     required this.dateFrom,
     required this.dateTo,
     this.remarks,
-    required this.statusCode,
-    this.uploadFileId,
-    required this.leaveTypeId,
-    this.remarksBySv,
-    this.leaveType,
     this.status,
     this.uploadFile,
+    this.leaveType,
+    this.remarksBySv,
   });
 
   factory EcutiDetails.fromJson(json) => EcutiDetails(
         id: json['id'],
-        userId: json['user_id'],
+        userId:
+            json['user_id'] != null ? UserData.fromJson(json['user_id']) : null,
         dateFrom: json['date_leave_from'],
         dateTo: json['date_leave_to'],
-        remarks: json['remarks'] ?? "",
-        statusCode: json['status_code'],
-        uploadFileId: json['upload_file_id'] ?? 0,
-        leaveTypeId: json['leave_type_id'],
-        remarksBySv: json['remarks_by_sv'] ?? "",
-        leaveType: json['leave_type'] != null
-            ? LeaveType.fromJson(json['leave_type'])
+        remarks: json['remarks'],
+        status: json['status_code'] != null
+            ? Status.fromJson(json['status_code'])
             : null,
-        status: json['status'] != null ? Status.fromJson(json['status']) : null,
-        uploadFile: json['upload_file'] != null
-            ? UploadFile.fromJson(json['upload_file'])
+        uploadFile: json['upload_file_id'] != null
+            ? UploadFile.fromJson(json['upload_file_id'])
             : null,
+        leaveType: json['leave_type_id'] != null
+            ? LeaveType.fromJson(json['leave_type_id'])
+            : null,
+        remarksBySv: json['remarks_by_sv'],
       );
 }
 

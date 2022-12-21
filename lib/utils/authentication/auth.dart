@@ -44,15 +44,15 @@ class Auth {
     userInfo.clear();
     if (Devices().isPhone()) {
       userInfo = [
-        getUserData.deviceInfo1,
+        getUserData.deviceInfo1 ?? "",
         getUserData.accessToken.toString(),
-        getUserData.userDetail!.loginId,
-        getUserData.roles[0],
+        getUserData.userDetail!.loginId ?? "",
+        getUserData.roles![0],
         getUserData.userDetail!.name
       ];
     } else {
       userInfo = [
-        getUserData.deviceInfo1,
+        getUserData.deviceInfo1 ?? "",
         getUserData.accessToken.toString(),
         getUserData.vehicleNo.toString(),
         'COMP',

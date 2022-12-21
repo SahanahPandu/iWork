@@ -20,7 +20,6 @@ class HalanganApi {
 
   static Future<List<ObstacleTypes?>?>? getDataJenisHalangan() async {
     List<ObstacleTypes?>? filterData = [];
-    String getAccessToken = userInfo[1];
 
     try {
       Response response = await Dio().get(
@@ -29,7 +28,7 @@ class HalanganApi {
           'fields[]': 'obstacle_types',
         },
         options: Options(headers: {
-          'authorization': 'Bearer $getAccessToken',
+          'authorization': 'Bearer ${userInfo[1]}',
         }),
       );
 

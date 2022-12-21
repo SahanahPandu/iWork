@@ -10,10 +10,16 @@ import '../alert/snackbar.dart';
 class EcutiSubmitButton extends StatefulWidget {
   final GlobalKey<FormState>? formKey;
   final String? data;
+  final Function? postData;
   final Function? clearForm;
 
-  const EcutiSubmitButton({Key? key, this.formKey, this.data, this.clearForm})
-      : super(key: key);
+  const EcutiSubmitButton({
+    Key? key,
+    this.formKey,
+    this.data,
+    this.postData,
+    this.clearForm,
+  }) : super(key: key);
 
   @override
   State<EcutiSubmitButton> createState() => _EcutiSubmitButtonState();
@@ -45,7 +51,9 @@ class _EcutiSubmitButtonState extends State<EcutiSubmitButton> {
                   );
                 }).then((actionText) {
               if (actionText == submit) {
-                widget.clearForm!();
+                //post data to the database
+                widget.postData != null ? widget.postData!() : null;
+                // widget.clearForm!();
 
                 showDialog(
                     barrierDismissible: false,
@@ -54,6 +62,7 @@ class _EcutiSubmitButtonState extends State<EcutiSubmitButton> {
                       return showLottieAlertDialog(
                         context,
                         _textBuilder(),
+                        "8",
                         widget.clearForm!,
                         null,
                       );

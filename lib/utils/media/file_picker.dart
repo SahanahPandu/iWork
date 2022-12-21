@@ -1,7 +1,7 @@
 import 'package:file_picker/file_picker.dart';
 
 class FilePickerClass {
-  static getFilePathName() async {
+  static getFilePathName(updateLampiran) async {
     String fileName = "";
 
     FilePickerResult? files = await FilePicker.platform.pickFiles(
@@ -13,6 +13,8 @@ class FilePickerClass {
       PlatformFile file = files.files.first;
 
       fileName = file.name;
+
+      updateLampiran(fileName, file.path);
     }
 
     return fileName;
