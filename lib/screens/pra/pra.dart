@@ -141,7 +141,7 @@ class _PraState extends State<Pra> {
             radius: 20,
             child: const CircleAvatar(
               backgroundImage: NetworkImage(
-                  "https://www.fortisconstruction.com/images/uploads/people/_small-grid/arnel_cabais_headshot.jpg"),
+                  "https://www.mnp.ca/-/media/foundation/integrations/personnel/2020/12/16/13/57/personnel-image-4483.jpg?h=800&w=600&hash=9D5E5FCBEE00EB562DCD8AC8FDA8433D"),
               radius: 18,
             ),
           ),
@@ -195,7 +195,7 @@ class _PraState extends State<Pra> {
                   radius: 20,
                   child: const CircleAvatar(
                     backgroundImage: NetworkImage(
-                        "https://www.fortisconstruction.com/images/uploads/people/_small-grid/arnel_cabais_headshot.jpg"),
+                        "https://www.mnp.ca/-/media/foundation/integrations/personnel/2020/12/16/13/57/personnel-image-4483.jpg?h=800&w=600&hash=9D5E5FCBEE00EB562DCD8AC8FDA8433D"),
                     radius: 18,
                   ),
                 ),
