@@ -109,7 +109,7 @@ class _PraState extends State<Pra> {
                 body: [
                   _scrollBody(),
                 ],
-                headerExpandedHeight: 0.48,
+                headerExpandedHeight: 0.43,
                 fixedTitle: _fixedTitle(context),
                 fixedTitleHeight: 60,
                 backgroundColor: transparent,
@@ -124,7 +124,7 @@ class _PraState extends State<Pra> {
   SafeArea _scrollBody() {
     return SafeArea(
         child: Container(
-      constraints: const BoxConstraints(minHeight: 310),
+      constraints: const BoxConstraints(minHeight: 400),
       color: white,
       padding: const EdgeInsets.all(15),
       child: const CardListView(type: "Laluan"),

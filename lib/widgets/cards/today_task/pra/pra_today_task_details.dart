@@ -85,7 +85,7 @@ class _PraTodayTaskDetailsState extends State<PraTodayTaskDetails> {
           height: 20,
         ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             TimeLogButton(
               key: widget.timeLogButtonKey,
@@ -93,12 +93,10 @@ class _PraTodayTaskDetailsState extends State<PraTodayTaskDetails> {
               timeOut: widget.timeOut,
               refresh: widget.refresh,
             ),
-            const SizedBox(
-              width: 15,
-            ),
-            const Expanded(
-              child: EcutiButton(),
-            ),
+            // const SizedBox(
+            //   width: 25,
+            // ),
+            const EcutiButton(),
           ],
         )
       ],
