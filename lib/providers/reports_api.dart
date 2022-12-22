@@ -26,7 +26,7 @@ class ReportsApi {
 
     try {
       var response = await Dio().get(
-        'http://10.0.2.2:8000/api/report/schedule',
+        'http://103.26.46.187:81/api/report/schedule',
         queryParameters: {
           'sc_main_id': scMainId,
         },
@@ -61,7 +61,7 @@ class ReportsApi {
 
     try {
       var response = await Dio().get(
-        "http://10.0.2.2:8000/api/report",
+        "http://103.26.46.187:81/api/report",
         queryParameters: {
           "report_id": reportId,
         },

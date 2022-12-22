@@ -26,7 +26,7 @@ class JenisCutiApi {
 
     try {
       Response response = await Dio().get(
-        'http://10.0.2.2:8000/api/options',
+        'http://103.26.46.187:81/api/options',
         queryParameters: {
           'fields[]': 'leave_types',
         },

@@ -1,22 +1,22 @@
 class HttpService {
   /// Base url
-  final Uri baseUrl = (Uri.parse('http://10.0.2.2:8000/'));
+  final Uri baseUrl = (Uri.parse('http://103.26.46.187:81/'));
 
   /// Login url
-  final Uri loginUrl = (Uri.parse('http://10.0.2.2:8000/api/login'));
+  final Uri loginUrl = (Uri.parse('http://103.26.46.187:81/api/login'));
 
   /// Logout url
-  final Uri logoutUrl = (Uri.parse('http://10.0.2.2:8000/api/logout'));
+  final Uri logoutUrl = (Uri.parse('http://103.26.46.187:81/api/logout'));
 
   /// Update Device Id url
   final Uri updateIDUrl =
-      (Uri.parse('http://10.0.2.2:8000/api/update_device_id'));
+      (Uri.parse('http://103.26.46.187:81/api/update_device_id'));
 
   /// Task Schedules
   /// Below is task schedule data extraction for Compactor Panel
   final Uri loadCompactorTaskUrl =
-      (Uri.parse('http://10.0.2.2:8000/api/task/vehicle/details'));
+      (Uri.parse('http://103.26.46.187:81/api/task/vehicle/details'));
 
   final loadCompactorTaskUrlTest =
-      'http://10.0.2.2:8000/api/task/vehicle/details';
+      'http://103.26.46.187:81/api/task/vehicle/details';
 }

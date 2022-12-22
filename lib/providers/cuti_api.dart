@@ -25,7 +25,7 @@ class CutiApi {
 
     try {
       Response response = await Dio().get(
-        'http://10.0.2.2:8000/api/attendance/ecuti',
+        'http://103.26.46.187:81/api/attendance/ecuti',
         options: Options(headers: {
           'authorization': 'Bearer ${userInfo[1]}',
         }),
