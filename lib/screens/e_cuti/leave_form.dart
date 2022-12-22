@@ -76,38 +76,42 @@ class _LeaveFormState extends State<LeaveForm> {
         _statusPenyelia.text = widget.data!.status!.name;
         textFieldFillColor = textFormFieldFillColor;
 
-        //control expandable container
-        //if from Status = 2 (Diluluskan Tanpa Lampiran) - only the container will default expand
-        if (widget.data?.status!.code != "EDTL") {
-          _expandController = ExpandableController(initialExpanded: false);
-        } else if (widget.data?.status!.code == "EDTL") {
-          _expandController = ExpandableController(initialExpanded: true);
-        }
         ////////////////////////////////////////////////////////////////////
 
         //to control Lampiran button / details and also button visibility
-        String status = widget.data!.status!.code;
+        int leaveType = widget.data!.leaveType!.id;
+        dynamic uploadFile = widget.data!.uploadFile;
 
-        if (status == "EDTL") {
-          //Diluluskan tanpa lampiran
+        //check leave type 1/2 , 1- Cuti Kecemasan , 2 - Cuti Sakit
+        if ((leaveType == 1 || leaveType == 2) &&
+            (uploadFile == null || uploadFile.fileName == "")) {
+          //Scenario , Cuti Kecemasan and Cuti Sakit without attachment
+          //show button to upload attachment and submit button
+
           buttonVisibility = true;
+          _lampiranVisibility = true;
+
+          //control expandable container
+          //if from Status = 2 (Diluluskan Tanpa Lampiran) - only the container will default expand
+          _expandController = ExpandableController(initialExpanded: true);
         } else {
-          if ((status == "EDL" || status == "ETLK") &&
-              (widget.data!.uploadFile?.fileName == "" &&
-                  widget.data!.uploadFile?.fileName == null)) {
-            //if status = 3 (Diluluskan) or status = 4 (Ditolak) and lampiran is null
-            //hide the lampiran section
-            buttonVisibility = false;
-            _lampiranVisibility = false;
-            _lampiranDetailsVisibility = false;
-          } else {
-            // if status = 1 or other than 2/3/4 and have lampiran
-            //hide the lampitan button and display lampiran details only
+          _expandController = ExpandableController(initialExpanded: false);
+          if (uploadFile != null && uploadFile.fileName != "") {
+            //Scenario, Leave form with Attachment
+            //to displau filename
             buttonVisibility = false;
             _lampiranVisibility = false;
             _lampiranDetailsVisibility = true;
+          } else {
+            //Scenario, Leave form without Attachment
+            // to removed lampiran section
+
+            buttonVisibility = false;
+            _lampiranVisibility = false;
+            _lampiranDetailsVisibility = false;
           }
         }
+
         ///////////////////////////////////////////////////////////////////
 
         // pass value from leave list
@@ -116,28 +120,34 @@ class _LeaveFormState extends State<LeaveForm> {
             : null;
 
         //load date data
-
+        //tarikh mula
         if (widget.data?.dateFrom != "") {
           String theConvStartDate = DateFormat("dd/MM/yyyy")
               .format(DateTime.parse(widget.data!.dateFrom));
-          tarikhMula = theConvStartDate;
+          _tarikhMula.text = theConvStartDate;
         }
 
+        //tarikh tamat
         if (widget.data?.dateTo != "") {
           String theConvEndDate = DateFormat("dd/MM/yyyy")
               .format(DateTime.parse(widget.data!.dateTo));
-          tarikhTamat = theConvEndDate;
+          _tarikhTamat.text = theConvEndDate;
         }
 
-        widget.data!.uploadFile?.fileName != ""
+        //attachment
+        (widget.data!.uploadFile?.fileName != "" &&
+                widget.data!.uploadFile?.fileName != null)
             ? lampiran = widget.data!.uploadFile!.fileName
             : null;
 
-        widget.data!.remarks != ""
+        //catatan
+        (widget.data!.remarks != "" && widget.data!.remarks != null)
             ? _catatan.text = widget.data!.remarks!
             : null;
 
-        if (widget.data!.remarksBySv != "") {
+        //catatan supervisor
+        if (widget.data!.remarksBySv != "" &&
+            widget.data!.remarksBySv != null) {
           _maklumbalasPenyelia.text = widget.data!.remarksBySv!;
         } else {
           _maklumbalasPenyelia.text = "-";
@@ -186,8 +196,8 @@ class _LeaveFormState extends State<LeaveForm> {
               attachmentPath!,
               filename: attachment,
               contentType: MediaType(
-                "image",
-                "png,jpeg",
+                "image,application",
+                "png,jpeg,pdf",
               ),
             )
           : attachment,
@@ -196,7 +206,7 @@ class _LeaveFormState extends State<LeaveForm> {
 
     try {
       Response response = await Dio().post(
-        'http://10.0.2.2:8000/api/attendance/ecuti/new',
+        'http://103.26.46.187:81/api/attendance/ecuti/new',
         data: formData,
         options: Options(headers: {
           "authorization": "Bearer ${userInfo[1]}",
@@ -714,9 +724,10 @@ class _LeaveFormState extends State<LeaveForm> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         //Lampiran
-        SizedBox(
-          height: spaceHeight,
-        ),
+        if (_lampiranVisibility)
+          SizedBox(
+            height: spaceHeight,
+          ),
         if (_lampiranVisibility)
           SizedBox(
             width: Sizes().screenWidth(context),
@@ -765,7 +776,7 @@ class _LeaveFormState extends State<LeaveForm> {
             controller: _catatan,
             minLines: 1,
             maxLines: 5,
-            enabled: true,
+            enabled: (widget.screen == "2") ? false : true,
             cursorColor: green,
             focusNode: _catatanFocusNode,
             onTap: () {
