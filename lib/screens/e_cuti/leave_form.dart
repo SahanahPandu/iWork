@@ -14,7 +14,6 @@ import '../../config/config.dart';
 import '../../config/dimen.dart';
 import '../../config/font.dart';
 import '../../config/palette.dart';
-import '../../models/cuti.dart';
 import '../../models/ecuti/ecuti_details.dart';
 import '../../providers/jenis_cuti_api.dart';
 import '../../utils/device/orientations.dart';
@@ -117,8 +116,6 @@ class _LeaveFormState extends State<LeaveForm> {
             : null;
 
         //load date data
-        String startDate = "";
-        String endDate = "";
 
         if (widget.data?.dateFrom != "") {
           String theConvStartDate = DateFormat("dd/MM/yyyy")
