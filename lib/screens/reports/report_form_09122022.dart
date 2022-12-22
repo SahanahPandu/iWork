@@ -147,7 +147,7 @@ class _ReportFormState extends State<ReportForm> {
 
     try {
       Response response = await Dio().post(
-        'http://10.0.2.2:8000/api/report/new',
+        'http://103.26.46.187:81/api/report/new',
         data: formData,
         options: Options(headers: {
           "authorization": "Bearer $getAccessToken",
