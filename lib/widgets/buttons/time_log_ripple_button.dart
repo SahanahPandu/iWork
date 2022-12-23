@@ -47,7 +47,7 @@ class _TimeLogRippleButtonState extends State<TimeLogRippleButton> {
               //get clock in time into db
               try {
                 Response response = await Dio().post(
-                  'http://103.26.46.187:81/api/attendance/start-work',
+                  '$theBase/attendance/start-work',
                   options: Options(headers: {
                     "authorization": "Bearer ${userInfo[1]}",
                   }),
@@ -76,7 +76,7 @@ class _TimeLogRippleButtonState extends State<TimeLogRippleButton> {
               //get clock out time into db
               try {
                 Response response = await Dio().post(
-                  'http://103.26.46.187:81/api/attendance/end-work',
+                  '$theBase/attendance/end-work',
                   options: Options(headers: {
                     "authorization": "Bearer ${userInfo[1]}",
                   }),

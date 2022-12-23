@@ -23,7 +23,7 @@ class HalanganApi {
 
     try {
       Response response = await Dio().get(
-        'http://103.26.46.187:81/api/options',
+        '$theBase/options',
         queryParameters: {
           'fields[]': 'obstacle_types',
         },

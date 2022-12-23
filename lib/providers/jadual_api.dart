@@ -16,7 +16,7 @@ class JadualApi {
     try {
       // ignore: unused_local_variable
       Response response = await Dio().get(
-        'http://103.26.46.187:81/api/schedule',
+        '$theBase/schedule',
         queryParameters: {'sc_main_id': id},
         options: Options(headers: {
           'authorization': 'Bearer $getAccessToken',
