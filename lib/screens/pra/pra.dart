@@ -109,7 +109,7 @@ class _PraState extends State<Pra> {
                 body: [
                   _scrollBody(),
                 ],
-                headerExpandedHeight: 0.43,
+                headerExpandedHeight: 0.48,
                 fixedTitle: _fixedTitle(context),
                 fixedTitleHeight: 60,
                 backgroundColor: transparent,

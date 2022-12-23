@@ -41,16 +41,6 @@ class _UploadFilesButtonState extends State<UploadFilesButton> {
                     (states) => const Color(0xff0033c2)),
                 backgroundColor:
                     MaterialStateProperty.all(const Color(0xff3269F8))),
-            // icon: (widget.textLampiran != "")
-            //     ? const Icon(
-            //         Icons.check_circle,
-            //         color: Colors.green,
-            //         size: 28,
-            //       )
-            //     : const Icon(
-            //         Icons.cloud_upload,
-            //         size: 28,
-            //       ),
             child: Text(
               (widget.lampiranName != "")
                   ? widget.lampiranName

@@ -724,10 +724,9 @@ class _LeaveFormState extends State<LeaveForm> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         //Lampiran
-        if (_lampiranVisibility)
-          SizedBox(
-            height: spaceHeight,
-          ),
+        SizedBox(
+          height: spaceHeight,
+        ),
         if (_lampiranVisibility)
           SizedBox(
             width: Sizes().screenWidth(context),

@@ -61,9 +61,10 @@ Future<dynamic>? showUploadImageOption(
                 ),
                 child: InkWell(
                   onTap: () {
-                    pickImage(ImageSource.camera).then((imageFile) {
+                    pickImage(ImageSource.camera).then((imageFile) async {
                       if (imageFile != null) {
                         Navigator.pop(context, imageFile);
+
                         getImageName!(imageFile);
                       }
                     });
