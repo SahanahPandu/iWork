@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 //import files
 import '../../config/palette.dart';
 import '../../config/string.dart';
+import '../../utils/calendar/date.dart';
 import '../../widgets/alert/alert_dialog.dart';
 import '../alert/lottie_alert_dialog.dart';
 import '../alert/snackbar.dart';
 
 class EcutiSubmitButton extends StatefulWidget {
   final GlobalKey<FormState>? formKey;
-  final String? data;
+  final dynamic data;
   final Function? postData;
   final Function? clearForm;
 
@@ -22,10 +23,56 @@ class EcutiSubmitButton extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<EcutiSubmitButton> createState() => _EcutiSubmitButtonState();
+  EcutiSubmitButtonState createState() => EcutiSubmitButtonState();
 }
 
-class _EcutiSubmitButtonState extends State<EcutiSubmitButton> {
+class EcutiSubmitButtonState extends State<EcutiSubmitButton> {
+  String theLeaveDate = "";
+
+  getTheLeaveDate(passingDate) {
+    String thefilterDate = "";
+    if (passingDate != null) {
+      var theDate = passingDate;
+
+      if (theDate['tarikhMula'] == theDate['tarikhTamat']) {
+        String convDate = "";
+
+        if (theDate['tarikhMula'] != null && theDate['tarikhMula'] != "") {
+          convDate =
+              Date.getTheDate(theDate['tarikhMula'], 'dd MMMM yyyy', 'ms');
+        }
+
+        thefilterDate = convDate;
+      } else {
+        String convDate1 = "";
+
+        String convDate2 = "";
+
+        if (theDate['tarikhMula'] != null && theDate['tarikhMula'] != "") {
+          convDate1 =
+              Date.getTheDate(theDate['tarikhMula'], 'dd MMMM yyyy', 'ms');
+        }
+
+        if (theDate['tarikhTamat'] != null && theDate['tarikhTamat'] != "") {
+          convDate2 =
+              Date.getTheDate(theDate['tarikhTamat'], 'dd MMMM yyyy', 'ms');
+        }
+
+        thefilterDate = "$convDate1 - $convDate2";
+      }
+    }
+
+    setState(() {
+      theLeaveDate = thefilterDate;
+    });
+  }
+
+  @override
+  void initState() {
+    getTheLeaveDate(widget.data);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -104,7 +151,7 @@ class _EcutiSubmitButtonState extends State<EcutiSubmitButton> {
               TextSpan(
                   text:
                       //" ${DateFormat("dd MMMM yyyy", 'ms').format(DateTime.now())}",
-                      widget.data,
+                      theLeaveDate,
                   style: TextStyle(
                       fontSize: 15, fontWeight: FontWeight.w400, color: green)),
               TextSpan(

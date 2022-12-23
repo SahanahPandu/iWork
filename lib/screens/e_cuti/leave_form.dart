@@ -35,6 +35,7 @@ class LeaveForm extends StatefulWidget {
 
 class _LeaveFormState extends State<LeaveForm> {
   // ignore: prefer_final_fields
+  final eCutiButttonKey = GlobalKey<EcutiSubmitButtonState>();
   ExpandableController _expandController =
       ExpandableController(initialExpanded: true);
   final _formKey = GlobalKey<FormState>();
@@ -63,7 +64,11 @@ class _LeaveFormState extends State<LeaveForm> {
   Color svRemarksBorder = enabledBorderWithText;
   String lampiran = "";
   String pathLampiran = "";
-  String leaveDate = "";
+  var theDate = <String, dynamic>{
+    "tarikhMula": "",
+    "tarikhTamat": "",
+  };
+
   int totalJenisCuti = 0;
 
   loadData() {
@@ -206,7 +211,7 @@ class _LeaveFormState extends State<LeaveForm> {
 
     try {
       Response response = await Dio().post(
-        'http://103.26.46.187:81/api/attendance/ecuti/new',
+        '$theBase/attendance/ecuti/new',
         data: formData,
         options: Options(headers: {
           "authorization": "Bearer ${userInfo[1]}",
@@ -419,33 +424,20 @@ class _LeaveFormState extends State<LeaveForm> {
                                       DateTime? getStartDate =
                                           await datePicker(context);
                                       if (getStartDate != null) {
-                                        String fullDate =
-                                            DateFormat("dd MMMM yyyy", "ms")
-                                                .format(getStartDate);
-                                        String actualDate = "";
-
-                                        if (leaveDate == "") {
-                                          //belum pilih tarikh akhir
-                                          actualDate = fullDate;
-                                        } else {
-                                          //dah pilih tarikh akhir
-                                          if (leaveDate == fullDate) {
-                                            // if Tarikh Mula sama dengan Tarikh Akhir
-                                            actualDate = leaveDate;
-                                          } else {
-                                            actualDate =
-                                                "$fullDate - $leaveDate";
-                                          }
-                                        }
-
                                         setState(() {
                                           _tarikhMula.text =
                                               DateFormat("dd/MM/yyyy")
                                                   .format(getStartDate);
                                           tarikhMula = DateFormat("yyyy-MM-dd")
                                               .format(getStartDate);
-                                          leaveDate = actualDate;
+
+                                          theDate = <String, dynamic>{
+                                            "tarikhMula": tarikhMula,
+                                            "tarikhTamat": tarikhTamat,
+                                          };
                                         });
+                                        eCutiButttonKey.currentState!
+                                            .getTheLeaveDate(theDate);
                                       }
                                     }
                                   },
@@ -544,35 +536,20 @@ class _LeaveFormState extends State<LeaveForm> {
                                       DateTime? getEndDate =
                                           await datePicker(context);
                                       if (getEndDate != null) {
-                                        String fullDate =
-                                            DateFormat("dd MMMM yyyy", "ms")
-                                                .format(getEndDate);
-                                        String actualDate = "";
-
-                                        if (leaveDate == "") {
-                                          //belum pilih Tarikh Mula
-                                          actualDate = fullDate;
-                                        } else {
-                                          //dah pilih tarikh mula
-
-                                          if (leaveDate == fullDate) {
-                                            //if Tarikh Mula sama dengan Tarikh Akhir
-
-                                            actualDate = leaveDate;
-                                          } else {
-                                            actualDate =
-                                                "$leaveDate - $fullDate";
-                                          }
-                                        }
-
                                         setState(() {
                                           _tarikhTamat.text =
                                               DateFormat("dd/MM/yyyy")
                                                   .format(getEndDate);
                                           tarikhTamat = DateFormat("yyyy-MM-dd")
                                               .format(getEndDate);
-                                          leaveDate = actualDate;
+
+                                          theDate = <String, dynamic>{
+                                            "tarikhMula": tarikhMula,
+                                            "tarikhTamat": tarikhTamat,
+                                          };
                                         });
+                                        eCutiButttonKey.currentState!
+                                            .getTheLeaveDate(theDate);
                                       }
                                     }
                                   },
@@ -701,8 +678,9 @@ class _LeaveFormState extends State<LeaveForm> {
                             width: Sizes().screenWidth(context) * 0.8,
                             height: Sizes().screenHeight(context) * 0.06,
                             child: EcutiSubmitButton(
+                              key: eCutiButttonKey,
                               formKey: _formKey,
-                              data: leaveDate,
+                              data: theDate,
                               postData: postNewLeave,
                               clearForm: clearForm,
                             ),
