@@ -17,8 +17,8 @@ class _AttendanceLogMainState extends State<AttendanceLogMain> {
 
   @override
   void initState() {
-    _loadAttendanceLogData = AttendanceLogApi.getAttendanceLogData(context);
-    // _loadAttendanceLogData = AttendanceLogApi.getDataAttendance()!;
+    // _loadAttendanceLogData = AttendanceLogApi.getAttendanceLogData(context);
+    _loadAttendanceLogData = AttendanceLogApi.getDataAttendance()!;
     super.initState();
   }
 

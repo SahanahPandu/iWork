@@ -1,8 +1,8 @@
-import 'package:eswm/models/attendance_log/attendance_log_details.dart';
+import 'package:eswm/models/attendance_log/attendance_logs_details.dart';
 
 class AttendanceLogPaging {
   final int currentPage;
-  final List<AttendanceLogDetails?> data;
+  final List<AttendanceLogsDetails?> data;
   final String? firstPageUrl;
   final int? from;
   final int? lastPage;
@@ -35,7 +35,7 @@ class AttendanceLogPaging {
         currentPage: json['current_page'],
         data: json['data'] != null
             ? json['data']
-                .map<AttendanceLogDetails>(AttendanceLogDetails.fromJson)
+                .map<AttendanceLogsDetails>(AttendanceLogsDetails.fromJson)
                 .toList()
             : [],
         firstPageUrl: json['first_page_url'],

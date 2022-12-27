@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:eswm/config/config.dart';
 import 'package:eswm/models/attendance_log/attendance_log_data.dart';
-import 'package:eswm/models/attendance_log/attendance_log_details.dart';
+import 'package:eswm/models/attendance_log/attendance_logs_details.dart';
 import 'package:flutter/material.dart';
 
 //import files
@@ -21,8 +21,8 @@ class AttendanceLogApi {
     return data.map<AttendanceLog>(AttendanceLog.fromJson).toList();
   }
 
-  static Future<List<AttendanceLogDetails?>>? getDataAttendance() async {
-    List<AttendanceLogDetails?> filteredData = [];
+  static Future<List<AttendanceLogsDetails?>>? getDataAttendance() async {
+    List<AttendanceLogsDetails?> filteredData = [];
 
     try {
       Response response = await Dio().get(

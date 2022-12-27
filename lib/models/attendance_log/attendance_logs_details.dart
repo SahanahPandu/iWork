@@ -1,11 +1,11 @@
-class AttendanceLogDetails {
+class AttendanceLogsDetails {
   final int id;
   final String attendanceDate;
   final String? clockIn;
   final String? clockOut;
   final int? isVerified;
 
-  const AttendanceLogDetails({
+  const AttendanceLogsDetails({
     required this.id,
     required this.attendanceDate,
     this.clockIn,
@@ -13,7 +13,7 @@ class AttendanceLogDetails {
     this.isVerified,
   });
 
-  factory AttendanceLogDetails.fromJson(json) => AttendanceLogDetails(
+  factory AttendanceLogsDetails.fromJson(json) => AttendanceLogsDetails(
         id: json['id'],
         attendanceDate: json['attendance_date'],
         clockIn: json['clock_in_at'],
