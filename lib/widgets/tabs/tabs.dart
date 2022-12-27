@@ -34,7 +34,7 @@ class _TabsState extends State<Tabs> with SingleTickerProviderStateMixin {
     if (widget.screen == "1" || widget.screen == "5" || widget.screen == "8") {
       // e_cuti
       //screen = "1" - ecuti button , screen ="2" -  from leave list , screen ="5" -  E-cuti menu from drawer , screen ="8" -  redirect after submit leave form
-
+      print('Masuk tab');
       return TabBarView(
         controller: _tabController,
         children: [
@@ -67,7 +67,7 @@ class _TabsState extends State<Tabs> with SingleTickerProviderStateMixin {
 
   @override
   void initState() {
-    if (widget.screen == "7") {
+    if (widget.screen == "7" || widget.screen == "8") {
       _tabController = TabController(length: 2, vsync: this, initialIndex: 1);
     } else {
       _tabController = TabController(length: 2, vsync: this);
