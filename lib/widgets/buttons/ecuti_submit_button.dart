@@ -96,24 +96,27 @@ class EcutiSubmitButtonState extends State<EcutiSubmitButton> {
                     cancel,
                     submit,
                   );
-                }).then((actionText) {
+                }).then((actionText) async {
               if (actionText == submit) {
                 //post data to the database
-                widget.postData != null ? widget.postData!() : null;
-                // widget.clearForm!();
-
-                showDialog(
-                    barrierDismissible: false,
-                    context: context,
-                    builder: (BuildContext context) {
-                      return showLottieAlertDialog(
-                        context,
-                        _textBuilder(),
-                        "8",
-                        widget.clearForm!,
-                        null,
-                      );
-                    });
+                widget.postData != null
+                    ? await widget.postData!().then((status) {
+                        if (status == "successed") {
+                          showDialog(
+                              barrierDismissible: false,
+                              context: context,
+                              builder: (BuildContext context) {
+                                return showLottieAlertDialog(
+                                  context,
+                                  _textBuilder(),
+                                  "8",
+                                  widget.clearForm!,
+                                  null,
+                                );
+                              });
+                        }
+                      })
+                    : null;
               }
             });
           } else {

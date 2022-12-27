@@ -64,6 +64,7 @@ class _LeaveFormState extends State<LeaveForm> {
   Color svRemarksBorder = enabledBorderWithText;
   String lampiran = "";
   String pathLampiran = "";
+  bool errorVisibility = false;
   var theDate = <String, dynamic>{
     "tarikhMula": "",
     "tarikhTamat": "",
@@ -174,7 +175,8 @@ class _LeaveFormState extends State<LeaveForm> {
     });
   }
 
-  postNewLeave() async {
+  Future<String> postNewLeave() async {
+    String status = "";
     //check attachment
     String? attachment;
     String? attachmentPath;
@@ -220,11 +222,24 @@ class _LeaveFormState extends State<LeaveForm> {
       );
 
       if (response.statusCode == 200) {
+        status = "successed";
         clearForm();
       }
     } on DioError catch (e) {
-      print(e);
+      if (e.response?.statusCode == 404) {
+        //Case:The date already taken
+        status = "failed";
+        _tarikhMula.clear();
+        _tarikhTamat.clear();
+
+        setState(() {
+          errorVisibility = true;
+        });
+      }
+      // print(e);
     }
+
+    return status;
   }
 
   clearForm() {
@@ -644,6 +659,9 @@ class _LeaveFormState extends State<LeaveForm> {
                               ],
                             ),
 
+                            //error message
+                            if (errorVisibility) errorMessageSection(),
+
                             //Lampiran
                             Expandable(
                               collapsed: Container(width: 0),
@@ -826,6 +844,25 @@ class _LeaveFormState extends State<LeaveForm> {
         size: 20,
         color: Colors.white,
       ),
+    );
+  }
+
+  Widget errorMessageSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: const [
+        SizedBox(
+          height: 18,
+        ),
+        Text(
+          "*Tarikh telah diambil",
+          style: TextStyle(
+            fontSize: 15,
+            color: Colors.red,
+            fontWeight: FontWeight.w400,
+          ),
+        ),
+      ],
     );
   }
 

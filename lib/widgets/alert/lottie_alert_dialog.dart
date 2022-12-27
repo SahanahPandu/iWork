@@ -20,7 +20,6 @@ showLottieAlertDialog(BuildContext context, contents, String screen,
         borderRadius: BorderRadius.circular(12),
         onTap: () {
           if (clearForm != null) {
-            print('masuk sini');
             clearForm();
             Navigator.pop(context);
             Navigator.push(
