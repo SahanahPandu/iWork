@@ -125,35 +125,47 @@ class _TimeLogRippleButtonState extends State<TimeLogRippleButton> {
     );
   }
 
-  RichText _textBuilder() {
-    return RichText(
-        textAlign: TextAlign.center,
-        text: TextSpan(
-            text: widget.btnText == "Masuk Kerja"
-                ? "Tahniah! Anda berjaya masuk kerja \nuntuk"
-                : "Jumpa lagi! Anda telah tamat kerja \nuntuk",
-            style: TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w400,
-                color: greyCustom,
-                height: 1.5),
-            children: <TextSpan>[
-              TextSpan(
-                  text:
-                      " ${DateFormat("dd MMMM yyyy", 'ms').format(DateTime.now())}",
-                  style: TextStyle(
-                      fontSize: 15, fontWeight: FontWeight.w400, color: green)),
-              TextSpan(
-                  text: " pada jam",
-                  style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w400,
-                      color: greyCustom)),
-              TextSpan(
-                  text:
-                      " ${DateFormat("hh:mm a", 'ms').format(DateTime.now())}",
-                  style: TextStyle(
-                      fontSize: 15, fontWeight: FontWeight.w400, color: green))
-            ]));
+  Widget _textBuilder() {
+    return Text(
+      widget.btnText == "Masuk Kerja"
+          ? "Tahniah! Anda berjaya masuk kerja"
+          : "Jumpa lagi! Anda telah tamat kerja",
+      textAlign: TextAlign.center,
+      textWidthBasis: TextWidthBasis.parent,
+      style: TextStyle(
+          fontSize: 15,
+          fontWeight: FontWeight.w400,
+          color: greyCustom,
+          height: 1.5),
+    );
+    // return RichText(
+    //     textAlign: TextAlign.center,
+    //     text: TextSpan(
+    //         text: widget.btnText == "Masuk Kerja"
+    //             ? "Tahniah! Anda berjaya masuk kerja \nuntuk"
+    //             : "Jumpa lagi! Anda telah tamat kerja \nuntuk",
+    //         style: TextStyle(
+    //             fontSize: 15,
+    //             fontWeight: FontWeight.w400,
+    //             color: greyCustom,
+    //             height: 1.5),
+    //         children: <TextSpan>[
+    //           TextSpan(
+    //               text:
+    //                   " ${DateFormat("dd MMMM yyyy", 'ms').format(DateTime.now())}",
+    //               style: TextStyle(
+    //                   fontSize: 15, fontWeight: FontWeight.w400, color: green)),
+    //           TextSpan(
+    //               text: " pada jam",
+    //               style: TextStyle(
+    //                   fontSize: 15,
+    //                   fontWeight: FontWeight.w400,
+    //                   color: greyCustom)),
+    //           TextSpan(
+    //               text:
+    //                   " ${DateFormat("hh:mm a", 'ms').format(DateTime.now())}",
+    //               style: TextStyle(
+    //                   fontSize: 15, fontWeight: FontWeight.w400, color: green))
+    //         ]));
   }
 }

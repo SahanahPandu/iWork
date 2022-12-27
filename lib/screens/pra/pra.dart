@@ -24,19 +24,16 @@ class Pra extends StatefulWidget {
 class _PraState extends State<Pra> {
   final timeLogButtonKey = GlobalKey<TimeLogButtonState>();
 
-  refreshPage(
-      buttonText, buttonColor, buttonTextColor, iconColor, buttonOverlayColor) {
-    print('masuk sini');
-
+  refreshPage(Function? updateButton) {
     setState(() {
-      print('set state');
+      //set state so that it will reload the clock in/ clock out time in main page
     });
 
-    // timeLogButtonKey.currentState!.buttonText = buttonText;
-    // timeLogButtonKey.currentState!.buttonColor = buttonColor;
-    // timeLogButtonKey.currentState!.buttonTextColor = buttonTextColor;
-    // timeLogButtonKey.currentState!.iconColor = iconColor;
-    // timeLogButtonKey.currentState!.buttonOverlayColor = buttonOverlayColor;
+    if (updateButton != null) {
+      //this function to update button display
+      //refer page TimeLogButton, function LoadButton
+      updateButton();
+    }
   }
 
   @override

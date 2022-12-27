@@ -40,38 +40,8 @@ class TimeLogButtonState extends State<TimeLogButton> {
               btnText: buttonText,
               btnColor: buttonColor,
             ))).then((actionText) {
-      if (actionText == "Masuk Kerja") {
-        if (widget.refresh != null) {
-          widget.refresh!("Tamat Kerja", const Color(0xffE04141), Colors.white,
-              Colors.white, red900);
-        }
-
-        setState(() {
-          print('Set state button');
-          buttonText = "Tamat Kerja";
-          buttonColor = const Color(0xffE04141);
-          buttonOverlayColor = red900;
-        });
-        print('Tekan Masuk Kerja');
-      } else if (actionText == "Tamat Kerja") {
-        // setState(() {
-        //   //disabled button
-        //   buttonText = "Masuk Kerja";
-        //   buttonColor = const Color(0xffD9D9D9);
-        //   buttonTextColor = const Color(0xff969696);
-        //   iconColor = const Color(0xff969696);
-        //   buttonOverlayColor = const Color(0xffD9D9D9);
-        // });
-
-        if (widget.refresh != null) {
-          widget.refresh!(
-              "Masuk Kerja",
-              const Color(0xffD9D9D9),
-              const Color(0xff969696),
-              const Color(0xff969696),
-              const Color(0xffD9D9D9));
-        }
-        print('Tekan Tamat Kerja');
+      if (widget.refresh != null) {
+        widget.refresh!(loadButton);
       }
     });
   }
@@ -80,24 +50,22 @@ class TimeLogButtonState extends State<TimeLogButton> {
     if ((widget.timeIn != null && widget.timeIn != "") &&
         (widget.timeOut != null && widget.timeOut != "")) {
       //have time in and time out
-      print('Both ada');
-
       buttonText = "Masuk Kerja";
       buttonColor = const Color(0xffD9D9D9);
       buttonTextColor = const Color(0xff969696);
       iconColor = const Color(0xff969696);
       buttonOverlayColor = const Color(0xffD9D9D9);
     } else if ((widget.timeIn != null && widget.timeIn != "") &&
-        (widget.timeOut == null && widget.timeOut == "")) {
+        (widget.timeOut == null || widget.timeOut == "")) {
       //have time in but no time out
-      print('Clock In ada');
+
       buttonText = "Tamat Kerja";
       buttonColor = const Color(0xffE04141);
       buttonOverlayColor = red900;
-    } else if ((widget.timeIn == null && widget.timeIn == "") &&
+    } else if ((widget.timeIn == null || widget.timeIn == "") &&
         (widget.timeOut != null && widget.timeOut != "")) {
       //have time out but no time in
-      print('Clock Out ada');
+
     }
   }
 

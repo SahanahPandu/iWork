@@ -81,5 +81,5 @@ ValueNotifier<bool> allSelected = ValueNotifier(false);
 ValueNotifier<int> scheduleVcStatus = ValueNotifier(0);
 
 /// ** the server ip
-// final String baseUrl = "http://103.26.46.187:81/api";
+// String theBase = "http://103.26.46.187:81/api";
 String theBase = "http://10.0.2.2:8000/api";
