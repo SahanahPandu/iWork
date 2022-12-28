@@ -21,15 +21,16 @@ class AttendanceLogApi {
     return data.map<AttendanceLog>(AttendanceLog.fromJson).toList();
   }
 
-  static Future<List<AttendanceLogsDetails?>>? getDataAttendance() async {
+  static Future<List<AttendanceLogsDetails?>>? getDataAttendance(
+      firstDate, lastDate) async {
     List<AttendanceLogsDetails?> filteredData = [];
 
     try {
       Response response = await Dio().get(
         '$theBase/attendance/history',
         queryParameters: {
-          'date_from': '2022-12-19',
-          'date_to': '2022-12-27',
+          'date_from': firstDate,
+          'date_to': lastDate,
         },
         options: Options(
           headers: {

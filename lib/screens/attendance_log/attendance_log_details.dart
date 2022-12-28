@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../config/palette.dart';
+import '../../utils/calendar/date.dart';
 import '../../utils/icon/custom_icon.dart';
 import 'package:eswm/models/attendance_log/attendance_logs_details.dart';
 
@@ -15,18 +16,26 @@ class AttendanceLogDetails extends StatefulWidget {
 }
 
 class _AttendanceLogDetailsState extends State<AttendanceLogDetails> {
+  Color iconColor = greyCustom;
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Container(
-          decoration: BoxDecoration(color: white),
+          decoration: BoxDecoration(
+            color: white,
+            border: Border(
+              bottom: BorderSide(color: greyCustom, width: 0.8),
+            ),
+          ),
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(widget.data.attendanceDate,
+              Text(
+                  Date.getTheDate(
+                      widget.data.attendanceDate, "dd/MM/yyyy", "ms"),
                   style: const TextStyle(
                       fontSize: 16, fontWeight: FontWeight.w700)),
               const SizedBox(height: 10),
@@ -34,7 +43,7 @@ class _AttendanceLogDetailsState extends State<AttendanceLogDetails> {
                 padding: const EdgeInsets.symmetric(horizontal: 5),
                 child: Row(
                   children: [
-                    Icon(CustomIcon.timerOutline, size: 16, color: greenCustom),
+                    Icon(CustomIcon.timerOutline, size: 16, color: iconColor),
                     const SizedBox(width: 10),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -46,16 +55,18 @@ class _AttendanceLogDetailsState extends State<AttendanceLogDetails> {
                         const SizedBox(height: 5),
                         Text(
                             widget.data.clockIn != null
-                                ? widget.data.clockIn!
+                                ? Date.getTheTimeOfDay(
+                                        widget.data.clockIn!, "HH:mm", "ms")
+                                    .format(context)
                                 : "-",
                             style: TextStyle(
                                 fontSize: 14,
-                                color: greenCustom,
+                                color: iconColor,
                                 fontWeight: FontWeight.w400)),
                       ],
                     ),
                     const SizedBox(width: 40),
-                    Icon(CustomIcon.timerOutline, size: 16, color: greenCustom),
+                    Icon(CustomIcon.timerOutline, size: 16, color: iconColor),
                     const SizedBox(width: 10),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,11 +77,13 @@ class _AttendanceLogDetailsState extends State<AttendanceLogDetails> {
                         const SizedBox(height: 5),
                         Text(
                             widget.data.clockOut != null
-                                ? widget.data.clockOut!
+                                ? Date.getTheTimeOfDay(
+                                        widget.data.clockOut!, "HH:mm", "ms")
+                                    .format(context)
                                 : "-",
                             style: TextStyle(
                                 fontSize: 14,
-                                color: greenCustom,
+                                color: iconColor,
                                 fontWeight: FontWeight.w400)),
                       ],
                     ),
@@ -80,10 +93,15 @@ class _AttendanceLogDetailsState extends State<AttendanceLogDetails> {
             ],
           ),
         ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20),
-          child: Divider(height: 0.5),
-        )
+        // const Padding(
+        //   padding: EdgeInsets.symmetric(horizontal: 20),
+        //   child: Divider(
+        //     thickness: 0.8,
+        //     color: Color(0xff969696),
+        //     // indent: 0,
+        //     // endIndent: 0,
+        //   ),
+        // ),
       ],
     );
   }

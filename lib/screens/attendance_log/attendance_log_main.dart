@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../config/palette.dart';
 import '../../providers/attendance_log_api.dart';
@@ -14,11 +15,36 @@ class AttendanceLogMain extends StatefulWidget {
 
 class _AttendanceLogMainState extends State<AttendanceLogMain> {
   late Future<List> _loadAttendanceLogData;
+  String thisWeekDate = "";
+  String theFirstDate = "";
+  String theLastDate = "";
+
+  getThisWeekDate() {
+    DateTime today = DateTime.now();
+
+    DateTime firstDate = today.subtract(Duration(days: today.weekday - 1));
+    String convFirstDate = DateFormat("yyyy-MM-dd", "ms").format(firstDate);
+
+    DateTime lastDate =
+        today.add(Duration(days: DateTime.daysPerWeek - today.weekday - 2));
+    String convLastDate = DateFormat("yyyy-MM-dd", "ms").format(lastDate);
+
+    String thisWeek =
+        "${DateFormat("dd MMMM yyyy", "ms").format(firstDate)} - ${DateFormat("dd MMMM yyyy", "ms").format(lastDate)}";
+
+    setState(() {
+      theFirstDate = convFirstDate;
+      theLastDate = convLastDate;
+      thisWeekDate = thisWeek;
+    });
+  }
 
   @override
   void initState() {
     // _loadAttendanceLogData = AttendanceLogApi.getAttendanceLogData(context);
-    _loadAttendanceLogData = AttendanceLogApi.getDataAttendance()!;
+    getThisWeekDate();
+    _loadAttendanceLogData =
+        AttendanceLogApi.getDataAttendance(theFirstDate, theLastDate)!;
     super.initState();
   }
 
@@ -74,7 +100,7 @@ class _AttendanceLogMainState extends State<AttendanceLogMain> {
           children: [
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-              child: Text("Minggu Ini (12-16 September 2022)",
+              child: Text("Minggu Ini ($thisWeekDate)",
                   style: TextStyle(
                       color: blackCustom,
                       fontWeight: FontWeight.w400,
