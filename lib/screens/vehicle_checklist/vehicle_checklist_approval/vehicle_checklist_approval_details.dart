@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 //import files
 import '../../../config/font.dart';
 import '../../../config/palette.dart';
-import '../../../models/vc/vc.dart';
+import '../../../models/vc/vc_main.dart';
 import '../../../utils/icon/custom_icon.dart';
 import '../../../widgets/container/status_container.dart';
 
 class VehicleChecklistApprovalDetails extends StatefulWidget {
-  final VehicleChecklist data;
+  final VehicleChecklistMain data;
 
   const VehicleChecklistApprovalDetails({Key? key, required this.data})
       : super(key: key);
@@ -30,7 +30,7 @@ class _VehicleChecklistApprovalDetailsState
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
               child: Text(
-                widget.data.noLaluan,
+                "widget.data.noLaluan",
                 style: TextStyle(
                     fontWeight: FontWeight.w500,
                     color: blackCustom,
@@ -39,8 +39,8 @@ class _VehicleChecklistApprovalDetailsState
             ),
             StatusContainer(
               type: "vc",
-              status: widget.data.status,
-              statusId: widget.data.statusId,
+              status: widget.data.data!.vehicleChecklists!.statusCode,
+              statusId: widget.data.data!.vehicleChecklists!.statusCode,
               fontWeight: statusFontWeight,
             ),
           ],
@@ -67,7 +67,7 @@ class _VehicleChecklistApprovalDetailsState
                           fontSize: 15)),
                 ],
               ),
-              Text(widget.data.noKenderaan,
+              Text("widget.data.noKenderaan",
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
                       color: blackCustom,
@@ -97,7 +97,7 @@ class _VehicleChecklistApprovalDetailsState
                           fontSize: 15)),
                 ],
               ),
-              Text('${widget.data.masaKeluar} / ${widget.data.masaBalik}',
+              Text('${"widget.data.masaKeluar"} / ${"widget.data.masaBalik"}',
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
                       color: blackCustom,

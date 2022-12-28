@@ -5,7 +5,7 @@ import 'package:page_transition/page_transition.dart';
 
 //import files
 import '../../../config/palette.dart';
-import '../../../models/vc/vc.dart';
+import '../../../models/vc/vc_main.dart';
 import '../../../utils/calendar/date.dart';
 import '../../../utils/device/orientations.dart';
 import '../../../utils/icon/custom_icon.dart';
@@ -13,7 +13,7 @@ import '../../../widgets/alert/alert_dialog.dart';
 import '../../../widgets/tabs/vehicle_checklist_tab/vehicle_checklist_form_tab/vehicle_checklist_form_tab.dart';
 
 class VehicleChecklistListDetails extends StatefulWidget {
-  final VehicleChecklist vcData;
+  final VehicleChecklistMain vcData;
 
   const VehicleChecklistListDetails({Key? key, required this.vcData})
       : super(key: key);
@@ -36,17 +36,17 @@ class _VehicleChecklistListDetailsState
   ///   3       |      initial = complete, enable vc     |    initial = complete, enable vc
   @override
   void initState() {
-    if (widget.vcData.statusId == 1) {
+    if (widget.vcData.data!.vehicleChecklists == null) {
       bfrStatusColor = greyCustom;
       aftStatusColor = greyCustom;
       bfrEnable = false;
       aftEnable = false;
-    } else if (widget.vcData.statusId == 2) {
+    } else if (widget.vcData.data!.vehicleChecklists!.statusCode == "VC1") {
       bfrStatusColor = greenCustom;
       aftStatusColor = greyCustom;
       bfrEnable = true;
       aftEnable = false;
-    } else if (widget.vcData.statusId == 3) {
+    } else if (widget.vcData.data!.vehicleChecklists!.statusCode == "VC2") {
       bfrStatusColor = greenCustom;
       aftStatusColor = greenCustom;
       bfrEnable = true;
@@ -75,11 +75,15 @@ class _VehicleChecklistListDetailsState
         children: [
           TableRow(children: [
             Text(
-              widget.vcData.tarikh ==
+              widget.vcData.data!.vehicleChecklists!.createdAt
+                          .toString()
+                          .split(' ')[0] ==
                       Date.getTheDate(
-                          DateTime.now().toString(), "dd/MM/yyyy", 'ms')
+                          DateTime.now().toString(), "yyyy-MM-dd", 'ms')
                   ? "Hari Ini"
-                  : widget.vcData.tarikh,
+                  : widget.vcData.data!.vehicleChecklists!.createdAt
+                      .toString()
+                      .split(' ')[0],
               style: TextStyle(
                   fontSize: 18,
                   color: blackCustom,
@@ -89,7 +93,7 @@ class _VehicleChecklistListDetailsState
               onTap: () {
                 Timer(const Duration(milliseconds: 200), () {
                   setState(() {
-                    widget.vcData.statusId != 1
+                    widget.vcData.data!.vehicleChecklists != null
                         ? bfrStatusColor = greenCustom
                         : bfrStatusColor = greyCustom;
                   });
@@ -97,7 +101,7 @@ class _VehicleChecklistListDetailsState
                 Navigator.push(
                     context,
                     PageTransition(
-                        child: VehicleChecklistFormTab(data: widget.vcData),
+                        child: const VehicleChecklistFormTab(),
                         type: PageTransitionType.fade));
               },
               onTapDown: (_) {
@@ -107,14 +111,14 @@ class _VehicleChecklistListDetailsState
               },
               onTapUp: (_) {
                 setState(() {
-                  widget.vcData.statusId != 1
+                  widget.vcData.data!.vehicleChecklists != null
                       ? bfrStatusColor = greenCustom
                       : bfrStatusColor = greyCustom;
                 });
               },
               onTapCancel: () {
                 setState(() {
-                  widget.vcData.statusId != 1
+                  widget.vcData.data!.vehicleChecklists != null
                       ? bfrStatusColor = greenCustom
                       : bfrStatusColor = greyCustom;
                 });
@@ -159,8 +163,7 @@ class _VehicleChecklistListDetailsState
                     ? Navigator.push(
                         context,
                         PageTransition(
-                            child: VehicleChecklistFormTab(
-                                data: widget.vcData, idx: 1),
+                            child: const VehicleChecklistFormTab(idx: 1),
                             type: PageTransitionType.fade))
                     : null;
               },

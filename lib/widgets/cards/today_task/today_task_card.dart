@@ -1,12 +1,13 @@
-import 'package:eswm/widgets/buttons/time_log_button.dart';
 import 'package:flutter/material.dart';
 
 //import files
 import '../../../config/config.dart';
 import '../../../config/resource.dart';
 import '../../../config/string.dart';
+import '../../../models/task/compactor/compactor_task.dart';
 import '../../../utils/device/orientations.dart';
 import '../../../utils/device/sizes.dart';
+import '../../buttons/time_log_button.dart';
 import 'ba/ba_today_task_details.dart';
 import 'compactor_panel/compactor_panel_today_task_details.dart';
 import 'eo/eo_today_task_details.dart';
@@ -19,6 +20,7 @@ class TodayTaskCard extends StatefulWidget {
   final String timeOut;
   final Function? refresh;
   final GlobalKey<TimeLogButtonState>? timeLogButtonKey;
+  final CompactorTask? scheduleData;
 
   const TodayTaskCard({
     Key? key,
@@ -27,6 +29,7 @@ class TodayTaskCard extends StatefulWidget {
     required this.timeOut,
     this.refresh,
     this.timeLogButtonKey,
+    this.scheduleData,
   }) : super(key: key);
 
   @override
@@ -48,7 +51,8 @@ class _TodayTaskCardState extends State<TodayTaskCard> {
   StatefulWidget assignRoleTaskDetails() {
     switch (userRole) {
       case 100:
-        return const CompactorPanelTodayTaskDetails();
+        return CompactorPanelTodayTaskDetails(
+            scheduleData: widget.scheduleData);
       case 200:
         return PraTodayTaskDetails(
           timeIn: widget.timeIn,

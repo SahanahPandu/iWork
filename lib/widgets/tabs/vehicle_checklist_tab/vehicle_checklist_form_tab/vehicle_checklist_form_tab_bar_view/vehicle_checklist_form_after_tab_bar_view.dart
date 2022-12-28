@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
 //import files
-import '../../../../../models/vc/vc.dart';
+import '../../../../../models/task/compactor/data/schedule/schedule.dart';
+import '../../../../../models/vc/vc_main.dart';
 import '../../../../../screens/vehicle_checklist/vehicle_checklist_form/vehicle_checklist_form_detail.dart';
 
 class VehicleChecklistFormAfterTabbarView extends StatefulWidget {
-  final VehicleChecklist data;
+  final Schedule? scheduleData;
 
-  const VehicleChecklistFormAfterTabbarView({Key? key, required this.data})
+  const VehicleChecklistFormAfterTabbarView({Key? key, this.scheduleData})
       : super(key: key);
 
   @override
@@ -17,8 +18,24 @@ class VehicleChecklistFormAfterTabbarView extends StatefulWidget {
 
 class _VehicleChecklistFormAfterTabbarViewState
     extends State<VehicleChecklistFormAfterTabbarView> {
+  late VehicleChecklistMain? scheduleData;
+  bool emptyVC = true;
+
+  @override
+  void initState() {
+    if (widget.scheduleData!.vehicleChecklistId!.statusCode!.code == "VC2" ||
+        widget.scheduleData!.vehicleChecklistId!.statusCode!.code == "VC3") {
+      emptyVC = false;
+    } else if (widget.scheduleData!.vehicleChecklistId!.statusCode!.code ==
+        "VC1") {
+      emptyVC = true;
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return VehicleChecklistDetail(data: widget.data, before: false);
+    return VehicleChecklistDetail(
+        before: false, scheduleData: widget.scheduleData);
   }
 }

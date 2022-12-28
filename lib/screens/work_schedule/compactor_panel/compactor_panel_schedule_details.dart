@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 //import files
 import '../../../config/font.dart';
 import '../../../config/palette.dart';
-import '../../../models/task/compactor/data/schedules/schedule.dart';
+import '../../../models/task/compactor/data/schedule/schedule.dart';
 import '../../../utils/device/orientations.dart';
 import '../../../utils/icon/custom_icon.dart';
 import '../../../widgets/container/status_container.dart';
@@ -33,7 +33,7 @@ class _CompactorPanelScheduleDetailsState
           children: [
             Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Text(widget.data!.mainRoute,
+                child: Text(widget.data!.mainRoute!,
                     style: TextStyle(
                       fontSize: 18,
                       color: white,
@@ -41,7 +41,7 @@ class _CompactorPanelScheduleDetailsState
                     ))),
             StatusContainer(
               type: "Laluan",
-              status: widget.data!.statusCode.name,
+              status: widget.data!.statusCode!.name!,
               statusId: widget.data!.statusCode,
               fontWeight: statusFontWeight,
               roundedCorner: true,
@@ -69,7 +69,7 @@ class _CompactorPanelScheduleDetailsState
                     fontWeight: FontWeight.w400,
                   ))
             ]),
-            Text(widget.data!.vehicleNo,
+            Text(widget.data!.vehicleNo!,
                 style: TextStyle(
                   fontSize: 16,
                   color: white,
@@ -156,7 +156,7 @@ class _CompactorPanelScheduleDetailsState
                   ))
             ]),
             Text(
-              widget.data!.activityCode.activityName,
+              widget.data!.activityCode!.activityName!,
               style: TextStyle(
                 fontSize: 16,
                 color: white,

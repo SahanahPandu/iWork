@@ -5,7 +5,7 @@ import 'package:page_transition/page_transition.dart';
 import '../../../config/config.dart';
 import '../../../config/dimen.dart';
 import '../../../config/palette.dart';
-import '../../../providers/vehicle_checklist_api.dart';
+import '../../../providers/vehicle_checklist/vehicle_checklist_api.dart';
 import '../../../utils/icon/custom_icon.dart';
 import '../../../widgets/tabs/vehicle_checklist_tab/vehicle_checklist_approval_tab/vehicle_checklist_approval_tab.dart';
 import 'vehicle_checklist_approval_details.dart';
@@ -25,7 +25,7 @@ class _VehicleChecklistApprovalMainState
   @override
   void initState() {
     _loadVehicleChecklistData =
-        VehicleChecklistApi.getVehicleChecklistData(context);
+        VehicleChecklistApi.getVehicleChecklist() as Future<List>;
     super.initState();
   }
 

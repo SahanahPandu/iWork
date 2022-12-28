@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
 //import files
-import '../../../providers/vehicle_checklist_api.dart';
+import '../../../models/vc/vc_main.dart';
+import '../../../providers/vehicle_checklist/vehicle_checklist_api.dart';
 import '../../../widgets/cards/verification_task/vehicle_checklist/vehicle_checklist_verification_detail_list.dart';
 import '../../../widgets/tabs/vehicle_checklist_tab/vehicle_checklist_approval_tab/vehicle_checklist_approval_tab.dart';
 
@@ -16,18 +17,17 @@ class VehicleChecklistVerification extends StatefulWidget {
 
 class _VehicleChecklistVerificationState
     extends State<VehicleChecklistVerification> {
-  late Future<List> _loadVehicleChecklistData;
+  late Future<VehicleChecklistMain?>? _loadVehicleChecklistData;
 
   @override
   void initState() {
-    _loadVehicleChecklistData =
-        VehicleChecklistApi.getVehicleChecklistData(context);
+    _loadVehicleChecklistData = VehicleChecklistApi.getVehicleChecklist();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List>(
+    return FutureBuilder<VehicleChecklistMain?>(
       future: _loadVehicleChecklistData,
       builder: (context, snapshot) {
         final dataFuture = snapshot.data;
@@ -47,7 +47,7 @@ class _VehicleChecklistVerificationState
               return ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: dataFuture?.length,
+                itemCount: 1,
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {
@@ -56,11 +56,11 @@ class _VehicleChecklistVerificationState
                           PageTransition(
                               type: PageTransitionType.fade,
                               child: VehicleChecklistApprovalTab(
-                                data: dataFuture![index],
+                                data: dataFuture!
                               )));
                     },
                     child: VehicleChecklistVerificationDetailList(
-                      data: dataFuture![index],
+                      data: dataFuture!,
                       index: index,
                     ),
                   );

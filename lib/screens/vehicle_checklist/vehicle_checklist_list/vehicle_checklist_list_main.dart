@@ -1,11 +1,11 @@
-import 'package:eswm/providers/vehicle_checklist_api.dart';
-import 'package:eswm/screens/vehicle_checklist/vehicle_checklist_list/vehicle_checklist_list_details.dart';
 import 'package:flutter/material.dart';
 
 //import files
 import '../../../config/palette.dart';
+import '../../../providers/vehicle_checklist/vehicle_checklist_api.dart';
 import '../../../utils/icon/custom_icon.dart';
 import '../../../widgets/custom_scroll/custom_scroll.dart';
+import 'vehicle_checklist_list_details.dart';
 
 class VehicleChecklistListMain extends StatefulWidget {
   const VehicleChecklistListMain({Key? key}) : super(key: key);
@@ -20,7 +20,7 @@ class _VehicleChecklistListMainState extends State<VehicleChecklistListMain> {
 
   @override
   void initState() {
-    _loadVcData = VehicleChecklistApi.getVehicleChecklistData(context);
+    _loadVcData = VehicleChecklistApi.getVehicleChecklist() as Future<List>;
     super.initState();
   }
 

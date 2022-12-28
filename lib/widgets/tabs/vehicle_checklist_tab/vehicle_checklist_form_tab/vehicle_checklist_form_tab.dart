@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../../../config/palette.dart';
-import '../../../../models/vc/vc.dart';
+import '../../../../models/task/compactor/data/schedule/schedule.dart';
 import '../../../../utils/device/orientations.dart';
 import '../../../../utils/device/sizes.dart';
 import '../../../../utils/icon/custom_icon.dart';
@@ -11,11 +11,14 @@ import 'vehicle_checklist_form_tab_bar_view/vehicle_checklist_form_after_tab_bar
 import 'vehicle_checklist_form_tab_bar_view/vehicle_checklist_form_before_tab_bar_view.dart';
 
 class VehicleChecklistFormTab extends StatefulWidget {
-  final VehicleChecklist data;
+  final Schedule? scheduleData;
   final int? idx;
 
-  const VehicleChecklistFormTab({Key? key, required this.data, this.idx})
-      : super(key: key);
+  const VehicleChecklistFormTab({
+    Key? key,
+    this.scheduleData,
+    this.idx,
+  }) : super(key: key);
 
   @override
   State<VehicleChecklistFormTab> createState() =>
@@ -132,8 +135,8 @@ class _VehicleChecklistFormTabState extends State<VehicleChecklistFormTab>
                       ),
                     ],
                     onTap: (index) {
-                      if (index == 1 && widget.data.statusId == 1 ||
-                          widget.data.statusId == 2) {
+                      if (index == 1 &&
+                          widget.scheduleData!.vehicleChecklistId == null) {
                         _tabController.index = 0;
                         showDialog(
                             context: context,
@@ -162,8 +165,10 @@ class _VehicleChecklistFormTabState extends State<VehicleChecklistFormTab>
                     physics: const NeverScrollableScrollPhysics(),
                     controller: _tabController,
                     children: [
-                      VehicleChecklistFormBeforeTabbarView(data: widget.data),
-                      VehicleChecklistFormAfterTabbarView(data: widget.data),
+                      VehicleChecklistFormBeforeTabbarView(
+                          scheduleData: widget.scheduleData),
+                      VehicleChecklistFormAfterTabbarView(
+                          scheduleData: widget.scheduleData),
                     ],
                   ),
                 ),

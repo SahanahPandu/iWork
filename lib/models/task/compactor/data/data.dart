@@ -1,11 +1,11 @@
-import 'package:eswm/models/task/compactor/data/schedules/schedule.dart';
+import 'package:eswm/models/task/compactor/data/schedule/schedule.dart';
 
 class Data {
   Data({
-    required this.schedules,
+    this.schedules,
   });
 
-  List<Schedule> schedules;
+  List<Schedule>? schedules;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         schedules: List<Schedule>.from(
@@ -13,6 +13,6 @@ class Data {
       );
 
   Map<String, dynamic> toJson() => {
-        "schedules": List<dynamic>.from(schedules.map((x) => x.toJson())),
+        "schedules": List<dynamic>.from(schedules!.map((x) => x.toJson())),
       };
 }

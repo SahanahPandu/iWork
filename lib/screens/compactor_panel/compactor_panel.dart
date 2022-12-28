@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 //import files
 import '../../config/config.dart';
 import '../../config/palette.dart';
+import '../../models/task/compactor/compactor_task.dart';
+import '../../providers/task/compactor_panel/compactor_task_api.dart';
 import '../../utils/calendar/date.dart';
 import '../../utils/device/orientations.dart';
 import '../../widgets/cards/today_task/today_task_card.dart';
@@ -17,42 +20,66 @@ class CompactorPanel extends StatefulWidget {
 }
 
 class _CompactorPanelState extends State<CompactorPanel> {
+  late CompactorTask? scheduleData;
+
   @override
   Widget build(BuildContext context) {
-    return ExpandCollapseHeader(
-        centerTitle: false,
-        title: _collapseTitle(),
-        alwaysShowLeadingAndAction: false,
-        headerWidget: _header(context),
-        fullyStretchable: true,
-        body: [
-          _scrollBody(),
-        ],
-        headerExpandedHeight:
-            Orientations().isTabletPortrait(context) ? 0.35 : 0.405,
-        fixedTitle: _fixedTitle(context),
-        fixedTitleHeight: Orientations().isTabletPortrait(context) ? 68 : 70,
-        collapseHeight: Orientations().isTabletPortrait(context) ? 160 : 148,
-        collapseFade: Orientations().isTabletPortrait(context) ? 120 : 95,
-        backgroundColor: transparent,
-        appBarColor: Orientations().isTabletPortrait(context)
-            ? const Color(0xff358af5)
-            : const Color(0xff2d80e8));
+    return FutureBuilder<CompactorTask?>(
+        future: CompactorTaskApi.getCompactorScheduleData(context),
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.waiting:
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            default:
+              if (snapshot.hasError) {
+                return const Center(
+                  child: Text("Some error occurred here!"),
+                );
+              } else {
+                if (snapshot.hasData) {
+                  scheduleData = snapshot.data!;
+                }
+                return ExpandCollapseHeader(
+                    centerTitle: false,
+                    title: _collapseTitle(scheduleData),
+                    alwaysShowLeadingAndAction: false,
+                    headerWidget: _header(context, scheduleData),
+                    fullyStretchable: true,
+                    body: [
+                      _scrollBody(scheduleData),
+                    ],
+                    headerExpandedHeight:
+                        Orientations().isTabletPortrait(context) ? 0.35 : 0.405,
+                    fixedTitle: _fixedTitle(context),
+                    fixedTitleHeight:
+                        Orientations().isTabletPortrait(context) ? 68 : 70,
+                    collapseHeight:
+                        Orientations().isTabletPortrait(context) ? 160 : 148,
+                    collapseFade:
+                        Orientations().isTabletPortrait(context) ? 120 : 95,
+                    backgroundColor: transparent,
+                    appBarColor: Orientations().isTabletPortrait(context)
+                        ? const Color(0xff358af5)
+                        : const Color(0xff2d80e8));
+              }
+          }
+        });
   }
 
-  SafeArea _scrollBody() {
+  SafeArea _scrollBody(CompactorTask? scheduleData) {
     return SafeArea(
         child: Container(
-      constraints: Orientations().isTabletPortrait(context)
-          ? const BoxConstraints(minHeight: 630)
-          : const BoxConstraints(minHeight: 285),
-      color: white,
-      padding: const EdgeInsets.fromLTRB(15, 0, 15, 10),
-      child: const CompactorTaskList(main: true),
-    ));
+            constraints: Orientations().isTabletPortrait(context)
+                ? const BoxConstraints(minHeight: 555) //630
+                : const BoxConstraints(minHeight: 285),
+            color: white,
+            padding: const EdgeInsets.fromLTRB(15, 0, 15, 10),
+            child: CompactorTaskList(main: true, data: scheduleData)));
   }
 
-  Row _collapseTitle() {
+  Row _collapseTitle(CompactorTask? scheduleData) {
     return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
       Row(children: [
         const SizedBox(width: 10),
@@ -80,7 +107,7 @@ class _CompactorPanelState extends State<CompactorPanel> {
             height: 10,
           ),
           Text(
-            "Tugasan Hari Ini (7:00 pagi - 12:30 petang)",
+            "Tugasan Hari Ini (${DateFormat("hh:mm a", "ms").format(DateTime.parse('20222312 ${scheduleData!.data!.schedules![0].startWorkAt!.replaceAll(' ', '')}'))} - ${DateFormat("hh:mm a", "ms").format(DateTime.parse('20222312 ${scheduleData.data!.schedules![0].stopWorkAt!.replaceAll(' ', '')}'))})",
             style: TextStyle(
               color: white,
               fontWeight: FontWeight.w400,
@@ -163,7 +190,7 @@ class _CompactorPanelState extends State<CompactorPanel> {
     ]);
   }
 
-  Widget _header(BuildContext context) {
+  Widget _header(BuildContext context, CompactorTask? scheduleData) {
     return SafeArea(
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -184,13 +211,13 @@ class _CompactorPanelState extends State<CompactorPanel> {
           const SizedBox(
             height: 10,
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 44),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 48),
             child: TodayTaskCard(
-              workTime: "",
-              timeIn: "",
-              timeOut: "",
-            ),
+                workTime: "",
+                timeIn: "",
+                timeOut: "",
+                scheduleData: scheduleData),
           )
         ]));
   }

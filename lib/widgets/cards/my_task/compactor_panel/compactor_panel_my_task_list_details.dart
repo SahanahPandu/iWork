@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../../config/config.dart';
 import '../../../../config/font.dart';
 import '../../../../config/palette.dart';
-import '../../../../models/task/compactor/data/schedules/schedule.dart';
+import '../../../../models/task/compactor/data/schedule/schedule.dart';
 import '../../../../utils/device/orientations.dart';
 import '../../../../utils/icon/custom_icon.dart';
 import '../../../../widgets/slide_bar/start_end_work_slide_bar.dart';
@@ -46,7 +46,7 @@ class CompactorPanelMyTaskListDetailsState
                     ? const EdgeInsets.fromLTRB(22, 20, 0, 20)
                     : const EdgeInsets.fromLTRB(40, 30, 0, 22),
                 child: Text(
-                  widget.data.mainRoute,
+                  widget.data.mainRoute!,
                   style: TextStyle(
                       fontSize: 18,
                       color: blackCustom,
@@ -55,7 +55,7 @@ class CompactorPanelMyTaskListDetailsState
               ),
               StatusContainer(
                   type: "Laluan",
-                  status: widget.data.statusCode.name,
+                  status: widget.data.statusCode!.name!,
                   statusId: widget.data.statusCode,
                   fontWeight: statusFontWeight)
               /*
@@ -117,7 +117,7 @@ class CompactorPanelMyTaskListDetailsState
                   ],
                 ),
                 Text(
-                  widget.data.vehicleNo,
+                  widget.data.vehicleNo!,
                   style: TextStyle(
                     fontSize: Orientations().isLandscape(context) ? 16 : 14,
                     color: blackCustom,

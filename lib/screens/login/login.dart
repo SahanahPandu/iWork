@@ -58,7 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
           //_forgotPasswordButton(),
           Devices().isPhone() || Orientations().isTabletPortrait(context)
               ? _buildSpace(context, 0.06)
-              : _buildSpace(context, 0.005),
+              : _buildSpace(context, 0.04),
           _loginButton(context),
         ],
       ),

@@ -5,7 +5,7 @@ import '../../../config/config.dart';
 import '../../../config/font.dart';
 import '../../../config/palette.dart';
 import '../../../models/schedule/schedule_details.dart';
-import '../../../models/task/compactor/data/schedules/schedule.dart';
+import '../../../models/task/compactor/data/schedule/schedule.dart';
 import '../../../providers/jadual_api.dart';
 import '../../../utils/device/orientations.dart';
 import '../../../utils/device/sizes.dart';
@@ -49,7 +49,7 @@ class _CompactorPanelScheduleMainState
   }
 
   void getTheData() {
-    Future<ScheduleDetails?>? list = JadualApi.getDataJadual(widget.data!.id);
+    Future<ScheduleDetails?>? list = JadualApi.getDataJadual(widget.data!.id!);
     scheduleId = widget.data!.id.toString();
     list!.then((value) {
       setState(() {
@@ -208,7 +208,7 @@ class _CompactorPanelScheduleMainState
   Widget _collapseTitle() {
     return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
       Text(
-        widget.data!.mainRoute,
+        widget.data!.mainRoute!,
         style: TextStyle(
           color: white,
           fontWeight: FontWeight.w700,
@@ -218,7 +218,7 @@ class _CompactorPanelScheduleMainState
       const SizedBox(width: 20),
       StatusContainer(
         type: "Laluan",
-        status: widget.data!.statusCode.name,
+        status: widget.data!.statusCode!.name!,
         statusId: widget.data!.statusCode,
         fontWeight: statusFontWeight,
         roundedCorner: true,

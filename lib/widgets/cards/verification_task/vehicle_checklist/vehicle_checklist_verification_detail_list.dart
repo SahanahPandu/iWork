@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../../../config/palette.dart';
-import '../../../../models/vc/vc.dart';
+import '../../../../models/vc/vc_main.dart';
 
 class VehicleChecklistVerificationDetailList extends StatefulWidget {
-  final VehicleChecklist data;
+  final VehicleChecklistMain data;
   final int index;
 
   const VehicleChecklistVerificationDetailList(
@@ -38,7 +38,7 @@ class _VehicleChecklistVerificationDetailListState
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(widget.data.noKenderaan,
+          Text("widget.data.noKenderaan",
               style: TextStyle(
                   color: blackCustom,
                   fontSize: 15,

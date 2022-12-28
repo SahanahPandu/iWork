@@ -1,12 +1,11 @@
 import 'dart:convert';
 
-//import files
 import 'data/data.dart';
 
-CompactorTask taskFromJson(String str) =>
+CompactorTask compactorTaskFromJson(String str) =>
     CompactorTask.fromJson(json.decode(str));
 
-String taskToJson(CompactorTask data) => json.encode(data.toJson());
+String compactorTaskToJson(CompactorTask data) => json.encode(data.toJson());
 
 class CompactorTask {
   CompactorTask({
@@ -26,7 +25,7 @@ class CompactorTask {
       );
 
   Map<String, dynamic> toJson() => {
-        "data": data?.toJson(),
+        "data": data!.toJson(),
         "status": status,
         "message": message,
       };

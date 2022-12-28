@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 //import files
 import '../../../../config/palette.dart';
 import '../../../../config/string.dart';
-import '../../../../models/vc/vc.dart';
+import '../../../../models/vc/vc_main.dart';
 import '../../../../utils/device/sizes.dart';
 import '../../../../utils/icon/custom_icon.dart';
 import '../../../alert/alert_dialog.dart';
@@ -13,7 +13,7 @@ import 'vehicle_checklist_approval_tab_bar_view/vehicle_checklist_approval_after
 import 'vehicle_checklist_approval_tab_bar_view/vehicle_checklist_approval_before_tab_bar_view.dart';
 
 class VehicleChecklistApprovalTab extends StatefulWidget {
-  final VehicleChecklist data;
+  final VehicleChecklistMain data;
 
   const VehicleChecklistApprovalTab({Key? key, required this.data})
       : super(key: key);
@@ -243,7 +243,7 @@ class _VehicleChecklistApprovalTabState
                       color: greyCustom,
                       height: 1.5)),
               TextSpan(
-                  text: " ${widget.data.noKenderaan} ",
+                  text: " ${"widget.data.noKenderaan"} ",
                   style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,

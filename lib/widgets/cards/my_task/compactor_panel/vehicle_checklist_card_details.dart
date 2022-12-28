@@ -6,14 +6,14 @@ import '../../../../config/config.dart';
 import '../../../../config/dimen.dart';
 import '../../../../config/palette.dart';
 import '../../../../config/string.dart';
-import '../../../../models/vc/vc.dart';
+import '../../../../models/task/compactor/data/schedule/schedule.dart';
 import '../../../../utils/device/sizes.dart';
 import '../../../tabs/vehicle_checklist_tab/vehicle_checklist_form_tab/vehicle_checklist_form_tab.dart';
 
 class VehicleChecklistCardDetails extends StatefulWidget {
-  final VehicleChecklist data;
+  final Schedule? scheduleData;
 
-  const VehicleChecklistCardDetails({Key? key, required this.data})
+  const VehicleChecklistCardDetails({Key? key, this.scheduleData})
       : super(key: key);
 
   @override
@@ -27,6 +27,24 @@ class _VehicleChecklistCardDetailsState
   Color alterColorAfter = greyCustom;
   Color buttonColor = greenCustom;
   Color buttonTextColor = white;
+
+  @override
+  void initState() {
+    if (widget.scheduleData!.vehicleChecklistId == null) {
+      alterColorBefore = greyCustom;
+      alterColorAfter = greyCustom;
+    } else if (widget.scheduleData!.vehicleChecklistId!.statusCode!.code! ==
+        "VC1") {
+      alterColorBefore = greenCustom;
+      alterColorAfter = greyCustom;
+    } else if (widget.scheduleData!.vehicleChecklistId!.statusCode!.code! ==
+            "VC2" ||
+        widget.scheduleData!.vehicleChecklistId!.statusCode!.code! == "VC3") {
+      alterColorBefore = greenCustom;
+      alterColorAfter = greenCustom;
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -130,18 +148,18 @@ class _VehicleChecklistCardDetailsState
   }
 
   Future<void> _navigateAndDisplaySelection(BuildContext context) async {
-    bool refresh = await Navigator.push(
+    Navigator.push(
         context,
         PageTransition(
             type: PageTransitionType.fade,
-            child: VehicleChecklistFormTab(data: widget.data)));
-    if (!mounted) return;
+            child: VehicleChecklistFormTab(scheduleData: widget.scheduleData)));
+    /* if (!mounted) return;
     if (refresh == true) {
       _changeStatus();
-    } else {}
+    } else {}*/
   }
 
-  void _changeStatus() {
+/*void _changeStatus() {
     setState(() {
       if (completedFirstVc && !completedSecondVc) {
         alterColorBefore = Colors.green;
@@ -159,5 +177,5 @@ class _VehicleChecklistCardDetailsState
         completedSecondVc == false;
       }
     });
-  }
+  }*/
 }

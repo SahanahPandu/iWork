@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+
 import 'user_details.dart';
 
 @JsonSerializable()
@@ -9,7 +10,7 @@ class UserData {
   int? userTypeId;
 
   @JsonKey(defaultValue: 0)
-  int emsUserId;
+  int? emsUserId;
 
   @JsonKey(defaultValue: null)
   String? vehicleNo;
@@ -35,7 +36,7 @@ class UserData {
   UserData({
     required this.id,
     this.userTypeId,
-    required this.emsUserId,
+    this.emsUserId,
     required this.vehicleNo,
     required this.deviceInfo1,
     this.isFirstTimeLogin,
@@ -57,7 +58,9 @@ class UserData {
         roles: json["roles"] != null
             ? List<String>.from(json["roles"].map((x) => x))
             : [],
-        userDetail: UserDetail?.fromJson(json["user_detail"]),
+        userDetail: json["user_detail"] != null
+            ? UserDetail?.fromJson(json["user_detail"])
+            : null,
       );
 
   Map<String, dynamic> toJson() => {

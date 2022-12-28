@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 //import files
-import '../../../../../models/vc/vc.dart';
+import '../../../../../models/vc/vc_main.dart';
 import '../../../../../screens/vehicle_checklist/vehicle_checklist_approval/vehicle_checklist_approval_view/vehicle_checklist_approval_view.dart';
 import '../../../../custom_scroll/custom_scroll.dart';
 
 class VehicleChecklistApprovalBeforeTabbarView extends StatefulWidget {
-  final VehicleChecklist data;
+  final VehicleChecklistMain data;
 
   const VehicleChecklistApprovalBeforeTabbarView({Key? key, required this.data})
       : super(key: key);

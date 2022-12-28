@@ -4,18 +4,19 @@ import 'package:page_transition/page_transition.dart';
 //import files
 import '../../../config/dimen.dart';
 import '../../../config/palette.dart';
-import '../../../providers/task/compactor_task_api.dart';
-import '../../../providers/vehicle_checklist_api.dart';
+import '../../../models/task/compactor/compactor_task.dart';
+import '../../../models/task/compactor/data/schedule/schedule.dart';
+import '../../../providers/task/compactor_panel/compactor_task_api.dart';
 import '../../../screens/work_schedule/compactor_panel/compactor_panel_schedule_main.dart';
 import '../../../utils/device/orientations.dart';
 import '../../cards/my_task/compactor_panel/compactor_panel_my_task_list_details.dart';
 import '../../cards/my_task/compactor_panel/vehicle_checklist_card_details.dart';
 
 class CompactorTaskList extends StatefulWidget {
-  final Function? topCardStatus;
   final bool main;
+  final CompactorTask? data;
 
-  const CompactorTaskList({Key? key, this.topCardStatus, required this.main})
+  const CompactorTaskList({Key? key, required this.main, this.data})
       : super(key: key);
 
   @override
@@ -23,14 +24,12 @@ class CompactorTaskList extends StatefulWidget {
 }
 
 class _CompactorTaskListState extends State<CompactorTaskList> {
-  late Future<List> _loadVcData;
-  Future<List<dynamic>>? _loadLaluanData;
+  late Future<List<Schedule>?> _loadLaluanList;
 
   @override
   void initState() {
     super.initState();
-    _loadLaluanData = CompactorTaskApi.getCompactorSchedule();
-    _loadVcData = VehicleChecklistApi.getVehicleChecklistData(context);
+    _loadLaluanList = CompactorTaskApi.getCompactorScheduleList();
   }
 
   /// --------------------------------------------------------------------------------------------
@@ -39,14 +38,14 @@ class _CompactorTaskListState extends State<CompactorTaskList> {
   ///     0         ||    Null                          ||    Null
   ///     1         ||    Not started                   ||    Not started
   ///     2         ||    Done Before VC (In Progress)  ||    Not started
-  ///     3         ||    Done Before VC (In Progress)  ||    In progress (slided start work)
-  ///     4         ||    Done Before VC (In progress)  ||    Completed (slided start & end work)
+  ///     3         ||    Done Before VC (In Progress)  ||    In Progress (slided start work)
+  ///     4         ||    Done Before VC (In Progress)  ||    Completed (slided start & end work)
   ///     5         ||    Done Before & After VC (Done) ||    Completed (slided start & end work)
   /// --------------------------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List>(
-        future: _loadLaluanData,
+    return FutureBuilder<List<Schedule>?>(
+        future: _loadLaluanList,
         builder: (context, snapshot) {
           final laluanDataFuture = snapshot.data;
           switch (snapshot.connectionState) {
@@ -76,29 +75,8 @@ class _CompactorTaskListState extends State<CompactorTaskList> {
                           : laluanDataFuture!.length,
                       itemBuilder: (context, i) {
                         if (widget.main == true && i == 0) {
-                          return FutureBuilder<List>(
-                              future: _loadVcData,
-                              builder: (context, snapshot) {
-                                final vcDataFuture = snapshot.data;
-
-                                switch (snapshot.connectionState) {
-                                  case ConnectionState.waiting:
-                                    return const Center(
-                                      child: CircularProgressIndicator(),
-                                    );
-
-                                  default:
-                                    if (snapshot.hasError) {
-                                      return const Center(
-                                        child: Text("Some error occurred!"),
-                                      );
-                                    } else {
-                                      return buildTabletCard(
-                                          VehicleChecklistCardDetails(
-                                              data: vcDataFuture![i]));
-                                    }
-                                }
-                              });
+                          return buildTabletCard(VehicleChecklistCardDetails(
+                              scheduleData: laluanDataFuture[i]));
                         }
                         return GestureDetector(
                             onTap: () {

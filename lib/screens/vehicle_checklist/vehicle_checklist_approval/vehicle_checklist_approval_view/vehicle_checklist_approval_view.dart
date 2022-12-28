@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../../../config/palette.dart';
-import '../../../../models/vc/vc.dart';
+import '../../../../models/vc/vc_main.dart';
 
 class VehicleChecklistApprovalView extends StatefulWidget {
-  final VehicleChecklist data;
+  final VehicleChecklistMain data;
   final int section;
 
   const VehicleChecklistApprovalView(
@@ -54,22 +54,22 @@ class _VehicleChecklistApprovalViewState
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(top: 12, bottom: 12),
-                    child: _buildTextRow('Tarikh', widget.data.tarikh),
+                    child: _buildTextRow('Tarikh', "widget.data.tarikh"),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
-                    child: _buildTextRow('No. Laluan', widget.data.noLaluan),
+                    child: _buildTextRow('No. Laluan', " widget.data.noLaluan"),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
-                    child:
-                        _buildTextRow('No. Kenderaan', widget.data.noKenderaan),
+                    child: _buildTextRow(
+                        'No. Kenderaan', "widget.data.noKenderaan"),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
                     child: before
-                        ? _buildTextRow('Masa Keluar', widget.data.masaKeluar)
-                        : _buildTextRow('Masa Masuk', widget.data.masaBalik),
+                        ? _buildTextRow('Masa Keluar', "widget.data.masaKeluar")
+                        : _buildTextRow('Masa Masuk', "widget.data.masaBalik"),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
@@ -105,9 +105,11 @@ class _VehicleChecklistApprovalViewState
                             ? 'Bacaan Odometer (Keluar)'
                             : 'Bacaan Odometer (Masuk)',
                         before
-                            ? widget.data.sebelum.vcItem.odometer.bacaanOdo
+                            ? widget.data.data!.vehicleChecklists!
+                                .checklistBefore!.vcItem.odometer.bacaanOdo
                                 .toString()
-                            : widget.data.selepas.vcItem.odometer.bacaanOdo
+                            : widget.data.data!.vehicleChecklists!
+                                .checklistAfter!.vcItem.odometer.bacaanOdo
                                 .toString()),
                   ),
                   Padding(
@@ -115,17 +117,21 @@ class _VehicleChecklistApprovalViewState
                     child: _buildTextRow(
                         'Odometer Berfungsi',
                         before
-                            ? widget.data.sebelum.vcItem.odometer.odoFungsi
-                            : widget.data.selepas.vcItem.odometer.odoFungsi),
+                            ? widget.data.data!.vehicleChecklists!
+                                .checklistBefore!.vcItem.odometer.odoFungsi
+                            : widget.data.data!.vehicleChecklists!
+                                .checklistAfter!.vcItem.odometer.odoFungsi),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
                         'Jumlah Pengunaan KM Harian',
                         before
-                            ? widget.data.sebelum.vcItem.odometer.totalKm
+                            ? widget.data.data!.vehicleChecklists!
+                                .checklistBefore!.vcItem.odometer.totalKm
                                 .toString()
-                            : widget.data.selepas.vcItem.odometer.totalKm
+                            : widget.data.data!.vehicleChecklists!
+                                .checklistAfter!.vcItem.odometer.totalKm
                                 .toString()),
                   ),
                   Padding(
@@ -133,8 +139,10 @@ class _VehicleChecklistApprovalViewState
                     child: _buildTextRow(
                         'No AKBK (Laporan Kerosakan)',
                         before
-                            ? widget.data.sebelum.vcItem.odometer.noAkbk
-                            : widget.data.selepas.vcItem.odometer.noAkbk),
+                            ? widget.data.data!.vehicleChecklists!
+                                .checklistBefore!.vcItem.odometer.noAkbk
+                            : widget.data.data!.vehicleChecklists!
+                                .checklistAfter!.vcItem.odometer.noAkbk),
                   ),
                 ],
               ),
@@ -164,33 +172,43 @@ class _VehicleChecklistApprovalViewState
                     child: _buildTextRow(
                         'Diesel Diisi',
                         before
-                            ? widget.data.sebelum.vcItem.fuel.liter.toString()
-                            : widget.data.selepas.vcItem.fuel.liter.toString()),
+                            ? widget.data.data!.vehicleChecklists!
+                                .checklistBefore!.vcItem.fuel.liter
+                                .toString()
+                            : widget.data.data!.vehicleChecklists!
+                                .checklistAfter!.vcItem.fuel.liter
+                                .toString()),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
                         'Serah Resit Minyak Diesel',
                         before
-                            ? widget.data.sebelum.vcItem.fuel.resit
-                            : widget.data.selepas.vcItem.fuel.resit),
+                            ? widget.data.data!.vehicleChecklists!
+                                .checklistBefore!.vcItem.fuel.resit
+                            : widget.data.data!.vehicleChecklists!
+                                .checklistAfter!.vcItem.fuel.resit),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
                         'Guna Diesel Fleet Card',
                         before
-                            ? widget.data.sebelum.vcItem.fuel.fleetCard
-                            : widget.data.selepas.vcItem.fuel.fleetCard),
+                            ? widget.data.data!.vehicleChecklists!
+                                .checklistBefore!.vcItem.fuel.fleetCard
+                            : widget.data.data!.vehicleChecklists!
+                                .checklistAfter!.vcItem.fuel.fleetCard),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
                         'No. Kad (5 digit terakhir)',
                         before
-                            ? widget.data.sebelum.vcItem.fuel.noFleetCard
+                            ? widget.data.data!.vehicleChecklists!
+                                .checklistBefore!.vcItem.fuel.noFleetCard
                                 .toString()
-                            : widget.data.selepas.vcItem.fuel.noFleetCard
+                            : widget.data.data!.vehicleChecklists!
+                                .checklistAfter!.vcItem.fuel.noFleetCard
                                 .toString()),
                   ),
                   Padding(
@@ -200,9 +218,11 @@ class _VehicleChecklistApprovalViewState
                             ? 'Paras Meter Minyak (Sebelum Keluar)'
                             : 'Paras Meter Minyak (Sebelum Masuk)',
                         before
-                            ? widget.data.sebelum.vcItem.fuel.fuelLevel
+                            ? widget.data.data!.vehicleChecklists!
+                                .checklistBefore!.vcItem.fuel.fuelLevel
                                 .toString()
-                            : widget.data.selepas.vcItem.fuel.fuelLevel
+                            : widget.data.data!.vehicleChecklists!
+                                .checklistAfter!.vcItem.fuel.fuelLevel
                                 .toString()),
                   ),
                 ],
@@ -240,24 +260,30 @@ class _VehicleChecklistApprovalViewState
                     child: _buildTextRow(
                         '1.1 Puspakom Disc',
                         before
-                            ? widget.data.sebelum.vcItem.document.puspakomDisc
-                            : widget.data.selepas.vcItem.document.puspakomDisc),
+                            ? widget.data.data!.vehicleChecklists!
+                                .checklistBefore!.vcItem.document.puspakomDisc
+                            : widget.data.data!.vehicleChecklists!
+                                .checklistAfter!.vcItem.document.puspakomDisc),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
                         '1.2 Cukai Jalan',
                         before
-                            ? widget.data.sebelum.vcItem.document.cukaiJalan
-                            : widget.data.selepas.vcItem.document.cukaiJalan),
+                            ? widget.data.data!.vehicleChecklists!
+                                .checklistBefore!.vcItem.document.cukaiJalan
+                            : widget.data.data!.vehicleChecklists!
+                                .checklistAfter!.vcItem.document.cukaiJalan),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
                         '1.3 Lesen Pembawa A/Permit',
                         before
-                            ? widget.data.sebelum.vcItem.document.lesen
-                            : widget.data.selepas.vcItem.document.lesen),
+                            ? widget.data.data!.vehicleChecklists!
+                                .checklistBefore!.vcItem.document.lesen
+                            : widget.data.data!.vehicleChecklists!
+                                .checklistAfter!.vcItem.document.lesen),
                   ),
                 ],
               ),
@@ -294,24 +320,30 @@ class _VehicleChecklistApprovalViewState
                     child: _buildTextRow(
                         '2.1 Bahagian bunga tayar',
                         before
-                            ? widget.data.sebelum.vcItem.tyre.bungaTayar
-                            : widget.data.selepas.vcItem.tyre.bungaTayar),
+                            ? widget.data.data!.vehicleChecklists!
+                                .checklistBefore!.vcItem.tyre.bungaTayar
+                            : widget.data.data!.vehicleChecklists!
+                                .checklistAfter!.vcItem.tyre.bungaTayar),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
                         '2.2 Nut tayar',
                         before
-                            ? widget.data.sebelum.vcItem.tyre.nutTayar
-                            : widget.data.selepas.vcItem.tyre.nutTayar),
+                            ? widget.data.data!.vehicleChecklists!
+                                .checklistBefore!.vcItem.tyre.nutTayar
+                            : widget.data.data!.vehicleChecklists!
+                                .checklistAfter!.vcItem.tyre.nutTayar),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
                         '2.3 Tekanan angin',
                         before
-                            ? widget.data.sebelum.vcItem.tyre.tekananTayar
-                            : widget.data.selepas.vcItem.tyre.tekananTayar),
+                            ? widget.data.data!.vehicleChecklists!
+                                .checklistBefore!.vcItem.tyre.tekananTayar
+                            : widget.data.data!.vehicleChecklists!
+                                .checklistAfter!.vcItem.tyre.tekananTayar),
                   ),
                 ],
               ),
@@ -349,41 +381,61 @@ class _VehicleChecklistApprovalViewState
                         '3.1 Sistem Hidraulik & Minyak',
                         before
                             ? widget
-                                .data.sebelum.vcItem.mampatan.sistemHidraulik
+                                .data
+                                .data!
+                                .vehicleChecklists!
+                                .checklistBefore!
+                                .vcItem
+                                .mampatan
+                                .sistemHidraulik
                             : widget
-                                .data.selepas.vcItem.mampatan.sistemHidraulik),
+                                .data
+                                .data!
+                                .vehicleChecklists!
+                                .checklistAfter!
+                                .vcItem
+                                .mampatan
+                                .sistemHidraulik),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
                         '3.2 PTO/PAM',
                         before
-                            ? widget.data.sebelum.vcItem.mampatan.ptdPam
-                            : widget.data.selepas.vcItem.mampatan.ptdPam),
+                            ? widget.data.data!.vehicleChecklists!
+                                .checklistBefore!.vcItem.mampatan.ptdPam
+                            : widget.data.data!.vehicleChecklists!
+                                .checklistAfter!.vcItem.mampatan.ptdPam),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
                         '3.3 Semua penutup diperiksa',
                         before
-                            ? widget.data.sebelum.vcItem.mampatan.allPenutup
-                            : widget.data.selepas.vcItem.mampatan.allPenutup),
+                            ? widget.data.data!.vehicleChecklists!
+                                .checklistBefore!.vcItem.mampatan.allPenutup
+                            : widget.data.data!.vehicleChecklists!
+                                .checklistAfter!.vcItem.mampatan.allPenutup),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
                         '3.4 Buang air dalam tabung angin',
                         before
-                            ? widget.data.sebelum.vcItem.mampatan.buangAir
-                            : widget.data.selepas.vcItem.mampatan.buangAir),
+                            ? widget.data.data!.vehicleChecklists!
+                                .checklistBefore!.vcItem.mampatan.buangAir
+                            : widget.data.data!.vehicleChecklists!
+                                .checklistAfter!.vcItem.mampatan.buangAir),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
                         '3.5 Sistem Leachate diperiksa',
                         before
-                            ? widget.data.sebelum.vcItem.mampatan.leachate
-                            : widget.data.selepas.vcItem.mampatan.leachate),
+                            ? widget.data.data!.vehicleChecklists!
+                                .checklistBefore!.vcItem.mampatan.leachate
+                            : widget.data.data!.vehicleChecklists!
+                                .checklistAfter!.vcItem.mampatan.leachate),
                   ),
                 ],
               ),
@@ -420,48 +472,60 @@ class _VehicleChecklistApprovalViewState
                     child: _buildTextRow(
                         '4.1 Lampu utama & belakang',
                         before
-                            ? widget.data.sebelum.vcItem.light.lampuUtama
-                            : widget.data.selepas.vcItem.light.lampuUtama),
+                            ? widget.data.data!.vehicleChecklists!
+                                .checklistBefore!.vcItem.light.lampuUtama
+                            : widget.data.data!.vehicleChecklists!
+                                .checklistAfter!.vcItem.light.lampuUtama),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
                         '4.2 Lampu berhenti',
                         before
-                            ? widget.data.sebelum.vcItem.light.lampuHenti
-                            : widget.data.selepas.vcItem.light.lampuHenti),
+                            ? widget.data.data!.vehicleChecklists!
+                                .checklistBefore!.vcItem.light.lampuHenti
+                            : widget.data.data!.vehicleChecklists!
+                                .checklistAfter!.vcItem.light.lampuHenti),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
                         '4.3 Lampu isyarat',
                         before
-                            ? widget.data.sebelum.vcItem.light.lampuIsyarat
-                            : widget.data.selepas.vcItem.light.lampuIsyarat),
+                            ? widget.data.data!.vehicleChecklists!
+                                .checklistBefore!.vcItem.light.lampuIsyarat
+                            : widget.data.data!.vehicleChecklists!
+                                .checklistAfter!.vcItem.light.lampuIsyarat),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
                         '4.4 Lampu kecemasan',
                         before
-                            ? widget.data.sebelum.vcItem.light.lampuKecemasan
-                            : widget.data.selepas.vcItem.light.lampuKecemasan),
+                            ? widget.data.data!.vehicleChecklists!
+                                .checklistBefore!.vcItem.light.lampuKecemasan
+                            : widget.data.data!.vehicleChecklists!
+                                .checklistAfter!.vcItem.light.lampuKecemasan),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
                         '4.5 Lampu isyarat sedang befungsi',
                         before
-                            ? widget.data.sebelum.vcItem.light.lampuBeacon
-                            : widget.data.selepas.vcItem.light.lampuBeacon),
+                            ? widget.data.data!.vehicleChecklists!
+                                .checklistBefore!.vcItem.light.lampuBeacon
+                            : widget.data.data!.vehicleChecklists!
+                                .checklistAfter!.vcItem.light.lampuBeacon),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
                         '4.6 Lampu no. plat',
                         before
-                            ? widget.data.sebelum.vcItem.light.lampuPlet
-                            : widget.data.selepas.vcItem.light.lampuPlet),
+                            ? widget.data.data!.vehicleChecklists!
+                                .checklistBefore!.vcItem.light.lampuPlet
+                            : widget.data.data!.vehicleChecklists!
+                                .checklistAfter!.vcItem.light.lampuPlet),
                   ),
                 ],
               ),
@@ -499,51 +563,88 @@ class _VehicleChecklistApprovalViewState
                         '5.1 Dipstik minyak enjin',
                         before
                             ? widget
-                                .data.sebelum.vcItem.engine.dipstikMinyakEnjin
+                                .data
+                                .data!
+                                .vehicleChecklists!
+                                .checklistBefore!
+                                .vcItem
+                                .engine
+                                .dipstikMinyakEnjin
                             : widget
-                                .data.selepas.vcItem.engine.dipstikMinyakEnjin),
+                                .data
+                                .data!
+                                .vehicleChecklists!
+                                .checklistAfter!
+                                .vcItem
+                                .engine
+                                .dipstikMinyakEnjin),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
                         '5.2 Paras minyak enjin',
                         before
-                            ? widget.data.sebelum.vcItem.engine.parasMinyak
-                            : widget.data.selepas.vcItem.engine.parasMinyak),
+                            ? widget.data.data!.vehicleChecklists!
+                                .checklistBefore!.vcItem.engine.parasMinyak
+                            : widget.data.data!.vehicleChecklists!
+                                .checklistAfter!.vcItem.engine.parasMinyak),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
                         '5.3 Penutup minyak enjin',
                         before
-                            ? widget.data.sebelum.vcItem.engine.penutupMinyak
-                            : widget.data.selepas.vcItem.engine.penutupMinyak),
+                            ? widget.data.data!.vehicleChecklists!
+                                .checklistBefore!.vcItem.engine.penutupMinyak
+                            : widget.data.data!.vehicleChecklists!
+                                .checklistAfter!.vcItem.engine.penutupMinyak),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
                         '5.4 Paras air radiator',
                         before
-                            ? widget.data.sebelum.vcItem.engine.parasAirRadiator
+                            ? widget.data.data!.vehicleChecklists!
+                                .checklistBefore!.vcItem.engine.parasAirRadiator
                             : widget
-                                .data.selepas.vcItem.engine.parasAirRadiator),
+                                .data
+                                .data!
+                                .vehicleChecklists!
+                                .checklistAfter!
+                                .vcItem
+                                .engine
+                                .parasAirRadiator),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
                         '5.5 Paras Expansion Tank',
                         before
-                            ? widget.data.sebelum.vcItem.engine.parasExpansion
-                            : widget.data.selepas.vcItem.engine.parasExpansion),
+                            ? widget.data.data!.vehicleChecklists!
+                                .checklistBefore!.vcItem.engine.parasExpansion
+                            : widget.data.data!.vehicleChecklists!
+                                .checklistAfter!.vcItem.engine.parasExpansion),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
                         '5.6 Dipstik minyak Auto Transmission',
                         before
-                            ? widget.data.sebelum.vcItem.engine
+                            ? widget
+                                .data
+                                .data!
+                                .vehicleChecklists!
+                                .checklistBefore!
+                                .vcItem
+                                .engine
                                 .dipstikMintakTransmission
-                            : widget.data.selepas.vcItem.engine
+                            : widget
+                                .data
+                                .data!
+                                .vehicleChecklists!
+                                .checklistAfter!
+                                .vcItem
+                                .engine
                                 .dipstikMintakTransmission),
                   ),
                   Padding(
@@ -551,9 +652,21 @@ class _VehicleChecklistApprovalViewState
                     child: _buildTextRow(
                         '5.7 Paras minyak Auto Transmission',
                         before
-                            ? widget.data.sebelum.vcItem.engine
+                            ? widget
+                                .data
+                                .data!
+                                .vehicleChecklists!
+                                .checklistBefore!
+                                .vcItem
+                                .engine
                                 .parasMinyakTransmission
-                            : widget.data.selepas.vcItem.engine
+                            : widget
+                                .data
+                                .data!
+                                .vehicleChecklists!
+                                .checklistAfter!
+                                .vcItem
+                                .engine
                                 .parasMinyakTransmission),
                   ),
                   Padding(
@@ -562,8 +675,20 @@ class _VehicleChecklistApprovalViewState
                         '5.8 Paras minyak power steering',
                         before
                             ? widget
-                                .data.sebelum.vcItem.engine.parasMinyakSteering
-                            : widget.data.selepas.vcItem.engine
+                                .data
+                                .data!
+                                .vehicleChecklists!
+                                .checklistBefore!
+                                .vcItem
+                                .engine
+                                .parasMinyakSteering
+                            : widget
+                                .data
+                                .data!
+                                .vehicleChecklists!
+                                .checklistAfter!
+                                .vcItem
+                                .engine
                                 .parasMinyakSteering),
                   ),
                   Padding(
@@ -571,18 +696,31 @@ class _VehicleChecklistApprovalViewState
                     child: _buildTextRow(
                         '5.9 Paras minyak brek',
                         before
-                            ? widget.data.sebelum.vcItem.engine.parasMinyakBrek
-                            : widget
-                                .data.selepas.vcItem.engine.parasMinyakBrek),
+                            ? widget.data.data!.vehicleChecklists!
+                                .checklistBefore!.vcItem.engine.parasMinyakBrek
+                            : widget.data.data!.vehicleChecklists!
+                                .checklistAfter!.vcItem.engine.parasMinyakBrek),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
                         '5.10 Sistem cengkaman sistem brek',
                         before
-                            ? widget.data.sebelum.vcItem.engine
+                            ? widget
+                                .data
+                                .data!
+                                .vehicleChecklists!
+                                .checklistBefore!
+                                .vcItem
+                                .engine
                                 .sistemCengkamanSistemBrek
-                            : widget.data.selepas.vcItem.engine
+                            : widget
+                                .data
+                                .data!
+                                .vehicleChecklists!
+                                .checklistAfter!
+                                .vcItem
+                                .engine
                                 .sistemCengkamanSistemBrek),
                   ),
                   Padding(
@@ -591,49 +729,71 @@ class _VehicleChecklistApprovalViewState
                         '5.11 Paras minyak sistem clutch',
                         before
                             ? widget
-                                .data.sebelum.vcItem.engine.parasMinyakClutch
+                                .data
+                                .data!
+                                .vehicleChecklists!
+                                .checklistBefore!
+                                .vcItem
+                                .engine
+                                .parasMinyakClutch
                             : widget
-                                .data.selepas.vcItem.engine.parasMinyakClutch),
+                                .data
+                                .data!
+                                .vehicleChecklists!
+                                .checklistAfter!
+                                .vcItem
+                                .engine
+                                .parasMinyakClutch),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
                         '5.12 Sistem clutch berfungsi baik',
                         before
-                            ? widget.data.sebelum.vcItem.engine.sistemClutch
-                            : widget.data.selepas.vcItem.engine.sistemClutch),
+                            ? widget.data.data!.vehicleChecklists!
+                                .checklistBefore!.vcItem.engine.sistemClutch
+                            : widget.data.data!.vehicleChecklists!
+                                .checklistAfter!.vcItem.engine.sistemClutch),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
                         '5.13 Paras air wiper tank',
                         before
-                            ? widget.data.sebelum.vcItem.engine.parasAirWiper
-                            : widget.data.selepas.vcItem.engine.parasAirWiper),
+                            ? widget.data.data!.vehicleChecklists!
+                                .checklistBefore!.vcItem.engine.parasAirWiper
+                            : widget.data.data!.vehicleChecklists!
+                                .checklistAfter!.vcItem.engine.parasAirWiper),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
                         '5.14 Keadaan wiper (kiri & kanan)',
                         before
-                            ? widget.data.sebelum.vcItem.engine.keadaanWiper
-                            : widget.data.selepas.vcItem.engine.keadaanWiper),
+                            ? widget.data.data!.vehicleChecklists!
+                                .checklistBefore!.vcItem.engine.keadaanWiper
+                            : widget.data.data!.vehicleChecklists!
+                                .checklistAfter!.vcItem.engine.keadaanWiper),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
                         '5.15 Paras air bateri No. 1 & No. 2',
                         before
-                            ? widget.data.sebelum.vcItem.engine.parasAirBateri
-                            : widget.data.selepas.vcItem.engine.parasAirBateri),
+                            ? widget.data.data!.vehicleChecklists!
+                                .checklistBefore!.vcItem.engine.parasAirBateri
+                            : widget.data.data!.vehicleChecklists!
+                                .checklistAfter!.vcItem.engine.parasAirBateri),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
                         '5.16 Keadaan asap ekzos',
                         before
-                            ? widget.data.sebelum.vcItem.engine.asapEkzos
-                            : widget.data.selepas.vcItem.engine.asapEkzos),
+                            ? widget.data.data!.vehicleChecklists!
+                                .checklistBefore!.vcItem.engine.asapEkzos
+                            : widget.data.data!.vehicleChecklists!
+                                .checklistAfter!.vcItem.engine.asapEkzos),
                   ),
                 ],
               ),
@@ -670,16 +830,20 @@ class _VehicleChecklistApprovalViewState
                     child: _buildTextRow(
                         '6.1 Cermin pandang belakang & sisi',
                         before
-                            ? widget.data.sebelum.vcItem.outside.cermin
-                            : widget.data.selepas.vcItem.outside.cermin),
+                            ? widget.data.data!.vehicleChecklists!
+                                .checklistBefore!.vcItem.outside.cermin
+                            : widget.data.data!.vehicleChecklists!
+                                .checklistAfter!.vcItem.outside.cermin),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
                     child: _buildTextRow(
                         '6.2 Hon',
                         before
-                            ? widget.data.sebelum.vcItem.outside.hon
-                            : widget.data.selepas.vcItem.outside.hon),
+                            ? widget.data.data!.vehicleChecklists!
+                                .checklistBefore!.vcItem.outside.hon
+                            : widget.data.data!.vehicleChecklists!
+                                .checklistAfter!.vcItem.outside.hon),
                   )
                 ],
               ),
@@ -716,9 +880,21 @@ class _VehicleChecklistApprovalViewState
                     child: _buildTextRow(
                         '7.1 Penanda amaran kecemasan',
                         before
-                            ? widget.data.sebelum.vcItem.safetyThings
+                            ? widget
+                                .data
+                                .data!
+                                .vehicleChecklists!
+                                .checklistBefore!
+                                .vcItem
+                                .safetyThings
                                 .penandaKecemasan
-                            : widget.data.selepas.vcItem.safetyThings
+                            : widget
+                                .data
+                                .data!
+                                .vehicleChecklists!
+                                .checklistAfter!
+                                .vcItem
+                                .safetyThings
                                 .penandaKecemasan),
                   ),
                   Padding(
@@ -726,9 +902,16 @@ class _VehicleChecklistApprovalViewState
                     child: _buildTextRow(
                         '7.2 Alat pemadam api',
                         before
-                            ? widget.data.sebelum.vcItem.safetyThings.pemadamApi
+                            ? widget.data.data!.vehicleChecklists!
+                                .checklistBefore!.vcItem.safetyThings.pemadamApi
                             : widget
-                                .data.selepas.vcItem.safetyThings.pemadamApi),
+                                .data
+                                .data!
+                                .vehicleChecklists!
+                                .checklistAfter!
+                                .vcItem
+                                .safetyThings
+                                .pemadamApi),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
@@ -736,8 +919,20 @@ class _VehicleChecklistApprovalViewState
                         '7.3 Kotak kecemasan (First Aid Kit)',
                         before
                             ? widget
-                                .data.sebelum.vcItem.safetyThings.kotakKecemasan
-                            : widget.data.selepas.vcItem.safetyThings
+                                .data
+                                .data!
+                                .vehicleChecklists!
+                                .checklistBefore!
+                                .vcItem
+                                .safetyThings
+                                .kotakKecemasan
+                            : widget
+                                .data
+                                .data!
+                                .vehicleChecklists!
+                                .checklistAfter!
+                                .vcItem
+                                .safetyThings
                                 .kotakKecemasan),
                   )
                 ],
@@ -775,9 +970,16 @@ class _VehicleChecklistApprovalViewState
                     child: _buildTextRow(
                         '8.1 Dalam kokpit (kabin) Pemandu',
                         before
-                            ? widget.data.sebelum.vcItem.cleanliness.dalamKokpit
+                            ? widget.data.data!.vehicleChecklists!
+                                .checklistBefore!.vcItem.cleanliness.dalamKokpit
                             : widget
-                                .data.selepas.vcItem.cleanliness.dalamKokpit),
+                                .data
+                                .data!
+                                .vehicleChecklists!
+                                .checklistAfter!
+                                .vcItem
+                                .cleanliness
+                                .dalamKokpit),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
@@ -785,9 +987,21 @@ class _VehicleChecklistApprovalViewState
                         '8.2 Sekitar luaran badan trak',
                         before
                             ? widget
-                                .data.sebelum.vcItem.cleanliness.luarBadanTrak
+                                .data
+                                .data!
+                                .vehicleChecklists!
+                                .checklistBefore!
+                                .vcItem
+                                .cleanliness
+                                .luarBadanTrak
                             : widget
-                                .data.selepas.vcItem.cleanliness.luarBadanTrak),
+                                .data
+                                .data!
+                                .vehicleChecklists!
+                                .checklistAfter!
+                                .vcItem
+                                .cleanliness
+                                .luarBadanTrak),
                   ),
                 ],
               ),
@@ -824,9 +1038,21 @@ class _VehicleChecklistApprovalViewState
                     child: _buildTextRow(
                         '9.1 Bin lifter dicuci oleh pemandu',
                         before
-                            ? widget.data.sebelum.vcItem.binLifterCleanliness
+                            ? widget
+                                .data
+                                .data!
+                                .vehicleChecklists!
+                                .checklistBefore!
+                                .vcItem
+                                .binLifterCleanliness
                                 .binDicuci
-                            : widget.data.selepas.vcItem.binLifterCleanliness
+                            : widget
+                                .data
+                                .data!
+                                .vehicleChecklists!
+                                .checklistAfter!
+                                .vcItem
+                                .binLifterCleanliness
                                 .binDicuci),
                   )
                 ],
@@ -865,8 +1091,20 @@ class _VehicleChecklistApprovalViewState
                         '10.1 Anda terlibat dengan kemalangan?',
                         before
                             ? widget
-                                .data.sebelum.vcItem.accident.terlibatKemalangan
-                            : widget.data.selepas.vcItem.accident
+                                .data
+                                .data!
+                                .vehicleChecklists!
+                                .checklistBefore!
+                                .vcItem
+                                .accident
+                                .terlibatKemalangan
+                            : widget
+                                .data
+                                .data!
+                                .vehicleChecklists!
+                                .checklistAfter!
+                                .vcItem
+                                .accident
                                 .terlibatKemalangan),
                   ),
                   Padding(
@@ -874,9 +1112,21 @@ class _VehicleChecklistApprovalViewState
                     child: _buildTextRow(
                         '10.2 No. kenderaan pihak ketiga',
                         before
-                            ? widget.data.sebelum.vcItem.accident
+                            ? widget
+                                .data
+                                .data!
+                                .vehicleChecklists!
+                                .checklistBefore!
+                                .vcItem
+                                .accident
                                 .noKenderaanPartiKetiga
-                            : widget.data.selepas.vcItem.accident
+                            : widget
+                                .data
+                                .data!
+                                .vehicleChecklists!
+                                .checklistAfter!
+                                .vcItem
+                                .accident
                                 .noKenderaanPartiKetiga),
                   ),
                 ],
@@ -914,9 +1164,10 @@ class _VehicleChecklistApprovalViewState
                     child: _buildTextRow(
                         '11.1 Sampah dalam kompaktor',
                         before
-                            ? widget.data.sebelum.vcItem.vehiclePhysical.sampah
-                            : widget
-                                .data.selepas.vcItem.vehiclePhysical.sampah),
+                            ? widget.data.data!.vehicleChecklists!
+                                .checklistBefore!.vcItem.vehiclePhysical.sampah
+                            : widget.data.data!.vehicleChecklists!
+                                .checklistAfter!.vcItem.vehiclePhysical.sampah),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
@@ -924,9 +1175,21 @@ class _VehicleChecklistApprovalViewState
                         '11.2 Keadaan fizikal/kecacatan pada trak',
                         before
                             ? widget
-                                .data.sebelum.vcItem.vehiclePhysical.kecacatan
+                                .data
+                                .data!
+                                .vehicleChecklists!
+                                .checklistBefore!
+                                .vcItem
+                                .vehiclePhysical
+                                .kecacatan
                             : widget
-                                .data.selepas.vcItem.vehiclePhysical.kecacatan),
+                                .data
+                                .data!
+                                .vehicleChecklists!
+                                .checklistAfter!
+                                .vcItem
+                                .vehiclePhysical
+                                .kecacatan),
                   ),
                 ],
               ),

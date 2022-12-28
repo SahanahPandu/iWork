@@ -8,7 +8,7 @@ import 'package:shimmer/shimmer.dart';
 import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../../config/string.dart';
-import '../../models/task/compactor/data/schedules/schedule.dart';
+import '../../models/task/compactor/data/schedule/schedule.dart';
 import '../../utils/calendar/time.dart';
 import '../../utils/device/orientations.dart';
 import '../../utils/device/sizes.dart';
