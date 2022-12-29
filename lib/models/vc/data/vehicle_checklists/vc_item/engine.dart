@@ -54,7 +54,7 @@ class Engine {
         keadaanWiper: json["keadaanWiper"],
         parasAirBateri: json["parasAirBateri"],
         asapEkzos: json["asapEkzos"],
-        remarks: json["remarks"],
+        remarks: json["remarks"] ?? "-",
       );
 
   Map<String, dynamic> toJson() => {

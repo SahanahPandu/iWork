@@ -12,7 +12,7 @@ class Outside {
   static Outside fromJson(json) => Outside(
         cermin: json["cermin"],
         hon: json["hon"],
-        remarks: json["remarks"],
+        remarks: json["remarks"] ?? "-",
       );
 
   Map<String, dynamic> toJson() => {

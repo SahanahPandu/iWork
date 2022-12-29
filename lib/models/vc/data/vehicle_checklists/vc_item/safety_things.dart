@@ -15,7 +15,7 @@ class SafetyThings {
         penandaKecemasan: json["penandaKecemasan"],
         pemadamApi: json["pemadamApi"],
         kotakKecemasan: json["kotakKecemasan"],
-        remarks: json["remarks"],
+        remarks: json["remarks"] ?? "-",
       );
 
   Map<String, dynamic> toJson() => {

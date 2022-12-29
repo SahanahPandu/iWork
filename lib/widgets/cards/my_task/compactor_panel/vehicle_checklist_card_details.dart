@@ -65,50 +65,80 @@ class _VehicleChecklistCardDetailsState
                         fontWeight: FontWeight.w500),
                   )),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(40, 0, 0, 16),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.check,
-                    size: 18,
-                    color: alterColorBefore,
-                  ),
-                  const SizedBox(
-                    width: 16,
-                  ),
-                  Text(
-                    "Sebelum Bertugas",
-                    style: TextStyle(
-                      fontSize: 16,
+            InkWell(
+              onTap: () {
+                widget.scheduleData!.vehicleChecklistId != null
+                    ? Navigator.push(
+                        context,
+                        PageTransition(
+                            type: PageTransitionType.fade,
+                            child: VehicleChecklistFormTab(
+                                scheduleData: widget.scheduleData)))
+                    : null;
+              },
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(40, 0, 0, 16),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.check,
+                      size: 18,
                       color: alterColorBefore,
-                      fontWeight: FontWeight.w400,
                     ),
-                  ),
-                ],
+                    const SizedBox(
+                      width: 16,
+                    ),
+                    Text(
+                      "Sebelum Bertugas",
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: alterColorBefore,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(40, 0, 0, 16),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.check,
-                    size: 18,
-                    color: alterColorAfter,
-                  ),
-                  const SizedBox(
-                    width: 16,
-                  ),
-                  Text(
-                    "Selepas Bertugas",
-                    style: TextStyle(
-                      fontSize: 16,
+            InkWell(
+              onTap: () {
+                if (widget.scheduleData!.vehicleChecklistId != null) {
+                  widget.scheduleData!.vehicleChecklistId!.statusCode!.code ==
+                              "VC2" ||
+                          widget.scheduleData!.vehicleChecklistId!.statusCode!
+                                  .code ==
+                              "VC3"
+                      ? Navigator.push(
+                          context,
+                          PageTransition(
+                              type: PageTransitionType.fade,
+                              child: VehicleChecklistFormTab(
+                                  scheduleData: widget.scheduleData, idx: 1)))
+                      : null;
+                }
+              },
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(40, 0, 0, 16),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.check,
+                      size: 18,
                       color: alterColorAfter,
-                      fontWeight: FontWeight.w400,
                     ),
-                  ),
-                ],
+                    const SizedBox(
+                      width: 16,
+                    ),
+                    Text(
+                      "Selepas Bertugas",
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: alterColorAfter,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
@@ -122,7 +152,12 @@ class _VehicleChecklistCardDetailsState
               if (completedFirstVc && !completedSecondVc) {
                 null;
               } else {
-                _navigateAndDisplaySelection(context);
+                Navigator.push(
+                    context,
+                    PageTransition(
+                        type: PageTransitionType.fade,
+                        child: VehicleChecklistFormTab(
+                            scheduleData: widget.scheduleData)));
               }
             },
             style: ButtonStyle(
@@ -147,17 +182,18 @@ class _VehicleChecklistCardDetailsState
     );
   }
 
-  Future<void> _navigateAndDisplaySelection(BuildContext context) async {
+/* Future<void> _navigateAndDisplaySelection(BuildContext context) async {
     Navigator.push(
         context,
         PageTransition(
             type: PageTransitionType.fade,
             child: VehicleChecklistFormTab(scheduleData: widget.scheduleData)));
-    /* if (!mounted) return;
+
+     if (!mounted) return;
     if (refresh == true) {
       _changeStatus();
-    } else {}*/
-  }
+    } else {}
+  }*/
 
 /*void _changeStatus() {
     setState(() {

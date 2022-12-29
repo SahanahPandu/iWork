@@ -12,7 +12,7 @@ class Cleanliness {
   static Cleanliness fromJson(json) => Cleanliness(
         dalamKokpit: json["dalamKokpit"],
         luarBadanTrak: json["luarBadanTrak"],
-        remarks: json["remarks"],
+        remarks: json["remarks"] ?? "-",
       );
 
   Map<String, dynamic> toJson() => {

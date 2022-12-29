@@ -20,8 +20,8 @@ class VehicleChecklistId {
         id: json["id"],
         vehicleNo: json["vehicle_no"],
         statusCode: StatusCode.fromJson(json["status_code"]),
-        timeIn: json["time_in"],
-        timeOut: json["time_out"],
+        timeIn: json["time_in"] ?? "--:--",
+        timeOut: json["time_out"] ?? "--:--",
       );
 
   Map<String, dynamic> toJson() => {

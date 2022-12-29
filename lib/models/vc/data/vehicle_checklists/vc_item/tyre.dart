@@ -15,7 +15,7 @@ class Tyre {
         bungaTayar: json["bungaTayar"],
         nutTayar: json["nutTayar"],
         tekananTayar: json["tekananTayar"],
-        remarks: json["remarks"],
+        remarks: json["remarks"] ?? "-",
       );
 
   Map<String, dynamic> toJson() => {

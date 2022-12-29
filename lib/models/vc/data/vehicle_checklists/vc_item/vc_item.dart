@@ -14,65 +14,65 @@ import 'vehicle_physical.dart';
 
 class VcItem {
   VcItem({
-    required this.odometer,
     required this.fuel,
-    required this.document,
     required this.tyre,
-    required this.mampatan,
     required this.light,
     required this.engine,
     required this.outside,
-    required this.safetyThings,
-    required this.cleanliness,
-    required this.binLifterCleanliness,
     required this.accident,
+    required this.document,
+    required this.mampatan,
+    required this.odometer,
+    required this.cleanliness,
+    required this.safetyThings,
     required this.vehiclePhysical,
+    required this.binLifterCleanliness,
   });
 
-  Odometer odometer;
   Fuel fuel;
-  Document document;
   Tyre tyre;
-  Mampatan mampatan;
   Light light;
   Engine engine;
   Outside outside;
-  SafetyThings safetyThings;
-  Cleanliness cleanliness;
-  BinLifterCleanliness binLifterCleanliness;
   Accident accident;
+  Document document;
+  Mampatan mampatan;
+  Odometer odometer;
+  Cleanliness cleanliness;
+  SafetyThings safetyThings;
   VehiclePhysical vehiclePhysical;
+  BinLifterCleanliness binLifterCleanliness;
 
-  static VcItem fromJson(json) => VcItem(
-        odometer: Odometer.fromJson(json["odometer"]),
+  factory VcItem.fromJson(Map<String, dynamic> json) => VcItem(
         fuel: Fuel.fromJson(json["fuel"]),
-        document: Document.fromJson(json["document"]),
         tyre: Tyre.fromJson(json["tyre"]),
-        mampatan: Mampatan.fromJson(json["mampatan"]),
         light: Light.fromJson(json["light"]),
         engine: Engine.fromJson(json["engine"]),
         outside: Outside.fromJson(json["outside"]),
-        safetyThings: SafetyThings.fromJson(json["safetyThings"]),
+        accident: Accident.fromJson(json["accident"]),
+        document: Document.fromJson(json["document"]),
+        mampatan: Mampatan.fromJson(json["mampatan"]),
+        odometer: Odometer.fromJson(json["odometer"]),
         cleanliness: Cleanliness.fromJson(json["cleanliness"]),
+        safetyThings: SafetyThings.fromJson(json["safetyThings"]),
+        vehiclePhysical: VehiclePhysical.fromJson(json["vehiclePhysical"]),
         binLifterCleanliness:
             BinLifterCleanliness.fromJson(json["binLifterCleanliness"]),
-        accident: Accident.fromJson(json["accident"]),
-        vehiclePhysical: VehiclePhysical.fromJson(json["vehiclePhysical"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "odometer": odometer.toJson(),
         "fuel": fuel.toJson(),
-        "document": document.toJson(),
         "tyre": tyre.toJson(),
-        "mampatan": mampatan.toJson(),
         "light": light.toJson(),
         "engine": engine.toJson(),
         "outside": outside.toJson(),
-        "safetyThings": safetyThings.toJson(),
-        "cleanliness": cleanliness.toJson(),
-        "binLifterCleanliness": binLifterCleanliness.toJson(),
         "accident": accident.toJson(),
+        "document": document.toJson(),
+        "mampatan": mampatan.toJson(),
+        "odometer": odometer.toJson(),
+        "cleanliness": cleanliness.toJson(),
+        "safetyThings": safetyThings.toJson(),
         "vehiclePhysical": vehiclePhysical.toJson(),
+        "binLifterCleanliness": binLifterCleanliness.toJson(),
       };
 }

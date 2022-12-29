@@ -72,7 +72,7 @@ class _CompactorPanelState extends State<CompactorPanel> {
     return SafeArea(
         child: Container(
             constraints: Orientations().isTabletPortrait(context)
-                ? const BoxConstraints(minHeight: 555) //630
+                ? const BoxConstraints(minHeight: 630) //555
                 : const BoxConstraints(minHeight: 285),
             color: white,
             padding: const EdgeInsets.fromLTRB(15, 0, 15, 10),

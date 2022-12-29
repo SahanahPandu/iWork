@@ -9,7 +9,7 @@ class BinLifterCleanliness {
 
   static BinLifterCleanliness fromJson(json) => BinLifterCleanliness(
         binDicuci: json["binDicuci"],
-        remarks: json["remarks"],
+        remarks: json["remarks"] ?? "-",
       );
 
   Map<String, dynamic> toJson() => {

@@ -13,7 +13,7 @@ class Fuel {
   String resit;
   String fleetCard;
   dynamic noFleetCard;
-  int fuelLevel;
+  String fuelLevel;
 
   static Fuel fromJson(json) => Fuel(
         liter: json["liter"],

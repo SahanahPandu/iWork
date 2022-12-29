@@ -182,7 +182,10 @@ class _CompactorPanelScheduleDetailsState
                     fontWeight: FontWeight.w400,
                   ))
             ]),
-            Text("${widget.data!.startWorkAt} / ${widget.data!.stopWorkAt}",
+            Text(
+                widget.data!.vehicleChecklistId != null
+                    ? "${widget.data!.vehicleChecklistId!.timeOut} / ${widget.data!.vehicleChecklistId!.timeIn}"
+                    : "--:--/--:--",
                 style: TextStyle(
                   fontSize: 16,
                   color: white,

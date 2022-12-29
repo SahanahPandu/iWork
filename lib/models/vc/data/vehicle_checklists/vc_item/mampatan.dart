@@ -21,7 +21,7 @@ class Mampatan {
         allPenutup: json["allPenutup"],
         buangAir: json["buangAir"],
         leachate: json["leachate"],
-        remarks: json["remarks"],
+        remarks: json["remarks"] ?? "-",
       );
 
   Map<String, dynamic> toJson() => {

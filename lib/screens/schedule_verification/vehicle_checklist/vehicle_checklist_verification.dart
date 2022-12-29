@@ -56,8 +56,7 @@ class _VehicleChecklistVerificationState
                           PageTransition(
                               type: PageTransitionType.fade,
                               child: VehicleChecklistApprovalTab(
-                                data: dataFuture!
-                              )));
+                                  data: dataFuture!)));
                     },
                     child: VehicleChecklistVerificationDetailList(
                       data: dataFuture!,

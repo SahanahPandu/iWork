@@ -36,7 +36,7 @@ class _ReportListDetailsState extends State<ReportListDetails> {
     return Container(
       margin: Orientations().isTabletPortrait(context)
           ? const EdgeInsets.only(top: 15)
-          : const EdgeInsets.only(top: 15, bottom: 20),
+          : const EdgeInsets.only(top: 15, bottom: 10),
       child: Column(
         children: [
           //laluan and status

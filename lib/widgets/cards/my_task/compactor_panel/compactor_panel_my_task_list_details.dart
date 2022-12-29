@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 //import files
-import '../../../../config/config.dart';
 import '../../../../config/font.dart';
 import '../../../../config/palette.dart';
 import '../../../../models/task/compactor/data/schedule/schedule.dart';
@@ -236,9 +235,9 @@ class CompactorPanelMyTaskListDetailsState
                     ),
                     Orientations().isLandscape(context)
                         ? Text(
-                            statusTask == 1
-                                ? '--:--/--:--'
-                                : '$_startedTime/$_endedTime',
+                            widget.data.vehicleChecklistId != null
+                                ? '${widget.data.vehicleChecklistId!.timeOut}/${widget.data.vehicleChecklistId!.timeIn}'
+                                : '--:--/--:--',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
@@ -250,9 +249,9 @@ class CompactorPanelMyTaskListDetailsState
                             width: _textSize().width,
                             height: _textSize().height,
                             child: Text(
-                                statusTask == 1
-                                    ? '--:--/--:--'
-                                    : '$_startedTime/$_endedTime',
+                                widget.data.vehicleChecklistId != null
+                                    ? '${widget.data.vehicleChecklistId!.timeOut}/${widget.data.vehicleChecklistId!.timeIn}'
+                                    : '--:--/--:--',
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
@@ -277,9 +276,15 @@ class CompactorPanelMyTaskListDetailsState
     );
   }
 
-  void setStartTime(String value) => setState(() => _startedTime = value);
+  String setStartTime(String value) {
+    setState(() => _startedTime = value);
+    return _startedTime;
+  }
 
-  void setEndTime(String value) => setState(() => _endedTime = value);
+  String setEndTime(String value) {
+    setState(() => _endedTime = value);
+    return _endedTime;
+  }
 
   final TextStyle textStyle = TextStyle(
     color: blackCustom,
@@ -289,7 +294,9 @@ class CompactorPanelMyTaskListDetailsState
   Size _textSize() {
     final TextPainter textPainter = TextPainter(
         text: TextSpan(
-            text: statusTask == 1 ? '--:--/--:--' : '$_startedTime/$_endedTime',
+            text: widget.data.vehicleChecklistId != null
+                ? '${widget.data.vehicleChecklistId!.timeOut}/${widget.data.vehicleChecklistId!.timeIn}'
+                : '--:--/--:--',
             style: textStyle),
         maxLines: 1,
         textAlign: TextAlign.right,
