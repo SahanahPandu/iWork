@@ -15,7 +15,7 @@ class Document {
         puspakomDisc: json["puspakomDisc"],
         cukaiJalan: json["cukaiJalan"],
         lesen: json["lesen"],
-        remarks: json["remarks"],
+        remarks: json["remarks"] ?? "-",
       );
 
   Map<String, dynamic> toJson() => {

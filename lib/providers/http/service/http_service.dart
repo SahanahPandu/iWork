@@ -14,14 +14,19 @@ class HttpService {
   final Uri updateIDUrl = (Uri.parse('$theBase/update_device_id'));
 
   /// Task Schedules Url
-  /// Below is task schedule data extraction for Compactor Panel
+  /// Below is task schedule data extraction for Compactor Panel as Uri
   final Uri loadCompactorTaskUrl = (Uri.parse('$theBase/task/vehicle/details'));
 
+  /// Task schedule data extraction for Compactor Panel as String
   final loadCompactorTaskUrlTest = '$theBase/task/vehicle/details';
 
-  /// Load Vehicle Checklist Url
+  /// Load Vehicle Checklist Url as String
   final loadVehicleChecklist = '$theBase/task/vehicle-checklist';
 
-  /// Update Vehicle Checklist Url
+  /// Update Vehicle Checklist Url as String
   final updateVehicleChecklist = '$theBase/task/checklist/update';
+
+  /// Update Vehicle Checklist Url as Uri
+  final Uri updateVehicleChecklistTest =
+      (Uri.parse('$theBase/task/checklist/update'));
 }

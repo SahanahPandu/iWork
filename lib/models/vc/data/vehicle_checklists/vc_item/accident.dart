@@ -12,7 +12,7 @@ class Accident {
   static Accident fromJson(json) => Accident(
         terlibatKemalangan: json["terlibatKemalangan"],
         noKenderaanPartiKetiga: json["noKenderaanPartiKetiga"],
-        remarks: json["remarks"],
+        remarks: json["remarks"] ?? "-",
       );
 
   Map<String, dynamic> toJson() => {

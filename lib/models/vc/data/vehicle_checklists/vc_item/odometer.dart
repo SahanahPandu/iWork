@@ -6,16 +6,16 @@ class Odometer {
     required this.noAkbk,
   });
 
-  int bacaanOdo;
+  String bacaanOdo;
   String odoFungsi;
-  int totalKm;
+  String totalKm;
   String noAkbk;
 
   static Odometer fromJson(json) => Odometer(
         bacaanOdo: json["bacaanOdo"],
         odoFungsi: json["odoFungsi"],
         totalKm: json["totalKM"],
-        noAkbk: json["noAkbk"],
+        noAkbk: json["noAkbk"] ?? "-",
       );
 
   Map<String, dynamic> toJson() => {

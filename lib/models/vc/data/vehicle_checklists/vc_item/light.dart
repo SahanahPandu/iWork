@@ -24,7 +24,7 @@ class Light {
         lampuKecemasan: json["lampuKecemasan"],
         lampuBeacon: json["lampuBeacon"],
         lampuPlet: json["lampuPlet"],
-        remarks: json["remarks"],
+        remarks: json["remarks"] ?? "-",
       );
 
   Map<String, dynamic> toJson() => {

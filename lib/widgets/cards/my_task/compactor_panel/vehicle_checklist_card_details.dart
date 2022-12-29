@@ -153,6 +153,7 @@ class _VehicleChecklistCardDetailsState
         PageTransition(
             type: PageTransitionType.fade,
             child: VehicleChecklistFormTab(scheduleData: widget.scheduleData)));
+
     /* if (!mounted) return;
     if (refresh == true) {
       _changeStatus();

@@ -15,13 +15,11 @@ class VehicleChecklists {
   });
 
   int id;
-
-  @JsonKey(defaultValue: null)
-  String? timeIn;
-
-  @JsonKey(defaultValue: null)
-  String? timeOut;
-  String? createdAt;
+  @JsonKey(defaultValue: "")
+  dynamic timeIn;
+  @JsonKey(defaultValue: "")
+  dynamic timeOut;
+  dynamic createdAt;
   String statusCode;
   ChecklistBefore? checklistBefore;
 
@@ -33,7 +31,7 @@ class VehicleChecklists {
         id: json["id"],
         timeIn: json["time_in"] ?? "--:--",
         timeOut: json["time_out"] ?? "--:--",
-        createdAt: json["created_at"],
+        createdAt: json["created_at"] ?? "--:--",
         statusCode: json["status_code"],
         checklistBefore: json["checklist_before"] != null
             ? ChecklistBefore.fromJson(json["checklist_before"])

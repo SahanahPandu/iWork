@@ -12,7 +12,7 @@ class VehiclePhysical {
   static VehiclePhysical fromJson(json) => VehiclePhysical(
         sampah: json["sampah"],
         kecacatan: json["kecacatan"],
-        remarks: json["remarks"],
+        remarks: json["remarks"] ?? "-",
       );
 
   Map<String, dynamic> toJson() => {
