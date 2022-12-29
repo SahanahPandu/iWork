@@ -3571,10 +3571,6 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
             }
           };
 
-          if (completedFirstVc && !completedSecondVc) {
-            completedSecondVc = true;
-          }
-          completedFirstVc = true;
           setState(() {
             isLoading = true;
           });
@@ -3588,6 +3584,10 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
             isLoading = false;
           });
           if (result == 'ok') {
+            if (completedFirstVc && !completedSecondVc) {
+              completedSecondVc = true;
+            }
+            completedFirstVc = true;
             Navigator.pop(context, true);
             showDialog(
                 context: context,
