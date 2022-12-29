@@ -632,8 +632,8 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                 3: FlexColumnWidth(2.4),
                                 4: FlexColumnWidth(2.1),
                                 5: FlexColumnWidth(0.3),
-                                6: FlexColumnWidth(1.1),
-                                7: FlexColumnWidth(2.3),
+                                6: FlexColumnWidth(1.2),
+                                7: FlexColumnWidth(2.2),
                               }
                             : null,
                         border: TableBorder.all(color: transparent),
@@ -676,9 +676,9 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                             Text(widget.scheduleData!.statusCode!.name!,
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
-                                    fontSize: 14,
+                                    fontSize: 15,
                                     color: blackCustom,
-                                    fontWeight: FontWeight.w500)),
+                                    fontWeight: FontWeight.w600)),
                           ]),
                           TableRow(children: [
                             SizedBox(height: tableSpace(context)),
@@ -3067,14 +3067,14 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                     )
                   : const SizedBox()
             ]),
-            const SizedBox(width: 16),
+            const SizedBox(width: 14),
             Text(
               yes,
               style: TextStyle(color: dbData == yes ? blackCustom : grey300),
             ),
           ],
         ),
-        const SizedBox(width: 56),
+        const SizedBox(width: 50),
         Row(
           children: [
             Stack(alignment: AlignmentDirectional.center, children: <Widget>[
@@ -3094,7 +3094,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                     )
                   : const SizedBox()
             ]),
-            const SizedBox(width: 16),
+            const SizedBox(width: 14),
             Text(no,
                 style: TextStyle(color: dbData == no ? blackCustom : grey300)),
           ],

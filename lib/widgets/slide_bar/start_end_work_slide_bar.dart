@@ -49,8 +49,9 @@ class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
             ? 350
             : Sizes().screenWidth(context),
         controller: _controller,
-        height: Orientations().isLandscape(context) ? 45 : 40,
-        toggleWidth: Orientations().isLandscape(context) ? 35 : 31,
+        height: Orientations().isLandscape(context) ? 45 : 42,
+        toggleWidth: Orientations().isLandscape(context) ? 35 : 30,
+        toggleMargin: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
         sliderBehavior: SliderBehavior.stretch,
         foregroundChild: Container(
             decoration: BoxDecoration(
@@ -60,7 +61,7 @@ class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
               ),
             ),
             child: Icon(Icons.double_arrow_rounded,
-                color: statusTask == 3 ? transparent : white)),
+                color: statusTask == 3 ? transparent : white, size: 20)),
         foregroundBuilder: (context, state, child) => child!,
         backgroundChild: RotatedBox(
           quarterTurns: statusTask == 2 ? 2 : 0,
