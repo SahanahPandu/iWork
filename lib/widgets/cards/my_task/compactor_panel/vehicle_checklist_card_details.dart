@@ -182,18 +182,18 @@ class _VehicleChecklistCardDetailsState
     );
   }
 
-  Future<void> _navigateAndDisplaySelection(BuildContext context) async {
+/* Future<void> _navigateAndDisplaySelection(BuildContext context) async {
     Navigator.push(
         context,
         PageTransition(
             type: PageTransitionType.fade,
             child: VehicleChecklistFormTab(scheduleData: widget.scheduleData)));
 
-    /* if (!mounted) return;
+     if (!mounted) return;
     if (refresh == true) {
       _changeStatus();
-    } else {}*/
-  }
+    } else {}
+  }*/
 
 /*void _changeStatus() {
     setState(() {

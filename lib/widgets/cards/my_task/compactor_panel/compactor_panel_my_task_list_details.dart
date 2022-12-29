@@ -276,9 +276,15 @@ class CompactorPanelMyTaskListDetailsState
     );
   }
 
-  void setStartTime(String value) => setState(() => _startedTime = value);
+  String setStartTime(String value) {
+    setState(() => _startedTime = value);
+    return _startedTime;
+  }
 
-  void setEndTime(String value) => setState(() => _endedTime = value);
+  String setEndTime(String value) {
+    setState(() => _endedTime = value);
+    return _endedTime;
+  }
 
   final TextStyle textStyle = TextStyle(
     color: blackCustom,
