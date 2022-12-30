@@ -89,11 +89,13 @@ class _VehicleChecklistCardDetailsState
                       width: 16,
                     ),
                     Text(
-                      "Sebelum Bertugas",
+                      "Sebelum Keluar",
                       style: TextStyle(
                         fontSize: 16,
                         color: alterColorBefore,
-                        fontWeight: FontWeight.w400,
+                        fontWeight: alterColorBefore == greenCustom
+                            ? FontWeight.w500
+                            : FontWeight.w400,
                       ),
                     ),
                   ],
@@ -130,11 +132,13 @@ class _VehicleChecklistCardDetailsState
                       width: 16,
                     ),
                     Text(
-                      "Selepas Bertugas",
+                      "Selepas Balik",
                       style: TextStyle(
                         fontSize: 16,
                         color: alterColorAfter,
-                        fontWeight: FontWeight.w400,
+                        fontWeight: alterColorAfter == greenCustom
+                            ? FontWeight.w500
+                            : FontWeight.w400,
                       ),
                     ),
                   ],

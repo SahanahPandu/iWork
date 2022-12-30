@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../config/font.dart';
 import '../../../config/palette.dart';
 import '../../../models/task/compactor/data/schedule/schedule.dart';
+import '../../../utils/calendar/time.dart';
 import '../../../utils/device/orientations.dart';
 import '../../../utils/icon/custom_icon.dart';
 import '../../../widgets/container/status_container.dart';
@@ -23,6 +24,42 @@ class _CompactorPanelScheduleDetailsState
     extends State<CompactorPanelScheduleDetails> {
   Color expandBgColor = const Color(0xea4a39be);
   Color portraitExpandBgColor = const Color(0xea3e62be);
+  Color beforeVC = white;
+  Color afterVC = white;
+  String startTime = "--:--";
+  String stopTime = "--:--";
+
+  @override
+  void initState() {
+    if (widget.data!.vehicleChecklistId == null) {
+      startTime = "--:--";
+      stopTime = "--:--";
+      beforeVC = white;
+      afterVC = white;
+    } else {
+      if (widget.data!.vehicleChecklistId!.timeOut == "--:--" ||
+          widget.data!.vehicleChecklistId!.timeOut == "") {
+        startTime = "--:--";
+      } else {
+        startTime = Time.convertToHM(widget.data!.vehicleChecklistId!.timeOut!);
+      }
+      if (widget.data!.vehicleChecklistId!.timeIn == "--:--" ||
+          widget.data!.vehicleChecklistId!.timeIn == "") {
+        stopTime = "--:--";
+      } else {
+        stopTime = Time.convertToHM(widget.data!.vehicleChecklistId!.timeIn!);
+      }
+      if (widget.data!.vehicleChecklistId!.statusCode!.code == "VC1") {
+        beforeVC = okTextColor;
+        afterVC = white;
+      } else if (widget.data!.vehicleChecklistId!.statusCode!.code == "VC2" ||
+          widget.data!.vehicleChecklistId!.statusCode!.code == "VC3") {
+        beforeVC = okTextColor;
+        afterVC = okTextColor;
+      }
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -182,10 +219,7 @@ class _CompactorPanelScheduleDetailsState
                     fontWeight: FontWeight.w400,
                   ))
             ]),
-            Text(
-                widget.data!.vehicleChecklistId != null
-                    ? "${widget.data!.vehicleChecklistId!.timeOut} / ${widget.data!.vehicleChecklistId!.timeIn}"
-                    : "--:--/--:--",
+            Text("$startTime / $stopTime",
                 style: TextStyle(
                   fontSize: 16,
                   color: white,
@@ -213,12 +247,30 @@ class _CompactorPanelScheduleDetailsState
                     fontWeight: FontWeight.w400,
                   ))
             ]),
-            Text("Sebelum/Selepas",
-                style: TextStyle(
-                  fontSize: 16,
-                  color: white,
-                  fontWeight: FontWeight.w600,
-                ))
+            RichText(
+                text: TextSpan(
+                    text: "Sebelum",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: beforeVC,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    children: <TextSpan>[
+                  TextSpan(
+                      text: "/",
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: white,
+                        fontWeight: FontWeight.w600,
+                      )),
+                  TextSpan(
+                      text: "Selepas",
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: afterVC,
+                        fontWeight: FontWeight.w600,
+                      )),
+                ])),
           ])),
       //Senarai Staf
       Align(
