@@ -12,4 +12,8 @@ class Time {
     var formatter = DateFormat("hh:mm");
     return formatter.format(now);
   }
+
+  static String convertToHM(String time) {
+    return DateFormat("hh:mm a", "ms").format(DateTime.parse(time));
+  }
 }

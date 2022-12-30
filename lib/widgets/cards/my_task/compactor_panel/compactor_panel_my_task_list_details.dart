@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../../config/font.dart';
 import '../../../../config/palette.dart';
 import '../../../../models/task/compactor/data/schedule/schedule.dart';
+import '../../../../utils/calendar/time.dart';
 import '../../../../utils/device/orientations.dart';
 import '../../../../utils/icon/custom_icon.dart';
 import '../../../../widgets/slide_bar/start_end_work_slide_bar.dart';
@@ -29,6 +30,33 @@ class CompactorPanelMyTaskListDetailsState
     extends State<CompactorPanelMyTaskListDetails> {
   String _startedTime = "--:--";
   String _endedTime = "--:--";
+  String startTime = "--:--";
+  String stopTime = "--:--";
+
+  @override
+  void initState() {
+    if (widget.data.vehicleChecklistId == null) {
+      startTime = "--:--";
+      stopTime = "--:--";
+    } else {
+      if (widget.data.vehicleChecklistId!.timeOut == "--:--" ||
+          widget.data.vehicleChecklistId!.timeOut == "") {
+        startTime = "--:--";
+      } else {
+        startTime = Time.convertToHM(widget.data.vehicleChecklistId!.timeOut!);
+      }
+      if (widget.data.vehicleChecklistId!.timeIn == "--:--" ||
+          widget.data.vehicleChecklistId!.timeIn == "") {
+        stopTime = "--:--";
+      } else {
+        stopTime = Time.convertToHM(widget.data.vehicleChecklistId!.timeIn!);
+      }
+      if (widget.data.vehicleChecklistId!.statusCode!.code == "VC1") {
+      } else if (widget.data.vehicleChecklistId!.statusCode!.code == "VC2" ||
+          widget.data.vehicleChecklistId!.statusCode!.code == "VC3") {}
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -234,10 +262,7 @@ class CompactorPanelMyTaskListDetailsState
                       ],
                     ),
                     Orientations().isLandscape(context)
-                        ? Text(
-                            widget.data.vehicleChecklistId != null
-                                ? '${widget.data.vehicleChecklistId!.timeOut}/${widget.data.vehicleChecklistId!.timeIn}'
-                                : '--:--/--:--',
+                        ? Text('$startTime / $stopTime',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
@@ -248,10 +273,7 @@ class CompactorPanelMyTaskListDetailsState
                         : SizedBox(
                             width: _textSize().width,
                             height: _textSize().height,
-                            child: Text(
-                                widget.data.vehicleChecklistId != null
-                                    ? '${widget.data.vehicleChecklistId!.timeOut}/${widget.data.vehicleChecklistId!.timeIn}'
-                                    : '--:--/--:--',
+                            child: Text('$startTime / $stopTime',
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
@@ -293,11 +315,7 @@ class CompactorPanelMyTaskListDetailsState
 
   Size _textSize() {
     final TextPainter textPainter = TextPainter(
-        text: TextSpan(
-            text: widget.data.vehicleChecklistId != null
-                ? '${widget.data.vehicleChecklistId!.timeOut}/${widget.data.vehicleChecklistId!.timeIn}'
-                : '--:--/--:--',
-            style: textStyle),
+        text: TextSpan(text: '$startTime / $stopTime', style: textStyle),
         maxLines: 1,
         textAlign: TextAlign.right,
         textDirection: TextDirection.rtl)
