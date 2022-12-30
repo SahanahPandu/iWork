@@ -1,6 +1,9 @@
+import 'package:eswm/models/schedule/filter/schedule_filter_status.dart';
+import 'package:eswm/providers/jadual_api.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 // ignore: import_of_legacy_library_into_null_safe
-import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 
 //import files
@@ -21,6 +24,8 @@ class ScheduleAllMainScreen extends StatefulWidget {
 }
 
 class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
+  final TextEditingController _filteredDate = TextEditingController();
+  DateTime filteredDate = DateTime.now();
   @override
   void initState() {
     super.initState();
@@ -62,6 +67,10 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
             actions: [
               IconButton(
                 onPressed: () {
+                  setState(() {
+                    _filteredDate.text =
+                        DateFormat('dd-MM-yyyy').format(filteredDate);
+                  });
                   displayFilterBottomSheet(context);
                 },
                 icon: Icon(
@@ -120,6 +129,18 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
   }
 
   Future<dynamic> displayFilterBottomSheet(context) {
+    // ignore: unused_local_variable
+    List<MultiSelectItem<dynamic>> theStatusList = [];
+    JadualApi.getDataStatusJadual()!.then((statusList) {
+      setState(() {
+        theStatusList = statusList!
+            .map((status) =>
+                MultiSelectItem<ScheduleFilterStatus>(status!, status.name))
+            .toList();
+      });
+
+      // print('Status: $theStatusList');
+    });
     return showModalBottomSheet(
         backgroundColor: Colors.white,
         isScrollControlled: true,
@@ -130,9 +151,7 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
           ),
         ),
         constraints: BoxConstraints(
-          // minHeight: Sizes().screenHeight(context) * 0.5,
           maxHeight: Sizes().screenHeight(context) * 0.6,
-          // minWidth: Sizes().screenWidth(context),
           maxWidth: Sizes().screenWidth(context),
         ),
         context: context,
@@ -173,41 +192,42 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                 const SizedBox(
                   height: 16,
                 ),
-                TextFormField(
-                  style: TextStyle(
-                    color: blackCustom,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w400,
-                  ),
-                  readOnly: true,
-                  enabled: false,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.white,
-                    contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 14,
-                    ),
-                    disabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        width: borderSideWidth,
-                        color: enabledBorderWithoutText,
-                      ),
-                      borderRadius: BorderRadius.circular(
-                        borderRadiusCircular,
-                      ),
-                    ),
-                    hintText: 'Tarikh',
-                    hintStyle: TextStyle(
-                      color: greyCustom,
+                GestureDetector(
+                  onTap: () {
+                    displayCupertinoDatePicker(context);
+                  },
+                  child: TextFormField(
+                    controller: _filteredDate,
+                    style: TextStyle(
+                      color: blackCustom,
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
                     ),
-                    suffixIcon: InkWell(
-                      onTap: () {
-                        // DatePicker.showDatePicker(context);
-                      },
-                      child: Icon(
+                    readOnly: true,
+                    enabled: false,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 14,
+                      ),
+                      disabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          width: borderSideWidth,
+                          color: enabledBorderWithoutText,
+                        ),
+                        borderRadius: BorderRadius.circular(
+                          borderRadiusCircular,
+                        ),
+                      ),
+                      hintText: 'Tarikh',
+                      hintStyle: TextStyle(
+                        color: greyCustom,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w400,
+                      ),
+                      suffixIcon: Icon(
                         CustomIcon.scheduleOutline,
                         size: 16,
                         color: blackCustom,
@@ -336,6 +356,101 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                       ),
                     ),
                   ],
+                ),
+              ],
+            ),
+          );
+        });
+  }
+
+  Future<dynamic> displayCupertinoDatePicker(context) {
+    DateTime todayDate = DateTime.now();
+    DateTime getDate = todayDate;
+    return showModalBottomSheet(
+        backgroundColor: Colors.white,
+        isScrollControlled: true,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+        ),
+        constraints: BoxConstraints(
+          maxHeight: Sizes().screenHeight(context) * 0.4,
+          maxWidth: Sizes().screenWidth(context),
+        ),
+        context: context,
+        builder: (builder) {
+          return Container(
+            margin: const EdgeInsets.all(28),
+            child: Column(
+              children: [
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text(
+                          'Kembali',
+                          style: TextStyle(
+                            color: Color(0xffA4A4A4),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                      Text(
+                        'Pilih Tarikh',
+                        style: TextStyle(
+                          color: blackCustom,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _filteredDate.text =
+                                DateFormat('dd-MM-yyyy').format(getDate);
+                            filteredDate = getDate;
+                          });
+                          Navigator.pop(context);
+                        },
+                        child: Text(
+                          'Pasti',
+                          style: TextStyle(
+                            color: greenCustom,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: Divider(
+                    thickness: 0.5,
+                    color: greyCustom,
+                  ),
+                ),
+                const SizedBox(
+                  height: 18,
+                ),
+                SizedBox(
+                  height: Sizes().screenHeight(context) * 0.2,
+                  child: CupertinoDatePicker(
+                    backgroundColor: Colors.white,
+                    dateOrder: DatePickerDateOrder.dmy,
+                    mode: CupertinoDatePickerMode.date,
+                    initialDateTime: filteredDate,
+                    onDateTimeChanged: (theDate) {
+                      getDate = theDate;
+                    },
+                  ),
                 ),
               ],
             ),

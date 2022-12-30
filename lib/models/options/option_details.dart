@@ -2,13 +2,20 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:eswm/models/ecuti/leave_types.dart';
 import 'package:eswm/models/report/obstacle_types.dart';
 
+import '../schedule/filter/schedule_filter_status.dart';
+
 @JsonSerializable()
 class OptionDetails {
   final dynamic generalStatus;
   final dynamic reportStatus;
   final dynamic akbkStatus;
   final dynamic ecutiStatus;
-  final dynamic scheduleStatus;
+
+  @JsonKey(
+    defaultValue: [],
+  )
+  final List<ScheduleFilterStatus?>? scheduleStatus;
+
   final dynamic isuStatus;
   final dynamic sahStatus;
   final dynamic workerSchedule;
@@ -43,7 +50,11 @@ class OptionDetails {
         reportStatus: json['report_status'],
         akbkStatus: json['akbk_status'],
         ecutiStatus: json['ecuti_status'],
-        scheduleStatus: json['schedule_status'],
+        scheduleStatus: json['schedule_status'] != null
+            ? json['schedule_status']
+                .map<ScheduleFilterStatus>(ScheduleFilterStatus.fromJson)
+                .toList()
+            : json['schedule_status'],
         isuStatus: json['isu_status'],
         sahStatus: json['sah_status'],
         workerSchedule: json['worker_schedule'],
