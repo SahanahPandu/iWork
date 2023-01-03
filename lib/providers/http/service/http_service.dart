@@ -29,4 +29,10 @@ class HttpService {
   /// Update Vehicle Checklist Url as Uri
   final Uri updateVehicleChecklistTest =
       (Uri.parse('$theBase/task/checklist/update'));
+
+  /// Update Start Work Time Url as Uri
+  final Uri updateStartWorkTime = (Uri.parse('$theBase/task/start'));
+
+  /// Update Stop Work Time Url as Uri
+  final Uri updateStopWorkTime = (Uri.parse('$theBase/task/stop'));
 }

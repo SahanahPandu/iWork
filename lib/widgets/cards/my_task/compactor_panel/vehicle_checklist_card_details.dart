@@ -27,21 +27,48 @@ class _VehicleChecklistCardDetailsState
   Color alterColorAfter = greyCustom;
   Color buttonColor = greenCustom;
   Color buttonTextColor = white;
+  Color buttonSplashColor = green800;
 
   @override
   void initState() {
-    if (widget.scheduleData!.vehicleChecklistId == null) {
+    if (widget.scheduleData!.vehicleChecklistId == null ||
+        scheduleVcStatus.value == 0) {
       alterColorBefore = greyCustom;
       alterColorAfter = greyCustom;
+      buttonColor = greenCustom;
+      buttonTextColor = white;
+      buttonSplashColor = green800;
     } else if (widget.scheduleData!.vehicleChecklistId!.statusCode!.code! ==
         "VC1") {
       alterColorBefore = greenCustom;
       alterColorAfter = greyCustom;
+      if (scheduleVcStatus.value == 1 &&
+          (widget.scheduleData!.vehicleChecklistId!.timeOut == null ||
+              widget.scheduleData!.vehicleChecklistId!.timeOut == "--:--")) {
+        buttonColor = grey100;
+        buttonTextColor = grey500;
+        buttonSplashColor = transparent;
+      } else if (scheduleVcStatus.value == 2 &&
+          (widget.scheduleData!.vehicleChecklistId!.timeOut != null ||
+              widget.scheduleData!.vehicleChecklistId!.timeOut != "--:--")) {
+        buttonColor = grey100;
+        buttonTextColor = grey500;
+        buttonSplashColor = transparent;
+      } else if (scheduleVcStatus.value == 3 &&
+          (widget.scheduleData!.vehicleChecklistId!.timeOut != null ||
+              widget.scheduleData!.vehicleChecklistId!.timeOut != "--:--")) {
+        buttonColor = greenCustom;
+        buttonTextColor = white;
+        buttonSplashColor = green800;
+      }
     } else if (widget.scheduleData!.vehicleChecklistId!.statusCode!.code! ==
             "VC2" ||
         widget.scheduleData!.vehicleChecklistId!.statusCode!.code! == "VC3") {
       alterColorBefore = greenCustom;
       alterColorAfter = greenCustom;
+      buttonColor = grey100;
+      buttonTextColor = grey500;
+      buttonSplashColor = transparent;
     }
     super.initState();
   }
@@ -153,22 +180,33 @@ class _VehicleChecklistCardDetailsState
           width: 330,
           child: ElevatedButton(
             onPressed: () {
-              if (completedFirstVc && !completedSecondVc) {
-                null;
-              } else {
+              if (widget.scheduleData!.vehicleChecklistId == null) {
                 Navigator.push(
                     context,
                     PageTransition(
                         type: PageTransitionType.fade,
                         child: VehicleChecklistFormTab(
                             scheduleData: widget.scheduleData)));
+              } else if (scheduleVcStatus.value == 3 &&
+                  (widget.scheduleData!.vehicleChecklistId!.timeOut !=
+                          "--:--" &&
+                      widget.scheduleData!.vehicleChecklistId!.timeIn !=
+                          "--:--")) {
+                Navigator.push(
+                    context,
+                    PageTransition(
+                        type: PageTransitionType.fade,
+                        child: VehicleChecklistFormTab(
+                            scheduleData: widget.scheduleData, idx: 1)));
+              } else {
+                null;
               }
             },
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(buttonColor),
               elevation: MaterialStateProperty.all(0),
               overlayColor:
-                  MaterialStateColor.resolveWith((states) => green800),
+                  MaterialStateColor.resolveWith((states) => buttonSplashColor),
               shadowColor: MaterialStateProperty.all(grey900),
               minimumSize: MaterialStateProperty.all(
                   Size(Sizes().screenWidth(context), 40)),

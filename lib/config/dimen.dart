@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//import files
 import '../utils/device/devices.dart';
 import '../utils/device/orientations.dart';
 import '../utils/device/sizes.dart';
@@ -26,7 +27,7 @@ double gridRatioReport(BuildContext context) =>
     Orientations().isLandscape(context) ? 2 : 1.28;
 
 double alertBoxPadding(BuildContext context) => Devices().isTablet()
-    ? (Orientations().isLandscape(context) ? 280 : 170)
+    ? (Orientations().isLandscape(context) ? 340 : 170)
     : 20;
 
 double loginPadding(BuildContext context) => Devices().isPhone()

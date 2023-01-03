@@ -46,7 +46,7 @@ class CompactorTaskApi {
     try {
       var response = await Dio().get(
         HttpService().loadCompactorTaskUrlTest,
-        queryParameters: {'schedule_date': '2022-12-13'},
+        queryParameters: {'schedule_date': today},
         options: Options(headers: {
           'authorization': 'Bearer $getAccessToken',
         }),
@@ -75,7 +75,7 @@ class CompactorTaskApi {
     try {
       var response = await Dio().get(
         HttpService().loadCompactorTaskUrlTest,
-        queryParameters: {'schedule_date': '2022-12-13'},
+        queryParameters: {'schedule_date': today},
         options: Options(headers: {
           'authorization': 'Bearer $getAccessToken',
         }),

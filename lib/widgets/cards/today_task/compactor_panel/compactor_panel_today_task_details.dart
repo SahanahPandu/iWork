@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import '../../../../config/palette.dart';
 import '../../../../models/task/compactor/compactor_task.dart';
 import '../../../../utils/calendar/date.dart';
+import '../../../../utils/calendar/time.dart';
 import '../../../../utils/device/orientations.dart';
 import '../../../../utils/icon/custom_icon.dart';
 
@@ -39,7 +40,7 @@ class _CompactorPanelTodayTaskDetailsState
         height: 15,
       ),
       Text(
-        "Tugasan Hari Ini (${DateFormat("hh:mm aaaa", "ms").format(DateTime.parse('20222312 ${widget.scheduleData!.data!.schedules![0].startWorkAt!.replaceAll(' ', '')}'))} - ${DateFormat("hh:mm a", "ms").format(DateTime.parse('20222312 ${widget.scheduleData!.data!.schedules![0].stopWorkAt!.replaceAll(' ', '')}'))})",
+        "Tugasan Hari Ini (${DateFormat("hh:mm").format(DateTime.parse('20222312 ${widget.scheduleData!.data!.schedules!.first.startWorkAt!}'))} ${Time.convertAMPMToMs(widget.scheduleData!.data!.schedules!.first.startWorkAt!)} - ${DateFormat("hh:mm").format(DateTime.parse('20222312 ${widget.scheduleData!.data!.schedules!.last.stopWorkAt!}'))} ${Time.convertAMPMToMs(widget.scheduleData!.data!.schedules!.last.stopWorkAt!)})",
         style: const TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.w400,
