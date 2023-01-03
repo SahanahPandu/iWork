@@ -1,9 +1,17 @@
 import 'package:eswm/models/task/pra/task_list.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 class GeneralWorkerTask {
+  @JsonKey(defaultValue: null)
   final String? startWork;
+
+  @JsonKey(defaultValue: null)
   final String? stopWork;
+
+  @JsonKey(defaultValue: null)
   final Attendance? attendance;
+
+  @JsonKey(defaultValue: [])
   final List<TaskList> list;
 
   const GeneralWorkerTask({
@@ -15,12 +23,14 @@ class GeneralWorkerTask {
 
   static GeneralWorkerTask fromJson(Map<String, dynamic> json) =>
       GeneralWorkerTask(
-        startWork: json['startWork'] ?? "",
-        stopWork: json['stopWork'] ?? "",
+        startWork: json['startWork'],
+        stopWork: json['stopWork'],
         attendance: json['attendance'] != null
             ? Attendance.fromJson(json['attendance'])
             : null,
-        list: json['list'].map<TaskList>(TaskList.fromJson).toList(),
+        list: json['list'] != []
+            ? json['list'].map<TaskList>(TaskList.fromJson).toList()
+            : [],
       );
 
   Map<String, dynamic> toJson() => {

@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../config/config.dart';
+import '../../config/palette.dart';
 import '../../providers/cuti_api.dart';
 import '../../providers/jalan_api.dart';
 import '../../providers/laluan_api.dart';
 import '../../providers/reports_api.dart';
+import '../../utils/icon/custom_icon.dart';
 import '../cards/list_card.dart';
 
 class CardListView extends StatefulWidget {
@@ -66,35 +68,53 @@ class _CardListViewState extends State<CardListView> {
                 child: Text("Some error occurred!"),
               );
             } else {
-              //Filtering based on Cuti Status (if any)
-              if (widget.type == "Cuti" && widget.cutiStatus != null) {
-                dataFuture!.removeWhere(
-                    (item) => !widget.cutiStatus.contains(item.status.code));
-              }
-              //Filtering based on issued laluan cards
-              if (widget.type == "Laluan" && widget.screens == "isu") {
-                dataFuture!.removeWhere((item) => "".contains(item.isu));
-              }
+              if (dataFuture!.isEmpty) {
+                return Center(
+                  child: Container(
+                    margin: const EdgeInsets.all(20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(CustomIcon.exclamation,
+                            color: Colors.orange, size: 14),
+                        const SizedBox(width: 10),
+                        Text("Tiada rekod dijumpai",
+                            style: TextStyle(color: grey500)),
+                      ],
+                    ),
+                  ),
+                );
+              } else {
+                //Filtering based on Cuti Status (if any)
+                if (widget.type == "Cuti" && widget.cutiStatus != null) {
+                  dataFuture.removeWhere(
+                      (item) => !widget.cutiStatus.contains(item.status.code));
+                }
+                //Filtering based on issued laluan cards
+                if (widget.type == "Laluan" && widget.screens == "isu") {
+                  dataFuture.removeWhere((item) => "".contains(item.isu));
+                }
 
-              return ListView.builder(
-                physics: userRole == 200
-                    ? ((widget.type == "Laluan" &&
-                            (widget.screens == "drawer" ||
-                                widget.screens == "isu"))
-                        ? const BouncingScrollPhysics()
-                        : const NeverScrollableScrollPhysics())
-                    : const BouncingScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: dataFuture!.length,
-                itemBuilder: (context, index) {
-                  return ListCard(
-                    data: dataFuture[index],
-                    type: widget.type,
-                    listIndex: index,
-                    passData: widget.passData,
-                  );
-                },
-              );
+                return ListView.builder(
+                  physics: userRole == 200
+                      ? ((widget.type == "Laluan" &&
+                              (widget.screens == "drawer" ||
+                                  widget.screens == "isu"))
+                          ? const BouncingScrollPhysics()
+                          : const NeverScrollableScrollPhysics())
+                      : const BouncingScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: dataFuture.length,
+                  itemBuilder: (context, index) {
+                    return ListCard(
+                      data: dataFuture[index],
+                      type: widget.type,
+                      listIndex: index,
+                      passData: widget.passData,
+                    );
+                  },
+                );
+              }
             }
         }
       },

@@ -73,8 +73,18 @@ class _PraState extends State<Pra> {
                       Date.getTheTimeOfDay(theData.stopWork, "HH:mm:ss", "ms");
                 }
 
-                workingTime =
-                    '${startTime?.format(context)} - ${endTime?.format(context)}';
+                if (startTime == null || endTime == null) {
+                  if (startTime == null && endTime != null) {
+                    workingTime = '00:00:00 - ${endTime.format(context)}';
+                  } else if (startTime != null && endTime == null) {
+                    workingTime = '${startTime.format(context)} - 00:00:00';
+                  } else {
+                    workingTime = '00:00:00 - 00:00:00';
+                  }
+                } else {
+                  workingTime =
+                      '${startTime.format(context)} - ${endTime.format(context)}';
+                }
 
                 //get the clock time
                 if (theData.attendance != null) {
