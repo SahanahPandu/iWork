@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:eswm/models/schedule/filter/schedule_filter_status.dart';
 import 'package:eswm/models/schedule/schedule_data.dart';
+import 'package:eswm/models/schedule/schedule_data_drawer.dart';
 
 //import files
 import 'package:eswm/models/schedule/schedule_details.dart';
@@ -43,6 +44,38 @@ class JadualApi {
     }
 
     return dataJadual;
+  }
+
+  static Future<List<ScheduleDetails>>? getDataJadualDrawer(
+      selectedDate) async {
+    List<ScheduleDetails> filteredList = [];
+
+    try {
+      var response = await Dio().get(
+        '$theBase/schedule/schedules',
+        queryParameters: {'schedule_date': selectedDate},
+        options: Options(headers: {
+          'authorization': 'Bearer ${userInfo[1]}',
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        //check the data is null or not
+        if (response.data['data']['data'] != null &&
+            response.data['data']['data'] != []) {
+          Map<String, dynamic> decode = json.decode(
+            json.encode(response.data['data']),
+          );
+
+          var convertData = ScheduleDataDarawer.fromJson(decode);
+          filteredList = convertData.data;
+        }
+      }
+    } on DioError catch (e) {
+      print(e);
+    }
+
+    return filteredList;
   }
 
   static Future<List<ScheduleFilterStatus?>?>? getDataStatusJadual() async {

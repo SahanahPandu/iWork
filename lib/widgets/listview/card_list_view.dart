@@ -1,3 +1,4 @@
+import 'package:eswm/providers/jadual_api.dart';
 import 'package:flutter/material.dart';
 
 //import files
@@ -36,8 +37,12 @@ class _CardListViewState extends State<CardListView> {
 
     if (widget.type == "Cuti") {
       list = CutiApi.getDataEcuti();
-    } else if (widget.type == "Laluan") {
+    } else if (widget.type == "Laluan" && widget.screens != 'drawer') {
+      //this is for Senarai Tugas Saya in the main page
       list = LaluanApi.getDataLaluan();
+    } else if (widget.type == "Laluan" && widget.screens == 'drawer') {
+      //this is for Senarai Jadual Tugasan in the drawer
+      list = JadualApi.getDataJadualDrawer("");
     } else if (widget.type == "Senarai Jalan") {
       list = JalanApi.getJalanData(context);
     } else if (widget.type == "Laporan") {

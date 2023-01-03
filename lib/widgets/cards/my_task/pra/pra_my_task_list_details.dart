@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../../../config/font.dart';
-import '../../../../models/task/pra/task_list.dart';
 import '../../../../utils/icon/custom_icon.dart';
 import '../../../container/status_container.dart';
 
 class PraMyTaskListDetails extends StatefulWidget {
-  final TaskList data;
+  final dynamic data;
 
   const PraMyTaskListDetails({Key? key, required this.data}) : super(key: key);
 

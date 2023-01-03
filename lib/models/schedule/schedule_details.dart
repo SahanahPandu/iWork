@@ -1,16 +1,37 @@
+import 'package:eswm/models/user/user_data.dart';
+import 'package:json_annotation/json_annotation.dart';
+
 class ScheduleDetails {
   final int id;
   final String vehicleNo;
   final String mainRoute;
   final String scheduleDate;
+
+  @JsonKey(defaultValue: null)
   final Activity? activityCode;
-  final String startWorkAt;
-  final String stopWorkAt;
-  final int totalSubRoute;
-  final int totalPark;
-  final int totalStreet;
+
+  @JsonKey(defaultValue: "")
+  final String? startWorkAt;
+
+  @JsonKey(defaultValue: "")
+  final String? stopWorkAt;
+
+  @JsonKey(defaultValue: 0)
+  final int? totalSubRoute;
+
+  @JsonKey(defaultValue: 0)
+  final int? totalPark;
+
+  @JsonKey(defaultValue: 0)
+  final int? totalStreet;
+
   final Status? statusCode;
+
+  @JsonKey(defaultValue: null)
   final VehicleChecklist? vehicleChecklistId;
+
+  @JsonKey(defaultValue: null)
+  final UserData? superviseBy;
 
   ScheduleDetails({
     required this.id,
@@ -25,6 +46,7 @@ class ScheduleDetails {
     required this.totalStreet,
     required this.statusCode,
     required this.vehicleChecklistId,
+    this.superviseBy,
   });
 
   factory ScheduleDetails.fromJson(json) => ScheduleDetails(
@@ -35,16 +57,19 @@ class ScheduleDetails {
         activityCode: json['activity_code'] != null
             ? Activity.fromJson(json['activity_code'])
             : null,
-        startWorkAt: json['start_work_at'] ?? "",
-        stopWorkAt: json['stop_work_at'] ?? "",
-        totalSubRoute: json['total_sub_route'] ?? 0,
-        totalPark: json['total_park'] ?? 0,
-        totalStreet: json['total_street'] ?? 0,
+        startWorkAt: json['start_work_at'],
+        stopWorkAt: json['stop_work_at'],
+        totalSubRoute: json['total_sub_route'],
+        totalPark: json['total_park'],
+        totalStreet: json['total_street'],
         statusCode: json['status_code'] != null
             ? Status.fromJson(json['status_code'])
             : null,
         vehicleChecklistId: json['vehicle_checklist_id'] != null
             ? VehicleChecklist.fromJson(json['vehicle_checklist_id'])
+            : null,
+        superviseBy: json['supervise_by'] != null
+            ? UserData.fromJson(json['supervise_by'])
             : null,
       );
 
