@@ -26,6 +26,8 @@ class ScheduleAllMainScreen extends StatefulWidget {
 class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
   final TextEditingController _filteredDate = TextEditingController();
   DateTime filteredDate = DateTime.now();
+  var selectedStatus = [];
+
   @override
   void initState() {
     super.initState();
@@ -115,6 +117,10 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                               fontWeight: FontWeight.w400),
                         ),
                       ),
+                      //filtered selection list
+                      // Expanded(
+                      //   child: filteredSection(),
+                      // ),
                       const Padding(
                         padding: EdgeInsets.all(10),
                         child: CardListView(
@@ -128,19 +134,7 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
     );
   }
 
-  Future<dynamic> displayFilterBottomSheet(context) {
-    // ignore: unused_local_variable
-    List<MultiSelectItem<dynamic>> theStatusList = [];
-    JadualApi.getDataStatusJadual()!.then((statusList) {
-      setState(() {
-        theStatusList = statusList!
-            .map((status) =>
-                MultiSelectItem<ScheduleFilterStatus>(status!, status.name))
-            .toList();
-      });
-
-      // print('Status: $theStatusList');
-    });
+  Future<dynamic> displayFilterBottomSheet(context) async {
     return showModalBottomSheet(
         backgroundColor: Colors.white,
         isScrollControlled: true,
@@ -249,40 +243,73 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                 const SizedBox(
                   height: 16,
                 ),
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: MultiSelectChipField(
-                    height: 100,
-                    showHeader: false,
-                    scroll: false,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: transparent),
-                    ),
-                    chipShape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(6),
-                      ),
-                    ),
-                    chipColor: const Color(0xffEFEFEF),
-                    textStyle: const TextStyle(
-                      color: Color(0xff969696),
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                    ),
-                    selectedChipColor: const Color(0xffC0E4FF),
-                    selectedTextStyle: const TextStyle(
-                      color: Color(0xff005B9E),
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                    ),
-                    items: [
-                      MultiSelectItem<String?>("1", "Semua"),
-                      MultiSelectItem<String?>("2", "Belum Mula"),
-                      MultiSelectItem<String?>("3", "Sedang Bertugas"),
-                      MultiSelectItem<String?>("4", "Selesai"),
-                      MultiSelectItem<String?>("5", "Dihentikan"),
-                    ],
-                  ),
+                FutureBuilder<List<ScheduleFilterStatus?>?>(
+                  future: JadualApi.getDataStatusJadual(),
+                  builder: (context, snapshot) {
+                    final statusData = snapshot.data;
+
+                    switch (snapshot.connectionState) {
+                      case ConnectionState.waiting:
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      default:
+                        if (statusData!.isEmpty) {
+                          return Center(
+                            child: Container(
+                              margin: const EdgeInsets.all(20),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Icon(CustomIcon.exclamation,
+                                      color: Colors.orange, size: 14),
+                                  const SizedBox(width: 10),
+                                  Text("Tiada rekod dijumpai",
+                                      style: TextStyle(color: grey500)),
+                                ],
+                              ),
+                            ),
+                          );
+                        } else {
+                          return Align(
+                            alignment: Alignment.topLeft,
+                            child: MultiSelectChipField(
+                              height: 100,
+                              showHeader: false,
+                              scroll: false,
+                              decoration: BoxDecoration(
+                                border: Border.all(color: transparent),
+                              ),
+                              chipShape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(6),
+                                ),
+                              ),
+                              chipColor: const Color(0xffEFEFEF),
+                              textStyle: const TextStyle(
+                                color: Color(0xff969696),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                              ),
+                              selectedChipColor: const Color(0xffC0E4FF),
+                              selectedTextStyle: const TextStyle(
+                                color: Color(0xff005B9E),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                              ),
+                              items: statusData
+                                  .map((status) =>
+                                      MultiSelectItem<ScheduleFilterStatus?>(
+                                          status!, status.name))
+                                  .toList(),
+                              onTap: (values) {
+                                selectedStatus = values;
+                              },
+                            ),
+                          );
+                        }
+                    }
+                  },
                 ),
                 const SizedBox(
                   height: 32,
@@ -330,7 +357,11 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                         width: Sizes().screenWidth(context) * 0.4,
                         height: 40,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            print('Selected Status: $selectedStatus');
+                            print('Selected Date: ${_filteredDate.text}');
+                            Navigator.pop(context);
+                          },
                           style: ButtonStyle(
                             elevation: MaterialStateProperty.all(0),
                             shadowColor: MaterialStateProperty.all(transparent),
@@ -456,5 +487,107 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
             ),
           );
         });
+  }
+
+  Widget filteredSection() {
+    return Column(
+      children: [
+        const SizedBox(
+          height: 16,
+        ),
+        SizedBox(
+          height: 35,
+          child: ListView(
+            shrinkWrap: true,
+            physics: const BouncingScrollPhysics(),
+            scrollDirection: Axis.horizontal,
+            children: [
+              InkWell(
+                onTap: () {},
+                child: Container(
+                  width: 60,
+                  height: 30,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(
+                      color: const Color(0xffD9D9D9),
+                    ),
+                    borderRadius: BorderRadius.circular(26),
+                  ),
+                  padding: const EdgeInsets.all(8),
+                  child: Center(
+                    child: Text(
+                      "Reset",
+                      style: TextStyle(
+                        color: blackCustom,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                width: 8,
+              ),
+              Container(
+                height: 30,
+                padding: const EdgeInsets.only(left: 8),
+                child: ListView.separated(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  separatorBuilder: (context, index) {
+                    return const SizedBox(
+                      width: 8,
+                    );
+                  },
+                  itemCount: selectedStatus.length,
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      onTap: () {},
+                      child: Container(
+                        // height: 30,
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: const Color(0xffC0E4FF),
+                          borderRadius: BorderRadius.circular(26),
+                        ),
+                        child: Row(
+                          children: [
+                            Text(
+                              "${selectedStatus[index].name}",
+                              style: const TextStyle(
+                                color: Color(0xff005B9E),
+                                fontSize: 10,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 8,
+                            ),
+                            InkWell(
+                              onTap: () {},
+                              child: const Icon(
+                                Icons.close,
+                                color: Color(0xff005B9E),
+                                size: 12,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(
+                width: 8,
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 }
