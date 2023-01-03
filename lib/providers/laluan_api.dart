@@ -42,7 +42,7 @@ class LaluanApi {
 
       if (response.statusCode == 200) {
         //checking task list null
-        if (response.data['data']['list'] != null ||
+        if (response.data['data']['list'] != null &&
             response.data['data']['list'] != []) {
           //get data for task list
           Map<String, dynamic> decode = json
