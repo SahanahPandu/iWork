@@ -16,20 +16,14 @@ String todayTask = 'Tugasan Hari Ini';
 String taskIdle = 'Belum Mula';
 String taskStarted = 'Sedang Bertugas';
 String taskEnded = 'Tugasan Selesai';
-String slidedStartTime = '';
-String slidedEndTime = '';
 
-String vc = 'Semak Kenderaan';
+String vc = 'Semakan Kenderaan';
 String startWorkText = 'Mula Kerja';
 String endWorkText = 'Tamat Kerja';
-String startWork = 'Leretkan Ke Kanan Untuk Mula Tugas';
-String confirmStartWork =
-    'Adakah anda ingin memulakan tugasan untuk Laluan JHBP01-C02?';
-String confirmEndWork =
-    'Adakah anda ingin menamatkan tugasan untuk Laluan JHBP01-C02? Pastikan tugasan telah selesai';
-String endWork = 'Leretkan Ke Kiri Untuk Tamat Tugas';
+String startWork = 'Leretkan Ke Kanan Untuk Mula Kerja';
+String endWork = 'Leretkan Ke Kiri Untuk Tamat Kerja';
 String doVcFirst =
-    'Pastikan anda mengisi borang semak kenderaan terlebih dahulu sebelum memulakan tugasan kerja';
+    'Pastikan anda isi dan hantar borang semak kenderaan terlebih dahulu sebelum mulakan kerja.';
 String notFoundStreet = 'Tiada senarai jalan dijumpai!';
 String noEmployeeFound = 'Tiada Senarai Pekerja dijumpai!';
 String fillUpVC = 'Lengkapkan borang semakan kenderaan (Sebelum Keluar):';

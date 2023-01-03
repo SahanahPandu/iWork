@@ -7,6 +7,7 @@ import '../../config/palette.dart';
 import '../../models/task/compactor/compactor_task.dart';
 import '../../providers/task/compactor_panel/compactor_task_api.dart';
 import '../../utils/calendar/date.dart';
+import '../../utils/calendar/time.dart';
 import '../../utils/device/orientations.dart';
 import '../../widgets/cards/today_task/today_task_card.dart';
 import '../../widgets/gridview/compactor_panel/compactor_task_list.dart';
@@ -40,6 +41,78 @@ class _CompactorPanelState extends State<CompactorPanel> {
               } else {
                 if (snapshot.hasData) {
                   scheduleData = snapshot.data!;
+                }
+
+                /// *** No any actions ***
+                /// VC Before NULL (ENABLED TO FILL) * VC After NULL (DISABLED TO FILL) * Start Work (DISABLED) * Stop Work (DISABLED)
+                if (scheduleData!.data!.schedules![0].vehicleChecklistId ==
+                    null) {
+                  scheduleVcStatus.value = 0;
+                }
+
+                /// *** VC Before DONE (VC1) ***
+                /// VC Before DONE (ENABLED TO VIEW) * VC After NULL (DISABLED TO FILL) * Start Work (ENABLED) * Stop Work (DISABLED)
+                else if (scheduleData!.data!.schedules![0].vehicleChecklistId!
+                            .statusCode!.code ==
+                        "VC1" &&
+                    (scheduleData!.data!.schedules![0].vehicleChecklistId!
+                                .timeOut ==
+                            "--:--" &&
+                        scheduleData!.data!.schedules![0].vehicleChecklistId!
+                                .timeIn ==
+                            "--:--")) {
+                  scheduleVcStatus.value = 1;
+                }
+
+                /// *** VC Before DONE (VC1) && Start Work DONE ***
+                /// VC Before DONE (ENABLED TO VIEW) * VC After NULL (DISABLED TO FILL) * Start Work DONE (DISABLED) * Stop Work (ENABLED)
+                else if (scheduleData!.data!.schedules![0].vehicleChecklistId!
+                            .statusCode!.code ==
+                        "VC1" &&
+                    (scheduleData!.data!.schedules![0].vehicleChecklistId!
+                                .timeOut !=
+                            "--:--" &&
+                        scheduleData!.data!.schedules![0].vehicleChecklistId!
+                                .timeIn ==
+                            "--:--")) {
+                  scheduleVcStatus.value = 2;
+                }
+
+                /// *** VC Before DONE (VC1) && First Start Work DONE && First Stop Work DONE && Last Stop Work DONE ***
+                /// VC Before DONE (ENABLED TO VIEW) * VC After NULL (ENABLED TO FILL) * Start Work DONE (DISABLED) * Stop Work DONE (DISABLED)
+                else if (scheduleData!.data!.schedules![0].vehicleChecklistId!
+                            .statusCode!.code ==
+                        "VC1" &&
+                    (scheduleData!.data!.schedules![0].vehicleChecklistId!
+                                .timeOut !=
+                            "--:--" &&
+                        (scheduleData!.data!.schedules![0].vehicleChecklistId!
+                                    .timeIn !=
+                                "--:--" &&
+                            scheduleData!.data!.schedules!.last
+                                    .vehicleChecklistId!.timeIn !=
+                                "--:--"))) {
+                  scheduleVcStatus.value = 3;
+                }
+
+                /// *** VC Before DONE && VC After DONE (VC2) && First Start Work DONE && First Stop Work DONE && Last Stop Work DONE ***
+                /// VC Before DONE (ENABLED TO VIEW) * VC After DONE (ENABLED TO VIEW) * Start Work DONE (DISABLED) * Stop Work DONE (DISABLED)
+                else if (scheduleData!.data!.schedules![0].vehicleChecklistId!
+                            .statusCode!.code ==
+                        "VC2" &&
+                    ((scheduleData!.data!.schedules![0].vehicleChecklistId!
+                                .timeOut !=
+                            "--:--" &&
+                        (scheduleData!.data!.schedules![0].vehicleChecklistId!
+                                    .timeIn !=
+                                "--:--" &&
+                            scheduleData!.data!.schedules!.last
+                                    .vehicleChecklistId!.timeIn !=
+                                "--:--")))) {
+                  scheduleVcStatus.value = 4;
+                } else {
+                  //print(
+                  //    "Status Code -> ${scheduleData!.data!.schedules![0].vehicleChecklistId!.statusCode!.code}, Time Out -> ${scheduleData!.data!.schedules![0].vehicleChecklistId!.timeOut}, Time In -> ${scheduleData!.data!.schedules![0].vehicleChecklistId!.timeIn}");
                 }
                 return ExpandCollapseHeader(
                     centerTitle: false,
@@ -107,7 +180,7 @@ class _CompactorPanelState extends State<CompactorPanel> {
             height: 10,
           ),
           Text(
-            "Tugasan Hari Ini (${DateFormat("hh:mm a", "ms").format(DateTime.parse('20222312 ${scheduleData!.data!.schedules![0].startWorkAt!.replaceAll(' ', '')}'))} - ${DateFormat("hh:mm a", "ms").format(DateTime.parse('20222312 ${scheduleData.data!.schedules![0].stopWorkAt!.replaceAll(' ', '')}'))})",
+            "Tugasan Hari Ini (${DateFormat("hh:mm").format(DateTime.parse('20222312 ${scheduleData!.data!.schedules![0].startWorkAt!}'))} ${Time.convertAMPMToMs(scheduleData.data!.schedules![0].startWorkAt!)} - ${DateFormat("hh:mm").format(DateTime.parse('20222312 ${scheduleData.data!.schedules![0].stopWorkAt!}'))} ${Time.convertAMPMToMs(scheduleData.data!.schedules![0].stopWorkAt!)})",
             style: TextStyle(
               color: white,
               fontWeight: FontWeight.w400,

@@ -13,6 +13,7 @@ import '../../../models/task/compactor/data/schedule/schedule.dart';
 import '../../../models/vc/vc_main.dart';
 import '../../../providers/vehicle_checklist/vehicle_checklist_api.dart';
 import '../../../utils/calendar/date.dart';
+import '../../../utils/calendar/time.dart';
 import '../../../utils/device/orientations.dart';
 import '../../../utils/device/sizes.dart';
 import '../../../widgets/alert/alert_dialog.dart';
@@ -700,8 +701,25 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                             Text(
                                 empty
                                     ? "--:--"
-                                    : widget.data!.data!.vehicleChecklists!
-                                        .timeOut!,
+                                    : widget.before
+                                        ? widget.data!.data!.vehicleChecklists!
+                                                    .timeOut! !=
+                                                "--:--"
+                                            ? Time.convertToHM(widget
+                                                .data!
+                                                .data!
+                                                .vehicleChecklists!
+                                                .timeOut!)
+                                            : "--:--"
+                                        : widget.data!.data!.vehicleChecklists!
+                                                    .timeIn! !=
+                                                "--:--"
+                                            ? Time.convertToHM(widget
+                                                .data!
+                                                .data!
+                                                .vehicleChecklists!
+                                                .timeIn!)
+                                            : "--:--",
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
                                     fontSize: 16,
@@ -3588,6 +3606,9 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
               completedSecondVc = true;
             }
             completedFirstVc = true;
+            setState(() {
+              scheduleVcStatus.value = 1;
+            });
             Navigator.pop(context, true);
             showDialog(
                 context: context,

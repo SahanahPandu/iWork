@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 import '../utils/device/devices.dart';
 
 /// * GLOBAL VARIABLE LIST
-/// ** Task **
-/// '1' = belum mula
-/// '2' = sedang bertugas
-/// '3' = tugasan selesai'
-int statusTask = 1;
+/// ** Schedule & Vehicle Checklist Status
+/// '0' = null (undone VC, undone start/stop work)
+/// '1' = done vc before
+/// '2' = done vc before, done start work
+/// '3' = done vc before, done start work, done stop work
+/// '4' = done vc before, done start work, done stop work, done vc after
+ValueNotifier<int> scheduleVcStatus = ValueNotifier(0);
 
 /// ** UserRole **
 /// '0' = unknown
@@ -77,9 +79,6 @@ ValueNotifier<bool> button = ValueNotifier(true);
 /// ** Select All Button **
 ValueNotifier<bool> allSelected = ValueNotifier(false);
 
-/// ** Schedule & Vehicle Checklist Status **
-ValueNotifier<int> scheduleVcStatus = ValueNotifier(0);
-
 /// ** the server ip
 // String theBase = "http://103.26.46.187:81/api";
-String theBase = "http://10.0.2.2:8000/api";
+String theBase = "https://iworkapi.swmsb.com/api";

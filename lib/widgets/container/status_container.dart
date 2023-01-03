@@ -92,12 +92,17 @@ class _StatusContainerState extends State<StatusContainer> {
         boxColor = greenStatusBox;
       }
     } else if (widget.type == "Laluan") {
-      if (widget.statusId == "SBT") {
+      if (widget.statusId == "SBM") {
+        //Belum Mula
+
+        textColor = blueStatusText;
+        boxColor = blueStatusBox;
+      } else if (widget.statusId == "SBT") {
         //Sedang Bertugas
 
         textColor = blueStatusText;
         boxColor = blueStatusBox;
-      } else if (widget.statusId == 3) {
+      } else if (widget.statusId == "STG") {
         //Tugasan Selesai
 
         textColor = greenStatusText;

@@ -21,15 +21,10 @@ class CompactorPanelMyTaskListDetails extends StatefulWidget {
   @override
   State<CompactorPanelMyTaskListDetails> createState() =>
       CompactorPanelMyTaskListDetailsState();
-
-  static CompactorPanelMyTaskListDetailsState? of(BuildContext context) =>
-      context.findAncestorStateOfType<CompactorPanelMyTaskListDetailsState>();
 }
 
 class CompactorPanelMyTaskListDetailsState
     extends State<CompactorPanelMyTaskListDetails> {
-  String _startedTime = "--:--";
-  String _endedTime = "--:--";
   String startTime = "--:--";
   String stopTime = "--:--";
 
@@ -51,9 +46,9 @@ class CompactorPanelMyTaskListDetailsState
       } else {
         stopTime = Time.convertToHM(widget.data.vehicleChecklistId!.timeIn!);
       }
-      if (widget.data.vehicleChecklistId!.statusCode!.code == "VC1") {
+      /* if (widget.data.vehicleChecklistId!.statusCode!.code == "VC1") {
       } else if (widget.data.vehicleChecklistId!.statusCode!.code == "VC2" ||
-          widget.data.vehicleChecklistId!.statusCode!.code == "VC3") {}
+          widget.data.vehicleChecklistId!.statusCode!.code == "VC3") {}*/
     }
     super.initState();
   }
@@ -83,36 +78,8 @@ class CompactorPanelMyTaskListDetailsState
               StatusContainer(
                   type: "Laluan",
                   status: widget.data.statusCode!.name!,
-                  statusId: widget.data.statusCode,
+                  statusId: widget.data.statusCode!.code,
                   fontWeight: statusFontWeight)
-              /*
-              Container(
-                decoration: BoxDecoration(
-                  color: statusTask == 1
-                      ? orange100
-                      : (statusTask == 2 ? lightBlue : lighterGreen),
-                  borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(8),
-                      bottomLeft: Radius.circular(8)),
-                ),
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
-                  child: Center(
-                    child: Text(
-                      statusTask == 1
-                          ? taskIdle
-                          : (statusTask == 2 ? taskStarted : taskEnded),
-                      style: TextStyle(
-                          color: statusTask == 1
-                              ? orange700
-                              : (statusTask == 2 ? blue : darkGreen),
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500),
-                    ),
-                  ),
-                ),
-              ),*/
             ],
           ),
           //No Kenderaan
@@ -261,27 +228,18 @@ class CompactorPanelMyTaskListDetailsState
                         ),
                       ],
                     ),
-                    Orientations().isLandscape(context)
-                        ? Text('$startTime / $stopTime',
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: blackCustom,
-                              fontWeight: FontWeight.w500,
-                            ))
-                        : SizedBox(
-                            width: _textSize().width,
-                            height: _textSize().height,
-                            child: Text('$startTime / $stopTime',
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: blackCustom,
-                                  fontWeight: FontWeight.w500,
-                                )),
-                          )
+                    SizedBox(
+                      width: _textSize().width,
+                      height: _textSize().height,
+                      child: Text('$startTime / $stopTime',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: blackCustom,
+                            fontWeight: FontWeight.w500,
+                          )),
+                    )
                   ]))
         ]),
         widget.button == true
@@ -298,16 +256,6 @@ class CompactorPanelMyTaskListDetailsState
     );
   }
 
-  String setStartTime(String value) {
-    setState(() => _startedTime = value);
-    return _startedTime;
-  }
-
-  String setEndTime(String value) {
-    setState(() => _endedTime = value);
-    return _endedTime;
-  }
-
   final TextStyle textStyle = TextStyle(
     color: blackCustom,
     fontWeight: FontWeight.w500,
@@ -319,7 +267,9 @@ class CompactorPanelMyTaskListDetailsState
         maxLines: 1,
         textAlign: TextAlign.right,
         textDirection: TextDirection.rtl)
-      ..layout(minWidth: 0, maxWidth: 110);
+      ..layout(
+          minWidth: 0,
+          maxWidth: Orientations().isTabletPortrait(context) ? 110 : 220);
     return textPainter.size;
   }
 }
