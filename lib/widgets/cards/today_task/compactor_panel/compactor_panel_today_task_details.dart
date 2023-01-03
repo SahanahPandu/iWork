@@ -40,7 +40,7 @@ class _CompactorPanelTodayTaskDetailsState
         height: 15,
       ),
       Text(
-        "Tugasan Hari Ini (${DateFormat("hh:mm").format(DateTime.parse('20222312 ${widget.scheduleData!.data!.schedules![0].startWorkAt!}'))} ${Time.convertAMPMToMs(widget.scheduleData!.data!.schedules![0].startWorkAt!)} - ${DateFormat("hh:mm").format(DateTime.parse('20222312 ${widget.scheduleData!.data!.schedules![0].stopWorkAt!}'))} ${Time.convertAMPMToMs(widget.scheduleData!.data!.schedules![0].stopWorkAt!)})",
+        "Tugasan Hari Ini (${DateFormat("hh:mm").format(DateTime.parse('20222312 ${widget.scheduleData!.data!.schedules!.first.startWorkAt!}'))} ${Time.convertAMPMToMs(widget.scheduleData!.data!.schedules!.first.startWorkAt!)} - ${DateFormat("hh:mm").format(DateTime.parse('20222312 ${widget.scheduleData!.data!.schedules!.last.stopWorkAt!}'))} ${Time.convertAMPMToMs(widget.scheduleData!.data!.schedules!.last.stopWorkAt!)})",
         style: const TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.w400,
