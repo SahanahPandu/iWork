@@ -1,4 +1,5 @@
 import 'package:eswm/providers/jadual_api.dart';
+import 'package:eswm/utils/calendar/date.dart';
 import 'package:flutter/material.dart';
 
 //import files
@@ -42,7 +43,7 @@ class _CardListViewState extends State<CardListView> {
       list = LaluanApi.getDataLaluan();
     } else if (widget.type == "Laluan" && widget.screens == 'drawer') {
       //this is for Senarai Jadual Tugasan in the drawer
-      list = JadualApi.getDataJadualDrawer("");
+      list = JadualApi.getDataJadualDrawer();
     } else if (widget.type == "Senarai Jalan") {
       list = JalanApi.getJalanData(context);
     } else if (widget.type == "Laporan") {
@@ -99,6 +100,20 @@ class _CardListViewState extends State<CardListView> {
                 if (widget.type == "Laluan" && widget.screens == "isu") {
                   dataFuture.removeWhere((item) => "".contains(item.isu));
                 }
+
+                //Filtering based on filtered date & status
+                // if (widget.type == "Laluan" && widget.screens == 'drawer') {
+                //   var myData = Map<String, dynamic>.from(widget.passData);
+
+                //   if (myData['filteredDate'] != "") {
+                //     var convDate = Date.getTheDate2(myData['filteredDate'],
+                //         "dd/MM/yyyy", "yyyy-MM-dd", "ms");
+
+                //     dataFuture.removeWhere(
+                //         (item) => !convDate.contains(item.scheduleDate));
+                //     // (item) => item['scheduleDate'] != convDate);
+                //   }
+                // }
 
                 return ListView.builder(
                   physics: userRole == 200

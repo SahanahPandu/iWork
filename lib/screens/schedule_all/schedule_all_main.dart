@@ -37,7 +37,7 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
   @override
   Widget build(BuildContext context) {
     // print('Display Filter Section: $displayFilterSection');
-    // print('Filter Date: ${_filteredDate.text}');
+    // print('Filter Date: $filteredDate');
     // print('Selected Status: $selectedStatus');
     return Scaffold(
       backgroundColor: white,
@@ -125,11 +125,15 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                         ),
                       ),
 
-                      const Padding(
-                        padding: EdgeInsets.all(10),
+                      Padding(
+                        padding: const EdgeInsets.all(10),
                         child: CardListView(
                           type: "Laluan",
                           screens: "drawer",
+                          passData: {
+                            "filteredDate": _filteredDate.text,
+                            "selectedStatus": selectedStatus,
+                          },
                         ),
                       ),
                     ],
@@ -515,6 +519,7 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                   onTap: () {
                     setState(() {
                       _filteredDate.text = "";
+                      filteredDate = DateTime.now();
                       selectedStatus.clear();
                       displayFilterSection = false;
                     });
@@ -574,6 +579,7 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                               onTap: () {
                                 setState(() {
                                   _filteredDate.text = "";
+                                  filteredDate = DateTime.now();
                                   if (selectedStatus.isEmpty) {
                                     displayFilterSection = false;
                                   }

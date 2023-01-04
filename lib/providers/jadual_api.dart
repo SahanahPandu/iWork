@@ -46,14 +46,13 @@ class JadualApi {
     return dataJadual;
   }
 
-  static Future<List<ScheduleDetails>>? getDataJadualDrawer(
-      selectedDate) async {
+  static Future<List<ScheduleDetails>>? getDataJadualDrawer() async {
     List<ScheduleDetails> filteredList = [];
 
     try {
       var response = await Dio().get(
         '$theBase/schedule/schedules',
-        queryParameters: {'schedule_date': selectedDate},
+        // queryParameters: {'schedule_date': selectedDate},
         options: Options(headers: {
           'authorization': 'Bearer ${userInfo[1]}',
         }),
