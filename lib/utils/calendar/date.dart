@@ -11,7 +11,14 @@ class Date {
   static String getTheDate(passDate, reqFormat, stateId) {
     // print('Date: $passDate');
     String theDate = "";
-    DateTime convertTheDate = DateTime.parse(passDate);
+    late DateTime convertTheDate;
+
+    if (passDate.runtimeType == DateTime) {
+      convertTheDate = passDate;
+    } else if (passDate.runtimeType == String) {
+      convertTheDate = DateTime.parse(passDate);
+    }
+
     theDate = DateFormat(
             reqFormat, (stateId != null || stateId != "") ? stateId : null)
         .format(convertTheDate);
