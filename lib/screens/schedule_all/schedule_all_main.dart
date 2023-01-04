@@ -1,8 +1,8 @@
 import 'package:eswm/models/schedule/filter/schedule_filter_status.dart';
 import 'package:eswm/providers/jadual_api.dart';
+import 'package:eswm/utils/calendar/date.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 
@@ -27,6 +27,7 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
   final TextEditingController _filteredDate = TextEditingController();
   DateTime filteredDate = DateTime.now();
   var selectedStatus = [];
+  bool displayFilterSection = false;
 
   @override
   void initState() {
@@ -35,6 +36,9 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // print('Display Filter Section: $displayFilterSection');
+    // print('Filter Date: ${_filteredDate.text}');
+    // print('Selected Status: $selectedStatus');
     return Scaffold(
       backgroundColor: white,
       appBar: PreferredSize(
@@ -71,7 +75,7 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                 onPressed: () {
                   setState(() {
                     _filteredDate.text =
-                        DateFormat('dd-MM-yyyy').format(filteredDate);
+                        Date.getTheDate(filteredDate, 'dd/MM/yyyy', 'ms');
                   });
                   displayFilterBottomSheet(context);
                 },
@@ -104,7 +108,10 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                     ],
                   )
                 : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      //filtered selection list
+                      if (displayFilterSection) filteredSection(),
                       Container(
                         alignment: Alignment.centerLeft,
                         padding: const EdgeInsets.only(
@@ -117,10 +124,7 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                               fontWeight: FontWeight.w400),
                         ),
                       ),
-                      //filtered selection list
-                      // Expanded(
-                      //   child: filteredSection(),
-                      // ),
+
                       const Padding(
                         padding: EdgeInsets.all(10),
                         child: CardListView(
@@ -321,7 +325,9 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                         width: Sizes().screenWidth(context) * 0.4,
                         height: 40,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
                           style: ButtonStyle(
                             elevation: MaterialStateProperty.all(0),
                             shadowColor: MaterialStateProperty.all(transparent),
@@ -358,9 +364,10 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                         height: 40,
                         child: ElevatedButton(
                           onPressed: () {
-                            print('Selected Status: $selectedStatus');
-                            print('Selected Date: ${_filteredDate.text}');
                             Navigator.pop(context);
+                            setState(() {
+                              displayFilterSection = true;
+                            });
                           },
                           style: ButtonStyle(
                             elevation: MaterialStateProperty.all(0),
@@ -395,8 +402,7 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
   }
 
   Future<dynamic> displayCupertinoDatePicker(context) {
-    DateTime todayDate = DateTime.now();
-    DateTime getDate = todayDate;
+    DateTime getDate = DateTime.now();
     return showModalBottomSheet(
         backgroundColor: Colors.white,
         isScrollControlled: true,
@@ -445,7 +451,8 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                         onTap: () {
                           setState(() {
                             _filteredDate.text =
-                                DateFormat('dd-MM-yyyy').format(getDate);
+                                Date.getTheDate(getDate, 'dd/MM/yyyy', 'ms');
+
                             filteredDate = getDate;
                           });
                           Navigator.pop(context);
@@ -490,84 +497,88 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
   }
 
   Widget filteredSection() {
-    return Column(
-      children: [
-        const SizedBox(
-          height: 16,
-        ),
-        SizedBox(
-          height: 35,
-          child: ListView(
-            shrinkWrap: true,
-            physics: const BouncingScrollPhysics(),
-            scrollDirection: Axis.horizontal,
-            children: [
-              InkWell(
-                onTap: () {},
-                child: Container(
-                  width: 60,
-                  height: 30,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(
-                      color: const Color(0xffD9D9D9),
+    return Container(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        children: [
+          const SizedBox(
+            height: 16,
+          ),
+          SizedBox(
+            height: 35,
+            child: ListView(
+              shrinkWrap: true,
+              physics: const BouncingScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+              children: [
+                InkWell(
+                  onTap: () {
+                    setState(() {
+                      _filteredDate.text = "";
+                      selectedStatus.clear();
+                      displayFilterSection = false;
+                    });
+                  },
+                  child: Container(
+                    width: 60,
+                    height: 30,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(
+                        color: const Color(0xffD9D9D9),
+                      ),
+                      borderRadius: BorderRadius.circular(26),
                     ),
-                    borderRadius: BorderRadius.circular(26),
-                  ),
-                  padding: const EdgeInsets.all(8),
-                  child: Center(
-                    child: Text(
-                      "Reset",
-                      style: TextStyle(
-                        color: blackCustom,
-                        fontSize: 11,
-                        fontWeight: FontWeight.w600,
+                    padding: const EdgeInsets.all(8),
+                    child: Center(
+                      child: Text(
+                        "Reset",
+                        style: TextStyle(
+                          color: blackCustom,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(
-                width: 8,
-              ),
-              Container(
-                height: 30,
-                padding: const EdgeInsets.only(left: 8),
-                child: ListView.separated(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  separatorBuilder: (context, index) {
-                    return const SizedBox(
-                      width: 8,
-                    );
-                  },
-                  itemCount: selectedStatus.length,
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () {},
-                      child: Container(
-                        // height: 30,
+                if (_filteredDate.text != "")
+                  Row(
+                    children: [
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      Container(
                         padding: const EdgeInsets.all(8),
                         decoration: BoxDecoration(
-                          color: const Color(0xffC0E4FF),
+                          color: const Color(0xffE7F5FF),
+                          border: Border.all(
+                            color: const Color(0xffC0E4FF),
+                          ),
                           borderRadius: BorderRadius.circular(26),
                         ),
                         child: Row(
                           children: [
                             Text(
-                              "${selectedStatus[index].name}",
+                              _filteredDate.text,
                               style: const TextStyle(
                                 color: Color(0xff005B9E),
-                                fontSize: 10,
-                                fontWeight: FontWeight.w500,
+                                fontSize: 11,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                             const SizedBox(
                               width: 8,
                             ),
                             InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                setState(() {
+                                  _filteredDate.text = "";
+                                  if (selectedStatus.isEmpty) {
+                                    displayFilterSection = false;
+                                  }
+                                });
+                              },
                               child: const Icon(
                                 Icons.close,
                                 color: Color(0xff005B9E),
@@ -577,17 +588,76 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                           ],
                         ),
                       ),
-                    );
-                  },
+                    ],
+                  ),
+                const SizedBox(
+                  width: 8,
                 ),
-              ),
-              const SizedBox(
-                width: 8,
-              ),
-            ],
+                Container(
+                  padding: const EdgeInsets.only(left: 8),
+                  child: ListView.separated(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    separatorBuilder: (context, index) {
+                      return const SizedBox(
+                        width: 8,
+                      );
+                    },
+                    itemCount: selectedStatus.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: const Color(0xffE7F5FF),
+                          border: Border.all(
+                            color: const Color(0xffC0E4FF),
+                          ),
+                          borderRadius: BorderRadius.circular(26),
+                        ),
+                        child: Row(
+                          children: [
+                            Text(
+                              "${selectedStatus[index].name}",
+                              style: const TextStyle(
+                                color: Color(0xff005B9E),
+                                fontSize: 11,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 8,
+                            ),
+                            InkWell(
+                              onTap: () {
+                                setState(() {
+                                  selectedStatus.remove(selectedStatus[index]);
+                                  if (selectedStatus.isEmpty &&
+                                      _filteredDate.text == "") {
+                                    displayFilterSection = false;
+                                  }
+                                });
+                              },
+                              child: const Icon(
+                                Icons.close,
+                                color: Color(0xff005B9E),
+                                size: 12,
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
