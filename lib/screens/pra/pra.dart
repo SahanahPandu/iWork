@@ -75,11 +75,11 @@ class _PraState extends State<Pra> {
 
                 if (startTime == null || endTime == null) {
                   if (startTime == null && endTime != null) {
-                    workingTime = '00:00:00 - ${endTime.format(context)}';
+                    workingTime = '00:00 - ${endTime.format(context)}';
                   } else if (startTime != null && endTime == null) {
-                    workingTime = '${startTime.format(context)} - 00:00:00';
+                    workingTime = '${startTime.format(context)} - 00:00';
                   } else {
-                    workingTime = '00:00:00 - 00:00:00';
+                    workingTime = '00:00 - 00:00';
                   }
                 } else {
                   workingTime =
