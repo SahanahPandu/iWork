@@ -4,7 +4,7 @@ import 'package:eswm/utils/calendar/date.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
-import 'package:multi_select_flutter/multi_select_flutter.dart';
+// import 'package:multi_select_flutter/multi_select_flutter.dart';
 
 //import files
 import '../../config/config.dart';
@@ -26,7 +26,8 @@ class ScheduleAllMainScreen extends StatefulWidget {
 class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
   final TextEditingController _filteredDate = TextEditingController();
   DateTime filteredDate = DateTime.now();
-  var selectedStatus = [];
+  List<ScheduleFilterStatus> preSelectStatus = [];
+  List<ScheduleFilterStatus> selectedStatus = [];
   bool displayFilterSection = false;
 
   @override
@@ -74,8 +75,8 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
               IconButton(
                 onPressed: () {
                   setState(() {
-                    _filteredDate.text = Date.getTheDate(filteredDate,
-                        'dd/MM//yyyy HH:mm:ss', 'dd/MM/yyyy', 'ms');
+                    _filteredDate.text =
+                        Date.getTheDate(filteredDate, '', 'dd/MM/yyyy', 'ms');
                   });
                   displayFilterBottomSheet(context);
                 },
@@ -279,42 +280,150 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                             ),
                           );
                         } else {
-                          return Align(
-                            alignment: Alignment.topLeft,
-                            child: MultiSelectChipField(
-                              height: 100,
-                              showHeader: false,
-                              scroll: false,
-                              decoration: BoxDecoration(
-                                border: Border.all(color: transparent),
-                              ),
-                              chipShape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(6),
-                                ),
-                              ),
-                              chipColor: const Color(0xffEFEFEF),
-                              textStyle: const TextStyle(
-                                color: Color(0xff969696),
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                              ),
-                              selectedChipColor: const Color(0xffC0E4FF),
-                              selectedTextStyle: const TextStyle(
-                                color: Color(0xff005B9E),
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                              ),
-                              items: statusData
-                                  .map((status) =>
-                                      MultiSelectItem<ScheduleFilterStatus?>(
-                                          status!, status.name))
-                                  .toList(),
-                              onTap: (values) {
-                                selectedStatus = values;
-                              },
-                            ),
+                          // var getStatus = selectedStatus.where((theStatus) =>
+                          //     theStatus['code'].contains(status));
+
+                          return Wrap(
+                            runSpacing: 8,
+                            spacing: 16,
+                            children: statusData
+                                .map(
+                                  (status) => GestureDetector(
+                                    behavior: HitTestBehavior.opaque,
+                                    onTap: () {
+                                      //to check the status already in the list or not
+                                      var data = preSelectStatus.where(
+                                          (theStatus) => theStatus.code
+                                              .contains(status!.code));
+
+                                      if (data.isEmpty) {
+                                        //if not exist then add
+
+                                        preSelectStatus.add(status!);
+                                      } else {
+                                        //else remove
+
+                                        preSelectStatus.remove(status!);
+                                      }
+
+                                      setState(() {});
+
+                                      // print(
+                                      //     'Pra Selected Status: $preSelectStatus');
+                                      // print('Selected Status: $selectedStatus');
+                                    },
+                                    child: Container(
+                                      height: 40,
+                                      padding: const EdgeInsets.all(12),
+                                      decoration: BoxDecoration(
+                                        color: preSelectStatus
+                                                .where((theStatus) => theStatus
+                                                    .code
+                                                    .contains(status!.code))
+                                                .isNotEmpty
+                                            ? const Color(0xffC0E4FF)
+                                            : const Color(0xffEFEFEF),
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(6)),
+                                      ),
+                                      child: Text(
+                                        status!.name,
+                                        style: TextStyle(
+                                          color: preSelectStatus
+                                                  .where((theStatus) =>
+                                                      theStatus.code.contains(
+                                                          status.code))
+                                                  .isNotEmpty
+                                              ? const Color(0xff005B9E)
+                                              : const Color(0xff969696),
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                                .toList(),
                           );
+
+                          // ListView.builder(
+                          //   clipBehavior: Clip.none,
+                          //   // scrollDirection: Axis.horizontal,
+                          //   // physics: const NeverScrollableScrollPhysics(),
+                          //   shrinkWrap: true,
+                          //   itemCount: statusData.length,
+                          //   itemBuilder: (context, index) {
+                          //     return Row(
+                          //       children: [
+                          //         Container(
+                          //           padding: const EdgeInsets.all(16),
+                          //           // constraints: const BoxConstraints(
+                          //           //   maxWidth: 100,
+                          //           // ),
+                          //           decoration: BoxDecoration(
+                          //             color: selectedStatus
+                          //                     .contains(statusData[index])
+                          //                 ? const Color(0xffC0E4FF)
+                          //                 : const Color(0xffEFEFEF),
+                          //             borderRadius: const BorderRadius.all(
+                          //                 Radius.circular(6)),
+                          //           ),
+                          //           child: Text(
+                          //             statusData[index]!.name,
+                          //             style: TextStyle(
+                          //               color: selectedStatus
+                          //                       .contains(statusData[index])
+                          //                   ? const Color(0xff005B9E)
+                          //                   : const Color(0xff969696),
+                          //               fontSize: 14,
+                          //               fontWeight: FontWeight.w400,
+                          //             ),
+                          //           ),
+                          //         ),
+                          //         const SizedBox(
+                          //           width: 16,
+                          //         ),
+                          //       ],
+                          //     );
+                          //   },
+                          // );
+
+                          // Align(
+                          //   alignment: Alignment.topLeft,
+                          //   child: MultiSelectChipField(
+                          //     height: 100,
+                          //     showHeader: false,
+                          //     scroll: false,
+                          //     decoration: BoxDecoration(
+                          //       border: Border.all(color: transparent),
+                          //     ),
+                          //     chipShape: const RoundedRectangleBorder(
+                          //       borderRadius: BorderRadius.all(
+                          //         Radius.circular(6),
+                          //       ),
+                          //     ),
+                          //     chipColor: const Color(0xffEFEFEF),
+                          //     textStyle: const TextStyle(
+                          //       color: Color(0xff969696),
+                          //       fontSize: 14,
+                          //       fontWeight: FontWeight.w400,
+                          //     ),
+                          //     selectedChipColor: const Color(0xffC0E4FF),
+                          //     selectedTextStyle: const TextStyle(
+                          //       color: Color(0xff005B9E),
+                          //       fontSize: 14,
+                          //       fontWeight: FontWeight.w400,
+                          //     ),
+                          //     items: statusData
+                          //         .map((status) =>
+                          //             MultiSelectItem<ScheduleFilterStatus?>(
+                          //                 status!, status.name))
+                          //         .toList(),
+                          //     onTap: (values) {
+                          //       selectedStatus = values;
+                          //     },
+                          //   ),
+                          // );
                         }
                     }
                   },
@@ -370,6 +479,7 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                           onPressed: () {
                             Navigator.pop(context);
                             setState(() {
+                              selectedStatus = preSelectStatus;
                               displayFilterSection = true;
                             });
                           },
@@ -454,8 +564,8 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                       GestureDetector(
                         onTap: () {
                           setState(() {
-                            _filteredDate.text = Date.getTheDate(getDate,
-                                'dd/MM/yyyy HH:mm:ss', 'dd/MM/yyyy', 'ms');
+                            _filteredDate.text = Date.getTheDate(
+                                getDate, '', 'dd/MM/yyyy', 'ms');
 
                             filteredDate = getDate;
                           });
@@ -490,7 +600,6 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                     mode: CupertinoDatePickerMode.date,
                     initialDateTime: filteredDate,
                     onDateTimeChanged: (theDate) {
-                      print('Format: $theDate');
                       getDate = theDate;
                     },
                   ),
