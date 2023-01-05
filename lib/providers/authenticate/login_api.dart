@@ -13,15 +13,21 @@ import '../http/service/http_service.dart';
 class LoginApi {
   static Future<String> authenticateUser(String loginId, String password,
       String userIdType, String deviceInfo) async {
+    final bodyUser = {
+      'login_id': loginId,
+      'password': password,
+      'user_type_id': userIdType,
+      'device_info_1': deviceInfo
+    };
+    final bodyVehicle = {
+      'login_id': loginId,
+      'password': password,
+      'user_type_id': userIdType
+    };
     try {
-      final response = await http.post(HttpService().loginUrl, headers: {
-        HttpHeaders.authorizationHeader: ''
-      }, body: {
-        'login_id': loginId,
-        'password': password,
-        'user_type_id': userIdType,
-        'device_info_1': deviceInfo
-      });
+      final response = await http.post(HttpService().loginUrl,
+          headers: {HttpHeaders.authorizationHeader: ''},
+          body: userIdType == '3' ? bodyVehicle : bodyUser);
       switch (response.statusCode) {
 
         /// Http Response : login success
@@ -55,7 +61,11 @@ class LoginApi {
 
         /// Http Response : validation error (like form validation, datatype errors)
         case 422:
-          return 'wrong';
+          if (LoginError.fromJson(json.decode(response.body)).message ==
+              "Validation Failed") {
+            return 'ng';
+          }
+          return 'ng';
 
         /// Http Response : Bad request, server error and others
         default:

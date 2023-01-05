@@ -1,30 +1,32 @@
 import 'dart:convert';
 
+import 'error/error.dart';
+
 class LoginError {
   LoginError({
     this.data,
     required this.status,
     required this.message,
-    required this.error,
+    this.errorStr,
   });
 
   dynamic data;
   String status;
   String message;
-  String error;
+  String? errorStr;
 
   factory LoginError.fromJson(Map<String, dynamic> json) => LoginError(
         data: json["data"],
         status: json["status"],
         message: json["message"],
-        error: json["error"],
+        errorStr: json["error"],
       );
 
   Map<String, dynamic> toJson() => {
         "data": data,
         "status": status,
         "message": message,
-        "error": error,
+        "error": errorStr,
       };
 }
 

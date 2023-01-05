@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 //import files
 import '../../../../config/font.dart';
 import '../../../../config/palette.dart';
+import '../../../../models/task/compactor/compactor_task.dart';
 import '../../../../models/task/compactor/data/schedule/schedule.dart';
 import '../../../../utils/calendar/time.dart';
 import '../../../../utils/device/orientations.dart';
@@ -12,10 +13,16 @@ import '../../../container/status_container.dart';
 
 class CompactorPanelMyTaskListDetails extends StatefulWidget {
   final Schedule data;
+  final CompactorTask? compactorData;
   final bool button;
+  final int? idx;
 
   const CompactorPanelMyTaskListDetails(
-      {Key? key, required this.data, required this.button})
+      {Key? key,
+      required this.data,
+      this.compactorData,
+      required this.button,
+      this.idx})
       : super(key: key);
 
   @override
@@ -34,17 +41,15 @@ class CompactorPanelMyTaskListDetailsState
       startTime = "--:--";
       stopTime = "--:--";
     } else {
-      if (widget.data.vehicleChecklistId!.timeOut == "--:--" ||
-          widget.data.vehicleChecklistId!.timeOut == "") {
+      if (widget.data.startWorkAt == "--:--" || widget.data.startWorkAt == "") {
         startTime = "--:--";
       } else {
-        startTime = Time.convertToHM(widget.data.vehicleChecklistId!.timeOut!);
+        startTime = Time.convertToHM(widget.data.startWorkAt!);
       }
-      if (widget.data.vehicleChecklistId!.timeIn == "--:--" ||
-          widget.data.vehicleChecklistId!.timeIn == "") {
+      if (widget.data.stopWorkAt == "--:--" || widget.data.stopWorkAt == "") {
         stopTime = "--:--";
       } else {
-        stopTime = Time.convertToHM(widget.data.vehicleChecklistId!.timeIn!);
+        stopTime = Time.convertToHM(widget.data.stopWorkAt!);
       }
       /* if (widget.data.vehicleChecklistId!.statusCode!.code == "VC1") {
       } else if (widget.data.vehicleChecklistId!.statusCode!.code == "VC2" ||
@@ -246,11 +251,11 @@ class CompactorPanelMyTaskListDetailsState
             ? Padding(
                 padding: const EdgeInsets.only(
                     left: 20, right: 20, top: 0, bottom: 20),
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      StartEndWorkSlideBar(data: widget.data)
-                    ]))
+                child: Center(
+                    child: StartEndWorkSlideBar(
+                        data: widget.data,
+                        compactorData: widget.compactorData,
+                        idx: widget.idx)))
             : const SizedBox()
       ],
     );

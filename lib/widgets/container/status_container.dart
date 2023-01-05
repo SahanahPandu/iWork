@@ -95,8 +95,8 @@ class _StatusContainerState extends State<StatusContainer> {
       if (widget.statusId == "SBM") {
         //Belum Mula
 
-        textColor = blueStatusText;
-        boxColor = blueStatusBox;
+        textColor = greyStatusText;
+        boxColor = greyStatusBox;
       } else if (widget.statusId == "SBT") {
         //Sedang Bertugas
 

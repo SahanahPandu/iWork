@@ -25,7 +25,7 @@ void showInfoToast(BuildContext context, String message,
   Timer.run(() => _showToast(
       context,
       message,
-      const Color.fromRGBO(54, 105, 214, 1),
+      const Color.fromRGBO(68, 173, 239, 0.8745098039215686),
       Icons.info_outline,
       white,
       shouldDismiss));

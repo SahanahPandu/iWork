@@ -13,6 +13,8 @@ class Schedule {
     this.totalSubRoute,
     this.totalPark,
     this.totalStreet,
+    this.startScheduleAt,
+    this.stopScheduleAt,
     this.startWorkAt,
     this.stopWorkAt,
     this.vehicleChecklistId,
@@ -28,6 +30,8 @@ class Schedule {
   int? totalSubRoute;
   int? totalPark;
   int? totalStreet;
+  String? startScheduleAt;
+  String? stopScheduleAt;
   String? startWorkAt;
   String? stopWorkAt;
   VehicleChecklistId? vehicleChecklistId;
@@ -45,8 +49,10 @@ class Schedule {
         totalSubRoute: json["total_sub_route"],
         totalPark: json["total_park"],
         totalStreet: json["total_street"],
-        startWorkAt: json["start_work_at"],
-        stopWorkAt: json["stop_work_at"],
+        startScheduleAt: json["start_schedule_at"] ?? "--:--",
+        stopScheduleAt: json["stop_schedule_at"] ?? "--:--",
+        startWorkAt: json["start_work_at"] ?? "--:--",
+        stopWorkAt: json["stop_work_at"] ?? "--:--",
         vehicleChecklistId: json["vehicle_checklist_id"] != null
             ? VehicleChecklistId.fromJson(json["vehicle_checklist_id"])
             : null,
@@ -66,6 +72,8 @@ class Schedule {
         "total_sub_route": totalSubRoute,
         "total_park": totalPark,
         "total_street": totalStreet,
+        "start_schedule_at": startScheduleAt,
+        "stop_schedule_at": stopScheduleAt,
         "start_work_at": startWorkAt,
         "stop_work_at": stopWorkAt,
         "vehicle_checklist_id": vehicleChecklistId!.toJson(),

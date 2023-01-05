@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 //import files
+import '../../../../config/config.dart';
 import '../../../../config/palette.dart';
 import '../../../../config/string.dart';
-import '../../../../models/task/compactor/data/schedule/schedule.dart';
+import '../../../../models/task/compactor/compactor_task.dart';
 import '../../../../utils/device/orientations.dart';
 import '../../../../utils/device/sizes.dart';
 import '../../../../utils/icon/custom_icon.dart';
@@ -12,12 +13,12 @@ import 'vehicle_checklist_form_tab_bar_view/vehicle_checklist_form_after_tab_bar
 import 'vehicle_checklist_form_tab_bar_view/vehicle_checklist_form_before_tab_bar_view.dart';
 
 class VehicleChecklistFormTab extends StatefulWidget {
-  final Schedule? scheduleData;
+  final CompactorTask? compactorData;
   final int? idx;
 
   const VehicleChecklistFormTab({
     Key? key,
-    this.scheduleData,
+    this.compactorData,
     this.idx,
   }) : super(key: key);
 
@@ -44,20 +45,22 @@ class _VehicleChecklistFormTabState extends State<VehicleChecklistFormTab>
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return showAlertDialog(
-                  context,
-                  reminder,
-                  "Adakah anda pasti untuk kembali ke halaman utama?",
-                  cancel,
-                  yes);
-            }).then((actionText) {
-          if (actionText == yes) {
-            Navigator.pop(context);
-          }
-        });
+        if (vcStatus == 0 || vcStatus == 3) {
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return showAlertDialog(
+                    context,
+                    reminder,
+                    "Adakah anda pasti untuk kembali ke halaman utama?",
+                    cancel,
+                    yes);
+              }).then((actionText) {
+            if (actionText == yes) {
+              Navigator.pop(context);
+            }
+          });
+        }
         return true;
       },
       child: Scaffold(
@@ -163,7 +166,9 @@ class _VehicleChecklistFormTabState extends State<VehicleChecklistFormTab>
                       ],
                       onTap: (index) {
                         if (index == 1 &&
-                            widget.scheduleData!.vehicleChecklistId == null || widget.scheduleData!.vehicleChecklistId!.statusCode!.code == "") {
+                            (vcStatus == 0 ||
+                                vcStatus == 1 ||
+                                vcStatus == 2)) {
                           _tabController.index = 0;
                           showDialog(
                               context: context,
@@ -193,9 +198,9 @@ class _VehicleChecklistFormTabState extends State<VehicleChecklistFormTab>
                       controller: _tabController,
                       children: [
                         VehicleChecklistFormBeforeTabbarView(
-                            scheduleData: widget.scheduleData),
+                            compactorData: widget.compactorData),
                         VehicleChecklistFormAfterTabbarView(
-                            scheduleData: widget.scheduleData),
+                            compactorData: widget.compactorData),
                       ],
                     ),
                   ),

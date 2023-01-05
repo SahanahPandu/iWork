@@ -20,16 +20,18 @@ class Time {
   }
 
   static String convertAMPMToMs(String time) {
-    int hour =
-        int.parse(DateFormat("HH").format(DateTime.parse("2023-01-03 $time")));
-    if (hour >= 0 && hour <= 12) {
-      return "Pagi";
-    } else if (hour >= 12 && hour <= 14) {
-      return "Tengah hari";
-    } else if (hour >= 14 && hour <= 19) {
-      return "Petang";
-    } else if (hour >= 19 && hour <= 24) {
-      return "Malam";
+    if (time != ""){
+      int hour = int.parse(
+          DateFormat("HH").format(DateTime.parse("2023-01-03 $time")));
+      if (hour >= 0 && hour <= 11) {
+        return "Pagi";
+      } else if (hour >= 12 && hour <= 14) {
+        return "Tengah hari";
+      } else if (hour >= 15 && hour <= 18) {
+        return "Petang";
+      } else if (hour >= 19 && hour <= 24) {
+        return "Malam";
+      }
     }
     return DateFormat("a", "ms").format(DateTime.parse(time));
   }

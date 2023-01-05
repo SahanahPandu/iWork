@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
 //import files
-import '../../../../../models/task/compactor/data/schedule/schedule.dart';
+import '../../../../../models/task/compactor/compactor_task.dart';
 import '../../../../../models/vc/vc_main.dart';
 import '../../../../../providers/vehicle_checklist/vehicle_checklist_api.dart';
 import '../../../../../screens/vehicle_checklist/vehicle_checklist_form/vehicle_checklist_form_detail.dart';
 
 class VehicleChecklistFormAfterTabbarView extends StatefulWidget {
-  final Schedule? scheduleData;
+  final CompactorTask? compactorData;
 
-  const VehicleChecklistFormAfterTabbarView({Key? key, this.scheduleData})
+  const VehicleChecklistFormAfterTabbarView({Key? key, this.compactorData})
       : super(key: key);
 
   @override
@@ -24,10 +24,13 @@ class _VehicleChecklistFormAfterTabbarViewState
 
   @override
   void initState() {
-    if (widget.scheduleData!.vehicleChecklistId!.statusCode!.code == "VC2" ||
-        widget.scheduleData!.vehicleChecklistId!.statusCode!.code == "VC3") {
+    if (widget.compactorData!.data!.vehicleChecklistId!.statusCode!.code ==
+            "VC2" ||
+        widget.compactorData!.data!.vehicleChecklistId!.statusCode!.code ==
+            "VC3") {
       emptyVC = false;
-    } else if (widget.scheduleData!.vehicleChecklistId!.statusCode!.code ==
+    } else if (widget
+            .compactorData!.data!.vehicleChecklistId!.statusCode!.code ==
         "VC1") {
       emptyVC = true;
     }
@@ -39,7 +42,7 @@ class _VehicleChecklistFormAfterTabbarViewState
     return !emptyVC
         ? FutureBuilder<VehicleChecklistMain?>(
             future: VehicleChecklistApi.getVehicleChecklistData(
-                widget.scheduleData!.vehicleChecklistId!.id),
+                widget.compactorData!.data!.vehicleChecklistId!.id),
             builder: (context, snapshot) {
               switch (snapshot.connectionState) {
                 case ConnectionState.waiting:
@@ -55,7 +58,7 @@ class _VehicleChecklistFormAfterTabbarViewState
                     if (snapshot.hasData) {
                       return VehicleChecklistDetail(
                           data: snapshot.data,
-                          scheduleData: widget.scheduleData,
+                          compactorData: widget.compactorData,
                           before: false);
                     }
                   }
@@ -63,6 +66,6 @@ class _VehicleChecklistFormAfterTabbarViewState
               return Container();
             })
         : VehicleChecklistDetail(
-            scheduleData: widget.scheduleData, before: false);
+            compactorData: widget.compactorData, before: false);
   }
 }

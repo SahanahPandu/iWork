@@ -9,7 +9,7 @@ import '../../../config/config.dart';
 import '../../../config/dimen.dart';
 import '../../../config/palette.dart';
 import '../../../config/string.dart';
-import '../../../models/task/compactor/data/schedule/schedule.dart';
+import '../../../models/task/compactor/compactor_task.dart';
 import '../../../models/vc/vc_main.dart';
 import '../../../providers/vehicle_checklist/vehicle_checklist_api.dart';
 import '../../../utils/calendar/date.dart';
@@ -23,11 +23,11 @@ import '../../../widgets/custom_scroll/custom_scroll.dart';
 
 class VehicleChecklistDetail extends StatefulWidget {
   final VehicleChecklistMain? data;
-  final Schedule? scheduleData;
+  final CompactorTask? compactorData;
   final bool before;
 
   const VehicleChecklistDetail(
-      {Key? key, this.data, this.scheduleData, required this.before})
+      {Key? key, this.data, this.compactorData, required this.before})
       : super(key: key);
 
   @override
@@ -66,6 +66,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
   bool _incompleteRadioButton = false;
   bool isLoading = false;
   double _fuelValue = 25;
+  var routeList = routeNames.join(", ");
 
   /// Below are the data variables declared individually, for easy reference by other developers
   final TextEditingController _odoReader = TextEditingController();
@@ -125,14 +126,14 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
 
   @override
   void initState() {
-    _todayDate = Date.getTheDate(DateTime.now, '', "dd-MM-yyyy", 'ms');
-    if (widget.scheduleData!.vehicleChecklistId != null) {
+    _todayDate = Date.getTheDate(DateTime.now(), '', "dd-MM-yyyy", 'ms');
+    if (widget.compactorData!.data!.vehicleChecklistId != null) {
       empty = false;
       if (widget.before) {
-        if (widget.scheduleData!.vehicleChecklistId!.statusCode!.code == "VC1" ||
-            widget.scheduleData!.vehicleChecklistId!.statusCode!.code ==
+        if (widget.compactorData!.data!.vehicleChecklistId!.statusCode!.code == "VC1" ||
+            widget.compactorData!.data!.vehicleChecklistId!.statusCode!.code ==
                 "VC2" ||
-            widget.scheduleData!.vehicleChecklistId!.statusCode!.code ==
+            widget.compactorData!.data!.vehicleChecklistId!.statusCode!.code ==
                 "VC3") {
           widget.data!.data!.vehicleChecklists!.createdAt != null
               ? _todayDate = widget.data!.data!.vehicleChecklists!.createdAt!
@@ -357,8 +358,8 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
               .toString();
         }
       } else {
-        if (widget.scheduleData!.vehicleChecklistId == null ||
-            widget.scheduleData!.vehicleChecklistId!.statusCode!.code ==
+        if (widget.compactorData!.data!.vehicleChecklistId == null ||
+            widget.compactorData!.data!.vehicleChecklistId!.statusCode!.code ==
                 "VC1") {
           empty = true;
         } else {
@@ -627,16 +628,19 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                             TableCellVerticalAlignment.middle,
                         columnWidths: Orientations().isPortrait(context)
                             ? const {
-                                0: FlexColumnWidth(2),
-                                1: FlexColumnWidth(1.9),
-                                2: FlexColumnWidth(0.3),
-                                3: FlexColumnWidth(2.4),
-                                4: FlexColumnWidth(2.1),
-                                5: FlexColumnWidth(0.3),
-                                6: FlexColumnWidth(1.2),
-                                7: FlexColumnWidth(2.2),
+                                0: FlexColumnWidth(1.2),
+                                1: FlexColumnWidth(1),
+                                2: FlexColumnWidth(0.2),
+                                3: FlexColumnWidth(1.2),
+                                4: FlexColumnWidth(1.2)
                               }
-                            : null,
+                            : const {
+                                0: FlexColumnWidth(0.8),
+                                1: FlexColumnWidth(1.2),
+                                2: FlexColumnWidth(0.5),
+                                3: FlexColumnWidth(0.8),
+                                4: FlexColumnWidth(1.7)
+                              },
                         border: TableBorder.all(color: transparent),
                         children: [
                           TableRow(children: [
@@ -661,35 +665,19 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                   color: greyCustom,
                                   fontWeight: FontWeight.w400),
                             ),
-                            Text(widget.scheduleData!.mainRoute!,
+                            Text(routeList,
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
                                     fontSize: 16,
                                     color: blackCustom,
-                                    fontWeight: FontWeight.w600)),
-                            const Text(' '),
-                            Text(status,
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    color: greyCustom,
-                                    fontWeight: FontWeight.w400)),
-                            Text(widget.scheduleData!.statusCode!.name!,
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    color: blackCustom,
-                                    fontWeight: FontWeight.w600)),
+                                    fontWeight: FontWeight.w600))
                           ]),
                           TableRow(children: [
                             SizedBox(height: tableSpace(context)),
                             SizedBox(height: tableSpace(context)),
                             SizedBox(height: tableSpace(context)),
                             SizedBox(height: tableSpace(context)),
-                            SizedBox(height: tableSpace(context)),
-                            SizedBox(height: tableSpace(context)),
-                            SizedBox(height: tableSpace(context)),
-                            SizedBox(height: tableSpace(context)),
+                            SizedBox(height: tableSpace(context))
                           ]),
                           TableRow(children: [
                             Text(widget.before ? outTime : inTime,
@@ -732,15 +720,14 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                     fontSize: 16,
                                     color: greyCustom,
                                     fontWeight: FontWeight.w400)),
-                            Text(widget.scheduleData!.vehicleNo!,
+                            Text(
+                                widget.compactorData!.data!.schedules![0]
+                                    .vehicleNo!,
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
                                     fontSize: 16,
                                     color: blackCustom,
-                                    fontWeight: FontWeight.w600)),
-                            const Text(' '),
-                            const Text(' '),
-                            const Text(' ')
+                                    fontWeight: FontWeight.w600))
                           ]),
                         ]))),
             Padding(
@@ -3594,9 +3581,10 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
           });
 
           String result = await VehicleChecklistApi.uploadVehicleChecklistData(
-              widget.scheduleData!.vehicleNo!,
-              widget.scheduleData!.id.toString(),
               widget.before ? '1' : '0',
+              widget.before
+                  ? null
+                  : widget.compactorData!.data!.vehicleChecklistId!.id,
               vcBody);
           setState(() {
             isLoading = false;
@@ -3606,10 +3594,12 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
               completedSecondVc = true;
             }
             completedFirstVc = true;
-            setState(() {
-              scheduleVcStatus.value = 1;
-            });
             Navigator.pop(context, true);
+            setState(() {
+              //scheduleVcStatus.value = 1;
+              vcStatus = 1;
+              refresh.value = !refresh.value;
+            });
             showDialog(
                 context: context,
                 builder: (BuildContext context) {
