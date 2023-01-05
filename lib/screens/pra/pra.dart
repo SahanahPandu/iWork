@@ -171,7 +171,7 @@ class _PraState extends State<Pra> {
               height: 5,
             ),
             Text(
-              Date.getTheDate(DateTime.now().toString(), "dd/MM/yyyy", 'ms'),
+              Date.getTheDate(DateTime.now(), "", "dd/MM/yyyy", 'ms'),
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w600,

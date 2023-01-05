@@ -8,7 +8,7 @@ class Date {
     return formatter.format(now);
   }
 
-  static String getTheDate(passDate, reqFormat, stateId) {
+  static String getTheDate3(passDate, reqFormat, stateId) {
     // print('Date: $passDate');
     String theDate = "";
     late DateTime convertTheDate;
@@ -26,18 +26,17 @@ class Date {
     return theDate;
   }
 
-  static String getTheDate2(passDate, passFormat, reqFormat, stateId) {
+  static String getTheDate(passDate, passFormat, reqFormat, stateId) {
     // print('Date: $passDate');
+
     String theDate = "";
     late DateTime convertTheDate;
 
     //to check and convert passDate to DateTime datatype
+    //if the passDate is DateTime no need to pass passFormat
     if (passDate.runtimeType == DateTime) {
       convertTheDate = passDate;
     } else if (passDate.runtimeType == String) {
-      // print('masuk sini kan');
-      // var convStringDate =
-      //     DateFormat('yyyy-MM-dd').format(passDate);
       convertTheDate = DateFormat(passFormat).parse(passDate);
     }
 

@@ -38,8 +38,8 @@ class EcutiSubmitButtonState extends State<EcutiSubmitButton> {
         String convDate = "";
 
         if (theDate['tarikhMula'] != null && theDate['tarikhMula'] != "") {
-          convDate =
-              Date.getTheDate(theDate['tarikhMula'], 'dd MMMM yyyy', 'ms');
+          convDate = Date.getTheDate(
+              theDate['tarikhMula'], "yyyy-MM-dd", 'dd MMMM yyyy', 'ms');
         }
 
         thefilterDate = convDate;
@@ -49,13 +49,13 @@ class EcutiSubmitButtonState extends State<EcutiSubmitButton> {
         String convDate2 = "";
 
         if (theDate['tarikhMula'] != null && theDate['tarikhMula'] != "") {
-          convDate1 =
-              Date.getTheDate(theDate['tarikhMula'], 'dd MMMM yyyy', 'ms');
+          convDate1 = Date.getTheDate(
+              theDate['tarikhMula'], "yyyy-MM-dd", 'dd MMMM yyyy', 'ms');
         }
 
         if (theDate['tarikhTamat'] != null && theDate['tarikhTamat'] != "") {
-          convDate2 =
-              Date.getTheDate(theDate['tarikhTamat'], 'dd MMMM yyyy', 'ms');
+          convDate2 = Date.getTheDate(
+              theDate['tarikhTamat'], "yyyy-MM-dd", 'dd MMMM yyyy', 'ms');
         }
 
         thefilterDate = "$convDate1 - $convDate2";

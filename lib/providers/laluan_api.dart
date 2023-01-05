@@ -14,7 +14,7 @@ import '../models/task/pra/task_data.dart';
 import '../utils/calendar/date.dart';
 
 DateTime getTodayDate = DateTime.now();
-String today = Date.getTheDate(getTodayDate.toString(), "yyyy-MM-dd", null);
+String today = Date.getTheDate(getTodayDate, '', "yyyy-MM-dd", null);
 
 class LaluanApi {
   static Future<List<Laluan>> getLaluanData(BuildContext context) async {

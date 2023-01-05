@@ -20,7 +20,7 @@ class _EOTodayTaskDetailsState extends State<EOTodayTaskDetails> {
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Text(
-        "Rumusan Hari Ini (${Date.getTheDate(DateTime.now().toString(), "dd/MM/yyyy", 'ms')})",
+        "Rumusan Hari Ini (${Date.getTheDate(DateTime.now(), '', "dd/MM/yyyy", 'ms')})",
         style: TextStyle(
           color: fillColor,
           fontWeight: FontWeight.w400,

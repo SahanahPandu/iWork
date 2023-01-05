@@ -97,7 +97,7 @@ class _ReportListDetailsState extends State<ReportListDetails> {
                   Expanded(
                     child: Text(
                       Date.getTheDate(widget.data.createdDatetime,
-                          "dd/MM/yyyy HH:mm a", null),
+                          'yyyy-MM-dd HH:mm:ss', "dd/MM/yyyy HH:mm a", null),
                       // "${widget.data.tarikh},${widget.data.masa}",
                       style: TextStyle(
                         fontSize: userRole == 100 ? 16 : 15,

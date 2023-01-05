@@ -14,7 +14,7 @@ import '../../../utils/calendar/date.dart';
 import '../../http/service/http_service.dart';
 
 DateTime getTodayDate = DateTime.now();
-String today = Date.getTheDate(getTodayDate.toString(), "yyyy-MM-dd", null);
+String today = Date.getTheDate(getTodayDate, '', "yyyy-MM-dd", null);
 
 class CompactorTaskApi {
   static Future<String> loadCompactorTask() async {

@@ -34,8 +34,8 @@ class _AttendanceLogDetailsState extends State<AttendanceLogDetails> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                  Date.getTheDate(
-                      widget.data.attendanceDate, "dd/MM/yyyy", "ms"),
+                  Date.getTheDate(widget.data.attendanceDate, 'yyyy-MM-dd',
+                      "dd/MM/yyyy", "ms"),
                   style: const TextStyle(
                       fontSize: 16, fontWeight: FontWeight.w700)),
               const SizedBox(height: 10),

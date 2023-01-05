@@ -55,7 +55,7 @@ class JadualApi {
     var convDate = "";
     // var theStatus = [];
     if (myData['filteredDate'] != "") {
-      convDate = Date.getTheDate2(
+      convDate = Date.getTheDate(
           myData['filteredDate'], "dd/MM/yyyy", "yyyy-MM-dd", "ms");
     }
 

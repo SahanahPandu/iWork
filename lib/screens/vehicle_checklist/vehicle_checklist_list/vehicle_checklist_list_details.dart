@@ -78,8 +78,7 @@ class _VehicleChecklistListDetailsState
               widget.vcData.data!.vehicleChecklists!.createdAt
                           .toString()
                           .split(' ')[0] ==
-                      Date.getTheDate(
-                          DateTime.now().toString(), "yyyy-MM-dd", 'ms')
+                      Date.getTheDate(DateTime.now(), '', "yyyy-MM-dd", 'ms')
                   ? "Hari Ini"
                   : widget.vcData.data!.vehicleChecklists!.createdAt
                       .toString()

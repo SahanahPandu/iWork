@@ -267,7 +267,7 @@ class _CompactorPanelState extends State<CompactorPanel> {
             height: 5,
           ),
           Text(
-            Date.getTheDate(DateTime.now().toString(), "dd/MM/yyyy", 'ms'),
+            Date.getTheDate(DateTime.now(), '', "dd/MM/yyyy", 'ms'),
             style: TextStyle(
               fontSize: 26,
               fontWeight: FontWeight.w600,

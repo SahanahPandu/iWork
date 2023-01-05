@@ -125,7 +125,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
 
   @override
   void initState() {
-    _todayDate = Date.getTheDate(DateTime.now().toString(), "dd-MM-yyyy", 'ms');
+    _todayDate = Date.getTheDate(DateTime.now, '', "dd-MM-yyyy", 'ms');
     if (widget.scheduleData!.vehicleChecklistId != null) {
       empty = false;
       if (widget.before) {
@@ -137,8 +137,8 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
           widget.data!.data!.vehicleChecklists!.createdAt != null
               ? _todayDate = widget.data!.data!.vehicleChecklists!.createdAt!
                   .substring(0, 10)
-              : _todayDate = Date.getTheDate(
-                  DateTime.now().toString(), "dd-MM-yyyy", 'ms');
+              : _todayDate =
+                  Date.getTheDate(DateTime.now(), '', "dd-MM-yyyy", 'ms');
           _odoReader.text = widget.data!.data!.vehicleChecklists!
               .checklistBefore!.vcItem.odometer.bacaanOdo
               .toString();
@@ -365,8 +365,8 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
           widget.data!.data!.vehicleChecklists!.createdAt != null
               ? _todayDate = widget.data!.data!.vehicleChecklists!.createdAt!
                   .substring(0, 10)
-              : _todayDate = Date.getTheDate(
-                  DateTime.now().toString(), "dd-MM-yyyy", 'ms');
+              : _todayDate =
+                  Date.getTheDate(DateTime.now(), '', "dd-MM-yyyy", 'ms');
           _odoReader.text = widget.data!.data!.vehicleChecklists!
               .checklistAfter!.vcItem.odometer.bacaanOdo
               .toString();

@@ -32,7 +32,7 @@ class _PraTodayTaskDetailsState extends State<PraTodayTaskDetails> {
   @override
   void initState() {
     super.initState();
-    todayDate = Date.getTheDate(DateTime.now().toString(), "dd MMM yyyy", 'ms');
+    todayDate = Date.getTheDate(DateTime.now(), '', "dd MMM yyyy", 'ms');
   }
 
   @override

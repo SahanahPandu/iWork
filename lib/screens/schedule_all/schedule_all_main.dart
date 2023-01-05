@@ -74,8 +74,8 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
               IconButton(
                 onPressed: () {
                   setState(() {
-                    _filteredDate.text =
-                        Date.getTheDate(filteredDate, 'dd/MM/yyyy', 'ms');
+                    _filteredDate.text = Date.getTheDate(filteredDate,
+                        'dd/MM//yyyy HH:mm:ss', 'dd/MM/yyyy', 'ms');
                   });
                   displayFilterBottomSheet(context);
                 },
@@ -454,8 +454,8 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                       GestureDetector(
                         onTap: () {
                           setState(() {
-                            _filteredDate.text =
-                                Date.getTheDate(getDate, 'dd/MM/yyyy', 'ms');
+                            _filteredDate.text = Date.getTheDate(getDate,
+                                'dd/MM/yyyy HH:mm:ss', 'dd/MM/yyyy', 'ms');
 
                             filteredDate = getDate;
                           });
@@ -490,6 +490,7 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                     mode: CupertinoDatePickerMode.date,
                     initialDateTime: filteredDate,
                     onDateTimeChanged: (theDate) {
+                      print('Format: $theDate');
                       getDate = theDate;
                     },
                   ),
