@@ -27,7 +27,7 @@ class _CompactorPanelTodayTaskDetailsState
   @override
   void initState() {
     super.initState();
-    todayDate = Date.getDetailedTodayDate();
+    todayDate = Date.getTheDate(DateTime.now(), '', 'dd MMMM yyyy', 'ms');
   }
 
   //------------------------------------------------------
