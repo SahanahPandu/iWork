@@ -12,6 +12,7 @@ import 'package:eswm/models/schedule/schedule_details.dart';
 
 import '../config/config.dart';
 import '../models/options/options_data.dart';
+import '../utils/calendar/date.dart';
 
 class JadualApi {
   static Future<ScheduleDetails?>? getDataJadual(int id) async {
@@ -46,13 +47,35 @@ class JadualApi {
     return dataJadual;
   }
 
-  static Future<List<ScheduleDetails>>? getDataJadualDrawer() async {
+  static Future<List<ScheduleDetails>>? getDataJadualDrawer(passData) async {
     List<ScheduleDetails> filteredList = [];
+
+    //Filtering based on filtered date & status
+    var myData = Map<String, dynamic>.from(passData);
+    var convDate = "";
+    // var theStatus = [];
+    if (myData['filteredDate'] != "") {
+      convDate = Date.getTheDate2(
+          myData['filteredDate'], "dd/MM/yyyy", "yyyy-MM-dd", "ms");
+    }
+
+    var statusList = myData['selectedStatus'];
+    if (statusList.length > 0) {
+      statusList = statusList[0].code;
+      // statusList.forEach((status) {
+      //   theStatus.add(status.code);
+      // });
+    }
+
+    // print("The Status: $theStatus");
 
     try {
       var response = await Dio().get(
         '$theBase/schedule/schedules',
-        // queryParameters: {'schedule_date': selectedDate},
+        queryParameters: {
+          'schedule_date': convDate,
+          'status_code': statusList,
+        },
         options: Options(headers: {
           'authorization': 'Bearer ${userInfo[1]}',
         }),
