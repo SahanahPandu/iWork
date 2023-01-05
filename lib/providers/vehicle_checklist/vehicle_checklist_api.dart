@@ -68,9 +68,8 @@ class VehicleChecklistApi {
   }
 
   static Future<String> uploadVehicleChecklistData(
-    String? vNo,
-    String? scMain,
     String? isBefore,
+    int? vehicleChecklistId,
     Map<String, Map<String, Map<String, Object>>> vcBody,
   ) async {
     String getAccessToken = userInfo[1];
@@ -165,17 +164,11 @@ class VehicleChecklistApi {
     };*/
     final jsonString = json.encode(vcBody);
     //logDev.log(jsonString, name: "myEncodedLog");
-    final data = {
-      'vehicle_no': vNo,
-      'sc_main_id': scMain,
-      'is_before': isBefore,
-      'checklist_before': jsonString
-    };
+    final data = {'is_before': isBefore, 'checklist_before': jsonString};
 
     final dataAfter = {
-      'vehicle_no': vNo,
-      'sc_main_id': scMain,
       'is_before': isBefore,
+      'vehicle_checklist_id': vehicleChecklistId.toString(),
       'checklist_after': jsonString
     };
     final headers = {HttpHeaders.authorizationHeader: 'Bearer $getAccessToken'};

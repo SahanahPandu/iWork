@@ -57,6 +57,8 @@ class CompactorTaskApi {
           Map<String, dynamic> decode = json.decode(json.encode(response.data));
           var convertData = CompactorTask.fromJson(decode).data!.schedules;
           decodeBody = convertData;
+        } else {
+          //print("No schedule data");
         }
       } else {
         //print("ERROR");
@@ -80,9 +82,19 @@ class CompactorTaskApi {
           'authorization': 'Bearer $getAccessToken',
         }),
       );
-      Map<String, dynamic> decode = jsonDecode(jsonEncode(response.data));
-      var convertData = CompactorTask.fromJson(decode);
-      dataSchedule = convertData;
+      switch (response.statusCode) {
+        case 200:
+          if (response.data['data']['schedules'] != null) {
+            Map<String, dynamic> decode = jsonDecode(jsonEncode(response.data));
+            var convertData = CompactorTask.fromJson(decode);
+            dataSchedule = convertData;
+          } else {
+            //print("No schedule data");
+          }
+          break;
+        default:
+          //print(response.statusCode);
+      }
     } on DioError catch (e) {
       // ignore: avoid_print
       print(e);

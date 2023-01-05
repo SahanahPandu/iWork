@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 //import files
+import '../../../../config/config.dart';
 import '../../../../config/palette.dart';
 import '../../../../models/task/compactor/compactor_task.dart';
 import '../../../../utils/calendar/date.dart';
@@ -40,7 +41,9 @@ class _CompactorPanelTodayTaskDetailsState
         height: 15,
       ),
       Text(
-        "Tugasan Hari Ini (${DateFormat("hh:mm").format(DateTime.parse('20222312 ${widget.scheduleData!.data!.schedules!.first.startWorkAt!}'))} ${Time.convertAMPMToMs(widget.scheduleData!.data!.schedules!.first.startWorkAt!)} - ${DateFormat("hh:mm").format(DateTime.parse('20222312 ${widget.scheduleData!.data!.schedules!.last.stopWorkAt!}'))} ${Time.convertAMPMToMs(widget.scheduleData!.data!.schedules!.last.stopWorkAt!)})",
+        isScheduleListExist
+            ? "Tugasan Hari Ini (${DateFormat("hh:mm").format(DateTime.parse('20222312 ${widget.scheduleData!.data!.startWork!}'))} ${Time.convertAMPMToMs(widget.scheduleData!.data!.startWork!)} - ${DateFormat("hh:mm").format(DateTime.parse('20222312 ${widget.scheduleData!.data!.stopWork!}'))} ${Time.convertAMPMToMs(widget.scheduleData!.data!.stopWork!)})"
+            : "Tugasan Hari ini ( --:-- )",
         style: const TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.w400,
@@ -73,18 +76,49 @@ class _CompactorPanelTodayTaskDetailsState
           )
         ]),
         //Senarai Staf
-        Align(
-            alignment: Alignment.centerRight,
-            child: Container(
-                alignment: Alignment.centerLeft,
-                width: 170,
-                child: Stack(
-                    clipBehavior: Clip.none,
-                    fit: StackFit.passthrough,
-                    children: [
-                      Positioned(
-                          left: 108,
-                          child: Padding(
+        isScheduleListExist
+            ? Align(
+                alignment: Alignment.centerRight,
+                child: Container(
+                    alignment: Alignment.centerLeft,
+                    width: 170,
+                    child: Stack(
+                        clipBehavior: Clip.none,
+                        fit: StackFit.passthrough,
+                        children: [
+                          Positioned(
+                              left: 108,
+                              child: Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 8),
+                                  child: CircleAvatar(
+                                      backgroundColor: Orientations()
+                                              .isTabletPortrait(context)
+                                          ? const Color(0xec3f67ea)
+                                          : const Color(0xec4357d0),
+                                      radius: 32,
+                                      child: CircleAvatar(
+                                          backgroundColor: transparent,
+                                          backgroundImage: const NetworkImage(
+                                              "https://www.mnp.ca/-/media/foundation/integrations/personnel/2020/12/16/13/57/personnel-image-4483.jpg?h=800&w=600&hash=9D5E5FCBEE00EB562DCD8AC8FDA8433D"),
+                                          radius: 30)))),
+                          Positioned(
+                              left: 54,
+                              child: Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 8),
+                                  child: CircleAvatar(
+                                      backgroundColor: Orientations()
+                                              .isTabletPortrait(context)
+                                          ? const Color(0xec3f67ea)
+                                          : const Color(0xec4357d0),
+                                      radius: 32,
+                                      child: CircleAvatar(
+                                          backgroundColor: transparent,
+                                          backgroundImage: const NetworkImage(
+                                              "https://www.jurispro.com/files/photos/user_4473.jpg?m=1605811497"),
+                                          radius: 30)))),
+                          Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 8),
                               child: CircleAvatar(
@@ -94,41 +128,13 @@ class _CompactorPanelTodayTaskDetailsState
                                           : const Color(0xec4357d0),
                                   radius: 32,
                                   child: CircleAvatar(
-                                      backgroundColor: transparent,
-                                      backgroundImage: const NetworkImage(
-                                          "https://www.mnp.ca/-/media/foundation/integrations/personnel/2020/12/16/13/57/personnel-image-4483.jpg?h=800&w=600&hash=9D5E5FCBEE00EB562DCD8AC8FDA8433D"),
-                                      radius: 30)))),
-                      Positioned(
-                          left: 54,
-                          child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 8),
-                              child: CircleAvatar(
-                                  backgroundColor:
-                                      Orientations().isTabletPortrait(context)
-                                          ? const Color(0xec3f67ea)
-                                          : const Color(0xec4357d0),
-                                  radius: 32,
-                                  child: CircleAvatar(
-                                      backgroundColor: transparent,
-                                      backgroundImage: const NetworkImage(
-                                          "https://www.jurispro.com/files/photos/user_4473.jpg?m=1605811497"),
-                                      radius: 30)))),
-                      Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
-                          child: CircleAvatar(
-                              backgroundColor:
-                                  Orientations().isTabletPortrait(context)
-                                      ? const Color(0xec3f67ea)
-                                      : const Color(0xec4357d0),
-                              radius: 32,
-                              child: CircleAvatar(
-                                backgroundColor: transparent,
-                                backgroundImage: const NetworkImage(
-                                    "https://miro.medium.com/max/800/1*7hkI-ZKsglnbjxCRV1bMZA.png"),
-                                radius: 30,
-                              )))
-                    ])))
+                                    backgroundColor: transparent,
+                                    backgroundImage: const NetworkImage(
+                                        "https://miro.medium.com/max/800/1*7hkI-ZKsglnbjxCRV1bMZA.png"),
+                                    radius: 30,
+                                  )))
+                        ])))
+            : Container()
       ])
     ]);
   }

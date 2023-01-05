@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
 //import files
+import '../../../config/config.dart';
 import '../../../config/dimen.dart';
 import '../../../config/palette.dart';
 import '../../../models/task/compactor/compactor_task.dart';
@@ -76,8 +77,29 @@ class _CompactorTaskListState extends State<CompactorTaskList> {
                       itemBuilder: (context, i) {
                         if (widget.main == true && i == 0) {
                           return buildTabletCard(VehicleChecklistCardDetails(
-                              scheduleData: laluanDataFuture[i]));
+                              compactorData: widget.data));
                         }
+
+                        listLength = laluanDataFuture.length;
+                        for (int j = 0; j < laluanDataFuture.length; j++) {
+                          if (laluanDataFuture[j].statusCode == null) {
+                            cpSchedule[j] = 0;
+                          } else if (laluanDataFuture[j].statusCode!.code ==
+                              "SBM") {
+                            cpSchedule[j] = 1;
+                          } else if (laluanDataFuture[j].statusCode!.code ==
+                              "SBT") {
+                            cpSchedule[j] = 2;
+                          } else if (laluanDataFuture[j].statusCode!.code ==
+                              "STG") {
+                            cpSchedule[j] = 3;
+                          } else {
+                            cpSchedule[j] = 0;
+                          }
+                          routeNames[j] = laluanDataFuture[j].mainRoute!;
+                        }
+                       // print(routeNames);
+                       // print(cpSchedule);
                         return GestureDetector(
                             onTap: () {
                               Navigator.push(
@@ -87,7 +109,10 @@ class _CompactorTaskListState extends State<CompactorTaskList> {
                                       child: CompactorPanelScheduleMain(
                                           data: widget.main == true
                                               ? laluanDataFuture[i - 1]
-                                              : laluanDataFuture[i])));
+                                              : laluanDataFuture[i],
+                                          idx: widget.main == true
+                                              ? i - 1
+                                              : i)));
                               //print("index clicked ${i - 1}");
                             },
                             child: buildTabletCard(
@@ -95,7 +120,9 @@ class _CompactorTaskListState extends State<CompactorTaskList> {
                                     data: widget.main == true
                                         ? laluanDataFuture[i - 1]
                                         : laluanDataFuture[i],
-                                    button: widget.main)));
+                                    compactorData: widget.data,
+                                    button: widget.main,
+                                    idx: i)));
                       }));
           }
         });

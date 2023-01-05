@@ -9,6 +9,7 @@ import 'package:shimmer/shimmer.dart';
 import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../../config/string.dart';
+import '../../models/task/compactor/compactor_task.dart';
 import '../../models/task/compactor/data/schedule/schedule.dart';
 import '../../providers/start_stop_work_time/start_stop_work_time_api.dart';
 import '../../utils/device/orientations.dart';
@@ -20,8 +21,12 @@ import '../tabs/vehicle_checklist_tab/vehicle_checklist_form_tab/vehicle_checkli
 
 class StartEndWorkSlideBar extends StatefulWidget {
   final Schedule data;
+  final CompactorTask? compactorData;
+  final int? idx;
 
-  const StartEndWorkSlideBar({Key? key, required this.data}) : super(key: key);
+  const StartEndWorkSlideBar(
+      {Key? key, required this.data, this.compactorData, this.idx})
+      : super(key: key);
 
   @override
   State<StartEndWorkSlideBar> createState() => _StartEndWorkSlideBarState();
@@ -29,8 +34,6 @@ class StartEndWorkSlideBar extends StatefulWidget {
 
 class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
   final _controller = ActionSliderController();
-
-  //  statusTask == 1
   Color textColor = greenCustom;
   Color iconColor = greenCustom;
   Color borderColor = greenCustom;
@@ -39,15 +42,95 @@ class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
   bool enableSlide = false;
   bool endTime = false;
   bool completed = false;
+  int condition = -1;
 
   @override
   void initState() {
-    if (widget.data.vehicleChecklistId == null) {
+    //print(onGoingTask);
+    /// NULL
+    if ((cpSchedule[widget.idx! - 1] == 1) && vcStatus == 0) {
       textColor = grey500;
       iconColor = grey300;
       borderColor = transparent;
       boxColor = grey100;
-      scheduleVcStatus.value = 0;
+      condition = 0;
+    }
+
+    /// VC before done, enable start time for all schedule cards
+    else if ((cpSchedule[widget.idx! - 1] == 1) &&
+        (vcStatus == 1 || vcStatus == 2)) {
+      if (onGoingTask) {
+        textColor = grey500;
+        iconColor = grey300;
+        borderColor = transparent;
+        boxColor = grey100;
+        slideText = startWork;
+      } else {
+        textColor = greenCustom;
+        iconColor = greenCustom;
+        borderColor = greenCustom;
+        boxColor = white;
+        slideText = startWork;
+        condition = 1;
+      }
+    }
+
+    /// VC before done, start time done, enable stop time
+    else if ((cpSchedule[widget.idx! - 1] == 2) && vcStatus == 2) {
+      textColor = red;
+      iconColor = red;
+      borderColor = red;
+      boxColor = white;
+      slideText = endWork;
+      condition = 2;
+    }
+
+    /// VC before done, start/stop time done
+    else if ((cpSchedule[widget.idx! - 1] == 3) && (vcStatus == 3)) {
+      textColor = grey500;
+      iconColor = grey300;
+      borderColor = transparent;
+      boxColor = grey100;
+      slideText = startWork;
+      condition = 3;
+    }
+
+    /// VC before/after done, start/stop time done
+    else if ((cpSchedule[widget.idx! - 1] == 3) && vcStatus == 4) {
+      textColor = grey500;
+      iconColor = grey300;
+      borderColor = transparent;
+      boxColor = grey100;
+      slideText = startWork;
+      condition = 4;
+    }
+
+    /// VC before done, only first start time done
+    else if ((cpSchedule[widget.idx! - 1] == 3) && vcStatus == 2) {
+      textColor = grey500;
+      iconColor = grey300;
+      borderColor = transparent;
+      boxColor = grey100;
+      slideText = startWork;
+      condition = 5;
+    }
+
+    /*  if (laluanDataFuture[j].statusCode!.code == "SBM") {
+        cpSchedule[j] = 1;
+      } else if (laluanDataFuture[j].statusCode!.code ==
+          "SBT") {
+        cpSchedule[j] = 2;
+      } else if (laluanDataFuture[j].statusCode!.code ==
+          "STG") {
+        cpSchedule[j] = 3;
+      }*/
+    // }
+    /* if (widget.data.vehicleChecklistId == null) {
+      textColor = grey500;
+      iconColor = grey300;
+      borderColor = transparent;
+      boxColor = grey100;
+      //vcStatus = 0;
     } else if (widget.data.vehicleChecklistId!.statusCode!.code == "VC1" &&
         scheduleVcStatus.value == 1) {
       textColor = greenCustom;
@@ -55,7 +138,6 @@ class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
       borderColor = greenCustom;
       boxColor = white;
       slideText = startWork;
-      //statusTask = 1;
     } else if (widget.data.vehicleChecklistId!.statusCode!.code == "VC1" &&
         scheduleVcStatus.value == 2) {
       textColor = red;
@@ -63,7 +145,6 @@ class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
       borderColor = red;
       boxColor = white;
       slideText = endWork;
-      // statusTask = 1;
     } else if (widget.data.vehicleChecklistId!.statusCode!.code == "VC1" &&
         scheduleVcStatus.value == 3) {
       textColor = grey500;
@@ -78,14 +159,15 @@ class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
       borderColor = transparent;
       boxColor = grey100;
       slideText = startWork;
-    }
+    }*/
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return RotatedBox(
-      quarterTurns: scheduleVcStatus.value == 2 ? 2 : 0,
+      quarterTurns:
+          ((cpSchedule[widget.idx! - 1] == 2) && vcStatus == 2) ? 2 : 0,
       child: ActionSlider.custom(
         width: Orientations().isLandscape(context)
             ? 350
@@ -105,11 +187,14 @@ class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
             child: Icon(Icons.double_arrow_rounded, color: white, size: 20)),
         foregroundBuilder: (context, state, child) => child!,
         backgroundChild: RotatedBox(
-          quarterTurns: scheduleVcStatus.value == 2 ? 2 : 0,
+          quarterTurns:
+              ((cpSchedule[widget.idx! - 1] == 2) && vcStatus == 2) ? 2 : 0,
           child: Center(
-            child: scheduleVcStatus.value == 0 ||
-                    scheduleVcStatus.value == 3 ||
-                    scheduleVcStatus.value == 4
+            child: onGoingTask ||
+                    ((cpSchedule[widget.idx! - 1] == 1) && vcStatus == 0) ||
+                    ((cpSchedule[widget.idx! - 1] == 3) && vcStatus == 3) ||
+                    ((cpSchedule[widget.idx! - 1] == 3) && vcStatus == 4) ||
+                    ((cpSchedule[widget.idx! - 1] == 3) && vcStatus == 2)
                 ? Text(startWork,
                     style: TextStyle(
                         color: textColor,
@@ -151,7 +236,7 @@ class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
           controller.reset(); //resets the slider
         },
         onTap: (d) {
-          scheduleVcStatus.value == 0
+          (cpSchedule[widget.idx! - 1] == 1) && vcStatus == 0
               ? showDialog(
                   context: context,
                   builder: (BuildContext context) {
@@ -165,7 +250,7 @@ class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
                           PageTransition(
                               type: PageTransitionType.fade,
                               child: VehicleChecklistFormTab(
-                                  scheduleData: widget.data)));
+                                  compactorData: widget.compactorData)));
                     }
                   }
                 })
@@ -177,7 +262,7 @@ class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
 
   void _switchWorkTime(BuildContext context) {
     /// Not started VC & start/stop work
-    scheduleVcStatus.value == 0
+    ((cpSchedule[widget.idx! - 1] == 1) && vcStatus == 0)
         ? showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -190,39 +275,55 @@ class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
                     PageTransition(
                         type: PageTransitionType.fade,
                         child: VehicleChecklistFormTab(
-                            scheduleData: widget.data)));
+                            compactorData: widget.compactorData)));
               }
             }
           })
         :
 
         /// Start/Stop work Completed
-        scheduleVcStatus.value == 3 || scheduleVcStatus.value == 4
+        ((cpSchedule[widget.idx! - 1] == 3) && vcStatus == 3) ||
+                ((cpSchedule[widget.idx! - 1] == 3) && vcStatus == 4) ||
+                ((onGoingTask && cpSchedule[widget.idx! - 1] == 1) &&
+                    vcStatus == 2)
             ? null
             :
 
             /// 1 = Start work not yet /// 2 = Start work done, Stop work not yet
-            (scheduleVcStatus.value == 1 || scheduleVcStatus.value == 2
+            (((cpSchedule[widget.idx! - 1] == 1) && vcStatus == 1) ||
+                    ((cpSchedule[widget.idx! - 1] == 1) && vcStatus == 2) ||
+                    ((cpSchedule[widget.idx! - 1] == 2) && vcStatus == 2)
                 ? showDialog(
                     context: context,
                     builder: (BuildContext context) {
                       return showAlertDialog(
                           context,
                           confirmation,
-                          scheduleVcStatus.value == 1
+                          (((cpSchedule[widget.idx! - 1] == 1) &&
+                                      vcStatus == 1) ||
+                                  ((cpSchedule[widget.idx! - 1] == 1) &&
+                                      vcStatus == 2))
                               ? "Adakah anda ingin memulakan tugasan untuk Laluan ${widget.data.mainRoute}?"
-                              : scheduleVcStatus.value == 2
+                              : ((cpSchedule[widget.idx! - 1] == 2) &&
+                                      vcStatus == 2)
                                   ? "Adakah anda ingin menamatkan tugasan untuk Laluan ${widget.data.mainRoute}? Pastikan tugasan telah selesai."
                                   : "",
                           cancel,
-                          scheduleVcStatus.value == 1
+                          (((cpSchedule[widget.idx! - 1] == 1) &&
+                                      vcStatus == 1) ||
+                                  ((cpSchedule[widget.idx! - 1] == 1) &&
+                                      vcStatus == 2))
                               ? startWorkText
-                              : scheduleVcStatus.value == 2
+                              : ((cpSchedule[widget.idx! - 1] == 2) &&
+                                      vcStatus == 2)
                                   ? endWorkText
                                   : "");
                     }).then((actionText) async {
                     if (actionText == startWorkText &&
-                        scheduleVcStatus.value == 1) {
+                        (((cpSchedule[widget.idx! - 1] == 1) &&
+                                vcStatus == 1) ||
+                            ((cpSchedule[widget.idx! - 1] == 1) &&
+                                vcStatus == 2))) {
                       var result = await StartStopWorkApi.uploadStartWorkTime(
                           widget.data.id);
                       switch (result) {
@@ -239,6 +340,13 @@ class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
                                   null,
                                 );
                               });
+                          setState(() {
+                            if (listLength > 1) {
+                              onGoingTask = true;
+                            }
+                            //condition = 2;
+                            refresh.value = !refresh.value;
+                          });
                           break;
                         case 'error':
                         case 'ng':
@@ -246,7 +354,7 @@ class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
                               "Anda tidak berjaya untuk mulakan kerja. Sila cuba lagi!");
                       }
                     } else if (actionText == endWorkText &&
-                        scheduleVcStatus.value == 2) {
+                        ((cpSchedule[widget.idx! - 1] == 2) && vcStatus == 2)) {
                       var resultS = await StartStopWorkApi.uploadStopWorkTime(
                           widget.data.id);
                       switch (resultS) {
@@ -264,6 +372,11 @@ class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
                                   null,
                                 );
                               });
+                          setState(() {
+                            //condition = 3;
+                            onGoingTask = false;
+                            refresh.value = !refresh.value;
+                          });
                           break;
                         case 'error':
                         case 'ng':
@@ -288,7 +401,7 @@ class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
 
   Text _textStopBuilder() {
     return Text(
-        "Anda berjaya tamatkan kerja pada hari ini. Anda boleh teruskan isi borang semakan kenderaan.",
+        "Anda berjaya tamatkan kerja bagi laluan ${widget.data.mainRoute}, untuk hari ini.",
         textAlign: TextAlign.center,
         style: TextStyle(
             fontSize: 15,
@@ -305,7 +418,7 @@ class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
       iconColor = iconColorP;
       borderColor = borderColorP;
       boxColor = boxColorP;
-      scheduleVcStatus.value = stateP;
+      condition = stateP;
     });
   }
 }

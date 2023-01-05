@@ -79,6 +79,18 @@ ValueNotifier<bool> button = ValueNotifier(true);
 /// ** Select All Button **
 ValueNotifier<bool> allSelected = ValueNotifier(false);
 
-/// ** the server ip
+/// ** The Server IP Adress ***
 // String theBase = "http://103.26.46.187:81/api";
 String theBase = "https://iworkapi.swmsb.com/api";
+
+/// ** Schedule Listing Condition **
+bool isScheduleListExist = false;
+
+/// ** Refresh App Variable ***
+ValueNotifier<bool> refresh = ValueNotifier(false);
+
+int listLength = 0;
+int vcStatus = 0;
+List<int> cpSchedule = List.generate(listLength, (index) => 0);
+List<String> routeNames = List.generate(listLength, (index) => '');
+bool onGoingTask = false;

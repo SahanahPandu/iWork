@@ -20,8 +20,9 @@ import 'compactor_panel_schedule_details.dart';
 
 class CompactorPanelScheduleMain extends StatefulWidget {
   final Schedule? data;
+  final int? idx;
 
-  const CompactorPanelScheduleMain({Key? key, required this.data})
+  const CompactorPanelScheduleMain({Key? key, required this.data, this.idx})
       : super(key: key);
 
   @override

@@ -37,17 +37,17 @@ class _CompactorPanelScheduleDetailsState
       beforeVC = white;
       afterVC = white;
     } else {
-      if (widget.data!.vehicleChecklistId!.timeOut == "--:--" ||
-          widget.data!.vehicleChecklistId!.timeOut == "") {
+      if (widget.data!.startWorkAt == "--:--" ||
+          widget.data!.startWorkAt == "") {
         startTime = "--:--";
       } else {
-        startTime = Time.convertToHM(widget.data!.vehicleChecklistId!.timeOut!);
+        startTime = Time.convertToHM(widget.data!.startWorkAt!);
       }
-      if (widget.data!.vehicleChecklistId!.timeIn == "--:--" ||
-          widget.data!.vehicleChecklistId!.timeIn == "") {
+      if (widget.data!.stopWorkAt == "--:--" ||
+          widget.data!.stopWorkAt == "") {
         stopTime = "--:--";
       } else {
-        stopTime = Time.convertToHM(widget.data!.vehicleChecklistId!.timeIn!);
+        stopTime = Time.convertToHM(widget.data!.stopWorkAt!);
       }
       if (widget.data!.vehicleChecklistId!.statusCode!.code == "VC1") {
         beforeVC = okTextColor;
@@ -79,7 +79,7 @@ class _CompactorPanelScheduleDetailsState
             StatusContainer(
               type: "Laluan",
               status: widget.data!.statusCode!.name!,
-              statusId: widget.data!.statusCode,
+              statusId: widget.data!.statusCode!.code,
               fontWeight: statusFontWeight,
               roundedCorner: true,
             )
@@ -219,12 +219,18 @@ class _CompactorPanelScheduleDetailsState
                     fontWeight: FontWeight.w400,
                   ))
             ]),
-            Text("$startTime / $stopTime",
-                style: TextStyle(
-                  fontSize: 16,
-                  color: white,
-                  fontWeight: FontWeight.w600,
-                ))
+                SizedBox(
+                  width: _textSize().width,
+                  height: _textSize().height,
+                  child: Text('$startTime / $stopTime',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: white,
+                        fontWeight: FontWeight.w600,
+                      )),
+                )
           ])),
       //Semakan Kenderaan
       Padding(
@@ -331,5 +337,23 @@ class _CompactorPanelScheduleDetailsState
                                 )))
                       ])))),
     ]);
+  }
+
+  final TextStyle textStyle = TextStyle(
+    fontSize: 14,
+    color: white,
+    fontWeight: FontWeight.w600,
+  );
+
+  Size _textSize() {
+    final TextPainter textPainter = TextPainter(
+        text: TextSpan(text: '$startTime / $stopTime', style: textStyle),
+        maxLines: 1,
+        textAlign: TextAlign.right,
+        textDirection: TextDirection.rtl)
+      ..layout(
+          minWidth: 0,
+          maxWidth: Orientations().isTabletPortrait(context) ? 110 : 220);
+    return textPainter.size;
   }
 }
