@@ -454,6 +454,8 @@ class _DrawerBuildState extends State<DrawerBuild> {
         String result = await LogoutApi.logoutUser();
         if (result == 'ok') {
           LocalPrefs.removeLoginCredential();
+          listLength = 0;
+          routeNames.clear();
           Navigator.pushNamedAndRemoveUntil(
               context, '/splash', ModalRoute.withName('/splash'));
         } else {

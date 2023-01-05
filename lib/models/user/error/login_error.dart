@@ -7,21 +7,18 @@ class LoginError {
     this.data,
     required this.status,
     required this.message,
-    this.error,
     this.errorStr,
   });
 
   dynamic data;
   String status;
   String message;
-  ErrorPart? error;
   String? errorStr;
 
   factory LoginError.fromJson(Map<String, dynamic> json) => LoginError(
         data: json["data"],
         status: json["status"],
         message: json["message"],
-        error: json["error"],
         errorStr: json["error"],
       );
 
@@ -29,7 +26,7 @@ class LoginError {
         "data": data,
         "status": status,
         "message": message,
-        "error": error,
+        "error": errorStr,
       };
 }
 

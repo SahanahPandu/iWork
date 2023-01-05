@@ -81,6 +81,8 @@ class _CompactorTaskListState extends State<CompactorTaskList> {
                         }
 
                         listLength = laluanDataFuture.length;
+                        routeNames = List.generate(listLength, (index) => '',
+                            growable: true);
                         for (int j = 0; j < laluanDataFuture.length; j++) {
                           if (laluanDataFuture[j].statusCode == null) {
                             cpSchedule[j] = 0;
