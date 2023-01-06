@@ -627,19 +627,29 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                         defaultVerticalAlignment:
                             TableCellVerticalAlignment.middle,
                         columnWidths: Orientations().isPortrait(context)
-                            ? const {
-                                0: FlexColumnWidth(0.8),
-                                1: FlexColumnWidth(1),
-                                2: FlexColumnWidth(0.2),
-                                3: FlexColumnWidth(1.2),
-                                4: FlexColumnWidth(1.6)
+                            ? {
+                                0: FlexColumnWidth(
+                                    routeNames.length > 1 ? 0.8 : 1),
+                                1: FlexColumnWidth(
+                                    routeNames.length > 1 ? 1 : 1.2),
+                                2: FlexColumnWidth(
+                                    routeNames.length > 1 ? 0.2 : 0.3),
+                                3: FlexColumnWidth(
+                                    routeNames.length > 1 ? 1.2 : 1),
+                                4: FlexColumnWidth(
+                                    routeNames.length > 1 ? 1.6 : 1.4)
                               }
-                            : const {
-                                0: FlexColumnWidth(0.8),
-                                1: FlexColumnWidth(1.2),
-                                2: FlexColumnWidth(0.5),
-                                3: FlexColumnWidth(0.8),
-                                4: FlexColumnWidth(1.7)
+                            : {
+                                0: FlexColumnWidth(
+                                    routeNames.length > 1 ? 0.7 : 1),
+                                1: FlexColumnWidth(
+                                    routeNames.length > 1 ? 1 : 1.2),
+                                2: FlexColumnWidth(
+                                    routeNames.length > 1 ? 0.2 : 0.5),
+                                3: FlexColumnWidth(
+                                    routeNames.length > 1 ? 0.7 : 1),
+                                4: FlexColumnWidth(
+                                    routeNames.length > 1 ? 2 : 1.4)
                               },
                         border: TableBorder.all(color: transparent),
                         children: [
@@ -665,12 +675,20 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                   color: greyCustom,
                                   fontWeight: FontWeight.w400),
                             ),
-                            Text(routeList,
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    color: blackCustom,
-                                    fontWeight: FontWeight.w600))
+                            routeNames.length > 1
+                                ? SizedBox(
+                                    width: _textSize(routeList).width,
+                                    height: _textSize(routeList).height,
+                                    child: Text(
+                                      routeList,
+                                      style: textStyle,
+                                      softWrap: false,
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 2,
+                                    ),
+                                  )
+                                : Text(routeList,
+                                    textAlign: TextAlign.left, style: textStyle)
                           ]),
                           TableRow(children: [
                             SizedBox(height: tableSpace(context)),
@@ -3635,5 +3653,21 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
             fontWeight: FontWeight.w400,
             color: greyCustom,
             height: 1.5));
+  }
+
+  final TextStyle textStyle =
+      TextStyle(fontSize: 16, color: blackCustom, fontWeight: FontWeight.w600);
+
+  Size _textSize(String data) {
+    final TextPainter textPainter = TextPainter(
+        text: TextSpan(text: data, style: textStyle),
+        maxLines: 2,
+        textDirection: TextDirection.ltr)
+      ..layout(
+          minWidth: 0,
+          maxWidth: Orientations().isTabletPortrait(context)
+              ? Sizes().screenWidth(context) * 0.12
+              : Sizes().screenWidth(context) * 0.4);
+    return textPainter.size;
   }
 }
