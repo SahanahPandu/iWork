@@ -35,4 +35,11 @@ class Date {
 
     return theTime;
   }
+
+  static bool isDateExpired(DateTime date) {
+    final now = DateTime.now();
+    final expirationDate = DateTime(date.year, date.month, date.day);
+    final bool isExpired = expirationDate.isBefore(now);
+    return isExpired;
+  }
 }

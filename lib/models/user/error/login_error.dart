@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'error/error.dart';
-
 class LoginError {
   LoginError({
     this.data,

@@ -25,12 +25,19 @@ class _VehicleChecklistCardDetailsState
     extends State<VehicleChecklistCardDetails> {
   Color alterColorBefore = greyCustom;
   Color alterColorAfter = greyCustom;
-  Color buttonColor = greenCustom;
+  Color buttonColor = grey100;
   Color buttonTextColor = white;
   Color buttonSplashColor = green800;
+  int vcCondition = 0;
 
   @override
   void initState() {
+    if (otherDate && selectedDate != '') {
+      buttonColor = grey100;
+      buttonTextColor = grey500;
+      buttonSplashColor = transparent;
+      vcCondition = -1;
+    }
     if (widget.compactorData!.data!.vehicleChecklistId == null ||
         vcStatus == 0) {
       alterColorBefore = greyCustom;
@@ -38,6 +45,11 @@ class _VehicleChecklistCardDetailsState
       buttonColor = greenCustom;
       buttonTextColor = white;
       buttonSplashColor = green800;
+      if (vcCondition == -1) {
+        buttonColor = grey100;
+        buttonTextColor = grey500;
+        buttonSplashColor = transparent;
+      }
     } else if (widget
             .compactorData!.data!.vehicleChecklistId!.statusCode!.code! ==
         "VC1") {
@@ -76,6 +88,7 @@ class _VehicleChecklistCardDetailsState
       buttonTextColor = grey500;
       buttonSplashColor = transparent;
     }
+
     super.initState();
   }
 
@@ -187,24 +200,29 @@ class _VehicleChecklistCardDetailsState
           width: 330,
           child: ElevatedButton(
             onPressed: () {
-              if (widget.compactorData!.data!.vehicleChecklistId == null) {
-                Navigator.push(
-                    context,
-                    PageTransition(
-                        type: PageTransitionType.fade,
-                        child: VehicleChecklistFormTab(
-                            compactorData: widget.compactorData)));
-              } else if (vcStatus == 3 &&
-                  (widget.compactorData!.data!.vehicleChecklistId!.timeOut !=
-                          "--:--" &&
-                      widget.compactorData!.data!.vehicleChecklistId!.timeIn !=
-                          "--:--")) {
-                Navigator.push(
-                    context,
-                    PageTransition(
-                        type: PageTransitionType.fade,
-                        child: VehicleChecklistFormTab(
-                            compactorData: widget.compactorData, idx: 1)));
+              if (vcCondition != -1) {
+                if (widget.compactorData!.data!.vehicleChecklistId == null) {
+                  Navigator.push(
+                      context,
+                      PageTransition(
+                          type: PageTransitionType.fade,
+                          child: VehicleChecklistFormTab(
+                              compactorData: widget.compactorData)));
+                } else if (vcStatus == 3 &&
+                    (widget.compactorData!.data!.vehicleChecklistId!.timeOut !=
+                            "--:--" &&
+                        widget.compactorData!.data!.vehicleChecklistId!
+                                .timeIn !=
+                            "--:--")) {
+                  Navigator.push(
+                      context,
+                      PageTransition(
+                          type: PageTransitionType.fade,
+                          child: VehicleChecklistFormTab(
+                              compactorData: widget.compactorData, idx: 1)));
+                } else {
+                  null;
+                }
               } else {
                 null;
               }

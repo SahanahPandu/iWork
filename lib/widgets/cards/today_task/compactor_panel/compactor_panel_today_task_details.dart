@@ -24,11 +24,30 @@ class CompactorPanelTodayTaskDetails extends StatefulWidget {
 class _CompactorPanelTodayTaskDetailsState
     extends State<CompactorPanelTodayTaskDetails> {
   String todayDate = "0";
+  String todayTask = "";
 
   @override
   void initState() {
     super.initState();
-    todayDate = Date.getTheDate(DateTime.now(), '', 'dd MMMM yyyy', 'ms');
+    if (otherDate && selectedDate != '') {
+      todayDate = Date.getTheDate(
+          DateTime.parse(selectedDate), '', 'dd MMMM yyyy', 'ms');
+
+      if (Date.isDateExpired(DateTime.parse(selectedDate))) {
+        todayTask = isScheduleListExist
+            ? "Tugasan Masa Lalu (${DateFormat("hh:mm").format(DateTime.parse('20222312 ${widget.scheduleData!.data!.startWork!}'))} ${Time.convertAMPMToMs(widget.scheduleData!.data!.startWork!)} - ${DateFormat("hh:mm").format(DateTime.parse('20222312 ${widget.scheduleData!.data!.stopWork!}'))} ${Time.convertAMPMToMs(widget.scheduleData!.data!.stopWork!)})"
+            : "Tugasan Masa Lalu ( --:-- )";
+      } else {
+        todayTask = isScheduleListExist
+            ? "Tugasan Akan Datang (${DateFormat("hh:mm").format(DateTime.parse('20222312 ${widget.scheduleData!.data!.startWork!}'))} ${Time.convertAMPMToMs(widget.scheduleData!.data!.startWork!)} - ${DateFormat("hh:mm").format(DateTime.parse('20222312 ${widget.scheduleData!.data!.stopWork!}'))} ${Time.convertAMPMToMs(widget.scheduleData!.data!.stopWork!)})"
+            : "Tugasan Akan Datang ( --:-- )";
+      }
+    } else {
+      todayDate = Date.getTheDate(DateTime.now(), '', 'dd MMMM yyyy', 'ms');
+      todayTask = isScheduleListExist
+          ? "Tugasan Hari Ini (${DateFormat("hh:mm").format(DateTime.parse('20222312 ${widget.scheduleData!.data!.startWork!}'))} ${Time.convertAMPMToMs(widget.scheduleData!.data!.startWork!)} - ${DateFormat("hh:mm").format(DateTime.parse('20222312 ${widget.scheduleData!.data!.stopWork!}'))} ${Time.convertAMPMToMs(widget.scheduleData!.data!.stopWork!)})"
+          : "Tugasan Hari ini ( --:-- )";
+    }
   }
 
   //------------------------------------------------------
@@ -41,9 +60,7 @@ class _CompactorPanelTodayTaskDetailsState
         height: 15,
       ),
       Text(
-        isScheduleListExist
-            ? "Tugasan Hari Ini (${DateFormat("hh:mm").format(DateTime.parse('20222312 ${widget.scheduleData!.data!.startWork!}'))} ${Time.convertAMPMToMs(widget.scheduleData!.data!.startWork!)} - ${DateFormat("hh:mm").format(DateTime.parse('20222312 ${widget.scheduleData!.data!.stopWork!}'))} ${Time.convertAMPMToMs(widget.scheduleData!.data!.stopWork!)})"
-            : "Tugasan Hari ini ( --:-- )",
+        todayTask,
         style: const TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.w400,
@@ -66,14 +83,61 @@ class _CompactorPanelTodayTaskDetailsState
           SizedBox(
             width: Orientations().isTabletPortrait(context) ? 10 : 30,
           ),
-          IconButton(
-            icon: const Icon(
-              CustomIcon.scheduleFill,
-              color: Color(0xffA0FD57),
-              size: 30,
-            ),
-            onPressed: () {},
-          )
+          (otherDate && selectedDate != '')
+              ? IconButton(
+                  icon: const Icon(
+                    CustomIcon.refresh,
+                    color: Color(0xffA0FD57),
+                    size: 30,
+                  ),
+                  onPressed: () {
+                    selectedDate = '';
+                    otherDate = false;
+                    refresh.value = !refresh.value;
+                  })
+              : IconButton(
+                  icon: const Icon(
+                    CustomIcon.scheduleFill,
+                    color: Color(0xffA0FD57),
+                    size: 30,
+                  ),
+                  onPressed: () {
+                    showDatePicker(
+                      confirmText: "PILIH",
+                      builder: (context, child) {
+                        return Theme(
+                          data: Theme.of(context).copyWith(
+                            colorScheme: ColorScheme.light(
+                              primary: green,
+                              onPrimary: white,
+                              onSurface: black45,
+                            ),
+                            textButtonTheme: TextButtonThemeData(
+                              style: TextButton.styleFrom(
+                                primary: darkGreen, // button text color
+                              ),
+                            ),
+                          ),
+                          child: child!,
+                        );
+                      },
+                      context: context,
+                      locale: const Locale('ms'),
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(DateTime.now().year),
+                      lastDate: DateTime(DateTime.now().year + 1),
+                      initialEntryMode: DatePickerEntryMode.calendarOnly,
+                    ).then((value) {
+                      if (value != null) {
+                        setState(() {
+                          selectedDate = DateFormat("yyyy-MM-dd").format(value);
+                          otherDate = true;
+                          refresh.value = !refresh.value;
+                        });
+                      }
+                    });
+                  },
+                )
         ]),
         //Senarai Staf
         isScheduleListExist

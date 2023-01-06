@@ -3,8 +3,6 @@ import 'package:eswm/providers/jadual_api.dart';
 import 'package:eswm/utils/calendar/date.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-// ignore: import_of_legacy_library_into_null_safe
-// import 'package:multi_select_flutter/multi_select_flutter.dart';
 
 //import files
 import '../../config/config.dart';
@@ -734,7 +732,7 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                         child: Row(
                           children: [
                             Text(
-                              "${selectedStatus[index].name}",
+                              selectedStatus[index].name,
                               style: const TextStyle(
                                 color: Color(0xff005B9E),
                                 fontSize: 11,

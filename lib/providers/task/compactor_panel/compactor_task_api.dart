@@ -14,7 +14,9 @@ import '../../../utils/calendar/date.dart';
 import '../../http/service/http_service.dart';
 
 DateTime getTodayDate = DateTime.now();
-String today = Date.getTheDate(getTodayDate, '', "yyyy-MM-dd", null);
+String currentDate = (selectedDate != "" && otherDate == true)
+    ? selectedDate
+    : Date.getTheDate(getTodayDate, '', "yyyy-MM-dd", null);
 
 class CompactorTaskApi {
   static Future<String> loadCompactorTask() async {
@@ -42,11 +44,15 @@ class CompactorTaskApi {
   static Future<List<Schedule>?> getCompactorScheduleList() async {
     List<Schedule>? decodeBody = [];
     String? getAccessToken = userInfo[1];
+    DateTime getTodayDate = DateTime.now();
+    String currentDate = (selectedDate != "" && otherDate == true)
+        ? selectedDate
+        : Date.getTheDate(getTodayDate, '', "yyyy-MM-dd", null);
 
     try {
       var response = await Dio().get(
         HttpService().loadCompactorTaskUrlTest,
-        queryParameters: {'schedule_date': today},
+        queryParameters: {'schedule_date': currentDate},
         options: Options(headers: {
           'authorization': 'Bearer $getAccessToken',
         }),
@@ -56,6 +62,7 @@ class CompactorTaskApi {
         if (response.data['data']['schedules'] != null) {
           Map<String, dynamic> decode = json.decode(json.encode(response.data));
           var convertData = CompactorTask.fromJson(decode).data!.schedules;
+
           decodeBody = convertData;
         } else {
           //print("No schedule data");
@@ -74,10 +81,14 @@ class CompactorTaskApi {
     late CompactorTask dataSchedule;
     String? getAccessToken = userInfo[1];
 
+    DateTime getTodayDate = DateTime.now();
+    String currentDate = (selectedDate != "" && otherDate == true)
+        ? selectedDate
+        : Date.getTheDate(getTodayDate, '', "yyyy-MM-dd", null);
     try {
       var response = await Dio().get(
         HttpService().loadCompactorTaskUrlTest,
-        queryParameters: {'schedule_date': today},
+        queryParameters: {'schedule_date': currentDate},
         options: Options(headers: {
           'authorization': 'Bearer $getAccessToken',
         }),
@@ -93,7 +104,7 @@ class CompactorTaskApi {
           }
           break;
         default:
-          //print(response.statusCode);
+        //print(response.statusCode);
       }
     } on DioError catch (e) {
       // ignore: avoid_print

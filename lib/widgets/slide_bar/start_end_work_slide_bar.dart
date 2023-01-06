@@ -47,75 +47,84 @@ class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
   @override
   void initState() {
     //print(onGoingTask);
-    /// NULL
-    if ((cpSchedule[widget.idx! - 1] == 1) && vcStatus == 0) {
+    if (otherDate && selectedDate != '') {
       textColor = grey500;
       iconColor = grey300;
       borderColor = transparent;
       boxColor = grey100;
-      condition = 0;
-    }
+      condition = -1;
+    } else {
+      /// NULL
+      if ((cpSchedule[widget.idx! - 1] == 1) && vcStatus == 0) {
+        textColor = grey500;
+        iconColor = grey300;
+        borderColor = transparent;
+        boxColor = grey100;
+        condition = 0;
+      }
 
-    /// VC before done, enable start time for all schedule cards
-    else if ((cpSchedule[widget.idx! - 1] == 1) &&
-        (vcStatus == 1 || vcStatus == 2)) {
-      if (onGoingTask) {
+      /// VC before done, enable start time for all schedule cards
+      else if ((cpSchedule[widget.idx! - 1] == 1) &&
+          (vcStatus == 1 || vcStatus == 2)) {
+        if (onGoingTask) {
+          textColor = grey500;
+          iconColor = grey300;
+          borderColor = transparent;
+          boxColor = grey100;
+          slideText = startWork;
+
+          condition = 6;
+        } else {
+          textColor = greenCustom;
+          iconColor = greenCustom;
+          borderColor = greenCustom;
+          boxColor = white;
+          slideText = startWork;
+          condition = 1;
+        }
+      }
+
+      /// VC before done, start time done, enable stop time
+      else if ((cpSchedule[widget.idx! - 1] == 2) && vcStatus == 2) {
+        textColor = red;
+        iconColor = red;
+        borderColor = red;
+        boxColor = white;
+        slideText = endWork;
+        condition = 2;
+      }
+
+      /// VC before done, start/stop time done
+      else if ((cpSchedule[widget.idx! - 1] == 3) && (vcStatus == 3)) {
         textColor = grey500;
         iconColor = grey300;
         borderColor = transparent;
         boxColor = grey100;
         slideText = startWork;
-      } else {
-        textColor = greenCustom;
-        iconColor = greenCustom;
-        borderColor = greenCustom;
-        boxColor = white;
-        slideText = startWork;
-        condition = 1;
+        condition = 3;
       }
-    }
 
-    /// VC before done, start time done, enable stop time
-    else if ((cpSchedule[widget.idx! - 1] == 2) && vcStatus == 2) {
-      textColor = red;
-      iconColor = red;
-      borderColor = red;
-      boxColor = white;
-      slideText = endWork;
-      condition = 2;
-    }
+      /// VC before/after done, start/stop time done
+      else if ((cpSchedule[widget.idx! - 1] == 3) && vcStatus == 4) {
+        textColor = grey500;
+        iconColor = grey300;
+        borderColor = transparent;
+        boxColor = grey100;
+        slideText = startWork;
+        condition = 4;
+      }
 
-    /// VC before done, start/stop time done
-    else if ((cpSchedule[widget.idx! - 1] == 3) && (vcStatus == 3)) {
-      textColor = grey500;
-      iconColor = grey300;
-      borderColor = transparent;
-      boxColor = grey100;
-      slideText = startWork;
-      condition = 3;
-    }
+      /// VC before done, only first start time done
+      else if ((cpSchedule[widget.idx! - 1] == 3) && vcStatus == 2) {
+        textColor = grey500;
+        iconColor = grey300;
+        borderColor = transparent;
+        boxColor = grey100;
+        slideText = startWork;
+        condition = 5;
+      }
 
-    /// VC before/after done, start/stop time done
-    else if ((cpSchedule[widget.idx! - 1] == 3) && vcStatus == 4) {
-      textColor = grey500;
-      iconColor = grey300;
-      borderColor = transparent;
-      boxColor = grey100;
-      slideText = startWork;
-      condition = 4;
-    }
-
-    /// VC before done, only first start time done
-    else if ((cpSchedule[widget.idx! - 1] == 3) && vcStatus == 2) {
-      textColor = grey500;
-      iconColor = grey300;
-      borderColor = transparent;
-      boxColor = grey100;
-      slideText = startWork;
-      condition = 5;
-    }
-
-    /*  if (laluanDataFuture[j].statusCode!.code == "SBM") {
+      /*  if (laluanDataFuture[j].statusCode!.code == "SBM") {
         cpSchedule[j] = 1;
       } else if (laluanDataFuture[j].statusCode!.code ==
           "SBT") {
@@ -124,8 +133,8 @@ class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
           "STG") {
         cpSchedule[j] = 3;
       }*/
-    // }
-    /* if (widget.data.vehicleChecklistId == null) {
+      // }
+      /* if (widget.data.vehicleChecklistId == null) {
       textColor = grey500;
       iconColor = grey300;
       borderColor = transparent;
@@ -160,14 +169,19 @@ class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
       boxColor = grey100;
       slideText = startWork;
     }*/
+    }
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return RotatedBox(
-      quarterTurns:
-          ((cpSchedule[widget.idx! - 1] == 2) && vcStatus == 2) ? 2 : 0,
+      quarterTurns: condition == -1
+          ? 0
+          : ((cpSchedule[widget.idx! - 1] == 2) && vcStatus == 2)
+              ? 2
+              : 0,
       child: ActionSlider.custom(
         width: Orientations().isLandscape(context)
             ? 350
@@ -187,10 +201,14 @@ class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
             child: Icon(Icons.double_arrow_rounded, color: white, size: 20)),
         foregroundBuilder: (context, state, child) => child!,
         backgroundChild: RotatedBox(
-          quarterTurns:
-              ((cpSchedule[widget.idx! - 1] == 2) && vcStatus == 2) ? 2 : 0,
+          quarterTurns: condition == -1
+              ? 0
+              : ((cpSchedule[widget.idx! - 1] == 2) && vcStatus == 2)
+                  ? 2
+                  : 0,
           child: Center(
-            child: onGoingTask ||
+            child: condition == -1 ||
+                    onGoingTask ||
                     ((cpSchedule[widget.idx! - 1] == 1) && vcStatus == 0) ||
                     ((cpSchedule[widget.idx! - 1] == 3) && vcStatus == 3) ||
                     ((cpSchedule[widget.idx! - 1] == 3) && vcStatus == 4) ||
@@ -232,29 +250,31 @@ class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
           controller.loading(); //starts loading animation
           await Future.delayed(const Duration(milliseconds: 20));
           controller.success(); //starts success animation
-          _switchWorkTime(context);
+          condition == -1 ? null : _switchWorkTime(context);
           controller.reset(); //resets the slider
         },
         onTap: (d) {
-          (cpSchedule[widget.idx! - 1] == 1) && vcStatus == 0
-              ? showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return showAlertDialog(
-                        context, reminder, doVcFirst, cancel, vc);
-                  }).then((actionText) {
-                  if (actionText == vc) {
-                    if (widget.data.vehicleChecklistId == null) {
-                      Navigator.push(
-                          context,
-                          PageTransition(
-                              type: PageTransitionType.fade,
-                              child: VehicleChecklistFormTab(
-                                  compactorData: widget.compactorData)));
-                    }
-                  }
-                })
-              : null;
+          condition == -1
+              ? null
+              : (cpSchedule[widget.idx! - 1] == 1) && vcStatus == 0
+                  ? showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return showAlertDialog(
+                            context, reminder, doVcFirst, cancel, vc);
+                      }).then((actionText) {
+                      if (actionText == vc) {
+                        if (widget.data.vehicleChecklistId == null) {
+                          Navigator.push(
+                              context,
+                              PageTransition(
+                                  type: PageTransitionType.fade,
+                                  child: VehicleChecklistFormTab(
+                                      compactorData: widget.compactorData)));
+                        }
+                      }
+                    })
+                  : null;
         },
       ),
     );

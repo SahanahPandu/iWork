@@ -30,7 +30,10 @@ class _CompactorTaskListState extends State<CompactorTaskList> {
   @override
   void initState() {
     super.initState();
+    listLength = 0;
     _loadLaluanList = CompactorTaskApi.getCompactorScheduleList();
+    cpSchedule = List.generate(listLength, (index) => 0);
+    routeNames = List.generate(listLength, (index) => '');
   }
 
   /// --------------------------------------------------------------------------------------------
@@ -79,10 +82,9 @@ class _CompactorTaskListState extends State<CompactorTaskList> {
                           return buildTabletCard(VehicleChecklistCardDetails(
                               compactorData: widget.data));
                         }
-
                         listLength = laluanDataFuture.length;
-                        routeNames = List.generate(listLength, (index) => '',
-                            growable: true);
+                        cpSchedule = List.generate(listLength, (index) => 0);
+                        routeNames = List.generate(listLength, (index) => '');
                         for (int j = 0; j < laluanDataFuture.length; j++) {
                           if (laluanDataFuture[j].statusCode == null) {
                             cpSchedule[j] = 0;
@@ -100,8 +102,9 @@ class _CompactorTaskListState extends State<CompactorTaskList> {
                           }
                           routeNames[j] = laluanDataFuture[j].mainRoute!;
                         }
-                       // print(routeNames);
-                       // print(cpSchedule);
+                        // print("cpSchedule value $cpSchedule");
+                        // print(routeNames);
+                        // print(cpSchedule);
                         return GestureDetector(
                             onTap: () {
                               Navigator.push(

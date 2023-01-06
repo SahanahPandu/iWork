@@ -628,11 +628,11 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                             TableCellVerticalAlignment.middle,
                         columnWidths: Orientations().isPortrait(context)
                             ? const {
-                                0: FlexColumnWidth(1.2),
+                                0: FlexColumnWidth(0.8),
                                 1: FlexColumnWidth(1),
                                 2: FlexColumnWidth(0.2),
                                 3: FlexColumnWidth(1.2),
-                                4: FlexColumnWidth(1.2)
+                                4: FlexColumnWidth(1.6)
                               }
                             : const {
                                 0: FlexColumnWidth(0.8),

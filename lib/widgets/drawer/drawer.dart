@@ -188,7 +188,10 @@ class _DrawerBuildState extends State<DrawerBuild> {
                               ),
                             ],
                           )
-                        : SizedBox(height: 100, width: 160, child: Center(child: Image.asset(splashImg)))),
+                        : SizedBox(
+                            height: 100,
+                            width: 160,
+                            child: Center(child: Image.asset(splashImg)))),
               ),
               SizedBox(
                   height: Sizes().screenHeight(context) * 0.75,
@@ -454,8 +457,7 @@ class _DrawerBuildState extends State<DrawerBuild> {
         String result = await LogoutApi.logoutUser();
         if (result == 'ok') {
           LocalPrefs.removeLoginCredential();
-          listLength = 0;
-          routeNames.clear();
+          _clearSavedFlag();
           Navigator.pushNamedAndRemoveUntil(
               context, '/splash', ModalRoute.withName('/splash'));
         } else {
@@ -464,5 +466,12 @@ class _DrawerBuildState extends State<DrawerBuild> {
         }
       }
     });
+  }
+
+  void _clearSavedFlag() {
+    otherDate = false;
+    selectedDate = "";
+    vcStatus = 0;
+    onGoingTask = false;
   }
 }
