@@ -24,10 +24,7 @@ class _ReportButtonState extends State<ReportButton> {
       highlightElevation: 0,
       splashColor: const Color(0xffc90000),
       elevation: 0,
-      child: const Icon(
-        CustomIcon.exclamation,
-        size: 24,
-      ),
+      tooltip: "Tekan untuk lapor isu bagi laluan ini",
       onPressed: () {
         Navigator.push(
             context,
@@ -38,6 +35,10 @@ class _ReportButtonState extends State<ReportButton> {
                   passData: widget.passData,
                 )));
       },
+      child: const Icon(
+        CustomIcon.exclamation,
+        size: 24,
+      ),
     );
   }
 }

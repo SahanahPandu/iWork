@@ -90,6 +90,7 @@ class _CompactorPanelTodayTaskDetailsState
                     color: Color(0xffA0FD57),
                     size: 30,
                   ),
+                  tooltip: "Tekan untuk lihat jadual hari ini",
                   onPressed: () {
                     selectedDate = '';
                     otherDate = false;
@@ -101,6 +102,7 @@ class _CompactorPanelTodayTaskDetailsState
                     color: Color(0xffA0FD57),
                     size: 30,
                   ),
+                  tooltip: "Pilih tarikh untuk lihat jadual anda",
                   onPressed: () {
                     showDatePicker(
                       confirmText: "PILIH",
