@@ -3,6 +3,7 @@ import 'package:eswm/providers/jadual_api.dart';
 import 'package:eswm/utils/calendar/date.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+// import 'package:multi_select_flutter/multi_select_flutter.dart';
 
 //import files
 import '../../config/config.dart';
@@ -23,10 +24,12 @@ class ScheduleAllMainScreen extends StatefulWidget {
 
 class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
   final TextEditingController _filteredDate = TextEditingController();
+  String selectedDate = "";
   DateTime filteredDate = DateTime.now();
   List<ScheduleFilterStatus> preSelectStatus = [];
   List<ScheduleFilterStatus> selectedStatus = [];
   bool displayFilterSection = false;
+  List testList = [];
 
   @override
   void initState() {
@@ -73,9 +76,11 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
               IconButton(
                 onPressed: () {
                   setState(() {
+                    preSelectStatus = List.from(selectedStatus);
                     _filteredDate.text =
                         Date.getTheDate(filteredDate, '', 'dd/MM/yyyy', 'ms');
                   });
+
                   displayFilterBottomSheet(context);
                 },
                 icon: Icon(
@@ -278,55 +283,17 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                             ),
                           );
                         } else {
-                          // var getStatus = selectedStatus.where((theStatus) =>
-                          //     theStatus['code'].contains(status));
-
-                          return Wrap(
-                            runSpacing: 8,
-                            spacing: 16,
-                            children: statusData
-                                .map(
-                                  (status) => GestureDetector(
-                                    behavior: HitTestBehavior.opaque,
-                                    onTap: () {
-                                      //to check the status already in the list or not
-                                      var data = preSelectStatus.where(
-                                          (theStatus) => theStatus.code
-                                              .contains(status!.code));
-
-                                      if (data.isEmpty) {
-                                        //if not exist then add
-
-                                        preSelectStatus.add(status!);
-                                      } else {
-                                        //else remove
-
-                                        preSelectStatus.remove(status!);
-                                      }
-
-                                      setState(() {});
-
-                                      // print(
-                                      //     'Pra Selected Status: $preSelectStatus');
-                                      // print('Selected Status: $selectedStatus');
-                                    },
-                                    child: Container(
-                                      height: 40,
-                                      padding: const EdgeInsets.all(12),
-                                      decoration: BoxDecoration(
-                                        color: preSelectStatus
-                                                .where((theStatus) => theStatus
-                                                    .code
-                                                    .contains(status!.code))
-                                                .isNotEmpty
-                                            ? const Color(0xffC0E4FF)
-                                            : const Color(0xffEFEFEF),
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(6)),
-                                      ),
-                                      child: Text(
-                                        status!.name,
-                                        style: TextStyle(
+                          return StatefulBuilder(
+                            builder:
+                                (BuildContext context, StateSetter setState) {
+                              return Wrap(
+                                runSpacing: 8,
+                                spacing: 16,
+                                children: statusData
+                                    .map(
+                                      (status) => FilterChip(
+                                        label: Text(status!.name),
+                                        labelStyle: TextStyle(
                                           color: preSelectStatus
                                                   .where((theStatus) =>
                                                       theStatus.code.contains(
@@ -334,94 +301,50 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                                                   .isNotEmpty
                                               ? const Color(0xff005B9E)
                                               : const Color(0xff969696),
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w400,
+                                          // Color(0xff969696),
                                         ),
+                                        backgroundColor:
+                                            const Color(0xffEFEFEF),
+                                        showCheckmark: false,
+                                        selected: preSelectStatus
+                                                .where((theStatus) => theStatus
+                                                    .code
+                                                    .contains(status.code))
+                                                .isNotEmpty
+                                            ? true
+                                            : false,
+                                        selectedColor: const Color(0xffC0E4FF),
+                                        onSelected: (clicked) {
+                                          setState(
+                                            () {
+                                              if (clicked) {
+                                                var data = preSelectStatus
+                                                    .where((theStatus) =>
+                                                        theStatus.code.contains(
+                                                            status.code));
+
+                                                if (data.isEmpty) {
+                                                  //if not exist then add
+                                                  preSelectStatus.add(status);
+                                                } else {
+                                                  preSelectStatus
+                                                      .remove(status);
+                                                }
+                                              } else {
+                                                preSelectStatus.removeWhere(
+                                                    (theStatus) =>
+                                                        theStatus.code ==
+                                                        status.code);
+                                              }
+                                            },
+                                          );
+                                        },
                                       ),
-                                    ),
-                                  ),
-                                )
-                                .toList(),
+                                    )
+                                    .toList(),
+                              );
+                            },
                           );
-
-                          // ListView.builder(
-                          //   clipBehavior: Clip.none,
-                          //   // scrollDirection: Axis.horizontal,
-                          //   // physics: const NeverScrollableScrollPhysics(),
-                          //   shrinkWrap: true,
-                          //   itemCount: statusData.length,
-                          //   itemBuilder: (context, index) {
-                          //     return Row(
-                          //       children: [
-                          //         Container(
-                          //           padding: const EdgeInsets.all(16),
-                          //           // constraints: const BoxConstraints(
-                          //           //   maxWidth: 100,
-                          //           // ),
-                          //           decoration: BoxDecoration(
-                          //             color: selectedStatus
-                          //                     .contains(statusData[index])
-                          //                 ? const Color(0xffC0E4FF)
-                          //                 : const Color(0xffEFEFEF),
-                          //             borderRadius: const BorderRadius.all(
-                          //                 Radius.circular(6)),
-                          //           ),
-                          //           child: Text(
-                          //             statusData[index]!.name,
-                          //             style: TextStyle(
-                          //               color: selectedStatus
-                          //                       .contains(statusData[index])
-                          //                   ? const Color(0xff005B9E)
-                          //                   : const Color(0xff969696),
-                          //               fontSize: 14,
-                          //               fontWeight: FontWeight.w400,
-                          //             ),
-                          //           ),
-                          //         ),
-                          //         const SizedBox(
-                          //           width: 16,
-                          //         ),
-                          //       ],
-                          //     );
-                          //   },
-                          // );
-
-                          // Align(
-                          //   alignment: Alignment.topLeft,
-                          //   child: MultiSelectChipField(
-                          //     height: 100,
-                          //     showHeader: false,
-                          //     scroll: false,
-                          //     decoration: BoxDecoration(
-                          //       border: Border.all(color: transparent),
-                          //     ),
-                          //     chipShape: const RoundedRectangleBorder(
-                          //       borderRadius: BorderRadius.all(
-                          //         Radius.circular(6),
-                          //       ),
-                          //     ),
-                          //     chipColor: const Color(0xffEFEFEF),
-                          //     textStyle: const TextStyle(
-                          //       color: Color(0xff969696),
-                          //       fontSize: 14,
-                          //       fontWeight: FontWeight.w400,
-                          //     ),
-                          //     selectedChipColor: const Color(0xffC0E4FF),
-                          //     selectedTextStyle: const TextStyle(
-                          //       color: Color(0xff005B9E),
-                          //       fontSize: 14,
-                          //       fontWeight: FontWeight.w400,
-                          //     ),
-                          //     items: statusData
-                          //         .map((status) =>
-                          //             MultiSelectItem<ScheduleFilterStatus?>(
-                          //                 status!, status.name))
-                          //         .toList(),
-                          //     onTap: (values) {
-                          //       selectedStatus = values;
-                          //     },
-                          //   ),
-                          // );
                         }
                     }
                   },
@@ -437,6 +360,11 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                         height: 40,
                         child: ElevatedButton(
                           onPressed: () {
+                            // print(
+                            //     " Selected Status On click Batal: $selectedStatus");
+                            // setState(() {
+                            //   preSelectStatus = selectedStatus;
+                            // });
                             Navigator.pop(context);
                           },
                           style: ButtonStyle(
@@ -477,9 +405,12 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                           onPressed: () {
                             Navigator.pop(context);
                             setState(() {
+                              selectedDate = _filteredDate.text;
                               selectedStatus = preSelectStatus;
                               displayFilterSection = true;
                             });
+                            // print(
+                            //     "Selected Status on Click Pasti: $selectedStatus");
                           },
                           style: ButtonStyle(
                             elevation: MaterialStateProperty.all(0),
@@ -655,7 +586,7 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                     ),
                   ),
                 ),
-                if (_filteredDate.text != "")
+                if (selectedDate != "")
                   Row(
                     children: [
                       const SizedBox(
@@ -673,7 +604,7 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                         child: Row(
                           children: [
                             Text(
-                              _filteredDate.text,
+                              selectedDate,
                               style: const TextStyle(
                                 color: Color(0xff005B9E),
                                 fontSize: 11,
@@ -687,6 +618,7 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                               onTap: () {
                                 setState(() {
                                   _filteredDate.text = "";
+                                  selectedDate = "";
                                   filteredDate = DateTime.now();
                                   if (selectedStatus.isEmpty) {
                                     displayFilterSection = false;
