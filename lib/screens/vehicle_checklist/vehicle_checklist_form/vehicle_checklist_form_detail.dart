@@ -49,14 +49,14 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
       11, (index) => TextEditingController());
 
   /// Integer value of each radio button in every row
-  final _buttonVal = List.generate(48, (index) => index = -1);
+  var _buttonVal = List.generate(48, (index) => index = -1);
 
   /// String value of each radio button in every row
-  final _buttonStrVal = List<String>.generate(48, (index) => "-");
+  var _buttonStrVal = List<String>.generate(48, (index) => "-");
 
   /// Total integer value of radio buttons in each section
-  final _totalEntered = List<String>.generate(11, (index) => "0");
-  final _colorResult = List<Color>.generate(11, (index) => grey400);
+  final _totalEntered = List<String>.generate(14, (index) => "0");
+  final _enteredResult = List<int>.generate(14, (index) => -1);
 
   /// Container expand/collapse boolean
   final formExpandFlag = List<bool>.generate(11, (index) => false);
@@ -124,8 +124,23 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
   String _sampah = "";
   String _fizikal = "";
 
+  /// Int value for filled category validation
+  int addVar = 0;
+  int addVar2 = 0;
+  int addVar3 = 0;
+  int addVar4 = 0;
+  int addVar5 = 0;
+  int addVar6 = 0;
+  int addVar7 = 0;
+  int addVar8 = 0;
+  int addVar9 = 0;
+  int addVar10 = 0;
+  int addVar11 = 0;
+
   @override
   void initState() {
+    _buttonVal = List.generate(48, (index) => index = -1);
+    _buttonStrVal = List<String>.generate(48, (index) => "-");
     _todayDate = Date.getTheDate(DateTime.now(), '', "dd-MM-yyyy", 'ms');
     if (widget.compactorData!.data!.vehicleChecklistId != null) {
       empty = false;
@@ -859,8 +874,13 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                     ? Row(children: [
                                         GestureDetector(
                                           onTap: () {
+                                            bool selected = false;
                                             setState(() {
+                                              if (_buttonVal[0] == -1) {
+                                                selected = true;
+                                              }
                                               _buttonVal[0] = 1;
+                                              _updateTitleCount(0, selected);
                                             });
                                           },
                                           child: Row(
@@ -869,9 +889,15 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                                 value: 1,
                                                 groupValue: _buttonVal[0],
                                                 onChanged: (value) {
+                                                  bool selected = false;
                                                   setState(() {
+                                                    if (_buttonVal[0] == -1) {
+                                                      selected = true;
+                                                    }
                                                     _buttonVal[0] =
                                                         value as int;
+                                                    _updateTitleCount(
+                                                        0, selected);
                                                   });
                                                 },
                                                 activeColor: green,
@@ -887,8 +913,13 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                                 : 30),
                                         GestureDetector(
                                           onTap: () {
+                                            bool selected = false;
                                             setState(() {
+                                              if (_buttonVal[0] == -1) {
+                                                selected = true;
+                                              }
                                               _buttonVal[0] = 2;
+                                              _updateTitleCount(0, selected);
                                             });
                                           },
                                           child: Row(
@@ -897,16 +928,31 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                                   value: 2,
                                                   groupValue: _buttonVal[0],
                                                   onChanged: (value) {
+                                                    bool selected = false;
                                                     setState(() {
+                                                      if (_buttonVal[0] == -1) {
+                                                        selected = true;
+                                                      }
                                                       _buttonVal[0] =
                                                           value as int;
+                                                      _updateTitleCount(
+                                                          0, selected);
                                                     });
                                                   },
                                                   activeColor: green),
                                               Text(no),
                                             ],
                                           ),
-                                        )
+                                        ),
+                                        const SizedBox(width: 10),
+                                        _enteredResult[0] == 0
+                                            ? Text("* Sila pilih",
+                                                style: TextStyle(
+                                                    color: redCustom,
+                                                    fontSize: 10,
+                                                    fontStyle:
+                                                        FontStyle.italic))
+                                            : const SizedBox()
                                       ])
                                     : _buildInactiveRadio(_odometer, yes, no))
                           ]),
@@ -1050,8 +1096,13 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                       children: [
                                         GestureDetector(
                                           onTap: () {
+                                            bool selected = false;
                                             setState(() {
+                                              if (_buttonVal[1] == -1) {
+                                                selected = true;
+                                              }
                                               _buttonVal[1] = 1;
+                                              _updateTitleCount(1, selected);
                                             });
                                           },
                                           child: Row(
@@ -1060,9 +1111,15 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                                 value: 1,
                                                 groupValue: _buttonVal[1],
                                                 onChanged: (value) {
+                                                  bool selected = false;
                                                   setState(() {
+                                                    if (_buttonVal[1] == -1) {
+                                                      selected = true;
+                                                    }
                                                     _buttonVal[1] =
                                                         value as int;
+                                                    _updateTitleCount(
+                                                        1, selected);
                                                   });
                                                 },
                                                 activeColor: green,
@@ -1078,8 +1135,13 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                                 : 30),
                                         GestureDetector(
                                           onTap: () {
+                                            bool selected = false;
                                             setState(() {
+                                              if (_buttonVal[1] == -1) {
+                                                selected = true;
+                                              }
                                               _buttonVal[1] = 2;
+                                              _updateTitleCount(1, selected);
                                             });
                                           },
                                           child: Row(
@@ -1088,9 +1150,15 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                                   value: 2,
                                                   groupValue: _buttonVal[1],
                                                   onChanged: (value) {
+                                                    bool selected = false;
                                                     setState(() {
+                                                      if (_buttonVal[1] == -1) {
+                                                        selected = true;
+                                                      }
                                                       _buttonVal[1] =
                                                           value as int;
+                                                      _updateTitleCount(
+                                                          1, selected);
                                                     });
                                                   },
                                                   activeColor: green),
@@ -1098,6 +1166,15 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                             ],
                                           ),
                                         ),
+                                        const SizedBox(width: 10),
+                                        _enteredResult[1] == 0
+                                            ? Text("* Sila pilih",
+                                                style: TextStyle(
+                                                    color: redCustom,
+                                                    fontSize: 10,
+                                                    fontStyle:
+                                                        FontStyle.italic))
+                                            : const SizedBox()
                                       ],
                                     )
                                   : _buildInactiveRadio(_receipt, yes, no),
@@ -1118,8 +1195,13 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                     ? Row(children: [
                                         GestureDetector(
                                           onTap: () {
+                                            bool selected = false;
                                             setState(() {
+                                              if (_buttonVal[2] == -1) {
+                                                selected = true;
+                                              }
                                               _buttonVal[2] = 1;
+                                              _updateTitleCount(2, selected);
                                             });
                                           },
                                           child: Row(
@@ -1128,9 +1210,15 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                                 value: 1,
                                                 groupValue: _buttonVal[2],
                                                 onChanged: (value) {
+                                                  bool selected = false;
                                                   setState(() {
+                                                    if (_buttonVal[2] == -1) {
+                                                      selected = true;
+                                                    }
                                                     _buttonVal[2] =
                                                         value as int;
+                                                    _updateTitleCount(
+                                                        2, selected);
                                                   });
                                                 },
                                                 activeColor: green,
@@ -1146,8 +1234,13 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                                 : 30),
                                         GestureDetector(
                                             onTap: () {
+                                              bool selected = false;
                                               setState(() {
+                                                if (_buttonVal[2] == -1) {
+                                                  selected = true;
+                                                }
                                                 _buttonVal[2] = 2;
+                                                _updateTitleCount(2, selected);
                                               });
                                             },
                                             child: Row(children: [
@@ -1155,14 +1248,29 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                                   value: 2,
                                                   groupValue: _buttonVal[2],
                                                   onChanged: (value) {
+                                                    bool selected = false;
                                                     setState(() {
+                                                      if (_buttonVal[2] == -1) {
+                                                        selected = true;
+                                                      }
                                                       _buttonVal[2] =
                                                           value as int;
+                                                      _updateTitleCount(
+                                                          2, selected);
                                                     });
                                                   },
                                                   activeColor: green),
                                               Text(no),
-                                            ]))
+                                            ])),
+                                        const SizedBox(width: 10),
+                                        _enteredResult[2] == 0
+                                            ? Text("* Sila pilih",
+                                                style: TextStyle(
+                                                    color: redCustom,
+                                                    fontSize: 10,
+                                                    fontStyle:
+                                                        FontStyle.italic))
+                                            : const SizedBox()
                                       ])
                                     : _buildInactiveRadio(_fleet, yes, no))
                           ]),
@@ -1363,9 +1471,29 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                         });
                       });
                     },
-                    title: Text("1. Dokumen Perjalanan (${_totalEntered[0]}/3)",
-                        style: const TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w500)),
+                    title: Row(
+                      children: [
+                        const Text("1. Dokumen Perjalanan",
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.w500)),
+                        const SizedBox(width: 8),
+                        empty
+                            ? Text("(${_totalEntered[3]}/3)",
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500,
+                                    color: _enteredResult[3] == 0
+                                        ? redCustom
+                                        : null))
+                            : const Text("(3/3)",
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.w500))
+                        /* _enteredResult[3] == 0
+                            ? Icon(Icons.error_outline_rounded,
+                                size: 18, color: redCustom)
+                            : const SizedBox()*/
+                      ],
+                    ),
                     collapsedBackgroundColor: tabBoxColor,
                     backgroundColor: activeColor,
                     textColor: white,
@@ -1469,10 +1597,26 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                             });
                           });
                         },
-                        title: Text(
-                            "2. Pemeriksaan Tayar (${_totalEntered[1]}/3)",
-                            style: const TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.w500)),
+                        title: Row(
+                          children: [
+                            const Text("2. Pemeriksaan Tayar",
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.w500)),
+                            const SizedBox(width: 8),
+                            empty
+                                ? Text("(${_totalEntered[4]}/3)",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500,
+                                        color: _enteredResult[4] == 0
+                                            ? redCustom
+                                            : null))
+                                : const Text("(3/3)",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500))
+                          ],
+                        ),
                         collapsedBackgroundColor: tabBoxColor,
                         backgroundColor: activeColor,
                         textColor: white,
@@ -1570,7 +1714,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                                 RoundedRectangleBorder(
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            8.0)),
+                                                            8)),
                                               ),
                                               overlayColor: MaterialStateColor
                                                   .resolveWith(
@@ -1625,10 +1769,26 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                             });
                           });
                         },
-                        title: Text(
-                            "3. Sistem Mampatan (${_totalEntered[2]}/5)",
-                            style: const TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.w500)),
+                        title: Row(
+                          children: [
+                            const Text("3. Sistem Mampatan",
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.w500)),
+                            const SizedBox(width: 8),
+                            empty
+                                ? Text("(${_totalEntered[5]}/5)",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500,
+                                        color: _enteredResult[5] == 0
+                                            ? redCustom
+                                            : null))
+                                : const Text("(5/5)",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500))
+                          ],
+                        ),
                         collapsedBackgroundColor: tabBoxColor,
                         backgroundColor: activeColor,
                         textColor: white,
@@ -1732,8 +1892,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                             shape: MaterialStateProperty.all(
                                               RoundedRectangleBorder(
                                                   borderRadius:
-                                                      BorderRadius.circular(
-                                                          8.0)),
+                                                      BorderRadius.circular(8)),
                                             ),
                                             overlayColor:
                                                 MaterialStateColor.resolveWith(
@@ -1788,9 +1947,26 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                             });
                           });
                         },
-                        title: Text("4. Sistem Lampu (${_totalEntered[3]}/6)",
-                            style: const TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.w500)),
+                        title: Row(
+                          children: [
+                            const Text("4. Sistem Lampu",
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.w500)),
+                            const SizedBox(width: 8),
+                            empty
+                                ? Text("(${_totalEntered[6]}/6)",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500,
+                                        color: _enteredResult[6] == 0
+                                            ? redCustom
+                                            : null))
+                                : const Text("(6/6)",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500))
+                          ],
+                        ),
                         collapsedBackgroundColor: tabBoxColor,
                         backgroundColor: activeColor,
                         textColor: white,
@@ -1904,8 +2080,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                             shape: MaterialStateProperty.all(
                                               RoundedRectangleBorder(
                                                   borderRadius:
-                                                      BorderRadius.circular(
-                                                          8.0)),
+                                                      BorderRadius.circular(8)),
                                             ),
                                             overlayColor:
                                                 MaterialStateColor.resolveWith(
@@ -1960,10 +2135,26 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                             });
                           });
                         },
-                        title: Text(
-                            "5. Sistem Enjin dan Driveline (${_totalEntered[4]}/16)",
-                            style: const TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.w500)),
+                        title: Row(
+                          children: [
+                            const Text("5. Sistem Enjin dan Driveline",
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.w500)),
+                            const SizedBox(width: 8),
+                            empty
+                                ? Text("(${_totalEntered[7]}/16)",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500,
+                                        color: _enteredResult[7] == 0
+                                            ? redCustom
+                                            : null))
+                                : const Text("(16/16)",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500)),
+                          ],
+                        ),
                         collapsedBackgroundColor: tabBoxColor,
                         backgroundColor: activeColor,
                         textColor: white,
@@ -2137,8 +2328,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                             shape: MaterialStateProperty.all(
                                               RoundedRectangleBorder(
                                                   borderRadius:
-                                                      BorderRadius.circular(
-                                                          8.0)),
+                                                      BorderRadius.circular(8)),
                                             ),
                                             overlayColor:
                                                 MaterialStateColor.resolveWith(
@@ -2193,10 +2383,26 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                             });
                           });
                         },
-                        title: Text(
-                            "6. Bahagian Luaran (${_totalEntered[5]}/2)",
-                            style: const TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.w500)),
+                        title: Row(
+                          children: [
+                            const Text("6. Bahagian Luaran",
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.w500)),
+                            const SizedBox(width: 8),
+                            empty
+                                ? Text("(${_totalEntered[8]}/2)",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500,
+                                        color: _enteredResult[8] == 0
+                                            ? redCustom
+                                            : null))
+                                : const Text("(2/2)",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500)),
+                          ],
+                        ),
                         collapsedBackgroundColor: tabBoxColor,
                         backgroundColor: activeColor,
                         textColor: white,
@@ -2282,8 +2488,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                             shape: MaterialStateProperty.all(
                                               RoundedRectangleBorder(
                                                   borderRadius:
-                                                      BorderRadius.circular(
-                                                          8.0)),
+                                                      BorderRadius.circular(8)),
                                             ),
                                             overlayColor:
                                                 MaterialStateColor.resolveWith(
@@ -2338,10 +2543,26 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                             });
                           });
                         },
-                        title: Text(
-                            "7. Peralatan Keselamatan (${_totalEntered[6]}/3)",
-                            style: const TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.w500)),
+                        title: Row(
+                          children: [
+                            const Text("7. Peralatan Keselamatan",
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.w500)),
+                            const SizedBox(width: 8),
+                            empty
+                                ? Text("(${_totalEntered[9]}/3)",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500,
+                                        color: _enteredResult[9] == 0
+                                            ? redCustom
+                                            : null))
+                                : const Text("(3/3)",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500)),
+                          ],
+                        ),
                         collapsedBackgroundColor: tabBoxColor,
                         backgroundColor: activeColor,
                         textColor: white,
@@ -2433,8 +2654,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                             shape: MaterialStateProperty.all(
                                               RoundedRectangleBorder(
                                                   borderRadius:
-                                                      BorderRadius.circular(
-                                                          8.0)),
+                                                      BorderRadius.circular(8)),
                                             ),
                                             overlayColor:
                                                 MaterialStateColor.resolveWith(
@@ -2489,10 +2709,26 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                             });
                           });
                         },
-                        title: Text(
-                            "8. Kebersihan Kenderaan (${_totalEntered[7]}/2)",
-                            style: const TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.w500)),
+                        title: Row(
+                          children: [
+                            const Text("8. Kebersihan Kenderaan",
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.w500)),
+                            const SizedBox(width: 8),
+                            empty
+                                ? Text("(${_totalEntered[10]}/2)",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500,
+                                        color: _enteredResult[10] == 0
+                                            ? redCustom
+                                            : null))
+                                : const Text("(2/2)",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500)),
+                          ],
+                        ),
                         collapsedBackgroundColor: tabBoxColor,
                         backgroundColor: activeColor,
                         textColor: white,
@@ -2582,8 +2818,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                             shape: MaterialStateProperty.all(
                                               RoundedRectangleBorder(
                                                   borderRadius:
-                                                      BorderRadius.circular(
-                                                          8.0)),
+                                                      BorderRadius.circular(8)),
                                             ),
                                             overlayColor:
                                                 MaterialStateColor.resolveWith(
@@ -2640,19 +2875,22 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                         },
                         title: Row(
                           children: [
-                            const Text("9. Kebersihan Bin Lifter ",
+                            const Text("9. Kebersihan Bin Lifter",
                                 style: TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.w500)),
-                            ValueListenableBuilder(
-                              valueListenable: attendanceMainCard,
-                              builder:
-                                  (BuildContext context, value, Widget? child) {
-                                return Text("(${_totalEntered[8]}/1)",
-                                    style: const TextStyle(
+                            const SizedBox(width: 8),
+                            empty
+                                ? Text("(${_totalEntered[11]}/1)",
+                                    style: TextStyle(
                                         fontSize: 18,
-                                        fontWeight: FontWeight.w500));
-                              },
-                            ),
+                                        fontWeight: FontWeight.w500,
+                                        color: _enteredResult[11] == 0
+                                            ? redCustom
+                                            : null))
+                                : const Text("(1/1)",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500)),
                           ],
                         ),
                         collapsedBackgroundColor: tabBoxColor,
@@ -2704,7 +2942,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                             shape: MaterialStateProperty.all(
                                               RoundedRectangleBorder(
                                                 borderRadius:
-                                                    BorderRadius.circular(8.0),
+                                                    BorderRadius.circular(8),
                                                 side: BorderSide(
                                                   color: grey500, //color
                                                 ),
@@ -2794,9 +3032,26 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                             });
                           });
                         },
-                        title: Text("10. Kemalangan (${_totalEntered[9]}/2)",
-                            style: const TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.w500)),
+                        title: Row(
+                          children: [
+                            const Text("10. Kemalangan",
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.w500)),
+                            const SizedBox(width: 8),
+                            empty
+                                ? Text("(${_totalEntered[12]}/2)",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500,
+                                        color: _enteredResult[12] == 0
+                                            ? redCustom
+                                            : null))
+                                : const Text("(2/2)",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500))
+                          ],
+                        ),
                         collapsedBackgroundColor: tabBoxColor,
                         backgroundColor: activeColor,
                         textColor: white,
@@ -2852,7 +3107,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                             shape: MaterialStateProperty.all(
                                               RoundedRectangleBorder(
                                                 borderRadius:
-                                                    BorderRadius.circular(8.0),
+                                                    BorderRadius.circular(8),
                                                 side: BorderSide(
                                                   color: grey500, //color
                                                 ),
@@ -2942,10 +3197,26 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                             });
                           });
                         },
-                        title: Text(
-                            "11. Fizikal Kenderaan (${_totalEntered[10]}/2)",
-                            style: const TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.w500)),
+                        title: Row(
+                          children: [
+                            const Text("11. Fizikal Kenderaan",
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.w500)),
+                            const SizedBox(width: 8),
+                            empty
+                                ? Text("(${_totalEntered[13]}/2)",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500,
+                                        color: _enteredResult[13] == 0
+                                            ? redCustom
+                                            : null))
+                                : const Text("(2/2)",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500))
+                          ],
+                        ),
                         collapsedBackgroundColor: tabBoxColor,
                         backgroundColor: activeColor,
                         textColor: white,
@@ -3001,7 +3272,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                             shape: MaterialStateProperty.all(
                                               RoundedRectangleBorder(
                                                 borderRadius:
-                                                    BorderRadius.circular(8.0),
+                                                    BorderRadius.circular(8),
                                                 side: BorderSide(
                                                   color: grey500, //color
                                                 ),
@@ -3241,7 +3512,10 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
 
   /// Radio Button in Card 4 ~ Card 15
   TableRow _tableRowBuild(String title, int idx,
-      [String? label = "", String? has = "", String? dont = ""]) {
+      [String? label = "",
+      String? has = "",
+      String? dont = "",
+      bool selected = false]) {
     return TableRow(children: [
       Text(title,
           textAlign: TextAlign.left,
@@ -3257,7 +3531,11 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                         groupValue: _buttonVal[idx],
                         onChanged: (value) {
                           setState(() {
+                            if (_buttonVal[idx] == -1) {
+                              selected = true;
+                            }
                             _buttonVal[idx] = value as int;
+                            _updateTitleCount(idx, selected);
                           });
                         },
                         activeColor: green,
@@ -3265,7 +3543,11 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                       GestureDetector(
                         onTap: () {
                           setState(() {
+                            if (_buttonVal[idx] == -1) {
+                              selected = true;
+                            }
                             _buttonVal[idx] = 1;
+                            _updateTitleCount(idx, selected);
                           });
                         },
                         child: Text(has!),
@@ -3280,14 +3562,22 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                         groupValue: _buttonVal[idx],
                         onChanged: (value) {
                           setState(() {
+                            if (_buttonVal[idx] == -1) {
+                              selected = true;
+                            }
                             _buttonVal[idx] = value as int;
+                            _updateTitleCount(idx, selected);
                           });
                         },
                         activeColor: green),
                     GestureDetector(
                       onTap: () {
                         setState(() {
+                          if (_buttonVal[idx] == -1) {
+                            selected = true;
+                          }
                           _buttonVal[idx] = 2;
+                          _updateTitleCount(idx, selected);
                         });
                       },
                       child: Text(dont!),
@@ -3298,6 +3588,180 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                 ])
               : _buildInactiveRadio(label!, has!, dont!, MainAxisAlignment.end))
     ]);
+  }
+
+  void _updateTitleCount(int idx, bool selected) {
+    if (idx == 0) {
+      if (selected) {
+        setState(() {
+          _enteredResult[0] = 1;
+        });
+      }
+    } else if (idx == 1) {
+      if (selected) {
+        setState(() {
+          _enteredResult[1] = 1;
+        });
+      }
+    } else if (idx == 2) {
+      if (selected) {
+        setState(() {
+          _enteredResult[2] = 1;
+        });
+      }
+    } else if (idx == 3 || idx == 4 || idx == 5) {
+      if (selected) {
+        addVar++;
+        if (addVar < 4) {
+          _totalEntered[3] = addVar.toString();
+          if (addVar == 3) {
+            setState(() {
+              _enteredResult[3] = 1;
+            });
+          }
+        }
+      }
+    } else if (idx == 6 || idx == 7 || idx == 8) {
+      if (selected) {
+        addVar2++;
+        if (addVar2 < 4) {
+          _totalEntered[4] = addVar2.toString();
+          if (addVar2 == 3) {
+            setState(() {
+              _enteredResult[4] = 1;
+            });
+          }
+        }
+      }
+    } else if (idx == 9 || idx == 10 || idx == 11 || idx == 12 || idx == 13) {
+      if (selected) {
+        addVar3++;
+        if (addVar3 < 6) {
+          _totalEntered[5] = addVar3.toString();
+          if (addVar3 == 5) {
+            setState(() {
+              _enteredResult[5] = 1;
+            });
+          }
+        }
+      }
+    } else if (idx == 14 ||
+        idx == 15 ||
+        idx == 16 ||
+        idx == 17 ||
+        idx == 18 ||
+        idx == 19) {
+      if (selected) {
+        addVar4++;
+        if (addVar4 < 7) {
+          _totalEntered[6] = addVar4.toString();
+          if (addVar4 == 6) {
+            setState(() {
+              _enteredResult[6] = 1;
+            });
+          }
+        }
+      }
+    } else if (idx == 20 ||
+        idx == 21 ||
+        idx == 22 ||
+        idx == 23 ||
+        idx == 24 ||
+        idx == 25 ||
+        idx == 26 ||
+        idx == 27 ||
+        idx == 28 ||
+        idx == 29 ||
+        idx == 30 ||
+        idx == 31 ||
+        idx == 32 ||
+        idx == 33 ||
+        idx == 34 ||
+        idx == 35) {
+      if (selected) {
+        addVar5++;
+        if (addVar5 < 17) {
+          _totalEntered[7] = addVar5.toString();
+          if (addVar5 == 16) {
+            setState(() {
+              _enteredResult[7] = 1;
+            });
+          }
+        }
+      }
+    } else if (idx == 36 || idx == 37) {
+      if (selected) {
+        addVar6++;
+        if (addVar6 < 3) {
+          _totalEntered[8] = addVar6.toString();
+          if (addVar6 == 2) {
+            setState(() {
+              _enteredResult[8] = 1;
+            });
+          }
+        }
+      }
+    } else if (idx == 38 || idx == 39 || idx == 40) {
+      if (selected) {
+        addVar7++;
+        if (addVar7 < 4) {
+          _totalEntered[9] = addVar7.toString();
+          if (addVar7 == 3) {
+            setState(() {
+              _enteredResult[9] = 1;
+            });
+          }
+        }
+      }
+    } else if (idx == 41 || idx == 42) {
+      if (selected) {
+        addVar8++;
+        if (addVar8 < 3) {
+          _totalEntered[10] = addVar8.toString();
+          if (addVar8 == 2) {
+            setState(() {
+              _enteredResult[10] = 1;
+            });
+          }
+        }
+      }
+    } else if (idx == 43) {
+      if (selected) {
+        addVar9++;
+        if (addVar9 == 1) {
+          _totalEntered[11] = addVar9.toString();
+          if (addVar9 == 1) {
+            setState(() {
+              _enteredResult[11] = 1;
+            });
+          }
+        }
+      }
+    } else if (idx == 44 || idx == 45) {
+      if (selected) {
+        addVar10++;
+        if (addVar10 < 3) {
+          _totalEntered[12] = addVar10.toString();
+          if (addVar10 == 2) {
+            setState(() {
+              _enteredResult[12] = 1;
+            });
+          }
+        }
+      }
+    } else if (idx == 46 || idx == 47) {
+      if (selected) {
+        addVar11++;
+        if (addVar11 < 3) {
+          _totalEntered[13] = addVar11.toString();
+          if (addVar11 == 2) {
+            setState(() {
+              _enteredResult[13] = 1;
+            });
+          }
+        }
+      }
+    }
   }
 
   /// Disabled Catatan TextField
@@ -3411,27 +3875,34 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
     // List<int> _groupButtonVal_0 = List.generate(3, (index) => index = _buttonVal[index]);
 
     List<int> groupButtonVal_1 =
-        List.generate(3, (index) => index = _buttonVal[index + 3]);
+        List.generate(1, (index) => index = _buttonVal[index]);
     List<int> groupButtonVal_2 =
-        List.generate(3, (index) => index = _buttonVal[index + 6]);
+        List.generate(1, (index) => index = _buttonVal[index + 1]);
     List<int> groupButtonVal_3 =
-        List.generate(5, (index) => index = _buttonVal[index + 9]);
+        List.generate(1, (index) => index = _buttonVal[index + 2]);
     List<int> groupButtonVal_4 =
-        List.generate(6, (index) => index = _buttonVal[index + 14]);
+        List.generate(3, (index) => index = _buttonVal[index + 3]);
     List<int> groupButtonVal_5 =
-        List.generate(16, (index) => index = _buttonVal[index + 20]);
+        List.generate(3, (index) => index = _buttonVal[index + 6]);
     List<int> groupButtonVal_6 =
-        List.generate(2, (index) => index = _buttonVal[index + 36]);
+        List.generate(5, (index) => index = _buttonVal[index + 9]);
     List<int> groupButtonVal_7 =
-        List.generate(3, (index) => index = _buttonVal[index + 38]);
+        List.generate(6, (index) => index = _buttonVal[index + 14]);
     List<int> groupButtonVal_8 =
-        List.generate(2, (index) => index = _buttonVal[index + 41]);
+        List.generate(16, (index) => index = _buttonVal[index + 20]);
     List<int> groupButtonVal_9 =
-        List.generate(1, (index) => index = _buttonVal[index + 43]);
+        List.generate(2, (index) => index = _buttonVal[index + 36]);
     List<int> groupButtonVal_10 =
-        List.generate(2, (index) => index = _buttonVal[index + 44]);
+        List.generate(3, (index) => index = _buttonVal[index + 38]);
     List<int> groupButtonVal_11 =
+        List.generate(2, (index) => index = _buttonVal[index + 41]);
+    List<int> groupButtonVal_12 =
+        List.generate(1, (index) => index = _buttonVal[index + 43]);
+    List<int> groupButtonVal_13 =
+        List.generate(2, (index) => index = _buttonVal[index + 44]);
+    List<int> groupButtonVal_14 =
         List.generate(2, (index) => index = _buttonVal[index + 46]);
+
     List allGroup = [
       groupButtonVal_1,
       groupButtonVal_2,
@@ -3443,20 +3914,29 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
       groupButtonVal_8,
       groupButtonVal_9,
       groupButtonVal_10,
-      groupButtonVal_11
+      groupButtonVal_11,
+      groupButtonVal_12,
+      groupButtonVal_13,
+      groupButtonVal_14
     ];
 
     for (var a = 0; a < allGroup.length; a++) {
-      // print("data [$a]: ${allGroup[a]}");
-      // print("length [$a]: ${allGroup[a].length}");
+      //print("data [$a]: ${allGroup[a]}");
+      //print("length [$a]: ${allGroup[a].length}");
       for (var b = 0; b < allGroup[a].length; b++) {
         data = allGroup[a][b];
         if (data == -1) {
           n++;
           _incompleteRadioButton = true;
-          _colorResult[a] = const Color(0x96FF2E2E);
+          setState(() {
+            /// After Validation, result for entered value under this [a] category is incomplete
+            _enteredResult[a] = 0;
+          });
         } else {
-          _colorResult[a] = const Color(0x8E349813);
+          setState(() {
+            /// After Validation, result for entered value under this [a] category is completed
+            _enteredResult[a] = 1;
+          });
         }
       }
       int totalLength = allGroup[a].length;
@@ -3471,7 +3951,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
     _loadRadioButton();
     for (var i = 0; i < _valueKey.length; i++) {
       final FormState? form = _valueKey[i].currentState;
-      if (form!.validate() && !_incompleteRadioButton) {
+      if (!_incompleteRadioButton && form!.validate()) {
         form.save();
         _valid = true;
       } else {
