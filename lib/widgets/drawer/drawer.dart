@@ -317,6 +317,7 @@ class _DrawerBuildState extends State<DrawerBuild> {
                 PageTransition(
                     type: PageTransitionType.fade,
                     child: const ScheduleAllMainScreen()));
+            _refreshMainPage();
             break;
           case 2: //Laporan
             Navigator.push(
@@ -324,6 +325,7 @@ class _DrawerBuildState extends State<DrawerBuild> {
                 PageTransition(
                     type: PageTransitionType.fade,
                     child: const ReportListMain()));
+            _refreshMainPage();
             break;
 
           case 3:
@@ -332,6 +334,7 @@ class _DrawerBuildState extends State<DrawerBuild> {
                 PageTransition(
                     type: PageTransitionType.fade,
                     child: const VehicleChecklistListMain()));
+            _refreshMainPage();
             break;
           case 5: //logout
             _userLogout(context);
@@ -445,6 +448,12 @@ class _DrawerBuildState extends State<DrawerBuild> {
         }
         break;
     }
+  }
+
+  void _refreshMainPage() {
+    otherDate = false;
+    selectedDate = "";
+    refresh.value = !refresh.value;
   }
 
   void _userLogout(context) {
