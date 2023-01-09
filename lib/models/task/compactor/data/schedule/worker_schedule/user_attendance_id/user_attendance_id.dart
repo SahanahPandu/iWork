@@ -12,8 +12,8 @@ class UserAttendanceId {
   factory UserAttendanceId.fromJson(Map<String, dynamic> json) =>
       UserAttendanceId(
         id: json["id"],
-        clockInAt: json["clock_in_at"],
-        clockOutAt: json["clock_out_at"],
+        clockInAt: json["clock_in_at"] ?? "--:--",
+        clockOutAt: json["clock_out_at"] ?? "--:--",
       );
 
   Map<String, dynamic> toJson() => {
