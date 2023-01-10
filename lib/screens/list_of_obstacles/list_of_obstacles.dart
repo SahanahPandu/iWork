@@ -7,8 +7,8 @@ import '../../config/font.dart';
 import '../../config/palette.dart';
 import '../../providers/halangan_api.dart';
 import '../../utils/device/orientations.dart';
-import '../../utils/device/sizes.dart';
 import '../../utils/icon/custom_icon.dart';
+import '../../widgets/custom_scroll/custom_scroll.dart';
 
 class ListOfObstacles extends StatefulWidget {
   final String text;
@@ -39,6 +39,7 @@ class ListOfObstaclesState extends State<ListOfObstacles> {
   late int idJenisHalangan = 0;
 
   int totalHalangan = 0;
+  int selectedIndex = -1;
 
   getTotalData() {
     HalanganApi.getHalanganData(context).then((value) {
@@ -66,8 +67,6 @@ class ListOfObstaclesState extends State<ListOfObstacles> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      borderRadius:
-          userRole == 100 ? BorderRadius.circular(borderRadiusCircular) : null,
       onTap: () {
         if (widget.iconCondition == 1) {
           showListOfObstacles();
@@ -148,128 +147,155 @@ class ListOfObstaclesState extends State<ListOfObstacles> {
             ? (Orientations().isLandscape(context)
                 ? const BoxConstraints(maxWidth: 500, maxHeight: 400)
                 : const BoxConstraints(maxWidth: 500, maxHeight: 450))
-            : null,
+            : const BoxConstraints(maxHeight: 380),
         context: context,
         builder: (builder) {
-          return SizedBox(
-            height:
-                userRole == 100 ? null : Sizes().screenHeight(context) * 0.5,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(
-                  height: 2,
-                ),
-                const Divider(
-                  thickness: 1,
-                  color: Color(0xff969696),
-                  indent: 170,
-                  endIndent: 170,
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(
-                    top: 24,
-                    left: 24,
-                    bottom: 16,
-                  ),
-                  child: Text(
-                    "Pilih  Jenis Halangan",
-                    style: TextStyle(
-                      color: Color(0xff969696),
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-                const Divider(
-                  thickness: 1,
-                  color: Color(0xffE5E5E5),
-                  indent: 25,
-                  endIndent: 25,
-                ),
-                FutureBuilder<List<dynamic>?>(
-                  future: HalanganApi.getDataJenisHalangan(),
-                  builder: (context, snapshot) {
-                    final dataFuture = snapshot.data;
+          return Container(
+            padding: const EdgeInsets.only(top: 5),
+            child: ScrollConfiguration(
+              behavior: CustomScrollBehavior(),
+              child: SingleChildScrollView(
+                child: Wrap(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Divider(
+                          thickness: 0.5,
+                          color: Color(0xff969696),
+                          indent: 160,
+                          endIndent: 160,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            top: 20,
+                            left: 30,
+                            bottom: 10,
+                          ),
+                          child: Text(
+                            "Pilih Jenis Halangan",
+                            style: TextStyle(
+                              color: greyCustom,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.only(left: 26, right: 26, top: 8),
+                          child: Divider(height: 0.5),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: FutureBuilder<List<dynamic>?>(
+                            future: HalanganApi.getDataJenisHalangan(),
+                            builder: (context, snapshot) {
+                              final dataFuture = snapshot.data;
 
-                    switch (snapshot.connectionState) {
-                      case ConnectionState.waiting:
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
+                              switch (snapshot.connectionState) {
+                                case ConnectionState.waiting:
+                                  return const Center(
+                                    child: CircularProgressIndicator(),
+                                  );
 
-                      default:
-                        if (snapshot.hasError) {
-                          return const Center(
-                            child: Text("Some error occured!"),
-                          );
-                        } else {
-                          if (dataFuture!.isEmpty) {
-                            return Center(
-                              child: Container(
-                                margin: const EdgeInsets.all(20),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Icon(CustomIcon.exclamation,
-                                        color: Colors.orange, size: 14),
-                                    const SizedBox(width: 10),
-                                    Text(
-                                        "Tiada senarai jenis halangan dijumpai",
-                                        style: TextStyle(color: grey500)),
-                                  ],
-                                ),
-                              ),
-                            );
-                          } else {
-                            return Expanded(
-                              child: Container(
-                                margin: const EdgeInsets.symmetric(
-                                  horizontal: 10,
-                                ),
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 10),
-                                child: ListView.builder(
-                                  physics: userRole == 100
-                                      ? const BouncingScrollPhysics()
-                                      : const ScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemCount: dataFuture.length,
-                                  itemBuilder: (context, index) {
-                                    return InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          jenisHalangan.text =
-                                              dataFuture[index].name;
-                                          idJenisHalangan =
-                                              dataFuture[index].id;
-
-                                          Navigator.pop(context);
-                                        });
-                                      },
-                                      child: Container(
-                                        margin: const EdgeInsets.symmetric(
-                                            vertical: 12),
-                                        child: Text(
-                                          dataFuture[index].name,
-                                          style: TextStyle(
-                                            color: blackCustom,
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.w400,
+                                default:
+                                  if (snapshot.hasError) {
+                                    return const Center(
+                                      child: Text("Some error occured!"),
+                                    );
+                                  } else {
+                                    if (dataFuture!.isEmpty) {
+                                      return Center(
+                                        child: Container(
+                                          margin: const EdgeInsets.all(20),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              const Icon(CustomIcon.exclamation,
+                                                  color: Colors.orange,
+                                                  size: 14),
+                                              const SizedBox(width: 10),
+                                              Text(
+                                                  "Tiada senarai jenis halangan dijumpai",
+                                                  style: TextStyle(
+                                                      color: grey500)),
+                                            ],
                                           ),
                                         ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            );
-                          }
-                        }
-                    }
-                  },
+                                      );
+                                    } else {
+                                      return Container(
+                                        margin: const EdgeInsets.symmetric(
+                                            horizontal: 10),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 15),
+                                        child: ListView.builder(
+                                          physics:
+                                              const NeverScrollableScrollPhysics(),
+                                          shrinkWrap: true,
+                                          itemCount: dataFuture.length,
+                                          itemBuilder: (context, index) {
+                                            return InkWell(
+                                              onTap: () {
+                                                setState(() {
+                                                  jenisHalangan.text =
+                                                      dataFuture[index].name;
+                                                  selectedIndex = index;
+                                                  idJenisHalangan =
+                                                      dataFuture[index].id;
+
+                                                  Navigator.pop(context);
+                                                });
+                                              },
+                                              child: Container(
+                                                margin:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 16),
+                                                child: Row(
+                                                  children: [
+                                                    Icon(
+                                                        jenisHalangan.text !=
+                                                                    "" &&
+                                                                selectedIndex ==
+                                                                    index
+                                                            ? Icons.check
+                                                            : null,
+                                                        color: green,
+                                                        size: 18),
+                                                    const SizedBox(width: 8),
+                                                    Text(
+                                                      dataFuture[index].name,
+                                                      style: TextStyle(
+                                                        color: blackCustom,
+                                                        fontSize: 15,
+                                                        fontWeight: jenisHalangan
+                                                                        .text !=
+                                                                    "" &&
+                                                                selectedIndex ==
+                                                                    index
+                                                            ? FontWeight.w600
+                                                            : FontWeight.w400,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      );
+                                    }
+                                  }
+                              }
+                            },
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
                 ),
-              ],
+              ),
             ),
           );
         });

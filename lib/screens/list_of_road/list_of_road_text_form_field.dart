@@ -10,6 +10,7 @@ import '../../providers/jalan_api.dart';
 import '../../utils/device/orientations.dart';
 import '../../utils/device/sizes.dart';
 import '../../utils/icon/custom_icon.dart';
+import '../../widgets/custom_scroll/custom_scroll.dart';
 
 class ListOfRoadTextFormField extends StatefulWidget {
   final String text;
@@ -71,8 +72,6 @@ class ListOfRoadTextFormFieldState extends State<ListOfRoadTextFormField> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      borderRadius:
-          userRole == 100 ? BorderRadius.circular(borderRadiusCircular) : null,
       onTap: () {
         if (widget.iconCondition == 1) {
           showListOfRoads();
@@ -154,179 +153,208 @@ class ListOfRoadTextFormFieldState extends State<ListOfRoadTextFormField> {
             ? (Orientations().isLandscape(context)
                 ? const BoxConstraints(maxWidth: 500, maxHeight: 400)
                 : const BoxConstraints(maxWidth: 500, maxHeight: 450))
-            : null,
+            : const BoxConstraints(maxHeight: 380),
         context: context,
         builder: (builder) {
-          return SizedBox(
-            height:
-                userRole == 100 ? null : Sizes().screenHeight(context) * 0.5,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(
-                  height: 2,
-                ),
-                const Divider(
-                  thickness: 1,
-                  color: Color(0xff969696),
-                  indent: 170,
-                  endIndent: 170,
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(
-                    top: 24,
-                    left: 24,
-                    bottom: 16,
-                  ),
-                  child: Text(
-                    "Pilih Jalan",
-                    style: TextStyle(
-                      color: Color(0xff969696),
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-                const Divider(
-                  thickness: 1,
-                  color: Color(0xffE5E5E5),
-                  indent: 25,
-                  endIndent: 25,
-                ),
-                FutureBuilder<List>(
-                  future: JalanApi.getDataJalan(widget.scMainId!),
-                  builder: (context, snapshot) {
-                    final dataFuture = snapshot.data;
+          return Container(
+            padding: const EdgeInsets.only(top: 5),
+            child: ScrollConfiguration(
+              behavior: CustomScrollBehavior(),
+              child: SingleChildScrollView(
+                child: Wrap(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Divider(
+                          thickness: 0.5,
+                          color: Color(0xff969696),
+                          indent: 160,
+                          endIndent: 160,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            top: 20,
+                            left: 30,
+                            bottom: 10,
+                          ),
+                          child: Text(
+                            "Pilih Jalan",
+                            style: TextStyle(
+                              color: greyCustom,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.only(left: 26, right: 26, top: 8),
+                          child: Divider(height: 0.5),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: FutureBuilder<List>(
+                            future: JalanApi.getDataJalan(widget.scMainId!),
+                            builder: (context, snapshot) {
+                              final dataFuture = snapshot.data;
 
-                    switch (snapshot.connectionState) {
-                      case ConnectionState.waiting:
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
+                              switch (snapshot.connectionState) {
+                                case ConnectionState.waiting:
+                                  return const Center(
+                                    child: CircularProgressIndicator(),
+                                  );
 
-                      default:
-                        if (snapshot.hasError) {
-                          return const Center(
-                            child: Text("Some error occured!"),
-                          );
-                        } else {
-                          if (dataFuture!.isEmpty) {
-                            return Center(
-                              child: Container(
-                                margin: const EdgeInsets.all(20),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Icon(CustomIcon.exclamation,
-                                        color: Colors.orange, size: 14),
-                                    const SizedBox(width: 10),
-                                    Text("Tiada senarai jalan dijumpai",
-                                        style: TextStyle(color: grey500)),
-                                  ],
-                                ),
-                              ),
-                            );
-                          } else {
-                            //checking if there is nama taman id is passed, else show all
-                            List<dynamic> newList = [];
-                            for (int i = 0; i < dataFuture.length; i++) {
-                              if (dataFuture[i].parkName == widget.namaTaman) {
-                                newList.add(dataFuture[i]);
-                              }
-                            }
+                                default:
+                                  if (snapshot.hasError) {
+                                    return const Center(
+                                      child: Text("Some error occured!"),
+                                    );
+                                  } else {
+                                    if (dataFuture!.isEmpty) {
+                                      return Center(
+                                        child: Container(
+                                          margin: const EdgeInsets.all(20),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              const Icon(CustomIcon.exclamation,
+                                                  color: Colors.orange,
+                                                  size: 14),
+                                              const SizedBox(width: 10),
+                                              Text(
+                                                  "Tiada senarai jalan dijumpai",
+                                                  style: TextStyle(
+                                                      color: grey500)),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    } else {
+                                      //checking if there is nama taman id is passed, else show all
+                                      List<dynamic> newList = [];
+                                      for (int i = 0;
+                                          i < dataFuture.length;
+                                          i++) {
+                                        if (dataFuture[i].parkName ==
+                                            widget.namaTaman) {
+                                          newList.add(dataFuture[i]);
+                                        }
+                                      }
 
-                            if (newList.isEmpty) {
-                              return Container(
-                                color: white,
-                                height: userRole == 200
-                                    ? Sizes().screenHeight(context) * 0.24
-                                    : Sizes().screenHeight(context) * 0.18,
-                                child: Container(
-                                  margin: userRole == 100 &&
-                                          Orientations()
-                                              .isTabletPortrait(context)
-                                      ? const EdgeInsets.symmetric(
-                                          horizontal: 60, vertical: 40)
-                                      : const EdgeInsets.symmetric(
-                                          horizontal: 25, vertical: 15),
-                                  alignment: Alignment.topLeft,
-                                  child: Row(
-                                    children: [
-                                      const Icon(CustomIcon.exclamation,
-                                          color: Colors.orange, size: 14),
-                                      const SizedBox(width: 10),
-                                      Text(
-                                        notFoundStreet,
-                                        style: TextStyle(color: grey400),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            }
-
-                            return Expanded(
-                              child: Container(
-                                  margin: const EdgeInsets.symmetric(
-                                      horizontal: 10),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 15),
-                                  child: ListView.builder(
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
-                                      shrinkWrap: true,
-                                      itemCount: newList.length,
-                                      itemBuilder: (context, index) {
-                                        return InkWell(
-                                          onTap: () {
-                                            setState(() {
-                                              namaJalan.text =
-                                                  newList[index].streetName;
-
-                                              selectedIndex = index;
-                                              idJalan = newList[index].streetId;
-
-                                              Navigator.pop(context);
-                                            });
-                                          },
+                                      if (newList.isEmpty) {
+                                        return Container(
+                                          color: white,
+                                          height: userRole == 200
+                                              ? Sizes().screenHeight(context) *
+                                                  0.24
+                                              : Sizes().screenHeight(context) *
+                                                  0.18,
                                           child: Container(
-                                            margin: const EdgeInsets.symmetric(
-                                                vertical: 16),
+                                            margin: userRole == 100 &&
+                                                    Orientations()
+                                                        .isTabletPortrait(
+                                                            context)
+                                                ? const EdgeInsets.symmetric(
+                                                    horizontal: 60,
+                                                    vertical: 40)
+                                                : const EdgeInsets.symmetric(
+                                                    horizontal: 25,
+                                                    vertical: 15),
+                                            alignment: Alignment.topLeft,
                                             child: Row(
                                               children: [
-                                                Icon(
-                                                    namaJalan.text != "" &&
-                                                            selectedIndex ==
-                                                                index
-                                                        ? Icons.check
-                                                        : null,
-                                                    color: green,
-                                                    size: 18),
-                                                const SizedBox(width: 8),
-                                                Text(newList[index].streetName,
-                                                    style: TextStyle(
-                                                      color: blackCustom,
-                                                      fontSize: 15,
-                                                      fontWeight: namaJalan
-                                                                      .text !=
-                                                                  "" &&
-                                                              selectedIndex ==
-                                                                  index
-                                                          ? FontWeight.w600
-                                                          : FontWeight.w400,
-                                                    ))
+                                                const Icon(
+                                                    CustomIcon.exclamation,
+                                                    color: Colors.orange,
+                                                    size: 14),
+                                                const SizedBox(width: 10),
+                                                Text(
+                                                  notFoundStreet,
+                                                  style:
+                                                      TextStyle(color: grey400),
+                                                ),
                                               ],
                                             ),
                                           ),
                                         );
-                                      })),
-                            );
-                          }
-                        }
-                    }
-                  },
+                                      }
+
+                                      return Container(
+                                          margin: const EdgeInsets.symmetric(
+                                              horizontal: 10),
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 15),
+                                          child: ListView.builder(
+                                              physics:
+                                                  const NeverScrollableScrollPhysics(),
+                                              shrinkWrap: true,
+                                              itemCount: newList.length,
+                                              itemBuilder: (context, index) {
+                                                return InkWell(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      namaJalan.text =
+                                                          newList[index]
+                                                              .streetName;
+
+                                                      selectedIndex = index;
+                                                      idJalan = newList[index]
+                                                          .streetId;
+
+                                                      Navigator.pop(context);
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                    margin: const EdgeInsets
+                                                            .symmetric(
+                                                        vertical: 16),
+                                                    child: Row(
+                                                      children: [
+                                                        Icon(
+                                                            namaJalan.text !=
+                                                                        "" &&
+                                                                    selectedIndex ==
+                                                                        index
+                                                                ? Icons.check
+                                                                : null,
+                                                            color: green,
+                                                            size: 18),
+                                                        const SizedBox(
+                                                            width: 8),
+                                                        Text(
+                                                            newList[index]
+                                                                .streetName,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  blackCustom,
+                                                              fontSize: 15,
+                                                              fontWeight: namaJalan
+                                                                              .text !=
+                                                                          "" &&
+                                                                      selectedIndex ==
+                                                                          index
+                                                                  ? FontWeight
+                                                                      .w600
+                                                                  : FontWeight
+                                                                      .w400,
+                                                            ))
+                                                      ],
+                                                    ),
+                                                  ),
+                                                );
+                                              }));
+                                    }
+                                  }
+                              }
+                            },
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
                 ),
-              ],
+              ),
             ),
           );
         });
