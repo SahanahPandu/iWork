@@ -8,7 +8,7 @@ class GeneralWorkerTask {
   @JsonKey(defaultValue: null)
   final String? stopWork;
 
-  @JsonKey(defaultValue: null)
+  @JsonKey(defaultValue: {})
   final Attendance? attendance;
 
   @JsonKey(defaultValue: [])
@@ -43,12 +43,12 @@ class Attendance {
   final String? clockOut;
 
   const Attendance({
-    required this.clockIn,
-    required this.clockOut,
+    this.clockIn,
+    this.clockOut,
   });
 
   factory Attendance.fromJson(json) => Attendance(
-        clockIn: (json['clock_in_at'] != null) ? json['clock_in_at'] : null,
-        clockOut: (json['clock_out_at'] != null) ? json['clock_out_at'] : null,
+        clockIn: (json['clock_in_at'] != null) ? json['clock_in_at'] : "",
+        clockOut: (json['clock_out_at'] != null) ? json['clock_out_at'] : "",
       );
 }

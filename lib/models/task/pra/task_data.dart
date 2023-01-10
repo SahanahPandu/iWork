@@ -1,9 +1,13 @@
+import 'package:json_annotation/json_annotation.dart';
+
 import 'general_worker_task.dart';
 
 class TaskData {
   GeneralWorkerTask data;
-  String status;
-  String? message;
+  final String status;
+
+  @JsonKey(defaultValue: "")
+  final String? message;
 
   TaskData({
     required this.data,

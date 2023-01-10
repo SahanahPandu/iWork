@@ -31,8 +31,8 @@ class TaskList {
         totalSubRoute: json['total_sub_route'],
         totalPark: json['total_park'],
         totalStreet: json['total_street'],
-        startWorkAt: json['start_work_at'],
-        stopWorkAt: json['stop_work_at'],
+        startWorkAt: json['start_schedule_at'],
+        stopWorkAt: json['stop_schedule_at'],
         statusCode: Status.fromJson(json['status_code']),
       );
 
@@ -45,8 +45,8 @@ class TaskList {
     data['total_sub_route'] = totalSubRoute;
     data['total_park'] = totalPark;
     data['total_street'] = totalStreet;
-    data['start_work_at'] = startWorkAt;
-    data['stop_work_at'] = stopWorkAt;
+    data['start_schedule_at'] = startWorkAt;
+    data['stop_schedule_at'] = stopWorkAt;
     data['status_code'] = statusCode.toJson();
     return data;
   }

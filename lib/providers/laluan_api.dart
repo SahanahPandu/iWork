@@ -62,9 +62,8 @@ class LaluanApi {
   }
 
   static Future<GeneralWorkerTask> getDataMasaKerja(context) async {
-    late GeneralWorkerTask theTime;
-    String getAccessToken = userInfo[1];
-    print('Token: $getAccessToken');
+    GeneralWorkerTask theTime =
+        const GeneralWorkerTask(startWork: null, stopWork: null, list: []);
 
     try {
       // ignore: unused_local_variable
@@ -72,9 +71,10 @@ class LaluanApi {
         '$theBase/task/gw-list',
         queryParameters: {'schedule_date': today},
         options: Options(headers: {
-          'authorization': 'Bearer $getAccessToken',
+          'authorization': 'Bearer ${userInfo[1]}',
         }),
       );
+      // print('Response: ${response.statusMessage}');
 
       if (response.statusCode == 200) {
         //checking task list null
@@ -82,11 +82,12 @@ class LaluanApi {
           Map<String, dynamic> decode = json.decode(json.encode(response.data));
 
           var convertData = TaskData.fromJson(decode);
+
           theTime = convertData.data;
         }
       }
-    } catch (e) {
-      print(e);
+    } on DioError catch (e) {
+      print("The error: $e");
     }
 
     return theTime;
