@@ -1,5 +1,8 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:eswm/models/report/report_list/report_paging.dart';
 
 //import files
 import '../models/report/report_details/report_details_data.dart';
@@ -9,6 +12,8 @@ import 'package:eswm/config/config.dart';
 import 'package:eswm/models/report/report_list/report_data.dart';
 import 'package:eswm/models/report/report_list/report_details.dart';
 import 'package:flutter/material.dart';
+
+import '../utils/calendar/date.dart';
 
 class ReportsApi {
   static Future<List<Reports>> getReportsData(BuildContext context) async {
@@ -49,7 +54,6 @@ class ReportsApi {
         }
       }
     } on DioError catch (e) {
-      // ignore: avoid_print
       print(e);
     }
 
@@ -86,10 +90,53 @@ class ReportsApi {
         }
       }
     } on DioError catch (e) {
-      // ignore: avoid_print
       print(e);
     }
 
     return theDetails;
+  }
+
+  static Future<List<ReportDetailsInfo>>? getDataLaporanDrawer(passData) async {
+    List<ReportDetailsInfo> filteredList = [];
+
+    var thePassData = Map<String, dynamic>.from(passData);
+
+    var passDate = "";
+    if (thePassData['date'] != "") {
+      passDate = Date.getTheDate(
+          thePassData['date'], "dd/MM/yyyy", "yyyy-MM-dd", "ms");
+    }
+
+    try {
+      var response = await Dio().get(
+        '$theBase/report/reports',
+        queryParameters: {
+          'date': passDate,
+          'main_route': thePassData['mainRoute'],
+          'park_pdibId': thePassData['parkId'],
+          'street_pdibId': thePassData['streetId'],
+          'status_code': thePassData['statusCode'],
+        },
+        options: Options(headers: {
+          'authorization': 'Bearer ${userInfo[1]}',
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        if (response.data['data']['data'] != null &&
+            response.data['data']['data'] != []) {
+          Map<String, dynamic> decode = json.decode(
+            json.encode(response.data['data']),
+          );
+
+          var convertData = ReportPaging.fromJson(decode);
+          filteredList = convertData.data;
+        }
+      }
+    } on DioError catch (e) {
+      print(e);
+    }
+
+    return filteredList;
   }
 }

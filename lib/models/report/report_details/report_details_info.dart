@@ -1,19 +1,34 @@
+import 'package:eswm/models/user/user_data.dart';
+import 'package:json_annotation/json_annotation.dart';
+
 class ReportDetailsInfo {
   final int id;
   final ScheduleCollectionMain? schCollectionMain;
-  final String subRouteName;
+
+  @JsonKey(defaultValue: "")
+  final String? subRouteName;
+
   final Park? park;
   final Street? street;
   final Status? status;
   final ObstacleType? obstacleType;
+
+  @JsonKey(defaultValue: null)
   final UploadFile? uploadFileId;
+
+  @JsonKey(defaultValue: null)
   final String? remarks;
+
+  @JsonKey(defaultValue: null)
   final String? svRemarks;
+
+  @JsonKey(defaultValue: null)
+  final String? createdAt;
 
   const ReportDetailsInfo({
     required this.id,
     this.schCollectionMain,
-    required this.subRouteName,
+    this.subRouteName,
     this.park,
     this.street,
     this.status,
@@ -21,6 +36,7 @@ class ReportDetailsInfo {
     this.uploadFileId,
     this.remarks,
     this.svRemarks,
+    this.createdAt,
   });
 
   factory ReportDetailsInfo.fromJson(json) => ReportDetailsInfo(
@@ -43,7 +59,8 @@ class ReportDetailsInfo {
             ? UploadFile.fromJson(json['upload_file_id'])
             : null,
         remarks: json['remarks'] ?? "",
-        svRemarks: json['sv_remarks'],
+        svRemarks: json['sv_remarks'] ?? "",
+        createdAt: json['created_at'] ?? "",
       );
 
   Map<String, dynamic> toJson() {
@@ -68,14 +85,26 @@ class ScheduleCollectionMain {
   final int id;
   final String mainRoute;
 
+  @JsonKey(defaultValue: null)
+  final String? vehicleNo;
+
+  @JsonKey(defaultValue: null)
+  final UserData? superviseBy;
+
   const ScheduleCollectionMain({
     required this.id,
     required this.mainRoute,
+    this.vehicleNo,
+    this.superviseBy,
   });
 
   factory ScheduleCollectionMain.fromJson(json) => ScheduleCollectionMain(
         id: json['id'],
         mainRoute: json['main_route'],
+        vehicleNo: json['vehicle_no'] ?? "",
+        superviseBy: json['supervise_by'] != null
+            ? UserData.fromJson(json['supervise_by'])
+            : null,
       );
 }
 
@@ -98,14 +127,19 @@ class Street {
   final int streetId;
   final String streetName;
 
+  @JsonKey(defaultValue: null)
+  final String? streetType;
+
   const Street({
     required this.streetId,
     required this.streetName,
+    this.streetType,
   });
 
   factory Street.fromJson(json) => Street(
         streetId: json['street_pdibId'],
         streetName: json['streetName'],
+        streetType: json['streetType'] ?? "",
       );
 }
 
