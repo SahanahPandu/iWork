@@ -12,6 +12,21 @@ import '../utils/device/devices.dart';
 /// '4' = done vc before, done start work, done stop work, done vc after
 ValueNotifier<int> scheduleVcStatus = ValueNotifier(0);
 
+/// ** Schedule Verification Status **
+ValueNotifier<bool> attendanceMainCard = ValueNotifier(true);
+ValueNotifier<bool> vcMainCard = ValueNotifier(true);
+ValueNotifier<bool> eCutiMainCard = ValueNotifier(true);
+ValueNotifier<bool> rescheduleMainCard = ValueNotifier(true);
+
+/// ** Button : show/hide **
+ValueNotifier<bool> button = ValueNotifier(true);
+
+/// ** Select All Button **
+ValueNotifier<bool> allSelected = ValueNotifier(false);
+
+/// ** Refresh App Variable ***
+ValueNotifier<bool> refresh = ValueNotifier(false);
+
 /// ** UserRole **
 /// '0' = unknown
 /// '100' = compactor
@@ -53,6 +68,10 @@ String userDeviceId = '';
 /// ** Current Schedule ID **
 String scheduleId = '';
 
+/// ** The Server IP Adress ***
+// String theBase = "http://103.26.46.187:81/api";
+String theBase = "https://iworkapi.swmsb.com/api";
+
 /// ** LoginStatus **
 /// '0' = unknown
 /// '1' = OK
@@ -67,32 +86,12 @@ int loginStatus = 0;
 bool completedFirstVc = false;
 bool completedSecondVc = false;
 
-/// ** Schedule Verification Status **
-ValueNotifier<bool> attendanceMainCard = ValueNotifier(true);
-ValueNotifier<bool> vcMainCard = ValueNotifier(true);
-ValueNotifier<bool> eCutiMainCard = ValueNotifier(true);
-ValueNotifier<bool> rescheduleMainCard = ValueNotifier(true);
-
-/// ** Button : show/hide **
-ValueNotifier<bool> button = ValueNotifier(true);
-
-/// ** Select All Button **
-ValueNotifier<bool> allSelected = ValueNotifier(false);
-
-/// ** The Server IP Adress ***
-// String theBase = "http://103.26.46.187:81/api";
-String theBase = "https://iworkapi.swmsb.com/api";
-
 /// ** Schedule Listing Condition **
 bool isScheduleListExist = false;
-
-/// ** Refresh App Variable ***
-ValueNotifier<bool> refresh = ValueNotifier(false);
-
+bool onGoingTask = false;
+bool otherDate = false;
 int listLength = 0;
 int vcStatus = 0;
 List<int> cpSchedule = List.generate(listLength, (index) => 0);
 List<String> routeNames = List.generate(listLength, (index) => '');
-bool onGoingTask = false;
-bool otherDate = false;
 String selectedNewDate = "";

@@ -3951,9 +3951,11 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
     _loadRadioButton();
     for (var i = 0; i < _valueKey.length; i++) {
       final FormState? form = _valueKey[i].currentState;
-      if (!_incompleteRadioButton && form!.validate()) {
-        form.save();
-        _valid = true;
+      if (form!.validate()) {
+        if (!_incompleteRadioButton) {
+          form.save();
+          _valid = true;
+        }
       } else {
         _valid = false;
       }
