@@ -1,17 +1,17 @@
+import 'package:eswm/models/report/report_details/report_details_info.dart';
 import 'package:flutter/material.dart';
 
 //import files
 import '../../config/config.dart';
 import '../../config/font.dart';
 import '../../config/palette.dart';
-import '../../models/report/report_list/report_details.dart';
 import '../../utils/calendar/date.dart';
 import '../../utils/device/orientations.dart';
 import '../../utils/icon/custom_icon.dart';
 import '../../widgets/container/status_container.dart';
 
 class ReportListDetails extends StatefulWidget {
-  final ReportDetails data;
+  final ReportDetailsInfo data;
   final int index;
 
   const ReportListDetails({
@@ -46,7 +46,7 @@ class _ReportListDetailsState extends State<ReportListDetails> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
                 child: Text(
-                  "L${widget.data.id} - ${widget.data.schCollectionMain?.mainRoute}",
+                  widget.data.schCollectionMain!.mainRoute,
                   style: TextStyle(
                     fontSize: userRole == 100 ? 18 : 16,
                     color: inputColor,
@@ -96,7 +96,7 @@ class _ReportListDetailsState extends State<ReportListDetails> {
                   ),
                   Expanded(
                     child: Text(
-                      Date.getTheDate(widget.data.createdDatetime,
+                      Date.getTheDate(widget.data.createdAt,
                           'yyyy-MM-dd HH:mm:ss', "dd/MM/yyyy HH:mm a", null),
                       // "${widget.data.tarikh},${widget.data.masa}",
                       style: TextStyle(
@@ -147,8 +147,8 @@ class _ReportListDetailsState extends State<ReportListDetails> {
                   ),
                   Expanded(
                     child: Text(
-                      textAlign: TextAlign.end,
                       widget.data.park!.parkName,
+                      textAlign: TextAlign.end,
                       style: TextStyle(
                         fontSize: userRole == 100 ? 16 : 15,
                         color: inputColor,
@@ -196,8 +196,10 @@ class _ReportListDetailsState extends State<ReportListDetails> {
                   ),
                   Expanded(
                     child: Text(
+                      widget.data.street != null
+                          ? widget.data.street!.streetName
+                          : "-",
                       textAlign: TextAlign.end,
-                      widget.data.street!.streetName,
                       style: TextStyle(
                         fontSize: userRole == 100 ? 16 : 15,
                         color: inputColor,
@@ -242,8 +244,8 @@ class _ReportListDetailsState extends State<ReportListDetails> {
                 ),
                 Expanded(
                   child: Text(
-                    textAlign: TextAlign.end,
                     widget.data.obstacleType!.obsTypeName,
+                    textAlign: TextAlign.end,
                     style: TextStyle(
                       fontSize: userRole == 100 ? 16 : 15,
                       color: inputColor,

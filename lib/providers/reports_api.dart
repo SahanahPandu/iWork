@@ -10,7 +10,6 @@ import '../models/report/report_details/report_details_info.dart';
 import '../models/reports.dart';
 import 'package:eswm/config/config.dart';
 import 'package:eswm/models/report/report_list/report_data.dart';
-import 'package:eswm/models/report/report_list/report_details.dart';
 import 'package:flutter/material.dart';
 
 import '../utils/calendar/date.dart';
@@ -25,8 +24,8 @@ class ReportsApi {
     return data.map<Reports>(Reports.fromJson).toList();
   }
 
-  static Future<List<ReportDetails?>>? getDataLaporan(scMainId) async {
-    List<ReportDetails?> decodeBody = [];
+  static Future<List<ReportDetailsInfo?>>? getDataLaporan(scMainId) async {
+    List<ReportDetailsInfo?> decodeBody = [];
     String getAccessToken = userInfo[1];
 
     try {
@@ -50,7 +49,7 @@ class ReportsApi {
 
           var convertData = ReportData.fromJson(decode);
 
-          decodeBody = convertData.data;
+          decodeBody = convertData.data!;
         }
       }
     } on DioError catch (e) {
@@ -87,6 +86,7 @@ class ReportsApi {
           var convertData = ReportDetailsData.fromJson(decode);
 
           theDetails = convertData.data;
+          print("The Data: $theDetails");
         }
       }
     } on DioError catch (e) {

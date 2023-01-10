@@ -1,7 +1,7 @@
-import 'report_details.dart';
+import '../report_details/report_details_info.dart';
 
 class ReportData {
-  final List<ReportDetails> data;
+  final List<ReportDetailsInfo>? data;
   final String status;
   final String? message;
 
@@ -13,7 +13,7 @@ class ReportData {
 
   factory ReportData.fromJson(json) => ReportData(
         data: json['data']['reports']
-            .map<ReportDetails>(ReportDetails.fromJson)
+            .map<ReportDetailsInfo>(ReportDetailsInfo.fromJson)
             .toList(),
         // data: json["data"],
         status: json["status"],

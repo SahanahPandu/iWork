@@ -116,7 +116,7 @@ class _ReportFormState extends State<ReportForm> {
 
           //set data
           namaSubLaluanKey.currentState!.namaSubLaluan.text =
-              theDetails.subRouteName;
+              theDetails.subRouteName!;
           namaTamanKey.currentState!.namaTaman.text = theDetails.park!.parkName;
           namaJalanKey.currentState!.namaJalan.text =
               theDetails.street!.streetName;

@@ -45,8 +45,12 @@ class _CardListViewState extends State<CardListView> {
       list = JadualApi.getDataJadualDrawer(widget.passData);
     } else if (widget.type == "Senarai Jalan") {
       list = JalanApi.getJalanData(context);
-    } else if (widget.type == "Laporan") {
+    } else if (widget.type == "Laporan" && widget.screens != "drawer") {
+      //this is from Report Button
       list = ReportsApi.getDataLaporan(widget.passData.scMainId);
+    } else if (widget.type == "Laporan" && widget.screens == "drawer") {
+      //this is from drawer
+      list = ReportsApi.getDataLaporanDrawer(widget.passData);
     } else {
       list = null;
     }

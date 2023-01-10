@@ -8,9 +8,16 @@ class ReportDetailsInfo {
   @JsonKey(defaultValue: "")
   final String? subRouteName;
 
+  @JsonKey(defaultValue: null)
   final Park? park;
+
+  @JsonKey(defaultValue: null)
   final Street? street;
+
+  @JsonKey(defaultValue: null)
   final Status? status;
+
+  @JsonKey(defaultValue: null)
   final ObstacleType? obstacleType;
 
   @JsonKey(defaultValue: null)
