@@ -140,7 +140,7 @@ class _CompactorPanelScheduleMainState
                 padding: Orientations().isLandscape(context)
                     ? const EdgeInsets.only(right: 50, bottom: 20)
                     : const EdgeInsets.only(right: 80, bottom: 20),
-                child: otherDate && selectedDate != ''
+                child: otherDate && selectedNewDate != ''
                     ? null
                     : ReportButton(
                         passData: widget.data,

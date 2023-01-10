@@ -527,17 +527,17 @@ class _CompactorPanelState extends State<CompactorPanel> {
   }
 
   String _getTodayDateForCollapseHeader() {
-    if (otherDate && selectedDate != '') {
+    if (otherDate && selectedNewDate != '') {
       return Date.getTheDate(
-          DateTime.parse(selectedDate), '', 'dd MMMM yyyy', 'ms');
+          DateTime.parse(selectedNewDate), '', 'dd MMMM yyyy', 'ms');
     } else {
       return Date.getTheDate(DateTime.now(), '', 'dd MMMM yyyy', 'ms');
     }
   }
 
   String _getTodayTaskTimeForCollapseHeader(String startTime, String stopTime) {
-    if (otherDate && selectedDate != '') {
-      if (Date.isDateExpired(DateTime.parse(selectedDate))) {
+    if (otherDate && selectedNewDate != '') {
+      if (Date.isDateExpired(DateTime.parse(selectedNewDate))) {
         return isScheduleListExist
             ? "Tugasan Masa Lalu (${DateFormat("hh:mm").format(DateTime.parse('20222312 $startTime'))} ${Time.convertAMPMToMs(startTime)} - ${DateFormat("hh:mm").format(DateTime.parse('20222312 $stopTime'))} ${Time.convertAMPMToMs(stopTime)})"
             : "Tugasan Masa Lalu ( --:-- )";

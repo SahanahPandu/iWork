@@ -32,7 +32,7 @@ class _VehicleChecklistCardDetailsState
 
   @override
   void initState() {
-    if (otherDate && selectedDate != '') {
+    if (otherDate && selectedNewDate != '') {
       buttonColor = grey100;
       buttonTextColor = grey500;
       buttonSplashColor = transparent;

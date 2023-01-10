@@ -47,7 +47,7 @@ class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
   @override
   void initState() {
     //print(onGoingTask);
-    if (otherDate && selectedDate != '') {
+    if (otherDate && selectedNewDate != '') {
       textColor = grey500;
       iconColor = grey300;
       borderColor = transparent;

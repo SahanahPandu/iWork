@@ -95,4 +95,4 @@ List<int> cpSchedule = List.generate(listLength, (index) => 0);
 List<String> routeNames = List.generate(listLength, (index) => '');
 bool onGoingTask = false;
 bool otherDate = false;
-String selectedDate = "";
+String selectedNewDate = "";
