@@ -86,7 +86,6 @@ class ReportsApi {
           var convertData = ReportDetailsData.fromJson(decode);
 
           theDetails = convertData.data;
-          print("The Data: $theDetails");
         }
       }
     } on DioError catch (e) {
