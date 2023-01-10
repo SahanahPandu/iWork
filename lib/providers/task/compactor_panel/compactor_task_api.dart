@@ -14,8 +14,8 @@ import '../../../utils/calendar/date.dart';
 import '../../http/service/http_service.dart';
 
 DateTime getTodayDate = DateTime.now();
-String currentDate = (selectedDate != "" && otherDate == true)
-    ? selectedDate
+String currentDate = (selectedNewDate != "" && otherDate == true)
+    ? selectedNewDate
     : Date.getTheDate(getTodayDate, '', "yyyy-MM-dd", null);
 
 class CompactorTaskApi {
@@ -45,8 +45,8 @@ class CompactorTaskApi {
     List<Schedule>? decodeBody = [];
     String? getAccessToken = userInfo[1];
     DateTime getTodayDate = DateTime.now();
-    String currentDate = (selectedDate != "" && otherDate == true)
-        ? selectedDate
+    String currentDate = (selectedNewDate != "" && otherDate == true)
+        ? selectedNewDate
         : Date.getTheDate(getTodayDate, '', "yyyy-MM-dd", null);
 
     try {
@@ -82,8 +82,8 @@ class CompactorTaskApi {
     String? getAccessToken = userInfo[1];
 
     DateTime getTodayDate = DateTime.now();
-    String currentDate = (selectedDate != "" && otherDate == true)
-        ? selectedDate
+    String currentDate = (selectedNewDate != "" && otherDate == true)
+        ? selectedNewDate
         : Date.getTheDate(getTodayDate, '', "yyyy-MM-dd", null);
     try {
       var response = await Dio().get(

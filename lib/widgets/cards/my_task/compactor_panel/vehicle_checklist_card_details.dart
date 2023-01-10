@@ -32,7 +32,7 @@ class _VehicleChecklistCardDetailsState
 
   @override
   void initState() {
-    if (otherDate && selectedDate != '') {
+    if (otherDate && selectedNewDate != '') {
       buttonColor = grey100;
       buttonTextColor = grey500;
       buttonSplashColor = transparent;
@@ -76,6 +76,11 @@ class _VehicleChecklistCardDetailsState
         buttonColor = greenCustom;
         buttonTextColor = white;
         buttonSplashColor = green800;
+        if (vcCondition == -1) {
+          buttonColor = grey100;
+          buttonTextColor = grey500;
+          buttonSplashColor = transparent;
+        }
       }
     } else if (widget
                 .compactorData!.data!.vehicleChecklistId!.statusCode!.code! ==

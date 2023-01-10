@@ -48,11 +48,11 @@ class _CompactorPanelTodayTaskDetailsState
         _scaleCard = _controllerCard.value;
       });
     });
-    if (otherDate && selectedDate != '') {
+    if (otherDate && selectedNewDate != '') {
       todayDate = Date.getTheDate(
-          DateTime.parse(selectedDate), '', 'dd MMMM yyyy', 'ms');
+          DateTime.parse(selectedNewDate), '', 'dd MMMM yyyy', 'ms');
 
-      if (Date.isDateExpired(DateTime.parse(selectedDate))) {
+      if (Date.isDateExpired(DateTime.parse(selectedNewDate))) {
         todayTask = isScheduleListExist
             ? "Tugasan Masa Lalu (${DateFormat("hh:mm").format(DateTime.parse('20222312 ${widget.scheduleData!.data!.startWork!}'))} ${Time.convertAMPMToMs(widget.scheduleData!.data!.startWork!)} - ${DateFormat("hh:mm").format(DateTime.parse('20222312 ${widget.scheduleData!.data!.stopWork!}'))} ${Time.convertAMPMToMs(widget.scheduleData!.data!.stopWork!)})"
             : "Tugasan Masa Lalu ( --:-- )";
@@ -102,7 +102,7 @@ class _CompactorPanelTodayTaskDetailsState
           SizedBox(
             width: Orientations().isTabletPortrait(context) ? 10 : 30,
           ),
-          (otherDate && selectedDate != '')
+          (otherDate && selectedNewDate != '')
               ? IconButton(
                   icon: const Icon(
                     CustomIcon.refresh,
@@ -111,7 +111,7 @@ class _CompactorPanelTodayTaskDetailsState
                   ),
                   tooltip: "Tekan untuk lihat jadual hari ini",
                   onPressed: () {
-                    selectedDate = '';
+                    selectedNewDate = '';
                     otherDate = false;
                     refresh.value = !refresh.value;
                   })
@@ -151,7 +151,8 @@ class _CompactorPanelTodayTaskDetailsState
                     ).then((value) {
                       if (value != null) {
                         setState(() {
-                          selectedDate = DateFormat("yyyy-MM-dd").format(value);
+                          selectedNewDate =
+                              DateFormat("yyyy-MM-dd").format(value);
                           otherDate = true;
                           refresh.value = !refresh.value;
                         });

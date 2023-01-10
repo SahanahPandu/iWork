@@ -452,7 +452,7 @@ class _DrawerBuildState extends State<DrawerBuild> {
 
   void _refreshMainPage() {
     otherDate = false;
-    selectedDate = "";
+    selectedNewDate = "";
     refresh.value = !refresh.value;
   }
 
@@ -479,7 +479,7 @@ class _DrawerBuildState extends State<DrawerBuild> {
 
   void _clearSavedFlag() {
     otherDate = false;
-    selectedDate = "";
+    selectedNewDate = "";
     vcStatus = 0;
     onGoingTask = false;
   }

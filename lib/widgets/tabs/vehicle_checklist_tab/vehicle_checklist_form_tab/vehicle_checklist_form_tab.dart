@@ -9,6 +9,7 @@ import '../../../../utils/device/orientations.dart';
 import '../../../../utils/device/sizes.dart';
 import '../../../../utils/icon/custom_icon.dart';
 import '../../../alert/alert_dialog.dart';
+import '../../../alert/toast.dart';
 import 'vehicle_checklist_form_tab_bar_view/vehicle_checklist_form_after_tab_bar_view.dart';
 import 'vehicle_checklist_form_tab_bar_view/vehicle_checklist_form_before_tab_bar_view.dart';
 
@@ -166,9 +167,7 @@ class _VehicleChecklistFormTabState extends State<VehicleChecklistFormTab>
                       ],
                       onTap: (index) {
                         if (index == 1 &&
-                            (vcStatus == 0 ||
-                                vcStatus == 1 ||
-                                vcStatus == 2)) {
+                            (vcStatus == 0 || vcStatus == 1 || vcStatus == 2)) {
                           _tabController.index = 0;
                           showDialog(
                               context: context,
@@ -184,6 +183,17 @@ class _VehicleChecklistFormTabState extends State<VehicleChecklistFormTab>
                               //Navigator.pop(context);
                             }
                           });
+                        }
+
+                        if (index == 1 && selectedNewDate != '' && otherDate) {
+                          if (vcStatus == 3 &&
+                              widget.compactorData!.data!.vehicleChecklistId!
+                                      .statusCode!.code ==
+                                  "VC1") {
+                            _tabController.index = 0;
+                            showInfoToast(context,
+                                "Tiada rekod Semakan Kenderaan (Selepas Balik) pada hari $selectedNewDate");
+                          }
                         }
                       },
                     ),

@@ -59,7 +59,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
   final _enteredResult = List<int>.generate(14, (index) => -1);
 
   /// Container expand/collapse boolean
-  final formExpandFlag = List<bool>.generate(11, (index) => false);
+  var formExpandFlag = List<bool>.generate(11, (index) => false);
   bool formExpandFlagDefault = true;
   bool _valid = false;
   bool empty = true;
@@ -1464,10 +1464,27 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                         const EdgeInsets.symmetric(vertical: 5, horizontal: 25),
                     initiallyExpanded: formExpandFlagDefault,
                     onExpansionChanged: (d) {
+                      /// d = true (expanded)
+                      /// d = false (collapsed)
                       Timer(const Duration(milliseconds: 300), () {
                         setState(() {
-                          formExpandFlag[0] = !d;
+                          //formExpandFlag[0] = !d;
                           formExpandFlagDefault = d;
+                          if (d) {
+                            formExpandFlag = [
+                              false,
+                              false,
+                              false,
+                              false,
+                              false,
+                              false,
+                              false,
+                              false,
+                              false,
+                              false,
+                              false
+                            ];
+                          }
                         });
                       });
                     },
@@ -1592,9 +1609,27 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                         onExpansionChanged: (d) {
                           Timer(const Duration(milliseconds: 300), () {
                             setState(() {
-                              formExpandFlagDefault = !d;
+                              //formExpandFlagDefault = false;
                               formExpandFlag[0] = d;
                             });
+                            if (d) {
+                              setState(() {
+                                formExpandFlagDefault = false;
+                                formExpandFlag = [
+                                  d,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false
+                                ];
+                              });
+                            }
                           });
                         },
                         title: Row(
@@ -1762,11 +1797,30 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                             vertical: 5, horizontal: 25),
                         initiallyExpanded: formExpandFlag[1],
                         onExpansionChanged: (d) {
-                          Timer(const Duration(milliseconds: 350), () {
+                          Timer(const Duration(milliseconds: 300), () {
                             setState(() {
-                              formExpandFlag[0] = !d;
+                              //formExpandFlag[0] = !d;
                               formExpandFlag[1] = d;
                             });
+                            if (d) {
+                              setState(() {
+                                formExpandFlagDefault = false;
+                                formExpandFlag[1] = d;
+                                formExpandFlag = [
+                                  false,
+                                  d,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false
+                                ];
+                              });
+                            }
                           });
                         },
                         title: Row(
@@ -1940,11 +1994,29 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                             vertical: 5, horizontal: 25),
                         initiallyExpanded: formExpandFlag[2],
                         onExpansionChanged: (d) {
-                          Timer(const Duration(milliseconds: 350), () {
+                          Timer(const Duration(milliseconds: 300), () {
                             setState(() {
-                              formExpandFlag[1] = !d;
+                              //formExpandFlag[1] = !d;
                               formExpandFlag[2] = d;
                             });
+                            if (d) {
+                              setState(() {
+                                formExpandFlagDefault = false;
+                                formExpandFlag = [
+                                  false,
+                                  false,
+                                  d,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false
+                                ];
+                              });
+                            }
                           });
                         },
                         title: Row(
@@ -2128,11 +2200,29 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                             vertical: 5, horizontal: 25),
                         initiallyExpanded: formExpandFlag[3],
                         onExpansionChanged: (d) {
-                          Timer(const Duration(milliseconds: 350), () {
+                          Timer(const Duration(milliseconds: 300), () {
                             setState(() {
-                              formExpandFlag[2] = !d;
+                              //formExpandFlag[2] = !d;
                               formExpandFlag[3] = d;
                             });
+                            if (d) {
+                              setState(() {
+                                formExpandFlagDefault = false;
+                                formExpandFlag = [
+                                  false,
+                                  false,
+                                  false,
+                                  d,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false
+                                ];
+                              });
+                            }
                           });
                         },
                         title: Row(
@@ -2376,11 +2466,29 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                             vertical: 5, horizontal: 25),
                         initiallyExpanded: formExpandFlag[4],
                         onExpansionChanged: (d) {
-                          Timer(const Duration(milliseconds: 350), () {
+                          Timer(const Duration(milliseconds: 300), () {
                             setState(() {
-                              formExpandFlag[3] = !d;
+                              // formExpandFlag[3] = !d;
                               formExpandFlag[4] = d;
                             });
+                            if (d) {
+                              setState(() {
+                                formExpandFlagDefault = false;
+                                formExpandFlag = [
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  d,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false
+                                ];
+                              });
+                            }
                           });
                         },
                         title: Row(
@@ -2536,11 +2644,29 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                             vertical: 5, horizontal: 25),
                         initiallyExpanded: formExpandFlag[5],
                         onExpansionChanged: (d) {
-                          Timer(const Duration(milliseconds: 350), () {
+                          Timer(const Duration(milliseconds: 300), () {
                             setState(() {
-                              formExpandFlag[4] = !d;
+                              //formExpandFlag[4] = !d;
                               formExpandFlag[5] = d;
                             });
+                            if (d) {
+                              setState(() {
+                                formExpandFlagDefault = false;
+                                formExpandFlag = [
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  d,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false
+                                ];
+                              });
+                            }
                           });
                         },
                         title: Row(
@@ -2702,11 +2828,29 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                             vertical: 5, horizontal: 25),
                         initiallyExpanded: formExpandFlag[6],
                         onExpansionChanged: (d) {
-                          Timer(const Duration(milliseconds: 350), () {
+                          Timer(const Duration(milliseconds: 300), () {
                             setState(() {
-                              formExpandFlag[5] = !d;
+                              //formExpandFlag[5] = !d;
                               formExpandFlag[6] = d;
                             });
+                            if (d) {
+                              setState(() {
+                                formExpandFlagDefault = false;
+                                formExpandFlag = [
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  d,
+                                  false,
+                                  false,
+                                  false,
+                                  false
+                                ];
+                              });
+                            }
                           });
                         },
                         title: Row(
@@ -2866,11 +3010,29 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                             vertical: 5, horizontal: 25),
                         initiallyExpanded: formExpandFlag[7],
                         onExpansionChanged: (d) {
-                          Timer(const Duration(milliseconds: 350), () {
+                          Timer(const Duration(milliseconds: 300), () {
                             setState(() {
-                              formExpandFlag[6] = !d;
+                              //formExpandFlag[6] = !d;
                               formExpandFlag[7] = d;
                             });
+                            if (d) {
+                              setState(() {
+                                formExpandFlagDefault = false;
+                                formExpandFlag = [
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  d,
+                                  false,
+                                  false,
+                                  false
+                                ];
+                              });
+                            }
                           });
                         },
                         title: Row(
@@ -3025,11 +3187,29 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                             vertical: 5, horizontal: 25),
                         initiallyExpanded: formExpandFlag[8],
                         onExpansionChanged: (d) {
-                          Timer(const Duration(milliseconds: 350), () {
+                          Timer(const Duration(milliseconds: 300), () {
                             setState(() {
-                              formExpandFlag[7] = !d;
+                              //formExpandFlag[7] = !d;
                               formExpandFlag[8] = d;
                             });
+                            if (d) {
+                              setState(() {
+                                formExpandFlagDefault = false;
+                                formExpandFlag = [
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  d,
+                                  false,
+                                  false
+                                ];
+                              });
+                            }
                           });
                         },
                         title: Row(
@@ -3190,11 +3370,29 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                             vertical: 5, horizontal: 25),
                         initiallyExpanded: formExpandFlag[9],
                         onExpansionChanged: (d) {
-                          Timer(const Duration(milliseconds: 350), () {
+                          Timer(const Duration(milliseconds: 300), () {
                             setState(() {
-                              formExpandFlag[8] = !d;
+                              //formExpandFlag[8] = !d;
                               formExpandFlag[9] = d;
                             });
+                            if (d) {
+                              setState(() {
+                                formExpandFlagDefault = false;
+                                formExpandFlag = [
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  false,
+                                  d,
+                                  false
+                                ];
+                              });
+                            }
                           });
                         },
                         title: Row(
@@ -3298,7 +3496,9 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                             style:
                                                 TextStyle(color: blackCustom)),
                                       ),
-                                      const SizedBox(width: 20),
+                                      empty
+                                          ? const SizedBox(width: 20)
+                                          : const SizedBox(),
                                       empty
                                           ? ElevatedButton(
                                               style: ButtonStyle(
@@ -3412,7 +3612,11 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
           autovalidateMode: AutovalidateMode.onUserInteraction,
           textInputAction: TextInputAction.next,
           maxLines: 1,
-          inputFormatters: [LengthLimitingTextInputFormatter(10)],
+          inputFormatters: [
+            idx == 4
+                ? LengthLimitingTextInputFormatter(5)
+                : LengthLimitingTextInputFormatter(12)
+          ],
           decoration: InputDecoration(
               hintText: '0',
               hintStyle: TextStyle(
@@ -3951,9 +4155,11 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
     _loadRadioButton();
     for (var i = 0; i < _valueKey.length; i++) {
       final FormState? form = _valueKey[i].currentState;
-      if (!_incompleteRadioButton && form!.validate()) {
-        form.save();
-        _valid = true;
+      if (form!.validate()) {
+        if (!_incompleteRadioButton) {
+          form.save();
+          _valid = true;
+        }
       } else {
         _valid = false;
       }
