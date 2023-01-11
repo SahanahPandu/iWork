@@ -34,7 +34,7 @@ class LaluanApi {
       // ignore: unused_local_variable
       var response = await Dio().get(
         '$theBase/task/gw-list',
-        queryParameters: {'schedule_date': "2022-12-14"},
+        queryParameters: {'schedule_date': today},
         options: Options(headers: {
           'authorization': 'Bearer $getAccessToken',
         }),
@@ -69,7 +69,7 @@ class LaluanApi {
       // ignore: unused_local_variable
       var response = await Dio().get(
         '$theBase/task/gw-list',
-        queryParameters: {'schedule_date': "2022-12-14"},
+        queryParameters: {'schedule_date': today},
         options: Options(headers: {
           'authorization': 'Bearer ${userInfo[1]}',
         }),
