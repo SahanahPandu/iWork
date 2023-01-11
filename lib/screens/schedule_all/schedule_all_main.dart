@@ -364,11 +364,6 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                         height: 40,
                         child: ElevatedButton(
                           onPressed: () {
-                            // print(
-                            //     " Selected Status On click Batal: $selectedStatus");
-                            // setState(() {
-                            //   preSelectStatus = selectedStatus;
-                            // });
                             Navigator.pop(context);
                           },
                           style: ButtonStyle(
@@ -413,8 +408,6 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                               selectedStatus = preSelectStatus;
                               displayFilterSection = true;
                             });
-                            // print(
-                            //     "Selected Status on Click Pasti: $selectedStatus");
                           },
                           style: ButtonStyle(
                             elevation: MaterialStateProperty.all(0),

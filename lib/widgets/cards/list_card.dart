@@ -24,6 +24,7 @@ import 'my_task/supervisor/supervisor_my_task_list_details.dart';
 class ListCard extends StatefulWidget {
   final dynamic data; // the details data in the card
   final String type;
+  final String? screen;
   final int listIndex;
   final dynamic passData; // other data that need to pass
 
@@ -31,6 +32,7 @@ class ListCard extends StatefulWidget {
     Key? key,
     required this.data,
     required this.type,
+    this.screen,
     required this.listIndex,
     this.passData,
   }) : super(key: key);
@@ -179,7 +181,7 @@ class _ListCardState extends State<ListCard> with TickerProviderStateMixin {
           appBar: AppBarWidget(title: "${widget.data.id}"),
           body: ReportForm(
             screen: "4",
-            passData: widget.passData,
+            passData: widget.screen != "drawer" ? widget.passData : null,
             data: widget.data,
           ),
         );

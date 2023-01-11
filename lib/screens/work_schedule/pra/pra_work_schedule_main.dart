@@ -33,8 +33,7 @@ class _PraWorkScheduleMainState extends State<PraWorkScheduleMain> {
   }
 
   void getTheData() {
-    Future<ScheduleDetails?>? list =
-        JadualApi.getDataJadual(widget.data!.scMainId);
+    Future<ScheduleDetails?>? list = JadualApi.getDataJadual(widget.data!.id);
 
     list!.then((data) {
       setState(() {
@@ -67,7 +66,7 @@ class _PraWorkScheduleMainState extends State<PraWorkScheduleMain> {
     return SafeArea(
 
         /// 0.438 = headerExpandedHeight + 0.038
-        child: StreetSearch(height: 0.438, scMainId: widget.data?.scMainId));
+        child: StreetSearch(height: 0.438, scMainId: widget.data?.id));
   }
 
   Row _collapseTitle() {

@@ -118,6 +118,7 @@ class _CardListViewState extends State<CardListView> {
                     return ListCard(
                       data: dataFuture[index],
                       type: widget.type,
+                      screen: widget.screens,
                       listIndex: index,
                       passData: widget.passData,
                     );

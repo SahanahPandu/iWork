@@ -81,8 +81,16 @@ class _ReportFormState extends State<ReportForm> {
   loadData() {
     //to get nama laluan and no kenderaan
     if (widget.passData != null) {
-      _namaLaluan.text = widget.passData.mainRoute;
-      _noKenderaan.text = widget.passData.vehicleNo;
+      // load form
+      // from Report List (tab)
+      _namaLaluan.text = widget.passData.schCollectionMain.mainRoute;
+      _noKenderaan.text = widget.passData.schCollectionMain.vehicleNo;
+    } else if (widget.data != null) {
+      // load form
+      // from Report List (drawer)
+
+      _namaLaluan.text = widget.data.schCollectionMain.mainRoute;
+      _noKenderaan.text = widget.data.schCollectionMain.vehicleNo;
     }
 
     //set icon condition
@@ -97,7 +105,7 @@ class _ReportFormState extends State<ReportForm> {
       buttonVisibility = true;
     } else if (widget.screen == "4") {
       // load form
-      // from Report List
+      // Screen 4 = from Report List (tab) and Report List (drawer)
       textFieldFillColor = textFormFieldFillColor;
       formTitleText = "Butiran maklumat laporan: ";
       _expandController.expanded = false;
