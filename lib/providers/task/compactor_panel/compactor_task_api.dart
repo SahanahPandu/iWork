@@ -31,6 +31,7 @@ class CompactorTaskApi {
                   ?.schedules[0];*/
           return 'ok';
         case 401:
+          //print("Unauthenticated!");
           return 'ng';
         default:
           return 'ng';
@@ -48,7 +49,6 @@ class CompactorTaskApi {
     String currentDate = (selectedNewDate != "" && otherDate == true)
         ? selectedNewDate
         : Date.getTheDate(getTodayDate, '', "yyyy-MM-dd", null);
-
     try {
       var response = await Dio().get(
         HttpService().loadCompactorTaskUrlTest,
@@ -67,11 +67,17 @@ class CompactorTaskApi {
         } else {
           //print("No schedule data");
         }
-      } else {
-        //print("ERROR");
       }
-    } catch (e) {
-      //print(e);
+    } on DioError catch (e) {
+      if (e.response!.statusCode == 401) {
+        if (e.response!.statusMessage == "Unauthenticated") {
+          //print("status message --> ${e.response!.statusMessage}");
+        } else {
+          //print("status message --> ${e.response!.statusMessage}");
+        }
+      } else {
+        //print("status statusCode --> ${e.response!.statusCode}");
+      }
     }
     return decodeBody;
   }
@@ -107,8 +113,16 @@ class CompactorTaskApi {
         //print(response.statusCode);
       }
     } on DioError catch (e) {
-      // ignore: avoid_print
-      print(e);
+      //handle DioError here by error type or by error code
+      if (e.response!.statusCode == 401) {
+        if (e.response!.statusMessage == "Unauthenticated") {
+          //print("status message --> ${e.response!.statusMessage}");
+        } else {
+          //print("status message --> ${e.response!.statusMessage}");
+        }
+      } else {
+        //print("status statusCode --> ${e.response!.statusCode}");
+      }
     }
 
     return dataSchedule;
