@@ -31,8 +31,8 @@ class TaskList {
     required this.totalSubRoute,
     required this.totalPark,
     required this.totalStreet,
-    required this.startWorkAt,
-    required this.stopWorkAt,
+    this.startWorkAt,
+    this.stopWorkAt,
     this.startSchedule,
     this.stopSchedule,
     required this.statusCode,
@@ -46,8 +46,10 @@ class TaskList {
         totalSubRoute: json['total_sub_route'],
         totalPark: json['total_park'],
         totalStreet: json['total_street'],
-        startWorkAt: json['start_schedule_at'],
-        stopWorkAt: json['stop_schedule_at'],
+        startWorkAt: json['start_work_at'],
+        stopWorkAt: json['stop_work_at'],
+        startSchedule: json['start_schedule_at'],
+        stopSchedule: json['stop_schedule_at'],
         statusCode: Status.fromJson(json['status_code']),
       );
 
