@@ -353,7 +353,7 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                     }
                   },
                 ),
-                const SizedBox(
+                SizedBox(
                   height: userRole == 100 ? 20 : 32,
                 ),
                 Row(
