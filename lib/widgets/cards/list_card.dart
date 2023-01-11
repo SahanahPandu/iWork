@@ -22,10 +22,10 @@ import './my_task/pra/pra_my_task_list_details.dart';
 import 'my_task/supervisor/supervisor_my_task_list_details.dart';
 
 class ListCard extends StatefulWidget {
-  final dynamic data;
+  final dynamic data; // the details data in the card
   final String type;
   final int listIndex;
-  final dynamic passData;
+  final dynamic passData; // other data that need to pass
 
   const ListCard({
     Key? key,

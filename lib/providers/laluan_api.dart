@@ -34,7 +34,7 @@ class LaluanApi {
       // ignore: unused_local_variable
       var response = await Dio().get(
         '$theBase/task/gw-list',
-        queryParameters: {'schedule_date': today},
+        queryParameters: {'schedule_date': "2022-12-14"},
         options: Options(headers: {
           'authorization': 'Bearer $getAccessToken',
         }),
@@ -62,14 +62,14 @@ class LaluanApi {
   }
 
   static Future<GeneralWorkerTask> getDataMasaKerja(context) async {
-    GeneralWorkerTask theTime =
-        const GeneralWorkerTask(startWork: null, stopWork: null, list: []);
+    GeneralWorkerTask theTime = const GeneralWorkerTask(
+        startSchedule: null, stopSchedule: null, list: []);
 
     try {
       // ignore: unused_local_variable
       var response = await Dio().get(
         '$theBase/task/gw-list',
-        queryParameters: {'schedule_date': today},
+        queryParameters: {'schedule_date': "2022-12-14"},
         options: Options(headers: {
           'authorization': 'Bearer ${userInfo[1]}',
         }),

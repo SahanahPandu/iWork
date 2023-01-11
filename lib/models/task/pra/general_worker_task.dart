@@ -3,10 +3,10 @@ import 'package:json_annotation/json_annotation.dart';
 
 class GeneralWorkerTask {
   @JsonKey(defaultValue: null)
-  final String? startWork;
+  final String? startSchedule;
 
   @JsonKey(defaultValue: null)
-  final String? stopWork;
+  final String? stopSchedule;
 
   @JsonKey(defaultValue: {})
   final Attendance? attendance;
@@ -15,16 +15,16 @@ class GeneralWorkerTask {
   final List<TaskList> list;
 
   const GeneralWorkerTask({
-    required this.startWork,
-    required this.stopWork,
+    required this.startSchedule,
+    required this.stopSchedule,
     this.attendance,
     required this.list,
   });
 
   static GeneralWorkerTask fromJson(Map<String, dynamic> json) =>
       GeneralWorkerTask(
-        startWork: json['startWork'],
-        stopWork: json['stopWork'],
+        startSchedule: json['start_schedule'],
+        stopSchedule: json['stop_schedule'],
         attendance: json['attendance'] != null
             ? Attendance.fromJson(json['attendance'])
             : null,

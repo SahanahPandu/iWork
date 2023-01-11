@@ -63,14 +63,14 @@ class _PraState extends State<Pra> {
                 TimeOfDay? endTime;
 
                 //get the working time
-                if (theData.startWork != null) {
-                  startTime =
-                      Date.getTheTimeOfDay(theData.startWork, "HH:mm:ss", "ms");
+                if (theData.startSchedule != null) {
+                  startTime = Date.getTheTimeOfDay(
+                      theData.startSchedule, "HH:mm:ss", "ms");
                 }
 
-                if (theData.stopWork != null) {
-                  endTime =
-                      Date.getTheTimeOfDay(theData.stopWork, "HH:mm:ss", "ms");
+                if (theData.stopSchedule != null) {
+                  endTime = Date.getTheTimeOfDay(
+                      theData.stopSchedule, "HH:mm:ss", "ms");
                 }
 
                 if (startTime == null || endTime == null) {

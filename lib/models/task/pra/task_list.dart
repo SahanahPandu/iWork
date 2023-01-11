@@ -1,3 +1,5 @@
+import 'package:json_annotation/json_annotation.dart';
+
 class TaskList {
   final int scMainId;
   final String vehicleNo;
@@ -6,8 +8,19 @@ class TaskList {
   final int totalSubRoute;
   final int totalPark;
   final int totalStreet;
-  final String startWorkAt;
-  final String stopWorkAt;
+
+  @JsonKey(defaultValue: "")
+  final String? startWorkAt;
+
+  @JsonKey(defaultValue: "")
+  final String? stopWorkAt;
+
+  @JsonKey(defaultValue: "")
+  final String? startSchedule;
+
+  @JsonKey(defaultValue: "")
+  final String? stopSchedule;
+
   final Status statusCode;
 
   const TaskList({
@@ -20,6 +33,8 @@ class TaskList {
     required this.totalStreet,
     required this.startWorkAt,
     required this.stopWorkAt,
+    this.startSchedule,
+    this.stopSchedule,
     required this.statusCode,
   });
 
