@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import '../../config/config.dart';
 import '../../config/dimen.dart';
 import '../../config/palette.dart';
+import '../../utils/device/orientations.dart';
 import '../../utils/device/sizes.dart';
 import '../../utils/icon/custom_icon.dart';
 import '../../widgets/custom_scroll/custom_scroll.dart';
@@ -155,10 +156,14 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
             topRight: Radius.circular(20),
           ),
         ),
-        constraints: BoxConstraints(
-          maxHeight: Sizes().screenHeight(context) * 0.6,
-          maxWidth: Sizes().screenWidth(context),
-        ),
+        constraints: userRole == 100
+            ? (Orientations().isLandscape(context)
+                ? const BoxConstraints(maxWidth: 550, maxHeight: 380)
+                : const BoxConstraints(maxWidth: 550, maxHeight: 380))
+            : BoxConstraints(
+                maxHeight: Sizes().screenHeight(context) * 0.6,
+                maxWidth: Sizes().screenWidth(context),
+              ),
         context: context,
         builder: (builder) {
           return Container(
@@ -349,7 +354,7 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                   },
                 ),
                 const SizedBox(
-                  height: 32,
+                  height: userRole == 100 ? 20 : 32,
                 ),
                 Row(
                   children: [
@@ -454,10 +459,14 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
             topRight: Radius.circular(20),
           ),
         ),
-        constraints: BoxConstraints(
-          maxHeight: Sizes().screenHeight(context) * 0.4,
-          maxWidth: Sizes().screenWidth(context),
-        ),
+        constraints: userRole == 100
+            ? (Orientations().isLandscape(context)
+                ? const BoxConstraints(maxWidth: 550, maxHeight: 280)
+                : const BoxConstraints(maxWidth: 550, maxHeight: 330))
+            : BoxConstraints(
+                maxHeight: Sizes().screenHeight(context) * 0.4,
+                maxWidth: Sizes().screenWidth(context),
+              ),
         context: context,
         builder: (builder) {
           return Container(
@@ -521,15 +530,25 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                   height: 18,
                 ),
                 SizedBox(
-                  height: Sizes().screenHeight(context) * 0.2,
-                  child: CupertinoDatePicker(
-                    backgroundColor: Colors.white,
-                    dateOrder: DatePickerDateOrder.dmy,
-                    mode: CupertinoDatePickerMode.date,
-                    initialDateTime: filteredDate,
-                    onDateTimeChanged: (theDate) {
-                      getDate = theDate;
-                    },
+                  height: userRole == 100
+                      ? (Orientations().isLandscape(context)
+                          ? Sizes().screenHeight(context) * 0.23
+                          : Sizes().screenHeight(context) * 0.18)
+                      : Sizes().screenHeight(context) * 0.2,
+                  child: Localizations.override(
+                    context: context,
+                    locale: const Locale('ms'),
+                    child: CupertinoDatePicker(
+                      backgroundColor: Colors.white,
+                      dateOrder: DatePickerDateOrder.dmy,
+                      mode: CupertinoDatePickerMode.date,
+                      initialDateTime: filteredDate,
+                      maximumYear: 2024,
+                      minimumYear: 2022,
+                      onDateTimeChanged: (theDate) {
+                        getDate = theDate;
+                      },
+                    ),
                   ),
                 ),
               ],
