@@ -62,7 +62,7 @@ class _CustomDialogState extends State<CustomDialog>
               ),
             ),
             const SizedBox(
-              height: 32,
+              height: 30,
             ),
             Expanded(
               child: SizedBox(

@@ -2,6 +2,7 @@
 
 import 'package:action_slider/action_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -12,6 +13,7 @@ import '../../config/string.dart';
 import '../../models/task/compactor/compactor_task.dart';
 import '../../models/task/compactor/data/schedule/schedule.dart';
 import '../../providers/start_stop_work_time/start_stop_work_time_api.dart';
+import '../../utils/calendar/time.dart';
 import '../../utils/device/orientations.dart';
 import '../../utils/device/sizes.dart';
 import '../alert/alert_dialog.dart';
@@ -354,7 +356,8 @@ class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
                               builder: (BuildContext context) {
                                 return showLottieAlertDialog(
                                   context,
-                                  _textBuilder(),
+                                  _textBuilder(
+                                      "\nAnda berjaya mulakan kerja bagi laluan ${widget.data.mainRoute}. Selamat Bekerja!"),
                                   "",
                                   null,
                                   null,
@@ -386,7 +389,8 @@ class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
                               builder: (BuildContext context) {
                                 return showLottieAlertDialog(
                                   context,
-                                  _textStopBuilder(),
+                                  _textBuilder(
+                                      "\nAnda berjaya tamatkan kerja bagi laluan ${widget.data.mainRoute}."),
                                   "",
                                   null,
                                   null,
@@ -409,25 +413,26 @@ class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
                 : null);
   }
 
-  Text _textBuilder() {
-    return Text("Anda berjaya mulakan kerja pada hari ini. Selamat Bekerja!",
+  RichText _textBuilder(String message) {
+    var timeNow = DateFormat("hh:mm").format(DateTime.now());
+    var timeNow24Hr = DateFormat("HH:mm").format(DateTime.now());
+    return RichText(
         textAlign: TextAlign.center,
-        style: TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.w400,
-            color: greyCustom,
-            height: 1.5));
-  }
-
-  Text _textStopBuilder() {
-    return Text(
-        "Anda berjaya tamatkan kerja bagi laluan ${widget.data.mainRoute}, untuk hari ini.",
-        textAlign: TextAlign.center,
-        style: TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.w400,
-            color: greyCustom,
-            height: 1.5));
+        text: TextSpan(
+            text: "$timeNow ${Time.convertAMPMToMs(timeNow24Hr)}",
+            style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
+                color: greenCustom,
+                height: 1.5),
+            children: <TextSpan>[
+              TextSpan(
+                  text: message,
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      color: greyCustom))
+            ]));
   }
 
   void _setTaskState(String textP, Color textColorP, Color iconColorP,
