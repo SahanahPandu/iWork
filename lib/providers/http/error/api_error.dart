@@ -15,6 +15,16 @@ class ApiError {
     if (e.type == DioErrorType.other) {
       dioError.value = 1;
       message = "Tiada sambungan internet";
+
+      ///"SocketException: No route to host (OS Error: No route to host, errno = 113), address = iworkapi.swmsb.com"
+      ///"SocketException: Connection refused (OS Error: Connection refused, errno = 111), address = iworkapi.swmsb.com
+      if (e.message.contains(
+              "SocketException: Connection refused (OS Error: Connection refused") ||
+          e.message.contains(
+              "SocketException: No route to host (OS Error: No route to host")) {
+        dioError.value = 10;
+        message = "Server mengalami masalah. Sila hubungi IT";
+      }
     }
 
     /// Connection Error 2.Connection Timeout
