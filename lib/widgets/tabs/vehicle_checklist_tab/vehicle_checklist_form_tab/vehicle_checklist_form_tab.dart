@@ -46,7 +46,7 @@ class _VehicleChecklistFormTabState extends State<VehicleChecklistFormTab>
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        if (vcStatus == 0 || vcStatus == 3) {
+        if (vcStatus == 0 || vcStatus == 3 && (selectedNewDate == '')) {
           showDialog(
               context: context,
               builder: (BuildContext context) {
@@ -81,20 +81,25 @@ class _VehicleChecklistFormTabState extends State<VehicleChecklistFormTab>
                 elevation: 0,
                 leading: IconButton(
                   onPressed: () {
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return showAlertDialog(
-                              context,
-                              reminder,
-                              "Adakah anda pasti untuk kembali ke halaman utama?",
-                              cancel,
-                              yes);
-                        }).then((actionText) {
-                      if (actionText == yes) {
-                        Navigator.pop(context);
-                      }
-                    });
+                    if (vcStatus == 0 ||
+                        vcStatus == 3 && (selectedNewDate == '')) {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return showAlertDialog(
+                                context,
+                                reminder,
+                                "Adakah anda pasti untuk kembali ke halaman utama?\nData yang diisi akan hilang.",
+                                cancel,
+                                yes);
+                          }).then((actionText) {
+                        if (actionText == yes) {
+                          Navigator.pop(context);
+                        }
+                      });
+                    } else {
+                      Navigator.pop(context);
+                    }
                   },
                   icon:
                       Icon(CustomIcon.arrowBack, color: blackCustom, size: 22),
