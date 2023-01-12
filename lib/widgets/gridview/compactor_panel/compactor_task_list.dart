@@ -16,8 +16,10 @@ import '../../cards/my_task/compactor_panel/vehicle_checklist_card_details.dart'
 class CompactorTaskList extends StatefulWidget {
   final bool main;
   final CompactorTask? data;
+  final Map<String, Object>? filterData;
 
-  const CompactorTaskList({Key? key, required this.main, this.data})
+  const CompactorTaskList(
+      {Key? key, required this.main, this.data, this.filterData})
       : super(key: key);
 
   @override
@@ -31,7 +33,7 @@ class _CompactorTaskListState extends State<CompactorTaskList> {
   void initState() {
     super.initState();
     listLength = 0;
-    _loadLaluanList = CompactorTaskApi.getCompactorScheduleList();
+    _loadLaluanList = CompactorTaskApi.getCompactorScheduleList(context);
     cpSchedule = List.generate(listLength, (index) => 0);
     routeNames = List.generate(listLength, (index) => '');
   }

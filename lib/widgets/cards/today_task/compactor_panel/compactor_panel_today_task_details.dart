@@ -133,6 +133,10 @@ class _CompactorPanelTodayTaskDetailsState
                               onPrimary: white,
                               onSurface: black45,
                             ),
+                            dialogTheme: DialogTheme(
+                                shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
+                            )),
                             textButtonTheme: TextButtonThemeData(
                               style: TextButton.styleFrom(
                                 primary: darkGreen, // button text color
@@ -149,10 +153,14 @@ class _CompactorPanelTodayTaskDetailsState
                       lastDate: DateTime(DateTime.now().year + 1),
                       initialEntryMode: DatePickerEntryMode.calendarOnly,
                     ).then((value) {
-                      if (value != null) {
+                      String today =
+                          DateFormat("yyyy-MM-dd").format(DateTime.now());
+                      String newDate = value != null
+                          ? DateFormat("yyyy-MM-dd").format(value)
+                          : "";
+                      if ((newDate != "") && (today.compareTo(newDate) != 0)) {
                         setState(() {
-                          selectedNewDate =
-                              DateFormat("yyyy-MM-dd").format(value);
+                          selectedNewDate = newDate;
                           otherDate = true;
                           refresh.value = !refresh.value;
                         });

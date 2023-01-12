@@ -2,10 +2,12 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import '../../config/config.dart';
 import '../../models/vc/vc_main.dart';
+import '../http/error/api_error.dart';
 import '../http/service/http_service.dart';
 
 class VehicleChecklistApi {
@@ -36,7 +38,8 @@ class VehicleChecklistApi {
     return dataVC;
   }
 
-  static Future<VehicleChecklistMain> getVehicleChecklistData(int? vcId) async {
+  static Future<VehicleChecklistMain> getVehicleChecklistData(
+      BuildContext context, int? vcId) async {
     late VehicleChecklistMain dataVC;
     String? getAccessToken = userInfo[1];
     try {
@@ -60,8 +63,8 @@ class VehicleChecklistApi {
           return VehicleChecklistMain(status: "Invalid");
       }
     } on DioError catch (e) {
-      // ignore: avoid_print
-      print(e);
+      /// Checks for Dio returns error
+      ApiError.findDioError(e, context);
     }
 
     return dataVC;

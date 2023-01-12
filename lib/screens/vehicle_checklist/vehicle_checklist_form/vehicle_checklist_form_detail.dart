@@ -3610,7 +3610,9 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
           keyboardType: type,
           textAlignVertical: TextAlignVertical.center,
           autovalidateMode: AutovalidateMode.onUserInteraction,
-          textInputAction: TextInputAction.next,
+          textInputAction: idx == 3 || idx == 4
+              ? TextInputAction.done
+              : TextInputAction.next,
           maxLines: 1,
           inputFormatters: [
             idx == 4
@@ -4174,11 +4176,11 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                 confirmation,
                 widget.before
                     ? Orientations().isTabletPortrait(context)
-                        ? "Hantar borang semakan kenderaan sekarang (sebelum keluar) sekarang? Pastikan maklumat yang diisi adalah tepat."
-                        : "Hantar borang semakan kenderaan sekarang (sebelum \nkeluar) sekarang? Pastikan maklumat yang diisi \nadalah tepat."
+                        ? "Hantar borang semakan kenderaan (sebelum keluar) sekarang? Pastikan maklumat yang diisi adalah tepat."
+                        : "Hantar borang semakan kenderaan (sebelum \nkeluar) sekarang? Pastikan maklumat yang diisi \nadalah tepat."
                     : Orientations().isTabletPortrait(context)
-                        ? "Hantar borang semakan kenderaan sekarang (selepas balik) sekarang? Pastikan maklumat yang diisi adalah tepat."
-                        : "Hantar borang semakan kenderaan sekarang (selepas \nbalik) sekarang? Pastikan maklumat yang diisi \nadalah tepat.",
+                        ? "Hantar borang semakan kenderaan (selepas balik) sekarang? Pastikan maklumat yang diisi adalah tepat."
+                        : "Hantar borang semakan kenderaan (selepas \nbalik) sekarang? Pastikan maklumat yang diisi \nadalah tepat.",
                 cancel,
                 submit);
           }).then((actionText) async {

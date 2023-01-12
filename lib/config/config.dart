@@ -95,3 +95,17 @@ int vcStatus = 0;
 List<int> cpSchedule = List.generate(listLength, (index) => 0);
 List<String> routeNames = List.generate(listLength, (index) => '');
 String selectedNewDate = "";
+
+/// ** Dio Error Types **
+/// '0' = No error
+/// '1' = No internet connection
+/// '2' = Connect timeout
+/// '3' = Receive timeout
+/// '4' = 400 - Bad Request
+/// '5' = 401 - Token expired/invalid/unauthenticated
+/// '6' = 404 - Not found/URL is not recognized
+/// '7' = 405 - Method not found
+/// '8' = 500 - Internal Server Error
+/// '9' = 502 - Bad Getaway
+/// '10' = Backend returns null value/Unable to map into modal
+ValueNotifier<int> dioError = ValueNotifier(0);

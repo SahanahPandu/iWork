@@ -11,6 +11,7 @@ import '../../../config/config.dart';
 import '../../../models/task/compactor/compactor_task.dart';
 import '../../../models/task/compactor/data/schedule/schedule.dart';
 import '../../../utils/calendar/date.dart';
+import '../../http/error/api_error.dart';
 import '../../http/service/http_service.dart';
 
 DateTime getTodayDate = DateTime.now();
@@ -42,7 +43,8 @@ class CompactorTaskApi {
     }
   }
 
-  static Future<List<Schedule>?> getCompactorScheduleList() async {
+  static Future<List<Schedule>?> getCompactorScheduleList(
+      BuildContext context) async {
     List<Schedule>? decodeBody = [];
     String? getAccessToken = userInfo[1];
     DateTime getTodayDate = DateTime.now();
@@ -69,15 +71,8 @@ class CompactorTaskApi {
         }
       }
     } on DioError catch (e) {
-      if (e.response!.statusCode == 401) {
-        if (e.response!.statusMessage == "Unauthenticated") {
-          //print("status message --> ${e.response!.statusMessage}");
-        } else {
-          //print("status message --> ${e.response!.statusMessage}");
-        }
-      } else {
-        //print("status statusCode --> ${e.response!.statusCode}");
-      }
+      /// Checks for Dio returns error
+      ApiError.findDioError(e, context);
     }
     return decodeBody;
   }
@@ -97,11 +92,12 @@ class CompactorTaskApi {
         queryParameters: {'schedule_date': currentDate},
         options: Options(headers: {
           'authorization': 'Bearer $getAccessToken',
+          'Accept': 'application/json'
         }),
       );
       switch (response.statusCode) {
         case 200:
-          if (response.data['data']['schedules'] != null) {
+          if (response.data['data'] != null) {
             Map<String, dynamic> decode = jsonDecode(jsonEncode(response.data));
             var convertData = CompactorTask.fromJson(decode);
             dataSchedule = convertData;
@@ -113,16 +109,8 @@ class CompactorTaskApi {
         //print(response.statusCode);
       }
     } on DioError catch (e) {
-      //handle DioError here by error type or by error code
-      if (e.response!.statusCode == 401) {
-        if (e.response!.statusMessage == "Unauthenticated") {
-          //print("status message --> ${e.response!.statusMessage}");
-        } else {
-          //print("status message --> ${e.response!.statusMessage}");
-        }
-      } else {
-        //print("status statusCode --> ${e.response!.statusCode}");
-      }
+      /// Checks for Dio returns error
+      ApiError.findDioError(e, context);
     }
 
     return dataSchedule;
