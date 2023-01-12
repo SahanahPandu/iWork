@@ -9,6 +9,7 @@ import '../../screens/reports/report_form.dart';
 import '../../screens/reports/report_list.dart';
 import '../../utils/device/orientations.dart';
 import '../../utils/device/sizes.dart';
+import '../../utils/icon/custom_icon.dart';
 import '../../widgets/app_bar/app_bar_widget.dart';
 
 class Tabs extends StatefulWidget {
@@ -86,6 +87,7 @@ class _TabsState extends State<Tabs> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarWidget(
+        leadingIcon: CustomIcon.arrowBack,
         title: widget.title,
       ),
       backgroundColor: Colors.white,

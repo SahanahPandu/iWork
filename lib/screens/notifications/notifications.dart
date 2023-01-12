@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import '../../config/palette.dart';
 import '../../providers/notifikasi_api.dart';
 import '../../screens/notifications/notifications_details.dart';
+import '../../utils/icon/custom_icon.dart';
 import '../../widgets/app_bar/app_bar_widget.dart';
 
 class Notifications extends StatefulWidget {
@@ -29,6 +30,7 @@ class _NotificationsState extends State<Notifications> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const AppBarWidget(
+        leadingIcon: CustomIcon.arrowBack,
         title: "Notifikasi",
       ),
       backgroundColor: const Color(0xffF7FBFF),

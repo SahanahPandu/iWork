@@ -8,6 +8,7 @@ import '../../../config/palette.dart';
 import '../../../providers/reports_api.dart';
 import '../../../screens/reports/report_form.dart';
 import '../../../screens/reports/report_list_details.dart';
+import '../../../utils/icon/custom_icon.dart';
 import '../../app_bar/app_bar_widget.dart';
 
 class CompactorReportList extends StatefulWidget {
@@ -58,6 +59,7 @@ class _CompactorReportListState extends State<CompactorReportList> {
                               child: Scaffold(
                                 backgroundColor: white,
                                 appBar: AppBarWidget(
+                                    leadingIcon: CustomIcon.arrowBack,
                                     title: "L${reportDataFuture[i].id}"),
                                 body: ReportForm(
                                   screen: "4",

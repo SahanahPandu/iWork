@@ -15,6 +15,7 @@ import '../../screens/reports/report_list_details.dart';
 import '../../screens/schedule_issue/report/report_approval/report_approval_main.dart';
 import '../../screens/schedule_verification/ecuti/ecuti_approval/ecuti_approval_main.dart';
 import '../../screens/work_schedule/work_schedule.dart';
+import '../../utils/icon/custom_icon.dart';
 import '../app_bar/app_bar_widget.dart';
 import 'my_task/ba/ba_my_task_list_details.dart';
 import 'my_task/eo/eo_my_task_list_details.dart';
@@ -160,7 +161,10 @@ class _ListCardState extends State<ListCard> with TickerProviderStateMixin {
 
         return Scaffold(
           backgroundColor: white,
-          appBar: const AppBarWidget(title: "E-Cuti"),
+          appBar: const AppBarWidget(
+            leadingIcon: CustomIcon.arrowBack,
+            title: "E-Cuti",
+          ),
           body: LeaveForm(screen: "2", data: widget.data),
         );
       } else if (userRole == 300) {
@@ -178,7 +182,8 @@ class _ListCardState extends State<ListCard> with TickerProviderStateMixin {
         //return ReportsPage(screen: "4", data: widget.data, dataLaluan: null);
         return Scaffold(
           backgroundColor: white,
-          appBar: AppBarWidget(title: "${widget.data.id}"),
+          appBar: AppBarWidget(
+              leadingIcon: CustomIcon.arrowBack, title: "${widget.data.id}"),
           body: ReportForm(
             screen: "4",
             passData: widget.screen != "drawer" ? widget.passData : null,

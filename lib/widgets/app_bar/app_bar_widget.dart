@@ -2,18 +2,24 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../config/palette.dart';
-import '../../utils/icon/custom_icon.dart';
 
 class AppBarWidget extends StatefulWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => const Size.fromHeight(50);
+
   final Color? bgColor;
+  final IconData leadingIcon;
   final String? title;
   final List<Widget>?
       listOfWidget; //pass list of widgets if there are icons to display on the right side of the app bar
 
-  const AppBarWidget({Key? key, this.bgColor, this.title, this.listOfWidget})
-      : super(key: key);
+  const AppBarWidget({
+    Key? key,
+    this.bgColor,
+    required this.leadingIcon,
+    this.title,
+    this.listOfWidget,
+  }) : super(key: key);
 
   @override
   State<AppBarWidget> createState() => _AppBarWidgetState();
@@ -41,7 +47,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
               Navigator.pop(context);
             },
             icon: Icon(
-              CustomIcon.arrowBack,
+              widget.leadingIcon,
               color: blackCustom,
               size: 22,
             ),

@@ -6,6 +6,7 @@ import '../../config/palette.dart';
 import '../../models/penyelia_checkbox.dart';
 import '../../providers/penyelia_api.dart';
 import '../../utils/device/sizes.dart';
+import '../../utils/icon/custom_icon.dart';
 import '../../widgets/app_bar/app_bar_widget.dart';
 import '../../widgets/search_box/search_box.dart';
 import '../list_of_employees/absent_employee_details.dart';
@@ -57,6 +58,7 @@ class _EmployeeListState extends State<EmployeeList> {
         backgroundColor: transparent,
         appBar: AppBarWidget(
           bgColor: Colors.white.withOpacity(0.5),
+          leadingIcon: CustomIcon.arrowBack,
           title: "Pilih Pekerja",
           listOfWidget: [
             IconButton(

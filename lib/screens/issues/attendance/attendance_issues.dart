@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../../config/layout.dart';
+import '../../../utils/icon/custom_icon.dart';
 import '../../../widgets/app_bar/app_bar_widget.dart';
 import '../../../widgets/cards/cards.dart';
 import '../../list_of_employees/list_of_employees.dart';
@@ -18,6 +19,7 @@ class _AttendanceIssuesState extends State<AttendanceIssues> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const AppBarWidget(
+        leadingIcon: CustomIcon.arrowBack,
         title: "Kehadiran",
         listOfWidget: [
           SizedBox(
