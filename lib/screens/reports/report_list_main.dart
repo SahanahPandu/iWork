@@ -1,5 +1,7 @@
 /// LIST OF REPORTS FOR TAB/MOBILE APP DISPLAY FROM APP DRAWER
+import 'package:eswm/screens/reports/report_filter_drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 //import files
 import '../../config/config.dart';
@@ -52,7 +54,15 @@ class _ReportListMainState extends State<ReportListMain> {
             ),
             actions: [
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    PageTransition(
+                      type: PageTransitionType.fade,
+                      child: const ReportFilterDrawer(),
+                    ),
+                  );
+                },
                 icon: Icon(
                   CustomIcon.filter,
                   color: blackCustom,

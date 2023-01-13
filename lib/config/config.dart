@@ -71,6 +71,7 @@ String scheduleId = '';
 /// ** The Server IP Adress ***
 // String theBase = "http://103.26.46.187:81/api";
 String theBase = "https://iworkapi.swmsb.com/api";
+// String theBase = "http://localhost:8000/api";
 
 /// ** LoginStatus **
 /// '0' = unknown

@@ -3,6 +3,7 @@ import 'package:eswm/providers/jadual_api.dart';
 import 'package:eswm/utils/calendar/date.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 //import files
 import '../../config/config.dart';
@@ -529,6 +530,11 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                           : Sizes().screenHeight(context) * 0.18)
                       : Sizes().screenHeight(context) * 0.2,
                   child: Localizations.override(
+                    delegates: const [
+                      GlobalMaterialLocalizations.delegate,
+                      GlobalCupertinoLocalizations.delegate,
+                      DefaultWidgetsLocalizations.delegate,
+                    ],
                     context: context,
                     locale: const Locale('ms'),
                     child: CupertinoDatePicker(
