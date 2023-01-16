@@ -4,13 +4,14 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import '../../config/config.dart';
 import '../../config/dimen.dart';
-import '../../config/font.dart';
+// import '../../config/font.dart';
 import '../../config/palette.dart';
 import '../../utils/device/orientations.dart';
 import '../../utils/device/sizes.dart';
 import '../../utils/icon/custom_icon.dart';
 import '../../widgets/app_bar/app_bar_widget.dart';
 import '../list_of_sub_routes/list_of_sub_routes_text_form_field.dart';
+import '../schedule_filter/schedule_filter_list.dart';
 
 class ReportFilterDrawer extends StatefulWidget {
   const ReportFilterDrawer({Key? key}) : super(key: key);
@@ -23,11 +24,11 @@ class _ReportFilterDrawerState extends State<ReportFilterDrawer> {
   final namaSubLaluanKey = GlobalKey<ListOfSubRoutesTextFormFieldState>();
 
   final TextEditingController _filteredDate = TextEditingController();
-  final TextEditingController _laluan = TextEditingController();
-  final TextEditingController _taman = TextEditingController();
-  final TextEditingController _jalan = TextEditingController();
-  final TextEditingController _status = TextEditingController();
-  final TextEditingController _jenisHalangan = TextEditingController();
+  // final TextEditingController _laluan = TextEditingController();
+  // final TextEditingController _taman = TextEditingController();
+  // final TextEditingController _jalan = TextEditingController();
+  // final TextEditingController _status = TextEditingController();
+  // final TextEditingController _jenisHalangan = TextEditingController();
   DateTime filteredDate = DateTime.now();
   Color textFieldFillColor = Colors.white;
   TextStyle textLabelStyle = TextStyle(
@@ -116,389 +117,391 @@ class _ReportFilterDrawerState extends State<ReportFilterDrawer> {
                   height: spaceBetweenItem,
                 ),
 
+                const ScheduleFilterList(),
+
                 //============== Laluan ===========================================
-                Text(
-                  "Laluan",
-                  style: textLabelStyle,
-                ),
-                SizedBox(
-                  height: spaceBetweenLabel,
-                ),
-                TextFormField(
-                  style: const TextStyle(
-                    fontSize: 15,
-                    color: Color(0xff2B2B2B),
-                    fontWeight: FontWeight.w400,
-                  ),
-                  controller: _laluan,
-                  readOnly: true,
-                  enabled: false,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: textFieldFillColor,
-                    contentPadding: const EdgeInsets.all(8),
-                    hintText: 'Semua',
-                    hintStyle: TextStyle(
-                      fontSize: 15,
-                      color: labelTextColor,
-                      fontWeight: textFormFieldLabelFontWeight,
-                    ),
-                    suffixIcon:
-                        //iconCondition == 1
-                        //  ?
-                        const Icon(
-                      Icons.expand_more,
-                      size: 20,
-                      color: Color(0xff2B2B2B),
-                    ),
-                    // : null,
-                    label: const Text('Semua'),
-                    labelStyle: TextStyle(
-                      fontSize: 15,
-                      color: labelTextColor,
-                      fontWeight: textFormFieldLabelFontWeight,
-                    ),
-                    // errorStyle: const TextStyle(height: 0),
-                    // errorBorder: OutlineInputBorder(
-                    //   borderSide:
-                    //       BorderSide(width: borderSideWidth, color: Colors.red),
-                    //   borderRadius: BorderRadius.circular(borderRadiusCircular),
-                    // ),
+                // Text(
+                //   "Laluan",
+                //   style: textLabelStyle,
+                // ),
+                // SizedBox(
+                //   height: spaceBetweenLabel,
+                // ),
+                // TextFormField(
+                //   style: const TextStyle(
+                //     fontSize: 15,
+                //     color: Color(0xff2B2B2B),
+                //     fontWeight: FontWeight.w400,
+                //   ),
+                //   controller: _laluan,
+                //   readOnly: true,
+                //   enabled: false,
+                //   decoration: InputDecoration(
+                //     filled: true,
+                //     fillColor: textFieldFillColor,
+                //     contentPadding: const EdgeInsets.all(8),
+                //     hintText: 'Semua',
+                //     hintStyle: TextStyle(
+                //       fontSize: 15,
+                //       color: labelTextColor,
+                //       fontWeight: textFormFieldLabelFontWeight,
+                //     ),
+                //     suffixIcon:
+                //         //iconCondition == 1
+                //         //  ?
+                //         const Icon(
+                //       Icons.expand_more,
+                //       size: 20,
+                //       color: Color(0xff2B2B2B),
+                //     ),
+                //     // : null,
+                //     label: const Text('Semua'),
+                //     labelStyle: TextStyle(
+                //       fontSize: 15,
+                //       color: labelTextColor,
+                //       fontWeight: textFormFieldLabelFontWeight,
+                //     ),
+                //     // errorStyle: const TextStyle(height: 0),
+                //     // errorBorder: OutlineInputBorder(
+                //     //   borderSide:
+                //     //       BorderSide(width: borderSideWidth, color: Colors.red),
+                //     //   borderRadius: BorderRadius.circular(borderRadiusCircular),
+                //     // ),
 
-                    disabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        width: borderSideWidth,
-                        color: enabledBorderWithoutText,
-                      ),
-                      borderRadius: BorderRadius.circular(
-                        borderRadiusCircular,
-                      ),
-                    ),
-                  ),
-                  // validator: (value) {
-                  //   if (value == null || value.isEmpty) {
-                  //     return '';
-                  //   }
+                //     disabledBorder: OutlineInputBorder(
+                //       borderSide: BorderSide(
+                //         width: borderSideWidth,
+                //         color: enabledBorderWithoutText,
+                //       ),
+                //       borderRadius: BorderRadius.circular(
+                //         borderRadiusCircular,
+                //       ),
+                //     ),
+                //   ),
+                //   // validator: (value) {
+                //   //   if (value == null || value.isEmpty) {
+                //   //     return '';
+                //   //   }
 
-                  //   return null;
-                  // },
-                ),
+                //   //   return null;
+                //   // },
+                // ),
                 //============== end of Laluan ===========================================
 
-                SizedBox(
-                  height: spaceBetweenItem,
-                ),
+                // SizedBox(
+                //   height: spaceBetweenItem,
+                // ),
 
-                //============== Sub Laluan ===========================================
-                Text(
-                  "Sub-Laluan",
-                  style: textLabelStyle,
-                ),
-                SizedBox(
-                  height: spaceBetweenLabel,
-                ),
-                ListOfSubRoutesTextFormField(
-                  key: namaSubLaluanKey,
-                  hintText: "Semua",
-                  fontSize: 15,
-                  fillColor: textFieldFillColor,
-                  iconCondition: 1,
-                  scMainId: 351,
-                  data: "",
-                ),
+                // //============== Sub Laluan ===========================================
+                // Text(
+                //   "Sub-Laluan",
+                //   style: textLabelStyle,
+                // ),
+                // SizedBox(
+                //   height: spaceBetweenLabel,
+                // ),
+                // ListOfSubRoutesTextFormField(
+                //   key: namaSubLaluanKey,
+                //   hintText: "Semua",
+                //   fontSize: 15,
+                //   fillColor: textFieldFillColor,
+                //   iconCondition: 1,
+                //   scMainId: 351,
+                //   data: "",
+                // ),
 
-                //============== end of Sub-Laluan ===========================================
+                // //============== end of Sub-Laluan ===========================================
 
-                SizedBox(
-                  height: spaceBetweenItem,
-                ),
+                // SizedBox(
+                //   height: spaceBetweenItem,
+                // ),
 
-                //============== Taman ===================================================
-                Text(
-                  "Taman",
-                  style: textLabelStyle,
-                ),
-                SizedBox(
-                  height: spaceBetweenLabel,
-                ),
-                TextFormField(
-                  style: const TextStyle(
-                    fontSize: 15,
-                    color: Color(0xff2B2B2B),
-                    fontWeight: FontWeight.w400,
-                  ),
-                  controller: _taman,
-                  readOnly: true,
-                  enabled: false,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: textFieldFillColor,
-                    contentPadding: const EdgeInsets.all(8),
-                    hintText: 'Semua',
-                    hintStyle: TextStyle(
-                      fontSize: 15,
-                      color: labelTextColor,
-                      fontWeight: textFormFieldLabelFontWeight,
-                    ),
-                    suffixIcon:
-                        //iconCondition == 1
-                        //  ?
-                        const Icon(
-                      Icons.expand_more,
-                      size: 20,
-                      color: Color(0xff2B2B2B),
-                    ),
-                    // : null,
-                    label: const Text('Semua'),
-                    labelStyle: TextStyle(
-                      fontSize: 15,
-                      color: labelTextColor,
-                      fontWeight: textFormFieldLabelFontWeight,
-                    ),
-                    // errorStyle: const TextStyle(height: 0),
-                    // errorBorder: OutlineInputBorder(
-                    //   borderSide:
-                    //       BorderSide(width: borderSideWidth, color: Colors.red),
-                    //   borderRadius: BorderRadius.circular(borderRadiusCircular),
-                    // ),
+                // //============== Taman ===================================================
+                // Text(
+                //   "Taman",
+                //   style: textLabelStyle,
+                // ),
+                // SizedBox(
+                //   height: spaceBetweenLabel,
+                // ),
+                // TextFormField(
+                //   style: const TextStyle(
+                //     fontSize: 15,
+                //     color: Color(0xff2B2B2B),
+                //     fontWeight: FontWeight.w400,
+                //   ),
+                //   controller: _taman,
+                //   readOnly: true,
+                //   enabled: false,
+                //   decoration: InputDecoration(
+                //     filled: true,
+                //     fillColor: textFieldFillColor,
+                //     contentPadding: const EdgeInsets.all(8),
+                //     hintText: 'Semua',
+                //     hintStyle: TextStyle(
+                //       fontSize: 15,
+                //       color: labelTextColor,
+                //       fontWeight: textFormFieldLabelFontWeight,
+                //     ),
+                //     suffixIcon:
+                //         //iconCondition == 1
+                //         //  ?
+                //         const Icon(
+                //       Icons.expand_more,
+                //       size: 20,
+                //       color: Color(0xff2B2B2B),
+                //     ),
+                //     // : null,
+                //     label: const Text('Semua'),
+                //     labelStyle: TextStyle(
+                //       fontSize: 15,
+                //       color: labelTextColor,
+                //       fontWeight: textFormFieldLabelFontWeight,
+                //     ),
+                //     // errorStyle: const TextStyle(height: 0),
+                //     // errorBorder: OutlineInputBorder(
+                //     //   borderSide:
+                //     //       BorderSide(width: borderSideWidth, color: Colors.red),
+                //     //   borderRadius: BorderRadius.circular(borderRadiusCircular),
+                //     // ),
 
-                    disabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        width: borderSideWidth,
-                        color: enabledBorderWithoutText,
-                      ),
-                      borderRadius: BorderRadius.circular(
-                        borderRadiusCircular,
-                      ),
-                    ),
-                  ),
-                  // validator: (value) {
-                  //   if (value == null || value.isEmpty) {
-                  //     return '';
-                  //   }
+                //     disabledBorder: OutlineInputBorder(
+                //       borderSide: BorderSide(
+                //         width: borderSideWidth,
+                //         color: enabledBorderWithoutText,
+                //       ),
+                //       borderRadius: BorderRadius.circular(
+                //         borderRadiusCircular,
+                //       ),
+                //     ),
+                //   ),
+                //   // validator: (value) {
+                //   //   if (value == null || value.isEmpty) {
+                //   //     return '';
+                //   //   }
 
-                  //   return null;
-                  // },
-                ),
-                //============== end of Taman ============================================
+                //   //   return null;
+                //   // },
+                // ),
+                // //============== end of Taman ============================================
 
-                SizedBox(
-                  height: spaceBetweenItem,
-                ),
+                // SizedBox(
+                //   height: spaceBetweenItem,
+                // ),
 
-                //============== Jalan ===================================================
-                Text(
-                  "Jalan",
-                  style: textLabelStyle,
-                ),
-                SizedBox(
-                  height: spaceBetweenLabel,
-                ),
-                TextFormField(
-                  style: const TextStyle(
-                    fontSize: 15,
-                    color: Color(0xff2B2B2B),
-                    fontWeight: FontWeight.w400,
-                  ),
-                  controller: _jalan,
-                  readOnly: true,
-                  enabled: false,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: textFieldFillColor,
-                    contentPadding: const EdgeInsets.all(8),
-                    hintText: 'Semua',
-                    hintStyle: TextStyle(
-                      fontSize: 15,
-                      color: labelTextColor,
-                      fontWeight: textFormFieldLabelFontWeight,
-                    ),
-                    suffixIcon:
-                        //iconCondition == 1
-                        //  ?
-                        const Icon(
-                      Icons.expand_more,
-                      size: 20,
-                      color: Color(0xff2B2B2B),
-                    ),
-                    // : null,
-                    label: const Text('Semua'),
-                    labelStyle: TextStyle(
-                      fontSize: 15,
-                      color: labelTextColor,
-                      fontWeight: textFormFieldLabelFontWeight,
-                    ),
-                    // errorStyle: const TextStyle(height: 0),
-                    // errorBorder: OutlineInputBorder(
-                    //   borderSide:
-                    //       BorderSide(width: borderSideWidth, color: Colors.red),
-                    //   borderRadius: BorderRadius.circular(borderRadiusCircular),
-                    // ),
+                // //============== Jalan ===================================================
+                // Text(
+                //   "Jalan",
+                //   style: textLabelStyle,
+                // ),
+                // SizedBox(
+                //   height: spaceBetweenLabel,
+                // ),
+                // TextFormField(
+                //   style: const TextStyle(
+                //     fontSize: 15,
+                //     color: Color(0xff2B2B2B),
+                //     fontWeight: FontWeight.w400,
+                //   ),
+                //   controller: _jalan,
+                //   readOnly: true,
+                //   enabled: false,
+                //   decoration: InputDecoration(
+                //     filled: true,
+                //     fillColor: textFieldFillColor,
+                //     contentPadding: const EdgeInsets.all(8),
+                //     hintText: 'Semua',
+                //     hintStyle: TextStyle(
+                //       fontSize: 15,
+                //       color: labelTextColor,
+                //       fontWeight: textFormFieldLabelFontWeight,
+                //     ),
+                //     suffixIcon:
+                //         //iconCondition == 1
+                //         //  ?
+                //         const Icon(
+                //       Icons.expand_more,
+                //       size: 20,
+                //       color: Color(0xff2B2B2B),
+                //     ),
+                //     // : null,
+                //     label: const Text('Semua'),
+                //     labelStyle: TextStyle(
+                //       fontSize: 15,
+                //       color: labelTextColor,
+                //       fontWeight: textFormFieldLabelFontWeight,
+                //     ),
+                //     // errorStyle: const TextStyle(height: 0),
+                //     // errorBorder: OutlineInputBorder(
+                //     //   borderSide:
+                //     //       BorderSide(width: borderSideWidth, color: Colors.red),
+                //     //   borderRadius: BorderRadius.circular(borderRadiusCircular),
+                //     // ),
 
-                    disabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        width: borderSideWidth,
-                        color: enabledBorderWithoutText,
-                      ),
-                      borderRadius: BorderRadius.circular(
-                        borderRadiusCircular,
-                      ),
-                    ),
-                  ),
-                  // validator: (value) {
-                  //   if (value == null || value.isEmpty) {
-                  //     return '';
-                  //   }
+                //     disabledBorder: OutlineInputBorder(
+                //       borderSide: BorderSide(
+                //         width: borderSideWidth,
+                //         color: enabledBorderWithoutText,
+                //       ),
+                //       borderRadius: BorderRadius.circular(
+                //         borderRadiusCircular,
+                //       ),
+                //     ),
+                //   ),
+                //   // validator: (value) {
+                //   //   if (value == null || value.isEmpty) {
+                //   //     return '';
+                //   //   }
 
-                  //   return null;
-                  // },
-                ),
-                //============== end of Jalan ============================================
+                //   //   return null;
+                //   // },
+                // ),
+                // //============== end of Jalan ============================================
 
-                SizedBox(
-                  height: spaceBetweenItem,
-                ),
+                // SizedBox(
+                //   height: spaceBetweenItem,
+                // ),
 
-                //============== Status ==================================================
-                Text(
-                  "Status",
-                  style: textLabelStyle,
-                ),
-                SizedBox(
-                  height: spaceBetweenLabel,
-                ),
-                TextFormField(
-                  style: const TextStyle(
-                    fontSize: 15,
-                    color: Color(0xff2B2B2B),
-                    fontWeight: FontWeight.w400,
-                  ),
-                  controller: _status,
-                  readOnly: true,
-                  enabled: false,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: textFieldFillColor,
-                    contentPadding: const EdgeInsets.all(8),
-                    hintText: 'Semua',
-                    hintStyle: TextStyle(
-                      fontSize: 15,
-                      color: labelTextColor,
-                      fontWeight: textFormFieldLabelFontWeight,
-                    ),
-                    suffixIcon:
-                        //iconCondition == 1
-                        //  ?
-                        const Icon(
-                      Icons.expand_more,
-                      size: 20,
-                      color: Color(0xff2B2B2B),
-                    ),
-                    // : null,
-                    label: const Text('Semua'),
-                    labelStyle: TextStyle(
-                      fontSize: 15,
-                      color: labelTextColor,
-                      fontWeight: textFormFieldLabelFontWeight,
-                    ),
-                    // errorStyle: const TextStyle(height: 0),
-                    // errorBorder: OutlineInputBorder(
-                    //   borderSide:
-                    //       BorderSide(width: borderSideWidth, color: Colors.red),
-                    //   borderRadius: BorderRadius.circular(borderRadiusCircular),
-                    // ),
+                // //============== Status ==================================================
+                // Text(
+                //   "Status",
+                //   style: textLabelStyle,
+                // ),
+                // SizedBox(
+                //   height: spaceBetweenLabel,
+                // ),
+                // TextFormField(
+                //   style: const TextStyle(
+                //     fontSize: 15,
+                //     color: Color(0xff2B2B2B),
+                //     fontWeight: FontWeight.w400,
+                //   ),
+                //   controller: _status,
+                //   readOnly: true,
+                //   enabled: false,
+                //   decoration: InputDecoration(
+                //     filled: true,
+                //     fillColor: textFieldFillColor,
+                //     contentPadding: const EdgeInsets.all(8),
+                //     hintText: 'Semua',
+                //     hintStyle: TextStyle(
+                //       fontSize: 15,
+                //       color: labelTextColor,
+                //       fontWeight: textFormFieldLabelFontWeight,
+                //     ),
+                //     suffixIcon:
+                //         //iconCondition == 1
+                //         //  ?
+                //         const Icon(
+                //       Icons.expand_more,
+                //       size: 20,
+                //       color: Color(0xff2B2B2B),
+                //     ),
+                //     // : null,
+                //     label: const Text('Semua'),
+                //     labelStyle: TextStyle(
+                //       fontSize: 15,
+                //       color: labelTextColor,
+                //       fontWeight: textFormFieldLabelFontWeight,
+                //     ),
+                //     // errorStyle: const TextStyle(height: 0),
+                //     // errorBorder: OutlineInputBorder(
+                //     //   borderSide:
+                //     //       BorderSide(width: borderSideWidth, color: Colors.red),
+                //     //   borderRadius: BorderRadius.circular(borderRadiusCircular),
+                //     // ),
 
-                    disabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        width: borderSideWidth,
-                        color: enabledBorderWithoutText,
-                      ),
-                      borderRadius: BorderRadius.circular(
-                        borderRadiusCircular,
-                      ),
-                    ),
-                  ),
-                  // validator: (value) {
-                  //   if (value == null || value.isEmpty) {
-                  //     return '';
-                  //   }
+                //     disabledBorder: OutlineInputBorder(
+                //       borderSide: BorderSide(
+                //         width: borderSideWidth,
+                //         color: enabledBorderWithoutText,
+                //       ),
+                //       borderRadius: BorderRadius.circular(
+                //         borderRadiusCircular,
+                //       ),
+                //     ),
+                //   ),
+                //   // validator: (value) {
+                //   //   if (value == null || value.isEmpty) {
+                //   //     return '';
+                //   //   }
 
-                  //   return null;
-                  // },
-                ),
-                //============== end of Status ===========================================
+                //   //   return null;
+                //   // },
+                // ),
+                // //============== end of Status ===========================================
 
-                SizedBox(
-                  height: spaceBetweenItem,
-                ),
+                // SizedBox(
+                //   height: spaceBetweenItem,
+                // ),
 
-                //============== Jenis Halangan ===========================================
-                Text(
-                  "Jenis Halangan",
-                  style: textLabelStyle,
-                ),
-                SizedBox(
-                  height: spaceBetweenLabel,
-                ),
-                TextFormField(
-                  style: const TextStyle(
-                    fontSize: 15,
-                    color: Color(0xff2B2B2B),
-                    fontWeight: FontWeight.w400,
-                  ),
-                  controller: _jenisHalangan,
-                  readOnly: true,
-                  enabled: false,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: textFieldFillColor,
-                    contentPadding: const EdgeInsets.all(8),
-                    hintText: 'Semua',
-                    hintStyle: TextStyle(
-                      fontSize: 15,
-                      color: labelTextColor,
-                      fontWeight: textFormFieldLabelFontWeight,
-                    ),
-                    suffixIcon:
-                        //iconCondition == 1
-                        //  ?
-                        const Icon(
-                      Icons.expand_more,
-                      size: 20,
-                      color: Color(0xff2B2B2B),
-                    ),
-                    // : null,
-                    label: const Text('Semua'),
-                    labelStyle: TextStyle(
-                      fontSize: 15,
-                      color: labelTextColor,
-                      fontWeight: textFormFieldLabelFontWeight,
-                    ),
-                    // errorStyle: const TextStyle(height: 0),
-                    // errorBorder: OutlineInputBorder(
-                    //   borderSide:
-                    //       BorderSide(width: borderSideWidth, color: Colors.red),
-                    //   borderRadius: BorderRadius.circular(borderRadiusCircular),
-                    // ),
+                // //============== Jenis Halangan ===========================================
+                // Text(
+                //   "Jenis Halangan",
+                //   style: textLabelStyle,
+                // ),
+                // SizedBox(
+                //   height: spaceBetweenLabel,
+                // ),
+                // TextFormField(
+                //   style: const TextStyle(
+                //     fontSize: 15,
+                //     color: Color(0xff2B2B2B),
+                //     fontWeight: FontWeight.w400,
+                //   ),
+                //   controller: _jenisHalangan,
+                //   readOnly: true,
+                //   enabled: false,
+                //   decoration: InputDecoration(
+                //     filled: true,
+                //     fillColor: textFieldFillColor,
+                //     contentPadding: const EdgeInsets.all(8),
+                //     hintText: 'Semua',
+                //     hintStyle: TextStyle(
+                //       fontSize: 15,
+                //       color: labelTextColor,
+                //       fontWeight: textFormFieldLabelFontWeight,
+                //     ),
+                //     suffixIcon:
+                //         //iconCondition == 1
+                //         //  ?
+                //         const Icon(
+                //       Icons.expand_more,
+                //       size: 20,
+                //       color: Color(0xff2B2B2B),
+                //     ),
+                //     // : null,
+                //     label: const Text('Semua'),
+                //     labelStyle: TextStyle(
+                //       fontSize: 15,
+                //       color: labelTextColor,
+                //       fontWeight: textFormFieldLabelFontWeight,
+                //     ),
+                //     // errorStyle: const TextStyle(height: 0),
+                //     // errorBorder: OutlineInputBorder(
+                //     //   borderSide:
+                //     //       BorderSide(width: borderSideWidth, color: Colors.red),
+                //     //   borderRadius: BorderRadius.circular(borderRadiusCircular),
+                //     // ),
 
-                    disabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        width: borderSideWidth,
-                        color: enabledBorderWithoutText,
-                      ),
-                      borderRadius: BorderRadius.circular(
-                        borderRadiusCircular,
-                      ),
-                    ),
-                  ),
-                  // validator: (value) {
-                  //   if (value == null || value.isEmpty) {
-                  //     return '';
-                  //   }
+                //     disabledBorder: OutlineInputBorder(
+                //       borderSide: BorderSide(
+                //         width: borderSideWidth,
+                //         color: enabledBorderWithoutText,
+                //       ),
+                //       borderRadius: BorderRadius.circular(
+                //         borderRadiusCircular,
+                //       ),
+                //     ),
+                //   ),
+                //   // validator: (value) {
+                //   //   if (value == null || value.isEmpty) {
+                //   //     return '';
+                //   //   }
 
-                  //   return null;
-                  // },
-                ),
+                //   //   return null;
+                //   // },
+                // ),
                 //============== end of Jenis Halangan ====================================
 
                 SizedBox(

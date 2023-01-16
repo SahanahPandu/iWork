@@ -4,14 +4,14 @@ import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../../utils/device/orientations.dart';
 import '../../widgets/custom_scroll/custom_scroll.dart';
-import '../schedule_filter/schedule_filter_list.dart';
 
-class ListOfSubRoutes extends StatefulWidget {
+class ListOfParks2 extends StatefulWidget {
   final Map<String, dynamic>? uiData;
   final dynamic data;
+
   final Function(String, dynamic)? updateData;
 
-  const ListOfSubRoutes({
+  const ListOfParks2({
     Key? key,
     this.uiData,
     this.data,
@@ -19,15 +19,15 @@ class ListOfSubRoutes extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<ListOfSubRoutes> createState() => _ListOfSubRoutesState();
+  State<ListOfParks2> createState() => _ListOfParks2State();
 }
 
-class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
+class _ListOfParks2State extends State<ListOfParks2> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        showListOfSubRoutes();
+        showListOfParks();
       },
       child: TextFormField(
         style: widget.uiData?['style'],
@@ -64,7 +64,7 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
     );
   }
 
-  Widget? showListOfSubRoutes() {
+  Widget? showListOfParks() {
     showModalBottomSheet(
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
@@ -104,7 +104,7 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
                         bottom: 10,
                       ),
                       child: Text(
-                        "Pilih Sub-Laluan",
+                        "Pilih Taman",
                         style: TextStyle(
                           color: Color(0xff969696),
                           fontSize: 15,
@@ -116,7 +116,7 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
                       padding: EdgeInsets.only(left: 26, right: 26, top: 8),
                       child: Divider(height: 0.5),
                     ),
-                    if (widget.data.subRoutes != null)
+                    if (widget.data.parks != null)
                       Container(
                         margin: const EdgeInsets.symmetric(
                           horizontal: 15,
@@ -124,15 +124,17 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
                         child: ListView.builder(
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
-                          itemCount: widget.data.subRoutes.length,
+                          itemCount: widget.data.parks.length,
                           itemBuilder: (context, index) {
-                            var theData = widget.data.subRoutes;
+                            var theData = widget.data.parks;
                             return GestureDetector(
                               onTap: () {
                                 setState(() {
                                   if (widget.updateData != null) {
-                                    widget.updateData!(
-                                        'sub-laluan', theData[index].subRoute);
+                                    widget.updateData!('taman', {
+                                      'id': theData[index].parkId,
+                                      'name': theData[index].parkName,
+                                    });
                                   }
                                 });
                                 Navigator.pop(context);
@@ -146,7 +148,7 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
                                     // Icon(selectedIndex == index ? Icons.check : null,
                                     //     color: green, size: 18),
                                     const SizedBox(width: 8),
-                                    Text(theData[index].subRoute,
+                                    Text(theData[index].parkName,
                                         style: TextStyle(
                                           color: blackCustom,
                                           fontSize: 15,

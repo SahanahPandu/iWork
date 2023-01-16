@@ -3,14 +3,17 @@ import 'package:eswm/models/schedule/filter/schedule_filter_locations.dart';
 import 'package:eswm/models/schedule/filter/schedule_filter_parks.dart';
 import 'package:eswm/models/schedule/filter/schedule_filter_streets.dart';
 import 'package:eswm/models/schedule/filter/schedule_filter_sub_routes.dart';
+import 'package:eswm/models/schedule/filter/schedule_filter_main_routes.dart';
 
 class ScheduleFilterData {
+  final dynamic mainRoute;
   final dynamic subRoutes;
   final dynamic parks;
   final dynamic streets;
   final dynamic locations;
 
   ScheduleFilterData({
+    required this.mainRoute,
     required this.subRoutes,
     required this.parks,
     required this.streets,
@@ -18,18 +21,32 @@ class ScheduleFilterData {
   });
 
   factory ScheduleFilterData.fromJson(json) => ScheduleFilterData(
-        subRoutes: json['sub_routes']
-            .map<ScheduleFilterSubRoutes>(ScheduleFilterSubRoutes.fromJson)
-            .toList(),
-        parks: json['parks']
-            .map<ScheduleFilterParks>(ScheduleFilterParks.fromJson)
-            .toList(),
-        streets: json['streets']
-            .map<ScheduleFilterStreets>(ScheduleFilterStreets.fromJson)
-            .toList(),
-        locations: json['locations']
-            .map<ScheduleFilterLocations>(ScheduleFilterLocations.fromJson)
-            .toList(),
+        mainRoute: (json['main_route'] != null || json['main_route'] != [])
+            ? json['main_route']
+                .map<ScheduleFilterMainRoutes>(
+                    ScheduleFilterMainRoutes.fromJson)
+                .toList()
+            : null,
+        subRoutes: (json['sub_routes'] != null || json['sub_routes'] != [])
+            ? json['sub_routes']
+                .map<ScheduleFilterSubRoutes>(ScheduleFilterSubRoutes.fromJson)
+                .toList()
+            : null,
+        parks: (json['parks'] != null || json['parks'] != [])
+            ? json['parks']
+                .map<ScheduleFilterParks>(ScheduleFilterParks.fromJson)
+                .toList()
+            : null,
+        streets: (json['streets'] != null || json['streets'] != [])
+            ? json['streets']
+                .map<ScheduleFilterStreets>(ScheduleFilterStreets.fromJson)
+                .toList()
+            : null,
+        locations: (json['locations'] != null || json['locations'] != [])
+            ? json['locations']
+                .map<ScheduleFilterLocations>(ScheduleFilterLocations.fromJson)
+                .toList()
+            : null,
       );
 
   Map<String, dynamic> toJson() {

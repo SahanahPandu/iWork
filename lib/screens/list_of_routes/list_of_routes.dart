@@ -6,28 +6,30 @@ import '../../utils/device/orientations.dart';
 import '../../widgets/custom_scroll/custom_scroll.dart';
 import '../schedule_filter/schedule_filter_list.dart';
 
-class ListOfSubRoutes extends StatefulWidget {
+class ListOfRoutes extends StatefulWidget {
   final Map<String, dynamic>? uiData;
   final dynamic data;
+  final GlobalKey<ScheduleFilterListState>? theKey;
   final Function(String, dynamic)? updateData;
 
-  const ListOfSubRoutes({
+  const ListOfRoutes({
     Key? key,
     this.uiData,
     this.data,
+    this.theKey,
     this.updateData,
   }) : super(key: key);
 
   @override
-  State<ListOfSubRoutes> createState() => _ListOfSubRoutesState();
+  State<ListOfRoutes> createState() => _ListOfRoutesState();
 }
 
-class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
+class _ListOfRoutesState extends State<ListOfRoutes> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        showListOfSubRoutes();
+        showListOfRoutes();
       },
       child: TextFormField(
         style: widget.uiData?['style'],
@@ -64,7 +66,7 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
     );
   }
 
-  Widget? showListOfSubRoutes() {
+  Widget? showListOfRoutes() {
     showModalBottomSheet(
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
@@ -104,7 +106,7 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
                         bottom: 10,
                       ),
                       child: Text(
-                        "Pilih Sub-Laluan",
+                        "Pilih Laluan",
                         style: TextStyle(
                           color: Color(0xff969696),
                           fontSize: 15,
@@ -116,7 +118,7 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
                       padding: EdgeInsets.only(left: 26, right: 26, top: 8),
                       child: Divider(height: 0.5),
                     ),
-                    if (widget.data.subRoutes != null)
+                    if (widget.data.mainRoute != null)
                       Container(
                         margin: const EdgeInsets.symmetric(
                           horizontal: 15,
@@ -124,16 +126,22 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
                         child: ListView.builder(
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
-                          itemCount: widget.data.subRoutes.length,
+                          itemCount: widget.data.mainRoute.length,
                           itemBuilder: (context, index) {
-                            var theData = widget.data.subRoutes;
+                            var theData = widget.data.mainRoute;
                             return GestureDetector(
                               onTap: () {
                                 setState(() {
+                                  // widget.uiData?['controller'].text =
+                                  //     theData[index].mainRouteName;
+
                                   if (widget.updateData != null) {
                                     widget.updateData!(
-                                        'sub-laluan', theData[index].subRoute);
+                                        'laluan', theData[index].mainRouteName);
                                   }
+
+                                  // scheduleFilterListKey.currentState!.namaLaluan
+                                  //     .text = theData[index].mainRouteName;
                                 });
                                 Navigator.pop(context);
                               },
@@ -146,7 +154,7 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
                                     // Icon(selectedIndex == index ? Icons.check : null,
                                     //     color: green, size: 18),
                                     const SizedBox(width: 8),
-                                    Text(theData[index].subRoute,
+                                    Text(theData[index].mainRouteName,
                                         style: TextStyle(
                                           color: blackCustom,
                                           fontSize: 15,
