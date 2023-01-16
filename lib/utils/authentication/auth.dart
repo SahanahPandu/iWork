@@ -1,6 +1,8 @@
 //import files
 // ignore_for_file: avoid_print
 
+import 'package:flutter/material.dart';
+
 import '../../config/config.dart';
 import '../../models/user/user_data.dart';
 import '../../providers/authenticate/login_api.dart';
@@ -102,5 +104,22 @@ class Auth {
       return 0;
     }
     return 0;
+  }
+
+  static void clearUserData(BuildContext context) {
+    LocalPrefs.clearLoginCredential();
+    _clearSavedFlags();
+    Future.delayed(const Duration(seconds: 4), () {
+      Navigator.pushNamedAndRemoveUntil(
+          context, '/splash', ModalRoute.withName('/splash'));
+    });
+  }
+
+  static void _clearSavedFlags() {
+    userRole = 0;
+    otherDate = false;
+    selectedNewDate = "";
+    vcStatus = 0;
+    onGoingTask = false;
   }
 }

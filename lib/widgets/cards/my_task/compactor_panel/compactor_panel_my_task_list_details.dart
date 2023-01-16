@@ -223,7 +223,7 @@ class CompactorPanelMyTaskListDetailsState
                           width: 16,
                         ),
                         Text(
-                          "Mula/Tamat Kerja",
+                          "Jadual Mula/Tamat",
                           style: TextStyle(
                             fontSize:
                                 Orientations().isLandscape(context) ? 16 : 14,
@@ -236,14 +236,11 @@ class CompactorPanelMyTaskListDetailsState
                     SizedBox(
                       width: _textSize().width,
                       height: _textSize().height,
-                      child: Text('$startTime / $stopTime',
+                      child: Text(
+                          '${Time.convertToHM(widget.data.startScheduleAt!)} / ${Time.convertToHM(widget.data.stopScheduleAt!)}',
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: blackCustom,
-                            fontWeight: FontWeight.w500,
-                          )),
+                          style:textStyle),
                     )
                   ]))
         ]),
@@ -262,19 +259,20 @@ class CompactorPanelMyTaskListDetailsState
   }
 
   final TextStyle textStyle = TextStyle(
+    fontSize: 14,
     color: blackCustom,
     fontWeight: FontWeight.w500,
   );
 
   Size _textSize() {
     final TextPainter textPainter = TextPainter(
-        text: TextSpan(text: '$startTime / $stopTime', style: textStyle),
+        text: TextSpan(text: '${Time.convertToHM(widget.data.startScheduleAt!)} / ${Time.convertToHM(widget.data.stopScheduleAt!)}', style: textStyle),
         maxLines: 1,
         textAlign: TextAlign.right,
         textDirection: TextDirection.rtl)
       ..layout(
           minWidth: 0,
-          maxWidth: Orientations().isTabletPortrait(context) ? 110 : 220);
+          maxWidth: Orientations().isTabletPortrait(context) ? 90 : 300);
     return textPainter.size;
   }
 }

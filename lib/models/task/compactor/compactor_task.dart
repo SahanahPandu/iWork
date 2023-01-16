@@ -21,7 +21,7 @@ class CompactorTask {
   factory CompactorTask.fromJson(Map<String, dynamic> json) => CompactorTask(
         data: Data.fromJson(json["data"]),
         status: json["status"],
-        message: json["message"] ?? "-",
+        message: json["message"] ?? "",
       );
 
   Map<String, dynamic> toJson() => {

@@ -27,10 +27,21 @@ class RootState extends State<Root> {
       Navigator.pushNamedAndRemoveUntil(
           context, '/splash', ModalRoute.withName('/splash'));
     } else {
-      Roles.setRole(userInfo[3]);
-      if (userRole != 0) {
+      if (getSavedUserData.isNotEmpty) {
+        Roles.setRole(userInfo[3]);
+        if (userRole != 0) {
+          Navigator.pushNamedAndRemoveUntil(
+              context, '/home', ModalRoute.withName('/home'));
+        } else {
+          getSavedUserData = [];
+          userRole == 0;
+          Navigator.pushNamedAndRemoveUntil(
+              context, '/splash', ModalRoute.withName('/splash'));
+        }
+      } else {
+        getSavedUserData = [];
         Navigator.pushNamedAndRemoveUntil(
-            context, '/home', ModalRoute.withName('/home'));
+            context, '/splash', ModalRoute.withName('/splash'));
       }
     }
   }

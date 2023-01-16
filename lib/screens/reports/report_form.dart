@@ -83,14 +83,22 @@ class _ReportFormState extends State<ReportForm> {
     if (widget.passData != null) {
       // load form
       // from Report List (tab)
-      _namaLaluan.text = widget.passData.schCollectionMain.mainRoute;
-      _noKenderaan.text = widget.passData.schCollectionMain.vehicleNo;
+      _namaLaluan.text = userRole != 100
+          ? widget.passData.schCollectionMain.mainRoute
+          : widget.passData?.mainRoute;
+      _noKenderaan.text = userRole != 100
+          ? widget.passData.schCollectionMain.vehicleNo
+          : widget.passData?.vehicleNo;
     } else if (widget.data != null) {
       // load form
       // from Report List (drawer)
 
-      _namaLaluan.text = widget.data.schCollectionMain.mainRoute;
-      _noKenderaan.text = widget.data.schCollectionMain.vehicleNo;
+      _namaLaluan.text = userRole != 100
+          ? widget.data.schCollectionMain.mainRoute
+          : widget.data?.mainRoute;
+      _noKenderaan.text = userRole != 100
+          ? widget.data.schCollectionMain.vehicleNo
+          : widget.data?.vehicleNo;
     }
 
     //set icon condition

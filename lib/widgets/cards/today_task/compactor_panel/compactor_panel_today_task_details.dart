@@ -8,7 +8,6 @@ import '../../../../config/config.dart';
 import '../../../../config/palette.dart';
 import '../../../../models/task/compactor/compactor_task.dart';
 import '../../../../utils/calendar/date.dart';
-import '../../../../utils/calendar/time.dart';
 import '../../../../utils/device/orientations.dart';
 import '../../../../utils/icon/custom_icon.dart';
 import '../../../alert/user_profile_dialog.dart';
@@ -54,17 +53,17 @@ class _CompactorPanelTodayTaskDetailsState
 
       if (Date.isDateExpired(DateTime.parse(selectedNewDate))) {
         todayTask = isScheduleListExist
-            ? "Tugasan Masa Lalu (${DateFormat("hh:mm").format(DateTime.parse('20222312 ${widget.scheduleData!.data!.startWork!}'))} ${Time.convertAMPMToMs(widget.scheduleData!.data!.startWork!)} - ${DateFormat("hh:mm").format(DateTime.parse('20222312 ${widget.scheduleData!.data!.stopWork!}'))} ${Time.convertAMPMToMs(widget.scheduleData!.data!.stopWork!)})"
+            ? "Tugasan Masa Lalu (${DateFormat("hh:mm a").format(DateTime.parse('20222312 ${widget.scheduleData!.data!.startWork!}')).toLowerCase()} - ${DateFormat("hh:mm a").format(DateTime.parse('20222312 ${widget.scheduleData!.data!.stopWork!}')).toLowerCase()})"
             : "Tugasan Masa Lalu ( --:-- )";
       } else {
         todayTask = isScheduleListExist
-            ? "Tugasan Akan Datang (${DateFormat("hh:mm").format(DateTime.parse('20222312 ${widget.scheduleData!.data!.startWork!}'))} ${Time.convertAMPMToMs(widget.scheduleData!.data!.startWork!)} - ${DateFormat("hh:mm").format(DateTime.parse('20222312 ${widget.scheduleData!.data!.stopWork!}'))} ${Time.convertAMPMToMs(widget.scheduleData!.data!.stopWork!)})"
+            ? "Tugasan Akan Datang (${DateFormat("hh:mm a").format(DateTime.parse('20222312 ${widget.scheduleData!.data!.startWork!}')).toLowerCase()} - ${DateFormat("hh:mm a").format(DateTime.parse('20222312 ${widget.scheduleData!.data!.stopWork!}')).toLowerCase()})"
             : "Tugasan Akan Datang ( --:-- )";
       }
     } else {
       todayDate = Date.getTheDate(DateTime.now(), '', 'dd MMMM yyyy', 'ms');
       todayTask = isScheduleListExist
-          ? "Tugasan Hari Ini (${DateFormat("hh:mm").format(DateTime.parse('20222312 ${widget.scheduleData!.data!.startWork!}'))} ${Time.convertAMPMToMs(widget.scheduleData!.data!.startWork!)} - ${DateFormat("hh:mm").format(DateTime.parse('20222312 ${widget.scheduleData!.data!.stopWork!}'))} ${Time.convertAMPMToMs(widget.scheduleData!.data!.stopWork!)})"
+          ? "Tugasan Hari Ini (${DateFormat("hh:mm a").format(DateTime.parse('20222312 ${widget.scheduleData!.data!.startWork!}')).toLowerCase()} - ${DateFormat("hh:mm a").format(DateTime.parse('20222312 ${widget.scheduleData!.data!.stopWork!}')).toLowerCase()})"
           : "Tugasan Hari ini ( --:-- )";
     }
   }
@@ -133,6 +132,10 @@ class _CompactorPanelTodayTaskDetailsState
                               onPrimary: white,
                               onSurface: black45,
                             ),
+                            dialogTheme: DialogTheme(
+                                shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
+                            )),
                             textButtonTheme: TextButtonThemeData(
                               style: TextButton.styleFrom(
                                 primary: darkGreen, // button text color
@@ -149,10 +152,14 @@ class _CompactorPanelTodayTaskDetailsState
                       lastDate: DateTime(DateTime.now().year + 1),
                       initialEntryMode: DatePickerEntryMode.calendarOnly,
                     ).then((value) {
-                      if (value != null) {
+                      String today =
+                          DateFormat("yyyy-MM-dd").format(DateTime.now());
+                      String newDate = value != null
+                          ? DateFormat("yyyy-MM-dd").format(value)
+                          : "";
+                      if ((newDate != "") && (today.compareTo(newDate) != 0)) {
                         setState(() {
-                          selectedNewDate =
-                              DateFormat("yyyy-MM-dd").format(value);
+                          selectedNewDate = newDate;
                           otherDate = true;
                           refresh.value = !refresh.value;
                         });

@@ -25,7 +25,7 @@ void showInfoToast(BuildContext context, String message,
   Timer.run(() => _showToast(
       context,
       message,
-      const Color.fromRGBO(68, 173, 239, 0.8745098039215686),
+      const Color.fromRGBO(82, 186, 218, 0.9372549019607843),
       Icons.info_outline,
       white,
       shouldDismiss));
@@ -34,7 +34,12 @@ void showInfoToast(BuildContext context, String message,
 void showErrorToast(BuildContext context, String message,
     {bool shouldDismiss = true}) {
   Timer.run(() => _showToast(
-      context, message, red, Icons.error_outline, white, shouldDismiss));
+      context,
+      message,
+      const Color.fromRGBO(204, 76, 76, 0.8745098039215686),
+      Icons.error_outline,
+      white,
+      shouldDismiss));
 }
 
 void _showToast(BuildContext context, String message, Color color,
@@ -72,8 +77,8 @@ void _showToast(BuildContext context, String message, Color color,
                             : Sizes().screenWidth(context) - 60)
                         : Sizes().screenWidth(context) - 50,
                     height: Orientations().isLandscape(context)
-                        ? Sizes().screenHeight(context) / 10
-                        : Sizes().screenHeight(context) / 17,
+                        ? Sizes().screenHeight(context) / 12
+                        : Sizes().screenHeight(context) / 20,
                     padding: const EdgeInsets.all(5),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,

@@ -43,8 +43,7 @@ class _CompactorPanelScheduleDetailsState
       } else {
         startTime = Time.convertToHM(widget.data!.startWorkAt!);
       }
-      if (widget.data!.stopWorkAt == "--:--" ||
-          widget.data!.stopWorkAt == "") {
+      if (widget.data!.stopWorkAt == "--:--" || widget.data!.stopWorkAt == "") {
         stopTime = "--:--";
       } else {
         stopTime = Time.convertToHM(widget.data!.stopWorkAt!);
@@ -201,14 +200,40 @@ class _CompactorPanelScheduleDetailsState
               ),
             )
           ])),
-
-      //Masuk Kerja/Keluar Kerja
+      //Jadual Mula/Tamat Kerja
       Padding(
           padding: const EdgeInsets.fromLTRB(10, 0, 10, 15),
           child:
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             Row(children: [
               Icon(CustomIcon.scheduleFill, size: 16, color: white),
+              const SizedBox(
+                width: 15,
+              ),
+              Text("Jadual Mula/Tamat",
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: white,
+                    fontWeight: FontWeight.w400,
+                  ))
+            ]),
+            Text(
+                '${Time.convertToHM(widget.data!.startScheduleAt!)} / ${Time.convertToHM(widget.data!.stopScheduleAt!)}',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: white,
+                  fontWeight: FontWeight.w600,
+                ))
+          ])),
+      //Masuk Kerja/Keluar Kerja
+      Padding(
+          padding: const EdgeInsets.fromLTRB(10, 0, 10, 15),
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            Row(children: [
+              Icon(CustomIcon.timerFill, size: 16, color: white),
               const SizedBox(
                 width: 15,
               ),
@@ -219,18 +244,14 @@ class _CompactorPanelScheduleDetailsState
                     fontWeight: FontWeight.w400,
                   ))
             ]),
-                SizedBox(
-                  width: _textSize().width,
-                  height: _textSize().height,
-                  child: Text('$startTime / $stopTime',
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: white,
-                        fontWeight: FontWeight.w600,
-                      )),
-                )
+            Text('$startTime / $stopTime',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: white,
+                  fontWeight: FontWeight.w600,
+                ))
           ])),
       //Semakan Kenderaan
       Padding(
@@ -337,23 +358,5 @@ class _CompactorPanelScheduleDetailsState
                                 )))
                       ])))),
     ]);
-  }
-
-  final TextStyle textStyle = TextStyle(
-    fontSize: 14,
-    color: white,
-    fontWeight: FontWeight.w600,
-  );
-
-  Size _textSize() {
-    final TextPainter textPainter = TextPainter(
-        text: TextSpan(text: '$startTime / $stopTime', style: textStyle),
-        maxLines: 1,
-        textAlign: TextAlign.right,
-        textDirection: TextDirection.rtl)
-      ..layout(
-          minWidth: 0,
-          maxWidth: Orientations().isTabletPortrait(context) ? 110 : 220);
-    return textPainter.size;
   }
 }

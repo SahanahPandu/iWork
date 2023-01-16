@@ -23,7 +23,7 @@ class Worker {
         id: json["id"],
         userTypeId: json["user_type_id"],
         emsUserId: json["ems_user_id"],
-        contractorUserId: json["contractor_user_id"],
+        contractorUserId: json["contractor_user_id"] ?? "",
         userDetail: UserDetail.fromJson(json["user_detail"]),
         userRoles: json["user_roles"] == null
             ? []

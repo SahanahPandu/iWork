@@ -8,7 +8,6 @@ import '../../config/resource.dart';
 import '../../models/task/compactor/compactor_task.dart';
 import '../../providers/task/compactor_panel/compactor_task_api.dart';
 import '../../utils/calendar/date.dart';
-import '../../utils/calendar/time.dart';
 import '../../utils/device/orientations.dart';
 import '../../widgets/alert/toast.dart';
 import '../../widgets/cards/today_task/today_task_card.dart';
@@ -539,16 +538,16 @@ class _CompactorPanelState extends State<CompactorPanel> {
     if (otherDate && selectedNewDate != '') {
       if (Date.isDateExpired(DateTime.parse(selectedNewDate))) {
         return isScheduleListExist
-            ? "Tugasan Masa Lalu (${DateFormat("hh:mm").format(DateTime.parse('20222312 $startTime'))} ${Time.convertAMPMToMs(startTime)} - ${DateFormat("hh:mm").format(DateTime.parse('20222312 $stopTime'))} ${Time.convertAMPMToMs(stopTime)})"
+            ? "Tugasan Masa Lalu (${DateFormat("hh:mm a").format(DateTime.parse('20222312 $startTime')).toLowerCase()} - ${DateFormat("hh:mm a").format(DateTime.parse('20222312 $stopTime')).toLowerCase()})"
             : "Tugasan Masa Lalu ( --:-- )";
       } else {
         return isScheduleListExist
-            ? "Tugasan Akan Datang (${DateFormat("hh:mm").format(DateTime.parse('20222312 $startTime'))} ${Time.convertAMPMToMs(startTime)} - ${DateFormat("hh:mm").format(DateTime.parse('20222312 $stopTime'))} ${Time.convertAMPMToMs(stopTime)})"
+            ? "Tugasan Akan Datang (${DateFormat("hh:mm a").format(DateTime.parse('20222312 $startTime')).toLowerCase()} - ${DateFormat("hh:mm a").format(DateTime.parse('20222312 $stopTime')).toLowerCase()})"
             : "Tugasan Akan Datang ( --:-- )";
       }
     } else {
       return isScheduleListExist
-          ? "Tugasan Hari Ini (${DateFormat("hh:mm").format(DateTime.parse('20222312 $startTime'))} ${Time.convertAMPMToMs(startTime)} - ${DateFormat("hh:mm").format(DateTime.parse('20222312 $stopTime'))} ${Time.convertAMPMToMs(stopTime)})"
+          ? "Tugasan Hari Ini (${DateFormat("hh:mm a").format(DateTime.parse('20222312 $startTime')).toLowerCase()} - ${DateFormat("hh:mm a").format(DateTime.parse('20222312 $stopTime')).toLowerCase()})"
           : "Tugasan Hari ini ( --:-- )";
     }
   }

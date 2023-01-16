@@ -20,7 +20,7 @@ class UserDetail {
         name: json["name"],
         loginId: json["login_id"],
         profilePic: json["profile_pic"],
-        email: json["email"],
+        email: json["email"] ?? "",
         supervisorId: json["supervisor_id"],
       );
 

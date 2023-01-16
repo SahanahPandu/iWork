@@ -15,7 +15,7 @@ class LocalPrefs {
     prefs.setStringList('userInfo', userInfo);
   }
 
-  static void removeLoginCredential() async {
+  static void clearLoginCredential() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.remove('userInfo');
     userInfo.clear();

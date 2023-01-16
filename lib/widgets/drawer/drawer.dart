@@ -16,10 +16,10 @@ import '../../screens/schedule_shift/schedule_shift_main.dart';
 import '../../screens/vehicle_checklist/vehicle_checklist_approval/vehicle_checklist_approval_main.dart';
 import '../../screens/vehicle_checklist/vehicle_checklist_list/vehicle_checklist_list_main.dart';
 import '../../screens/workshop_vehicle/workshop_vehicle_main.dart';
+import '../../utils/authentication/auth.dart';
 import '../../utils/device/devices.dart';
 import '../../utils/device/sizes.dart';
 import '../../utils/font/font.dart';
-import '../../utils/storage/local_pref.dart';
 import '../alert/alert_dialog.dart';
 import '../alert/toast.dart';
 import '../tabs/akbk_tab/akbk_tab.dart';
@@ -337,7 +337,7 @@ class _DrawerBuildState extends State<DrawerBuild> {
             _refreshMainPage();
             break;
           case 5: //logout
-            _userLogout(context);
+            _logoutUser(context);
             break;
           default:
             Navigator.pop(context);
@@ -373,7 +373,7 @@ class _DrawerBuildState extends State<DrawerBuild> {
             );
             break;
           case 6: //logout
-            _userLogout(context);
+            _logoutUser(context);
             break;
           default:
             Navigator.pop(context);
@@ -441,7 +441,7 @@ class _DrawerBuildState extends State<DrawerBuild> {
                     child: const WorkshopVehicleMain()));
             break;
           case 9: //logout
-            _userLogout(context);
+            _logoutUser(context);
             break;
           default:
             Navigator.pop(context);
@@ -456,7 +456,7 @@ class _DrawerBuildState extends State<DrawerBuild> {
     refresh.value = !refresh.value;
   }
 
-  void _userLogout(context) {
+  void _logoutUser(context) {
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -465,22 +465,12 @@ class _DrawerBuildState extends State<DrawerBuild> {
       if (actionText == yes) {
         String result = await LogoutApi.logoutUser();
         if (result == 'ok') {
-          LocalPrefs.removeLoginCredential();
-          _clearSavedFlag();
-          Navigator.pushNamedAndRemoveUntil(
-              context, '/splash', ModalRoute.withName('/splash'));
+          Auth.clearUserData(context);
         } else {
           showErrorToast(
               context, "Log keluar tidak berjaya. Sila cuba semula!");
         }
       }
     });
-  }
-
-  void _clearSavedFlag() {
-    otherDate = false;
-    selectedNewDate = "";
-    vcStatus = 0;
-    onGoingTask = false;
   }
 }

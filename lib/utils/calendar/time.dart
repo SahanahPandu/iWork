@@ -14,13 +14,14 @@ class Time {
   }
 
   static String convertToHM(String time) {
-    var convertDate =
-        "${DateFormat("hh:mm").format(DateTime.parse("2023-01-03 $time"))} ${convertAMPMToMs(time)}";
+    var convertDate = DateFormat("hh:mm a")
+        .format(DateTime.parse("2023-01-03 $time"))
+        .toLowerCase();
     return convertDate;
   }
 
   static String convertAMPMToMs(String time) {
-    if (time != ""){
+    if (time != "") {
       int hour = int.parse(
           DateFormat("HH").format(DateTime.parse("2023-01-03 $time")));
       if (hour >= 0 && hour <= 11) {
