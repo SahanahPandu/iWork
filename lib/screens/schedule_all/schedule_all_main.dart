@@ -107,7 +107,7 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.w400))),
                       Padding(
-                        padding: EdgeInsets.symmetric(vertical: 8),
+                        padding: const EdgeInsets.symmetric(vertical: 8),
                         child: CompactorTaskList(main: false, filterData: {
                           "filteredDate": _filteredDate.text,
                           "selectedStatus": selectedStatus,

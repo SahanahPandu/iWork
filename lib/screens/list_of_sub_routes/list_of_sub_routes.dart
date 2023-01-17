@@ -4,7 +4,6 @@ import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../../utils/device/orientations.dart';
 import '../../widgets/custom_scroll/custom_scroll.dart';
-import '../schedule_filter/schedule_filter_list.dart';
 
 class ListOfSubRoutes extends StatefulWidget {
   final Map<String, dynamic>? uiData;

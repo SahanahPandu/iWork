@@ -27,6 +27,7 @@ class LaluanApi {
   }
 
   static Future<List<TaskList>>? getDataLaluan() async {
+    print('Token: ${userInfo[1]}');
     List<TaskList> decodeBody = [];
     String getAccessToken = userInfo[1];
 
