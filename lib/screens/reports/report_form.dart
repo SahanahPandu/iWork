@@ -84,10 +84,10 @@ class _ReportFormState extends State<ReportForm> {
       // load form
       // from Report List (tab)
       _namaLaluan.text = userRole != 100
-          ? widget.passData.schCollectionMain.mainRoute
+          ? widget.passData.mainRoute
           : widget.passData?.mainRoute;
       _noKenderaan.text = userRole != 100
-          ? widget.passData.schCollectionMain.vehicleNo
+          ? widget.passData.vehicleNo
           : widget.passData?.vehicleNo;
     } else if (widget.data != null) {
       // load form
@@ -135,12 +135,15 @@ class _ReportFormState extends State<ReportForm> {
               theDetails.subRouteName!;
           namaTamanKey.currentState!.namaTaman.text = theDetails.park!.parkName;
           namaJalanKey.currentState!.namaJalan.text =
-              theDetails.street!.streetName;
+              theDetails.street?.streetName != null
+                  ? theDetails.street!.streetName
+                  : "";
           jenisHalanganKey.currentState!.jenisHalangan.text =
               theDetails.obstacleType!.obsTypeName;
           praSectionKey.currentState!.catatan.text = theDetails.remarks!;
 
           if (theDetails.uploadFileId != null) {
+            print('ada attachment');
             // String path = theDetails.uploadFileId!.filePath;
             // String findString = "localhost";
             // String replaceString = "10.0.2.2";
@@ -169,8 +172,7 @@ class _ReportFormState extends State<ReportForm> {
     String getAccessToken = userInfo[1];
 
     FormData formData = FormData.fromMap({
-      "sc_main_id":
-          userRole == 100 ? widget.passData?.id : widget.passData?.scMainId,
+      "sc_main_id": widget.passData?.id,
       "sub_route_name": namaSubLaluanKey.currentState!.namaSubLaluan.text,
       "park_id": namaTamanKey.currentState!.idTaman,
       "street_id": namaJalanKey.currentState!.idJalan,
@@ -422,9 +424,7 @@ class _ReportFormState extends State<ReportForm> {
                                 jalanKey: namaJalanKey,
                                 jenisHalanganKey: jenisHalanganKey,
                                 data: currReportData,
-                                scMainId: userRole == 100
-                                    ? widget.passData?.id
-                                    : widget.passData?.scMainId,
+                                scMainId: widget.passData?.id,
                                 updateButton: updateButtonVisibility,
                               ),
                             ),

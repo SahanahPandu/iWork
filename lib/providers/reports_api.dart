@@ -84,8 +84,10 @@ class ReportsApi {
           );
 
           var convertData = ReportDetailsData.fromJson(decode);
+          // print('convertData: $convertData');
 
           theDetails = convertData.data;
+          // print('theDetails: $theDetails');
         }
       }
     } on DioError catch (e) {

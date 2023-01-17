@@ -47,7 +47,7 @@ class _CardListViewState extends State<CardListView> {
       list = JalanApi.getJalanData(context);
     } else if (widget.type == "Laporan" && widget.screens != "drawer") {
       //this is from Report Button
-      list = ReportsApi.getDataLaporan(widget.passData.scMainId);
+      list = ReportsApi.getDataLaporan(widget.passData.id);
     } else if (widget.type == "Laporan" && widget.screens == "drawer") {
       //this is from drawer
       list = ReportsApi.getDataLaporanDrawer(widget.passData);
