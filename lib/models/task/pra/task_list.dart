@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
 class TaskList {
-  final int scMainId;
+  final int id;
   final String vehicleNo;
   final String mainRoute;
   final String scheduleDate;
@@ -24,7 +24,7 @@ class TaskList {
   final Status statusCode;
 
   const TaskList({
-    required this.scMainId,
+    required this.id,
     required this.vehicleNo,
     required this.mainRoute,
     required this.scheduleDate,
@@ -39,7 +39,7 @@ class TaskList {
   });
 
   static TaskList fromJson(json) => TaskList(
-        scMainId: json['sc_main_id'] ?? 0,
+        id: json['id'] ?? 0,
         vehicleNo: json['vehicle_no'],
         mainRoute: json['main_route'],
         scheduleDate: json['schedule_date'],
@@ -55,7 +55,7 @@ class TaskList {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['sc_main_id'] = scMainId;
+    data['id'] = id;
     data['vehicle_no'] = vehicleNo;
     data['main_route'] = mainRoute;
     data['schedule_date'] = scheduleDate;
