@@ -1,3 +1,4 @@
+import 'package:eswm/models/schedule/filter/schedule_filter_sub_routes.dart';
 import 'package:flutter/material.dart';
 
 import '../../config/config.dart';
@@ -7,7 +8,7 @@ import '../../widgets/custom_scroll/custom_scroll.dart';
 
 class ListOfSubRoutes extends StatefulWidget {
   final Map<String, dynamic>? uiData;
-  final dynamic data;
+  final List<ScheduleFilterSubRoutes>? data;
   final Function(String, dynamic)? updateData;
 
   const ListOfSubRoutes({
@@ -115,7 +116,7 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
                       padding: EdgeInsets.only(left: 26, right: 26, top: 8),
                       child: Divider(height: 0.5),
                     ),
-                    if (widget.data.subRoutes != null)
+                    if (widget.data != null)
                       Container(
                         margin: const EdgeInsets.symmetric(
                           horizontal: 15,
@@ -123,15 +124,15 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
                         child: ListView.builder(
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
-                          itemCount: widget.data.subRoutes.length,
+                          itemCount: widget.data!.length,
                           itemBuilder: (context, index) {
-                            var theData = widget.data.subRoutes;
+                            var theData = widget.data;
                             return GestureDetector(
                               onTap: () {
                                 setState(() {
                                   if (widget.updateData != null) {
                                     widget.updateData!(
-                                        'sub-laluan', theData[index].subRoute);
+                                        'sub-laluan', theData![index].subRoute);
                                   }
                                 });
                                 Navigator.pop(context);
@@ -145,7 +146,7 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
                                     // Icon(selectedIndex == index ? Icons.check : null,
                                     //     color: green, size: 18),
                                     const SizedBox(width: 8),
-                                    Text(theData[index].subRoute,
+                                    Text(theData![index].subRoute!,
                                         style: TextStyle(
                                           color: blackCustom,
                                           fontSize: 15,

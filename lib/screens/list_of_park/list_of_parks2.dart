@@ -1,3 +1,4 @@
+import 'package:eswm/models/schedule/filter/schedule_filter_parks.dart';
 import 'package:flutter/material.dart';
 
 import '../../config/config.dart';
@@ -7,7 +8,7 @@ import '../../widgets/custom_scroll/custom_scroll.dart';
 
 class ListOfParks2 extends StatefulWidget {
   final Map<String, dynamic>? uiData;
-  final dynamic data;
+  final List<ScheduleFilterParks>? data;
 
   final Function(String, dynamic)? updateData;
 
@@ -116,7 +117,7 @@ class _ListOfParks2State extends State<ListOfParks2> {
                       padding: EdgeInsets.only(left: 26, right: 26, top: 8),
                       child: Divider(height: 0.5),
                     ),
-                    if (widget.data.parks != null)
+                    if (widget.data != null)
                       Container(
                         margin: const EdgeInsets.symmetric(
                           horizontal: 15,
@@ -124,15 +125,15 @@ class _ListOfParks2State extends State<ListOfParks2> {
                         child: ListView.builder(
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
-                          itemCount: widget.data.parks.length,
+                          itemCount: widget.data!.length,
                           itemBuilder: (context, index) {
-                            var theData = widget.data.parks;
+                            var theData = widget.data;
                             return GestureDetector(
                               onTap: () {
                                 setState(() {
                                   if (widget.updateData != null) {
                                     widget.updateData!('taman', {
-                                      'id': theData[index].parkId,
+                                      'id': theData![index].parkId,
                                       'name': theData[index].parkName,
                                     });
                                   }
@@ -148,7 +149,7 @@ class _ListOfParks2State extends State<ListOfParks2> {
                                     // Icon(selectedIndex == index ? Icons.check : null,
                                     //     color: green, size: 18),
                                     const SizedBox(width: 8),
-                                    Text(theData[index].parkName,
+                                    Text(theData![index].parkName,
                                         style: TextStyle(
                                           color: blackCustom,
                                           fontSize: 15,

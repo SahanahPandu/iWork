@@ -1,22 +1,20 @@
+import 'package:eswm/models/schedule/filter/schedule_filter_main_routes.dart';
 import 'package:flutter/material.dart';
 
 import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../../utils/device/orientations.dart';
 import '../../widgets/custom_scroll/custom_scroll.dart';
-import '../schedule_filter/schedule_filter_list.dart';
 
 class ListOfRoutes extends StatefulWidget {
   final Map<String, dynamic>? uiData;
-  final dynamic data;
-  final GlobalKey<ScheduleFilterListState>? theKey;
+  final List<ScheduleFilterMainRoutes>? data;
   final Function(String, dynamic)? updateData;
 
   const ListOfRoutes({
     Key? key,
     this.uiData,
     this.data,
-    this.theKey,
     this.updateData,
   }) : super(key: key);
 
@@ -118,7 +116,7 @@ class _ListOfRoutesState extends State<ListOfRoutes> {
                       padding: EdgeInsets.only(left: 26, right: 26, top: 8),
                       child: Divider(height: 0.5),
                     ),
-                    if (widget.data.mainRoute != null)
+                    if (widget.data != null)
                       Container(
                         margin: const EdgeInsets.symmetric(
                           horizontal: 15,
@@ -126,22 +124,16 @@ class _ListOfRoutesState extends State<ListOfRoutes> {
                         child: ListView.builder(
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
-                          itemCount: widget.data.mainRoute.length,
+                          itemCount: widget.data!.length,
                           itemBuilder: (context, index) {
-                            var theData = widget.data.mainRoute;
+                            var theData = widget.data;
                             return GestureDetector(
                               onTap: () {
                                 setState(() {
-                                  // widget.uiData?['controller'].text =
-                                  //     theData[index].mainRouteName;
-
                                   if (widget.updateData != null) {
-                                    widget.updateData!(
-                                        'laluan', theData[index].mainRouteName);
+                                    widget.updateData!('laluan',
+                                        theData![index].mainRouteName);
                                   }
-
-                                  // scheduleFilterListKey.currentState!.namaLaluan
-                                  //     .text = theData[index].mainRouteName;
                                 });
                                 Navigator.pop(context);
                               },
@@ -154,7 +146,7 @@ class _ListOfRoutesState extends State<ListOfRoutes> {
                                     // Icon(selectedIndex == index ? Icons.check : null,
                                     //     color: green, size: 18),
                                     const SizedBox(width: 8),
-                                    Text(theData[index].mainRouteName,
+                                    Text(theData![index].mainRouteName,
                                         style: TextStyle(
                                           color: blackCustom,
                                           fontSize: 15,

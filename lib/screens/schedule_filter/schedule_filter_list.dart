@@ -1,3 +1,6 @@
+import 'package:eswm/models/schedule/filter/schedule_filter_main_routes.dart';
+import 'package:eswm/models/schedule/filter/schedule_filter_parks.dart';
+import 'package:eswm/models/schedule/filter/schedule_filter_sub_routes.dart';
 import 'package:eswm/screens/list_of_park/list_of_parks2.dart';
 import 'package:eswm/screens/list_of_sub_routes/list_of_sub_routes.dart';
 import 'package:flutter/material.dart';
@@ -68,152 +71,197 @@ class ScheduleFilterListState extends State<ScheduleFilterList> {
   final TextEditingController namaTaman = TextEditingController();
 
   int idTaman = 0;
+  List<ScheduleFilterMainRoutes>? senaraiLaluan = [];
+  List<ScheduleFilterSubRoutes>? senaraiSubLaluan = [];
+  List<ScheduleFilterParks>? senaraiTaman = [];
 
   //==================== end of variables ======================================
 
   //==================== Methods ===============================================
 
-  updateFilterItems(item, value) {
-    if (item == "laluan") {
+  @override
+  void initState() {
+    super.initState();
+    loadData();
+  }
+
+  loadData() async {
+    // ignore: unused_local_variable
+    var fetchData =
+        await ScheduleFilterApi.getDataScheduleFilter().then((theData) {
+      List<ScheduleFilterMainRoutes> dataLaluan = [];
+      List<ScheduleFilterSubRoutes> dataSubLaluan = [];
+      List<ScheduleFilterParks> dataTaman = [];
+
+      if (theData.mainRoute != null || theData.mainRoute != []) {
+        dataLaluan.addAll(theData.mainRoute);
+      }
+
+      if (theData.subRoutes != null || theData.subRoutes != []) {
+        dataSubLaluan.addAll(theData.subRoutes);
+      }
+
+      if (theData.parks != null || theData.parks != []) {
+        dataTaman.addAll(theData.parks);
+      }
+
       setState(() {
-        namaLaluan.text = value;
+        senaraiLaluan!.addAll(dataLaluan);
+        senaraiSubLaluan!.addAll(dataSubLaluan);
+        senaraiTaman!.addAll(dataTaman);
       });
-    } else if (item == "sub-laluan") {
-      setState(() {
-        namaSubLaluan.text = value;
-      });
-    } else if (item == "taman") {
-      setState(() {
-        idTaman = value['id'];
-        namaTaman.text = value['name'];
-      });
-    }
+    });
+  }
+
+  updateFilterItems(item, value) async {
+    // ignore: unused_local_variable
+    var fetchData =
+        await ScheduleFilterApi.getDataScheduleFilter().then((theData) {
+      senaraiLaluan!.clear();
+      senaraiSubLaluan!.clear();
+      senaraiTaman!.clear();
+      List<ScheduleFilterMainRoutes> dataLaluan = [];
+      List<ScheduleFilterSubRoutes> dataSubLaluan = [];
+      List<ScheduleFilterParks> dataTaman = [];
+
+      if (theData.mainRoute != null || theData.mainRoute != []) {
+        dataLaluan.addAll(theData.mainRoute);
+      }
+
+      if (theData.subRoutes != null || theData.subRoutes != []) {
+        dataSubLaluan.addAll(theData.subRoutes);
+      }
+
+      if (theData.parks != null || theData.parks != []) {
+        dataTaman.addAll(theData.parks);
+      }
+
+      if (item == "laluan") {
+        dataSubLaluan.removeWhere((item) => item.mainRoute != value);
+        dataTaman.removeWhere((item) => item.mainRoute != value);
+
+        setState(() {
+          namaLaluan.text = value;
+          senaraiLaluan!.addAll(dataLaluan);
+          senaraiSubLaluan!.addAll(dataSubLaluan);
+          senaraiTaman!.addAll(dataTaman);
+        });
+      } else if (item == "sub-laluan") {
+        dataTaman.removeWhere((item) =>
+            item.mainRoute != namaLaluan.text && item.subRoute != value);
+        setState(() {
+          namaSubLaluan.text = value;
+          senaraiLaluan!.addAll(dataLaluan);
+          senaraiSubLaluan!.addAll(dataSubLaluan);
+          senaraiTaman!.addAll(dataTaman);
+        });
+      } else if (item == "taman") {
+        setState(() {
+          idTaman = value['id'];
+          namaTaman.text = value['name'];
+          senaraiLaluan!.addAll(dataLaluan);
+          senaraiSubLaluan!.addAll(dataSubLaluan);
+          senaraiTaman!.addAll(dataTaman);
+        });
+      }
+    });
   }
 
   //==================== end of Methods ========================================
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: ScheduleFilterApi.getDataScheduleFilter(
-        namaLaluan.text,
-        namaSubLaluan.text,
-        idTaman,
-      ),
-      builder: (context, snapshot) {
-        var listData = snapshot.data;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        //============== Laluan ====================================
+        Text(
+          "Laluan",
+          style: textLabelStyle,
+        ),
+        SizedBox(
+          height: spaceBetweenLabel,
+        ),
 
-        switch (snapshot.connectionState) {
-          case ConnectionState.waiting:
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+        ListOfRoutes(
+          uiData: {
+            "style": textFormFieldStyle,
+            "controller": namaLaluan,
+            "fillColor": textFieldFillColor,
+            "hintStyle": hintTextStyle,
+            "clickable": clickable,
+            "labelStyle": textFormFieldLabelStyle,
+            "errorBorder": errorBorderStyle,
+            "disableBorder": disableBorderStyle,
+          },
+          data: senaraiLaluan,
+          updateData: updateFilterItems,
+        ),
 
-          default:
-            if (snapshot.hasError) {
-              return const Center(
-                child: Text('Some error while fetch the data!'),
-              );
-            } else {
-              if (listData != null) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    //============== Laluan ====================================
-                    Text(
-                      "Laluan",
-                      style: textLabelStyle,
-                    ),
-                    SizedBox(
-                      height: spaceBetweenLabel,
-                    ),
+        //============== end of Laluan =============================
 
-                    ListOfRoutes(
-                      uiData: {
-                        "style": textFormFieldStyle,
-                        "controller": namaLaluan,
-                        "fillColor": textFieldFillColor,
-                        "hintStyle": hintTextStyle,
-                        "clickable": clickable,
-                        "labelStyle": textFormFieldLabelStyle,
-                        "errorBorder": errorBorderStyle,
-                        "disableBorder": disableBorderStyle,
-                      },
-                      data: listData,
-                      updateData: updateFilterItems,
-                    ),
+        SizedBox(
+          height: spaceBetweenItem,
+        ),
 
-                    //============== end of Laluan =============================
+        //============== Sub-Laluan ================================
+        Text(
+          "Sub-Laluan",
+          style: textLabelStyle,
+        ),
+        SizedBox(
+          height: spaceBetweenLabel,
+        ),
 
-                    SizedBox(
-                      height: spaceBetweenItem,
-                    ),
+        ListOfSubRoutes(
+          uiData: {
+            "style": textFormFieldStyle,
+            "controller": namaSubLaluan,
+            "fillColor": textFieldFillColor,
+            "hintStyle": hintTextStyle,
+            "clickable": clickable,
+            "labelStyle": textFormFieldLabelStyle,
+            "errorBorder": errorBorderStyle,
+            "disableBorder": disableBorderStyle,
+          },
+          data: senaraiSubLaluan,
+          updateData: updateFilterItems,
+        ),
 
-                    //============== Sub-Laluan ================================
-                    Text(
-                      "Sub-Laluan",
-                      style: textLabelStyle,
-                    ),
-                    SizedBox(
-                      height: spaceBetweenLabel,
-                    ),
+        //============== end of Sub-Laluan =========================
+        SizedBox(
+          height: spaceBetweenItem,
+        ),
+        //============== Taman ====================================
+        Text(
+          "Taman",
+          style: textLabelStyle,
+        ),
+        SizedBox(
+          height: spaceBetweenLabel,
+        ),
 
-                    ListOfSubRoutes(
-                      uiData: {
-                        "style": textFormFieldStyle,
-                        "controller": namaSubLaluan,
-                        "fillColor": textFieldFillColor,
-                        "hintStyle": hintTextStyle,
-                        "clickable": clickable,
-                        "labelStyle": textFormFieldLabelStyle,
-                        "errorBorder": errorBorderStyle,
-                        "disableBorder": disableBorderStyle,
-                      },
-                      data: listData,
-                      updateData: updateFilterItems,
-                    ),
+        ListOfParks2(
+          uiData: {
+            "style": textFormFieldStyle,
+            "controller": namaTaman,
+            "fillColor": textFieldFillColor,
+            "hintStyle": hintTextStyle,
+            "clickable": clickable,
+            "labelStyle": textFormFieldLabelStyle,
+            "errorBorder": errorBorderStyle,
+            "disableBorder": disableBorderStyle,
+          },
+          data: senaraiTaman,
+          updateData: updateFilterItems,
+        ),
 
-                    //============== end of Sub-Laluan =========================
-                    SizedBox(
-                      height: spaceBetweenItem,
-                    ),
-                    //============== Taman ====================================
-                    Text(
-                      "Taman",
-                      style: textLabelStyle,
-                    ),
-                    SizedBox(
-                      height: spaceBetweenLabel,
-                    ),
+        //============== end of Taman =============================
 
-                    ListOfParks2(
-                      uiData: {
-                        "style": textFormFieldStyle,
-                        "controller": namaTaman,
-                        "fillColor": textFieldFillColor,
-                        "hintStyle": hintTextStyle,
-                        "clickable": clickable,
-                        "labelStyle": textFormFieldLabelStyle,
-                        "errorBorder": errorBorderStyle,
-                        "disableBorder": disableBorderStyle,
-                      },
-                      data: listData,
-                      updateData: updateFilterItems,
-                    ),
-
-                    //============== end of Taman =============================
-
-                    SizedBox(
-                      height: spaceBetweenItem,
-                    ),
-                  ],
-                );
-              } else {
-                return const Text('No Data');
-              }
-            }
-        }
-      },
+        SizedBox(
+          height: spaceBetweenItem,
+        ),
+      ],
     );
   }
 }
