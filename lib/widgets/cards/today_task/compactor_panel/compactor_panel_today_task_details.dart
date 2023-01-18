@@ -251,7 +251,7 @@ class _CompactorPanelTodayTaskDetailsState
                                   builder: (BuildContext context) {
                                     return showUserProfileDialog(
                                         context,
-                                        widget.scheduleData!.data!.schedules![1]
+                                        widget.scheduleData!.data!.schedules![1]!
                                             .workerSchedules![2],
                                         "https://miro.medium.com/max/800/1*7hkI-ZKsglnbjxCRV1bMZA.png");
                                   });

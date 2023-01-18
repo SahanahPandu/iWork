@@ -12,7 +12,7 @@ import '../../../../widgets/slide_bar/start_end_work_slide_bar.dart';
 import '../../../container/status_container.dart';
 
 class CompactorPanelMyTaskListDetails extends StatefulWidget {
-  final Schedule data;
+  final dynamic data;
   final CompactorTask? compactorData;
   final bool button;
   final int? idx;

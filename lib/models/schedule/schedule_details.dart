@@ -11,6 +11,12 @@ class ScheduleDetails {
   final Activity? activityCode;
 
   @JsonKey(defaultValue: "")
+  final String? startScheduleAt;
+
+  @JsonKey(defaultValue: "")
+  final String? stopScheduleAt;
+
+  @JsonKey(defaultValue: "")
   final String? startWorkAt;
 
   @JsonKey(defaultValue: "")
@@ -38,6 +44,8 @@ class ScheduleDetails {
     required this.vehicleNo,
     required this.mainRoute,
     required this.scheduleDate,
+    this.startScheduleAt,
+    this.stopScheduleAt,
     required this.activityCode,
     required this.startWorkAt,
     required this.stopWorkAt,
@@ -45,7 +53,7 @@ class ScheduleDetails {
     required this.totalPark,
     required this.totalStreet,
     required this.statusCode,
-    required this.vehicleChecklistId,
+    this.vehicleChecklistId,
     this.superviseBy,
   });
 
@@ -57,6 +65,8 @@ class ScheduleDetails {
         activityCode: json['activity_code'] != null
             ? Activity.fromJson(json['activity_code'])
             : null,
+        startScheduleAt: json['start_schedule_at'] ?? "--:--",
+        stopScheduleAt: json['stop_schedule_at'] ?? "--:--",
         startWorkAt: json['start_work_at'],
         stopWorkAt: json['stop_work_at'],
         totalSubRoute: json['total_sub_route'],
@@ -129,10 +139,10 @@ class Status {
 }
 
 class VehicleChecklist {
-  final int id;
-  final VCStatus status;
+  final int? id;
+  final VCStatus? status;
 
-  const VehicleChecklist({required this.id, required this.status});
+  const VehicleChecklist({this.id, this.status});
 
   static VehicleChecklist fromJson(json) => VehicleChecklist(
         id: json['id'] ?? 0,
@@ -142,17 +152,17 @@ class VehicleChecklist {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
-    data['status'] = status.toJson();
+    data['status'] = status!.toJson();
 
     return data;
   }
 }
 
 class VCStatus {
-  final String code;
-  final String name;
+  final String? code;
+  final String? name;
 
-  const VCStatus({required this.code, required this.name});
+  const VCStatus({this.code, this.name});
 
   static VCStatus fromJson(json) => VCStatus(
         code: json['code'] ?? "",

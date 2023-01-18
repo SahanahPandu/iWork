@@ -57,10 +57,10 @@ class Schedule {
             ? VehicleChecklistId.fromJson(json["vehicle_checklist_id"])
             : null,
         activityCode: ActivityCode.fromJson(json["activity_code"]),
-        workerSchedules: json["worker_schedules"] != null
-            ? List<WorkerSchedule>.from(
-                json["worker_schedules"].map((x) => WorkerSchedule.fromJson(x)))
-            : null,
+        workerSchedules: json["worker_schedules"] == null
+            ? []
+            : List<WorkerSchedule>.from(
+                json["worker_schedules"]!.map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
@@ -78,6 +78,8 @@ class Schedule {
         "stop_work_at": stopWorkAt,
         "vehicle_checklist_id": vehicleChecklistId!.toJson(),
         "activity_code": activityCode!.toJson(),
-        "worker_schedules": List<dynamic>.from(workerSchedules!.map((x) => x)),
+        "worker_schedules": workerSchedules == null
+            ? []
+            : List<WorkerSchedule>.from(workerSchedules!.map((x) => x)),
       };
 }

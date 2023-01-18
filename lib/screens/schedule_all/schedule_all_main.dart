@@ -13,7 +13,7 @@ import '../../utils/device/orientations.dart';
 import '../../utils/device/sizes.dart';
 import '../../utils/icon/custom_icon.dart';
 import '../../widgets/custom_scroll/custom_scroll.dart';
-import '../../widgets/gridview/compactor_panel/compactor_task_list.dart';
+import '../../widgets/gridview/compactor_panel/schedule/compactor_schedule_list.dart';
 import '../../widgets/listview/card_list_view.dart';
 
 class ScheduleAllMainScreen extends StatefulWidget {
@@ -31,11 +31,6 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
   List<ScheduleFilterStatus> selectedStatus = [];
   bool displayFilterSection = false;
   List testList = [];
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -101,6 +96,7 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                 ? Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      if (displayFilterSection) filteredSection(),
                       Container(
                           padding: const EdgeInsets.fromLTRB(30, 30, 0, 15),
                           child: const Text("Senarai Jadual Tugasan :",
@@ -108,10 +104,12 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                                   fontSize: 16, fontWeight: FontWeight.w400))),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8),
-                        child: CompactorTaskList(main: false, filterData: {
-                          "filteredDate": _filteredDate.text,
-                          "selectedStatus": selectedStatus,
-                        }),
+                        child: displayFilterSection
+                            ? CompactorScheduleList(passData: {
+                                "filteredDate": selectedDate,
+                                "selectedStatus": selectedStatus,
+                              })
+                            : const CompactorScheduleList(),
                       ),
                     ],
                   )

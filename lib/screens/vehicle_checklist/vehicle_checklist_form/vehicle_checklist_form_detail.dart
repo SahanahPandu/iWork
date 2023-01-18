@@ -10,7 +10,7 @@ import '../../../config/dimen.dart';
 import '../../../config/palette.dart';
 import '../../../config/string.dart';
 import '../../../models/task/compactor/compactor_task.dart';
-import '../../../models/vc/vc_main.dart';
+import '../../../models/vc/detail/vc_main.dart';
 import '../../../providers/vehicle_checklist/vehicle_checklist_api.dart';
 import '../../../utils/calendar/date.dart';
 import '../../../utils/calendar/time.dart';
@@ -754,7 +754,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                     color: greyCustom,
                                     fontWeight: FontWeight.w400)),
                             Text(
-                                widget.compactorData!.data!.schedules![0]
+                                widget.compactorData!.data!.schedules![0]!
                                     .vehicleNo!,
                                 textAlign: TextAlign.left,
                                 style: TextStyle(

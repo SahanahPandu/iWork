@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import '../../config/config.dart';
-import '../../models/vc/vc_main.dart';
+import '../../models/vc/detail/vc_main.dart';
 import '../http/error/api_error.dart';
 import '../http/service/http_service.dart';
 

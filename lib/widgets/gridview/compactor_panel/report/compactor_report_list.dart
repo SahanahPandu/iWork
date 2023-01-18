@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
 //import files
-import '../../../config/config.dart';
-import '../../../config/dimen.dart';
-import '../../../config/palette.dart';
-import '../../../providers/reports_api.dart';
-import '../../../screens/reports/report_form.dart';
-import '../../../screens/reports/report_list_details.dart';
-import '../../../utils/icon/custom_icon.dart';
-import '../../app_bar/app_bar_widget.dart';
+import '../../../../config/config.dart';
+import '../../../../config/dimen.dart';
+import '../../../../config/palette.dart';
+import '../../../../providers/reports_api.dart';
+import '../../../../screens/reports/report_form.dart';
+import '../../../../screens/reports/report_list_details.dart';
+import '../../../../utils/icon/custom_icon.dart';
+import '../../../app_bar/app_bar_widget.dart';
 
 class CompactorReportList extends StatefulWidget {
   final dynamic passData;
+
   const CompactorReportList({Key? key, this.passData}) : super(key: key);
 
   @override
@@ -25,7 +26,7 @@ class _CompactorReportListState extends State<CompactorReportList> {
   @override
   void initState() {
     super.initState();
-    _loadReportData = ReportsApi.getDataLaporan(scheduleId);
+    _loadReportData = ReportsApi.getDataLaporan(context, scheduleId);
   }
 
   @override
@@ -59,8 +60,8 @@ class _CompactorReportListState extends State<CompactorReportList> {
                               child: Scaffold(
                                 backgroundColor: white,
                                 appBar: AppBarWidget(
-                                    leadingIcon: CustomIcon.arrowBack,
-                                    title: "L${reportDataFuture[i].id}"),
+                                    title: "L${reportDataFuture[i].id}",
+                                    leadingIcon: CustomIcon.arrowBack),
                                 body: ReportForm(
                                   screen: "4",
                                   passData: widget.passData,

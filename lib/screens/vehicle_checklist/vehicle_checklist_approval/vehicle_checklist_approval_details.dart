@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 //import files
 import '../../../config/font.dart';
 import '../../../config/palette.dart';
-import '../../../models/vc/vc_main.dart';
+import '../../../models/vc/detail/vc_main.dart';
 import '../../../utils/icon/custom_icon.dart';
 import '../../../widgets/container/status_container.dart';
 
