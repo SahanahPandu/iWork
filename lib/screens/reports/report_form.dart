@@ -143,7 +143,6 @@ class _ReportFormState extends State<ReportForm> {
           praSectionKey.currentState!.catatan.text = theDetails.remarks!;
 
           if (theDetails.uploadFileId != null) {
-            print('ada attachment');
             // String path = theDetails.uploadFileId!.filePath;
             // String findString = "localhost";
             // String replaceString = "10.0.2.2";
