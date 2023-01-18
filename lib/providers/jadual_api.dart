@@ -9,6 +9,8 @@ import 'package:eswm/models/schedule/schedule_data_drawer.dart';
 
 //import files
 import 'package:eswm/models/schedule/schedule_details.dart';
+import 'package:eswm/providers/http/error/api_error.dart';
+import 'package:flutter/cupertino.dart';
 
 import '../config/config.dart';
 import '../models/options/options_data.dart';
@@ -51,31 +53,39 @@ class JadualApi {
     List<ScheduleDetails> filteredList = [];
 
     //Filtering based on filtered date & status
-    var myData = Map<String, dynamic>.from(passData);
-    var convDate = "";
-    // var theStatus = [];
-    if (myData['filteredDate'] != "") {
-      convDate = Date.getTheDate(
-          myData['filteredDate'], "dd/MM/yyyy", "yyyy-MM-dd", "ms");
-    }
+    Map<String, dynamic> theParameters = {};
 
-    var statusList = myData['selectedStatus'];
-    if (statusList.length > 0) {
-      statusList = statusList[0].code;
-      // statusList.forEach((status) {
-      //   theStatus.add(status.code);
-      // });
-    }
+    if (passData != null) {
+      var myData = Map<String, dynamic>.from(passData);
 
-    // print("The Status: $theStatus");
+      if (myData['filteredDate'] != "") {
+        var convDate = Date.getTheDate(
+            myData['filteredDate'], "dd/MM/yyyy", "yyyy-MM-dd", "ms");
+
+        theParameters = {
+          'schedule_date': convDate,
+        };
+      }
+
+      if (myData['selectedStatus'] != null &&
+          myData['selectedStatus'].isNotEmpty) {
+        var statusList = myData['selectedStatus'];
+        var statusCodeList = [];
+        statusList.forEach(
+          (status) {
+            statusCodeList.add(status.code);
+          },
+        );
+
+        var theListOfStatus = {"status_code[]": statusCodeList};
+        theParameters.addEntries(theListOfStatus.entries);
+      }
+    }
 
     try {
       var response = await Dio().get(
         '$theBase/schedule/schedules',
-        queryParameters: {
-          'schedule_date': convDate,
-          'status_code': statusList,
-        },
+        queryParameters: theParameters,
         options: Options(headers: {
           'authorization': 'Bearer ${userInfo[1]}',
         }),
@@ -100,7 +110,8 @@ class JadualApi {
     return filteredList;
   }
 
-  static Future<List<ScheduleFilterStatus?>?>? getDataStatusJadual() async {
+  static Future<List<ScheduleFilterStatus?>?>? getDataStatusJadual(
+      BuildContext context) async {
     List<ScheduleFilterStatus?>? filterData = [];
     try {
       Response response = await Dio().get(
@@ -128,6 +139,7 @@ class JadualApi {
       }
     } on DioError catch (e) {
       print(e);
+      ApiError.findDioError(e, context);
     }
 
     return filterData;
