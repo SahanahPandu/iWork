@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
 //import files
-import '../../../config/config.dart';
-import '../../../config/dimen.dart';
-import '../../../config/palette.dart';
-import '../../../models/task/compactor/compactor_task.dart';
-import '../../../models/task/compactor/data/schedule/schedule.dart';
-import '../../../providers/task/compactor_panel/compactor_task_api.dart';
-import '../../../screens/work_schedule/compactor_panel/compactor_panel_schedule_main.dart';
-import '../../../utils/device/orientations.dart';
-import '../../cards/my_task/compactor_panel/compactor_panel_my_task_list_details.dart';
-import '../../cards/my_task/compactor_panel/vehicle_checklist_card_details.dart';
+import '../../../../config/config.dart';
+import '../../../../config/dimen.dart';
+import '../../../../config/palette.dart';
+import '../../../../models/task/compactor/compactor_task.dart';
+import '../../../../models/task/compactor/data/schedule/schedule.dart';
+import '../../../../providers/task/compactor_panel/compactor_task_api.dart';
+import '../../../../screens/work_schedule/compactor_panel/compactor_panel_schedule_main.dart';
+import '../../../../utils/device/orientations.dart';
+import '../../../cards/my_task/compactor_panel/compactor_panel_my_task_list_details.dart';
+import '../../../cards/my_task/compactor_panel/vehicle_checklist_card_details.dart';
 
 class CompactorTaskList extends StatefulWidget {
   final bool main;
@@ -27,13 +27,13 @@ class CompactorTaskList extends StatefulWidget {
 }
 
 class _CompactorTaskListState extends State<CompactorTaskList> {
-  late Future<List<Schedule>?> _loadLaluanList;
+  late Future<List<Schedule?>?> _loadLaluanList;
 
   @override
   void initState() {
     super.initState();
     listLength = 0;
-    _loadLaluanList = CompactorTaskApi.getCompactorScheduleList(context);
+    _loadLaluanList = CompactorTaskApi.getCompactorTaskList(context);
     cpSchedule = List.generate(listLength, (index) => 0);
     routeNames = List.generate(listLength, (index) => '');
   }
@@ -50,7 +50,7 @@ class _CompactorTaskListState extends State<CompactorTaskList> {
   /// --------------------------------------------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Schedule>?>(
+    return FutureBuilder<List<Schedule?>?>(
         future: _loadLaluanList,
         builder: (context, snapshot) {
           final laluanDataFuture = snapshot.data;
@@ -88,21 +88,21 @@ class _CompactorTaskListState extends State<CompactorTaskList> {
                         cpSchedule = List.generate(listLength, (index) => 0);
                         routeNames = List.generate(listLength, (index) => '');
                         for (int j = 0; j < laluanDataFuture.length; j++) {
-                          if (laluanDataFuture[j].statusCode == null) {
+                          if (laluanDataFuture[j]!.statusCode == null) {
                             cpSchedule[j] = 0;
-                          } else if (laluanDataFuture[j].statusCode!.code ==
+                          } else if (laluanDataFuture[j]!.statusCode!.code ==
                               "SBM") {
                             cpSchedule[j] = 1;
-                          } else if (laluanDataFuture[j].statusCode!.code ==
+                          } else if (laluanDataFuture[j]!.statusCode!.code ==
                               "SBT") {
                             cpSchedule[j] = 2;
-                          } else if (laluanDataFuture[j].statusCode!.code ==
+                          } else if (laluanDataFuture[j]!.statusCode!.code ==
                               "STG") {
                             cpSchedule[j] = 3;
                           } else {
                             cpSchedule[j] = 0;
                           }
-                          routeNames[j] = laluanDataFuture[j].mainRoute!;
+                          routeNames[j] = laluanDataFuture[j]!.mainRoute!;
                         }
                         // print("cpSchedule value $cpSchedule");
                         // print(routeNames);
@@ -113,6 +113,7 @@ class _CompactorTaskListState extends State<CompactorTaskList> {
                                   context,
                                   PageTransition(
                                       type: PageTransitionType.fade,
+                                      /// Pass compactor task data
                                       child: CompactorPanelScheduleMain(
                                           data: widget.main == true
                                               ? laluanDataFuture[i - 1]

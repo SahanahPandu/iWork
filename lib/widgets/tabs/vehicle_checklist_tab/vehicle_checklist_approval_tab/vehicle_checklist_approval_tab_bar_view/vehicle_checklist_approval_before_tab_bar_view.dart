@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 //import files
-import '../../../../../models/vc/vc_main.dart';
+import '../../../../../models/vc/detail/vc_main.dart';
 import '../../../../../screens/vehicle_checklist/vehicle_checklist_approval/vehicle_checklist_approval_view/vehicle_checklist_approval_view.dart';
 import '../../../../custom_scroll/custom_scroll.dart';
 

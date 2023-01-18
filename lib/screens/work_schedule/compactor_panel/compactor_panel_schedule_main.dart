@@ -4,9 +4,8 @@ import 'package:flutter/material.dart';
 import '../../../config/config.dart';
 import '../../../config/font.dart';
 import '../../../config/palette.dart';
-import '../../../models/schedule/schedule_details.dart';
-import '../../../models/task/compactor/data/schedule/schedule.dart';
-import '../../../providers/jadual_api.dart';
+import '../../../models/schedule/compactor/detail/schedule_detail.dart';
+import '../../../providers/schedule/compactor_panel/compactor_schedule_api.dart';
 import '../../../utils/device/orientations.dart';
 import '../../../utils/device/sizes.dart';
 import '../../../utils/icon/custom_icon.dart';
@@ -19,7 +18,9 @@ import '../../list_of_sub_routes/list_of_sub_routes_text_form_field.dart';
 import 'compactor_panel_schedule_details.dart';
 
 class CompactorPanelScheduleMain extends StatefulWidget {
-  final Schedule? data;
+  ///CompactorTaskList -> Schedule
+  ///App Drawer -> CscheduleData
+  final dynamic data;
   final int? idx;
 
   const CompactorPanelScheduleMain({Key? key, required this.data, this.idx})
@@ -32,7 +33,6 @@ class CompactorPanelScheduleMain extends StatefulWidget {
 
 class _CompactorPanelScheduleMainState
     extends State<CompactorPanelScheduleMain> {
-  ScheduleDetails? scheduleList;
   Color collapseBgColor = const Color(0xff3597f8);
   Color appbarColor = const Color(0xf93597f8);
   final tamanKey = GlobalKey<ListOfParksState>();
@@ -42,22 +42,7 @@ class _CompactorPanelScheduleMainState
   int iconCondition = 1;
   String namaTaman = "";
   String namaSublaluan = "";
-
-  @override
-  void initState() {
-    getTheData();
-    super.initState();
-  }
-
-  void getTheData() {
-    Future<ScheduleDetails?>? list = JadualApi.getDataJadual(widget.data!.id!);
-    scheduleId = widget.data!.id.toString();
-    list!.then((value) {
-      setState(() {
-        scheduleList = value;
-      });
-    });
-  }
+  CScheduleDetail? cScheduleDetail;
 
   updateSenaraiTaman([name]) {
     setState(() {
@@ -123,19 +108,79 @@ class _CompactorPanelScheduleMainState
                           )
                         ]))),
             body: Container(
-              decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                colors: [
-                  Color(0xff3298F8),
-                  Color(0xff4A39BE),
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.center,
-              )),
-              child: Orientations().isLandscape(context)
-                  ? landscapeLayoutBuild()
-                  : portraitLayoutBuild(),
-            ),
+                decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                  colors: [
+                    Color(0xff3298F8),
+                    Color(0xff4A39BE),
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.center,
+                )),
+                child: FutureBuilder<CScheduleDetail?>(
+                    future: CompactorScheduleApi.getCompactorScheduleDetail(
+                        context, widget.data.id!),
+                    builder: (context, snapshot) {
+                      switch (snapshot.connectionState) {
+                        case ConnectionState.waiting:
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        default:
+                          if (snapshot.hasError) {
+                            return Center(
+                              child: SizedBox(
+                                height: 60,
+                                width: 200,
+                                child: TextButton(
+                                  style: ButtonStyle(
+                                      elevation: MaterialStateProperty.all(0),
+                                      shape: MaterialStateProperty.all(
+                                        RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(12)),
+                                      ),
+                                      overlayColor:
+                                          MaterialStateColor.resolveWith(
+                                              (states) =>
+                                                  const Color(0x0f0c057a)),
+                                      backgroundColor:
+                                          MaterialStateProperty.all(
+                                              transparent)),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "Sila Muat Semula",
+                                        style: TextStyle(
+                                            color: white,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                      const SizedBox(width: 10),
+                                      Icon(Icons.refresh,
+                                          size: 20, color: white),
+                                    ],
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      refresh.value = !refresh.value;
+                                    });
+                                  },
+                                ),
+                              ),
+                            );
+                          } else {
+                            if (snapshot.hasData) {
+                              cScheduleDetail = snapshot.data!;
+                              return Orientations().isLandscape(context)
+                                  ? landscapeLayoutBuild(cScheduleDetail)
+                                  : portraitLayoutBuild(cScheduleDetail);
+                            }
+                          }
+                      }
+                      return Container();
+                    })),
             floatingActionButton: Padding(
                 padding: Orientations().isLandscape(context)
                     ? const EdgeInsets.only(right: 50, bottom: 20)
@@ -147,13 +192,13 @@ class _CompactorPanelScheduleMainState
                       ))));
   }
 
-  Widget landscapeLayoutBuild() {
+  Widget landscapeLayoutBuild(CScheduleDetail? cScheduleDetail) {
     return Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Container(
           padding: const EdgeInsets.only(left: 20, top: 30, right: 20),
           width: Sizes().screenWidth(context) * 0.42,
           child: CompactorPanelScheduleDetails(
-            data: widget.data,
+            data: cScheduleDetail,
           )),
       Container(
           color: white,
@@ -181,7 +226,7 @@ class _CompactorPanelScheduleMainState
     ]);
   }
 
-  Widget portraitLayoutBuild() {
+  Widget portraitLayoutBuild(CScheduleDetail? cScheduleDetail) {
     return ScrollConfiguration(
       behavior: const MaterialScrollBehavior().copyWith(overscroll: false),
       child: ExpandCollapseHeader(
@@ -189,7 +234,7 @@ class _CompactorPanelScheduleMainState
           title: _collapseTitle(),
           headerExpandedHeight: 0.41,
           alwaysShowLeadingAndAction: false,
-          headerWidget: _header(context),
+          headerWidget: _header(context, cScheduleDetail),
           fullyStretchable: true,
           body: [_scrollBody()],
           curvedBodyRadius: 24,
@@ -211,7 +256,7 @@ class _CompactorPanelScheduleMainState
   Widget _collapseTitle() {
     return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
       Text(
-        widget.data!.mainRoute!,
+        widget.data.mainRoute!,
         style: TextStyle(
           color: white,
           fontWeight: FontWeight.w700,
@@ -221,8 +266,8 @@ class _CompactorPanelScheduleMainState
       const SizedBox(width: 20),
       StatusContainer(
         type: "Laluan",
-        status: widget.data!.statusCode!.name!,
-        statusId: widget.data!.statusCode,
+        status: widget.data.statusCode!.name!,
+        statusId: widget.data.statusCode,
         fontWeight: statusFontWeight,
         roundedCorner: true,
       ),
@@ -284,14 +329,14 @@ class _CompactorPanelScheduleMainState
     ]);
   }
 
-  Widget _header(BuildContext context) {
+  Widget _header(BuildContext context, cScheduleDetail) {
     return SafeArea(
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Padding(
           padding: const EdgeInsets.symmetric(horizontal: 90, vertical: 10),
           child: SizedBox(
               child: CompactorPanelScheduleDetails(
-            data: widget.data,
+            data: cScheduleDetail,
           )))
     ]));
   }
@@ -344,7 +389,7 @@ class _CompactorPanelScheduleMainState
                       iconCondition: iconCondition,
                       data: namaSublaluan,
                       screen: "Work Schedule",
-                      scMainId: widget.data!.id,
+                      scMainId: widget.data.id,
                       getSubLaluanName: updateSenaraiTaman,
                     ),
                   ),
@@ -365,7 +410,7 @@ class _CompactorPanelScheduleMainState
                             data: namaTaman,
                             screen: "Work Schedule",
                             subRoutesName: namaSublaluan,
-                            scMainId: widget.data!.id,
+                            scMainId: widget.data.id,
                             updateSenaraiJalan: updateShowSenaraiJalan,
                           ),
                         )
@@ -381,7 +426,7 @@ class _CompactorPanelScheduleMainState
                             data: namaTaman,
                             screen: "Work Schedule",
                             subRoutesName: namaSublaluan,
-                            scMainId: widget.data!.id,
+                            scMainId: widget.data.id,
                             updateSenaraiJalan: updateShowSenaraiJalan,
                           ),
                         ),
@@ -390,7 +435,7 @@ class _CompactorPanelScheduleMainState
                   if (_showSenaraiJalan)
                     ListOfRoad(
                       idTaman: idTaman,
-                      scMainId: widget.data!.id,
+                      scMainId: widget.data.id,
                     ),
                 ],
               )
@@ -411,7 +456,7 @@ class _CompactorPanelScheduleMainState
                           iconCondition: iconCondition,
                           data: namaSublaluan,
                           screen: "Work Schedule",
-                          scMainId: widget.data!.id,
+                          scMainId: widget.data.id,
                           getSubLaluanName: updateSenaraiTaman,
                         ),
                       ),
@@ -432,7 +477,7 @@ class _CompactorPanelScheduleMainState
                                 data: namaTaman,
                                 screen: "Work Schedule",
                                 subRoutesName: namaSublaluan,
-                                scMainId: widget.data!.id,
+                                scMainId: widget.data.id,
                                 updateSenaraiJalan: updateShowSenaraiJalan,
                               ),
                             )
@@ -448,7 +493,7 @@ class _CompactorPanelScheduleMainState
                                 data: namaTaman,
                                 screen: "Work Schedule",
                                 subRoutesName: namaSublaluan,
-                                scMainId: widget.data!.id,
+                                scMainId: widget.data.id,
                                 updateSenaraiJalan: updateShowSenaraiJalan,
                               ),
                             ),
@@ -459,7 +504,7 @@ class _CompactorPanelScheduleMainState
                   if (_showSenaraiJalan)
                     ListOfRoad(
                       idTaman: idTaman,
-                      scMainId: widget.data!.id,
+                      scMainId: widget.data.id,
                     ),
                 ],
               ));

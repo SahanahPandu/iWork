@@ -3,17 +3,16 @@ import 'package:flutter/material.dart';
 //import files
 import '../../../config/font.dart';
 import '../../../config/palette.dart';
-import '../../../models/task/compactor/data/schedule/schedule.dart';
+import '../../../models/schedule/compactor/detail/schedule_detail.dart';
 import '../../../utils/calendar/time.dart';
 import '../../../utils/device/orientations.dart';
 import '../../../utils/icon/custom_icon.dart';
 import '../../../widgets/container/status_container.dart';
 
 class CompactorPanelScheduleDetails extends StatefulWidget {
-  final Schedule? data;
+  final CScheduleDetail? data;
 
-  const CompactorPanelScheduleDetails({Key? key, required this.data})
-      : super(key: key);
+  const CompactorPanelScheduleDetails({Key? key, this.data}) : super(key: key);
 
   @override
   State<CompactorPanelScheduleDetails> createState() =>
@@ -31,28 +30,33 @@ class _CompactorPanelScheduleDetailsState
 
   @override
   void initState() {
-    if (widget.data!.vehicleChecklistId == null) {
+    if (widget.data!.data!.details!.vehicleChecklistId == null) {
       startTime = "--:--";
       stopTime = "--:--";
       beforeVC = white;
       afterVC = white;
     } else {
-      if (widget.data!.startWorkAt == "--:--" ||
-          widget.data!.startWorkAt == "") {
+      if (widget.data!.data!.details!.startWorkAt == "--:--" ||
+          widget.data!.data!.details!.startWorkAt == null) {
         startTime = "--:--";
       } else {
-        startTime = Time.convertToHM(widget.data!.startWorkAt!);
+        startTime = Time.convertToHM(widget.data!.data!.details!.startWorkAt!);
       }
-      if (widget.data!.stopWorkAt == "--:--" || widget.data!.stopWorkAt == "") {
+      if (widget.data!.data!.details!.stopWorkAt == "--:--" ||
+          widget.data!.data!.details!.stopWorkAt == null) {
         stopTime = "--:--";
       } else {
-        stopTime = Time.convertToHM(widget.data!.stopWorkAt!);
+        stopTime = Time.convertToHM(widget.data!.data!.details!.stopWorkAt!);
       }
-      if (widget.data!.vehicleChecklistId!.statusCode!.code == "VC1") {
+      if (widget.data!.data!.details!.vehicleChecklistId!.statusCode!.code ==
+          "VC1") {
         beforeVC = okTextColor;
         afterVC = white;
-      } else if (widget.data!.vehicleChecklistId!.statusCode!.code == "VC2" ||
-          widget.data!.vehicleChecklistId!.statusCode!.code == "VC3") {
+      } else if (widget
+                  .data!.data!.details!.vehicleChecklistId!.statusCode!.code ==
+              "VC2" ||
+          widget.data!.data!.details!.vehicleChecklistId!.statusCode!.code ==
+              "VC3") {
         beforeVC = okTextColor;
         afterVC = okTextColor;
       }
@@ -69,7 +73,7 @@ class _CompactorPanelScheduleDetailsState
           children: [
             Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Text(widget.data!.mainRoute!,
+                child: Text(widget.data!.data!.details!.mainRoute!,
                     style: TextStyle(
                       fontSize: 18,
                       color: white,
@@ -77,8 +81,8 @@ class _CompactorPanelScheduleDetailsState
                     ))),
             StatusContainer(
               type: "Laluan",
-              status: widget.data!.statusCode!.name!,
-              statusId: widget.data!.statusCode!.code,
+              status: widget.data!.data!.details!.statusCode!.name!,
+              statusId: widget.data!.data!.details!.statusCode!.code!,
               fontWeight: statusFontWeight,
               roundedCorner: true,
             )
@@ -105,7 +109,7 @@ class _CompactorPanelScheduleDetailsState
                     fontWeight: FontWeight.w400,
                   ))
             ]),
-            Text(widget.data!.vehicleNo!,
+            Text(widget.data!.data!.details!.vehicleNo!,
                 style: TextStyle(
                   fontSize: 16,
                   color: white,
@@ -133,7 +137,7 @@ class _CompactorPanelScheduleDetailsState
                     fontWeight: FontWeight.w400,
                   ))
             ]),
-            Text("${widget.data!.totalSubRoute}",
+            Text("${widget.data!.data!.details!.totalSubRoute}",
                 style: TextStyle(
                   fontSize: 16,
                   color: white,
@@ -162,7 +166,7 @@ class _CompactorPanelScheduleDetailsState
                   ))
             ]),
             Text(
-              "${widget.data!.totalPark}/${widget.data!.totalStreet}",
+              "${widget.data!.data!.details!.totalPark}/${widget.data!.data!.details!.totalStreet}",
               style: TextStyle(
                 fontSize: 16,
                 color: white,
@@ -192,7 +196,7 @@ class _CompactorPanelScheduleDetailsState
                   ))
             ]),
             Text(
-              widget.data!.activityCode!.activityName!,
+              widget.data!.data!.details!.activityCode!.activityName!,
               style: TextStyle(
                 fontSize: 16,
                 color: white,
@@ -218,7 +222,7 @@ class _CompactorPanelScheduleDetailsState
                   ))
             ]),
             Text(
-                '${Time.convertToHM(widget.data!.startScheduleAt!)} / ${Time.convertToHM(widget.data!.stopScheduleAt!)}',
+                '${Time.convertToHM(widget.data!.data!.details!.startScheduleAt!)} / ${Time.convertToHM(widget.data!.data!.details!.stopScheduleAt!)}',
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(

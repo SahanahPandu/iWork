@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 //import files
 import '../../../../config/palette.dart';
 import '../../../../config/string.dart';
-import '../../../../models/vc/vc_main.dart';
+import '../../../../models/vc/detail/vc_main.dart';
 import '../../../../utils/device/sizes.dart';
 import '../../../../utils/icon/custom_icon.dart';
 import '../../../alert/alert_dialog.dart';

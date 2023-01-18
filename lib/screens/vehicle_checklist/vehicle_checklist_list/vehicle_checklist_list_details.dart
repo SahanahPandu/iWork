@@ -5,7 +5,7 @@ import 'package:page_transition/page_transition.dart';
 
 //import files
 import '../../../config/palette.dart';
-import '../../../models/vc/vc_main.dart';
+import '../../../models/vc/detail/vc_main.dart';
 import '../../../utils/calendar/date.dart';
 import '../../../utils/device/orientations.dart';
 import '../../../utils/icon/custom_icon.dart';

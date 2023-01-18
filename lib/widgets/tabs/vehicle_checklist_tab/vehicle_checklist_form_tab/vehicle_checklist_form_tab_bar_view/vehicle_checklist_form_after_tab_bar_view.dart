@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../../../../models/task/compactor/compactor_task.dart';
-import '../../../../../models/vc/vc_main.dart';
+import '../../../../../models/vc/detail/vc_main.dart';
 import '../../../../../providers/vehicle_checklist/vehicle_checklist_api.dart';
 import '../../../../../screens/vehicle_checklist/vehicle_checklist_form/vehicle_checklist_form_detail.dart';
 

@@ -23,7 +23,7 @@ class ApiError {
           e.message.contains(
               "SocketException: No route to host (OS Error: No route to host")) {
         dioError.value = 10;
-        message = "Server mengalami masalah. Sila hubungi IT";
+        message = "Terdapat masalah pada server. Sila hubungi jabatan IT anda.";
       }
     }
 
@@ -41,7 +41,7 @@ class ApiError {
       /// Client Error Response 4. 400: Bad Request
       if (e.response!.statusCode == 400) {
         dioError.value = 4;
-        message = "Masalah sambungan internet";
+        message = "Masalah sambungan internet kod 400";
       }
 
       /// Client Error Response 5. 401: Token expired/invalid/unauthenticated
@@ -56,25 +56,25 @@ class ApiError {
       /// Client Error Response 6. 404: Not found/URL is not recognized
       else if (e.response!.statusCode == 402) {
         dioError.value = 6;
-        message = "Masalah sambungan internet";
+        message = "Masalah sambungan internet kod 402";
       }
 
       /// Client Error Response 7. 405: Method not found
       else if (e.response!.statusCode == 405) {
         dioError.value = 7;
-        message = "Masalah server";
+        message = "Terdapat masalah kod 405.";
       }
 
       /// Client Error Response 8. 500: Internal Server Error
       else if (e.response!.statusCode == 500) {
         dioError.value = 8;
-        message = "Masalah server";
+        message = "Terdapat masalah kod 500.";
       }
 
       /// Client Error Response 9. 502: Bad Getaway
       else if (e.response!.statusCode == 502) {
         dioError.value = 9;
-        message = "Masalah server";
+        message = "Terdapat masalah 502 pada server. Sila hubungi jabatan IT anda.";
       } else {
         message = message + e.message;
       }

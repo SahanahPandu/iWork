@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 
-import '../models/vc/vc_main.dart';
+import '../models/vc/detail/vc_main.dart';
 
 
 class VehicleChecklistApis {

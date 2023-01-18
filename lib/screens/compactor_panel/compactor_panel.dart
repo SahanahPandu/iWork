@@ -11,7 +11,7 @@ import '../../utils/calendar/date.dart';
 import '../../utils/device/orientations.dart';
 import '../../widgets/alert/toast.dart';
 import '../../widgets/cards/today_task/today_task_card.dart';
-import '../../widgets/gridview/compactor_panel/compactor_task_list.dart';
+import '../../widgets/gridview/compactor_panel/task/compactor_task_list.dart';
 import '../../widgets/slivers/expand_collapse_header/expand_collapse_header.dart';
 
 class CompactorPanel extends StatefulWidget {
@@ -51,7 +51,7 @@ class _CompactorPanelState extends State<CompactorPanel> {
               );
             },
             child: FutureBuilder<CompactorTask?>(
-                future: CompactorTaskApi.getCompactorScheduleData(context),
+                future: CompactorTaskApi.getCompactorTaskData(context),
                 builder: (context, snapshot) {
                   switch (snapshot.connectionState) {
                     case ConnectionState.waiting:

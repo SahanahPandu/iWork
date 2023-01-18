@@ -71,7 +71,6 @@ String scheduleId = '';
 /// ** The Server IP Adress ***
 // String theBase = "http://103.26.46.187:81/api";
 String theBase = "https://iworkapi.swmsb.com/api";
-// String theBase = "http://localhost:8000/api";
 
 /// ** LoginStatus **
 /// '0' = unknown
@@ -96,6 +95,7 @@ int vcStatus = 0;
 List<int> cpSchedule = List.generate(listLength, (index) => 0);
 List<String> routeNames = List.generate(listLength, (index) => '');
 String selectedNewDate = "";
+ValueNotifier<bool> reachedBottom = ValueNotifier(false);
 
 /// ** Dio Error Types **
 /// '0' = No error
@@ -108,5 +108,11 @@ String selectedNewDate = "";
 /// '7' = 405 - Method not found
 /// '8' = 500 - Internal Server Error
 /// '9' = 502 - Bad Getaway
-/// '10' = Backend returns null value/Unable to map into modal
+/// '10' = Server is offline
+/// '11' = Backend returns null value/Unable to map into modal
 ValueNotifier<int> dioError = ValueNotifier(0);
+
+//List<Link?>? linkList;
+bool isLoading = true;
+bool hasMore = true;
+String nextPageUrl = "";

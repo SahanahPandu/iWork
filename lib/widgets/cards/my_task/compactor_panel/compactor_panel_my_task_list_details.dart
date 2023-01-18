@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import '../../../../config/font.dart';
 import '../../../../config/palette.dart';
 import '../../../../models/task/compactor/compactor_task.dart';
-import '../../../../models/task/compactor/data/schedule/schedule.dart';
 import '../../../../utils/calendar/time.dart';
 import '../../../../utils/device/orientations.dart';
 import '../../../../utils/icon/custom_icon.dart';
@@ -12,7 +11,7 @@ import '../../../../widgets/slide_bar/start_end_work_slide_bar.dart';
 import '../../../container/status_container.dart';
 
 class CompactorPanelMyTaskListDetails extends StatefulWidget {
-  final Schedule data;
+  final dynamic data;
   final CompactorTask? compactorData;
   final bool button;
   final int? idx;
@@ -240,7 +239,7 @@ class CompactorPanelMyTaskListDetailsState
                           '${Time.convertToHM(widget.data.startScheduleAt!)} / ${Time.convertToHM(widget.data.stopScheduleAt!)}',
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style:textStyle),
+                          style: textStyle),
                     )
                   ]))
         ]),
@@ -266,7 +265,10 @@ class CompactorPanelMyTaskListDetailsState
 
   Size _textSize() {
     final TextPainter textPainter = TextPainter(
-        text: TextSpan(text: '${Time.convertToHM(widget.data.startScheduleAt!)} / ${Time.convertToHM(widget.data.stopScheduleAt!)}', style: textStyle),
+        text: TextSpan(
+            text:
+                '${Time.convertToHM(widget.data.startScheduleAt!)} / ${Time.convertToHM(widget.data.stopScheduleAt!)}',
+            style: textStyle),
         maxLines: 1,
         textAlign: TextAlign.right,
         textDirection: TextDirection.rtl)

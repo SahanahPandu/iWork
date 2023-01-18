@@ -43,9 +43,10 @@ class CompactorTaskApi {
     }
   }
 
-  static Future<List<Schedule>?> getCompactorScheduleList(
+  static Future<List<Schedule?>?> getCompactorTaskList(
       BuildContext context) async {
-    List<Schedule>? decodeBody = [];
+    // List<Schedule>? decodeBody = [];
+    List<Schedule?>? decodeBody = [];
     String? getAccessToken = userInfo[1];
     DateTime getTodayDate = DateTime.now();
     String currentDate = (selectedNewDate != "" && otherDate == true)
@@ -77,7 +78,7 @@ class CompactorTaskApi {
     return decodeBody;
   }
 
-  static Future<CompactorTask> getCompactorScheduleData(
+  static Future<CompactorTask> getCompactorTaskData(
       BuildContext context) async {
     late CompactorTask dataSchedule;
     String? getAccessToken = userInfo[1];

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import '../../config/config.dart';
 import '../../utils/device/orientations.dart';
 import '../../widgets/custom_scroll/custom_scroll.dart';
-import '../../widgets/gridview/compactor_panel/compactor_report_list.dart';
+import '../../widgets/gridview/compactor_panel/report/compactor_report_list.dart';
 import '../../widgets/listview/card_list_view.dart';
 
 class ReportList extends StatefulWidget {
