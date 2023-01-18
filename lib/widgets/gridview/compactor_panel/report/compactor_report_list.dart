@@ -26,7 +26,7 @@ class _CompactorReportListState extends State<CompactorReportList> {
   @override
   void initState() {
     super.initState();
-    _loadReportData = ReportsApi.getDataLaporan(context, scheduleId);
+    _loadReportData = ReportsApi.getDataLaporan(scheduleId);
   }
 
   @override
