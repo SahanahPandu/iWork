@@ -71,6 +71,10 @@ class ScheduleFilterListState extends State<ScheduleFilterList> {
   final TextEditingController namaTaman = TextEditingController();
 
   int idTaman = 0;
+  List<ScheduleFilterMainRoutes> dataLaluan = [];
+  List<ScheduleFilterSubRoutes> dataSubLaluan = [];
+  List<ScheduleFilterParks> dataTaman = [];
+
   List<ScheduleFilterMainRoutes>? senaraiLaluan = [];
   List<ScheduleFilterSubRoutes>? senaraiSubLaluan = [];
   List<ScheduleFilterParks>? senaraiTaman = [];
@@ -89,23 +93,19 @@ class ScheduleFilterListState extends State<ScheduleFilterList> {
     // ignore: unused_local_variable
     var fetchData =
         await ScheduleFilterApi.getDataScheduleFilter().then((theData) {
-      List<ScheduleFilterMainRoutes> dataLaluan = [];
-      List<ScheduleFilterSubRoutes> dataSubLaluan = [];
-      List<ScheduleFilterParks> dataTaman = [];
-
-      if (theData.mainRoute != null || theData.mainRoute != []) {
-        dataLaluan.addAll(theData.mainRoute);
-      }
-
-      if (theData.subRoutes != null || theData.subRoutes != []) {
-        dataSubLaluan.addAll(theData.subRoutes);
-      }
-
-      if (theData.parks != null || theData.parks != []) {
-        dataTaman.addAll(theData.parks);
-      }
-
       setState(() {
+        if (theData.mainRoute != null || theData.mainRoute != []) {
+          dataLaluan.addAll(theData.mainRoute);
+        }
+
+        if (theData.subRoutes != null || theData.subRoutes != []) {
+          dataSubLaluan.addAll(theData.subRoutes);
+        }
+
+        if (theData.parks != null || theData.parks != []) {
+          dataTaman.addAll(theData.parks);
+        }
+
         senaraiLaluan!.addAll(dataLaluan);
         senaraiSubLaluan!.addAll(dataSubLaluan);
         senaraiTaman!.addAll(dataTaman);
@@ -115,56 +115,63 @@ class ScheduleFilterListState extends State<ScheduleFilterList> {
 
   updateFilterItems(item, value) async {
     // ignore: unused_local_variable
-    var fetchData =
-        await ScheduleFilterApi.getDataScheduleFilter().then((theData) {
-      senaraiLaluan!.clear();
-      senaraiSubLaluan!.clear();
-      senaraiTaman!.clear();
-      List<ScheduleFilterMainRoutes> dataLaluan = [];
-      List<ScheduleFilterSubRoutes> dataSubLaluan = [];
-      List<ScheduleFilterParks> dataTaman = [];
+    // var fetchData =
+    //     await ScheduleFilterApi.getDataScheduleFilter().then((theData) {
+    //   senaraiLaluan!.clear();
+    //   senaraiSubLaluan!.clear();
+    //   senaraiTaman!.clear();
 
-      if (theData.mainRoute != null || theData.mainRoute != []) {
-        dataLaluan.addAll(theData.mainRoute);
-      }
+    //   if (theData.mainRoute != null || theData.mainRoute != []) {
+    //     dataLaluan.addAll(theData.mainRoute);
+    //   }
 
-      if (theData.subRoutes != null || theData.subRoutes != []) {
-        dataSubLaluan.addAll(theData.subRoutes);
-      }
+    //   if (theData.subRoutes != null || theData.subRoutes != []) {
+    //     dataSubLaluan.addAll(theData.subRoutes);
+    //   }
 
-      if (theData.parks != null || theData.parks != []) {
-        dataTaman.addAll(theData.parks);
-      }
+    //   if (theData.parks != null || theData.parks != []) {
+    //     dataTaman.addAll(theData.parks);
+    //   }
 
-      if (item == "laluan") {
-        dataSubLaluan.removeWhere((item) => item.mainRoute != value);
-        dataTaman.removeWhere((item) => item.mainRoute != value);
+    // });
+    if (item == "laluan") {
+      //filter sublaluan dropdown based on selected laluan
+      dataSubLaluan.removeWhere((item) => item.mainRoute != value);
 
-        setState(() {
-          namaLaluan.text = value;
-          senaraiLaluan!.addAll(dataLaluan);
-          senaraiSubLaluan!.addAll(dataSubLaluan);
-          senaraiTaman!.addAll(dataTaman);
-        });
-      } else if (item == "sub-laluan") {
+      //filter taman dropdown based on selected laluan
+      if (namaSubLaluan.text != "") {
+        //this is for case , laluan and sub laluan are selected
         dataTaman.removeWhere((item) =>
-            item.mainRoute != namaLaluan.text && item.subRoute != value);
-        setState(() {
-          namaSubLaluan.text = value;
-          senaraiLaluan!.addAll(dataLaluan);
-          senaraiSubLaluan!.addAll(dataSubLaluan);
-          senaraiTaman!.addAll(dataTaman);
-        });
-      } else if (item == "taman") {
-        setState(() {
-          idTaman = value['id'];
-          namaTaman.text = value['name'];
-          senaraiLaluan!.addAll(dataLaluan);
-          senaraiSubLaluan!.addAll(dataSubLaluan);
-          senaraiTaman!.addAll(dataTaman);
-        });
+            item.mainRoute != value && item.subRoute == namaSubLaluan.text);
+      } else {
+        //this for if only laluan is selected
+        dataTaman.removeWhere((item) => item.mainRoute != value);
       }
-    });
+
+      setState(() {
+        namaLaluan.text = value;
+        senaraiLaluan!.addAll(dataLaluan);
+        senaraiSubLaluan!.addAll(dataSubLaluan);
+        senaraiTaman!.addAll(dataTaman);
+      });
+    } else if (item == "sub-laluan") {
+      dataTaman.removeWhere((item) =>
+          item.mainRoute != namaLaluan.text && item.subRoute != value);
+      setState(() {
+        namaSubLaluan.text = value;
+        senaraiLaluan!.addAll(dataLaluan);
+        senaraiSubLaluan!.addAll(dataSubLaluan);
+        senaraiTaman!.addAll(dataTaman);
+      });
+    } else if (item == "taman") {
+      setState(() {
+        idTaman = value['id'];
+        namaTaman.text = value['name'];
+        senaraiLaluan!.addAll(dataLaluan);
+        senaraiSubLaluan!.addAll(dataSubLaluan);
+        senaraiTaman!.addAll(dataTaman);
+      });
+    }
   }
 
   //==================== end of Methods ========================================
