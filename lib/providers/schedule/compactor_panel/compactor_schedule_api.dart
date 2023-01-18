@@ -21,6 +21,7 @@ class CompactorScheduleApi {
     dynamic statusList;
     var myData = passData != null ? Map<String, dynamic>.from(passData) : null;
     var convDate = "";
+    List newStatusList = [];
 
     if (myData != null) {
       if (myData['filteredDate'] != "") {
@@ -29,10 +30,9 @@ class CompactorScheduleApi {
       }
       statusList = myData['selectedStatus'];
       if (statusList.length > 0) {
-        statusList = statusList[0].code;
-        // statusList.forEach((status) {
-        //   theStatus.add(status.code);
-        // });
+        for (int i = 0; i < statusList.length; i++) {
+          newStatusList.add(statusList[i].code);
+        }
       }
     }
 
@@ -43,7 +43,7 @@ class CompactorScheduleApi {
         options: Options(headers: {
           'authorization': 'Bearer $getAccessToken',
         }),
-        queryParameters: _getQueryParameter(passData, convDate, statusList),
+        queryParameters: _getQueryParameter(passData, convDate, newStatusList),
       );
       if (response.statusCode == 200 && response.data != null) {
         if (response.data['data']['data'] != null &&
@@ -51,7 +51,7 @@ class CompactorScheduleApi {
           Map<String, dynamic> decode = json.decode(json.encode(response.data));
           var convertData = ScheduleList.fromJson(decode).data!.data;
           nextPageUrl = ScheduleList.fromJson(decode).data!.nextPageUrl!;
-          //linkList = ScheduleList.fromJson(decode).data!.links;
+          // linkList = ScheduleList.fromJson(decode).data!.links;
           // print("current page --> ${ScheduleList.fromJson(decode).data!.currentPage!}");
           // print("nextPageUrl --> $nextPageUrl");
           decodeBody = convertData;
@@ -67,17 +67,33 @@ class CompactorScheduleApi {
   }
 
   static _getQueryParameter(
-      Map<String, Object>? passData, String? convDate, dynamic statusList) {
+      Map<String, Object>? passData, String? convDate, dynamic status) {
+    /// no passdata
     if (passData == null) {
       return null;
-    } else if (convDate != null && (statusList.length == 0)) {
-      return {'schedule_date': convDate};
-    } else if (convDate == null && statusList != null) {
-      return {'status_code[]': statusList};
-    } else if (convDate != null && statusList != null) {
-      return {'schedule_date': convDate, 'status_code[]': statusList};
     }
-    return {};
+
+    /// filtered date only
+    else if (convDate != null && (status.length == 0 || status.isEmpty)) {
+      return {'schedule_date': convDate};
+    }
+
+    /// filtered status only
+    else if (convDate == null && (status.length >= 0 || status.isNotEmpty)) {
+      return {
+        'status_code[]': [status],
+      };
+    }
+
+    /// filtered date and status
+    else if (convDate != null && (status.length >= 0 || status.isNotEmpty)) {
+      return {
+        'schedule_date': convDate,
+        'status_code[]': [status],
+      };
+    } else {
+      return null;
+    }
   }
 
   static Future<ScheduleList?> getCompactorScheduleList(

@@ -21,8 +21,8 @@ class CompactorScheduleList extends StatefulWidget {
 
 class _CompactorScheduleListState extends State<CompactorScheduleList> {
   late Future<List<CScheduleData?>?> _loadScheduleList;
-  static List<CScheduleData?> itemList =
-      List<CScheduleData?>.empty(growable: true);
+
+  // static List<CScheduleData?> itemList = List<CScheduleData?>.empty(growable: true);
 
   @override
   void initState() {
@@ -31,7 +31,7 @@ class _CompactorScheduleListState extends State<CompactorScheduleList> {
         context, widget.passData);
   }
 
-  void _loadMore() {
+  /* void _loadMore() {
     isLoading = true;
     Future<List<CScheduleData?>?> loadScheduleList2 =
         CompactorScheduleApi.getCompactorScheduleListData(
@@ -49,7 +49,7 @@ class _CompactorScheduleListState extends State<CompactorScheduleList> {
         });
       }
     });
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +66,6 @@ class _CompactorScheduleListState extends State<CompactorScheduleList> {
                 child: CircularProgressIndicator(),
               );
             default:
-              print("building?..");
               return Container(
                   margin: Orientations().isTabletPortrait(context)
                       ? const EdgeInsets.symmetric(horizontal: 10)
@@ -139,7 +138,7 @@ class _CompactorScheduleListState extends State<CompactorScheduleList> {
   }
 
   bool isLoading = false;
-
+/*
   Widget _loader() {
     return isLoading
         ? const Align(
@@ -156,5 +155,5 @@ class _CompactorScheduleListState extends State<CompactorScheduleList> {
             width: 0.0,
             height: 0.0,
           );
-  }
+  }*/
 }

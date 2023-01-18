@@ -572,7 +572,7 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
               physics: const BouncingScrollPhysics(),
               scrollDirection: Axis.horizontal,
               children: [
-                InkWell(
+                GestureDetector(
                   onTap: () {
                     setState(() {
                       _filteredDate.text = "";
