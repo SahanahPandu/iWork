@@ -78,7 +78,7 @@ void _showToast(BuildContext context, String message, Color color,
                         : Sizes().screenWidth(context) - 50,
                     height: Orientations().isLandscape(context)
                         ? Sizes().screenHeight(context) / 12
-                        : Sizes().screenHeight(context) / 20,
+                        : Sizes().screenHeight(context) / 18,
                     padding: const EdgeInsets.all(5),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,

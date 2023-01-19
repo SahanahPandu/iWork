@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import '../../config/config.dart';
 import '../../models/vc/detail/vc_main.dart';
 import '../http/error/api_error.dart';
+import '../http/service/http_header.dart';
 import '../http/service/http_service.dart';
 
 class VehicleChecklistApi {
@@ -19,9 +20,7 @@ class VehicleChecklistApi {
       var response = await Dio().get(
         HttpService().loadVehicleChecklist,
         queryParameters: {'vehicle_checklist_id': '3'},
-        options: Options(headers: {
-          'authorization': 'Bearer $getAccessToken',
-        }),
+        options: HttpHeader.getApiHeader(getAccessToken),
       );
 
       if (response.statusCode == 200) {
@@ -46,9 +45,7 @@ class VehicleChecklistApi {
       var response = await Dio().get(
         HttpService().loadVehicleChecklist,
         queryParameters: {'vehicle_checklist_id': vcId},
-        options: Options(headers: {
-          'authorization': 'Bearer $getAccessToken',
-        }),
+        options: HttpHeader.getApiHeader(getAccessToken),
       );
       switch (response.statusCode) {
         case 200:

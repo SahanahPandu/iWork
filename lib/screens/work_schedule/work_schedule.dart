@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 //import files
 import '../../config/config.dart';
 import '../../config/palette.dart';
+import '../../utils/calendar/date.dart';
 import '../../utils/device/sizes.dart';
 import '../../utils/icon/custom_icon.dart';
 import '../../widgets/buttons/report_button.dart';
@@ -58,7 +59,7 @@ class _WorkScheduleState extends State<WorkSchedule> {
             ),
             title: Center(
               child: Text(
-                "Perincian Laluan",
+                "Perincian Laluan - ${Date.getTheDate(widget.data.scheduleDate, "yyyy-MM-dd", "dd/MM/yyyy", "ms")}",
                 style: TextStyle(
                   fontSize: 15,
                   color: white,

@@ -13,7 +13,7 @@ import '../../utils/device/orientations.dart';
 import '../../utils/device/sizes.dart';
 import '../../utils/icon/custom_icon.dart';
 import '../../widgets/custom_scroll/custom_scroll.dart';
-import '../../widgets/gridview/compactor_panel/schedule/compactor_schedule_list.dart';
+import '../../widgets/gridview/compactor_panel/schedule/schedule_list_main.dart';
 import '../../widgets/listview/card_list_view.dart';
 
 class ScheduleAllMainScreen extends StatefulWidget {
@@ -39,80 +39,82 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
     // print('Filter Date: $filteredDate');
     // print('Selected Status: $selectedStatus');
     return Scaffold(
-      backgroundColor: white,
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(kToolbarHeight),
-        child: Container(
-          decoration: BoxDecoration(boxShadow: [
-            BoxShadow(
-              color: barShadowColor,
-              offset: const Offset(0, 3),
-              blurRadius: 8,
-            )
-          ]),
-          child: AppBar(
-            backgroundColor: white,
-            elevation: 0,
-            leading: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: Icon(CustomIcon.arrowBack, color: blackCustom, size: 22),
-            ),
-            title: Center(
-              child: Text(
-                "Jadual Tugasan",
-                style: TextStyle(
-                  fontSize: 15,
-                  color: blackCustom,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-            ),
-            actions: [
-              IconButton(
+        backgroundColor: white,
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(kToolbarHeight),
+          child: Container(
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                color: barShadowColor,
+                offset: const Offset(0, 3),
+                blurRadius: 8,
+              )
+            ]),
+            child: AppBar(
+              backgroundColor: white,
+              elevation: 0,
+              leading: IconButton(
                 onPressed: () {
-                  setState(() {
-                    preSelectStatus = List.from(selectedStatus);
-                  });
-
-                  displayFilterBottomSheet(context);
+                  Navigator.pop(context);
                 },
-                icon: Icon(
-                  CustomIcon.filter,
-                  color: blackCustom,
-                  size: 13,
+                icon: Icon(CustomIcon.arrowBack, color: blackCustom, size: 22),
+              ),
+              title: Center(
+                child: Text(
+                  "Jadual Tugasan",
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: blackCustom,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
               ),
-            ],
+              actions: [
+                IconButton(
+                  onPressed: () {
+                    setState(() {
+                      preSelectStatus = List.from(selectedStatus);
+                    });
+
+                    displayFilterBottomSheet(context);
+                  },
+                  icon: Icon(
+                    CustomIcon.filter,
+                    color: blackCustom,
+                    size: 13,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
-      ),
-      body: ScrollConfiguration(
-        behavior: CustomScrollBehavior(),
-        child: SingleChildScrollView(
-            child: userRole == 100
-                ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      if (displayFilterSection) filteredSection(),
-                      Container(
-                          padding: const EdgeInsets.fromLTRB(30, 30, 0, 15),
-                          child: const Text("Senarai Jadual Tugasan :",
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w400))),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8),
+        body: ScrollConfiguration(
+          behavior: CustomScrollBehavior(),
+          child: userRole == 100
+              ? Stack(
+                  children: [
+                    Padding(
+                        padding: EdgeInsets.only(
+                            top: displayFilterSection ? 80 : 50,
+                            left: 16,
+                            right: 16),
                         child: displayFilterSection
-                            ? CompactorScheduleList(passData: {
+                            ? ScheduleListMain(passData: {
                                 "filteredDate": selectedDate,
                                 "selectedStatus": selectedStatus,
                               })
-                            : const CompactorScheduleList(),
-                      ),
-                    ],
-                  )
-                : Column(
+                            : const ScheduleListMain()),
+                    Container(
+                        color: white,
+                        padding: const EdgeInsets.fromLTRB(30, 20, 0, 15),
+                        child: const Text("Senarai Jadual Tugasan :",
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.w400))),
+                    if (displayFilterSection) filteredSection(),
+                  ],
+                )
+              : SingleChildScrollView(
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       //filtered selection list
@@ -147,9 +149,9 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                               ),
                       ),
                     ],
-                  )),
-      ),
-    );
+                  ),
+                ),
+        ));
   }
 
   Future<dynamic> displayFilterBottomSheet(context) async {
@@ -375,80 +377,86 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                       height: 20,
                     ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Expanded(
-                          child: SizedBox(
-                            width: Sizes().screenWidth(context) * 0.4,
-                            height: 40,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              style: ButtonStyle(
-                                elevation: MaterialStateProperty.all(0),
-                                shadowColor:
-                                    MaterialStateProperty.all(transparent),
-                                backgroundColor:
-                                    MaterialStateProperty.all(Colors.white),
-                                shape: MaterialStateProperty.all(
-                                  RoundedRectangleBorder(
-                                    side: const BorderSide(
-                                      color: Color(0xffE5E5E5),
-                                    ),
-                                    borderRadius: BorderRadius.circular(12),
+                        SizedBox(
+                          width: Orientations().isTabletPortrait(context)
+                              ? Sizes().screenWidth(context) * 0.32
+                              : userRole == 100 &&
+                                      !Orientations().isTabletPortrait(context)
+                                  ? Sizes().screenWidth(context) * 0.2
+                                  : Sizes().screenWidth(context) * 0.4,
+                          height: 40,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            style: ButtonStyle(
+                              elevation: MaterialStateProperty.all(0),
+                              shadowColor:
+                                  MaterialStateProperty.all(transparent),
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.white),
+                              shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                  side: const BorderSide(
+                                    color: Color(0xffE5E5E5),
                                   ),
+                                  borderRadius: BorderRadius.circular(12),
                                 ),
                               ),
-                              child: Center(
-                                child: Text(
-                                  'Batal',
-                                  style: TextStyle(
-                                    color: greyCustom,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Batal',
+                                style: TextStyle(
+                                  color: greyCustom,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          width: 12,
-                        ),
-                        Align(
-                          alignment: Alignment.bottomCenter,
-                          child: SizedBox(
-                            width: Sizes().screenWidth(context) * 0.4,
-                            height: 40,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                                setState(() {
-                                  selectedDate = _filteredDate.text;
-                                  selectedStatus = preSelectStatus;
-                                  displayFilterSection = true;
-                                });
-                              },
-                              style: ButtonStyle(
-                                elevation: MaterialStateProperty.all(0),
-                                shadowColor:
-                                    MaterialStateProperty.all(transparent),
-                                backgroundColor:
-                                    MaterialStateProperty.all(greenCustom),
-                                shape: MaterialStateProperty.all(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
+                        // const SizedBox(
+                        // width: 12,
+                        //),
+                        SizedBox(
+                          width: Orientations().isTabletPortrait(context)
+                              ? Sizes().screenWidth(context) * 0.32
+                              : userRole == 100 &&
+                                      !Orientations().isTabletPortrait(context)
+                                  ? Sizes().screenWidth(context) * 0.2
+                                  : Sizes().screenWidth(context) * 0.4,
+                          height: 40,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                              setState(() {
+                                selectedDate = _filteredDate.text;
+                                selectedStatus = preSelectStatus;
+                                displayFilterSection = true;
+                              });
+                            },
+                            style: ButtonStyle(
+                              elevation: MaterialStateProperty.all(0),
+                              shadowColor:
+                                  MaterialStateProperty.all(transparent),
+                              backgroundColor:
+                                  MaterialStateProperty.all(greenCustom),
+                              shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
                                 ),
                               ),
-                              child: const Center(
-                                child: Text(
-                                  'Pasti',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                            ),
+                            child: const Center(
+                              child: Text(
+                                'Pasti',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
                             ),
@@ -584,7 +592,9 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
 
   Widget filteredSection() {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: userRole == 100
+          ? const EdgeInsets.symmetric(horizontal: 16, vertical: 26)
+          : const EdgeInsets.all(16),
       child: Column(
         children: [
           const SizedBox(

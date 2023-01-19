@@ -12,6 +12,7 @@ import '../../../models/task/compactor/compactor_task.dart';
 import '../../../models/task/compactor/data/schedule/schedule.dart';
 import '../../../utils/calendar/date.dart';
 import '../../http/error/api_error.dart';
+import '../../http/service/http_header.dart';
 import '../../http/service/http_service.dart';
 
 DateTime getTodayDate = DateTime.now();
@@ -56,9 +57,7 @@ class CompactorTaskApi {
       var response = await Dio().get(
         HttpService().loadCompactorTaskUrlTest,
         queryParameters: {'schedule_date': currentDate},
-        options: Options(headers: {
-          'authorization': 'Bearer $getAccessToken',
-        }),
+        options: HttpHeader.getApiHeader(getAccessToken),
       );
 
       if (response.statusCode == 200 && response.data != null) {
@@ -91,10 +90,7 @@ class CompactorTaskApi {
       var response = await Dio().get(
         HttpService().loadCompactorTaskUrlTest,
         queryParameters: {'schedule_date': currentDate},
-        options: Options(headers: {
-          'authorization': 'Bearer $getAccessToken',
-          'Accept': 'application/json'
-        }),
+        options: HttpHeader.getApiHeader(getAccessToken),
       );
       switch (response.statusCode) {
         case 200:
