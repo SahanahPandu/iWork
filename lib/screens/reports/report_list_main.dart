@@ -1,5 +1,4 @@
 /// LIST OF REPORTS FOR TAB/MOBILE APP DISPLAY FROM APP DRAWER
-import 'package:eswm/screens/reports/report_filter_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -8,8 +7,9 @@ import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../../utils/icon/custom_icon.dart';
 import '../../widgets/custom_scroll/custom_scroll.dart';
-import '../../widgets/gridview/compactor_panel/report/compactor_report_list.dart';
+import '../../widgets/gridview/compactor_panel/report/compactor_report_list_main.dart';
 import '../../widgets/listview/card_list_view.dart';
+import 'report_filter_drawer.dart';
 
 class ReportListMain extends StatefulWidget {
   const ReportListMain({Key? key}) : super(key: key);
@@ -106,7 +106,7 @@ class _ReportListMainState extends State<ReportListMain> {
                   ? const Padding(
                       padding:
                           EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                      child: CompactorReportList(),
+                      child: CompactorReportListMain(),
                     )
                   : const Padding(
                       padding: EdgeInsets.all(12),

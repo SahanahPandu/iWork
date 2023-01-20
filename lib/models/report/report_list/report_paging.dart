@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+
 import '../report_details/report_details_info.dart';
 
 class ReportPaging {

@@ -7,7 +7,7 @@ import '../../config/palette.dart';
 import '../../providers/cuti_api.dart';
 import '../../providers/jalan_api.dart';
 import '../../providers/laluan_api.dart';
-import '../../providers/reports_api.dart';
+import '../../providers/report/reports_api.dart';
 import '../../utils/icon/custom_icon.dart';
 import '../cards/list_card.dart';
 

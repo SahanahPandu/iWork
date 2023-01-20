@@ -1,18 +1,20 @@
 // ignore_for_file: avoid_print
 
 import 'dart:convert';
-import 'package:dio/dio.dart';
-import 'package:eswm/models/report/report_list/report_paging.dart';
 
-//import files
-import '../models/report/report_details/report_details_data.dart';
-import '../models/report/report_details/report_details_info.dart';
-import '../models/reports.dart';
-import 'package:eswm/config/config.dart';
-import 'package:eswm/models/report/report_list/report_data.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
-import '../utils/calendar/date.dart';
+//import files
+import '../../config/config.dart';
+import '../../models/report/report_details/report_details_data.dart';
+import '../../models/report/report_details/report_details_info.dart';
+import '../../models/report/report_list/report_data.dart';
+import '../../models/report/report_list/report_paging.dart';
+import '../../models/reports.dart';
+import '../../utils/calendar/date.dart';
+import '../http/error/api_error.dart';
+import '../http/service/http_header.dart';
 
 class ReportsApi {
   static Future<List<Reports>> getReportsData(BuildContext context) async {
@@ -137,5 +139,89 @@ class ReportsApi {
     }
 
     return filteredList;
+  }
+
+  static Future<ReportPaging> fetchReportList(
+      BuildContext context, int pageNumber,
+      [Map<String, Object>? passData]) async {
+    String? getAccessToken = userInfo[1];
+    String mainRoute = "";
+    dynamic convDate = "";
+    //dynamic statusList;
+    dynamic reports;
+    dynamic myData =
+        passData != null ? Map<String, dynamic>.from(passData) : null;
+
+    List newStatusList = [];
+    try {
+      if (myData != null) {
+        if (myData['mainRoute'] != "") {
+          mainRoute = myData['mainRoute'];
+        }
+        /*if (myData['filteredDate'] != "") {
+          convDate = Date.getTheDate(
+              myData['filteredDate'], "dd/MM/yyyy", "yyyy-MM-dd", "ms");
+        }
+
+        statusList = myData['selectedStatus'];
+        if (statusList.length > 0) {
+          for (int i = 0; i < statusList.length; i++) {
+            newStatusList.add(statusList[i].code);
+          }
+        }*/
+      }
+      final response = await Dio().get(
+          '$theBase/report/reports?page=$pageNumber',
+          options: HttpHeader.getApiHeader(getAccessToken),
+          queryParameters:
+              _getQueryParameter(passData, mainRoute, convDate, newStatusList));
+      if (response.statusCode == 200) {
+        Map<String, dynamic> decode =
+            json.decode(json.encode(response.data['data']));
+        reports = ReportPaging.fromJson(decode);
+      } else {
+        reports = [];
+      }
+    } on DioError catch (e) {
+      ApiError.findDioError(e, context);
+    }
+
+    return reports;
+  }
+
+  static _getQueryParameter(Map<String, Object>? passData, String? route,
+      String? convDate, dynamic status) {
+    /// no passdata
+    if (passData == null) {
+      return null;
+    }
+
+    /// filtered main route only
+    else if (route != null &&
+        (convDate == null && status.length == 0 || status.isEmpty)) {
+      return {'main_route': route};
+    }
+
+    /// filtered date only
+    else if (convDate != null && (status.length == 0 || status.isEmpty)) {
+      return {'schedule_date': convDate};
+    }
+
+    /// filtered status only
+    else if (convDate == null && (status.length >= 0 || status.isNotEmpty)) {
+      return {
+        'status_code[]': [status],
+      };
+    }
+
+    /// filtered date and status
+    else if (convDate != null && (status.length >= 0 || status.isNotEmpty)) {
+      return {
+        'schedule_date': convDate,
+        'status_code[]': [status],
+      };
+    } else {
+      return null;
+    }
   }
 }
