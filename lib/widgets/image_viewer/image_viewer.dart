@@ -1,10 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 class ImageViewer extends StatefulWidget {
-  final String attachment;
+  final String? attachment;
+  final File? fileName;
   final BoxFit type;
 
-  const ImageViewer({Key? key, required this.attachment, required this.type})
+  const ImageViewer(
+      {Key? key, this.attachment, this.fileName, required this.type})
       : super(key: key);
 
   @override
@@ -29,15 +33,24 @@ class _ImageViewerState extends State<ImageViewer> {
               minScale: 0.5,
               maxScale: 2,
               child: Center(
-                child: Container(
-                  //   height: 500,
-                  // alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                    image: NetworkImage(widget.attachment),
-                    fit: widget.type,
-                  )),
-                ),
+                child: widget.attachment != null
+                    ? Container(
+                        //   height: 500,
+                        // alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                          image: NetworkImage(widget.attachment!),
+                          fit: widget.type,
+                        )),
+                      )
+                    : widget.fileName != null
+                        ? Image.file(
+                            widget.fileName!,
+                            width: double.infinity,
+                            height: double.infinity,
+                            fit: widget.type,
+                          )
+                        : const Center(child: Text("Tiada Gambar!")),
               ),
             ),
           ),
