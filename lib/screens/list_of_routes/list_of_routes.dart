@@ -47,7 +47,7 @@ class _ListOfRoutesState extends State<ListOfRoutes> {
                   color: Color(0xff2B2B2B),
                 )
               : null,
-          label: const Text('Semua'),
+          label: const Text('Laluan'),
           labelStyle: widget.uiData?['labelStyle'],
           errorStyle: const TextStyle(height: 0),
           errorBorder: widget.uiData?['errorBorder'],
@@ -97,19 +97,43 @@ class _ListOfRoutesState extends State<ListOfRoutes> {
                       indent: 160,
                       endIndent: 160,
                     ),
-                    const Padding(
-                      padding: EdgeInsets.only(
+                    Padding(
+                      padding: const EdgeInsets.only(
                         top: 20,
                         left: 30,
+                        right: 30,
                         bottom: 10,
                       ),
-                      child: Text(
-                        "Pilih Laluan",
-                        style: TextStyle(
-                          color: Color(0xff969696),
-                          fontSize: 15,
-                          fontWeight: FontWeight.w600,
-                        ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            "Pilih Laluan",
+                            style: TextStyle(
+                              color: Color(0xff969696),
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                if (widget.updateData != null) {
+                                  widget.updateData!('reset', "");
+                                }
+                              });
+                              Navigator.pop(context);
+                            },
+                            child: const Text(
+                              "Reset",
+                              style: TextStyle(
+                                color: Color(0xff969696),
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                     const Padding(

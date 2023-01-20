@@ -7,7 +7,8 @@ import '../models/schedule/filter/schedule_filter.dart';
 import '../models/schedule/filter/schedule_filter_data.dart';
 
 class ScheduleFilterApi {
-  static Future<ScheduleFilterData> getDataScheduleFilter() async {
+  static Future<ScheduleFilterData> getDataScheduleFilter(
+      Map<String, dynamic> filteredData) async {
     ScheduleFilterData fetchData = ScheduleFilterData(
       mainRoute: null,
       subRoutes: null,
@@ -19,11 +20,12 @@ class ScheduleFilterApi {
     try {
       Response response = await Dio().get(
         '$theBase/schedule/route-filter',
-        // queryParameters: {
-        //   'main_route': namaLaluan,
-        //   'sub_route': namaSubLaluan,
-        //   'park_id': idTaman,
-        // },
+        queryParameters: {
+          'main_route': filteredData['laluan'],
+          'sub_route': filteredData['subLaluan'],
+          'park_id': filteredData['taman'],
+          'street_id': filteredData['jalan'],
+        },
         options: Options(headers: {
           'authorization': 'Bearer ${userInfo[1]}',
         }),

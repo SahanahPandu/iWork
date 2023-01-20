@@ -47,7 +47,7 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
                   color: Color(0xff2B2B2B),
                 )
               : null,
-          label: const Text('Semua'),
+          label: const Text('Sub-Laluan'),
           labelStyle: widget.uiData?['labelStyle'],
           errorStyle: const TextStyle(height: 0),
           errorBorder: widget.uiData?['errorBorder'],
@@ -97,20 +97,43 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
                       indent: 160,
                       endIndent: 160,
                     ),
-                    const Padding(
-                      padding: EdgeInsets.only(
+                    Padding(
+                      padding: const EdgeInsets.only(
                         top: 20,
                         left: 30,
+                        right: 30,
                         bottom: 10,
                       ),
-                      child: Text(
-                        "Pilih Sub-Laluan",
-                        style: TextStyle(
-                          color: Color(0xff969696),
-                          fontSize: 15,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text(
+                              "Pilih Sub-Laluan",
+                              style: TextStyle(
+                                color: Color(0xff969696),
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  if (widget.updateData != null) {
+                                    widget.updateData!('reset', "");
+                                  }
+                                });
+                                Navigator.pop(context);
+                              },
+                              child: const Text(
+                                "Reset",
+                                style: TextStyle(
+                                  color: Color(0xff969696),
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          ]),
                     ),
                     const Padding(
                       padding: EdgeInsets.only(left: 26, right: 26, top: 8),

@@ -9,7 +9,6 @@ import '../../widgets/custom_scroll/custom_scroll.dart';
 class ListOfParks2 extends StatefulWidget {
   final Map<String, dynamic>? uiData;
   final List<ScheduleFilterParks>? data;
-
   final Function(String, dynamic)? updateData;
 
   const ListOfParks2({
@@ -48,7 +47,7 @@ class _ListOfParks2State extends State<ListOfParks2> {
                   color: Color(0xff2B2B2B),
                 )
               : null,
-          label: const Text('Semua'),
+          label: const Text('Taman'),
           labelStyle: widget.uiData?['labelStyle'],
           errorStyle: const TextStyle(height: 0),
           errorBorder: widget.uiData?['errorBorder'],
@@ -98,19 +97,43 @@ class _ListOfParks2State extends State<ListOfParks2> {
                       indent: 160,
                       endIndent: 160,
                     ),
-                    const Padding(
-                      padding: EdgeInsets.only(
+                    Padding(
+                      padding: const EdgeInsets.only(
                         top: 20,
                         left: 30,
+                        right: 30,
                         bottom: 10,
                       ),
-                      child: Text(
-                        "Pilih Taman",
-                        style: TextStyle(
-                          color: Color(0xff969696),
-                          fontSize: 15,
-                          fontWeight: FontWeight.w600,
-                        ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            "Pilih Taman",
+                            style: TextStyle(
+                              color: Color(0xff969696),
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                if (widget.updateData != null) {
+                                  widget.updateData!('reset', "");
+                                }
+                              });
+                              Navigator.pop(context);
+                            },
+                            child: const Text(
+                              "Reset",
+                              style: TextStyle(
+                                color: Color(0xff969696),
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                     const Padding(
