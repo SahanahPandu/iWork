@@ -35,9 +35,6 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // print('Display Filter Section: $displayFilterSection');
-    // print('Filter Date: $filteredDate');
-    // print('Selected Status: $selectedStatus');
     return Scaffold(
       backgroundColor: white,
       appBar: PreferredSize(
@@ -120,43 +117,48 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                     ),
                   ],
                 )
-              : SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      //filtered selection list
-                      if (displayFilterSection) filteredSection(),
-                      Container(
-                        alignment: Alignment.centerLeft,
-                        padding: const EdgeInsets.only(
-                            left: 20, right: 20, top: 20, bottom: 10),
-                        child: Text(
-                          "Senarai Laluan Tugasan :",
-                          style: TextStyle(
-                              color: blackCustom,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w400),
+              : Stack(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 20,
+                            vertical: 10,
+                          ),
+                          child: Text(
+                            "Senarai Laluan Tugasan :",
+                            style: TextStyle(
+                                color: blackCustom,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w400),
+                          ),
                         ),
-                      ),
 
-                      Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: displayFilterSection
-                            ? CardListView(
-                                type: "Laluan",
-                                screens: "drawer",
-                                passData: {
-                                  "filteredDate": selectedDate,
-                                  "selectedStatus": selectedStatus,
-                                },
-                              )
-                            : const CardListView(
-                                type: "Laluan",
-                                screens: "drawer",
-                              ),
-                      ),
-                    ],
-                  ),
+                        //filtered selection list
+                        if (displayFilterSection) filteredSection(),
+
+                        Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: displayFilterSection
+                              ? CardListView(
+                                  type: "Laluan",
+                                  screens: "drawer",
+                                  passData: {
+                                    "filteredDate": selectedDate,
+                                    "selectedStatus": selectedStatus,
+                                  },
+                                )
+                              : const CardListView(
+                                  type: "Laluan",
+                                  screens: "drawer",
+                                ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
         ),
       ),
@@ -459,50 +461,52 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                               ),
                             ),
                           ),
+                          const SizedBox(
+                            width: 12,
+                          ),
+                          SizedBox(
+                            width: Orientations().isTabletPortrait(context)
+                                ? Sizes().screenWidth(context) * 0.32
+                                : userRole == 100 &&
+                                        !Orientations()
+                                            .isTabletPortrait(context)
+                                    ? Sizes().screenWidth(context) * 0.2
+                                    : Sizes().screenWidth(context) * 0.4,
+                            height: 40,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                                setState(() {
+                                  selectedDate = _filteredDate.text;
+                                  selectedStatus = preSelectStatus;
+                                  displayFilterSection = true;
+                                });
+                              },
+                              style: ButtonStyle(
+                                elevation: MaterialStateProperty.all(0),
+                                shadowColor:
+                                    MaterialStateProperty.all(transparent),
+                                backgroundColor:
+                                    MaterialStateProperty.all(greenCustom),
+                                shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                ),
+                              ),
+                              child: const Center(
+                                child: Text(
+                                  'Pasti',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
                         ],
-                      ),
-                      const SizedBox(
-                        width: 12,
-                      ),
-                      SizedBox(
-                        width: Orientations().isTabletPortrait(context)
-                            ? Sizes().screenWidth(context) * 0.32
-                            : userRole == 100 &&
-                                    !Orientations().isTabletPortrait(context)
-                                ? Sizes().screenWidth(context) * 0.2
-                                : Sizes().screenWidth(context) * 0.4,
-                        height: 40,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                            setState(() {
-                              selectedDate = _filteredDate.text;
-                              selectedStatus = preSelectStatus;
-                              displayFilterSection = true;
-                            });
-                          },
-                          style: ButtonStyle(
-                            elevation: MaterialStateProperty.all(0),
-                            shadowColor: MaterialStateProperty.all(transparent),
-                            backgroundColor:
-                                MaterialStateProperty.all(greenCustom),
-                            shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                            ),
-                          ),
-                          child: const Center(
-                            child: Text(
-                              'Pasti',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                        ),
                       ),
                     ],
                   ),
@@ -635,12 +639,12 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
     return Container(
       padding: userRole == 100
           ? const EdgeInsets.symmetric(horizontal: 16, vertical: 26)
-          : const EdgeInsets.all(16),
+          : const EdgeInsets.all(14),
       child: Column(
         children: [
-          const SizedBox(
-            height: 16,
-          ),
+          // const SizedBox(
+          //   height: 16,
+          // ),
           SizedBox(
             height: 35,
             child: ListView(
