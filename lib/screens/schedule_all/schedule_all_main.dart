@@ -66,22 +66,6 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                 ),
               ),
             ),
-            actions: [
-              IconButton(
-                onPressed: () {
-                  setState(() {
-                    preSelectStatus = List.from(selectedStatus);
-                  });
-
-                  displayFilterBottomSheet(context);
-                },
-                icon: Icon(
-                  CustomIcon.filter,
-                  color: blackCustom,
-                  size: 13,
-                ),
-              ),
-            ],
           ),
         ),
       ),
@@ -122,19 +106,38 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 20,
-                            vertical: 10,
-                          ),
-                          child: Text(
-                            "Senarai Laluan Tugasan :",
-                            style: TextStyle(
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              alignment: Alignment.centerLeft,
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 20,
+                                vertical: 10,
+                              ),
+                              child: Text(
+                                "Senarai Laluan Tugasan :",
+                                style: TextStyle(
+                                    color: blackCustom,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w400),
+                              ),
+                            ),
+                            IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  preSelectStatus = List.from(selectedStatus);
+                                });
+
+                                displayFilterBottomSheet(context);
+                              },
+                              icon: Icon(
+                                CustomIcon.filter,
                                 color: blackCustom,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w400),
-                          ),
+                                size: 13,
+                              ),
+                            ),
+                          ],
                         ),
 
                         //filtered selection list
