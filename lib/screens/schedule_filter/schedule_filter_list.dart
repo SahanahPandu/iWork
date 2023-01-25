@@ -484,10 +484,6 @@ class ScheduleFilterListState extends State<ScheduleFilterList> {
         ),
 
         //============== end of Jalan =========================================
-
-        SizedBox(
-          height: spaceBetweenItem,
-        ),
       ],
     );
   }

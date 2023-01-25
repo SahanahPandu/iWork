@@ -52,24 +52,6 @@ class _ReportListMainState extends State<ReportListMain> {
                 ),
               ),
             ),
-            actions: [
-              IconButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    PageTransition(
-                      type: PageTransitionType.fade,
-                      child: const ReportFilterDrawer(),
-                    ),
-                  );
-                },
-                icon: Icon(
-                  CustomIcon.filter,
-                  color: blackCustom,
-                  size: 13,
-                ),
-              ),
-            ],
           ),
         ),
       ),
@@ -79,17 +61,38 @@ class _ReportListMainState extends State<ReportListMain> {
           child: Column(
             children: [
               userRole != 100
-                  ? Container(
-                      alignment: Alignment.centerLeft,
-                      padding: const EdgeInsets.only(
-                          left: 20, right: 20, top: 20, bottom: 10),
-                      child: Text(
-                        "Senarai Laporan :",
-                        style: TextStyle(
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          padding: const EdgeInsets.only(
+                              left: 20, right: 20, top: 20, bottom: 10),
+                          child: Text(
+                            "Senarai Laporan :",
+                            style: TextStyle(
+                                color: blackCustom,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w400),
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              PageTransition(
+                                type: PageTransitionType.fade,
+                                child: const ReportFilterDrawer(),
+                              ),
+                            );
+                          },
+                          icon: Icon(
+                            CustomIcon.filter,
                             color: blackCustom,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w400),
-                      ),
+                            size: 13,
+                          ),
+                        ),
+                      ],
                     )
                   : Container(
                       alignment: Alignment.centerLeft,
