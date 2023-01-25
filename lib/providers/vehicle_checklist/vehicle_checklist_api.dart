@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 
 import '../../config/config.dart';
 import '../../models/vc/detail/vc_main.dart';
+import '../../models/vc/list/data/vc_data.dart';
 import '../http/error/api_error.dart';
 import '../http/service/http_header.dart';
 import '../http/service/http_service.dart';
@@ -182,5 +183,30 @@ class VehicleChecklistApi {
       default:
         return 'error';
     }
+  }
+
+  static Future<VCData> fetchVehicleChecklistList(
+      BuildContext context, int pageNumber,
+      [Map<String, Object>? passData]) async {
+    String? getAccessToken = userInfo[1];
+    dynamic vcList;
+
+    try {
+      final response = await Dio().get(
+          '$theBase/task/vehicle-checklist-list?page=$pageNumber',
+          options: HttpHeader.getApiHeader(getAccessToken));
+
+      if (response.statusCode == 200) {
+        Map<String, dynamic> decode =
+            json.decode(json.encode(response.data['data']));
+        vcList = VCData.fromJson(decode);
+      } else {
+        vcList = [];
+      }
+    } on DioError catch (e) {
+      ApiError.findDioError(e, context);
+    }
+
+    return vcList;
   }
 }

@@ -18,7 +18,9 @@ class ScheduleCollectionMain {
         id: json["id"],
         mainRoute: json["main_route"],
         vehicleChecklistId: json["vehicle_checklist_id"],
-        superviseBy: SuperviseBy.fromJson(json["supervise_by"]),
+        superviseBy: json["supervise_by"] == null
+            ? null
+            : SuperviseBy.fromJson(json["supervise_by"]),
       );
 
   Map<String, dynamic> toJson() => {

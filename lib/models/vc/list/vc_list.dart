@@ -1,4 +1,4 @@
-import 'data/data.dart';
+import 'data/vc_data.dart';
 
 class VehicleChecklistList {
   VehicleChecklistList({
@@ -7,13 +7,13 @@ class VehicleChecklistList {
     this.message,
   });
 
-  Data? data;
+  VCData? data;
   String? status;
   String? message;
 
   factory VehicleChecklistList.fromJson(Map<String, dynamic> json) =>
       VehicleChecklistList(
-        data: Data.fromJson(json["data"]),
+        data: json["data"] != null ? VCData.fromJson(json["data"]) : null,
         status: json["status"],
         message: json["message"],
       );

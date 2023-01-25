@@ -5,15 +5,16 @@ import 'package:page_transition/page_transition.dart';
 
 //import files
 import '../../../config/palette.dart';
-import '../../../models/vc/detail/vc_main.dart';
+import '../../../models/vc/list/data/vc_data/vc_list_detail.dart';
 import '../../../utils/calendar/date.dart';
 import '../../../utils/device/orientations.dart';
 import '../../../utils/icon/custom_icon.dart';
 import '../../../widgets/alert/alert_dialog.dart';
+import '../../../widgets/alert/toast.dart';
 import '../../../widgets/tabs/vehicle_checklist_tab/vehicle_checklist_form_tab/vehicle_checklist_form_tab.dart';
 
 class VehicleChecklistListDetails extends StatefulWidget {
-  final VehicleChecklistMain vcData;
+  final VCListDetail vcData;
 
   const VehicleChecklistListDetails({Key? key, required this.vcData})
       : super(key: key);
@@ -36,17 +37,22 @@ class _VehicleChecklistListDetailsState
   ///   3       |      initial = complete, enable vc     |    initial = complete, enable vc
   @override
   void initState() {
-    if (widget.vcData.data!.vehicleChecklists == null) {
+    if (widget.vcData.statusCode!.code == null) {
       bfrStatusColor = greyCustom;
       aftStatusColor = greyCustom;
       bfrEnable = false;
       aftEnable = false;
-    } else if (widget.vcData.data!.vehicleChecklists!.statusCode == "VC1") {
+    } else if (widget.vcData.statusCode!.code == "VC1") {
       bfrStatusColor = greenCustom;
       aftStatusColor = greyCustom;
       bfrEnable = true;
       aftEnable = false;
-    } else if (widget.vcData.data!.vehicleChecklists!.statusCode == "VC2") {
+    } else if (widget.vcData.statusCode!.code == "VC2") {
+      bfrStatusColor = greenCustom;
+      aftStatusColor = greenCustom;
+      bfrEnable = true;
+      aftEnable = true;
+    } else if (widget.vcData.statusCode!.code == "VC3") {
       bfrStatusColor = greenCustom;
       aftStatusColor = greenCustom;
       bfrEnable = true;
@@ -75,14 +81,10 @@ class _VehicleChecklistListDetailsState
         children: [
           TableRow(children: [
             Text(
-              widget.vcData.data!.vehicleChecklists!.createdAt
-                          .toString()
-                          .split(' ')[0] ==
+              widget.vcData.createdAt.toString().split(' ')[0] ==
                       Date.getTheDate(DateTime.now(), '', "yyyy-MM-dd", 'ms')
                   ? "Hari Ini"
-                  : widget.vcData.data!.vehicleChecklists!.createdAt
-                      .toString()
-                      .split(' ')[0],
+                  : widget.vcData.createdAt.toString().split(' ')[0],
               style: TextStyle(
                   fontSize: 18,
                   color: blackCustom,
@@ -92,7 +94,7 @@ class _VehicleChecklistListDetailsState
               onTap: () {
                 Timer(const Duration(milliseconds: 200), () {
                   setState(() {
-                    widget.vcData.data!.vehicleChecklists != null
+                    widget.vcData.statusCode != null
                         ? bfrStatusColor = greenCustom
                         : bfrStatusColor = greyCustom;
                   });
@@ -100,7 +102,8 @@ class _VehicleChecklistListDetailsState
                 Navigator.push(
                     context,
                     PageTransition(
-                        child: const VehicleChecklistFormTab(),
+                        child:
+                            VehicleChecklistFormTab(vcListData: widget.vcData),
                         type: PageTransitionType.fade));
               },
               onTapDown: (_) {
@@ -110,14 +113,14 @@ class _VehicleChecklistListDetailsState
               },
               onTapUp: (_) {
                 setState(() {
-                  widget.vcData.data!.vehicleChecklists != null
+                  widget.vcData.statusCode != null
                       ? bfrStatusColor = greenCustom
                       : bfrStatusColor = greyCustom;
                 });
               },
               onTapCancel: () {
                 setState(() {
-                  widget.vcData.data!.vehicleChecklists != null
+                  widget.vcData.statusCode != null
                       ? bfrStatusColor = greenCustom
                       : bfrStatusColor = greyCustom;
                 });
@@ -144,25 +147,31 @@ class _VehicleChecklistListDetailsState
                           aftStatusColor = greenCustom;
                         });
                       })
-                    : showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return showAlertDialog(
-                              context,
-                              "Notis",
-                              "Semakan Kenderaan (Selepas Balik) akan \ndiaktif dan perlu diisi selepas semua tugasan \ntamat dan selesai.",
-                              "",
-                              "Kembali");
-                        }).then((actionText) {
-                        if (actionText == "Kembali") {
-                          //Navigator.pop(context);
-                        }
-                      });
+                    : widget.vcData.createdAt.toString().split(' ')[0] ==
+                            Date.getTheDate(
+                                DateTime.now(), '', "yyyy-MM-dd", 'ms')
+                        ? showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return showAlertDialog(
+                                  context,
+                                  "Notis",
+                                  "Semakan Kenderaan (Selepas Balik) akan \ndiaktif dan perlu diisi selepas semua tugasan \ntamat dan selesai.",
+                                  "",
+                                  "Kembali");
+                            }).then((actionText) {
+                            if (actionText == "Kembali") {
+                              //Navigator.pop(context);
+                            }
+                          })
+                        : showInfoToast(context,
+                            "Tiada rekod Semakan Kenderaan (Selepas Balik) pada hari ${widget.vcData.createdAt.toString().split(' ')[0]}");
                 aftEnable
                     ? Navigator.push(
                         context,
                         PageTransition(
-                            child: const VehicleChecklistFormTab(idx: 1),
+                            child: VehicleChecklistFormTab(
+                                idx: 1, vcListData: widget.vcData),
                             type: PageTransitionType.fade))
                     : null;
               },

@@ -11,6 +11,7 @@ import '../../../config/palette.dart';
 import '../../../config/string.dart';
 import '../../../models/task/compactor/compactor_task.dart';
 import '../../../models/vc/detail/vc_main.dart';
+import '../../../models/vc/list/data/vc_data/vc_list_detail.dart';
 import '../../../providers/vehicle_checklist/vehicle_checklist_api.dart';
 import '../../../utils/calendar/date.dart';
 import '../../../utils/calendar/time.dart';
@@ -24,11 +25,16 @@ import '../../../widgets/custom_scroll/custom_scroll.dart';
 class VehicleChecklistDetail extends StatefulWidget {
   final VehicleChecklistMain? data;
   final CompactorTask? compactorData;
+  final VCListDetail? vcListData;
   final bool before;
 
-  const VehicleChecklistDetail(
-      {Key? key, this.data, this.compactorData, required this.before})
-      : super(key: key);
+  const VehicleChecklistDetail({
+    Key? key,
+    this.data,
+    this.compactorData,
+    this.vcListData,
+    required this.before,
+  }) : super(key: key);
 
   @override
   State<VehicleChecklistDetail> createState() => _VehicleChecklistDetailState();
@@ -65,6 +71,8 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
   bool empty = true;
   bool _incompleteRadioButton = false;
   bool isLoading = false;
+  bool _isVcExist = false;
+  bool _isAfterVcEmpty = false;
   double _fuelValue = 25;
   var routeList = routeNames.join(", ");
 
@@ -123,6 +131,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
   String _thirdParty = "";
   String _sampah = "";
   String _fizikal = "";
+  String _vehicleNo = "";
 
   /// Int value for filled category validation
   int addVar = 0;
@@ -136,246 +145,261 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
   int addVar9 = 0;
   int addVar10 = 0;
   int addVar11 = 0;
+  int _vcId = -1;
 
   @override
   void initState() {
     _buttonVal = List.generate(48, (index) => index = -1);
     _buttonStrVal = List<String>.generate(48, (index) => "-");
     _todayDate = Date.getTheDate(DateTime.now(), '', "dd-MM-yyyy", 'ms');
-    if (widget.compactorData!.data!.vehicleChecklistId != null) {
+    if (widget.vcListData != null) {
+      _vehicleNo = widget.vcListData!.vehicleNo!;
+      _vcId = widget.vcListData!.id!;
+      _isVcExist = true;
+      if (!widget.before && widget.vcListData!.statusCode!.code == "VC1") {
+        _isAfterVcEmpty = true;
+      }
+    } else {
+      _vehicleNo = widget.compactorData!.data!.schedules![0]!.vehicleNo!;
+      if (widget.compactorData!.data!.vehicleChecklistId != null &&
+          widget.compactorData!.data!.vehicleChecklistId!.statusCode!.code !=
+              null) {
+        _vcId = widget.compactorData!.data!.vehicleChecklistId!.id!;
+        _isVcExist = true;
+      }
+      if (!widget.before &&
+              widget.compactorData!.data!.vehicleChecklistId == null ||
+          widget.compactorData!.data!.vehicleChecklistId!.statusCode!.code ==
+              "VC1") {
+        _isAfterVcEmpty = true;
+      }
+    }
+    if (_isVcExist) {
       empty = false;
       if (widget.before) {
-        if (widget.compactorData!.data!.vehicleChecklistId!.statusCode!.code == "VC1" ||
-            widget.compactorData!.data!.vehicleChecklistId!.statusCode!.code ==
-                "VC2" ||
-            widget.compactorData!.data!.vehicleChecklistId!.statusCode!.code ==
-                "VC3") {
-          widget.data!.data!.vehicleChecklists!.createdAt != null
-              ? _todayDate = widget.data!.data!.vehicleChecklists!.createdAt!
-                  .substring(0, 10)
-              : _todayDate =
-                  Date.getTheDate(DateTime.now(), '', "dd-MM-yyyy", 'ms');
-          _odoReader.text = widget.data!.data!.vehicleChecklists!
-              .checklistBefore!.vcItem.odometer.bacaanOdo
-              .toString();
-          _totalKM.text = widget.data!.data!.vehicleChecklists!.checklistBefore!
-              .vcItem.odometer.totalKm
-              .toString();
-          _odometer = widget.data!.data!.vehicleChecklists!.checklistBefore!
-              .vcItem.odometer.odoFungsi
-              .toString();
-          _diesel.text = widget
-              .data!.data!.vehicleChecklists!.checklistBefore!.vcItem.fuel.liter
-              .toString();
-          _rm.text = widget
-              .data!.data!.vehicleChecklists!.checklistBefore!.vcItem.fuel.rm
-              .toString();
-          _receipt = widget
-              .data!.data!.vehicleChecklists!.checklistBefore!.vcItem.fuel.resit
-              .toString();
-          _fleet = widget.data!.data!.vehicleChecklists!.checklistBefore!.vcItem
-              .fuel.fleetCard
-              .toString();
-          _kad.text = widget.data!.data!.vehicleChecklists!.checklistBefore!
-              .vcItem.fuel.noFleetCard
-              .toString();
-          _fuelValue = double.parse(widget.data!.data!.vehicleChecklists!
-              .checklistBefore!.vcItem.fuel.fuelLevel);
+        widget.data!.data!.vehicleChecklists!.createdAt != null
+            ? _todayDate = widget.data!.data!.vehicleChecklists!.createdAt!
+                .substring(0, 10)
+            : _todayDate =
+                Date.getTheDate(DateTime.now(), '', "dd-MM-yyyy", 'ms');
+        _odoReader.text = widget.data!.data!.vehicleChecklists!.checklistBefore!
+            .vcItem.odometer.bacaanOdo
+            .toString();
+        _totalKM.text = widget.data!.data!.vehicleChecklists!.checklistBefore!
+            .vcItem.odometer.totalKm
+            .toString();
+        _odometer = widget.data!.data!.vehicleChecklists!.checklistBefore!
+            .vcItem.odometer.odoFungsi
+            .toString();
+        _diesel.text = widget
+            .data!.data!.vehicleChecklists!.checklistBefore!.vcItem.fuel.liter
+            .toString();
+        _rm.text = widget
+            .data!.data!.vehicleChecklists!.checklistBefore!.vcItem.fuel.rm
+            .toString();
+        _receipt = widget
+            .data!.data!.vehicleChecklists!.checklistBefore!.vcItem.fuel.resit
+            .toString();
+        _fleet = widget.data!.data!.vehicleChecklists!.checklistBefore!.vcItem
+            .fuel.fleetCard
+            .toString();
+        _kad.text = widget.data!.data!.vehicleChecklists!.checklistBefore!
+            .vcItem.fuel.noFleetCard
+            .toString();
+        _fuelValue = double.parse(widget.data!.data!.vehicleChecklists!
+            .checklistBefore!.vcItem.fuel.fuelLevel);
 
-          /// Part 1 Dokumen
-          _puspakom = widget.data!.data!.vehicleChecklists!.checklistBefore!
-              .vcItem.document.puspakomDisc
-              .toString();
-          _tax = widget.data!.data!.vehicleChecklists!.checklistBefore!.vcItem
-              .document.cukaiJalan
-              .toString();
-          _lesen = widget.data!.data!.vehicleChecklists!.checklistBefore!.vcItem
-              .document.lesen
-              .toString();
-          _remarkController[0].text = widget.data!.data!.vehicleChecklists!
-              .checklistBefore!.vcItem.document.remarks
-              .toString();
+        /// Part 1 Dokumen
+        _puspakom = widget.data!.data!.vehicleChecklists!.checklistBefore!
+            .vcItem.document.puspakomDisc
+            .toString();
+        _tax = widget.data!.data!.vehicleChecklists!.checklistBefore!.vcItem
+            .document.cukaiJalan
+            .toString();
+        _lesen = widget.data!.data!.vehicleChecklists!.checklistBefore!.vcItem
+            .document.lesen
+            .toString();
+        _remarkController[0].text = widget.data!.data!.vehicleChecklists!
+            .checklistBefore!.vcItem.document.remarks
+            .toString();
 
-          /// Part 2 Tayar
-          _tayar = widget.data!.data!.vehicleChecklists!.checklistBefore!.vcItem
-              .tyre.bungaTayar
-              .toString();
-          _nut = widget.data!.data!.vehicleChecklists!.checklistBefore!.vcItem
-              .tyre.nutTayar
-              .toString();
-          _angin = widget.data!.data!.vehicleChecklists!.checklistBefore!.vcItem
-              .tyre.tekananTayar
-              .toString();
-          _remarkController[1].text = widget.data!.data!.vehicleChecklists!
-              .checklistBefore!.vcItem.tyre.remarks
-              .toString();
+        /// Part 2 Tayar
+        _tayar = widget.data!.data!.vehicleChecklists!.checklistBefore!.vcItem
+            .tyre.bungaTayar
+            .toString();
+        _nut = widget.data!.data!.vehicleChecklists!.checklistBefore!.vcItem
+            .tyre.nutTayar
+            .toString();
+        _angin = widget.data!.data!.vehicleChecklists!.checklistBefore!.vcItem
+            .tyre.tekananTayar
+            .toString();
+        _remarkController[1].text = widget
+            .data!.data!.vehicleChecklists!.checklistBefore!.vcItem.tyre.remarks
+            .toString();
 
-          /// Part 3 Mampatan
-          _hidraulik = widget.data!.data!.vehicleChecklists!.checklistBefore!
-              .vcItem.mampatan.sistemHidraulik
-              .toString();
-          _ptd = widget.data!.data!.vehicleChecklists!.checklistBefore!.vcItem
-              .mampatan.ptdPam
-              .toString();
-          _penutup = widget.data!.data!.vehicleChecklists!.checklistBefore!
-              .vcItem.mampatan.allPenutup
-              .toString();
-          _airTabung = widget.data!.data!.vehicleChecklists!.checklistBefore!
-              .vcItem.mampatan.buangAir
-              .toString();
-          _leachate = widget.data!.data!.vehicleChecklists!.checklistBefore!
-              .vcItem.mampatan.leachate
-              .toString();
-          _remarkController[2].text = widget.data!.data!.vehicleChecklists!
-              .checklistBefore!.vcItem.mampatan.remarks
-              .toString();
+        /// Part 3 Mampatan
+        _hidraulik = widget.data!.data!.vehicleChecklists!.checklistBefore!
+            .vcItem.mampatan.sistemHidraulik
+            .toString();
+        _ptd = widget.data!.data!.vehicleChecklists!.checklistBefore!.vcItem
+            .mampatan.ptdPam
+            .toString();
+        _penutup = widget.data!.data!.vehicleChecklists!.checklistBefore!.vcItem
+            .mampatan.allPenutup
+            .toString();
+        _airTabung = widget.data!.data!.vehicleChecklists!.checklistBefore!
+            .vcItem.mampatan.buangAir
+            .toString();
+        _leachate = widget.data!.data!.vehicleChecklists!.checklistBefore!
+            .vcItem.mampatan.leachate
+            .toString();
+        _remarkController[2].text = widget.data!.data!.vehicleChecklists!
+            .checklistBefore!.vcItem.mampatan.remarks
+            .toString();
 
-          /// Part 4 Lampu
-          _lampuUtama = widget.data!.data!.vehicleChecklists!.checklistBefore!
-              .vcItem.light.lampuUtama
-              .toString();
-          _lampuBerhenti = widget.data!.data!.vehicleChecklists!
-              .checklistBefore!.vcItem.light.lampuHenti
-              .toString();
-          _lampuIsyarat = widget.data!.data!.vehicleChecklists!.checklistBefore!
-              .vcItem.light.lampuIsyarat
-              .toString();
-          _lampuKecemasan = widget.data!.data!.vehicleChecklists!
-              .checklistBefore!.vcItem.light.lampuKecemasan
-              .toString();
-          _lampuBeacon = widget.data!.data!.vehicleChecklists!.checklistBefore!
-              .vcItem.light.lampuBeacon
-              .toString();
-          _lampuPlet = widget.data!.data!.vehicleChecklists!.checklistBefore!
-              .vcItem.light.lampuPlet
-              .toString();
-          _remarkController[3].text = widget.data!.data!.vehicleChecklists!
-              .checklistBefore!.vcItem.light.remarks
-              .toString();
+        /// Part 4 Lampu
+        _lampuUtama = widget.data!.data!.vehicleChecklists!.checklistBefore!
+            .vcItem.light.lampuUtama
+            .toString();
+        _lampuBerhenti = widget.data!.data!.vehicleChecklists!.checklistBefore!
+            .vcItem.light.lampuHenti
+            .toString();
+        _lampuIsyarat = widget.data!.data!.vehicleChecklists!.checklistBefore!
+            .vcItem.light.lampuIsyarat
+            .toString();
+        _lampuKecemasan = widget.data!.data!.vehicleChecklists!.checklistBefore!
+            .vcItem.light.lampuKecemasan
+            .toString();
+        _lampuBeacon = widget.data!.data!.vehicleChecklists!.checklistBefore!
+            .vcItem.light.lampuBeacon
+            .toString();
+        _lampuPlet = widget.data!.data!.vehicleChecklists!.checklistBefore!
+            .vcItem.light.lampuPlet
+            .toString();
+        _remarkController[3].text = widget.data!.data!.vehicleChecklists!
+            .checklistBefore!.vcItem.light.remarks
+            .toString();
 
-          /// Part 5 Enjin
-          _dipstik = widget.data!.data!.vehicleChecklists!.checklistBefore!
-              .vcItem.engine.dipstikMinyakEnjin
-              .toString();
-          _parasEnjin = widget.data!.data!.vehicleChecklists!.checklistBefore!
-              .vcItem.engine.parasMinyak
-              .toString();
-          _penutupEnjin = widget.data!.data!.vehicleChecklists!.checklistBefore!
-              .vcItem.engine.penutupMinyak
-              .toString();
-          _airRadiator = widget.data!.data!.vehicleChecklists!.checklistBefore!
-              .vcItem.engine.parasAirRadiator
-              .toString();
-          _expansionTank = widget.data!.data!.vehicleChecklists!
-              .checklistBefore!.vcItem.engine.parasExpansion
-              .toString();
-          _dipstikAuto = widget.data!.data!.vehicleChecklists!.checklistBefore!
-              .vcItem.engine.dipstikMintakTransmission
-              .toString();
-          _parasAuto = widget.data!.data!.vehicleChecklists!.checklistBefore!
-              .vcItem.engine.parasMinyakTransmission
-              .toString();
-          _parasPower = widget.data!.data!.vehicleChecklists!.checklistBefore!
-              .vcItem.engine.parasMinyakSteering
-              .toString();
-          _parasMykBrek = widget.data!.data!.vehicleChecklists!.checklistBefore!
-              .vcItem.engine.parasMinyakBrek
-              .toString();
-          _sisCengkaman = widget.data!.data!.vehicleChecklists!.checklistBefore!
-              .vcItem.engine.sistemCengkamanSistemBrek
-              .toString();
-          _parasClutch = widget.data!.data!.vehicleChecklists!.checklistBefore!
-              .vcItem.engine.parasMinyakClutch
-              .toString();
-          _sisClutch = widget.data!.data!.vehicleChecklists!.checklistBefore!
-              .vcItem.engine.sistemClutch
-              .toString();
-          _airWiper = widget.data!.data!.vehicleChecklists!.checklistBefore!
-              .vcItem.engine.parasAirWiper
-              .toString();
-          _wiper = widget.data!.data!.vehicleChecklists!.checklistBefore!.vcItem
-              .engine.keadaanWiper
-              .toString();
-          _airBateri = widget.data!.data!.vehicleChecklists!.checklistBefore!
-              .vcItem.engine.parasAirBateri
-              .toString();
-          _asapEkzos = widget.data!.data!.vehicleChecklists!.checklistBefore!
-              .vcItem.engine.asapEkzos
-              .toString();
-          _remarkController[4].text = widget.data!.data!.vehicleChecklists!
-              .checklistBefore!.vcItem.engine.remarks
-              .toString();
+        /// Part 5 Enjin
+        _dipstik = widget.data!.data!.vehicleChecklists!.checklistBefore!.vcItem
+            .engine.dipstikMinyakEnjin
+            .toString();
+        _parasEnjin = widget.data!.data!.vehicleChecklists!.checklistBefore!
+            .vcItem.engine.parasMinyak
+            .toString();
+        _penutupEnjin = widget.data!.data!.vehicleChecklists!.checklistBefore!
+            .vcItem.engine.penutupMinyak
+            .toString();
+        _airRadiator = widget.data!.data!.vehicleChecklists!.checklistBefore!
+            .vcItem.engine.parasAirRadiator
+            .toString();
+        _expansionTank = widget.data!.data!.vehicleChecklists!.checklistBefore!
+            .vcItem.engine.parasExpansion
+            .toString();
+        _dipstikAuto = widget.data!.data!.vehicleChecklists!.checklistBefore!
+            .vcItem.engine.dipstikMintakTransmission
+            .toString();
+        _parasAuto = widget.data!.data!.vehicleChecklists!.checklistBefore!
+            .vcItem.engine.parasMinyakTransmission
+            .toString();
+        _parasPower = widget.data!.data!.vehicleChecklists!.checklistBefore!
+            .vcItem.engine.parasMinyakSteering
+            .toString();
+        _parasMykBrek = widget.data!.data!.vehicleChecklists!.checklistBefore!
+            .vcItem.engine.parasMinyakBrek
+            .toString();
+        _sisCengkaman = widget.data!.data!.vehicleChecklists!.checklistBefore!
+            .vcItem.engine.sistemCengkamanSistemBrek
+            .toString();
+        _parasClutch = widget.data!.data!.vehicleChecklists!.checklistBefore!
+            .vcItem.engine.parasMinyakClutch
+            .toString();
+        _sisClutch = widget.data!.data!.vehicleChecklists!.checklistBefore!
+            .vcItem.engine.sistemClutch
+            .toString();
+        _airWiper = widget.data!.data!.vehicleChecklists!.checklistBefore!
+            .vcItem.engine.parasAirWiper
+            .toString();
+        _wiper = widget.data!.data!.vehicleChecklists!.checklistBefore!.vcItem
+            .engine.keadaanWiper
+            .toString();
+        _airBateri = widget.data!.data!.vehicleChecklists!.checklistBefore!
+            .vcItem.engine.parasAirBateri
+            .toString();
+        _asapEkzos = widget.data!.data!.vehicleChecklists!.checklistBefore!
+            .vcItem.engine.asapEkzos
+            .toString();
+        _remarkController[4].text = widget.data!.data!.vehicleChecklists!
+            .checklistBefore!.vcItem.engine.remarks
+            .toString();
 
-          /// Part 6 Bahagian Luaran
-          _cermin = widget.data!.data!.vehicleChecklists!.checklistBefore!
-              .vcItem.outside.cermin
-              .toString();
-          _hon = widget.data!.data!.vehicleChecklists!.checklistBefore!.vcItem
-              .outside.hon
-              .toString();
-          _remarkController[5].text = widget.data!.data!.vehicleChecklists!
-              .checklistBefore!.vcItem.outside.remarks
-              .toString();
+        /// Part 6 Bahagian Luaran
+        _cermin = widget.data!.data!.vehicleChecklists!.checklistBefore!.vcItem
+            .outside.cermin
+            .toString();
+        _hon = widget
+            .data!.data!.vehicleChecklists!.checklistBefore!.vcItem.outside.hon
+            .toString();
+        _remarkController[5].text = widget.data!.data!.vehicleChecklists!
+            .checklistBefore!.vcItem.outside.remarks
+            .toString();
 
-          /// Part 7 Keselamatan
-          _penanda = widget.data!.data!.vehicleChecklists!.checklistBefore!
-              .vcItem.safetyThings.penandaKecemasan
-              .toString();
-          _pemadamApi = widget.data!.data!.vehicleChecklists!.checklistBefore!
-              .vcItem.safetyThings.pemadamApi
-              .toString();
-          _firstAid = widget.data!.data!.vehicleChecklists!.checklistBefore!
-              .vcItem.safetyThings.kotakKecemasan
-              .toString();
-          _remarkController[6].text = widget.data!.data!.vehicleChecklists!
-              .checklistBefore!.vcItem.safetyThings.remarks
-              .toString();
+        /// Part 7 Keselamatan
+        _penanda = widget.data!.data!.vehicleChecklists!.checklistBefore!.vcItem
+            .safetyThings.penandaKecemasan
+            .toString();
+        _pemadamApi = widget.data!.data!.vehicleChecklists!.checklistBefore!
+            .vcItem.safetyThings.pemadamApi
+            .toString();
+        _firstAid = widget.data!.data!.vehicleChecklists!.checklistBefore!
+            .vcItem.safetyThings.kotakKecemasan
+            .toString();
+        _remarkController[6].text = widget.data!.data!.vehicleChecklists!
+            .checklistBefore!.vcItem.safetyThings.remarks
+            .toString();
 
-          /// Part 8 Kebersihan Kenderaan
-          _kabin = widget.data!.data!.vehicleChecklists!.checklistBefore!.vcItem
-              .cleanliness.dalamKokpit
-              .toString();
-          _badanTrak = widget.data!.data!.vehicleChecklists!.checklistBefore!
-              .vcItem.cleanliness.luarBadanTrak
-              .toString();
-          _remarkController[7].text = widget.data!.data!.vehicleChecklists!
-              .checklistBefore!.vcItem.cleanliness.remarks
-              .toString();
+        /// Part 8 Kebersihan Kenderaan
+        _kabin = widget.data!.data!.vehicleChecklists!.checklistBefore!.vcItem
+            .cleanliness.dalamKokpit
+            .toString();
+        _badanTrak = widget.data!.data!.vehicleChecklists!.checklistBefore!
+            .vcItem.cleanliness.luarBadanTrak
+            .toString();
+        _remarkController[7].text = widget.data!.data!.vehicleChecklists!
+            .checklistBefore!.vcItem.cleanliness.remarks
+            .toString();
 
-          /// Part 9 Kebersihan Bin Lifter
-          _binLifter = widget.data!.data!.vehicleChecklists!.checklistBefore!
-              .vcItem.binLifterCleanliness.binDicuci
-              .toString();
-          _remarkController[8].text = widget.data!.data!.vehicleChecklists!
-              .checklistBefore!.vcItem.binLifterCleanliness.remarks
-              .toString();
+        /// Part 9 Kebersihan Bin Lifter
+        _binLifter = widget.data!.data!.vehicleChecklists!.checklistBefore!
+            .vcItem.binLifterCleanliness.binDicuci
+            .toString();
+        _remarkController[8].text = widget.data!.data!.vehicleChecklists!
+            .checklistBefore!.vcItem.binLifterCleanliness.remarks
+            .toString();
 
-          /// Part 10 Kemalangan
-          _kemalangan = widget.data!.data!.vehicleChecklists!.checklistBefore!
-              .vcItem.accident.terlibatKemalangan
-              .toString();
-          _thirdParty = widget.data!.data!.vehicleChecklists!.checklistBefore!
-              .vcItem.accident.noKenderaanPartiKetiga
-              .toString();
-          _remarkController[9].text = widget.data!.data!.vehicleChecklists!
-              .checklistBefore!.vcItem.accident.remarks
-              .toString();
+        /// Part 10 Kemalangan
+        _kemalangan = widget.data!.data!.vehicleChecklists!.checklistBefore!
+            .vcItem.accident.terlibatKemalangan
+            .toString();
+        _thirdParty = widget.data!.data!.vehicleChecklists!.checklistBefore!
+            .vcItem.accident.noKenderaanPartiKetiga
+            .toString();
+        _remarkController[9].text = widget.data!.data!.vehicleChecklists!
+            .checklistBefore!.vcItem.accident.remarks
+            .toString();
 
-          /// Part 11 Fizikal Kenderaan
-          _sampah = widget.data!.data!.vehicleChecklists!.checklistBefore!
-              .vcItem.vehiclePhysical.sampah
-              .toString();
-          _fizikal = widget.data!.data!.vehicleChecklists!.checklistBefore!
-              .vcItem.vehiclePhysical.kecacatan
-              .toString();
-          _remarkController[10].text = widget.data!.data!.vehicleChecklists!
-              .checklistBefore!.vcItem.vehiclePhysical.remarks
-              .toString();
-        }
+        /// Part 11 Fizikal Kenderaan
+        _sampah = widget.data!.data!.vehicleChecklists!.checklistBefore!.vcItem
+            .vehiclePhysical.sampah
+            .toString();
+        _fizikal = widget.data!.data!.vehicleChecklists!.checklistBefore!.vcItem
+            .vehiclePhysical.kecacatan
+            .toString();
+        _remarkController[10].text = widget.data!.data!.vehicleChecklists!
+            .checklistBefore!.vcItem.vehiclePhysical.remarks
+            .toString();
       } else {
-        if (widget.compactorData!.data!.vehicleChecklistId == null ||
-            widget.compactorData!.data!.vehicleChecklistId!.statusCode!.code ==
-                "VC1") {
+        if (_isAfterVcEmpty) {
           empty = true;
         } else {
           widget.data!.data!.vehicleChecklists!.createdAt != null
@@ -753,9 +777,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                     fontSize: 16,
                                     color: greyCustom,
                                     fontWeight: FontWeight.w400)),
-                            Text(
-                                widget.compactorData!.data!.schedules![0]!
-                                    .vehicleNo!,
+                            Text(_vehicleNo,
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
                                     fontSize: 16,
@@ -4287,11 +4309,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
           });
 
           String result = await VehicleChecklistApi.uploadVehicleChecklistData(
-              widget.before ? '1' : '0',
-              widget.before
-                  ? null
-                  : widget.compactorData!.data!.vehicleChecklistId!.id,
-              vcBody);
+              widget.before ? '1' : '0', widget.before ? null : _vcId, vcBody);
           setState(() {
             isLoading = false;
           });
