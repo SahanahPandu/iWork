@@ -87,37 +87,31 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
       ),
       body: ScrollConfiguration(
         behavior: CustomScrollBehavior(),
-        child: SingleChildScrollView(
-          child: userRole == 100
-              ? Stack(
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                            padding: EdgeInsets.only(
-                                top: displayFilterSection ? 80 : 50,
-                                left: 16,
-                                right: 16),
-                            child: displayFilterSection
-                                ? ScheduleListMain(passData: {
-                                    "filteredDate": selectedDate,
-                                    "selectedStatus": selectedStatus,
-                                  })
-                                : const ScheduleListMain()),
-                        Container(
-                            color: white,
-                            padding: const EdgeInsets.fromLTRB(30, 20, 0, 15),
-                            child: const Text("Senarai Jadual Tugasan :",
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w400))),
-                        if (displayFilterSection) filteredSection(),
-                      ],
-                    ),
-                  ],
-                )
-              : Stack(
+        child: userRole == 100
+            ? Stack(
+                children: [
+                  Padding(
+                      padding: EdgeInsets.only(
+                          top: displayFilterSection ? 80 : 50,
+                          left: 16,
+                          right: 16),
+                      child: displayFilterSection
+                          ? ScheduleListMain(passData: {
+                              "filteredDate": selectedDate,
+                              "selectedStatus": selectedStatus,
+                            })
+                          : const ScheduleListMain()),
+                  Container(
+                      color: white,
+                      padding: const EdgeInsets.fromLTRB(30, 20, 0, 15),
+                      child: const Text("Senarai Jadual Tugasan :",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w400))),
+                  if (displayFilterSection) filteredSection(),
+                ],
+              )
+            : SingleChildScrollView(
+                child: Stack(
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -160,7 +154,7 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                     ),
                   ],
                 ),
-        ),
+              ),
       ),
     );
   }
@@ -642,9 +636,9 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
           : const EdgeInsets.all(14),
       child: Column(
         children: [
-          // const SizedBox(
-          //   height: 16,
-          // ),
+          SizedBox(
+            height: userRole == 100 ? 20 : 0,
+          ),
           SizedBox(
             height: 35,
             child: ListView(
