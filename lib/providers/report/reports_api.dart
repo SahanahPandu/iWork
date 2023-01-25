@@ -1,16 +1,17 @@
 // ignore_for_file: avoid_print
 
 import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 //import files
 import '../../config/config.dart';
+import '../../models/options/options_data.dart';
 import '../../models/report/report_details/report_details_data.dart';
 import '../../models/report/report_details/report_details_info.dart';
 import '../../models/report/report_list/report_data.dart';
 import '../../models/report/report_list/report_paging.dart';
+import '../../models/report/report_status.dart';
 import '../../models/reports.dart';
 import '../../utils/calendar/date.dart';
 import '../http/error/api_error.dart';
@@ -95,6 +96,42 @@ class ReportsApi {
     }
 
     return theDetails;
+  }
+
+  static Future<List<ReportStatus?>?> getStatusLaporan() async {
+    List<ReportStatus?>? filterData = [];
+
+    try {
+      var response = await Dio().get(
+        "$theBase/options",
+        queryParameters: {
+          "fields[]": "report_status",
+        },
+        options: Options(
+          headers: {
+            'authorization': 'Bearer ${userInfo[1]}',
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        if (response.data != null && response.data != []) {
+          Map<String, dynamic> decode = json.decode(
+            json.encode(response.data),
+          );
+
+          var convertData = OptionsData.fromJson(decode);
+
+          convertData.data?.reportStatus != null
+              ? filterData = convertData.data!.reportStatus
+              : filterData = [];
+        }
+      }
+    } on DioError catch (e) {
+      print(e);
+    }
+
+    return filterData;
   }
 
   static Future<List<ReportDetailsInfo>>? getDataLaporanDrawer(passData) async {

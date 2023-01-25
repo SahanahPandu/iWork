@@ -1,8 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:eswm/models/ecuti/leave_types.dart';
-import 'package:eswm/models/report/obstacle_types.dart';
 
+import '../report/report_status.dart';
 import '../schedule/filter/schedule_filter_status.dart';
+import '../../models/ecuti/leave_types.dart';
+import '../../models/report/obstacle_types.dart';
 
 @JsonSerializable()
 class OptionDetails {
@@ -47,7 +48,11 @@ class OptionDetails {
 
   factory OptionDetails.fromJson(json) => OptionDetails(
         generalStatus: json['general_status'],
-        reportStatus: json['report_status'],
+        reportStatus: json['report_status'] != null
+            ? json['report_status']
+                .map<ReportStatus>(ReportStatus.fromJson)
+                .toList()
+            : json['report_status'],
         akbkStatus: json['akbk_status'],
         ecutiStatus: json['ecuti_status'],
         scheduleStatus: json['schedule_status'] != null
