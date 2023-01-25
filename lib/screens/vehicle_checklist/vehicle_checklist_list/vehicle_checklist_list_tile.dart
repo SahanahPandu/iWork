@@ -2,32 +2,32 @@
 import 'package:async/async.dart';
 import 'package:flutter/material.dart';
 
-//import files
-import '../../../../config/dimen.dart';
 import '../../../../config/palette.dart';
-import '../../../../models/report/report_details/report_details_info.dart';
-import '../../../../models/report/report_list/report_paging.dart';
-import '../../../../providers/report/reports_api.dart';
 import '../../../../utils/icon/custom_icon.dart';
-import 'report_list_tile_detail.dart';
+import '../../../models/vc/list/data/vc_data.dart';
+import '../../../models/vc/list/data/vc_data/vc_list_detail.dart';
+import '../../../providers/vehicle_checklist/vehicle_checklist_api.dart';
+import 'vehicle_checklist_list_tile_detail.dart';
 
-enum ReportLoadMoreStatus { loading, stable }
+enum VehicleChecklistLoadMoreStatus { loading, stable }
 
-class ReportListTile extends StatefulWidget {
-  final ReportPaging reports;
+class VehicleChecklistListTile extends StatefulWidget {
+  final VCData vcList;
   final Map<String, Object>? passData;
 
-  const ReportListTile({Key? key, required this.reports, this.passData})
+  const VehicleChecklistListTile(
+      {Key? key, required this.vcList, this.passData})
       : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => ReportListTileState();
+  State<StatefulWidget> createState() => VehicleChecklistListTileState();
 }
 
-class ReportListTileState extends State<ReportListTile> {
-  ReportLoadMoreStatus loadMoreStatus = ReportLoadMoreStatus.stable;
+class VehicleChecklistListTileState extends State<VehicleChecklistListTile> {
+  VehicleChecklistLoadMoreStatus loadMoreStatus =
+      VehicleChecklistLoadMoreStatus.stable;
   final ScrollController scrollController = ScrollController();
-  late List<ReportDetailsInfo?>? reports;
+  late List<VCListDetail?> vcList;
   int currentPageNumber = -1;
   String nextPageUrl = "";
   int lastPageNumber = -1;
@@ -37,11 +37,11 @@ class ReportListTileState extends State<ReportListTile> {
 
   @override
   void initState() {
-    reports = widget.reports.data;
-    currentPageNumber = widget.reports.currentPage!;
+    vcList = widget.vcList.data!;
+    currentPageNumber = widget.vcList.currentPage!;
     nextPageUrl =
-        widget.reports.nextPageUrl != null ? widget.reports.nextPageUrl! : "";
-    lastPageNumber = widget.reports.lastPage!;
+        widget.vcList.nextPageUrl != null ? widget.vcList.nextPageUrl! : "";
+    lastPageNumber = widget.vcList.lastPage!;
     super.initState();
   }
 
@@ -59,7 +59,7 @@ class ReportListTileState extends State<ReportListTile> {
     return NotificationListener(
       onNotification: _onNotification,
 
-      child: widget.reports.data!.isEmpty
+      child: widget.vcList.data!.isEmpty
           ? Center(
               child: Container(
                 margin: const EdgeInsets.all(20),
@@ -77,21 +77,16 @@ class ReportListTileState extends State<ReportListTile> {
             )
           : Stack(
               children: [
-                GridView.builder(
+                ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: axisSpacing(context),
-                      mainAxisSpacing: axisSpacing(context),
-                      childAspectRatio: gridRatioSchedule(context)),
-                  physics: const ScrollPhysics(),
-                  controller: scrollController,
-                  itemCount: reports!.length,
-                  itemBuilder: (_, index) {
-                    return ReportListTileDetail(report: reports![index]!);
+                  itemCount: vcList.length,
+                  itemBuilder: (context, index) {
+                    return VehicleChecklistListTileDetail(
+                        vcDetail: vcList[index]!);
                   },
                 ),
-                loadMoreStatus == ReportLoadMoreStatus.loading
+                loadMoreStatus == VehicleChecklistLoadMoreStatus.loading
                     ? const CircularProgressIndicator()
                     : Container()
               ],
@@ -104,17 +99,17 @@ class ReportListTileState extends State<ReportListTile> {
       if (scrollController.offset >=
           scrollController.position.maxScrollExtent) {
         if (nextPageUrl != "" || currentPageNumber != lastPageNumber) {
-          if (loadMoreStatus == ReportLoadMoreStatus.stable) {
-            loadMoreStatus = ReportLoadMoreStatus.loading;
+          if (loadMoreStatus == VehicleChecklistLoadMoreStatus.stable) {
+            loadMoreStatus = VehicleChecklistLoadMoreStatus.loading;
             reportOperation = CancelableOperation.fromFuture(
-                ReportsApi.fetchReportList(
+                VehicleChecklistApi.fetchVehicleChecklistList(
                         context, currentPageNumber + 1, widget.passData)
-                    .then((reportsObject) {
-              currentPageNumber = reportsObject.currentPage!;
+                    .then((vcObject) {
+              currentPageNumber = vcObject.currentPage!;
 
               setState(() {
-                reports!.addAll(reportsObject.data);
-                loadMoreStatus = ReportLoadMoreStatus.stable;
+                vcList.addAll(vcObject.data!);
+                loadMoreStatus = VehicleChecklistLoadMoreStatus.stable;
               });
             }));
           }

@@ -234,7 +234,7 @@ class _CompactorPanelScheduleMainState
       child: ExpandCollapseHeader(
           centerTitle: false,
           title: _collapseTitle(),
-          headerExpandedHeight: 0.41,
+          headerExpandedHeight: 0.43,
           alwaysShowLeadingAndAction: false,
           headerWidget: _header(context, cScheduleDetail),
           fullyStretchable: true,
@@ -244,7 +244,7 @@ class _CompactorPanelScheduleMainState
           fixedTitleHeight: 80,
           backgroundColor: transparent,
           appBarColor: collapseBgColor,
-          collapseHeight: 150,
+          collapseHeight: 155,
           collapseFade: 100,
           collapseButton: true),
     );

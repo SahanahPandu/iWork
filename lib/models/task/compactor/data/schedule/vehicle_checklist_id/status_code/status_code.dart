@@ -8,8 +8,8 @@ class StatusCode {
   String? name;
 
   factory StatusCode.fromJson(Map<String, dynamic> json) => StatusCode(
-        code: json["code"],
-        name: json["name"],
+        code: json["code"] ?? "",
+        name: json["name"] ?? "",
       );
 
   Map<String, dynamic> toJson() => {

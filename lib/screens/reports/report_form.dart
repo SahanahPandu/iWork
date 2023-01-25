@@ -112,7 +112,7 @@ class _ReportFormState extends State<ReportForm> {
       buttonVisibility = false;
 
       //fetch data based on report id
-      ReportsApi.getDetailLaporan(widget.data.id)!.then((theDetails) {
+      ReportsApi.getDetailLaporan(context, widget.data.id)!.then((theDetails) {
         if (theDetails != null) {
           //set read only UI
           praSectionKey.currentState!.iconCondition = 0;

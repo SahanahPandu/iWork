@@ -2,8 +2,8 @@ import 'package:eswm/models/vc/list/data/vc_data/schedule_collection_main/schedu
 
 import '../../../../task/compactor/data/schedule/vehicle_checklist_id/status_code/status_code.dart';
 
-class VCData {
-  VCData({
+class VCListDetail {
+  VCListDetail({
     this.id,
     this.vehicleNo,
     this.statusCode,
@@ -14,23 +14,26 @@ class VCData {
   int? id;
   String? vehicleNo;
   StatusCode? statusCode;
-  DateTime? createdAt;
+  String? createdAt;
   ScheduleCollectionMain? scheduleCollectionMain;
 
-  factory VCData.fromJson(Map<String, dynamic> json) => VCData(
-        id: json["id"],
-        vehicleNo: json["vehicle_no"],
-        statusCode: StatusCode.fromJson(json["status_code"]),
-        createdAt: DateTime.parse(json["created_at"]),
-        scheduleCollectionMain:
-            ScheduleCollectionMain.fromJson(json["schedule_collection_main"]),
+  factory VCListDetail.fromJson(Map<String, dynamic> json) => VCListDetail(
+        id: json["id"] ?? 0,
+        vehicleNo: json["vehicle_no"] ?? "",
+        statusCode: json["status_code"] != null
+            ? StatusCode.fromJson(json["status_code"])
+            : null,
+        createdAt: json["created_at"] ?? "",
+        scheduleCollectionMain: json["schedule_collection_main"] != null
+            ? ScheduleCollectionMain.fromJson(json["schedule_collection_main"])
+            : null,
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "vehicle_no": vehicleNo,
         "status_code": statusCode!.toJson(),
-        "created_at": createdAt?.toIso8601String(),
+        "created_at": createdAt,
         "schedule_collection_main": scheduleCollectionMain!.toJson(),
       };
 }

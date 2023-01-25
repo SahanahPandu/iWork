@@ -5,6 +5,8 @@ import '../../../../config/config.dart';
 import '../../../../config/palette.dart';
 import '../../../../config/string.dart';
 import '../../../../models/task/compactor/compactor_task.dart';
+import '../../../../models/vc/list/data/vc_data/vc_list_detail.dart';
+import '../../../../utils/calendar/date.dart';
 import '../../../../utils/device/orientations.dart';
 import '../../../../utils/device/sizes.dart';
 import '../../../../utils/icon/custom_icon.dart';
@@ -15,11 +17,13 @@ import 'vehicle_checklist_form_tab_bar_view/vehicle_checklist_form_before_tab_ba
 
 class VehicleChecklistFormTab extends StatefulWidget {
   final CompactorTask? compactorData;
+  final VCListDetail? vcListData;
   final int? idx;
 
   const VehicleChecklistFormTab({
     Key? key,
     this.compactorData,
+    this.vcListData,
     this.idx,
   }) : super(key: key);
 
@@ -171,33 +175,76 @@ class _VehicleChecklistFormTabState extends State<VehicleChecklistFormTab>
                         ),
                       ],
                       onTap: (index) {
-                        if (index == 1 &&
-                            (vcStatus == 0 || vcStatus == 1 || vcStatus == 2)) {
-                          _tabController.index = 0;
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return showAlertDialog(
-                                    context,
-                                    "Notis",
-                                    "Semakan Kenderaan (Selepas Balik) akan \ndiaktif dan perlu diisi selepas semua tugasan \ntamat dan selesai.",
-                                    "",
-                                    "Kembali");
-                              }).then((actionText) {
-                            if (actionText == "Kembali") {
-                              //Navigator.pop(context);
+                        /// Tab "Selepas" (index = 1) is clicked
+                        if (index == 1) {
+                          /// if past/future date with no vc after data
+                          if (selectedNewDate != '' && otherDate) {
+                            if ((vcStatus == 1 ||
+                                    vcStatus == 2 ||
+                                    vcStatus == 3) &&
+                                widget.compactorData!.data!.vehicleChecklistId!
+                                        .statusCode!.code ==
+                                    "VC1") {
+                              _tabController.index = 0;
+                              showInfoToast(context,
+                                  "Tiada rekod Semakan Kenderaan (Selepas Balik) pada hari $selectedNewDate");
                             }
-                          });
-                        }
-
-                        if (index == 1 && selectedNewDate != '' && otherDate) {
-                          if (vcStatus == 3 &&
-                              widget.compactorData!.data!.vehicleChecklistId!
-                                      .statusCode!.code ==
+                          } else {
+                            if (widget.vcListData != null) {
+                              if (widget.vcListData!.statusCode!.code ==
                                   "VC1") {
-                            _tabController.index = 0;
-                            showInfoToast(context,
-                                "Tiada rekod Semakan Kenderaan (Selepas Balik) pada hari $selectedNewDate");
+                                _tabController.index = 0;
+
+                                /// if today's date with no vc after data from app drawer listing
+                                if (widget.vcListData!.createdAt
+                                        .toString()
+                                        .split(' ')[0] ==
+                                    Date.getTheDate(DateTime.now(), '',
+                                        "yyyy-MM-dd", 'ms')) {
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return showAlertDialog(
+                                            context,
+                                            "Notis",
+                                            "Semakan Kenderaan (Selepas Balik) akan \ndiaktif dan perlu diisi selepas semua tugasan \ntamat dan selesai.",
+                                            "",
+                                            "Kembali");
+                                      }).then((actionText) {
+                                    if (actionText == "Kembali") {
+                                      //Navigator.pop(context);
+                                    }
+                                  });
+                                }
+
+                                /// if past date with no vc after data from app drawer listing
+                                else {
+                                  showInfoToast(context,
+                                      "Tiada rekod Semakan Kenderaan (Selepas Balik) pada hari ${Date.getTheDate(widget.vcListData!.createdAt, "yyyy-MM-dd", "dd/MM/yyyy", "ms")}");
+                                }
+                              }
+                            } else {
+                              /// if today's date with no vc after data from main page
+                              if (vcStatus == 0 ||
+                                  vcStatus == 1 ||
+                                  vcStatus == 2) {
+                                _tabController.index = 0;
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return showAlertDialog(
+                                          context,
+                                          "Notis",
+                                          "Semakan Kenderaan (Selepas Balik) akan \ndiaktif dan perlu diisi selepas semua tugasan \ntamat dan selesai.",
+                                          "",
+                                          "Kembali");
+                                    }).then((actionText) {
+                                  if (actionText == "Kembali") {
+                                    //Navigator.pop(context);
+                                  }
+                                });
+                              }
+                            }
                           }
                         }
                       },
@@ -212,10 +259,16 @@ class _VehicleChecklistFormTabState extends State<VehicleChecklistFormTab>
                       physics: const NeverScrollableScrollPhysics(),
                       controller: _tabController,
                       children: [
-                        VehicleChecklistFormBeforeTabbarView(
-                            compactorData: widget.compactorData),
-                        VehicleChecklistFormAfterTabbarView(
-                            compactorData: widget.compactorData),
+                        widget.vcListData != null
+                            ? VehicleChecklistFormBeforeTabbarView(
+                                vcListData: widget.vcListData)
+                            : VehicleChecklistFormBeforeTabbarView(
+                                compactorData: widget.compactorData),
+                        widget.vcListData != null
+                            ? VehicleChecklistFormAfterTabbarView(
+                                vcListData: widget.vcListData)
+                            : VehicleChecklistFormAfterTabbarView(
+                                compactorData: widget.compactorData),
                       ],
                     ),
                   ),

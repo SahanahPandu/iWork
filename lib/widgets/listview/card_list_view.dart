@@ -50,7 +50,7 @@ class _CardListViewState extends State<CardListView> {
       list = ReportsApi.getDataLaporan(widget.passData.id);
     } else if (widget.type == "Laporan" && widget.screens == "drawer") {
       //this is from drawer
-      list = ReportsApi.getDataLaporanDrawer(widget.passData);
+      list = ReportsApi.getDataLaporanDrawer(context, widget.passData);
     } else {
       list = null;
     }

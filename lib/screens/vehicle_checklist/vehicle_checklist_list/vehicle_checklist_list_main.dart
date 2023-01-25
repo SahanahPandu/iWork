@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../../config/palette.dart';
-import '../../../providers/vehicle_checklist/vehicle_checklist_api.dart';
 import '../../../utils/icon/custom_icon.dart';
 import '../../../widgets/custom_scroll/custom_scroll.dart';
-import 'vehicle_checklist_list_details.dart';
+import 'vehicle_checklist_list.dart';
 
 class VehicleChecklistListMain extends StatefulWidget {
   const VehicleChecklistListMain({Key? key}) : super(key: key);
@@ -16,14 +15,6 @@ class VehicleChecklistListMain extends StatefulWidget {
 }
 
 class _VehicleChecklistListMainState extends State<VehicleChecklistListMain> {
-  late Future<List> _loadVcData;
-
-  @override
-  void initState() {
-    _loadVcData = VehicleChecklistApi.getVehicleChecklist() as Future<List>;
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,74 +65,9 @@ class _VehicleChecklistListMainState extends State<VehicleChecklistListMain> {
                           color: blackCustom,
                           fontSize: 16,
                           fontWeight: FontWeight.w400))),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 35, vertical: 20),
-                child: FutureBuilder<List>(
-                  future: _loadVcData,
-                  builder: (context, snapshot) {
-                    final dataFuture = snapshot.data;
-
-                    switch (snapshot.connectionState) {
-                      case ConnectionState.waiting:
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-
-                      default:
-                        if (snapshot.hasError) {
-                          return const Center(
-                            child: Text("Some errors occurred!"),
-                          );
-                        } else {
-                          return ListView.builder(
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: dataFuture!.length,
-                            itemBuilder: (context, index) {
-                              if (dataFuture.isNotEmpty) {
-                                return Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 18),
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(24),
-                                        color: white,
-                                        boxShadow: [
-                                          BoxShadow(
-                                              color: shadowColor,
-                                              offset: const Offset(0, 2),
-                                              blurRadius: 10,
-                                              spreadRadius: 0.5)
-                                        ],
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 40, horizontal: 36),
-                                        child: VehicleChecklistListDetails(
-                                          vcData: dataFuture[index],
-                                        ),
-                                      )),
-                                );
-                              } else {
-                                Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20, vertical: 10),
-                                    child: Text(
-                                      "Tiada rekod dijumpai",
-                                      style: TextStyle(
-                                          color: grey500,
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.w500),
-                                    ));
-                              }
-                              return Container();
-                            },
-                          );
-                        }
-                    }
-                  },
-                ),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 35, vertical: 20),
+                child: VehicleChecklistList(),
               )
             ],
           ),

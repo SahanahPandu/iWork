@@ -62,7 +62,8 @@ class ReportsApi {
     return decodeBody;
   }
 
-  static Future<ReportDetailsInfo?>? getDetailLaporan(reportId) async {
+  static Future<ReportDetailsInfo?>? getDetailLaporan(
+      BuildContext context, reportId) async {
     ReportDetailsInfo? theDetails;
 
     try {
@@ -71,11 +72,7 @@ class ReportsApi {
         queryParameters: {
           "report_id": reportId,
         },
-        options: Options(
-          headers: {
-            'authorization': 'Bearer ${userInfo[1]}',
-          },
-        ),
+        options: HttpHeader.getApiHeader(userInfo[1]),
       );
 
       if (response.statusCode == 200) {
@@ -92,7 +89,7 @@ class ReportsApi {
         }
       }
     } on DioError catch (e) {
-      print(e);
+      ApiError.findDioError(e, context);
     }
 
     return theDetails;
@@ -134,7 +131,8 @@ class ReportsApi {
     return filterData;
   }
 
-  static Future<List<ReportDetailsInfo>>? getDataLaporanDrawer(passData) async {
+  static Future<List<ReportDetailsInfo>>? getDataLaporanDrawer(
+      BuildContext context, passData) async {
     List<ReportDetailsInfo> filteredList = [];
 
     var thePassData = Map<String, dynamic>.from(passData);
@@ -155,9 +153,7 @@ class ReportsApi {
           'street_pdibId': thePassData['streetId'],
           'status_code': thePassData['statusCode'],
         },
-        options: Options(headers: {
-          'authorization': 'Bearer ${userInfo[1]}',
-        }),
+        options: HttpHeader.getApiHeader(userInfo[1]),
       );
 
       if (response.statusCode == 200) {
@@ -172,7 +168,7 @@ class ReportsApi {
         }
       }
     } on DioError catch (e) {
-      print(e);
+      ApiError.findDioError(e, context);
     }
 
     return filteredList;

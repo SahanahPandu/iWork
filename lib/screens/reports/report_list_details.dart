@@ -25,7 +25,7 @@ class ReportListDetails extends StatefulWidget {
 }
 
 class _ReportListDetailsState extends State<ReportListDetails> {
-  double horizontalPadding = userRole == 100 ? 34 : 20;
+  double horizontalPadding = 20;
   Color iconColor = const Color(0xff3269F8);
   Color labelColor = greyCustom;
   Color inputColor = blackCustom;
@@ -34,9 +34,11 @@ class _ReportListDetailsState extends State<ReportListDetails> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: Orientations().isTabletPortrait(context)
-          ? const EdgeInsets.only(top: 15)
-          : const EdgeInsets.only(top: 15, bottom: 10),
+      margin: userRole == 100
+          ? Orientations().isTabletPortrait(context)
+              ? const EdgeInsets.only(top: 10, bottom: 15)
+              : const EdgeInsets.only(top: 20)
+          : const EdgeInsets.only(top: 10, bottom: 20),
       child: Column(
         children: [
           //laluan and status
@@ -44,13 +46,18 @@ class _ReportListDetailsState extends State<ReportListDetails> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+                padding: userRole != 100
+                    ? EdgeInsets.symmetric(horizontal: horizontalPadding)
+                    : Orientations().isTabletPortrait(context)
+                        ? const EdgeInsets.symmetric(horizontal: 22)
+                        : const EdgeInsets.symmetric(horizontal: 30),
                 child: Text(
                   widget.data.schCollectionMain!.mainRoute,
                   style: TextStyle(
                     fontSize: userRole == 100 ? 18 : 16,
                     color: inputColor,
-                    fontWeight: FontWeight.w500,
+                    fontWeight:
+                        userRole == 100 ? FontWeight.w500 : FontWeight.w600,
                   ),
                 ),
               ),
@@ -63,11 +70,15 @@ class _ReportListDetailsState extends State<ReportListDetails> {
             ],
           ),
           SizedBox(
-            height: userRole == 200 ? 32 : 20,
+            height: userRole == 200 ? 25 : 20,
           ),
           //Tarikh & Masa
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+            padding: userRole != 100
+                ? EdgeInsets.symmetric(horizontal: horizontalPadding)
+                : Orientations().isTabletPortrait(context)
+                    ? const EdgeInsets.symmetric(horizontal: 22)
+                    : const EdgeInsets.symmetric(horizontal: 32),
             child: ClipRect(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -86,7 +97,11 @@ class _ReportListDetailsState extends State<ReportListDetails> {
                         Text(
                           "Tarikh & Masa",
                           style: TextStyle(
-                            fontSize: userRole == 100 ? 16 : 15,
+                            fontSize: userRole == 100
+                                ? Orientations().isLandscape(context)
+                                    ? 16
+                                    : 14
+                                : 15,
                             color: labelColor,
                             fontWeight: FontWeight.w400,
                           ),
@@ -98,11 +113,15 @@ class _ReportListDetailsState extends State<ReportListDetails> {
                     child: Text(
                       Date.getTheDate(widget.data.createdAt,
                           'yyyy-MM-dd HH:mm:ss', "dd/MM/yyyy HH:mm a", null),
-                      // "${widget.data.tarikh},${widget.data.masa}",
                       style: TextStyle(
-                        fontSize: userRole == 100 ? 16 : 15,
+                        fontSize: userRole == 100
+                            ? Orientations().isLandscape(context)
+                                ? 16
+                                : 14
+                            : 15,
                         color: inputColor,
-                        fontWeight: FontWeight.w600,
+                        fontWeight:
+                            userRole == 100 ? FontWeight.w500 : FontWeight.w600,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -114,11 +133,19 @@ class _ReportListDetailsState extends State<ReportListDetails> {
             ),
           ),
           SizedBox(
-            height: gapHeight,
+            height: userRole != 100
+                ? gapHeight
+                : Orientations().isTabletPortrait(context)
+                    ? 12
+                    : gapHeight,
           ),
           //Taman
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+            padding: userRole != 100
+                ? EdgeInsets.symmetric(horizontal: horizontalPadding)
+                : Orientations().isTabletPortrait(context)
+                    ? const EdgeInsets.symmetric(horizontal: 22)
+                    : const EdgeInsets.symmetric(horizontal: 32),
             child: ClipRect(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -137,7 +164,11 @@ class _ReportListDetailsState extends State<ReportListDetails> {
                         Text(
                           "Taman",
                           style: TextStyle(
-                            fontSize: userRole == 100 ? 16 : 15,
+                            fontSize: userRole == 100
+                                ? Orientations().isLandscape(context)
+                                    ? 16
+                                    : 14
+                                : 15,
                             color: labelColor,
                             fontWeight: FontWeight.w400,
                           ),
@@ -150,9 +181,14 @@ class _ReportListDetailsState extends State<ReportListDetails> {
                       widget.data.park!.parkName,
                       textAlign: TextAlign.end,
                       style: TextStyle(
-                        fontSize: userRole == 100 ? 16 : 15,
+                        fontSize: userRole == 100
+                            ? Orientations().isLandscape(context)
+                                ? 16
+                                : 14
+                            : 15,
                         color: inputColor,
-                        fontWeight: FontWeight.w600,
+                        fontWeight:
+                            userRole == 100 ? FontWeight.w500 : FontWeight.w600,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -167,7 +203,11 @@ class _ReportListDetailsState extends State<ReportListDetails> {
           ),
           //Jalan
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+            padding: userRole != 100
+                ? EdgeInsets.symmetric(horizontal: horizontalPadding)
+                : Orientations().isTabletPortrait(context)
+                    ? const EdgeInsets.symmetric(horizontal: 22)
+                    : const EdgeInsets.symmetric(horizontal: 32),
             child: ClipRRect(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -186,7 +226,11 @@ class _ReportListDetailsState extends State<ReportListDetails> {
                         Text(
                           "Jalan",
                           style: TextStyle(
-                            fontSize: userRole == 100 ? 16 : 15,
+                            fontSize: userRole == 100
+                                ? Orientations().isLandscape(context)
+                                    ? 16
+                                    : 14
+                                : 15,
                             color: labelColor,
                             fontWeight: FontWeight.w400,
                           ),
@@ -201,9 +245,14 @@ class _ReportListDetailsState extends State<ReportListDetails> {
                           : "-",
                       textAlign: TextAlign.end,
                       style: TextStyle(
-                        fontSize: userRole == 100 ? 16 : 15,
+                        fontSize: userRole == 100
+                            ? Orientations().isLandscape(context)
+                                ? 16
+                                : 14
+                            : 15,
                         color: inputColor,
-                        fontWeight: FontWeight.w600,
+                        fontWeight:
+                            userRole == 100 ? FontWeight.w500 : FontWeight.w600,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -218,7 +267,11 @@ class _ReportListDetailsState extends State<ReportListDetails> {
           ),
           //Jenis Halangan
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+            padding: userRole != 100
+                ? EdgeInsets.symmetric(horizontal: horizontalPadding)
+                : Orientations().isTabletPortrait(context)
+                    ? const EdgeInsets.symmetric(horizontal: 22)
+                    : const EdgeInsets.symmetric(horizontal: 32),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -235,7 +288,11 @@ class _ReportListDetailsState extends State<ReportListDetails> {
                     Text(
                       "Jenis Halangan",
                       style: TextStyle(
-                        fontSize: userRole == 100 ? 16 : 15,
+                        fontSize: userRole == 100
+                            ? Orientations().isLandscape(context)
+                                ? 16
+                                : 14
+                            : 15,
                         color: labelColor,
                         fontWeight: FontWeight.w400,
                       ),
@@ -247,9 +304,14 @@ class _ReportListDetailsState extends State<ReportListDetails> {
                     widget.data.obstacleType!.obsTypeName,
                     textAlign: TextAlign.end,
                     style: TextStyle(
-                      fontSize: userRole == 100 ? 16 : 15,
+                      fontSize: userRole == 100
+                          ? Orientations().isLandscape(context)
+                              ? 16
+                              : 14
+                          : 15,
                       color: inputColor,
-                      fontWeight: FontWeight.w600,
+                      fontWeight:
+                          userRole == 100 ? FontWeight.w500 : FontWeight.w600,
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
