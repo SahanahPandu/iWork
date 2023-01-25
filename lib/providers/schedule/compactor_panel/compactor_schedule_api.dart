@@ -6,64 +6,53 @@ import 'package:flutter/material.dart';
 //import files
 import '../../../config/config.dart';
 import '../../../models/schedule/compactor/detail/schedule_detail.dart';
-import '../../../models/schedule/compactor/list/data/schedule_data/schedule_data.dart';
 import '../../../models/schedule/compactor/list/schedule_list.dart';
 import '../../../utils/calendar/date.dart';
 import '../../http/error/api_error.dart';
-import '../../http/service/http_service.dart';
+import '../../http/service/http_header.dart';
 
 class CompactorScheduleApi {
-  static Future<List<CScheduleData?>?> getCompactorScheduleListData(
-      BuildContext context,
+  static Future<ScheduleList> fetchCompactScheduleList(
+      BuildContext context, int pageNumber,
       [Map<String, Object>? passData]) async {
-    List<CScheduleData?>? decodeBody;
     String? getAccessToken = userInfo[1];
+    dynamic myData =
+        passData != null ? Map<String, dynamic>.from(passData) : null;
+    dynamic convDate = "";
     dynamic statusList;
-    var myData = passData != null ? Map<String, dynamic>.from(passData) : null;
-    var convDate = "";
+    dynamic schedules;
     List newStatusList = [];
-
-    if (myData != null) {
-      if (myData['filteredDate'] != "") {
-        convDate = Date.getTheDate(
-            myData['filteredDate'], "dd/MM/yyyy", "yyyy-MM-dd", "ms");
-      }
-      statusList = myData['selectedStatus'];
-      if (statusList.length > 0) {
-        for (int i = 0; i < statusList.length; i++) {
-          newStatusList.add(statusList[i].code);
-        }
-      }
-    }
-
     try {
-      var response = await Dio().get(
-        HttpService().loadCompactorScheduleListUrl,
-        //queryParameters: {'status_code[]': 'SBM', 'limit': 20},
-        options: Options(headers: {
-          'authorization': 'Bearer $getAccessToken',
-        }),
-        queryParameters: _getQueryParameter(passData, convDate, newStatusList),
-      );
-      if (response.statusCode == 200 && response.data != null) {
-        if (response.data['data']['data'] != null &&
-            response.data['data']['data'].length > 0) {
-          Map<String, dynamic> decode = json.decode(json.encode(response.data));
-          var convertData = ScheduleList.fromJson(decode).data!.data;
-          nextPageUrl = ScheduleList.fromJson(decode).data!.nextPageUrl!;
-          // linkList = ScheduleList.fromJson(decode).data!.links;
-          // print("current page --> ${ScheduleList.fromJson(decode).data!.currentPage!}");
-          // print("nextPageUrl --> $nextPageUrl");
-          decodeBody = convertData;
-        } else {
-          decodeBody = [];
+      if (myData != null) {
+        if (myData['filteredDate'] != "") {
+          convDate = Date.getTheDate(
+              myData['filteredDate'], "dd/MM/yyyy", "yyyy-MM-dd", "ms");
         }
+        statusList = myData['selectedStatus'];
+        if (statusList.length > 0) {
+          for (int i = 0; i < statusList.length; i++) {
+            newStatusList.add(statusList[i].code);
+          }
+        }
+      }
+
+      final response = await Dio().get(
+          '$theBase/schedule/schedules?page=$pageNumber',
+          options: HttpHeader.getApiHeader(getAccessToken),
+          queryParameters:
+              _getQueryParameter(passData, convDate, newStatusList));
+
+      if (response.statusCode == 200) {
+        Map<String, dynamic> decode = json.decode(json.encode(response.data));
+        schedules = ScheduleList.fromJson(decode);
+      } else {
+        schedules = [];
       }
     } on DioError catch (e) {
-      /// Checks for Dio returns error
       ApiError.findDioError(e, context);
     }
-    return decodeBody;
+
+    return schedules;
   }
 
   static _getQueryParameter(
@@ -96,35 +85,6 @@ class CompactorScheduleApi {
     }
   }
 
-  static Future<ScheduleList?> getCompactorScheduleList(
-      BuildContext context, int id) async {
-    ScheduleList? scheduleList;
-    String getAccessToken = userInfo[1];
-
-    try {
-      // ignore: unused_local_variable
-      Response response = await Dio().get(
-        '$theBase/schedule',
-        options: Options(headers: {
-          'authorization': 'Bearer $getAccessToken',
-        }),
-      );
-
-      if (response.statusCode == 200) {
-        Map<String, dynamic> decode = json.decode(json.encode(response.data));
-
-        var convertData = ScheduleList.fromJson(decode);
-
-        scheduleList = convertData;
-      }
-    } on DioError catch (e) {
-      ApiError.findDioError(e, context);
-      //print(e);
-    }
-
-    return scheduleList;
-  }
-
   static Future<CScheduleDetail?> getCompactorScheduleDetail(
       BuildContext context, int id) async {
     CScheduleDetail? scheduleDetail;
@@ -135,9 +95,7 @@ class CompactorScheduleApi {
       Response response = await Dio().get(
         '$theBase/schedule',
         queryParameters: {'sc_main_id': id},
-        options: Options(headers: {
-          'authorization': 'Bearer $getAccessToken',
-        }),
+        options: HttpHeader.getApiHeader(getAccessToken),
       );
 
       if (response.statusCode == 200) {

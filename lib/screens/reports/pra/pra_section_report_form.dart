@@ -1,5 +1,7 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
+
 // ignore: depend_on_referenced_packages
 import 'package:path/path.dart';
 
@@ -8,14 +10,15 @@ import '../../../config/config.dart';
 import '../../../config/dimen.dart';
 import '../../../config/font.dart';
 import '../../../config/palette.dart';
+import '../../../models/report/report_details/report_details_info.dart';
 import '../../../utils/device/sizes.dart';
 import '../../../widgets/buttons/change_image_upload.dart';
 import '../../../widgets/buttons/upload_image_button.dart';
+import '../../../widgets/image_viewer/image_viewer.dart';
 import '../../list_of_obstacles/list_of_obstacles.dart';
 import '../../list_of_park/list_of_parks.dart';
 import '../../list_of_road/list_of_road_text_form_field.dart';
 import '../../list_of_sub_routes/list_of_sub_routes_text_form_field.dart';
-import '../../../models/report/report_details/report_details_info.dart';
 
 class PraSectionReportForm extends StatefulWidget {
   final String screen;
@@ -184,7 +187,36 @@ class PraSectionReportFormState extends State<PraSectionReportForm> {
                   color: textFieldFillColor,
                 ),
                 child: gambarLampiran != null
-                    ? ClipRRect(
+                    ? InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            PageRouteBuilder(
+                              opaque: false,
+                              pageBuilder: (_, __, ___) => ImageViewer(
+                                  fileName: gambarLampiran!,
+                                  type: BoxFit.fitWidth),
+                            ),
+                          );
+                        },
+                        child: Hero(
+                          tag: "imgTag",
+                          child: Container(
+                            constraints: BoxConstraints(
+                                maxHeight: 280,
+                                minWidth: Sizes().screenWidth(context)),
+                            padding: const EdgeInsets.all(5),
+                            child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: Image.file(
+                                  gambarLampiran!,
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                  fit: BoxFit.cover,
+                                )),
+                          ),
+                        ),
+                      )
+                    /* ClipRRect(
                         clipBehavior: Clip.hardEdge,
                         borderRadius:
                             const BorderRadius.all(Radius.circular(4)),
@@ -194,9 +226,9 @@ class PraSectionReportFormState extends State<PraSectionReportForm> {
                           height: double.infinity,
                           fit: BoxFit.cover,
                         ),
-                      )
+                      )*/
                     : pathGambar != null
-                        ? ClipRRect(
+                        ? /*ClipRRect(
                             clipBehavior: Clip.hardEdge,
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(4)),
@@ -209,6 +241,62 @@ class PraSectionReportFormState extends State<PraSectionReportForm> {
                                   Object exception, StackTrace? stackTrace) {
                                 return const Text('Opps');
                               },
+                            ),
+                          )*/
+                        InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(
+                                PageRouteBuilder(
+                                  opaque: false,
+                                  pageBuilder: (_, __, ___) => ImageViewer(
+                                      attachment: pathGambar!,
+                                      type: BoxFit.fitWidth),
+                                ),
+                              );
+                            },
+                            child: Hero(
+                              tag: "imgTag",
+                              child: Container(
+                                constraints: BoxConstraints(
+                                    maxHeight: 280,
+                                    minWidth: Sizes().screenWidth(context)),
+                                padding: const EdgeInsets.all(5),
+                                child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: Image.network(
+                                      pathGambar!,
+                                      width: double.infinity,
+                                      height: double.infinity,
+                                      fit: BoxFit.cover,
+                                      errorBuilder: (BuildContext context,
+                                          Object exception,
+                                          StackTrace? stackTrace) {
+                                        return const Text(
+                                            'Gambar tidak dapat dimuat turun');
+                                      },
+                                      loadingBuilder: (BuildContext context,
+                                          Widget child,
+                                          ImageChunkEvent? loadingProgress) {
+                                        if (loadingProgress == null) {
+                                          return child;
+                                        }
+                                        return Center(
+                                          child: CircularProgressIndicator(
+                                            strokeWidth: 3,
+                                            color: green,
+                                            value: loadingProgress
+                                                        .expectedTotalBytes !=
+                                                    null
+                                                ? loadingProgress
+                                                        .cumulativeBytesLoaded /
+                                                    loadingProgress
+                                                        .expectedTotalBytes!
+                                                : null,
+                                          ),
+                                        );
+                                      },
+                                    )),
+                              ),
                             ),
                           )
                         : Center(
@@ -295,10 +383,7 @@ class PraSectionReportFormState extends State<PraSectionReportForm> {
               ),
               alignLabelWithHint: true,
               floatingLabelAlignment: FloatingLabelAlignment.start,
-              label: Container(
-                color: Colors.white,
-                child: const Text("Catatan"),
-              ),
+              label: const Text("Catatan"),
               labelStyle: TextStyle(
                 fontSize: 15,
                 color: labelTextColor,

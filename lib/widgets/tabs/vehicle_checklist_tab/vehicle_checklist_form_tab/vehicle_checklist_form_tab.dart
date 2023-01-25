@@ -53,7 +53,7 @@ class _VehicleChecklistFormTabState extends State<VehicleChecklistFormTab>
                 return showAlertDialog(
                     context,
                     reminder,
-                    "Adakah anda pasti untuk kembali ke halaman utama?\nData yang diisi akan hilang.",
+                    "Adakah anda pasti untuk kembali ke halaman utama? Data yang diisi akan hilang.",
                     cancel,
                     yes);
               }).then((actionText) {
@@ -89,7 +89,7 @@ class _VehicleChecklistFormTabState extends State<VehicleChecklistFormTab>
                             return showAlertDialog(
                                 context,
                                 reminder,
-                                "Adakah anda pasti untuk kembali ke halaman utama?\nData yang diisi akan hilang.",
+                                "Adakah anda pasti untuk kembali ke halaman utama? Data yang diisi akan hilang.",
                                 cancel,
                                 yes);
                           }).then((actionText) {

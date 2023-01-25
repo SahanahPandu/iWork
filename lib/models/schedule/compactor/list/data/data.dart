@@ -39,8 +39,8 @@ class Data {
             : List<CScheduleData?>.from(
                 json["data"]!.map((x) => CScheduleData.fromJson(x))),
         firstPageUrl: json["first_page_url"] ?? "",
-        from: json["from"] ?? "",
-        lastPage: json["last_page"] ?? "",
+        from: json["from"] ?? 0,
+        lastPage: json["last_page"] ?? 0,
         lastPageUrl: json["last_page_url"] ?? "",
         links: json["links"] == null
             ? []
@@ -49,8 +49,8 @@ class Data {
         path: json["path"] ?? "",
         perPage: json["per_page"] ?? "",
         prevPageUrl: json["prev_page_url"] ?? "",
-        to: json["to"] ?? "",
-        total: json["total"] ?? "",
+        to: json["to"] ?? 0,
+        total: json["total"] ?? 0,
       );
 
   Map<String, dynamic> toJson() => {

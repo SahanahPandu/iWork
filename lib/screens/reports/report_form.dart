@@ -11,7 +11,7 @@ import '../../config/dimen.dart';
 import '../../config/font.dart';
 import '../../config/palette.dart';
 import '../../models/report/report_details/report_details_info.dart';
-import '../../providers/reports_api.dart';
+import '../../providers/report/reports_api.dart';
 import '../../screens/reports/pra/pra_section_report_form.dart';
 import '../../utils/device/orientations.dart';
 import '../../utils/device/sizes.dart';
@@ -30,7 +30,7 @@ class ReportForm extends StatefulWidget {
   const ReportForm({
     Key? key,
     required this.screen,
-    required this.passData,
+    this.passData,
     this.data,
   }) : super(key: key);
 
@@ -83,22 +83,14 @@ class _ReportFormState extends State<ReportForm> {
     if (widget.passData != null) {
       // load form
       // from Report List (tab)
-      _namaLaluan.text = userRole != 100
-          ? widget.passData.mainRoute
-          : widget.passData?.mainRoute;
-      _noKenderaan.text = userRole != 100
-          ? widget.passData.vehicleNo
-          : widget.passData?.vehicleNo;
+      _namaLaluan.text = widget.passData.mainRoute;
+      _noKenderaan.text = widget.passData.vehicleNo;
     } else if (widget.data != null) {
       // load form
       // from Report List (drawer)
 
-      _namaLaluan.text = userRole != 100
-          ? widget.data.schCollectionMain.mainRoute
-          : widget.data?.mainRoute;
-      _noKenderaan.text = userRole != 100
-          ? widget.data.schCollectionMain.vehicleNo
-          : widget.data?.vehicleNo;
+      _namaLaluan.text = widget.data.schCollectionMain.mainRoute;
+      _noKenderaan.text = widget.data.schCollectionMain.vehicleNo;
     }
 
     //set icon condition

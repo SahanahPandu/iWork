@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+//import files
 import '../../config/config.dart';
 import '../../config/dimen.dart';
-// import '../../config/font.dart';
 import '../../config/palette.dart';
 import '../../utils/calendar/date.dart';
 import '../../utils/device/orientations.dart';

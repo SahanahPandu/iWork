@@ -6,6 +6,7 @@ import '../../../config/font.dart';
 import '../../../config/palette.dart';
 import '../../../models/schedule/compactor/detail/schedule_detail.dart';
 import '../../../providers/schedule/compactor_panel/compactor_schedule_api.dart';
+import '../../../utils/calendar/date.dart';
 import '../../../utils/device/orientations.dart';
 import '../../../utils/device/sizes.dart';
 import '../../../utils/icon/custom_icon.dart';
@@ -94,7 +95,8 @@ class _CompactorPanelScheduleMainState
                               size: 22),
                         ),
                         title: Center(
-                            child: Text("Perincian Laluan",
+                            child: Text(
+                                "Perincian Laluan - ${Date.getTheDate(widget.data.scheduleDate, "yyyy-MM-dd", "dd/MM/yyyy", "ms")}",
                                 style: TextStyle(
                                   fontSize: 15,
                                   color: Orientations().isLandscape(context)

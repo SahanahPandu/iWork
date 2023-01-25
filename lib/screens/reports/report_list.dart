@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import '../../config/config.dart';
 import '../../utils/device/orientations.dart';
 import '../../widgets/custom_scroll/custom_scroll.dart';
-import '../../widgets/gridview/compactor_panel/report/compactor_report_list.dart';
+import '../../widgets/gridview/compactor_panel/report/compactor_report_list_main.dart';
 import '../../widgets/listview/card_list_view.dart';
 
 class ReportList extends StatefulWidget {
@@ -29,7 +29,9 @@ class _ReportListState extends State<ReportList> {
                 padding: Orientations().isTabletPortrait(context)
                     ? const EdgeInsets.symmetric(horizontal: 5)
                     : const EdgeInsets.symmetric(horizontal: 50),
-                child: CompactorReportList(passData: widget.passData),
+                child: CompactorReportListMain(passData: {
+                  "mainRoute": widget.passData.mainRoute,
+                }),
               )
             : Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
