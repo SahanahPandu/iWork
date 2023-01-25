@@ -178,8 +178,11 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
       empty = false;
       if (widget.before) {
         widget.data!.data!.vehicleChecklists!.createdAt != null
-            ? _todayDate = widget.data!.data!.vehicleChecklists!.createdAt!
-                .substring(0, 10)
+            ? _todayDate = Date.getTheDate(
+                widget.data!.data!.vehicleChecklists!.createdAt!,
+                "yyyy-MM-dd",
+                "dd/MM/yyyy",
+                "ms")
             : _todayDate =
                 Date.getTheDate(DateTime.now(), '', "dd-MM-yyyy", 'ms');
         _odoReader.text = widget.data!.data!.vehicleChecklists!.checklistBefore!
@@ -403,8 +406,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
           empty = true;
         } else {
           widget.data!.data!.vehicleChecklists!.createdAt != null
-              ? _todayDate = widget.data!.data!.vehicleChecklists!.createdAt!
-                  .substring(0, 10)
+              ? _todayDate =  Date.getTheDate(widget.data!.data!.vehicleChecklists!.createdAt!,"yyyy-MM-dd","dd/MM/yyyy", "ms")
               : _todayDate =
                   Date.getTheDate(DateTime.now(), '', "dd-MM-yyyy", 'ms');
           _odoReader.text = widget.data!.data!.vehicleChecklists!

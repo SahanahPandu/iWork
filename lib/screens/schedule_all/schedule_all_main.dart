@@ -67,20 +67,22 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
               ),
             ),
             actions: [
-              IconButton(
-                onPressed: () {
-                  setState(() {
-                    preSelectStatus = List.from(selectedStatus);
-                  });
+              userRole != 100
+                  ? IconButton(
+                      onPressed: () {
+                        setState(() {
+                          preSelectStatus = List.from(selectedStatus);
+                        });
 
-                  displayFilterBottomSheet(context);
-                },
-                icon: Icon(
-                  CustomIcon.filter,
-                  color: blackCustom,
-                  size: 13,
-                ),
-              ),
+                        displayFilterBottomSheet(context);
+                      },
+                      icon: Icon(
+                        CustomIcon.filter,
+                        color: blackCustom,
+                        size: 13,
+                      ),
+                    )
+                  : const SizedBox(),
             ],
           ),
         ),
@@ -103,10 +105,32 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                           : const ScheduleListMain()),
                   Container(
                       color: white,
-                      padding: const EdgeInsets.fromLTRB(30, 20, 0, 15),
-                      child: const Text("Senarai Jadual Tugasan :",
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w400))),
+                      padding: const EdgeInsets.fromLTRB(20, 5, 20, 0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text("Senarai Jadual Tugasan :",
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.w400)),
+                          IconButton(
+                            tooltip: "Pilih untuk buat tapisan jadual",
+                            splashColor: transparent,
+                            highlightColor: transparent,
+                            onPressed: () {
+                              setState(() {
+                                preSelectStatus = List.from(selectedStatus);
+                              });
+
+                              displayFilterBottomSheet(context);
+                            },
+                            icon: Icon(
+                              CustomIcon.filter,
+                              color: blackCustom,
+                              size: 13,
+                            ),
+                          )
+                        ],
+                      )),
                   if (displayFilterSection) filteredSection(),
                 ],
               )

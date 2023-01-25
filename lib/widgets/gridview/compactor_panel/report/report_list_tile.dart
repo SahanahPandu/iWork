@@ -110,10 +110,10 @@ class ReportListTileState extends State<ReportListTile> {
                 ReportsApi.fetchReportList(
                         context, currentPageNumber + 1, widget.passData)
                     .then((reportsObject) {
-              currentPageNumber = reportsObject.data!.currentPage!;
+              currentPageNumber = reportsObject.currentPage!;
 
               setState(() {
-                reports!.addAll(reportsObject.data!.data);
+                reports!.addAll(reportsObject.data);
                 loadMoreStatus = ReportLoadMoreStatus.stable;
               });
             }));

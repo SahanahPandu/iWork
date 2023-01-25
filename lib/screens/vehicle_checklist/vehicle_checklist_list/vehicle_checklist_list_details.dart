@@ -84,7 +84,8 @@ class _VehicleChecklistListDetailsState
               widget.vcData.createdAt.toString().split(' ')[0] ==
                       Date.getTheDate(DateTime.now(), '', "yyyy-MM-dd", 'ms')
                   ? "Hari Ini"
-                  : widget.vcData.createdAt.toString().split(' ')[0],
+                  : Date.getTheDate(widget.vcData.createdAt, "yyyy-MM-dd",
+                      "dd/MM/yyyy", "ms"),
               style: TextStyle(
                   fontSize: 18,
                   color: blackCustom,
@@ -165,7 +166,7 @@ class _VehicleChecklistListDetailsState
                             }
                           })
                         : showInfoToast(context,
-                            "Tiada rekod Semakan Kenderaan (Selepas Balik) pada hari ${widget.vcData.createdAt.toString().split(' ')[0]}");
+                            "Tiada rekod Semakan Kenderaan (Selepas Balik) pada hari ${Date.getTheDate(widget.vcData.createdAt, "yyyy-MM-dd", "dd/MM/yyyy", "ms")}");
                 aftEnable
                     ? Navigator.push(
                         context,

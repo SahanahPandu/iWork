@@ -220,7 +220,7 @@ class _VehicleChecklistFormTabState extends State<VehicleChecklistFormTab>
                                 /// if past date with no vc after data from app drawer listing
                                 else {
                                   showInfoToast(context,
-                                      "Tiada rekod Semakan Kenderaan (Selepas Balik) pada hari ${widget.vcListData!.createdAt.toString().split(' ')[0]}");
+                                      "Tiada rekod Semakan Kenderaan (Selepas Balik) pada hari ${Date.getTheDate(widget.vcListData!.createdAt, "yyyy-MM-dd", "dd/MM/yyyy", "ms")}");
                                 }
                               }
                             } else {

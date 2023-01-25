@@ -23,17 +23,17 @@ class _ReportListState extends State<ReportList> {
   Widget build(BuildContext context) {
     return ScrollConfiguration(
       behavior: CustomScrollBehavior(),
-      child: SingleChildScrollView(
-        child: userRole == 100
-            ? Padding(
-                padding: Orientations().isTabletPortrait(context)
-                    ? const EdgeInsets.symmetric(horizontal: 5)
-                    : const EdgeInsets.symmetric(horizontal: 50),
-                child: CompactorReportListMain(passData: {
-                  "mainRoute": widget.passData.mainRoute,
-                }),
-              )
-            : Column(
+      child: userRole == 100
+          ? Padding(
+              padding: Orientations().isTabletPortrait(context)
+                  ? const EdgeInsets.symmetric(horizontal: 5)
+                  : const EdgeInsets.symmetric(horizontal: 50),
+              child: CompactorReportListMain(passData: {
+                "mainRoute": widget.passData.mainRoute,
+              }),
+            )
+          : SingleChildScrollView(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
@@ -61,7 +61,7 @@ class _ReportListState extends State<ReportList> {
                   ),
                 ],
               ),
-      ),
+            ),
     );
   }
 }
