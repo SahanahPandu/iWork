@@ -48,7 +48,7 @@ class Attendance {
   });
 
   factory Attendance.fromJson(json) => Attendance(
-        clockIn: (json['clock_in_at'] != null) ? json['clock_in_at'] : "",
-        clockOut: (json['clock_out_at'] != null) ? json['clock_out_at'] : "",
+        clockIn: (json['clock_in_at'] != null) ? json['clock_in_at'] : null,
+        clockOut: (json['clock_out_at'] != null) ? json['clock_out_at'] : null,
       );
 }

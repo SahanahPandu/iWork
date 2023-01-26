@@ -96,6 +96,7 @@ class _PraState extends State<Pra> {
                   }
 
                   if (theData.attendance?.clockOut != null) {
+                    print('Masuk sini ke? ${theData.attendance?.clockOut}');
                     TimeOfDay clockOut = Date.getTheTimeOfDay(
                         theData.attendance!.clockOut, "HH:mm:ss", "ms");
 
