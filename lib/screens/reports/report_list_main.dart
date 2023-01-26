@@ -19,9 +19,12 @@ class ReportListMain extends StatefulWidget {
 }
 
 class _ReportListMainState extends State<ReportListMain> {
+  final GlobalKey<ScaffoldState> _key = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _key,
       backgroundColor: white,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),
@@ -55,13 +58,18 @@ class _ReportListMainState extends State<ReportListMain> {
           ),
         ),
       ),
+      endDrawer: userRole == 100
+          ? const Drawer(
+              child: ReportFilterDrawer(),
+            )
+          : const SizedBox(),
       body: ScrollConfiguration(
         behavior: CustomScrollBehavior(),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              userRole != 100
-                  ? Row(
+        child: userRole != 100
+            ? SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
@@ -93,25 +101,8 @@ class _ReportListMainState extends State<ReportListMain> {
                           ),
                         ),
                       ],
-                    )
-                  : Container(
-                      alignment: Alignment.centerLeft,
-                      padding: const EdgeInsets.fromLTRB(30, 30, 0, 15),
-                      child: Text(
-                        "Senarai Laporan :",
-                        style: TextStyle(
-                            color: blackCustom,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400),
-                      ),
                     ),
-              userRole == 100
-                  ? const Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                      child: CompactorReportListMain(),
-                    )
-                  : const Padding(
+                    const Padding(
                       padding: EdgeInsets.all(12),
                       child: CardListView(
                           type: "Laporan",
@@ -125,9 +116,46 @@ class _ReportListMainState extends State<ReportListMain> {
                           },
                           topCardStatus: null),
                     )
-            ],
-          ),
-        ),
+                  ],
+                ),
+              )
+            : Stack(
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(left: 16, right: 16, top: 45),
+                    child: CompactorReportListMain(),
+                  ),
+                  Container(
+                    color: white,
+                    padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Senarai Laporan :",
+                          style: TextStyle(
+                              color: blackCustom,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400),
+                        ),
+                        IconButton(
+                          tooltip: "Pilih untuk buat tapisan laporan",
+                          splashColor: transparent,
+                          highlightColor: transparent,
+                          onPressed: () {
+                            _key.currentState!.openEndDrawer();
+                          },
+                          icon: Icon(
+                            CustomIcon.filter,
+                            color: blackCustom,
+                            size: 13,
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
       ),
     );
   }

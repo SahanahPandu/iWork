@@ -440,13 +440,11 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                         children: [
                           Expanded(
                             child: SizedBox(
-                              width: Orientations().isTabletPortrait(context)
-                                  ? Sizes().screenWidth(context) * 0.32
-                                  : userRole == 100 &&
-                                          !Orientations()
-                                              .isTabletPortrait(context)
-                                      ? Sizes().screenWidth(context) * 0.2
-                                      : Sizes().screenWidth(context) * 0.4,
+                              width: userRole == 100
+                                  ? Orientations().isTabletPortrait(context)
+                                      ? Sizes().screenWidth(context) * 0.28
+                                      : Sizes().screenWidth(context) * 0.2
+                                  : Sizes().screenWidth(context) * 0.4,
                               height: 40,
                               child: ElevatedButton(
                                 onPressed: () {
@@ -484,13 +482,11 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                             width: 12,
                           ),
                           SizedBox(
-                            width: Orientations().isTabletPortrait(context)
-                                ? Sizes().screenWidth(context) * 0.32
-                                : userRole == 100 &&
-                                        !Orientations()
-                                            .isTabletPortrait(context)
-                                    ? Sizes().screenWidth(context) * 0.2
-                                    : Sizes().screenWidth(context) * 0.4,
+                            width: userRole == 100
+                                ? Orientations().isTabletPortrait(context)
+                                    ? Sizes().screenWidth(context) * 0.34
+                                    : Sizes().screenWidth(context) * 0.215
+                                : Sizes().screenWidth(context) * 0.4,
                             height: 40,
                             child: ElevatedButton(
                               onPressed: () {

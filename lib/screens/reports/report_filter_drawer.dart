@@ -10,6 +10,7 @@ import '../../config/font.dart';
 import '../../config/palette.dart';
 import '../../models/report/report_status.dart';
 import '../../providers/halangan_api.dart';
+import '../../providers/report/reports_api.dart';
 import '../../utils/calendar/date.dart';
 import '../../utils/device/orientations.dart';
 import '../../utils/device/sizes.dart';
@@ -18,7 +19,6 @@ import '../../widgets/app_bar/app_bar_widget.dart';
 import '../../widgets/custom_scroll/custom_scroll.dart';
 import '../list_of_sub_routes/list_of_sub_routes_text_form_field.dart';
 import '../schedule_filter/schedule_filter_list.dart';
-import '../../providers/report/reports_api.dart';
 
 class ReportFilterDrawer extends StatefulWidget {
   const ReportFilterDrawer({Key? key}) : super(key: key);
@@ -203,12 +203,11 @@ class _ReportFilterDrawerState extends State<ReportFilterDrawer> {
                 children: [
                   Expanded(
                     child: SizedBox(
-                      width: Orientations().isTabletPortrait(context)
-                          ? Sizes().screenWidth(context) * 0.32
-                          : userRole == 100 &&
-                                  !Orientations().isTabletPortrait(context)
-                              ? Sizes().screenWidth(context) * 0.2
-                              : Sizes().screenWidth(context) * 0.4,
+                      width: userRole == 100
+                          ? Orientations().isTabletPortrait(context)
+                              ? Sizes().screenWidth(context) * 0.18
+                              : Sizes().screenWidth(context) * 0.12
+                          : Sizes().screenWidth(context) * 0.4,
                       height: 40,
                       child: ElevatedButton(
                         onPressed: () {
@@ -245,12 +244,11 @@ class _ReportFilterDrawerState extends State<ReportFilterDrawer> {
                     width: 12,
                   ),
                   SizedBox(
-                    width: Orientations().isTabletPortrait(context)
-                        ? Sizes().screenWidth(context) * 0.32
-                        : userRole == 100 &&
-                                !Orientations().isTabletPortrait(context)
-                            ? Sizes().screenWidth(context) * 0.2
-                            : Sizes().screenWidth(context) * 0.4,
+                    width: userRole == 100
+                        ? Orientations().isTabletPortrait(context)
+                            ? Sizes().screenWidth(context) * 0.18
+                            : Sizes().screenWidth(context) * 0.115
+                        : Sizes().screenWidth(context) * 0.4,
                     height: 40,
                     child: ElevatedButton(
                       onPressed: () {
