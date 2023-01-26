@@ -30,7 +30,6 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
   List<ScheduleFilterStatus> preSelectStatus = [];
   List<ScheduleFilterStatus> selectedStatus = [];
   bool displayFilterSection = false;
-  List testList = [];
   bool changeIcon = false;
 
   @override

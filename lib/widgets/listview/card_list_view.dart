@@ -106,7 +106,8 @@ class _CardListViewState extends State<CardListView> {
 
                 return ListView.builder(
                   physics: userRole == 200
-                      ? ((widget.type == "Laluan" &&
+                      ? (((widget.type == "Laluan" ||
+                                  widget.type == "Laporan") &&
                               (widget.screens == "drawer" ||
                                   widget.screens == "isu"))
                           ? const BouncingScrollPhysics()

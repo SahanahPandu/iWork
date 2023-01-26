@@ -20,6 +20,7 @@ class ReportListMain extends StatefulWidget {
 
 class _ReportListMainState extends State<ReportListMain> {
   final GlobalKey<ScaffoldState> _key = GlobalKey();
+  final GlobalKey<ReportFilterDrawerState> filterDrawerKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -66,43 +67,47 @@ class _ReportListMainState extends State<ReportListMain> {
       body: ScrollConfiguration(
         behavior: CustomScrollBehavior(),
         child: userRole != 100
-            ? SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          padding: const EdgeInsets.only(
-                              left: 20, right: 20, top: 20, bottom: 10),
-                          child: Text(
-                            "Senarai Laporan :",
-                            style: TextStyle(
-                                color: blackCustom,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w400),
-                          ),
+            ? Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        padding: const EdgeInsets.only(
+                            left: 20, right: 20, top: 20, bottom: 10),
+                        child: Text(
+                          "Senarai Laporan :",
+                          style: TextStyle(
+                              color: blackCustom,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w400),
                         ),
-                        IconButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              PageTransition(
-                                type: PageTransitionType.fade,
-                                child: const ReportFilterDrawer(),
-                              ),
-                            );
-                          },
-                          icon: Icon(
-                            CustomIcon.filter,
-                            color: blackCustom,
-                            size: 13,
-                          ),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            PageTransition(
+                              type: PageTransitionType.fade,
+                              child: ReportFilterDrawer(key: filterDrawerKey),
+                            ),
+                          );
+                        },
+                        icon: Icon(
+                          CustomIcon.filter,
+                          color: blackCustom,
+                          size: 13,
                         ),
-                      ],
-                    ),
-                    const Padding(
+                      ),
+                    ],
+                  ),
+                  //filtered selection list
+                  // if (filterDrawerKey.currentState!.displayFilterSection)
+                  // filteredSection(),
+
+                  const Expanded(
+                    child: Padding(
                       padding: EdgeInsets.all(12),
                       child: CardListView(
                           type: "Laporan",
@@ -115,9 +120,9 @@ class _ReportListMainState extends State<ReportListMain> {
                             "statusCode": "",
                           },
                           topCardStatus: null),
-                    )
-                  ],
-                ),
+                    ),
+                  )
+                ],
               )
             : Stack(
                 children: [
@@ -159,4 +164,190 @@ class _ReportListMainState extends State<ReportListMain> {
       ),
     );
   }
+
+  // Widget filteredSection() {
+  //   return Container(
+  //     padding: userRole == 100
+  //         ? const EdgeInsets.symmetric(horizontal: 16, vertical: 26)
+  //         : const EdgeInsets.all(14),
+  //     child: Column(
+  //       children: [
+  //         SizedBox(
+  //           height: userRole == 100 ? 20 : 0,
+  //         ),
+  //         SizedBox(
+  //           height: 35,
+  //           child: ListView(
+  //             shrinkWrap: true,
+  //             physics: const BouncingScrollPhysics(),
+  //             scrollDirection: Axis.horizontal,
+  //             children: [
+  //               GestureDetector(
+  //                 onTap: () {
+  //                   setState(() {
+  //                     // filterDrawerKey
+  //                     //     .currentState!.filteredDateTextFormField.text = "";
+  //                     // filterDrawerKey.currentState!.filteredDate =
+  //                     //     DateTime.now();
+  //                     // filterDrawerKey.currentState!.selectedStatus.clear();
+  //                     // filterDrawerKey.currentState!.displayFilterSection =
+  //                     //     false;
+  //                   });
+  //                 },
+  //                 child: Container(
+  //                   width: 60,
+  //                   height: 30,
+  //                   decoration: BoxDecoration(
+  //                     color: Colors.white,
+  //                     border: Border.all(
+  //                       color: const Color(0xffD9D9D9),
+  //                     ),
+  //                     borderRadius: BorderRadius.circular(26),
+  //                   ),
+  //                   padding: const EdgeInsets.all(8),
+  //                   child: Center(
+  //                     child: Text(
+  //                       "Reset",
+  //                       style: TextStyle(
+  //                         color: blackCustom,
+  //                         fontSize: 11,
+  //                         fontWeight: FontWeight.w600,
+  //                       ),
+  //                     ),
+  //                   ),
+  //                 ),
+  //               ),
+  //               if (filterDrawerKey.currentState!.selectedDate != "")
+  //                 Row(
+  //                   children: [
+  //                     const SizedBox(
+  //                       width: 8,
+  //                     ),
+  //                     Container(
+  //                       padding: const EdgeInsets.all(8),
+  //                       decoration: BoxDecoration(
+  //                         color: const Color(0xffE7F5FF),
+  //                         border: Border.all(
+  //                           color: const Color(0xffC0E4FF),
+  //                         ),
+  //                         borderRadius: BorderRadius.circular(26),
+  //                       ),
+  //                       child: Row(
+  //                         children: [
+  //                           Text(
+  //                             filterDrawerKey.currentState!.selectedDate,
+  //                             style: const TextStyle(
+  //                               color: Color(0xff005B9E),
+  //                               fontSize: 11,
+  //                               fontWeight: FontWeight.w600,
+  //                             ),
+  //                           ),
+  //                           const SizedBox(
+  //                             width: 8,
+  //                           ),
+  //                           InkWell(
+  //                             onTap: () {
+  //                               setState(() {
+  //                                 filterDrawerKey.currentState!
+  //                                     .filteredDateTextFormField.text = "";
+  //                                 filterDrawerKey.currentState!.selectedDate =
+  //                                     "";
+  //                                 filterDrawerKey.currentState!.filteredDate =
+  //                                     DateTime.now();
+  //                                 if (filterDrawerKey
+  //                                     .currentState!.selectedStatus.isEmpty) {
+  //                                   filterDrawerKey.currentState!
+  //                                       .displayFilterSection = false;
+  //                                 }
+  //                               });
+  //                             },
+  //                             child: const Icon(
+  //                               Icons.close,
+  //                               color: Color(0xff005B9E),
+  //                               size: 12,
+  //                             ),
+  //                           ),
+  //                         ],
+  //                       ),
+  //                     ),
+  //                   ],
+  //                 ),
+  //               const SizedBox(
+  //                 width: 8,
+  //               ),
+  //               Container(
+  //                 padding: const EdgeInsets.only(left: 8),
+  //                 child: ListView.separated(
+  //                   physics: const NeverScrollableScrollPhysics(),
+  //                   shrinkWrap: true,
+  //                   scrollDirection: Axis.horizontal,
+  //                   separatorBuilder: (context, index) {
+  //                     return const SizedBox(
+  //                       width: 8,
+  //                     );
+  //                   },
+  //                   itemCount:
+  //                       filterDrawerKey.currentState!.selectedStatus.length,
+  //                   itemBuilder: (context, index) {
+  //                     return Container(
+  //                       padding: const EdgeInsets.all(8),
+  //                       decoration: BoxDecoration(
+  //                         color: const Color(0xffE7F5FF),
+  //                         border: Border.all(
+  //                           color: const Color(0xffC0E4FF),
+  //                         ),
+  //                         borderRadius: BorderRadius.circular(26),
+  //                       ),
+  //                       child: Row(
+  //                         children: [
+  //                           Text(
+  //                             filterDrawerKey
+  //                                 .currentState!.selectedStatus[index].name,
+  //                             style: const TextStyle(
+  //                               color: Color(0xff005B9E),
+  //                               fontSize: 11,
+  //                               fontWeight: FontWeight.w600,
+  //                             ),
+  //                           ),
+  //                           const SizedBox(
+  //                             width: 8,
+  //                           ),
+  //                           InkWell(
+  //                             onTap: () {
+  //                               setState(() {
+  //                                 filterDrawerKey.currentState!.selectedStatus
+  //                                     .remove(filterDrawerKey
+  //                                         .currentState!.selectedStatus[index]);
+  //                                 if (filterDrawerKey.currentState!
+  //                                         .selectedStatus.isEmpty &&
+  //                                     filterDrawerKey.currentState!
+  //                                             .filteredDateTextFormField.text ==
+  //                                         "") {
+  //                                   filterDrawerKey.currentState!
+  //                                       .displayFilterSection = false;
+  //                                 }
+  //                               });
+  //                             },
+  //                             child: const Icon(
+  //                               Icons.close,
+  //                               color: Color(0xff005B9E),
+  //                               size: 12,
+  //                             ),
+  //                           ),
+  //                         ],
+  //                       ),
+  //                     );
+  //                   },
+  //                 ),
+  //               ),
+  //               const SizedBox(
+  //                 width: 8,
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 }
