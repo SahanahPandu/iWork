@@ -107,12 +107,25 @@ class _ListOfParks2State extends State<ListOfParks2> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text(
+                              "Kembali",
+                              style: TextStyle(
+                                color: Color(0xffA4A4A4),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                          Text(
                             "Pilih Taman",
                             style: TextStyle(
-                              color: Color(0xff969696),
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600,
+                              color: blackCustom,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
                             ),
                           ),
                           GestureDetector(
@@ -127,8 +140,8 @@ class _ListOfParks2State extends State<ListOfParks2> {
                             child: const Text(
                               "Reset",
                               style: TextStyle(
-                                color: Color(0xff969696),
-                                fontSize: 15,
+                                color: Color(0xffA4A4A4),
+                                fontSize: 14,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
