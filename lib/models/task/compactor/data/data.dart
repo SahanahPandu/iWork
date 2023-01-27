@@ -14,24 +14,23 @@ class Data {
 
   String? startWork;
   String? stopWork;
-  List<Worker?>? workers;
+  List<Worker>? workers;
   VehicleChecklistId? vehicleChecklistId;
-  List<Schedule?>? schedules;
+  List<Schedule>? schedules;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         startWork: json["start_work"] ?? "--:--",
         stopWork: json["stop_work"] ?? "--:--",
         workers: json["workers"] == null
             ? []
-            : List<Worker?>.from(
-                json["workers"]!.map((x) => Worker.fromJson(x))),
+            : List<Worker>.from(json["workers"].map((x) => Worker.fromJson(x))),
         vehicleChecklistId: json["vehicle_checklist_id"] != null
             ? VehicleChecklistId.fromJson(json["vehicle_checklist_id"])
             : null,
-        schedules: json["schedules"] == null
-            ? []
-            : List<Schedule?>.from(
-                json["schedules"]!.map((x) => Schedule.fromJson(x))),
+        schedules: json["schedules"] != null
+            ? List<Schedule>.from(
+                json["schedules"].map((x) => Schedule.fromJson(x)))
+            : [],
       );
 
   Map<String, dynamic> toJson() => {
@@ -39,10 +38,10 @@ class Data {
         "stop_work": stopWork,
         "workers": workers == null
             ? []
-            : List<Worker>.from(workers!.map((x) => x!.toJson())),
+            : List<Worker>.from(workers!.map((x) => x.toJson())),
         "vehicle_checklist_id": vehicleChecklistId,
         "schedules": schedules == null
             ? []
-            : List<Schedule>.from(schedules!.map((x) => x!.toJson())),
+            : List<Schedule>.from(schedules!.map((x) => x.toJson())),
       };
 }

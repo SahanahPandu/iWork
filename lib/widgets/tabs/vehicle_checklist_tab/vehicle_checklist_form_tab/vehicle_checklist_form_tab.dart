@@ -35,6 +35,7 @@ class VehicleChecklistFormTab extends StatefulWidget {
 class _VehicleChecklistFormTabState extends State<VehicleChecklistFormTab>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  bool showAlertOnBack = false;
 
   @override
   void initState() {
@@ -43,6 +44,11 @@ class _VehicleChecklistFormTabState extends State<VehicleChecklistFormTab>
     } else {
       _tabController = TabController(length: 2, vsync: this);
     }
+    showAlertOnBack = (selectedNewDate == '') &&
+        (widget.vcListData == null ||
+            (widget.vcListData!.createdAt.toString().split(' ')[0] ==
+                Date.getTheDate(DateTime.now(), '', "yyyy-MM-dd", 'ms'))) &&
+        (vcStatus == 0 || vcStatus == 3);
     super.initState();
   }
 
@@ -50,7 +56,9 @@ class _VehicleChecklistFormTabState extends State<VehicleChecklistFormTab>
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        if (vcStatus == 0 || vcStatus == 3 && (selectedNewDate == '')) {
+        /// Show alert when user
+
+        if (showAlertOnBack) {
           showDialog(
               context: context,
               builder: (BuildContext context) {
@@ -85,8 +93,7 @@ class _VehicleChecklistFormTabState extends State<VehicleChecklistFormTab>
                 elevation: 0,
                 leading: IconButton(
                   onPressed: () {
-                    if (vcStatus == 0 ||
-                        vcStatus == 3 && (selectedNewDate == '')) {
+                    if (showAlertOnBack) {
                       showDialog(
                           context: context,
                           builder: (BuildContext context) {
@@ -195,26 +202,36 @@ class _VehicleChecklistFormTabState extends State<VehicleChecklistFormTab>
                                   "VC1") {
                                 _tabController.index = 0;
 
-                                /// if today's date with no vc after data from app drawer listing
+                                /// if today's date with no vc after data and
+                                /// after vc is still need to be disabled (vcStatus != 3) from app drawer listing
                                 if (widget.vcListData!.createdAt
-                                        .toString()
-                                        .split(' ')[0] ==
-                                    Date.getTheDate(DateTime.now(), '',
-                                        "yyyy-MM-dd", 'ms')) {
+                                            .toString()
+                                            .split(' ')[0] ==
+                                        Date.getTheDate(DateTime.now(), '',
+                                            "yyyy-MM-dd", 'ms') &&
+                                    vcStatus != 3) {
                                   showDialog(
                                       context: context,
                                       builder: (BuildContext context) {
-                                        return showAlertDialog(
-                                            context,
-                                            "Notis",
-                                            "Semakan Kenderaan (Selepas Balik) akan \ndiaktif dan perlu diisi selepas semua tugasan \ntamat dan selesai.",
-                                            "",
-                                            "Kembali");
+                                        return showAlertDialog(context, "Notis",
+                                            afterVcInactive, "", "Kembali");
                                       }).then((actionText) {
                                     if (actionText == "Kembali") {
                                       //Navigator.pop(context);
                                     }
                                   });
+                                }
+
+                                /// if today's date with no vc after data and
+                                /// after vc need to be enabled to be filled (vcStatus == 3) from app drawer listing
+                                /// enable to switch Selepas tab
+                                else if (widget.vcListData!.createdAt
+                                            .toString()
+                                            .split(' ')[0] ==
+                                        Date.getTheDate(DateTime.now(), '',
+                                            "yyyy-MM-dd", 'ms') &&
+                                    vcStatus == 3) {
+                                  _tabController.index = 1;
                                 }
 
                                 /// if past date with no vc after data from app drawer listing
@@ -232,12 +249,8 @@ class _VehicleChecklistFormTabState extends State<VehicleChecklistFormTab>
                                 showDialog(
                                     context: context,
                                     builder: (BuildContext context) {
-                                      return showAlertDialog(
-                                          context,
-                                          "Notis",
-                                          "Semakan Kenderaan (Selepas Balik) akan \ndiaktif dan perlu diisi selepas semua tugasan \ntamat dan selesai.",
-                                          "",
-                                          "Kembali");
+                                      return showAlertDialog(context, "Notis",
+                                          afterVcInactive, "", "Kembali");
                                     }).then((actionText) {
                                   if (actionText == "Kembali") {
                                     //Navigator.pop(context);

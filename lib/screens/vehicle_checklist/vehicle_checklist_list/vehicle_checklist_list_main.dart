@@ -54,24 +54,21 @@ class _VehicleChecklistListMainState extends State<VehicleChecklistListMain> {
       ),
       body: ScrollConfiguration(
         behavior: CustomScrollBehavior(),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                  alignment: Alignment.centerLeft,
-                  padding: const EdgeInsets.fromLTRB(30, 35, 0, 0),
-                  child: Text("Senarai Semakan Kenderaan :",
-                      style: TextStyle(
-                          color: blackCustom,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400))),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 35, vertical: 20),
-                child: VehicleChecklistList(),
-              )
-            ],
+        child: Stack(children: [
+          const Padding(
+            padding: EdgeInsets.only(left: 30, right: 30, top: 45),
+            child: VehicleChecklistList(),
           ),
-        ),
+          Container(
+            color: white,
+            padding: const EdgeInsets.fromLTRB(40, 20, 30, 15),
+            child: Text("Senarai Semakan Kenderaan :",
+                style: TextStyle(
+                    color: blackCustom,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400)),
+          ),
+        ]),
       ),
     );
   }

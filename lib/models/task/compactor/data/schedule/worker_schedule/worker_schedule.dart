@@ -1,4 +1,4 @@
-import '../../workers/workers.dart';
+import '../../workers/user_id/user_id.dart';
 import 'user_attendance_id/user_attendance_id.dart';
 
 class WorkerSchedule {
@@ -11,13 +11,13 @@ class WorkerSchedule {
 
   int? id;
   int? scMainId;
-  Worker? userId;
+  UserId? userId;
   UserAttendanceId? userAttendanceId;
 
   factory WorkerSchedule.fromJson(Map<String, dynamic> json) => WorkerSchedule(
         id: json["id"],
         scMainId: json["sc_main_id"],
-        userId: Worker.fromJson(json["user_id"]),
+        userId: UserId.fromJson(json["user_id"]),
         userAttendanceId: json["user_attendance_id"] == null
             ? null
             : UserAttendanceId.fromJson(json["user_attendance_id"]),

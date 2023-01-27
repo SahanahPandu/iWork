@@ -1,16 +1,15 @@
+import 'package:eswm/utils/font/font.dart';
 import 'package:flutter/material.dart';
 
 //import files
 import '../../config/config.dart';
 import '../../config/palette.dart';
-import '../../models/task/compactor/data/schedule/worker_schedule/worker_schedule.dart';
+import '../../models/task/compactor/data/workers/workers.dart';
 import '../../utils/device/orientations.dart';
 import '../../utils/device/sizes.dart';
-import '../../utils/font/font.dart';
 import '../../utils/icon/custom_icon.dart';
 
-showUserProfileDialog(
-    BuildContext context, WorkerSchedule? scheduleData, String photo) {
+showUserProfileDialog(BuildContext context, Worker? workerData, String photo) {
   return AlertDialog(
     title: Align(
       alignment: Alignment.topRight,
@@ -53,10 +52,16 @@ showUserProfileDialog(
                   backgroundImage: NetworkImage(photo),
                   radius: 32)),
           const SizedBox(height: 15),
-          Text(scheduleData!.userId!.userDetail!.name!.toTitleCase(),
+          Text(
+              workerData != null
+                  ? workerData.userId!.userDetail!.name!.toTitleCase()
+                  : "User 1: Name",
               style:
                   const TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
-          Text("Driver",
+          Text(
+              workerData != null
+                  ? workerData.userId!.userRoles![0].roleDesc!
+                  : "General Worker",
               style: TextStyle(
                   fontWeight: FontWeight.w400,
                   color: greyCustom,
@@ -82,18 +87,20 @@ showUserProfileDialog(
                 TableRow(
                   children: [
                     Text(
-                        scheduleData.userAttendanceId != null
-                            ? scheduleData.userAttendanceId!.clockInAt!
-                            : "07:00 pagi",
+                        //  workerData.userAttendanceId != null
+                        //     ? workerData.userAttendanceId!.clockInAt!
+                        //     :
+                        "07:00 pagi",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w400,
                             color: greyCustom)),
                     Text(
-                        scheduleData.userAttendanceId != null
-                            ? scheduleData.userAttendanceId!.clockOutAt!
-                            : "04:30 petang",
+                        //  workerData.userAttendanceId != null
+                        //      ? workerData.userAttendanceId!.clockOutAt!
+                        //      :
+                        "04:30 petang",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontSize: 14,

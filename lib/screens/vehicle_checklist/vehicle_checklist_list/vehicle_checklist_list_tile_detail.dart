@@ -13,7 +13,7 @@ class VehicleChecklistListTileDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 18),
+      padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 10),
       child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(24),
@@ -33,24 +33,5 @@ class VehicleChecklistListTileDetail extends StatelessWidget {
             ),
           )),
     ); // Card
-  }
-
-  Padding buildTabletCard(redirect) {
-    return Padding(
-        padding: const EdgeInsets.all(10),
-        child: Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: white,
-                boxShadow: [
-                  BoxShadow(
-                      color: cardListShadowColor.withOpacity(0.06),
-                      offset: const Offset(0, 2),
-                      blurRadius: 12,
-                      spreadRadius: 0.5)
-                ]),
-            child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 6),
-                child: redirect)));
   }
 }

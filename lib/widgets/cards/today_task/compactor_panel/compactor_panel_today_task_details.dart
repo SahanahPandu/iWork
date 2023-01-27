@@ -170,59 +170,20 @@ class _CompactorPanelTodayTaskDetailsState
         ]),
         //Senarai Staf
         isScheduleListExist
-            ? Align(
-                alignment: Alignment.centerRight,
-                child: Container(
-                    alignment: Alignment.centerLeft,
-                    width: 170,
-                    child: Stack(
-                        clipBehavior: Clip.none,
-                        fit: StackFit.passthrough,
-                        children: [
-                          Positioned(
-                            left: 108,
-                            child: GestureDetector(
-                              behavior: HitTestBehavior.translucent,
-                              onTap: () {},
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8),
-                                child: CircleAvatar(
-                                  backgroundColor:
-                                      Orientations().isTabletPortrait(context)
-                                          ? const Color(0xec3f67ea)
-                                          : const Color(0xec4357d0),
-                                  radius: 32,
-                                  child: CircleAvatar(
-                                      backgroundColor: transparent,
-                                      backgroundImage: const NetworkImage(
-                                          "https://www.mnp.ca/-/media/foundation/integrations/personnel/2020/12/16/13/57/personnel-image-4483.jpg?h=800&w=600&hash=9D5E5FCBEE00EB562DCD8AC8FDA8433D"),
-                                      radius: 30),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Positioned(
-                              left: 54,
-                              child: GestureDetector(
-                                behavior: HitTestBehavior.translucent,
-                                onTap: () {},
-                                child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 8),
-                                    child: CircleAvatar(
-                                        backgroundColor: Orientations()
-                                                .isTabletPortrait(context)
-                                            ? const Color(0xec3f67ea)
-                                            : const Color(0xec4357d0),
-                                        radius: 32,
-                                        child: CircleAvatar(
-                                            backgroundColor: transparent,
-                                            backgroundImage: const NetworkImage(
-                                                "https://www.jurispro.com/files/photos/user_4473.jpg?m=1605811497"),
-                                            radius: 30))),
-                              )),
-                          Padding(
+            ? Container(
+                color: white,
+                alignment: Alignment.centerLeft,
+                width: 180,
+                child: Stack(
+                    clipBehavior: Clip.none,
+                    fit: StackFit.passthrough,
+                    children: [
+                      Positioned(
+                        left: 108,
+                        child: GestureDetector(
+                          behavior: HitTestBehavior.translucent,
+                          onTap: () {},
+                          child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 8),
                             child: CircleAvatar(
                               backgroundColor:
@@ -233,45 +194,20 @@ class _CompactorPanelTodayTaskDetailsState
                               child: CircleAvatar(
                                   backgroundColor: transparent,
                                   backgroundImage: const NetworkImage(
-                                      "https://www.jurispro.com/files/photos/user_4473.jpg?m=1605811497"),
+                                      "https://www.mnp.ca/-/media/foundation/integrations/personnel/2020/12/16/13/57/personnel-image-4483.jpg?h=800&w=600&hash=9D5E5FCBEE00EB562DCD8AC8FDA8433D"),
                                   radius: 30),
                             ),
                           ),
-                          GestureDetector(
+                        ),
+                      ),
+                      Positioned(
+                          left: 54,
+                          child: GestureDetector(
                             behavior: HitTestBehavior.translucent,
-                            onTap: () {
-                              _controllerCard.reverse();
-                              if (_controllerCard.isCompleted) {
-                                _controllerCard.reverse();
-                              } else {
-                                _controllerCard.forward(from: 0);
-                              }
-                              showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return showUserProfileDialog(
-                                        context,
-                                        widget.scheduleData!.data!.schedules![1]!
-                                            .workerSchedules![2],
-                                        "https://miro.medium.com/max/800/1*7hkI-ZKsglnbjxCRV1bMZA.png");
-                                  });
-                            },
-                            onTapDown: (dp) {
-                              _controllerCard.reverse();
-                            },
-                            onTapUp: (dp) {
-                              Timer(const Duration(milliseconds: 250), () {
-                                _controllerCard.fling();
-                              });
-                            },
-                            onTapCancel: () {
-                              _controllerCard.fling();
-                            },
+                            onTap: () {},
                             child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 8),
-                              child: Transform.scale(
-                                scale: _scaleCard,
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8),
                                 child: CircleAvatar(
                                     backgroundColor:
                                         Orientations().isTabletPortrait(context)
@@ -279,15 +215,78 @@ class _CompactorPanelTodayTaskDetailsState
                                             : const Color(0xec4357d0),
                                     radius: 32,
                                     child: CircleAvatar(
-                                      backgroundColor: transparent,
-                                      backgroundImage: const NetworkImage(
-                                          "https://miro.medium.com/max/800/1*7hkI-ZKsglnbjxCRV1bMZA.png"),
-                                      radius: 30,
-                                    )),
-                              ),
-                            ),
-                          )
-                        ])))
+                                        backgroundColor: transparent,
+                                        backgroundImage: const NetworkImage(
+                                            "https://www.jurispro.com/files/photos/user_4473.jpg?m=1605811497"),
+                                        radius: 30))),
+                          )),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: CircleAvatar(
+                          backgroundColor:
+                              Orientations().isTabletPortrait(context)
+                                  ? const Color(0xec3f67ea)
+                                  : const Color(0xec4357d0),
+                          radius: 32,
+                          child: CircleAvatar(
+                              backgroundColor: transparent,
+                              backgroundImage: const NetworkImage(
+                                  "https://www.jurispro.com/files/photos/user_4473.jpg?m=1605811497"),
+                              radius: 30),
+                        ),
+                      ),
+                      GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        onTap: () {
+                          _controllerCard.reverse();
+                          if (_controllerCard.isCompleted) {
+                            _controllerCard.reverse();
+                          } else {
+                            _controllerCard.forward(from: 0);
+                          }
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return showUserProfileDialog(
+                                    context,
+                                    widget.scheduleData!.data!.workers!
+                                            .isNotEmpty
+                                        ? widget.scheduleData!.data!.workers![0]
+                                        : null,
+                                    "https://miro.medium.com/max/800/1*7hkI-ZKsglnbjxCRV1bMZA.png");
+                              });
+                        },
+                        onTapDown: (dp) {
+                          _controllerCard.reverse();
+                        },
+                        onTapUp: (dp) {
+                          Timer(const Duration(milliseconds: 250), () {
+                            _controllerCard.fling();
+                          });
+                        },
+                        onTapCancel: () {
+                          _controllerCard.fling();
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          child: Transform.scale(
+                            scale: _scaleCard,
+                            child: CircleAvatar(
+                                backgroundColor:
+                                    Orientations().isTabletPortrait(context)
+                                        ? const Color(0xec3f67ea)
+                                        : const Color(0xec4357d0),
+                                radius: 32,
+                                child: CircleAvatar(
+                                  backgroundColor: transparent,
+                                  backgroundImage: const NetworkImage(
+                                      "https://miro.medium.com/max/800/1*7hkI-ZKsglnbjxCRV1bMZA.png"),
+                                  radius: 30,
+                                )),
+                          ),
+                        ),
+                      )
+                    ]))
             : Container()
       ])
     ]);

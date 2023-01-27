@@ -1,8 +1,8 @@
-import 'package:eswm/models/task/compactor/data/schedule/vehicle_checklist_id/status_code/status_code.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../../../../vc/detail/data/vehicle_checklists/checklist_after/checklist_after.dart';
 import '../../../../../vc/detail/data/vehicle_checklists/checklist_before/checklist_before.dart';
+import '../status_code/status_code.dart';
 
 class VehicleChecklistId {
   VehicleChecklistId({
