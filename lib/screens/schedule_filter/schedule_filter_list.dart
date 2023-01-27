@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//imported files
 import '../../models/schedule/filter/schedule_filter_main_routes.dart';
 import '../../models/schedule/filter/schedule_filter_parks.dart';
 import '../../models/schedule/filter/schedule_filter_streets.dart';
@@ -14,7 +15,12 @@ import '../list_of_road/list_of_road_text_form_field2.dart';
 import '../list_of_routes/list_of_routes.dart';
 
 class ScheduleFilterList extends StatefulWidget {
-  const ScheduleFilterList({Key? key}) : super(key: key);
+  final Map<String, dynamic>? passData;
+
+  const ScheduleFilterList({
+    Key? key,
+    this.passData,
+  }) : super(key: key);
 
   @override
   ScheduleFilterListState createState() => ScheduleFilterListState();
@@ -91,16 +97,48 @@ class ScheduleFilterListState extends State<ScheduleFilterList> {
   @override
   void initState() {
     super.initState();
-    loadData();
+    loadData('init');
   }
 
-  loadData() async {
-    var filteredData = {
-      'laluan': "",
-      'subLaluan': "",
-      'taman': null,
-      'jalan': null,
-    };
+  loadData(String? type) async {
+    Map<String, dynamic> filteredData;
+
+    if (widget.passData != null) {
+      Map<String, dynamic> passingData = widget.passData!;
+
+      if (passingData['mainRoute'] != null) {
+        namaLaluan.text = passingData['mainRoute'];
+      }
+      if (passingData['subRoute'] != null) {
+        namaSubLaluan.text = passingData['subRoute'];
+      }
+      if (passingData['park'] != null) {
+        Map<String, dynamic> dataTaman = passingData['park'];
+        idTaman = dataTaman['id'];
+        namaTaman.text = dataTaman['name'];
+      }
+
+      if (passingData['road'] != null) {
+        Map<String, dynamic> dataJalan = passingData['road'];
+        idJalan = dataJalan['id'];
+        namaJalan.text = dataJalan['name'];
+      }
+
+      filteredData = {
+        'laluan': namaLaluan.text,
+        'subLaluan': namaSubLaluan.text,
+        'taman': idTaman,
+        'jalan': idJalan,
+      };
+    } else {
+      filteredData = {
+        'laluan': "",
+        'subLaluan': "",
+        'taman': null,
+        'jalan': null,
+      };
+    }
+
     // ignore: unused_local_variable
     var fetchData = await ScheduleFilterApi.getDataScheduleFilter(filteredData)
         .then((theData) {
@@ -113,12 +151,14 @@ class ScheduleFilterListState extends State<ScheduleFilterList> {
         dataJalan.clear();
 
         //this is variable that hold data for selected item for all dropdown
-        namaLaluan.clear();
-        namaSubLaluan.clear();
-        idTaman = 0;
-        namaTaman.clear();
-        idJalan = 0;
-        namaJalan.clear();
+        if (type == "reset") {
+          namaLaluan.clear();
+          namaSubLaluan.clear();
+          idTaman = 0;
+          namaTaman.clear();
+          idJalan = 0;
+          namaJalan.clear();
+        }
 
         //this is list of list use to pass to all the dropdown
         senaraiLaluan!.clear();
@@ -153,7 +193,7 @@ class ScheduleFilterListState extends State<ScheduleFilterList> {
   updateFilterItems(item, value) async {
     if (item == 'reset') {
       //reset button from dropdown selection
-      loadData();
+      loadData("reset");
     } else {
       dynamic filteredValue;
 

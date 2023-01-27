@@ -15,19 +15,26 @@ import '../../utils/device/orientations.dart';
 import '../../utils/device/sizes.dart';
 import '../../utils/icon/custom_icon.dart';
 import '../../widgets/app_bar/app_bar_widget.dart';
-import '../list_of_sub_routes/list_of_sub_routes_text_form_field.dart';
 import '../schedule_filter/schedule_filter_list.dart';
 import '../../models/report/obstacle_types.dart';
 
 class ReportFilterDrawer extends StatefulWidget {
-  const ReportFilterDrawer({Key? key}) : super(key: key);
+  final Map<String, dynamic>? passData;
+  final Function(Map<String, dynamic>)? updateState;
+
+  const ReportFilterDrawer({
+    Key? key,
+    this.passData,
+    this.updateState,
+  }) : super(key: key);
 
   @override
   ReportFilterDrawerState createState() => ReportFilterDrawerState();
 }
 
 class ReportFilterDrawerState extends State<ReportFilterDrawer> {
-  final namaSubLaluanKey = GlobalKey<ListOfSubRoutesTextFormFieldState>();
+  final scheduleFilterListKey = GlobalKey<ScheduleFilterListState>();
+
   final TextEditingController filteredDateTextFormField =
       TextEditingController(); //controller for date textformfield
   DateTime filteredDate = DateTime.now(); //default for datePicker
@@ -36,7 +43,6 @@ class ReportFilterDrawerState extends State<ReportFilterDrawer> {
   List<ReportStatus> selectedStatus = [];
   List<ObstacleTypes> preSelectObstacles = [];
   List<ObstacleTypes> selectedObstacles = [];
-  bool displayFilterSection = false;
   bool changeIcon = false;
 
   double spaceBetweenItem = 24;
@@ -83,6 +89,35 @@ class ReportFilterDrawerState extends State<ReportFilterDrawer> {
   );
 
   // end of text form field config
+
+  loadData() {
+    //load data from page filter
+    if (widget.passData != null) {
+      Map<String, dynamic> passingData = widget.passData!;
+
+      setState(() {
+        if (passingData['date'] != null) {
+          filteredDateTextFormField.text = passingData['date'];
+        }
+
+        if (passingData['obstacle'] != null) {
+          preSelectObstacles.clear();
+          preSelectObstacles =
+              List<ObstacleTypes>.from(passingData['obstacle']);
+        }
+        if (passingData['status'] != null) {
+          preSelectStatus.clear();
+          preSelectStatus = List<ReportStatus>.from(passingData['status']);
+        }
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    loadData();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -191,7 +226,10 @@ class ReportFilterDrawerState extends State<ReportFilterDrawer> {
                       ),
 
                       //============= dropdown related to laluan section =======
-                      const ScheduleFilterList(),
+                      ScheduleFilterList(
+                        key: scheduleFilterListKey,
+                        passData: widget.passData,
+                      ),
                       //============= dropdown section =========================
 
                       SizedBox(
@@ -289,12 +327,28 @@ class ReportFilterDrawerState extends State<ReportFilterDrawer> {
                     child: ElevatedButton(
                       onPressed: () {
                         Navigator.pop(context);
-                        setState(() {
-                          selectedDate = filteredDateTextFormField.text;
-                          selectedStatus = preSelectStatus;
-                          selectedObstacles = preSelectObstacles;
-                          displayFilterSection = true;
-                        });
+
+                        if (widget.updateState != null) {
+                          widget.updateState!({
+                            "date": filteredDateTextFormField.text,
+                            "mainRoute": scheduleFilterListKey
+                                .currentState?.namaLaluan.text,
+                            "subRoute": scheduleFilterListKey
+                                .currentState?.namaSubLaluan.text,
+                            "park": {
+                              "id": scheduleFilterListKey.currentState?.idTaman,
+                              "name": scheduleFilterListKey
+                                  .currentState?.namaTaman.text
+                            },
+                            "road": {
+                              "id": scheduleFilterListKey.currentState?.idJalan,
+                              "name": scheduleFilterListKey
+                                  .currentState?.namaJalan.text
+                            },
+                            "obstacle": preSelectObstacles,
+                            "status": preSelectStatus,
+                          });
+                        }
                       },
                       style: ButtonStyle(
                         elevation: MaterialStateProperty.all(0),

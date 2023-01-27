@@ -5,6 +5,8 @@ import 'package:page_transition/page_transition.dart';
 //import files
 import '../../config/config.dart';
 import '../../config/palette.dart';
+import '../../models/report/obstacle_types.dart';
+import '../../models/report/report_status.dart';
 import '../../utils/icon/custom_icon.dart';
 import '../../widgets/custom_scroll/custom_scroll.dart';
 import '../../widgets/gridview/compactor_panel/report/compactor_report_list_main.dart';
@@ -20,7 +22,54 @@ class ReportListMain extends StatefulWidget {
 
 class _ReportListMainState extends State<ReportListMain> {
   final GlobalKey<ScaffoldState> _key = GlobalKey();
-  final GlobalKey<ReportFilterDrawerState> filterDrawerKey = GlobalKey();
+  final GlobalKey<ReportFilterDrawerState> reportDrawerKey = GlobalKey();
+
+  Map<String, dynamic>? passData;
+
+  String? selectedDate;
+  String? selMainRoute;
+  String? selSubRoute;
+  String? selNamaTaman;
+  String? selNamaJalan;
+  int? selParkId;
+  int? selRoadId;
+  List<ReportStatus> selectedStatus = [];
+  List<ObstacleTypes> selectedObstacles = [];
+  bool displayFilterSection = false;
+
+  updateFilterData(Map<String, dynamic> passingData) {
+    if (passingData.isNotEmpty) {
+      setState(() {
+        passData = passingData;
+        displayFilterSection = true;
+        if (passingData['date'] != null) selectedDate = passingData['date'];
+        if (passingData['mainRoute'] != null) {
+          selMainRoute = passingData['mainRoute'];
+        }
+        if (passingData['subRoute'] != null) {
+          selSubRoute = passingData['subRoute'];
+        }
+        if (passingData['park'] != null) {
+          Map<String, dynamic> dataTaman = passingData['park'];
+          selParkId = dataTaman['id'];
+          selNamaTaman = dataTaman['name'];
+        }
+
+        if (passingData['road'] != null) {
+          Map<String, dynamic> dataJalan = passingData['road'];
+          selRoadId = dataJalan['id'];
+          selNamaJalan = dataJalan['name'];
+        }
+
+        if (passingData['obstacle'] != null) {
+          selectedObstacles = passingData['obstacle'];
+        }
+        if (passingData['status'] != null) {
+          selectedStatus = passingData['status'];
+        }
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +117,7 @@ class _ReportListMainState extends State<ReportListMain> {
         behavior: CustomScrollBehavior(),
         child: userRole != 100
             ? Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -90,7 +140,10 @@ class _ReportListMainState extends State<ReportListMain> {
                             context,
                             PageTransition(
                               type: PageTransitionType.fade,
-                              child: ReportFilterDrawer(key: filterDrawerKey),
+                              child: ReportFilterDrawer(
+                                passData: passData,
+                                updateState: updateFilterData,
+                              ),
                             ),
                           );
                         },
@@ -103,8 +156,7 @@ class _ReportListMainState extends State<ReportListMain> {
                     ],
                   ),
                   //filtered selection list
-                  // if (filterDrawerKey.currentState!.displayFilterSection)
-                  // filteredSection(),
+                  if (displayFilterSection) filteredSection(),
 
                   const Expanded(
                     child: Padding(
@@ -165,189 +217,422 @@ class _ReportListMainState extends State<ReportListMain> {
     );
   }
 
-  // Widget filteredSection() {
-  //   return Container(
-  //     padding: userRole == 100
-  //         ? const EdgeInsets.symmetric(horizontal: 16, vertical: 26)
-  //         : const EdgeInsets.all(14),
-  //     child: Column(
-  //       children: [
-  //         SizedBox(
-  //           height: userRole == 100 ? 20 : 0,
-  //         ),
-  //         SizedBox(
-  //           height: 35,
-  //           child: ListView(
-  //             shrinkWrap: true,
-  //             physics: const BouncingScrollPhysics(),
-  //             scrollDirection: Axis.horizontal,
-  //             children: [
-  //               GestureDetector(
-  //                 onTap: () {
-  //                   setState(() {
-  //                     // filterDrawerKey
-  //                     //     .currentState!.filteredDateTextFormField.text = "";
-  //                     // filterDrawerKey.currentState!.filteredDate =
-  //                     //     DateTime.now();
-  //                     // filterDrawerKey.currentState!.selectedStatus.clear();
-  //                     // filterDrawerKey.currentState!.displayFilterSection =
-  //                     //     false;
-  //                   });
-  //                 },
-  //                 child: Container(
-  //                   width: 60,
-  //                   height: 30,
-  //                   decoration: BoxDecoration(
-  //                     color: Colors.white,
-  //                     border: Border.all(
-  //                       color: const Color(0xffD9D9D9),
-  //                     ),
-  //                     borderRadius: BorderRadius.circular(26),
-  //                   ),
-  //                   padding: const EdgeInsets.all(8),
-  //                   child: Center(
-  //                     child: Text(
-  //                       "Reset",
-  //                       style: TextStyle(
-  //                         color: blackCustom,
-  //                         fontSize: 11,
-  //                         fontWeight: FontWeight.w600,
-  //                       ),
-  //                     ),
-  //                   ),
-  //                 ),
-  //               ),
-  //               if (filterDrawerKey.currentState!.selectedDate != "")
-  //                 Row(
-  //                   children: [
-  //                     const SizedBox(
-  //                       width: 8,
-  //                     ),
-  //                     Container(
-  //                       padding: const EdgeInsets.all(8),
-  //                       decoration: BoxDecoration(
-  //                         color: const Color(0xffE7F5FF),
-  //                         border: Border.all(
-  //                           color: const Color(0xffC0E4FF),
-  //                         ),
-  //                         borderRadius: BorderRadius.circular(26),
-  //                       ),
-  //                       child: Row(
-  //                         children: [
-  //                           Text(
-  //                             filterDrawerKey.currentState!.selectedDate,
-  //                             style: const TextStyle(
-  //                               color: Color(0xff005B9E),
-  //                               fontSize: 11,
-  //                               fontWeight: FontWeight.w600,
-  //                             ),
-  //                           ),
-  //                           const SizedBox(
-  //                             width: 8,
-  //                           ),
-  //                           InkWell(
-  //                             onTap: () {
-  //                               setState(() {
-  //                                 filterDrawerKey.currentState!
-  //                                     .filteredDateTextFormField.text = "";
-  //                                 filterDrawerKey.currentState!.selectedDate =
-  //                                     "";
-  //                                 filterDrawerKey.currentState!.filteredDate =
-  //                                     DateTime.now();
-  //                                 if (filterDrawerKey
-  //                                     .currentState!.selectedStatus.isEmpty) {
-  //                                   filterDrawerKey.currentState!
-  //                                       .displayFilterSection = false;
-  //                                 }
-  //                               });
-  //                             },
-  //                             child: const Icon(
-  //                               Icons.close,
-  //                               color: Color(0xff005B9E),
-  //                               size: 12,
-  //                             ),
-  //                           ),
-  //                         ],
-  //                       ),
-  //                     ),
-  //                   ],
-  //                 ),
-  //               const SizedBox(
-  //                 width: 8,
-  //               ),
-  //               Container(
-  //                 padding: const EdgeInsets.only(left: 8),
-  //                 child: ListView.separated(
-  //                   physics: const NeverScrollableScrollPhysics(),
-  //                   shrinkWrap: true,
-  //                   scrollDirection: Axis.horizontal,
-  //                   separatorBuilder: (context, index) {
-  //                     return const SizedBox(
-  //                       width: 8,
-  //                     );
-  //                   },
-  //                   itemCount:
-  //                       filterDrawerKey.currentState!.selectedStatus.length,
-  //                   itemBuilder: (context, index) {
-  //                     return Container(
-  //                       padding: const EdgeInsets.all(8),
-  //                       decoration: BoxDecoration(
-  //                         color: const Color(0xffE7F5FF),
-  //                         border: Border.all(
-  //                           color: const Color(0xffC0E4FF),
-  //                         ),
-  //                         borderRadius: BorderRadius.circular(26),
-  //                       ),
-  //                       child: Row(
-  //                         children: [
-  //                           Text(
-  //                             filterDrawerKey
-  //                                 .currentState!.selectedStatus[index].name,
-  //                             style: const TextStyle(
-  //                               color: Color(0xff005B9E),
-  //                               fontSize: 11,
-  //                               fontWeight: FontWeight.w600,
-  //                             ),
-  //                           ),
-  //                           const SizedBox(
-  //                             width: 8,
-  //                           ),
-  //                           InkWell(
-  //                             onTap: () {
-  //                               setState(() {
-  //                                 filterDrawerKey.currentState!.selectedStatus
-  //                                     .remove(filterDrawerKey
-  //                                         .currentState!.selectedStatus[index]);
-  //                                 if (filterDrawerKey.currentState!
-  //                                         .selectedStatus.isEmpty &&
-  //                                     filterDrawerKey.currentState!
-  //                                             .filteredDateTextFormField.text ==
-  //                                         "") {
-  //                                   filterDrawerKey.currentState!
-  //                                       .displayFilterSection = false;
-  //                                 }
-  //                               });
-  //                             },
-  //                             child: const Icon(
-  //                               Icons.close,
-  //                               color: Color(0xff005B9E),
-  //                               size: 12,
-  //                             ),
-  //                           ),
-  //                         ],
-  //                       ),
-  //                     );
-  //                   },
-  //                 ),
-  //               ),
-  //               const SizedBox(
-  //                 width: 8,
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
+  Widget filteredSection() {
+    return Container(
+      padding: userRole == 100
+          ? const EdgeInsets.symmetric(horizontal: 16, vertical: 26)
+          : const EdgeInsets.all(14),
+      child: Column(
+        children: [
+          SizedBox(
+            height: userRole == 100 ? 20 : 0,
+          ),
+          SizedBox(
+            height: 35,
+            child: ListView(
+              shrinkWrap: true,
+              physics: const BouncingScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+              children: [
+                GestureDetector(
+                  onTap: () {},
+                  child: Container(
+                    width: 60,
+                    height: 30,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(
+                        color: const Color(0xffD9D9D9),
+                      ),
+                      borderRadius: BorderRadius.circular(26),
+                    ),
+                    padding: const EdgeInsets.all(8),
+                    child: Center(
+                      child: Text(
+                        "Reset",
+                        style: TextStyle(
+                          color: blackCustom,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+
+                //Tarikh
+                if (selectedDate != "" && selectedDate != null)
+                  Row(
+                    children: [
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: const Color(0xffE7F5FF),
+                          border: Border.all(
+                            color: const Color(0xffC0E4FF),
+                          ),
+                          borderRadius: BorderRadius.circular(26),
+                        ),
+                        child: Row(
+                          children: [
+                            Text(
+                              selectedDate!,
+                              style: const TextStyle(
+                                color: Color(0xff005B9E),
+                                fontSize: 11,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 8,
+                            ),
+                            InkWell(
+                              onTap: () {
+                                setState(() {
+                                  selectedDate = null;
+                                });
+                              },
+                              child: const Icon(
+                                Icons.close,
+                                color: Color(0xff005B9E),
+                                size: 12,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                const SizedBox(
+                  width: 8,
+                ),
+
+                //Nama Laluan
+                if (selMainRoute != null && selMainRoute != "")
+                  Row(
+                    children: [
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: const Color(0xffE7F5FF),
+                          border: Border.all(
+                            color: const Color(0xffC0E4FF),
+                          ),
+                          borderRadius: BorderRadius.circular(26),
+                        ),
+                        child: Row(
+                          children: [
+                            Text(
+                              selMainRoute!,
+                              style: const TextStyle(
+                                color: Color(0xff005B9E),
+                                fontSize: 11,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 8,
+                            ),
+                            InkWell(
+                              onTap: () {
+                                setState(() {
+                                  selMainRoute = null;
+                                });
+                              },
+                              child: const Icon(
+                                Icons.close,
+                                color: Color(0xff005B9E),
+                                size: 12,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                const SizedBox(
+                  width: 8,
+                ),
+
+                //Nama Sub-Laluan
+                if (selSubRoute != null && selSubRoute != "")
+                  Row(
+                    children: [
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: const Color(0xffE7F5FF),
+                          border: Border.all(
+                            color: const Color(0xffC0E4FF),
+                          ),
+                          borderRadius: BorderRadius.circular(26),
+                        ),
+                        child: Row(
+                          children: [
+                            Text(
+                              selSubRoute!,
+                              style: const TextStyle(
+                                color: Color(0xff005B9E),
+                                fontSize: 11,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 8,
+                            ),
+                            InkWell(
+                              onTap: () {
+                                setState(() {
+                                  selSubRoute = null;
+                                });
+                              },
+                              child: const Icon(
+                                Icons.close,
+                                color: Color(0xff005B9E),
+                                size: 12,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                const SizedBox(
+                  width: 8,
+                ),
+
+                //Nama Taman
+                if (selParkId != null && selParkId != 0)
+                  Row(
+                    children: [
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: const Color(0xffE7F5FF),
+                          border: Border.all(
+                            color: const Color(0xffC0E4FF),
+                          ),
+                          borderRadius: BorderRadius.circular(26),
+                        ),
+                        child: Row(
+                          children: [
+                            Text(
+                              selNamaTaman!,
+                              style: const TextStyle(
+                                color: Color(0xff005B9E),
+                                fontSize: 11,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 8,
+                            ),
+                            InkWell(
+                              onTap: () {
+                                setState(() {
+                                  selParkId = 0;
+                                  selNamaTaman = null;
+                                });
+                              },
+                              child: const Icon(
+                                Icons.close,
+                                color: Color(0xff005B9E),
+                                size: 12,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                const SizedBox(
+                  width: 8,
+                ),
+
+                //Nama Jalan
+                if (selRoadId != null && selRoadId != 0)
+                  Row(
+                    children: [
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: const Color(0xffE7F5FF),
+                          border: Border.all(
+                            color: const Color(0xffC0E4FF),
+                          ),
+                          borderRadius: BorderRadius.circular(26),
+                        ),
+                        child: Row(
+                          children: [
+                            Text(
+                              selNamaJalan!,
+                              style: const TextStyle(
+                                color: Color(0xff005B9E),
+                                fontSize: 11,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 8,
+                            ),
+                            InkWell(
+                              onTap: () {
+                                setState(() {
+                                  selRoadId = 0;
+                                  selNamaJalan = null;
+                                });
+                              },
+                              child: const Icon(
+                                Icons.close,
+                                color: Color(0xff005B9E),
+                                size: 12,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                const SizedBox(
+                  width: 8,
+                ),
+
+                //Senarai Jenis Halangan
+                Container(
+                  padding: const EdgeInsets.only(left: 8),
+                  child: ListView.separated(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    separatorBuilder: (context, index) {
+                      return const SizedBox(
+                        width: 8,
+                      );
+                    },
+                    itemCount: selectedObstacles.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: const Color(0xffE7F5FF),
+                          border: Border.all(
+                            color: const Color(0xffC0E4FF),
+                          ),
+                          borderRadius: BorderRadius.circular(26),
+                        ),
+                        child: Row(
+                          children: [
+                            Text(
+                              selectedObstacles[index].name,
+                              style: const TextStyle(
+                                color: Color(0xff005B9E),
+                                fontSize: 11,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 8,
+                            ),
+                            InkWell(
+                              onTap: () {
+                                setState(() {
+                                  selectedObstacles
+                                      .remove(selectedObstacles[index]);
+                                });
+                              },
+                              child: const Icon(
+                                Icons.close,
+                                color: Color(0xff005B9E),
+                                size: 12,
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
+
+                //Senarai Status
+                Container(
+                  padding: const EdgeInsets.only(left: 8),
+                  child: ListView.separated(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    separatorBuilder: (context, index) {
+                      return const SizedBox(
+                        width: 8,
+                      );
+                    },
+                    itemCount: selectedStatus.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: const Color(0xffE7F5FF),
+                          border: Border.all(
+                            color: const Color(0xffC0E4FF),
+                          ),
+                          borderRadius: BorderRadius.circular(26),
+                        ),
+                        child: Row(
+                          children: [
+                            Text(
+                              selectedStatus[index].name,
+                              style: const TextStyle(
+                                color: Color(0xff005B9E),
+                                fontSize: 11,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 8,
+                            ),
+                            InkWell(
+                              onTap: () {
+                                setState(() {
+                                  selectedStatus.remove(selectedStatus[index]);
+                                });
+                              },
+                              child: const Icon(
+                                Icons.close,
+                                color: Color(0xff005B9E),
+                                size: 12,
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
