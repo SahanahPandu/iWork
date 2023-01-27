@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../../models/task/compactor/data/workers/workers.dart';
+import '../../utils/calendar/time.dart';
 import '../../utils/device/orientations.dart';
 import '../../utils/device/sizes.dart';
 import '../../utils/icon/custom_icon.dart';
@@ -55,13 +56,13 @@ showUserProfileDialog(BuildContext context, Worker? workerData, String photo) {
           Text(
               workerData != null
                   ? workerData.userId!.userDetail!.name!.toTitleCase()
-                  : "User 1: Name",
+                  : "Tiada data pekerja",
               style:
                   const TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
           Text(
               workerData != null
                   ? workerData.userId!.userRoles![0].roleDesc!
-                  : "General Worker",
+                  : "",
               style: TextStyle(
                   fontWeight: FontWeight.w400,
                   color: greyCustom,
@@ -87,20 +88,18 @@ showUserProfileDialog(BuildContext context, Worker? workerData, String photo) {
                 TableRow(
                   children: [
                     Text(
-                        //  workerData.userAttendanceId != null
-                        //     ? workerData.userAttendanceId!.clockInAt!
-                        //     :
-                        "07:00 pagi",
+                        workerData == null || workerData.clockInAt == "--:--"
+                            ? "--:--"
+                            : Time.convertToHM(workerData.clockInAt!),
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w400,
                             color: greyCustom)),
                     Text(
-                        //  workerData.userAttendanceId != null
-                        //      ? workerData.userAttendanceId!.clockOutAt!
-                        //      :
-                        "04:30 petang",
+                        workerData == null || workerData.clockOutAt == "--:--"
+                            ? "--:--"
+                            : Time.convertToHM(workerData.clockOutAt!),
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontSize: 14,

@@ -1,4 +1,4 @@
-import 'dart:async';
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -7,10 +7,12 @@ import 'package:intl/intl.dart';
 import '../../../../config/config.dart';
 import '../../../../config/palette.dart';
 import '../../../../models/task/compactor/compactor_task.dart';
+import '../../../../models/task/compactor/data/workers/workers.dart';
 import '../../../../utils/calendar/date.dart';
 import '../../../../utils/device/orientations.dart';
 import '../../../../utils/icon/custom_icon.dart';
 import '../../../alert/user_profile_dialog.dart';
+import '../../../container/staff_stack_container.dart';
 
 class CompactorPanelTodayTaskDetails extends StatefulWidget {
   final CompactorTask? scheduleData;
@@ -29,24 +31,9 @@ class _CompactorPanelTodayTaskDetailsState
   String todayDate = "0";
   String todayTask = "";
 
-  double _scaleCard = 1;
-  late AnimationController _controllerCard;
-
   @override
   void initState() {
     super.initState();
-    _controllerCard = AnimationController(
-      vsync: this,
-      lowerBound: 0.96,
-      upperBound: 1,
-      value: 1,
-      duration: const Duration(milliseconds: 250),
-    );
-    _controllerCard.addListener(() {
-      setState(() {
-        _scaleCard = _controllerCard.value;
-      });
-    });
     if (otherDate && selectedNewDate != '') {
       todayDate = Date.getTheDate(
           DateTime.parse(selectedNewDate), '', 'dd MMMM yyyy', 'ms');
@@ -170,124 +157,85 @@ class _CompactorPanelTodayTaskDetailsState
         ]),
         //Senarai Staf
         isScheduleListExist
-            ? Container(
-                alignment: Alignment.centerLeft,
+            ? SizedBox(
                 width: 180,
-                child: Stack(
-                    clipBehavior: Clip.none,
-                    fit: StackFit.passthrough,
-                    children: [
-                      Positioned(
-                        left: 108,
-                        child: GestureDetector(
-                          behavior: HitTestBehavior.translucent,
-                          onTap: () {},
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8),
-                            child: CircleAvatar(
-                              backgroundColor:
-                                  Orientations().isTabletPortrait(context)
-                                      ? const Color(0xec3f67ea)
-                                      : const Color(0xec4357d0),
-                              radius: 32,
-                              child: CircleAvatar(
-                                  backgroundColor: transparent,
-                                  backgroundImage: const NetworkImage(
-                                      "https://www.mnp.ca/-/media/foundation/integrations/personnel/2020/12/16/13/57/personnel-image-4483.jpg?h=800&w=600&hash=9D5E5FCBEE00EB562DCD8AC8FDA8433D"),
-                                  radius: 30),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                          left: 54,
-                          child: GestureDetector(
-                            behavior: HitTestBehavior.translucent,
-                            onTap: () {},
-                            child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8),
-                                child: CircleAvatar(
-                                    backgroundColor:
-                                        Orientations().isTabletPortrait(context)
-                                            ? const Color(0xec3f67ea)
-                                            : const Color(0xec4357d0),
-                                    radius: 32,
-                                    child: CircleAvatar(
-                                        backgroundColor: transparent,
-                                        backgroundImage: const NetworkImage(
-                                            "https://www.jurispro.com/files/photos/user_4473.jpg?m=1605811497"),
-                                        radius: 30))),
-                          )),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: CircleAvatar(
-                          backgroundColor:
-                              Orientations().isTabletPortrait(context)
-                                  ? const Color(0xec3f67ea)
-                                  : const Color(0xec4357d0),
-                          radius: 32,
-                          child: CircleAvatar(
-                              backgroundColor: transparent,
-                              backgroundImage: const NetworkImage(
-                                  "https://www.jurispro.com/files/photos/user_4473.jpg?m=1605811497"),
-                              radius: 30),
-                        ),
-                      ),
-                      GestureDetector(
-                        behavior: HitTestBehavior.translucent,
-                        onTap: () {
-                          _controllerCard.reverse();
-                          if (_controllerCard.isCompleted) {
-                            _controllerCard.reverse();
-                          } else {
-                            _controllerCard.forward(from: 0);
-                          }
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return showUserProfileDialog(
-                                    context,
-                                    widget.scheduleData!.data!.workers!
-                                            .isNotEmpty
-                                        ? widget.scheduleData!.data!.workers![0]
-                                        : null,
-                                    "https://miro.medium.com/max/800/1*7hkI-ZKsglnbjxCRV1bMZA.png");
-                              });
-                        },
-                        onTapDown: (dp) {
-                          _controllerCard.reverse();
-                        },
-                        onTapUp: (dp) {
-                          Timer(const Duration(milliseconds: 250), () {
-                            _controllerCard.fling();
-                          });
-                        },
-                        onTapCancel: () {
-                          _controllerCard.fling();
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
-                          child: Transform.scale(
-                            scale: _scaleCard,
-                            child: CircleAvatar(
-                                backgroundColor:
-                                    Orientations().isTabletPortrait(context)
-                                        ? const Color(0xec3f67ea)
-                                        : const Color(0xec4357d0),
-                                radius: 32,
-                                child: CircleAvatar(
-                                  backgroundColor: transparent,
-                                  backgroundImage: const NetworkImage(
-                                      "https://miro.medium.com/max/800/1*7hkI-ZKsglnbjxCRV1bMZA.png"),
-                                  radius: 30,
-                                )),
-                          ),
-                        ),
-                      )
-                    ]))
+                child: widget.scheduleData!.data!.workers!.isNotEmpty
+                    ? buildStackedImages()
+                    : null)
             : Container()
       ])
     ]);
+  }
+
+  Widget buildStackedImages() {
+    const double size = 65;
+    const double xShift = 8;
+    List userData = [];
+    if (widget.scheduleData!.data!.workers!.isNotEmpty) {
+      for (int i = 0; i < widget.scheduleData!.data!.workers!.length; i++) {
+        userData.add(widget.scheduleData!.data!.workers![i]);
+      }
+      final items = userData.map((userData) => buildImage(userData)).toList();
+
+      return StaffStackContainer(
+        items: items,
+        size: size,
+        xShift: xShift,
+      );
+    }
+    return Container();
+  }
+
+  Widget buildImage(Worker? userData) {
+    const double borderSize = 3;
+
+    return ClipOval(
+      child: Container(
+        padding: const EdgeInsets.all(borderSize),
+        color: Orientations().isTabletPortrait(context)
+            ? const Color(0xec3f67ea)
+            : const Color(0xec4357d0),
+        child: GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: () {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return showUserProfileDialog(
+                      context,
+                      widget.scheduleData!.data!.workers!.isNotEmpty
+                          ? userData
+                          : null,
+                      userData!.userId!.userDetail!.profilePic! !=
+                              "http://ems.swmsb.com/uploads/profile/blue.png"
+                          ? userData.userId!.userDetail!.profilePic!
+                          : "https://st3.depositphotos.com/9998432/13335/v/600/depositphotos_133352062-stock-illustration-default-placeholder-profile-icon.jpg");
+                });
+          },
+          child: ClipOval(
+            child: userData!.userId!.userDetail!.profilePic! !=
+                    "http://ems.swmsb.com/uploads/profile/blue.png"
+                ? Image.network(
+                    userData.userId!.userDetail!.profilePic!,
+                    fit: BoxFit.cover,
+                  )
+                : Container(
+                    color:
+                        Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
+                            .withOpacity(0.5),
+                    child: Center(
+                      child: Text(
+                        userData.userId!.userDetail!.name!.substring(0, 2),
+                        style: const TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white),
+                      ),
+                    ),
+                  ),
+          ),
+        ),
+      ),
+    );
   }
 }
