@@ -1,6 +1,6 @@
 import 'package:eswm/models/vc/list/data/vc_data/schedule_collection_main/schedule_collection_main.dart';
 
-import '../../../../task/compactor/data/schedule/vehicle_checklist_id/status_code/status_code.dart';
+import '../../../../task/compactor/data/schedule/status_code/status_code.dart';
 
 class VCListDetail {
   VCListDetail({

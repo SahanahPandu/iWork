@@ -1,10 +1,10 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
 //import files
+import '../../../config/config.dart';
 import '../../../config/palette.dart';
+import '../../../config/string.dart';
 import '../../../models/vc/list/data/vc_data/vc_list_detail.dart';
 import '../../../utils/calendar/date.dart';
 import '../../../utils/device/orientations.dart';
@@ -93,13 +93,13 @@ class _VehicleChecklistListDetailsState
             ),
             GestureDetector(
               onTap: () {
-                Timer(const Duration(milliseconds: 200), () {
+                /*  Timer(const Duration(milliseconds: 200), () {
                   setState(() {
                     widget.vcData.statusCode != null
                         ? bfrStatusColor = greenCustom
                         : bfrStatusColor = greyCustom;
                   });
-                });
+                });*/
                 Navigator.push(
                     context,
                     PageTransition(
@@ -142,39 +142,41 @@ class _VehicleChecklistListDetailsState
             ),
             GestureDetector(
               onTap: () {
-                aftEnable
-                    ? Timer(const Duration(milliseconds: 200), () {
-                        setState(() {
-                          aftStatusColor = greenCustom;
-                        });
-                      })
-                    : widget.vcData.createdAt.toString().split(' ')[0] ==
-                            Date.getTheDate(
-                                DateTime.now(), '', "yyyy-MM-dd", 'ms')
-                        ? showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return showAlertDialog(
-                                  context,
-                                  "Notis",
-                                  "Semakan Kenderaan (Selepas Balik) akan \ndiaktif dan perlu diisi selepas semua tugasan \ntamat dan selesai.",
-                                  "",
-                                  "Kembali");
-                            }).then((actionText) {
-                            if (actionText == "Kembali") {
-                              //Navigator.pop(context);
-                            }
-                          })
-                        : showInfoToast(context,
-                            "Tiada rekod Semakan Kenderaan (Selepas Balik) pada hari ${Date.getTheDate(widget.vcData.createdAt, "yyyy-MM-dd", "dd/MM/yyyy", "ms")}");
-                aftEnable
-                    ? Navigator.push(
-                        context,
-                        PageTransition(
-                            child: VehicleChecklistFormTab(
-                                idx: 1, vcListData: widget.vcData),
-                            type: PageTransitionType.fade))
-                    : null;
+                if (!aftEnable) {
+                  widget.vcData.createdAt.toString().split(' ')[0] ==
+                              Date.getTheDate(
+                                  DateTime.now(), '', "yyyy-MM-dd", 'ms') &&
+                          vcStatus != 3
+                      ? showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return showAlertDialog(context, "Notis",
+                                afterVcInactive, "", "Kembali");
+                          }).then((actionText) {
+                          if (actionText == "Kembali") {
+                            //Navigator.pop(context);
+                          }
+                        })
+                      : widget.vcData.createdAt.toString().split(' ')[0] ==
+                                  Date.getTheDate(
+                                      DateTime.now(), '', "yyyy-MM-dd", 'ms') &&
+                              vcStatus == 3
+                          ? Navigator.push(
+                              context,
+                              PageTransition(
+                                  child: VehicleChecklistFormTab(
+                                      idx: 1, vcListData: widget.vcData),
+                                  type: PageTransitionType.fade))
+                          : showInfoToast(context,
+                              "Tiada rekod Semakan Kenderaan (Selepas Balik) pada hari ${Date.getTheDate(widget.vcData.createdAt, "yyyy-MM-dd", "dd/MM/yyyy", "ms")}");
+                } else {
+                  Navigator.push(
+                      context,
+                      PageTransition(
+                          child: VehicleChecklistFormTab(
+                              idx: 1, vcListData: widget.vcData),
+                          type: PageTransitionType.fade));
+                }
               },
               onTapDown: (_) {
                 aftEnable

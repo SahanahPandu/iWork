@@ -59,8 +59,8 @@ class Schedule {
         activityCode: ActivityCode.fromJson(json["activity_code"]),
         workerSchedules: json["worker_schedules"] == null
             ? []
-            : List<WorkerSchedule>.from(
-                json["worker_schedules"]!.map((x) => x)),
+            : List<WorkerSchedule>.from(json["worker_schedules"]
+                .map((x) => WorkerSchedule.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {

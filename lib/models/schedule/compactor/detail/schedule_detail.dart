@@ -55,7 +55,7 @@ class Details {
     this.totalStreet,
     this.statusCode,
     this.vehicleChecklistId,
-    this.workers,
+    this.workerSchedules,
   });
 
   int? id;
@@ -65,14 +65,14 @@ class Details {
   ActivityCode? activityCode;
   String? startScheduleAt;
   String? stopScheduleAt;
-  dynamic startWorkAt;
-  dynamic stopWorkAt;
+  String? startWorkAt;
+  String? stopWorkAt;
   int? totalSubRoute;
   int? totalPark;
   int? totalStreet;
   StatusCode? statusCode;
   VehicleChecklistId? vehicleChecklistId;
-  List<Worker?>? workers;
+  List<WorkerSchedule>? workerSchedules;
 
   factory Details.fromJson(Map<String, dynamic> json) => Details(
         id: json["id"],
@@ -80,10 +80,10 @@ class Details {
         mainRoute: json["main_route"],
         scheduleDate: DateTime.parse(json["schedule_date"]),
         activityCode: ActivityCode.fromJson(json["activity_code"]),
-        startScheduleAt: json["start_schedule_at"],
-        stopScheduleAt: json["stop_schedule_at"],
-        startWorkAt: json["start_work_at"],
-        stopWorkAt: json["stop_work_at"],
+        startScheduleAt: json["start_schedule_at"] ?? "--:--",
+        stopScheduleAt: json["stop_schedule_at"] ?? "--:--",
+        startWorkAt: json["start_work_at"] ?? "--:--",
+        stopWorkAt: json["stop_work_at"] ?? "--:--",
         totalSubRoute: json["total_sub_route"],
         totalPark: json["total_park"],
         totalStreet: json["total_street"],
@@ -91,10 +91,10 @@ class Details {
         vehicleChecklistId: json["vehicle_checklist_id"] != null
             ? VehicleChecklistId.fromJson(json["vehicle_checklist_id"])
             : null,
-        workers: json["workers"] == null
-            ? []
-            : List<Worker?>.from(
-                json["workers"]!.map((x) => Worker.fromJson(x))),
+        workerSchedules: json["worker_schedules"] != null
+            ? List<WorkerSchedule>.from(
+                json["worker_schedules"].map((x) => WorkerSchedule.fromJson(x)))
+            : [],
       );
 
   Map<String, dynamic> toJson() => {
@@ -112,9 +112,8 @@ class Details {
         "total_street": totalStreet,
         "status_code": statusCode!.toJson(),
         "vehicle_checklist_id": vehicleChecklistId!.toJson(),
-        "workers": workers == null
-            ? []
-            : List<dynamic>.from(workers!.map((x) => x!.toJson())),
+        "worker_schedules":
+            List<dynamic>.from(workerSchedules!.map((x) => x.toJson())),
       };
 }
 
@@ -179,14 +178,77 @@ class VehicleChecklistId {
       };
 }
 
-class Worker {
-  Worker({
+class WorkerSchedule {
+  WorkerSchedule({
+    this.id,
+    this.scMainId,
+    this.userId,
+    this.userAttendanceId,
+  });
+
+  int? id;
+  int? scMainId;
+  UserId? userId;
+  UserAttendanceId? userAttendanceId;
+
+  factory WorkerSchedule.fromJson(Map<String, dynamic> json) => WorkerSchedule(
+        id: json["id"],
+        scMainId: json["sc_main_id"],
+        userId:
+            json["user_id"] != null ? UserId.fromJson(json["user_id"]) : null,
+        userAttendanceId: json["user_attendance_id"] != null
+            ? UserAttendanceId.fromJson(json["user_attendance_id"])
+            : null,
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "sc_main_id": scMainId,
+        "user_id": userId!.toJson(),
+        "user_attendance_id": userAttendanceId?.toJson(),
+      };
+}
+
+class UserAttendanceId {
+  UserAttendanceId({
+    this.id,
+    this.userId,
+    this.attendanceDate,
+    this.clockInAt,
+    this.clockOutAt,
+  });
+
+  int? id;
+  int? userId;
+  String? attendanceDate;
+  String? clockInAt;
+  String? clockOutAt;
+
+  factory UserAttendanceId.fromJson(Map<String, dynamic> json) =>
+      UserAttendanceId(
+        id: json["id"],
+        userId: json["user_id"],
+        attendanceDate: json["attendance_date"] ?? "",
+        clockInAt: json["clock_in_at"] ?? "--:--",
+        clockOutAt: json["clock_out_at"] ?? "--:--",
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "user_id": userId,
+        "attendance_date": attendanceDate,
+        "clock_in_at": clockInAt,
+        "clock_out_at": clockOutAt,
+      };
+}
+
+class UserId {
+  UserId({
     this.id,
     this.userTypeId,
     this.emsUserId,
     this.contractorUserId,
     this.userDetail,
-    this.userRoles,
   });
 
   int? id;
@@ -194,18 +256,15 @@ class Worker {
   int? emsUserId;
   dynamic contractorUserId;
   UserDetail? userDetail;
-  List<UserRole?>? userRoles;
 
-  factory Worker.fromJson(Map<String, dynamic> json) => Worker(
+  factory UserId.fromJson(Map<String, dynamic> json) => UserId(
         id: json["id"],
         userTypeId: json["user_type_id"],
         emsUserId: json["ems_user_id"],
         contractorUserId: json["contractor_user_id"],
-        userDetail: UserDetail.fromJson(json["user_detail"]),
-        userRoles: json["user_roles"] == null
-            ? []
-            : List<UserRole?>.from(
-                json["user_roles"]!.map((x) => UserRole.fromJson(x))),
+        userDetail: json["user_detail"] != null
+            ? UserDetail.fromJson(json["user_detail"])
+            : null,
       );
 
   Map<String, dynamic> toJson() => {
@@ -214,9 +273,6 @@ class Worker {
         "ems_user_id": emsUserId,
         "contractor_user_id": contractorUserId,
         "user_detail": userDetail!.toJson(),
-        "user_roles": userRoles == null
-            ? []
-            : List<dynamic>.from(userRoles!.map((x) => x!.toJson())),
       };
 }
 
@@ -240,9 +296,9 @@ class UserDetail {
   factory UserDetail.fromJson(Map<String, dynamic> json) => UserDetail(
         id: json["id"],
         name: json["name"],
-        loginId: json["login_id"],
-        profilePic: json["profile_pic"],
-        email: json["email"],
+        loginId: json["login_id"] ?? "",
+        profilePic: json["profile_pic"] ?? "",
+        email: json["email"] ?? "",
         supervisorId: json["supervisor_id"],
       );
 
@@ -253,33 +309,5 @@ class UserDetail {
         "profile_pic": profilePic,
         "email": email,
         "supervisor_id": supervisorId,
-      };
-}
-
-class UserRole {
-  UserRole({
-    this.id,
-    this.userId,
-    this.roleCode,
-    this.roleDesc,
-  });
-
-  int? id;
-  int? userId;
-  String? roleCode;
-  String? roleDesc;
-
-  factory UserRole.fromJson(Map<String, dynamic> json) => UserRole(
-        id: json["id"],
-        userId: json["user_id"],
-        roleCode: json["role_code"],
-        roleDesc: json["role_desc"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "user_id": userId,
-        "role_code": roleCode,
-        "role_desc": roleDesc,
       };
 }

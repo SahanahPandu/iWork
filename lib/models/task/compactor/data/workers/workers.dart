@@ -1,48 +1,34 @@
-import 'package:eswm/models/task/compactor/data/workers/user_detail/user_detail.dart';
-
-import 'user_roles/user_roles.dart';
+import 'user_id/user_id.dart';
 
 class Worker {
   Worker({
     this.id,
-    this.userTypeId,
-    this.emsUserId,
-    this.contractorUserId,
-    this.userDetail,
-    this.userRoles,
+    this.userId,
+    this.attendanceDate,
+    this.clockInAt,
+    this.clockOutAt,
   });
 
   int? id;
-  int? userTypeId;
-  int? emsUserId;
-  String? contractorUserId;
-  UserDetail? userDetail;
-  List<UserRole?>? userRoles;
+  UserId? userId;
+  String? attendanceDate;
+  String? clockInAt;
+  String? clockOutAt;
 
   factory Worker.fromJson(Map<String, dynamic> json) => Worker(
         id: json["id"],
-        userTypeId: json["user_type_id"],
-        emsUserId: json["ems_user_id"],
-        contractorUserId: json["contractor_user_id"] ?? "",
-        userDetail: UserDetail.fromJson(json["user_detail"]),
-        userRoles: json["user_roles"] == null
-            ? []
-            : json["user_roles"] == null
-                ? []
-                : List<UserRole?>.from(
-                    json["user_roles"]!.map((x) => UserRole.fromJson(x))),
+        userId:
+            json["user_id"] != null ? UserId.fromJson(json["user_id"]) : null,
+        attendanceDate: json["attendance_date"] ?? "",
+        clockInAt: json["clock_in_at"] ?? "--:--",
+        clockOutAt: json["clock_out_at"] ?? "--:--",
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "user_type_id": userTypeId,
-        "ems_user_id": emsUserId,
-        "contractor_user_id": contractorUserId,
-        "user_detail": userDetail!.toJson(),
-        "user_roles": userRoles == null
-            ? []
-            : userRoles == null
-                ? []
-                : List<dynamic>.from(userRoles!.map((x) => x!.toJson())),
+        "user_id": userId!.toJson(),
+        "attendance_date": attendanceDate,
+        "clock_in_at": clockInAt,
+        "clock_out_at": clockOutAt,
       };
 }

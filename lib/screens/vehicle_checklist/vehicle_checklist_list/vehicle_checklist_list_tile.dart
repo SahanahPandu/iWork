@@ -78,7 +78,7 @@ class VehicleChecklistListTileState extends State<VehicleChecklistListTile> {
           : Stack(
               children: [
                 ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
+                  controller: scrollController,
                   shrinkWrap: true,
                   itemCount: vcList.length,
                   itemBuilder: (context, index) {
