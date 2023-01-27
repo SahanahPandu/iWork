@@ -171,7 +171,6 @@ class _CompactorPanelTodayTaskDetailsState
         //Senarai Staf
         isScheduleListExist
             ? Container(
-                color: white,
                 alignment: Alignment.centerLeft,
                 width: 180,
                 child: Stack(
