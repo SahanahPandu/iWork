@@ -136,24 +136,75 @@ class ReportsApi {
       BuildContext context, passData) async {
     List<ReportDetailsInfo> filteredList = [];
 
-    var thePassData = Map<String, dynamic>.from(passData);
+    Map<String, dynamic> theParameters = {};
 
-    var passDate = "";
-    if (thePassData['date'] != "") {
-      passDate = Date.getTheDate(
-          thePassData['date'], "dd/MM/yyyy", "yyyy-MM-dd", "ms");
+    if (passData != null) {
+      var thePassData = Map<String, dynamic>.from(passData);
+
+      //tarikh
+      if (thePassData['date'] != "" && thePassData['date'] != null) {
+        print('sini ke');
+        var convDate = Date.getTheDate(
+            thePassData['date'], "dd/MM/yyyy", "yyyy-MM-dd", "ms");
+        print('sini ke pulak yang error');
+        theParameters = {
+          'date': convDate,
+        };
+      }
+
+      //laluan
+      if (thePassData['mainRoute'] != null || thePassData['mainRoute'] != "") {
+        var theLaluan = {"main_route": thePassData['mainRoute']};
+        theParameters.addEntries(theLaluan.entries);
+      }
+
+      //taman
+      if (thePassData['parkId'] != null || thePassData['parkId'] != "") {
+        var theTaman = {"park_pdibId": thePassData['parkId']};
+        theParameters.addEntries(theTaman.entries);
+      }
+
+      //jalan
+      if (thePassData['streetId'] != null || thePassData['streetId'] != "") {
+        var theJalan = {"street_pdibId": thePassData['streetId']};
+        theParameters.addEntries(theJalan.entries);
+      }
+
+      //obstacle
+      if (thePassData['obstacle'] != null &&
+          thePassData['obstacle'].isNotEmpty) {
+        var obstacleList = thePassData['obstacle'];
+        var obstacleIdList = [];
+        obstacleList.forEach(
+          (obstacle) {
+            obstacleIdList.add(obstacle.id);
+          },
+        );
+
+        var theListOfStatus = {"obstacle_type_id[]": obstacleIdList};
+        theParameters.addEntries(theListOfStatus.entries);
+      }
+
+      //status
+      if (thePassData['statusCode'] != null &&
+          thePassData['statusCode'].isNotEmpty) {
+        var statusList = thePassData['statusCode'];
+        var statusCodeList = [];
+        statusList.forEach(
+          (status) {
+            statusCodeList.add(status.code);
+          },
+        );
+
+        var theListOfStatus = {"status_code[]": statusCodeList};
+        theParameters.addEntries(theListOfStatus.entries);
+      }
     }
 
     try {
       var response = await Dio().get(
         '$theBase/report/reports',
-        queryParameters: {
-          'date': passDate,
-          'main_route': thePassData['mainRoute'],
-          'park_pdibId': thePassData['parkId'],
-          'street_pdibId': thePassData['streetId'],
-          'status_code': thePassData['statusCode'],
-        },
+        queryParameters: theParameters,
         options: HttpHeader.getApiHeader(userInfo[1]),
       );
 

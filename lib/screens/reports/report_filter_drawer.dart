@@ -91,6 +91,7 @@ class ReportFilterDrawerState extends State<ReportFilterDrawer> {
   // end of text form field config
 
   loadData() {
+    print('sini');
     //load data from page filter
     if (widget.passData != null) {
       Map<String, dynamic> passingData = widget.passData!;
@@ -228,6 +229,7 @@ class ReportFilterDrawerState extends State<ReportFilterDrawer> {
                       //============= dropdown related to laluan section =======
                       ScheduleFilterList(
                         key: scheduleFilterListKey,
+                        screen: "drawer",
                         passData: widget.passData,
                       ),
                       //============= dropdown section =========================
@@ -238,7 +240,7 @@ class ReportFilterDrawerState extends State<ReportFilterDrawer> {
 
                       //================ Jenis Halangan ========================
                       dropdownObstacles(),
-                      //================ end of JEnis Halangan =================
+                      //================ end of Jenis Halangan =================
 
                       SizedBox(
                         height: spaceBetweenItem,

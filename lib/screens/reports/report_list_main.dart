@@ -31,8 +31,8 @@ class _ReportListMainState extends State<ReportListMain> {
   String? selSubRoute;
   String? selNamaTaman;
   String? selNamaJalan;
-  int? selParkId;
-  int? selRoadId;
+  int? selParkId = 0;
+  int? selRoadId = 0;
   List<ReportStatus> selectedStatus = [];
   List<ObstacleTypes> selectedObstacles = [];
   bool displayFilterSection = false;
@@ -69,6 +69,66 @@ class _ReportListMainState extends State<ReportListMain> {
         }
       });
     }
+  }
+
+  updatePassData(item, dynamic id) {
+    if (item == "tarikh") {
+      setState(() {
+        selectedDate = null;
+        passData?['date'] = null;
+      });
+    } else if (item == "laluan") {
+      setState(() {
+        selMainRoute = null;
+        passData?['mainRoute'] = null;
+      });
+    } else if (item == "subLaluan") {
+      setState(() {
+        selSubRoute = null;
+        passData?['subRoute'] = null;
+      });
+    } else if (item == "taman") {
+      setState(() {
+        selParkId = 0;
+        selNamaTaman = null;
+        passData?['park']?['id'] = 0;
+        passData?['park']?['name'] = "";
+      });
+    } else if (item == "jalan") {
+      setState(() {
+        selRoadId = 0;
+        selNamaJalan = null;
+        passData?['road']?['id'] = 0;
+        passData?['road']?['name'] = "";
+      });
+    } else if (item == "jenisHalangan") {
+      setState(() {
+        selectedObstacles.remove(id);
+        passData?['obstacle'].remove((item) => item.id == id);
+      });
+    } else if (item == "status") {
+      setState(() {
+        selectedStatus.remove(id);
+        passData?['status'].remove((item) => item.id == id);
+      });
+    }
+
+    if ((passData?['date'] == null || passData?['date'] == "") &&
+        (passData?['mainRoute'] == null || passData?['mainRoute'] == "") &&
+        (passData?['subRoute'] == null || passData?['subRoute'] == "") &&
+        passData?['park']?['id'] == 0 &&
+        passData?['road']?['id'] == 0 &&
+        (passData?['obstacle'].isEmpty || passData?['obstacle'] == []) &&
+        (passData?['status'].isEmpty || passData?['status'] == [])) {
+      setState(() {
+        displayFilterSection = false;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override
@@ -158,18 +218,20 @@ class _ReportListMainState extends State<ReportListMain> {
                   //filtered selection list
                   if (displayFilterSection) filteredSection(),
 
-                  const Expanded(
+                  Expanded(
                     child: Padding(
-                      padding: EdgeInsets.all(12),
+                      padding: const EdgeInsets.all(12),
                       child: CardListView(
                           type: "Laporan",
                           screens: "drawer",
                           passData: {
-                            "date": "",
-                            "mainRoute": "",
-                            "parkId": "",
-                            "streetId": "",
-                            "statusCode": "",
+                            "date": selectedDate,
+                            "mainRoute": selMainRoute,
+                            "subRoute": selSubRoute,
+                            "parkId": selParkId,
+                            "streetId": selRoadId,
+                            "obstacle": selectedObstacles,
+                            "statusCode": selectedStatus,
                           },
                           topCardStatus: null),
                     ),
@@ -235,7 +297,21 @@ class _ReportListMainState extends State<ReportListMain> {
               scrollDirection: Axis.horizontal,
               children: [
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    setState(() {
+                      selectedDate = null;
+                      selMainRoute = null;
+                      selSubRoute = null;
+                      selParkId = 0;
+                      selNamaJalan = null;
+                      selRoadId = 0;
+                      selNamaTaman = null;
+                      selectedObstacles.clear();
+                      selectedStatus.clear();
+                      passData?.clear();
+                      displayFilterSection = false;
+                    });
+                  },
                   child: Container(
                     width: 60,
                     height: 30,
@@ -291,9 +367,7 @@ class _ReportListMainState extends State<ReportListMain> {
                             ),
                             InkWell(
                               onTap: () {
-                                setState(() {
-                                  selectedDate = null;
-                                });
+                                updatePassData('tarikh', null);
                               },
                               child: const Icon(
                                 Icons.close,
@@ -306,9 +380,6 @@ class _ReportListMainState extends State<ReportListMain> {
                       ),
                     ],
                   ),
-                const SizedBox(
-                  width: 8,
-                ),
 
                 //Nama Laluan
                 if (selMainRoute != null && selMainRoute != "")
@@ -341,9 +412,7 @@ class _ReportListMainState extends State<ReportListMain> {
                             ),
                             InkWell(
                               onTap: () {
-                                setState(() {
-                                  selMainRoute = null;
-                                });
+                                updatePassData('laluan', null);
                               },
                               child: const Icon(
                                 Icons.close,
@@ -356,9 +425,6 @@ class _ReportListMainState extends State<ReportListMain> {
                       ),
                     ],
                   ),
-                const SizedBox(
-                  width: 8,
-                ),
 
                 //Nama Sub-Laluan
                 if (selSubRoute != null && selSubRoute != "")
@@ -391,9 +457,7 @@ class _ReportListMainState extends State<ReportListMain> {
                             ),
                             InkWell(
                               onTap: () {
-                                setState(() {
-                                  selSubRoute = null;
-                                });
+                                updatePassData('subLaluan', null);
                               },
                               child: const Icon(
                                 Icons.close,
@@ -406,9 +470,6 @@ class _ReportListMainState extends State<ReportListMain> {
                       ),
                     ],
                   ),
-                const SizedBox(
-                  width: 8,
-                ),
 
                 //Nama Taman
                 if (selParkId != null && selParkId != 0)
@@ -441,10 +502,7 @@ class _ReportListMainState extends State<ReportListMain> {
                             ),
                             InkWell(
                               onTap: () {
-                                setState(() {
-                                  selParkId = 0;
-                                  selNamaTaman = null;
-                                });
+                                updatePassData('taman', null);
                               },
                               child: const Icon(
                                 Icons.close,
@@ -457,9 +515,6 @@ class _ReportListMainState extends State<ReportListMain> {
                       ),
                     ],
                   ),
-                const SizedBox(
-                  width: 8,
-                ),
 
                 //Nama Jalan
                 if (selRoadId != null && selRoadId != 0)
@@ -492,10 +547,7 @@ class _ReportListMainState extends State<ReportListMain> {
                             ),
                             InkWell(
                               onTap: () {
-                                setState(() {
-                                  selRoadId = 0;
-                                  selNamaJalan = null;
-                                });
+                                updatePassData('jalan', null);
                               },
                               child: const Icon(
                                 Icons.close,
@@ -508,9 +560,6 @@ class _ReportListMainState extends State<ReportListMain> {
                       ),
                     ],
                   ),
-                const SizedBox(
-                  width: 8,
-                ),
 
                 //Senarai Jenis Halangan
                 Container(
@@ -550,10 +599,8 @@ class _ReportListMainState extends State<ReportListMain> {
                             ),
                             InkWell(
                               onTap: () {
-                                setState(() {
-                                  selectedObstacles
-                                      .remove(selectedObstacles[index]);
-                                });
+                                updatePassData(
+                                    "jenisHalangan", selectedObstacles[index]);
                               },
                               child: const Icon(
                                 Icons.close,
@@ -566,9 +613,6 @@ class _ReportListMainState extends State<ReportListMain> {
                       );
                     },
                   ),
-                ),
-                const SizedBox(
-                  width: 8,
                 ),
 
                 //Senarai Status
@@ -609,9 +653,7 @@ class _ReportListMainState extends State<ReportListMain> {
                             ),
                             InkWell(
                               onTap: () {
-                                setState(() {
-                                  selectedStatus.remove(selectedStatus[index]);
-                                });
+                                updatePassData("status", selectedStatus[index]);
                               },
                               child: const Icon(
                                 Icons.close,
@@ -624,9 +666,6 @@ class _ReportListMainState extends State<ReportListMain> {
                       );
                     },
                   ),
-                ),
-                const SizedBox(
-                  width: 8,
                 ),
               ],
             ),

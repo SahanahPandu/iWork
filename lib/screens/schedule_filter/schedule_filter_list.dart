@@ -15,10 +15,12 @@ import '../list_of_road/list_of_road_text_form_field2.dart';
 import '../list_of_routes/list_of_routes.dart';
 
 class ScheduleFilterList extends StatefulWidget {
+  final String? screen;
   final Map<String, dynamic>? passData;
 
   const ScheduleFilterList({
     Key? key,
+    this.screen,
     this.passData,
   }) : super(key: key);
 
@@ -439,33 +441,39 @@ class ScheduleFilterListState extends State<ScheduleFilterList> {
 
         //============== end of Laluan =============================
 
-        SizedBox(
-          height: spaceBetweenItem,
-        ),
-
         //============== Sub-Laluan ================================
-        Text(
-          "Sub-Laluan",
-          style: textLabelStyle,
-        ),
-        SizedBox(
-          height: spaceBetweenLabel,
-        ),
-
-        ListOfSubRoutes(
-          uiData: {
-            "style": textFormFieldStyle,
-            "controller": namaSubLaluan,
-            "fillColor": textFieldFillColor,
-            "hintStyle": hintTextStyle,
-            "clickable": clickable,
-            "labelStyle": textFormFieldLabelStyle,
-            "errorBorder": errorBorderStyle,
-            "disableBorder": disableBorderStyle,
-          },
-          data: senaraiSubLaluan,
-          updateData: updateFilterItems,
-        ),
+        if (widget.screen != 'drawer')
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: spaceBetweenItem,
+                ),
+                Text(
+                  "Sub-Laluan",
+                  style: textLabelStyle,
+                ),
+                SizedBox(
+                  height: spaceBetweenLabel,
+                ),
+                ListOfSubRoutes(
+                  uiData: {
+                    "style": textFormFieldStyle,
+                    "controller": namaSubLaluan,
+                    "fillColor": textFieldFillColor,
+                    "hintStyle": hintTextStyle,
+                    "clickable": clickable,
+                    "labelStyle": textFormFieldLabelStyle,
+                    "errorBorder": errorBorderStyle,
+                    "disableBorder": disableBorderStyle,
+                  },
+                  data: senaraiSubLaluan,
+                  updateData: updateFilterItems,
+                ),
+              ],
+            ),
+          ),
 
         //============== end of Sub-Laluan =====================================
         SizedBox(
