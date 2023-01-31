@@ -25,8 +25,10 @@ String endWork = 'Leretkan Ke Kiri Untuk Tamat Kerja';
 String doVcFirst =
     'Pastikan anda isi dan hantar borang semak kenderaan terlebih dahulu sebelum mulakan kerja.';
 String afterVcInactive = "Semakan Kenderaan (Selepas Balik) akan \ndiaktif dan perlu diisi selepas semua tugasan \ntamat dan selesai.";
+String notFoundSubLaluan = 'Tiada senarai sub-laluan dijumpai!';
 String notFoundStreet = 'Tiada senarai jalan dijumpai!';
-String noEmployeeFound = 'Tiada Senarai Pekerja dijumpai!';
+String notFoundPark = 'Tiada senarai taman dijumpai!';
+String noEmployeeFound = 'Tiada senarai pekerja dijumpai!';
 String fillUpVC = 'Lengkapkan borang semakan kenderaan (Sebelum Keluar):';
 String date = 'Tarikh';
 String streetNo = 'No. Laluan';
