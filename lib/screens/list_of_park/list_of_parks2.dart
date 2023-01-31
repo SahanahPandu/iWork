@@ -10,19 +10,23 @@ class ListOfParks2 extends StatefulWidget {
   final Map<String, dynamic>? uiData;
   final List<ScheduleFilterParks>? data;
   final Function(String, dynamic)? updateData;
+  final Function()? resetSelection;
 
   const ListOfParks2({
     Key? key,
     this.uiData,
     this.data,
     this.updateData,
+    this.resetSelection,
   }) : super(key: key);
 
   @override
-  State<ListOfParks2> createState() => _ListOfParks2State();
+  ListOfParks2State createState() => ListOfParks2State();
 }
 
-class _ListOfParks2State extends State<ListOfParks2> {
+class ListOfParks2State extends State<ListOfParks2> {
+  int selectedIndex = -1;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -65,6 +69,25 @@ class _ListOfParks2State extends State<ListOfParks2> {
   }
 
   Widget? showListOfParks() {
+    //check existing selection
+    String? currSelTaman = widget.uiData?['controller'].text;
+
+    if (currSelTaman != null && currSelTaman != "") {
+      if (widget.data != null && widget.data != []) {
+        List<ScheduleFilterParks>? listOfTaman = widget.data;
+
+        var getIndex =
+            listOfTaman!.indexWhere((route) => route.parkName == currSelTaman);
+
+        if (getIndex != -1) {
+          //indexWhere will return -1 if there is no item found in the list
+          setState(() {
+            selectedIndex = getIndex;
+          });
+        }
+      }
+    }
+
     showModalBottomSheet(
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
@@ -135,12 +158,14 @@ class _ListOfParks2State extends State<ListOfParks2> {
                                   widget.updateData!('reset', "");
                                 }
                               });
+                              widget.resetSelection!();
+                              selectedIndex = -1;
                               Navigator.pop(context);
                             },
                             child: const Text(
                               "Reset",
                               style: TextStyle(
-                                color: Color(0xffA4A4A4),
+                                color: Colors.red,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -174,6 +199,7 @@ class _ListOfParks2State extends State<ListOfParks2> {
                                     });
                                   }
                                 });
+                                selectedIndex = index;
                                 Navigator.pop(context);
                               },
                               child: Container(
@@ -182,17 +208,20 @@ class _ListOfParks2State extends State<ListOfParks2> {
                                 ),
                                 child: Row(
                                   children: [
-                                    // Icon(selectedIndex == index ? Icons.check : null,
-                                    //     color: green, size: 18),
+                                    Icon(
+                                        selectedIndex == index
+                                            ? Icons.check
+                                            : null,
+                                        color: green,
+                                        size: 18),
                                     const SizedBox(width: 8),
                                     Text(theData![index].parkName,
                                         style: TextStyle(
                                           color: blackCustom,
                                           fontSize: 15,
-                                          fontWeight:
-                                              //selectedIndex == index
-                                              //     ? FontWeight.w600
-                                              FontWeight.w400,
+                                          fontWeight: selectedIndex == index
+                                              ? FontWeight.w600
+                                              : FontWeight.w400,
                                         )),
                                   ],
                                 ),

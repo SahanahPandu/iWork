@@ -143,10 +143,9 @@ class ReportsApi {
 
       //tarikh
       if (thePassData['date'] != "" && thePassData['date'] != null) {
-        print('sini ke');
         var convDate = Date.getTheDate(
             thePassData['date'], "dd/MM/yyyy", "yyyy-MM-dd", "ms");
-        print('sini ke pulak yang error');
+
         theParameters = {
           'date': convDate,
         };

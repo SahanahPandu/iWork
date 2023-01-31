@@ -1,6 +1,7 @@
 import 'package:eswm/models/schedule/filter/schedule_filter_main_routes.dart';
 import 'package:flutter/material.dart';
 
+//imported files
 import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../../utils/device/orientations.dart';
@@ -10,19 +11,23 @@ class ListOfRoutes extends StatefulWidget {
   final Map<String, dynamic>? uiData;
   final List<ScheduleFilterMainRoutes>? data;
   final Function(String, dynamic)? updateData;
+  final Function()? resetSelection;
 
   const ListOfRoutes({
     Key? key,
     this.uiData,
     this.data,
     this.updateData,
+    this.resetSelection,
   }) : super(key: key);
 
   @override
-  State<ListOfRoutes> createState() => _ListOfRoutesState();
+  ListOfRoutesState createState() => ListOfRoutesState();
 }
 
-class _ListOfRoutesState extends State<ListOfRoutes> {
+class ListOfRoutesState extends State<ListOfRoutes> {
+  int selectedIndex = -1;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -65,6 +70,25 @@ class _ListOfRoutesState extends State<ListOfRoutes> {
   }
 
   Widget? showListOfRoutes() {
+    //check existing selection
+    String? currSelLaluan = widget.uiData?['controller'].text;
+
+    if (currSelLaluan != null && currSelLaluan != "") {
+      if (widget.data != null && widget.data != []) {
+        List<ScheduleFilterMainRoutes>? listOfLaluan = widget.data;
+
+        var getIndex = listOfLaluan!
+            .indexWhere((route) => route.mainRouteName == currSelLaluan);
+
+        if (getIndex != -1) {
+          //indexWhere will return -1 if there is no item found in the list
+          setState(() {
+            selectedIndex = getIndex;
+          });
+        }
+      }
+    }
+
     showModalBottomSheet(
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
@@ -135,12 +159,15 @@ class _ListOfRoutesState extends State<ListOfRoutes> {
                                   widget.updateData!('reset', "");
                                 }
                               });
+
+                              widget.resetSelection!();
+                              selectedIndex = -1;
                               Navigator.pop(context);
                             },
                             child: const Text(
                               "Reset",
                               style: TextStyle(
-                                color: Color(0xffA4A4A4),
+                                color: Colors.red,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -164,6 +191,7 @@ class _ListOfRoutesState extends State<ListOfRoutes> {
                           itemCount: widget.data!.length,
                           itemBuilder: (context, index) {
                             var theData = widget.data;
+
                             return GestureDetector(
                               onTap: () {
                                 setState(() {
@@ -172,6 +200,7 @@ class _ListOfRoutesState extends State<ListOfRoutes> {
                                         theData![index].mainRouteName);
                                   }
                                 });
+                                selectedIndex = index;
                                 Navigator.pop(context);
                               },
                               child: Container(
@@ -180,17 +209,20 @@ class _ListOfRoutesState extends State<ListOfRoutes> {
                                 ),
                                 child: Row(
                                   children: [
-                                    // Icon(selectedIndex == index ? Icons.check : null,
-                                    //     color: green, size: 18),
+                                    Icon(
+                                        selectedIndex == index
+                                            ? Icons.check
+                                            : null,
+                                        color: green,
+                                        size: 18),
                                     const SizedBox(width: 8),
                                     Text(theData![index].mainRouteName,
                                         style: TextStyle(
                                           color: blackCustom,
                                           fontSize: 15,
-                                          fontWeight:
-                                              //selectedIndex == index
-                                              //     ? FontWeight.w600
-                                              FontWeight.w400,
+                                          fontWeight: selectedIndex == index
+                                              ? FontWeight.w600
+                                              : FontWeight.w400,
                                         )),
                                   ],
                                 ),

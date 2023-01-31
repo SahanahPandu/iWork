@@ -80,6 +80,10 @@ class ScheduleFilterListState extends State<ScheduleFilterList> {
   final TextEditingController namaTaman = TextEditingController();
   final TextEditingController namaJalan = TextEditingController();
 
+  final laluanKey = GlobalKey<ListOfRoutesState>();
+  final tamanKey = GlobalKey<ListOfParks2State>();
+  final jalanKey = GlobalKey<ListOfRoadTextFormField2State>();
+
   int idTaman = 0;
   int idJalan = 0;
   List<ScheduleFilterMainRoutes> dataLaluan = [];
@@ -105,7 +109,7 @@ class ScheduleFilterListState extends State<ScheduleFilterList> {
   loadData(String? type) async {
     Map<String, dynamic> filteredData;
 
-    if (widget.passData != null) {
+    if (widget.passData != null && type == 'init') {
       Map<String, dynamic> passingData = widget.passData!;
 
       if (passingData['mainRoute'] != null) {
@@ -133,6 +137,7 @@ class ScheduleFilterListState extends State<ScheduleFilterList> {
         'jalan': idJalan,
       };
     } else {
+      // this is for Reset button in Laluan, Taman and Jalan
       filteredData = {
         'laluan': "",
         'subLaluan': "",
@@ -408,6 +413,14 @@ class ScheduleFilterListState extends State<ScheduleFilterList> {
     }
   }
 
+  //this is to reset all selection for Laluan , Taman and Jalan
+  resetSelection() {
+    setState(() {
+      laluanKey.currentState!.selectedIndex = -1;
+      tamanKey.currentState!.selectedIndex = -1;
+      jalanKey.currentState!.selectedIndex = -1;
+    });
+  }
   //==================== end of Methods ========================================
 
   @override
@@ -425,6 +438,7 @@ class ScheduleFilterListState extends State<ScheduleFilterList> {
         ),
 
         ListOfRoutes(
+          key: laluanKey,
           uiData: {
             "style": textFormFieldStyle,
             "controller": namaLaluan,
@@ -437,6 +451,7 @@ class ScheduleFilterListState extends State<ScheduleFilterList> {
           },
           data: senaraiLaluan,
           updateData: updateFilterItems,
+          resetSelection: resetSelection,
         ),
 
         //============== end of Laluan =============================
@@ -470,6 +485,7 @@ class ScheduleFilterListState extends State<ScheduleFilterList> {
                   },
                   data: senaraiSubLaluan,
                   updateData: updateFilterItems,
+                  resetSelection: resetSelection,
                 ),
               ],
             ),
@@ -489,6 +505,7 @@ class ScheduleFilterListState extends State<ScheduleFilterList> {
         ),
 
         ListOfParks2(
+          key: tamanKey,
           uiData: {
             "style": textFormFieldStyle,
             "controller": namaTaman,
@@ -501,6 +518,7 @@ class ScheduleFilterListState extends State<ScheduleFilterList> {
           },
           data: senaraiTaman,
           updateData: updateFilterItems,
+          resetSelection: resetSelection,
         ),
 
         //============== end of Taman =========================================
@@ -517,6 +535,7 @@ class ScheduleFilterListState extends State<ScheduleFilterList> {
         ),
 
         ListOfRoadTextFormField2(
+          key: jalanKey,
           uiData: {
             "style": textFormFieldStyle,
             "controller": namaJalan,
@@ -529,6 +548,7 @@ class ScheduleFilterListState extends State<ScheduleFilterList> {
           },
           data: senaraiJalan,
           updateData: updateFilterItems,
+          resetSelection: resetSelection,
         ),
 
         //============== end of Jalan =========================================

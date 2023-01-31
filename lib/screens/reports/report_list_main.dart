@@ -69,6 +69,18 @@ class _ReportListMainState extends State<ReportListMain> {
         }
       });
     }
+
+    if ((passData?['date'] == null || passData?['date'] == "") &&
+        (passData?['mainRoute'] == null || passData?['mainRoute'] == "") &&
+        (passData?['subRoute'] == null || passData?['subRoute'] == "") &&
+        passData?['park']?['id'] == 0 &&
+        passData?['road']?['id'] == 0 &&
+        (passData?['obstacle'].isEmpty || passData?['obstacle'] == []) &&
+        (passData?['status'].isEmpty || passData?['status'] == [])) {
+      setState(() {
+        displayFilterSection = false;
+      });
+    }
   }
 
   updatePassData(item, dynamic id) {
@@ -366,6 +378,7 @@ class _ReportListMainState extends State<ReportListMain> {
                               width: 8,
                             ),
                             InkWell(
+                              radius: 20,
                               onTap: () {
                                 updatePassData('tarikh', null);
                               },
@@ -411,6 +424,7 @@ class _ReportListMainState extends State<ReportListMain> {
                               width: 8,
                             ),
                             InkWell(
+                              radius: 20,
                               onTap: () {
                                 updatePassData('laluan', null);
                               },
@@ -456,6 +470,7 @@ class _ReportListMainState extends State<ReportListMain> {
                               width: 8,
                             ),
                             InkWell(
+                              radius: 20,
                               onTap: () {
                                 updatePassData('subLaluan', null);
                               },
@@ -501,6 +516,7 @@ class _ReportListMainState extends State<ReportListMain> {
                               width: 8,
                             ),
                             InkWell(
+                              radius: 20,
                               onTap: () {
                                 updatePassData('taman', null);
                               },
@@ -546,6 +562,7 @@ class _ReportListMainState extends State<ReportListMain> {
                               width: 8,
                             ),
                             InkWell(
+                              radius: 20,
                               onTap: () {
                                 updatePassData('jalan', null);
                               },
@@ -598,6 +615,7 @@ class _ReportListMainState extends State<ReportListMain> {
                               width: 8,
                             ),
                             InkWell(
+                              radius: 20,
                               onTap: () {
                                 updatePassData(
                                     "jenisHalangan", selectedObstacles[index]);
@@ -652,6 +670,7 @@ class _ReportListMainState extends State<ReportListMain> {
                               width: 8,
                             ),
                             InkWell(
+                              radius: 20,
                               onTap: () {
                                 updatePassData("status", selectedStatus[index]);
                               },

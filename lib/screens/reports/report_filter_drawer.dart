@@ -91,7 +91,6 @@ class ReportFilterDrawerState extends State<ReportFilterDrawer> {
   // end of text form field config
 
   loadData() {
-    print('sini');
     //load data from page filter
     if (widget.passData != null) {
       Map<String, dynamic> passingData = widget.passData!;

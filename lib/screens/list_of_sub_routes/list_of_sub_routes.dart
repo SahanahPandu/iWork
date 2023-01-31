@@ -10,12 +10,14 @@ class ListOfSubRoutes extends StatefulWidget {
   final Map<String, dynamic>? uiData;
   final List<ScheduleFilterSubRoutes>? data;
   final Function(String, dynamic)? updateData;
+  final Function()? resetSelection;
 
   const ListOfSubRoutes({
     Key? key,
     this.uiData,
     this.data,
     this.updateData,
+    this.resetSelection,
   }) : super(key: key);
 
   @override
@@ -23,6 +25,8 @@ class ListOfSubRoutes extends StatefulWidget {
 }
 
 class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
+  int selectedIndex = -1;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -65,6 +69,24 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
   }
 
   Widget? showListOfSubRoutes() {
+    //check existing selection
+    String? currSelSubLaluan = widget.uiData?['controller'].text;
+
+    if (currSelSubLaluan != null && currSelSubLaluan != "") {
+      if (widget.data != null && widget.data != []) {
+        List<ScheduleFilterSubRoutes>? listOfSubLaluan = widget.data;
+
+        var getIndex = listOfSubLaluan!
+            .indexWhere((route) => route.subRoute == currSelSubLaluan);
+
+        if (getIndex != -1) {
+          //indexWhere will return -1 if there is no item found in the list
+          setState(() {
+            selectedIndex = getIndex;
+          });
+        }
+      }
+    }
     showModalBottomSheet(
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
@@ -135,12 +157,15 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
                                     widget.updateData!('reset', "");
                                   }
                                 });
+                                widget.resetSelection!();
+
+                                selectedIndex = -1;
                                 Navigator.pop(context);
                               },
                               child: const Text(
                                 "Reset",
                                 style: TextStyle(
-                                  color: Color(0xffA4A4A4),
+                                  color: Colors.red,
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -171,6 +196,7 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
                                         'sub-laluan', theData![index].subRoute);
                                   }
                                 });
+                                selectedIndex = index;
                                 Navigator.pop(context);
                               },
                               child: Container(
@@ -179,17 +205,20 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
                                 ),
                                 child: Row(
                                   children: [
-                                    // Icon(selectedIndex == index ? Icons.check : null,
-                                    //     color: green, size: 18),
+                                    Icon(
+                                        selectedIndex == index
+                                            ? Icons.check
+                                            : null,
+                                        color: green,
+                                        size: 18),
                                     const SizedBox(width: 8),
                                     Text(theData![index].subRoute!,
                                         style: TextStyle(
                                           color: blackCustom,
                                           fontSize: 15,
-                                          fontWeight:
-                                              //selectedIndex == index
-                                              //     ? FontWeight.w600
-                                              FontWeight.w400,
+                                          fontWeight: selectedIndex == index
+                                              ? FontWeight.w600
+                                              : FontWeight.w400,
                                         )),
                                   ],
                                 ),

@@ -11,12 +11,14 @@ class ListOfRoadTextFormField2 extends StatefulWidget {
   final Map<String, dynamic>? uiData;
   final List<ScheduleFilterStreets>? data;
   final Function(String, dynamic)? updateData;
+  final Function()? resetSelection;
 
   const ListOfRoadTextFormField2({
     Key? key,
     this.uiData,
     this.data,
     this.updateData,
+    this.resetSelection,
   }) : super(key: key);
 
   @override
@@ -27,9 +29,9 @@ class ListOfRoadTextFormField2 extends StatefulWidget {
 class ListOfRoadTextFormField2State extends State<ListOfRoadTextFormField2> {
   final TextEditingController namaJalan = TextEditingController();
   late int idJalan = 0;
-  int selectedIndex = -1;
-
   int totalJalan = 0;
+
+  int selectedIndex = -1;
 
   @override
   Widget build(BuildContext context) {
@@ -75,6 +77,25 @@ class ListOfRoadTextFormField2State extends State<ListOfRoadTextFormField2> {
   }
 
   Widget? showListOfRoads() {
+    //check existing selection
+    String? currSelJalan = widget.uiData?['controller'].text;
+
+    if (currSelJalan != null && currSelJalan != "") {
+      if (widget.data != null && widget.data != []) {
+        List<ScheduleFilterStreets>? listOfJalan = widget.data;
+
+        var getIndex = listOfJalan!
+            .indexWhere((route) => route.streetName == currSelJalan);
+
+        if (getIndex != -1) {
+          //indexWhere will return -1 if there is no item found in the list
+          setState(() {
+            selectedIndex = getIndex;
+          });
+        }
+      }
+    }
+
     showModalBottomSheet(
         isScrollControlled: true,
         shape: const RoundedRectangleBorder(
@@ -144,12 +165,14 @@ class ListOfRoadTextFormField2State extends State<ListOfRoadTextFormField2> {
                                       widget.updateData!('reset', "");
                                     }
                                   });
+                                  widget.resetSelection!();
+                                  selectedIndex = -1;
                                   Navigator.pop(context);
                                 },
                                 child: const Text(
                                   "Reset",
                                   style: TextStyle(
-                                    color: Color(0xffA4A4A4),
+                                    color: Colors.red,
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -183,6 +206,7 @@ class ListOfRoadTextFormField2State extends State<ListOfRoadTextFormField2> {
                                         });
                                       }
                                     });
+                                    selectedIndex = index;
                                     Navigator.pop(context);
                                   },
                                   child: Container(
@@ -191,17 +215,20 @@ class ListOfRoadTextFormField2State extends State<ListOfRoadTextFormField2> {
                                     ),
                                     child: Row(
                                       children: [
-                                        // Icon(selectedIndex == index ? Icons.check : null,
-                                        //     color: green, size: 18),
+                                        Icon(
+                                            selectedIndex == index
+                                                ? Icons.check
+                                                : null,
+                                            color: green,
+                                            size: 18),
                                         const SizedBox(width: 8),
                                         Text(theData![index].streetName,
                                             style: TextStyle(
                                               color: blackCustom,
                                               fontSize: 15,
-                                              fontWeight:
-                                                  //selectedIndex == index
-                                                  //     ? FontWeight.w600
-                                                  FontWeight.w400,
+                                              fontWeight: selectedIndex == index
+                                                  ? FontWeight.w600
+                                                  : FontWeight.w400,
                                             )),
                                       ],
                                     ),
