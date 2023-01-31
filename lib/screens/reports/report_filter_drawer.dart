@@ -96,7 +96,11 @@ class ReportFilterDrawerState extends State<ReportFilterDrawer> {
       Map<String, dynamic> passingData = widget.passData!;
 
       setState(() {
-        if (passingData['date'] != null) {
+        if (passingData['date'] != null && passingData['date'] != "") {
+          setState(() {
+            changeIcon = true;
+          });
+
           filteredDateTextFormField.text = passingData['date'];
         }
 
@@ -379,86 +383,6 @@ class ReportFilterDrawerState extends State<ReportFilterDrawer> {
           ),
         ],
       ),
-    );
-  }
-
-  Widget filterButtonSection() {
-    return Row(
-      children: [
-        Expanded(
-          child: SizedBox(
-            width: Sizes().screenWidth(context) * 0.4,
-            height: 40,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              style: ButtonStyle(
-                elevation: MaterialStateProperty.all(0),
-                shadowColor: MaterialStateProperty.all(transparent),
-                backgroundColor: MaterialStateProperty.all(Colors.white),
-                shape: MaterialStateProperty.all(
-                  RoundedRectangleBorder(
-                    side: const BorderSide(
-                      color: Color(0xffE5E5E5),
-                    ),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-              ),
-              child: Center(
-                child: Text(
-                  'Batal',
-                  style: TextStyle(
-                    color: greyCustom,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(
-          width: 12,
-        ),
-        Expanded(
-          child: SizedBox(
-            width: Sizes().screenWidth(context) * 0.4,
-            height: 40,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context);
-                // setState(() {
-                //   selectedDate = _filteredDate.text;
-                //   selectedStatus = preSelectStatus;
-                //   displayFilterSection = true;
-                // });
-              },
-              style: ButtonStyle(
-                elevation: MaterialStateProperty.all(0),
-                shadowColor: MaterialStateProperty.all(transparent),
-                backgroundColor: MaterialStateProperty.all(greenCustom),
-                shape: MaterialStateProperty.all(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-              ),
-              child: const Center(
-                child: Text(
-                  'Pasti',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ],
     );
   }
 

@@ -33,6 +33,16 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
   bool changeIcon = false;
 
   @override
+  void initState() {
+    //this is for hide filterSection when all the selection id deleted
+    if (selectedDate == "" &&
+        (selectedStatus.isEmpty || selectedStatus == [])) {
+      displayFilterSection = false;
+    }
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: white,
@@ -115,69 +125,65 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                   if (displayFilterSection) filteredSection(),
                 ],
               )
-            : SingleChildScrollView(
-                child: Stack(
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              alignment: Alignment.centerLeft,
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 20,
-                                vertical: 10,
-                              ),
-                              child: Text(
-                                "Senarai Laluan Tugasan :",
-                                style: TextStyle(
-                                    color: blackCustom,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w400),
-                              ),
-                            ),
-                            IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  preSelectStatus = List.from(selectedStatus);
-                                });
+            : Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 10,
+                        ),
+                        child: Text(
+                          "Senarai Laluan Tugasan :",
+                          style: TextStyle(
+                              color: blackCustom,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w400),
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          setState(() {
+                            preSelectStatus = List.from(selectedStatus);
+                          });
 
-                                displayFilterBottomSheet(context);
+                          displayFilterBottomSheet(context);
+                        },
+                        icon: Icon(
+                          CustomIcon.filter,
+                          color: blackCustom,
+                          size: 13,
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  //filtered selection list
+                  if (displayFilterSection) filteredSection(),
+
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: displayFilterSection
+                          ? CardListView(
+                              type: "Laluan",
+                              screens: "drawer",
+                              passData: {
+                                "filteredDate": selectedDate,
+                                "selectedStatus": selectedStatus,
                               },
-                              icon: Icon(
-                                CustomIcon.filter,
-                                color: blackCustom,
-                                size: 13,
-                              ),
+                            )
+                          : const CardListView(
+                              type: "Laluan",
+                              screens: "drawer",
                             ),
-                          ],
-                        ),
-
-                        //filtered selection list
-                        if (displayFilterSection) filteredSection(),
-
-                        Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: displayFilterSection
-                              ? CardListView(
-                                  type: "Laluan",
-                                  screens: "drawer",
-                                  passData: {
-                                    "filteredDate": selectedDate,
-                                    "selectedStatus": selectedStatus,
-                                  },
-                                )
-                              : const CardListView(
-                                  type: "Laluan",
-                                  screens: "drawer",
-                                ),
-                        ),
-                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
       ),
     );
@@ -203,13 +209,13 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
               ),
         context: context,
         builder: (builder) {
-          return StatefulBuilder(
-              builder: (BuildContext context, StateSetter setModalState) {
-            return Container(
-              margin: const EdgeInsets.all(24),
-              child: Wrap(
-                children: [
-                  Column(
+          return Stack(
+            children: [
+              StatefulBuilder(
+                  builder: (BuildContext context, StateSetter setModalState) {
+                return Container(
+                  margin: const EdgeInsets.all(24),
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Center(
@@ -232,302 +238,333 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                       const SizedBox(
                         height: 24,
                       ),
-                      Text(
-                        'Tarikh',
-                        style: TextStyle(
-                          color: blackCustom,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      TextFormField(
-                        onTap: () {
-                          displayCupertinoDatePicker(context, setModalState);
-                        },
-                        controller: _filteredDate,
-                        style: TextStyle(
-                          color: blackCustom,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                        ),
-                        readOnly: true,
-                        // enabled: false,
-                        decoration: InputDecoration(
-                          enabled: true,
-                          filled: true,
-                          fillColor: Colors.white,
-                          contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 14,
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              width: borderSideWidth,
-                              color: enabledBorderWithoutText,
-                            ),
-                            borderRadius: BorderRadius.circular(
-                              borderRadiusCircular,
-                            ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              width: borderSideWidth,
-                              color: enabledBorderWithoutText,
-                            ),
-                            borderRadius: BorderRadius.circular(
-                              borderRadiusCircular,
-                            ),
-                          ),
-                          disabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              width: borderSideWidth,
-                              color: enabledBorderWithoutText,
-                            ),
-                            borderRadius: BorderRadius.circular(
-                              borderRadiusCircular,
-                            ),
-                          ),
-                          hintText: 'dd/mm/yyyy',
-                          hintStyle: TextStyle(
-                            color: greyCustom,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w400,
-                          ),
-                          suffixIcon: changeIcon
-                              ? InkWell(
-                                  onTap: () {
-                                    setModalState(() {
-                                      changeIcon = false;
-                                      _filteredDate.text = "";
-                                      filteredDate = DateTime.now();
-                                    });
-                                  },
-                                  child: Icon(
-                                    CustomIcon.cross,
-                                    size: 16,
-                                    color: blackCustom,
-                                  ),
-                                )
-                              : Icon(
-                                  CustomIcon.scheduleOutline,
-                                  size: 16,
-                                  color: blackCustom,
-                                ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 24,
-                      ),
-                      Text(
-                        'Status',
-                        style: TextStyle(
-                          color: blackCustom,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      FutureBuilder<List<ScheduleFilterStatus?>?>(
-                          future: JadualApi.getDataStatusJadual(context),
-                          builder: (context, snapshot) {
-                            final statusData = snapshot.data;
-
-                            switch (snapshot.connectionState) {
-                              case ConnectionState.waiting:
-                                return const Center(
-                                  child: CircularProgressIndicator(),
-                                );
-
-                              default:
-                                if (statusData!.isEmpty) {
-                                  return Center(
-                                    child: Container(
-                                      margin: const EdgeInsets.all(20),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          const Icon(CustomIcon.exclamation,
-                                              color: Colors.orange, size: 14),
-                                          const SizedBox(width: 10),
-                                          Text("Tiada rekod dijumpai",
-                                              style: TextStyle(color: grey500)),
-                                        ],
-                                      ),
-                                    ),
-                                  );
-                                } else {
-                                  return StatefulBuilder(builder:
-                                      (BuildContext context,
-                                          StateSetter setState) {
-                                    return Wrap(
-                                      runSpacing: 8,
-                                      spacing: 16,
-                                      children: statusData
-                                          .map(
-                                            (status) => FilterChip(
-                                              label: Text(
-                                                status!.name,
-                                              ),
-                                              labelStyle: TextStyle(
-                                                color: preSelectStatus
-                                                        .where((theStatus) =>
-                                                            theStatus.code
-                                                                .contains(status
-                                                                    .code))
-                                                        .isNotEmpty
-                                                    ? const Color(0xff005B9E)
-                                                    : const Color(0xff969696),
-                                                // Color(0xff969696),
-                                              ),
-                                              backgroundColor:
-                                                  const Color(0xffEFEFEF),
-                                              showCheckmark: false,
-                                              selected: preSelectStatus
-                                                      .where((theStatus) =>
-                                                          theStatus.code
-                                                              .contains(
-                                                                  status.code))
-                                                      .isNotEmpty
-                                                  ? true
-                                                  : false,
-                                              selectedColor:
-                                                  const Color(0xffC0E4FF),
-                                              onSelected: (clicked) {
-                                                setState(() {
-                                                  if (clicked) {
-                                                    var data = preSelectStatus
-                                                        .where((theStatus) =>
-                                                            theStatus.code
-                                                                .contains(status
-                                                                    .code));
-
-                                                    if (data.isEmpty) {
-                                                      //if not exist then add
-                                                      preSelectStatus
-                                                          .add(status);
-                                                    } else {
-                                                      preSelectStatus
-                                                          .remove(status);
-                                                    }
-                                                  } else {
-                                                    preSelectStatus.removeWhere(
-                                                        (theStatus) =>
-                                                            theStatus.code ==
-                                                            status.code);
-                                                  }
-                                                });
-                                              },
-                                            ),
-                                          )
-                                          .toList(),
-                                    );
-                                  });
-                                }
-                            }
-                          }),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Expanded(
-                            child: SizedBox(
-                              width: userRole == 100
-                                  ? Orientations().isTabletPortrait(context)
-                                      ? Sizes().screenWidth(context) * 0.28
-                                      : Sizes().screenWidth(context) * 0.2
-                                  : Sizes().screenWidth(context) * 0.4,
-                              height: 40,
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                style: ButtonStyle(
-                                  elevation: MaterialStateProperty.all(0),
-                                  shadowColor:
-                                      MaterialStateProperty.all(transparent),
-                                  backgroundColor:
-                                      MaterialStateProperty.all(Colors.white),
-                                  shape: MaterialStateProperty.all(
-                                    RoundedRectangleBorder(
-                                      side: const BorderSide(
-                                        color: Color(0xffE5E5E5),
-                                      ),
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
-                                  ),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    'Batal',
-                                    style: TextStyle(
-                                      color: greyCustom,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ),
+                      Expanded(
+                        child: ListView(
+                          children: [
+                            Text(
+                              'Tarikh',
+                              style: TextStyle(
+                                color: blackCustom,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w400,
                               ),
                             ),
-                          ),
-                          const SizedBox(
-                            width: 12,
-                          ),
-                          SizedBox(
-                            width: userRole == 100
-                                ? Orientations().isTabletPortrait(context)
-                                    ? Sizes().screenWidth(context) * 0.34
-                                    : Sizes().screenWidth(context) * 0.215
-                                : Sizes().screenWidth(context) * 0.4,
-                            height: 40,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                                setState(() {
-                                  selectedDate = _filteredDate.text;
-                                  selectedStatus = preSelectStatus;
-                                  displayFilterSection = true;
-                                });
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            TextFormField(
+                              onTap: () {
+                                displayCupertinoDatePicker(
+                                    context, setModalState);
                               },
-                              style: ButtonStyle(
-                                elevation: MaterialStateProperty.all(0),
-                                shadowColor:
-                                    MaterialStateProperty.all(transparent),
-                                backgroundColor:
-                                    MaterialStateProperty.all(greenCustom),
-                                shape: MaterialStateProperty.all(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                ),
+                              controller: _filteredDate,
+                              style: TextStyle(
+                                color: blackCustom,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w400,
                               ),
-                              child: const Center(
-                                child: Text(
-                                  'Pasti',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
+                              readOnly: true,
+                              // enabled: false,
+                              decoration: InputDecoration(
+                                enabled: true,
+                                filled: true,
+                                fillColor: Colors.white,
+                                contentPadding: const EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                  vertical: 14,
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    width: borderSideWidth,
+                                    color: enabledBorderWithoutText,
+                                  ),
+                                  borderRadius: BorderRadius.circular(
+                                    borderRadiusCircular,
                                   ),
                                 ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    width: borderSideWidth,
+                                    color: enabledBorderWithoutText,
+                                  ),
+                                  borderRadius: BorderRadius.circular(
+                                    borderRadiusCircular,
+                                  ),
+                                ),
+                                disabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    width: borderSideWidth,
+                                    color: enabledBorderWithoutText,
+                                  ),
+                                  borderRadius: BorderRadius.circular(
+                                    borderRadiusCircular,
+                                  ),
+                                ),
+                                hintText: 'dd/mm/yyyy',
+                                hintStyle: TextStyle(
+                                  color: greyCustom,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                                suffixIcon: changeIcon
+                                    ? InkWell(
+                                        onTap: () {
+                                          setModalState(() {
+                                            changeIcon = false;
+                                            _filteredDate.text = "";
+                                            filteredDate = DateTime.now();
+                                          });
+                                        },
+                                        child: Icon(
+                                          CustomIcon.cross,
+                                          size: 16,
+                                          color: blackCustom,
+                                        ),
+                                      )
+                                    : Icon(
+                                        CustomIcon.scheduleOutline,
+                                        size: 16,
+                                        color: blackCustom,
+                                      ),
                               ),
                             ),
-                          ),
-                        ],
+                            const SizedBox(
+                              height: 24,
+                            ),
+                            Text(
+                              'Status',
+                              style: TextStyle(
+                                color: blackCustom,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            FutureBuilder<List<ScheduleFilterStatus?>?>(
+                              future: JadualApi.getDataStatusJadual(context),
+                              builder: (context, snapshot) {
+                                final statusData = snapshot.data;
+
+                                switch (snapshot.connectionState) {
+                                  case ConnectionState.waiting:
+                                    return const Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+
+                                  default:
+                                    if (statusData!.isEmpty) {
+                                      return Center(
+                                        child: Container(
+                                          margin: const EdgeInsets.all(20),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              const Icon(CustomIcon.exclamation,
+                                                  color: Colors.orange,
+                                                  size: 14),
+                                              const SizedBox(width: 10),
+                                              Text("Tiada rekod dijumpai",
+                                                  style: TextStyle(
+                                                      color: grey500)),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    } else {
+                                      return StatefulBuilder(builder:
+                                          (BuildContext context,
+                                              StateSetter setState) {
+                                        return Wrap(
+                                          runSpacing: 8,
+                                          spacing: 16,
+                                          children: statusData
+                                              .map(
+                                                (status) => FilterChip(
+                                                  label: Text(
+                                                    status!.name,
+                                                  ),
+                                                  labelStyle: TextStyle(
+                                                    color: preSelectStatus
+                                                            .where((theStatus) =>
+                                                                theStatus.code
+                                                                    .contains(
+                                                                        status
+                                                                            .code))
+                                                            .isNotEmpty
+                                                        ? const Color(
+                                                            0xff005B9E)
+                                                        : const Color(
+                                                            0xff969696),
+                                                    // Color(0xff969696),
+                                                  ),
+                                                  backgroundColor:
+                                                      const Color(0xffEFEFEF),
+                                                  showCheckmark: false,
+                                                  selected: preSelectStatus
+                                                          .where((theStatus) =>
+                                                              theStatus.code
+                                                                  .contains(
+                                                                      status
+                                                                          .code))
+                                                          .isNotEmpty
+                                                      ? true
+                                                      : false,
+                                                  selectedColor:
+                                                      const Color(0xffC0E4FF),
+                                                  onSelected: (clicked) {
+                                                    setState(() {
+                                                      if (clicked) {
+                                                        var data = preSelectStatus
+                                                            .where((theStatus) =>
+                                                                theStatus.code
+                                                                    .contains(status
+                                                                        .code));
+
+                                                        if (data.isEmpty) {
+                                                          //if not exist then add
+                                                          preSelectStatus
+                                                              .add(status);
+                                                        } else {
+                                                          preSelectStatus
+                                                              .remove(status);
+                                                        }
+                                                      } else {
+                                                        preSelectStatus
+                                                            .removeWhere(
+                                                                (theStatus) =>
+                                                                    theStatus
+                                                                        .code ==
+                                                                    status
+                                                                        .code);
+                                                      }
+                                                    });
+                                                  },
+                                                ),
+                                              )
+                                              .toList(),
+                                        );
+                                      });
+                                    }
+                                }
+                              },
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
-                ],
+                );
+              }),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  padding: const EdgeInsets.all(15),
+                  width: double.infinity,
+                  height: Sizes().screenHeight(context) * 0.1,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black,
+                        blurRadius: 20,
+                        offset: Offset(10, 20),
+                      )
+                    ],
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Expanded(
+                        child: SizedBox(
+                          width: userRole == 100
+                              ? Orientations().isTabletPortrait(context)
+                                  ? Sizes().screenWidth(context) * 0.28
+                                  : Sizes().screenWidth(context) * 0.2
+                              : Sizes().screenWidth(context) * 0.4,
+                          height: 40,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            style: ButtonStyle(
+                              elevation: MaterialStateProperty.all(0),
+                              shadowColor:
+                                  MaterialStateProperty.all(transparent),
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.white),
+                              shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                  side: const BorderSide(
+                                    color: Color(0xffE5E5E5),
+                                  ),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                              ),
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Batal',
+                                style: TextStyle(
+                                  color: greyCustom,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 12,
+                      ),
+                      SizedBox(
+                        width: userRole == 100
+                            ? Orientations().isTabletPortrait(context)
+                                ? Sizes().screenWidth(context) * 0.34
+                                : Sizes().screenWidth(context) * 0.215
+                            : Sizes().screenWidth(context) * 0.4,
+                        height: 40,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                            setState(() {
+                              selectedDate = _filteredDate.text;
+                              selectedStatus = preSelectStatus;
+                              displayFilterSection = true;
+                            });
+                          },
+                          style: ButtonStyle(
+                            elevation: MaterialStateProperty.all(0),
+                            shadowColor: MaterialStateProperty.all(transparent),
+                            backgroundColor:
+                                MaterialStateProperty.all(greenCustom),
+                            shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
+                          ),
+                          child: const Center(
+                            child: Text(
+                              'Pasti',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-            );
-          });
+            ],
+          );
         });
   }
 
@@ -653,7 +690,7 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
     return Container(
       padding: userRole == 100
           ? const EdgeInsets.symmetric(horizontal: 16, vertical: 26)
-          : const EdgeInsets.all(14),
+          : const EdgeInsets.only(left: 14, top: 0, right: 14, bottom: 5),
       child: Column(
         children: [
           SizedBox(
@@ -727,8 +764,10 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                               width: 8,
                             ),
                             InkWell(
+                              radius: 20,
                               onTap: () {
                                 setState(() {
+                                  changeIcon = false;
                                   _filteredDate.text = "";
                                   selectedDate = "";
                                   filteredDate = DateTime.now();
@@ -748,9 +787,6 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                       ),
                     ],
                   ),
-                const SizedBox(
-                  width: 8,
-                ),
                 Container(
                   padding: const EdgeInsets.only(left: 8),
                   child: ListView.separated(
@@ -787,6 +823,7 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                               width: 8,
                             ),
                             InkWell(
+                              radius: 20,
                               onTap: () {
                                 setState(() {
                                   selectedStatus.remove(selectedStatus[index]);
@@ -807,9 +844,6 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                       );
                     },
                   ),
-                ),
-                const SizedBox(
-                  width: 8,
                 ),
               ],
             ),

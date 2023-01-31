@@ -70,6 +70,7 @@ class _ReportListMainState extends State<ReportListMain> {
       });
     }
 
+    //this is for hide filterSection when all the selection id deleted
     if ((passData?['date'] == null || passData?['date'] == "") &&
         (passData?['mainRoute'] == null || passData?['mainRoute'] == "") &&
         (passData?['subRoute'] == null || passData?['subRoute'] == "") &&
@@ -295,7 +296,7 @@ class _ReportListMainState extends State<ReportListMain> {
     return Container(
       padding: userRole == 100
           ? const EdgeInsets.symmetric(horizontal: 16, vertical: 26)
-          : const EdgeInsets.all(14),
+          : const EdgeInsets.only(left: 14, top: 0, right: 14, bottom: 5),
       child: Column(
         children: [
           SizedBox(
@@ -381,6 +382,8 @@ class _ReportListMainState extends State<ReportListMain> {
                               radius: 20,
                               onTap: () {
                                 updatePassData('tarikh', null);
+
+                                false;
                               },
                               child: const Icon(
                                 Icons.close,
