@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 
 //import files
@@ -7,6 +9,8 @@ import '../../../models/schedule/compactor/detail/schedule_detail.dart';
 import '../../../utils/calendar/time.dart';
 import '../../../utils/device/orientations.dart';
 import '../../../utils/icon/custom_icon.dart';
+import '../../../widgets/alert/user_profile_dialog.dart';
+import '../../../widgets/container/staff_stack_container.dart';
 import '../../../widgets/container/status_container.dart';
 
 class CompactorPanelScheduleDetails extends StatefulWidget {
@@ -306,6 +310,9 @@ class _CompactorPanelScheduleDetailsState
       //Senarai Staf
       Align(
           alignment: Alignment.centerRight,
+          child: Container(child: buildStackedImages())),
+      /*Align(
+          alignment: Alignment.centerRight,
           child: Container(
               alignment: Alignment.centerLeft,
               width: 165,
@@ -360,7 +367,87 @@ class _CompactorPanelScheduleDetailsState
                                       'https://automateonline.com.au/wp-content/uploads/2019/02/portrait-square-04.jpg'),
                                   radius: 25.5,
                                 )))
-                      ])))),
+                      ])))),*/
     ]);
+  }
+
+  Widget buildStackedImages() {
+    const double size = 65;
+    const double xShift = 10;
+    List userData = [];
+    if (widget.data!.data!.details!.workerSchedules!.isNotEmpty) {
+      for (int i = 0;
+          i < widget.data!.data!.details!.workerSchedules!.length;
+          i++) {
+        userData.add(widget.data!.data!.details!.workerSchedules![i]);
+      }
+
+      final items = userData.map((userData) => buildImage(userData)).toList();
+
+      return StaffStackContainer(
+        items: items,
+        size: size,
+        xShift: xShift,
+      );
+    }
+    return Container();
+  }
+
+  Widget buildImage(WorkerSchedule? userData) {
+    const double borderSize = 3;
+
+    return ClipOval(
+      child: Container(
+        padding: const EdgeInsets.all(borderSize),
+        color: Orientations().isTabletPortrait(context)
+            ? portraitExpandBgColor
+            : expandBgColor,
+        child: GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: () {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return showUserProfileDialog(
+                      context,
+                      userData!.userId!.userDetail!.profilePic! !=
+                              "http://ems.swmsb.com/uploads/profile/blue.png"
+                          ? userData.userId!.userDetail!.profilePic!
+                          : "https://st3.depositphotos.com/9998432/13335/v/600/depositphotos_133352062-stock-illustration-default-placeholder-profile-icon.jpg",
+                      userData.userId!.userDetail!.name,
+                      "PRA",
+                      userData.userAttendanceId != null
+                          ? userData.userAttendanceId!.clockInAt ?? "--:--"
+                          : "--:--",
+                      userData.userAttendanceId != null
+                          ? userData.userAttendanceId!.clockOutAt ?? "--:--"
+                          : "--:--");
+                });
+          },
+          child: ClipOval(
+            child: userData!.userId!.userDetail!.profilePic! !=
+                    "http://ems.swmsb.com/uploads/profile/blue.png"
+                ? Image.network(
+                    userData.userId!.userDetail!.profilePic!,
+                    fit: BoxFit.cover,
+                  )
+                : Container(
+                    color:
+                        Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
+                            .withOpacity(0.5),
+                    child: Center(
+                      child: Text(
+                        userData.userId!.userDetail!.name!.substring(0, 2),
+                        style: const TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white),
+                      ),
+                    ),
+                  ),
+          ),
+        ),
+      ),
+    );
   }
 }

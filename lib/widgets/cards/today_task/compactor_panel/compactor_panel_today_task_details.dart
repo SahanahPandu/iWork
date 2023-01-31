@@ -169,7 +169,7 @@ class _CompactorPanelTodayTaskDetailsState
 
   Widget buildStackedImages() {
     const double size = 65;
-    const double xShift = 8;
+    const double xShift = 10;
     List userData = [];
     if (widget.scheduleData!.data!.workers!.isNotEmpty) {
       for (int i = 0; i < widget.scheduleData!.data!.workers!.length; i++) {
@@ -203,13 +203,14 @@ class _CompactorPanelTodayTaskDetailsState
                 builder: (BuildContext context) {
                   return showUserProfileDialog(
                       context,
-                      widget.scheduleData!.data!.workers!.isNotEmpty
-                          ? userData
-                          : null,
                       userData!.userId!.userDetail!.profilePic! !=
                               "http://ems.swmsb.com/uploads/profile/blue.png"
                           ? userData.userId!.userDetail!.profilePic!
-                          : "https://st3.depositphotos.com/9998432/13335/v/600/depositphotos_133352062-stock-illustration-default-placeholder-profile-icon.jpg");
+                          : "https://st3.depositphotos.com/9998432/13335/v/600/depositphotos_133352062-stock-illustration-default-placeholder-profile-icon.jpg",
+                      userData.userId!.userDetail!.name,
+                      userData.userId!.userRoles![0].roleDesc,
+                      userData.clockInAt ?? "--:--",
+                      userData.clockOutAt ?? "--:--");
                 });
           },
           child: ClipOval(

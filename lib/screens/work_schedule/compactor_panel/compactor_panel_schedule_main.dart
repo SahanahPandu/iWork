@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 
 //import files
@@ -10,7 +12,9 @@ import '../../../utils/calendar/date.dart';
 import '../../../utils/device/orientations.dart';
 import '../../../utils/device/sizes.dart';
 import '../../../utils/icon/custom_icon.dart';
+import '../../../widgets/alert/user_profile_dialog.dart';
 import '../../../widgets/buttons/report_button.dart';
+import '../../../widgets/container/staff_stack_container.dart';
 import '../../../widgets/container/status_container.dart';
 import '../../../widgets/slivers/expand_collapse_header/expand_collapse_header.dart';
 import '../../list_of_park/list_of_parks.dart';
@@ -233,7 +237,7 @@ class _CompactorPanelScheduleMainState
       behavior: const MaterialScrollBehavior().copyWith(overscroll: false),
       child: ExpandCollapseHeader(
           centerTitle: false,
-          title: _collapseTitle(),
+          title: _collapseTitle(cScheduleDetail),
           headerExpandedHeight: 0.43,
           alwaysShowLeadingAndAction: false,
           headerWidget: _header(context, cScheduleDetail),
@@ -245,7 +249,7 @@ class _CompactorPanelScheduleMainState
           backgroundColor: transparent,
           appBarColor: collapseBgColor,
           collapseHeight: 155,
-          collapseFade: 100,
+          collapseFade: 102,
           collapseButton: true),
     );
   }
@@ -255,80 +259,109 @@ class _CompactorPanelScheduleMainState
         child: Container(color: white, child: _streetSearch(context)));
   }
 
-  Widget _collapseTitle() {
-    return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-      Text(
-        widget.data.mainRoute!,
-        style: TextStyle(
-          color: white,
-          fontWeight: FontWeight.w700,
-          fontSize: 20,
+  Widget _collapseTitle(CScheduleDetail? cScheduleDetail) {
+    return Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+      Padding(
+        padding: const EdgeInsets.only(left: 60),
+        child: Text(
+          widget.data.mainRoute!,
+          style: TextStyle(
+            color: white,
+            fontWeight: FontWeight.w700,
+            fontSize: 20,
+          ),
         ),
       ),
       const SizedBox(width: 20),
       StatusContainer(
         type: "Laluan",
         status: widget.data.statusCode!.name!,
-        statusId: widget.data.statusCode,
+        statusId: widget.data.statusCode!.code!,
         fontWeight: statusFontWeight,
         roundedCorner: true,
       ),
       Padding(
-          padding: const EdgeInsets.only(top: 15, left: 130),
+          padding: const EdgeInsets.only(left: 120),
           child: //Senarai Staf
-              Align(
-                  alignment: Alignment.centerRight,
-                  child: Container(
-                      alignment: Alignment.centerLeft,
-                      width: 140,
-                      child: Padding(
-                          padding: const EdgeInsets.fromLTRB(10, 0, 10, 15),
-                          child: Stack(
-                              clipBehavior: Clip.none,
-                              fit: StackFit.passthrough,
-                              children: [
-                                Positioned(
-                                    left: 90,
-                                    child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 8),
-                                        child: CircleAvatar(
-                                            backgroundColor: collapseBgColor,
-                                            radius: 28,
-                                            child: const CircleAvatar(
-                                              backgroundImage: NetworkImage(
-                                                  'https://i0.wp.com/i-panic.com/wp-content/uploads/2021/09/portrait-square-05.jpg?resize=400%2C400&ssl=1'),
-                                              //NetworkImage
-                                              radius: 26,
-                                            )))),
-                                Positioned(
-                                    left: 45,
-                                    child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 8),
-                                        child: CircleAvatar(
-                                            backgroundColor: collapseBgColor,
-                                            radius: 28,
-                                            child: const CircleAvatar(
-                                              backgroundImage: NetworkImage(
-                                                  'https://focusforensics.com/wp-content/uploads/staff-clayton_mccall-square.jpg'),
-                                              //NetworkImage
-                                              radius: 26,
-                                            )))),
-                                Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 8),
-                                    child: CircleAvatar(
-                                        backgroundColor: collapseBgColor,
-                                        radius: 28,
-                                        child: const CircleAvatar(
-                                          backgroundImage: NetworkImage(
-                                              'https://automateonline.com.au/wp-content/uploads/2019/02/portrait-square-04.jpg'),
-                                          //NetworkImage
-                                          radius: 26,
-                                        )))
-                              ])))))
+              SizedBox(width: 180, child: buildStackedImages(cScheduleDetail)))
     ]);
+  }
+
+  Widget buildStackedImages(CScheduleDetail? cScheduleDetail) {
+    const double size = 62;
+    const double xShift = 8;
+    List userData = [];
+    if (cScheduleDetail!.data!.details!.workerSchedules!.isNotEmpty) {
+      for (int i = 0;
+          i < cScheduleDetail.data!.details!.workerSchedules!.length;
+          i++) {
+        userData.add(cScheduleDetail.data!.details!.workerSchedules![i]);
+      }
+      final items = userData.map((userData) => buildImage(userData)).toList();
+
+      return StaffStackContainer(
+        items: items,
+        size: size,
+        xShift: xShift,
+      );
+    }
+    return Container();
+  }
+
+  Widget buildImage(WorkerSchedule userData) {
+    const double borderSize = 3;
+
+    return ClipOval(
+      child: Container(
+        padding: const EdgeInsets.all(borderSize),
+        color: collapseBgColor,
+        child: GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: () {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return showUserProfileDialog(
+                      context,
+                      userData.userId!.userDetail!.profilePic! !=
+                              "http://ems.swmsb.com/uploads/profile/blue.png"
+                          ? userData.userId!.userDetail!.profilePic!
+                          : "https://st3.depositphotos.com/9998432/13335/v/600/depositphotos_133352062-stock-illustration-default-placeholder-profile-icon.jpg",
+                      userData.userId!.userDetail!.name,
+                      "PRA",
+                      userData.userAttendanceId != null
+                          ? userData.userAttendanceId!.clockInAt ?? "--:--"
+                          : "--:--",
+                      userData.userAttendanceId != null
+                          ? userData.userAttendanceId!.clockOutAt ?? "--:--"
+                          : "--:--");
+                });
+          },
+          child: ClipOval(
+            child: userData.userId!.userDetail!.profilePic! !=
+                    "http://ems.swmsb.com/uploads/profile/blue.png"
+                ? Image.network(
+                    userData.userId!.userDetail!.profilePic!,
+                    fit: BoxFit.cover,
+                  )
+                : Container(
+                    color:
+                        Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
+                            .withOpacity(0.5),
+                    child: Center(
+                      child: Text(
+                        userData.userId!.userDetail!.name!.substring(0, 2),
+                        style: const TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white),
+                      ),
+                    ),
+                  ),
+          ),
+        ),
+      ),
+    );
   }
 
   Widget _header(BuildContext context, cScheduleDetail) {
@@ -416,7 +449,10 @@ class _CompactorPanelScheduleMainState
                             updateSenaraiJalan: updateShowSenaraiJalan,
                           ),
                         )
-                      : Container(
+                      :
+
+                      /// Disabled when no sub-laluan data
+                      Container(
                           margin: const EdgeInsets.only(
                               left: 60, right: 60, bottom: 10),
                           child: ListOfParks(

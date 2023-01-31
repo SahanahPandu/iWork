@@ -4,13 +4,16 @@ import 'package:flutter/material.dart';
 //import files
 import '../../config/config.dart';
 import '../../config/palette.dart';
-import '../../models/task/compactor/data/workers/workers.dart';
 import '../../utils/calendar/time.dart';
 import '../../utils/device/orientations.dart';
 import '../../utils/device/sizes.dart';
 import '../../utils/icon/custom_icon.dart';
 
-showUserProfileDialog(BuildContext context, Worker? workerData, String photo) {
+showUserProfileDialog(BuildContext context, String photo,
+    [String? name = "",
+    String? role = "",
+    String? clockIn = "--:--",
+    String? clockOut = "--:--"]) {
   return AlertDialog(
     title: Align(
       alignment: Alignment.topRight,
@@ -53,16 +56,10 @@ showUserProfileDialog(BuildContext context, Worker? workerData, String photo) {
                   backgroundImage: NetworkImage(photo),
                   radius: 32)),
           const SizedBox(height: 15),
-          Text(
-              workerData != null
-                  ? workerData.userId!.userDetail!.name!.toTitleCase()
-                  : "Tiada data pekerja",
+          Text(name!.toTitleCase(),
               style:
                   const TextStyle(fontSize: 14, fontWeight: FontWeight.w600)),
-          Text(
-              workerData != null
-                  ? workerData.userId!.userRoles![0].roleDesc!
-                  : "",
+          Text(role!.toTitleCase(),
               style: TextStyle(
                   fontWeight: FontWeight.w400,
                   color: greyCustom,
@@ -88,18 +85,18 @@ showUserProfileDialog(BuildContext context, Worker? workerData, String photo) {
                 TableRow(
                   children: [
                     Text(
-                        workerData == null || workerData.clockInAt == "--:--"
-                            ? "--:--"
-                            : Time.convertToHM(workerData.clockInAt!),
+                        clockIn != "--:--"
+                            ? Time.convertToHM(clockIn!)
+                            : "--:--",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w400,
                             color: greyCustom)),
                     Text(
-                        workerData == null || workerData.clockOutAt == "--:--"
-                            ? "--:--"
-                            : Time.convertToHM(workerData.clockOutAt!),
+                        clockOut != "--:--"
+                            ? Time.convertToHM(clockOut!)
+                            : "--:--",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontSize: 14,

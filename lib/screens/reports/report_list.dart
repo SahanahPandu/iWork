@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../config/config.dart';
+import '../../config/palette.dart';
 import '../../utils/device/orientations.dart';
+import '../../utils/icon/custom_icon.dart';
 import '../../widgets/custom_scroll/custom_scroll.dart';
 import '../../widgets/gridview/compactor_panel/report/compactor_report_list_main.dart';
 import '../../widgets/listview/card_list_view.dart';
@@ -24,13 +26,47 @@ class _ReportListState extends State<ReportList> {
     return ScrollConfiguration(
       behavior: CustomScrollBehavior(),
       child: userRole == 100
-          ? Padding(
-              padding: Orientations().isTabletPortrait(context)
-                  ? const EdgeInsets.symmetric(horizontal: 5)
-                  : const EdgeInsets.symmetric(horizontal: 50),
-              child: CompactorReportListMain(passData: {
-                "mainRoute": widget.passData.mainRoute,
-              }),
+          ? Stack(
+              children: [
+                Padding(
+                  padding: Orientations().isTabletPortrait(context)
+                      ? const EdgeInsets.only(left: 5, right: 5, top: 60)
+                      : const EdgeInsets.only(left: 45, right: 45, top: 60),
+                  child: CompactorReportListMain(passData: {
+                    "mainRoute": widget.passData.mainRoute,
+                  }),
+                ),
+                Container(
+                  padding: Orientations().isTabletPortrait(context)
+                      ? const EdgeInsets.only(
+                          left: 30, right: 30, top: 10, bottom: 10)
+                      : const EdgeInsets.fromLTRB(60, 20, 50, 0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        "Senarai Laporan: ",
+                        style: TextStyle(
+                          color: Color(0xff2B2B2B),
+                          fontSize: 15,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      IconButton(
+                        tooltip: "Pilih untuk buat tapisan laporan",
+                        splashColor: transparent,
+                        highlightColor: transparent,
+                        onPressed: () {},
+                        icon: Icon(
+                          CustomIcon.filter,
+                          color: blackCustom,
+                          size: 13,
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              ],
             )
           : SingleChildScrollView(
               child: Column(
