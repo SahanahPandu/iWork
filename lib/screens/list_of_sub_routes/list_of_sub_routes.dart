@@ -91,11 +91,11 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Divider(
+                    Divider(
                       thickness: 1,
-                      color: Color(0xff969696),
-                      indent: 160,
-                      endIndent: 160,
+                      color: const Color(0xff969696),
+                      indent: userRole == 100 ? 220 : 160,
+                      endIndent: userRole == 100 ? 220 : 160,
                     ),
                     Padding(
                       padding: const EdgeInsets.only(

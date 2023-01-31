@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 //import files
+import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../custom_scroll/custom_scroll.dart';
 
@@ -34,8 +35,8 @@ Widget? showBottomSheetOptions(BuildContext context, List statusList,
                           Divider(
                             thickness: 0.5,
                             color: greyCustom,
-                            indent: 160,
-                            endIndent: 160,
+                            indent: userRole == 100 ? 220 : 160,
+                            endIndent: userRole == 100 ? 220 : 160,
                           ),
                           Padding(
                             padding: const EdgeInsets.only(

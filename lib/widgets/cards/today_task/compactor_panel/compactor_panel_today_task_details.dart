@@ -169,7 +169,7 @@ class _CompactorPanelTodayTaskDetailsState
 
   Widget buildStackedImages() {
     const double size = 65;
-    const double xShift = 8;
+    const double xShift = 10;
     List userData = [];
     if (widget.scheduleData!.data!.workers!.isNotEmpty) {
       for (int i = 0; i < widget.scheduleData!.data!.workers!.length; i++) {

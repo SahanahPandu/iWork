@@ -5,6 +5,7 @@ import '../../config/config.dart';
 import '../../config/dimen.dart';
 import '../../config/font.dart';
 import '../../config/palette.dart';
+import '../../config/string.dart';
 import '../../providers/taman_api.dart';
 import '../../utils/device/orientations.dart';
 import '../../utils/icon/custom_icon.dart';
@@ -145,39 +146,14 @@ class ListOfParksState extends State<ListOfParks> {
         builder: (builder) {
           return Container(
               padding: const EdgeInsets.only(top: 5),
-              child: ScrollConfiguration(
-                  behavior: CustomScrollBehavior(),
-                  child: SingleChildScrollView(
-                      child: Wrap(children: [
-                    Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Divider(
-                            thickness: 0.5,
-                            color: Color(0xff969696),
-                            indent: 160,
-                            endIndent: 160,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              top: 20,
-                              left: 30,
-                              bottom: 10,
-                            ),
-                            child: Text(
-                              "Pilih Taman",
-                              style: TextStyle(
-                                color: greyCustom,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                          const Padding(
-                            padding:
-                                EdgeInsets.only(left: 26, right: 26, top: 8),
-                            child: Divider(height: 0.5),
-                          ),
+              child: Stack(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 70),
+                    child: ScrollConfiguration(
+                        behavior: CustomScrollBehavior(),
+                        child: SingleChildScrollView(
+                            child: Wrap(children: [
                           Padding(
                               padding: const EdgeInsets.only(bottom: 10),
                               child: FutureBuilder<List>(
@@ -219,10 +195,9 @@ class ListOfParksState extends State<ListOfParks> {
                                                         color: Colors.orange,
                                                         size: 14),
                                                     const SizedBox(width: 10),
-                                                    Text(
-                                                        "Tiada senarai taman dijumpai",
+                                                    Text(notFoundPark,
                                                         style: TextStyle(
-                                                            color: grey500)),
+                                                            color: grey400)),
                                                   ],
                                                 ),
                                               ),
@@ -237,7 +212,7 @@ class ListOfParksState extends State<ListOfParks> {
                                                         horizontal: 15),
                                                 child: ListView.builder(
                                                     physics:
-                                                        const NeverScrollableScrollPhysics(),
+                                                        const ScrollPhysics(),
                                                     shrinkWrap: true,
                                                     itemCount:
                                                         dataFuture.length,
@@ -322,8 +297,35 @@ class ListOfParksState extends State<ListOfParks> {
                                         }
                                     }
                                   }))
-                        ])
-                  ]))));
+                        ]))),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 26, right: 26, top: 70),
+                    child: Divider(height: 0.5),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: 40,
+                      left: 30,
+                      bottom: 10,
+                    ),
+                    child: Text(
+                      "Pilih Taman",
+                      style: TextStyle(
+                        color: greyCustom,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                  Divider(
+                    thickness: 0.5,
+                    color: const Color(0xff969696),
+                    indent: userRole == 100 ? 220 : 160,
+                    endIndent: userRole == 100 ? 220 : 160,
+                  ),
+                ],
+              ));
         });
     return null;
   }
