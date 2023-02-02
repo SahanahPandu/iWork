@@ -194,7 +194,7 @@ class _VehicleChecklistFormTabState extends State<VehicleChecklistFormTab>
                                     "VC1") {
                               _tabController.index = 0;
                               showInfoToast(context,
-                                  "Tiada rekod Semakan Kenderaan (Selepas Balik) pada hari $selectedNewDate");
+                                  "Tiada rekod Semakan Kenderaan (Selepas Balik) pada hari ${Date.getTheDate(selectedNewDate, "yyyy-MM-dd", "dd/MM/yyyy", "ms")}");
                             }
                           } else {
                             if (widget.vcListData != null) {

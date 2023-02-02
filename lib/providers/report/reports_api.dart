@@ -227,38 +227,76 @@ class ReportsApi {
 
   static Future<ReportPaging> fetchReportList(
       BuildContext context, int pageNumber,
-      [Map<String, Object>? passData]) async {
+      [Map<String, Object?>? passData]) async {
     String? getAccessToken = userInfo[1];
-    String mainRoute = "";
-    dynamic convDate = "";
-    //dynamic statusList;
     dynamic reports;
-    dynamic myData =
-        passData != null ? Map<String, dynamic>.from(passData) : null;
+    Map<String, dynamic> theParameters = {};
+    if (passData != null) {
+      var thePassData = Map<String, dynamic>.from(passData);
 
-    List newStatusList = [];
-    try {
-      if (myData != null) {
-        if (myData['mainRoute'] != "") {
-          mainRoute = myData['mainRoute'];
-        }
-        /*if (myData['filteredDate'] != "") {
-          convDate = Date.getTheDate(
-              myData['filteredDate'], "dd/MM/yyyy", "yyyy-MM-dd", "ms");
-        }
+      //tarikh
+      if (thePassData['date'] != "" && thePassData['date'] != null) {
+        var convDate = Date.getTheDate(
+            thePassData['date'], "dd/MM/yyyy", "yyyy-MM-dd", "ms");
 
-        statusList = myData['selectedStatus'];
-        if (statusList.length > 0) {
-          for (int i = 0; i < statusList.length; i++) {
-            newStatusList.add(statusList[i].code);
-          }
-        }*/
+        theParameters = {
+          'date': convDate,
+        };
       }
+
+      //laluan
+      if (thePassData['mainRoute'] != null || thePassData['mainRoute'] != "") {
+        var theLaluan = {"main_route": thePassData['mainRoute']};
+        theParameters.addEntries(theLaluan.entries);
+      }
+
+      //taman
+      if (thePassData['parkId'] != null || thePassData['parkId'] != "") {
+        var theTaman = {"park_pdibId": thePassData['parkId']};
+        theParameters.addEntries(theTaman.entries);
+      }
+
+      //jalan
+      if (thePassData['streetId'] != null || thePassData['streetId'] != "") {
+        var theJalan = {"street_pdibId": thePassData['streetId']};
+        theParameters.addEntries(theJalan.entries);
+      }
+
+      //obstacle
+      if (thePassData['obstacle'] != null &&
+          thePassData['obstacle'].isNotEmpty) {
+        var obstacleList = thePassData['obstacle'];
+        var obstacleIdList = [];
+        obstacleList.forEach(
+          (obstacle) {
+            obstacleIdList.add(obstacle.id);
+          },
+        );
+
+        var theListOfStatus = {"obstacle_type_id[]": obstacleIdList};
+        theParameters.addEntries(theListOfStatus.entries);
+      }
+
+      //status
+      if (thePassData['statusCode'] != null &&
+          thePassData['statusCode'].isNotEmpty) {
+        var statusList = thePassData['statusCode'];
+        var statusCodeList = [];
+        statusList.forEach(
+          (status) {
+            statusCodeList.add(status.code);
+          },
+        );
+
+        var theListOfStatus = {"status_code[]": statusCodeList};
+        theParameters.addEntries(theListOfStatus.entries);
+      }
+    }
+    try {
       final response = await Dio().get(
           '$theBase/report/reports?page=$pageNumber',
           options: HttpHeader.getApiHeader(getAccessToken),
-          queryParameters:
-              _getQueryParameter(passData, mainRoute, convDate, newStatusList));
+          queryParameters: theParameters);
       if (response.statusCode == 200) {
         Map<String, dynamic> decode =
             json.decode(json.encode(response.data['data']));
@@ -271,42 +309,5 @@ class ReportsApi {
     }
 
     return reports;
-  }
-
-  /// To be complete
-  static _getQueryParameter(Map<String, Object>? passData, String? route,
-      String? convDate, dynamic status) {
-    /// no passdata
-    if (passData == null) {
-      return null;
-    }
-
-    /// filtered main route only
-    else if (route != null &&
-        (convDate == null && status.length == 0 || status.isEmpty)) {
-      return {'main_route': route};
-    }
-
-    /// filtered date only
-    else if (convDate != null && (status.length == 0 || status.isEmpty)) {
-      return {'schedule_date': convDate};
-    }
-
-    /// filtered status only
-    else if (convDate == null && (status.length >= 0 || status.isNotEmpty)) {
-      return {
-        'status_code[]': [status],
-      };
-    }
-
-    /// filtered date and status
-    else if (convDate != null && (status.length >= 0 || status.isNotEmpty)) {
-      return {
-        'schedule_date': convDate,
-        'status_code[]': [status],
-      };
-    } else {
-      return null;
-    }
   }
 }

@@ -116,7 +116,7 @@ class ListOfRoutesState extends State<ListOfRoutes> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Divider(
-                      thickness: 1,
+                      thickness: 0.5,
                       color: const Color(0xff969696),
                       indent: userRole == 100 ? 220 : 160,
                       endIndent: userRole == 100 ? 220 : 160,
