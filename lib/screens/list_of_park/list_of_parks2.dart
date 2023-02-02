@@ -109,8 +109,8 @@ class ListOfParks2State extends State<ListOfParks2> {
           ),
           child: ScrollConfiguration(
             behavior: CustomScrollBehavior(),
-            child: SingleChildScrollView(
-              child: Wrap(children: [
+            child: Stack(
+              children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -179,60 +179,63 @@ class ListOfParks2State extends State<ListOfParks2> {
                       child: Divider(height: 0.5),
                     ),
                     if (widget.data != null)
-                      Container(
-                        margin: const EdgeInsets.symmetric(
-                          horizontal: 15,
-                        ),
-                        child: ListView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: widget.data!.length,
-                          itemBuilder: (context, index) {
-                            var theData = widget.data;
-                            return GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  if (widget.updateData != null) {
-                                    widget.updateData!('taman', {
-                                      'id': theData![index].parkId,
-                                      'name': theData[index].parkName,
-                                    });
-                                  }
-                                });
-                                selectedIndex = index;
-                                Navigator.pop(context);
-                              },
-                              child: Container(
-                                margin: const EdgeInsets.symmetric(
-                                  vertical: 16,
+                      Expanded(
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(
+                            horizontal: 15,
+                          ),
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: widget.data!.length,
+                            itemBuilder: (context, index) {
+                              var theData = widget.data;
+
+                              return GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    if (widget.updateData != null) {
+                                      widget.updateData!('taman', {
+                                        'id': theData![index].parkId,
+                                        'name': theData[index].parkName,
+                                      });
+                                    }
+                                  });
+                                  selectedIndex = index;
+
+                                  Navigator.pop(context);
+                                },
+                                child: Container(
+                                  margin: const EdgeInsets.symmetric(
+                                    vertical: 16,
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                          selectedIndex == index
+                                              ? Icons.check
+                                              : null,
+                                          color: green,
+                                          size: 18),
+                                      const SizedBox(width: 8),
+                                      Text(theData![index].parkName,
+                                          style: TextStyle(
+                                            color: blackCustom,
+                                            fontSize: 15,
+                                            fontWeight: selectedIndex == index
+                                                ? FontWeight.w600
+                                                : FontWeight.w400,
+                                          )),
+                                    ],
+                                  ),
                                 ),
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                        selectedIndex == index
-                                            ? Icons.check
-                                            : null,
-                                        color: green,
-                                        size: 18),
-                                    const SizedBox(width: 8),
-                                    Text(theData![index].parkName,
-                                        style: TextStyle(
-                                          color: blackCustom,
-                                          fontSize: 15,
-                                          fontWeight: selectedIndex == index
-                                              ? FontWeight.w600
-                                              : FontWeight.w400,
-                                        )),
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
+                              );
+                            },
+                          ),
                         ),
                       ),
                   ],
                 ),
-              ]),
+              ],
             ),
           ),
         );

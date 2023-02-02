@@ -97,154 +97,154 @@ class ListOfRoadTextFormField2State extends State<ListOfRoadTextFormField2> {
     }
 
     showModalBottomSheet(
-        isScrollControlled: true,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
         ),
-        constraints: userRole == 100
-            ? (Orientations().isLandscape(context)
-                ? const BoxConstraints(maxWidth: 500, maxHeight: 400)
-                : const BoxConstraints(maxWidth: 500, maxHeight: 450))
-            : const BoxConstraints(maxHeight: 380),
-        context: context,
-        builder: (builder) {
-          return Container(
-            padding: const EdgeInsets.only(top: 5),
-            child: ScrollConfiguration(
-              behavior: CustomScrollBehavior(),
-              child: SingleChildScrollView(
-                child: Wrap(
+      ),
+      constraints: userRole == 100
+          ? (Orientations().isLandscape(context)
+              ? const BoxConstraints(maxWidth: 500, maxHeight: 400)
+              : const BoxConstraints(maxWidth: 500, maxHeight: 450))
+          : const BoxConstraints(maxHeight: 380),
+      context: context,
+      builder: (builder) {
+        return Container(
+          padding: const EdgeInsets.only(top: 5),
+          child: ScrollConfiguration(
+            behavior: CustomScrollBehavior(),
+            child: Stack(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Divider(
-                          thickness: 0.5,
-                          color: Color(0xff969696),
-                          indent: 160,
-                          endIndent: 160,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            top: 20,
-                            left: 30,
-                            right: 30,
-                            bottom: 10,
+                    const Divider(
+                      thickness: 0.5,
+                      color: Color(0xff969696),
+                      indent: 160,
+                      endIndent: 160,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        top: 20,
+                        left: 30,
+                        right: 30,
+                        bottom: 10,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text(
+                              "Kembali",
+                              style: TextStyle(
+                                color: Color(0xffA4A4A4),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.pop(context);
-                                },
-                                child: const Text(
-                                  "Kembali",
-                                  style: TextStyle(
-                                    color: Color(0xffA4A4A4),
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
+                          Text(
+                            "Pilih Jalan",
+                            style: TextStyle(
+                              color: blackCustom,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                if (widget.updateData != null) {
+                                  widget.updateData!('reset', "");
+                                }
+                              });
+                              widget.resetSelection!();
+                              selectedIndex = -1;
+                              Navigator.pop(context);
+                            },
+                            child: const Text(
+                              "Reset",
+                              style: TextStyle(
+                                color: Colors.red,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
                               ),
-                              Text(
-                                "Pilih Jalan",
-                                style: TextStyle(
-                                  color: blackCustom,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                              GestureDetector(
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 26, right: 26, top: 8),
+                      child: Divider(height: 0.5),
+                    ),
+                    if (widget.data != null)
+                      Expanded(
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(
+                            horizontal: 15,
+                          ),
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: widget.data!.length,
+                            itemBuilder: (context, index) {
+                              var theData = widget.data;
+                              return GestureDetector(
                                 onTap: () {
                                   setState(() {
                                     if (widget.updateData != null) {
-                                      widget.updateData!('reset', "");
+                                      widget.updateData!('jalan', {
+                                        'id': theData![index].streetId,
+                                        'name': theData[index].streetName,
+                                      });
                                     }
                                   });
-                                  widget.resetSelection!();
-                                  selectedIndex = -1;
+                                  selectedIndex = index;
                                   Navigator.pop(context);
                                 },
-                                child: const Text(
-                                  "Reset",
-                                  style: TextStyle(
-                                    color: Colors.red,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
+                                child: Container(
+                                  margin: const EdgeInsets.symmetric(
+                                    vertical: 16,
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                          selectedIndex == index
+                                              ? Icons.check
+                                              : null,
+                                          color: green,
+                                          size: 18),
+                                      const SizedBox(width: 8),
+                                      Text(theData![index].streetName,
+                                          style: TextStyle(
+                                            color: blackCustom,
+                                            fontSize: 15,
+                                            fontWeight: selectedIndex == index
+                                                ? FontWeight.w600
+                                                : FontWeight.w400,
+                                          )),
+                                    ],
                                   ),
                                 ),
-                              ),
-                            ],
+                              );
+                            },
                           ),
                         ),
-                        const Padding(
-                          padding: EdgeInsets.only(left: 26, right: 26, top: 8),
-                          child: Divider(height: 0.5),
-                        ),
-                        if (widget.data != null)
-                          Container(
-                            margin: const EdgeInsets.symmetric(
-                              horizontal: 15,
-                            ),
-                            child: ListView.builder(
-                              physics: const NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              itemCount: widget.data!.length,
-                              itemBuilder: (context, index) {
-                                var theData = widget.data;
-                                return GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      if (widget.updateData != null) {
-                                        widget.updateData!('jalan', {
-                                          'id': theData![index].streetId,
-                                          'name': theData[index].streetName,
-                                        });
-                                      }
-                                    });
-                                    selectedIndex = index;
-                                    Navigator.pop(context);
-                                  },
-                                  child: Container(
-                                    margin: const EdgeInsets.symmetric(
-                                      vertical: 16,
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        Icon(
-                                            selectedIndex == index
-                                                ? Icons.check
-                                                : null,
-                                            color: green,
-                                            size: 18),
-                                        const SizedBox(width: 8),
-                                        Text(theData![index].streetName,
-                                            style: TextStyle(
-                                              color: blackCustom,
-                                              fontSize: 15,
-                                              fontWeight: selectedIndex == index
-                                                  ? FontWeight.w600
-                                                  : FontWeight.w400,
-                                            )),
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                      ],
-                    )
+                      ),
                   ],
                 ),
-              ),
+              ],
             ),
-          );
-        });
+          ),
+        );
+      },
+    );
     return null;
   }
 }
