@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../../config/palette.dart';
 import '../../../../models/task/supervisor/supervisor_task.dart';
 import '../../../../utils/calendar/date.dart';
+import '../../../../utils/calendar/time.dart';
 import '../../../../utils/icon/custom_icon.dart';
 import '../../../buttons/enotis_button.dart';
 import '../../../buttons/time_log_button.dart';
@@ -77,7 +78,7 @@ class _SupervisorTodayTaskDetailsState
         ),
         Row(
           children: [
-            if (widget.scheduleData.data.startWork != "")
+            if (widget.scheduleData.data.attendance!.clockInAt != "")
               const Icon(
                 CustomIcon.timerOutline,
                 color: Color(0xffA0FD57),
@@ -87,7 +88,7 @@ class _SupervisorTodayTaskDetailsState
               width: 6,
             ),
             Text(
-              widget.scheduleData.data.startWork!,
+              Time.convertToHM(widget.scheduleData.data.attendance!.clockInAt),
               style: TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.w400,
@@ -97,7 +98,7 @@ class _SupervisorTodayTaskDetailsState
             const SizedBox(
               width: 25,
             ),
-            if (widget.scheduleData.data.stopWork != "")
+            if (widget.scheduleData.data.attendance!.clockOutAt != "")
               const Icon(
                 CustomIcon.timerOutline,
                 color: Color(0xffA0FD57),
@@ -107,7 +108,7 @@ class _SupervisorTodayTaskDetailsState
               width: 6,
             ),
             Text(
-              widget.scheduleData.data.stopWork!,
+              Time.convertToHM(widget.scheduleData.data.attendance!.clockOutAt),
               style: TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.w400,

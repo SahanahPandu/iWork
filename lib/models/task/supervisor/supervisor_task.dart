@@ -33,14 +33,16 @@ class SvData {
 
   String? startWork;
   String? stopWork;
-  dynamic attendance;
+  AttendanceToday? attendance;
   List<dynamic>? isu;
   Sah? sah;
 
   factory SvData.fromJson(Map<String, dynamic> json) => SvData(
         startWork: json["start_work"] ?? "",
         stopWork: json["stop_work"] ?? "",
-        attendance: json["attendance"],
+        attendance: json["attendance"] != null
+            ? AttendanceToday.fromJson(json["attendance"])
+            : null,
         isu: List<dynamic>.from(json["isu"].map((x) => x)),
         sah: Sah.fromJson(json["sah"]),
       );
@@ -51,6 +53,27 @@ class SvData {
         "attendance": attendance,
         "isu": List<dynamic>.from(isu!.map((x) => x)),
         "sah": sah!.toJson(),
+      };
+}
+
+class AttendanceToday {
+  AttendanceToday({
+    required this.clockInAt,
+    required this.clockOutAt,
+  });
+
+  String clockInAt;
+  String clockOutAt;
+
+  factory AttendanceToday.fromJson(Map<String, dynamic> json) =>
+      AttendanceToday(
+        clockInAt: json["clock_in_at"] ?? "",
+        clockOutAt: json["clock_out_at"] ?? "",
+      );
+
+  Map<String, dynamic> toJson() => {
+        "clock_in_at": clockInAt,
+        "clock_out_at": clockOutAt,
       };
 }
 
