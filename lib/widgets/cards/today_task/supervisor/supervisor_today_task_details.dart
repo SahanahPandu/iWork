@@ -2,19 +2,18 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../../../config/palette.dart';
+import '../../../../models/task/supervisor/supervisor_task.dart';
 import '../../../../utils/calendar/date.dart';
 import '../../../../utils/icon/custom_icon.dart';
 import '../../../buttons/enotis_button.dart';
 import '../../../buttons/time_log_button.dart';
 
 class SupervisorTodayTaskDetails extends StatefulWidget {
-  final String timeIn;
-  final String timeOut;
+  final SupervisorTask scheduleData;
 
   const SupervisorTodayTaskDetails({
     Key? key,
-    required this.timeIn,
-    required this.timeOut,
+    required this.scheduleData,
   }) : super(key: key);
 
   @override
@@ -38,7 +37,9 @@ class _SupervisorTodayTaskDetailsState
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Tugasan Hari Ini (9.00 pg - 5.00 ptg)",
+          widget.scheduleData.data.startWork != ""
+              ? "Tugasan Hari Ini (${widget.scheduleData.data.startWork} - ${widget.scheduleData.data.stopWork})"
+              : "Tugasan Hari ini ( --:-- )",
           style: TextStyle(
             color: white,
             fontWeight: FontWeight.w400,
@@ -76,7 +77,7 @@ class _SupervisorTodayTaskDetailsState
         ),
         Row(
           children: [
-            if (widget.timeIn != "")
+            if (widget.scheduleData.data.startWork != "")
               const Icon(
                 CustomIcon.timerOutline,
                 color: Color(0xffA0FD57),
@@ -86,7 +87,7 @@ class _SupervisorTodayTaskDetailsState
               width: 6,
             ),
             Text(
-              widget.timeIn,
+              widget.scheduleData.data.startWork!,
               style: TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.w400,
@@ -96,7 +97,7 @@ class _SupervisorTodayTaskDetailsState
             const SizedBox(
               width: 25,
             ),
-            if (widget.timeOut != "")
+            if (widget.scheduleData.data.stopWork != "")
               const Icon(
                 CustomIcon.timerOutline,
                 color: Color(0xffA0FD57),
@@ -106,7 +107,7 @@ class _SupervisorTodayTaskDetailsState
               width: 6,
             ),
             Text(
-              widget.timeOut,
+              widget.scheduleData.data.stopWork!,
               style: TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.w400,

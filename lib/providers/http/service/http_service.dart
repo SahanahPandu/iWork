@@ -20,6 +20,9 @@ class HttpService {
   /// Task data extraction for Compactor Panel as String
   final loadCompactorTaskUrlTest = '$theBase/task/vehicle/details';
 
+  /// Task data extraction for Supervisor as String
+  final loadSupervisorTaskUrl = '$theBase/task/list';
+
   /// Schedule Url
   /// Schedule data extraction for Compactor Panel as String
   final loadCompactorScheduleListUrl = '$theBase/schedule/schedules';
