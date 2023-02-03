@@ -62,8 +62,7 @@ class _TodayTaskCardState extends State<TodayTaskCard> {
         );
       case 300:
         return SupervisorTodayTaskDetails(
-            scheduleData: widget.scheduleData,
-        );
+            scheduleData: widget.scheduleData, refreshP: widget.refresh);
       case 400:
         return const EOTodayTaskDetails();
       case 500:

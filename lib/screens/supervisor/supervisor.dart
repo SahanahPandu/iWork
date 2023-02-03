@@ -28,6 +28,18 @@ class _SupervisorState extends State<Supervisor> {
     super.initState();
   }
 
+  refreshPage(Function? updateButton) {
+    setState(() {
+      //set state so that it will reload the clock in/ clock out time in main page
+    });
+
+    if (updateButton != null) {
+      //this function to update button display
+      //refer page TimeLogButton, function LoadButton
+      updateButton();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
@@ -256,6 +268,7 @@ class _SupervisorState extends State<Supervisor> {
               //height: Sizes().screenHeight(context) * 0.26,
               child: TodayTaskCard(
                 scheduleData: scheduleData,
+                refresh: refreshPage,
                 timeOut: '',
                 timeIn: '',
               ),
