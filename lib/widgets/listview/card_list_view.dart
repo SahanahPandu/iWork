@@ -102,27 +102,47 @@ class _CardListViewState extends State<CardListView> {
                   dataFuture.removeWhere((item) => "".contains(item.isu));
                 }
 
-                return ListView.builder(
-                  physics: userRole == 200
-                      ? (((widget.type == "Laluan" ||
-                                  widget.type == "Laporan") &&
-                              (widget.screens == "drawer" ||
-                                  widget.screens == "isu"))
-                          ? const BouncingScrollPhysics()
-                          : const NeverScrollableScrollPhysics())
-                      : const BouncingScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: dataFuture.length,
-                  itemBuilder: (context, index) {
-                    return ListCard(
-                      data: dataFuture[index],
-                      type: widget.type,
-                      screen: widget.screens,
-                      listIndex: index,
-                      passData: widget.passData,
-                    );
-                  },
-                );
+                if (dataFuture.isEmpty) {
+                  //this checking needed for cuti list
+
+                  return Center(
+                    child: Container(
+                      margin: const EdgeInsets.all(20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(CustomIcon.exclamation,
+                              color: Colors.orange, size: 14),
+                          const SizedBox(width: 10),
+                          Text("Tiada rekod dijumpai",
+                              style: TextStyle(color: grey500)),
+                        ],
+                      ),
+                    ),
+                  );
+                } else {
+                  return ListView.builder(
+                    physics: userRole == 200
+                        ? (((widget.type == "Laluan" ||
+                                    widget.type == "Laporan") &&
+                                (widget.screens == "drawer" ||
+                                    widget.screens == "isu"))
+                            ? const BouncingScrollPhysics()
+                            : const NeverScrollableScrollPhysics())
+                        : const BouncingScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: dataFuture.length,
+                    itemBuilder: (context, index) {
+                      return ListCard(
+                        data: dataFuture[index],
+                        type: widget.type,
+                        screen: widget.screens,
+                        listIndex: index,
+                        passData: widget.passData,
+                      );
+                    },
+                  );
+                }
               }
             }
         }
