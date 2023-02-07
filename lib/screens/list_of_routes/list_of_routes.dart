@@ -52,8 +52,9 @@ class ListOfRoutesState extends State<ListOfRoutes> {
                   color: Color(0xff2B2B2B),
                 )
               : null,
-          label: const Text('Laluan'),
-          labelStyle: widget.uiData?['labelStyle'],
+          //removed label to display hint text "Semua"
+          // label: const Text('Laluan'),
+          // labelStyle: widget.uiData?['labelStyle'],
           errorStyle: const TextStyle(height: 0),
           errorBorder: widget.uiData?['errorBorder'],
           disabledBorder: widget.uiData?['disableBorder'],

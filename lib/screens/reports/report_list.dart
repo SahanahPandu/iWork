@@ -91,7 +91,6 @@ class _ReportListState extends State<ReportList> {
                     margin: const EdgeInsets.symmetric(horizontal: 10),
                     child: CardListView(
                       type: "Laporan",
-                      topCardStatus: null,
                       passData: widget.passData,
                     ),
                   ),

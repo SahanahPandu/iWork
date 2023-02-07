@@ -59,8 +59,9 @@ class ListOfRoadTextFormField2State extends State<ListOfRoadTextFormField2> {
                   color: Color(0xff2B2B2B),
                 )
               : null,
-          label: const Text('Jalan'),
-          labelStyle: widget.uiData?['labelStyle'],
+          //removed label so that can display hint text "Semua"
+          // label: const Text('Jalan'),
+          // labelStyle: widget.uiData?['labelStyle'],
           disabledBorder: widget.uiData?['disableBorder'],
           errorStyle: const TextStyle(height: 0),
           errorBorder: widget.uiData?['errorBorder'],
@@ -185,55 +186,56 @@ class ListOfRoadTextFormField2State extends State<ListOfRoadTextFormField2> {
                       child: Divider(height: 0.5),
                     ),
                     if (widget.data != null)
-                      Container(
-                        margin: const EdgeInsets.symmetric(
-                          horizontal: 15,
-                        ),
-                        child: ListView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: widget.data!.length,
-                          itemBuilder: (context, index) {
-                            var theData = widget.data;
-                            return GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  if (widget.updateData != null) {
-                                    widget.updateData!('jalan', {
-                                      'id': theData![index].streetId,
-                                      'name': theData[index].streetName,
-                                    });
-                                  }
-                                });
-                                selectedIndex = index;
-                                Navigator.pop(context);
-                              },
-                              child: Container(
-                                margin: const EdgeInsets.symmetric(
-                                  vertical: 16,
+                      Expanded(
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(
+                            horizontal: 15,
+                          ),
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: widget.data!.length,
+                            itemBuilder: (context, index) {
+                              var theData = widget.data;
+                              return GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    if (widget.updateData != null) {
+                                      widget.updateData!('jalan', {
+                                        'id': theData![index].streetId,
+                                        'name': theData[index].streetName,
+                                      });
+                                    }
+                                  });
+                                  selectedIndex = index;
+                                  Navigator.pop(context);
+                                },
+                                child: Container(
+                                  margin: const EdgeInsets.symmetric(
+                                    vertical: 16,
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                          selectedIndex == index
+                                              ? Icons.check
+                                              : null,
+                                          color: green,
+                                          size: 18),
+                                      const SizedBox(width: 8),
+                                      Text(theData![index].streetName,
+                                          style: TextStyle(
+                                            color: blackCustom,
+                                            fontSize: 15,
+                                            fontWeight: selectedIndex == index
+                                                ? FontWeight.w600
+                                                : FontWeight.w400,
+                                          )),
+                                    ],
+                                  ),
                                 ),
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                        selectedIndex == index
-                                            ? Icons.check
-                                            : null,
-                                        color: green,
-                                        size: 18),
-                                    const SizedBox(width: 8),
-                                    Text(theData![index].streetName,
-                                        style: TextStyle(
-                                          color: blackCustom,
-                                          fontSize: 15,
-                                          fontWeight: selectedIndex == index
-                                              ? FontWeight.w600
-                                              : FontWeight.w400,
-                                        )),
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
+                              );
+                            },
+                          ),
                         ),
                       ),
                   ],

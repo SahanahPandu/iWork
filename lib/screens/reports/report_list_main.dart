@@ -236,18 +236,18 @@ class _ReportListMainState extends State<ReportListMain> {
                     child: Padding(
                       padding: const EdgeInsets.all(12),
                       child: CardListView(
-                          type: "Laporan",
-                          screens: "drawer",
-                          passData: {
-                            "date": selectedDate,
-                            "mainRoute": selMainRoute,
-                            "subRoute": selSubRoute,
-                            "parkId": selParkId,
-                            "streetId": selRoadId,
-                            "obstacle": selectedObstacles,
-                            "statusCode": selectedStatus,
-                          },
-                          topCardStatus: null),
+                        type: "Laporan",
+                        screens: "drawer",
+                        passData: {
+                          "date": selectedDate,
+                          "mainRoute": selMainRoute,
+                          "subRoute": selSubRoute,
+                          "parkId": selParkId,
+                          "streetId": selRoadId,
+                          "obstacle": selectedObstacles,
+                          "statusCode": selectedStatus,
+                        },
+                      ),
                     ),
                   )
                 ],

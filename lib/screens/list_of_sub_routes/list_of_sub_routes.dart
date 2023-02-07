@@ -51,8 +51,9 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
                   color: Color(0xff2B2B2B),
                 )
               : null,
-          label: const Text('Sub-Laluan'),
-          labelStyle: widget.uiData?['labelStyle'],
+          //removed label to display hint text 'Semua'
+          // label: const Text('Sub-Laluan'),
+          // labelStyle: widget.uiData?['labelStyle'],
           errorStyle: const TextStyle(height: 0),
           errorBorder: widget.uiData?['errorBorder'],
           disabledBorder: widget.uiData?['disableBorder'],
