@@ -88,7 +88,8 @@ class _WorkScheduleState extends State<WorkSchedule> {
                     userRole == 200 && value == true) {
                   String todayDate =
                       Date.getTheDate(DateTime.now(), "", "yyyy-MM-dd", "ms");
-                  if (widget.data.scheduleDate == todayDate) {
+                  if (widget.data.scheduleDate == todayDate &&
+                      widget.data.statusCode.code == "SBT") {
                     return ReportButton(passData: widget.data);
                   } else {
                     return Container();
