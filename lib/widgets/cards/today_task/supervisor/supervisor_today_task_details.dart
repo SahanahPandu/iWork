@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 //import files
+import '../../../../config/config.dart';
 import '../../../../config/palette.dart';
+import '../../../../models/task/supervisor/supervisor_task.dart';
 import '../../../../utils/calendar/date.dart';
+import '../../../../utils/calendar/time.dart';
 import '../../../../utils/icon/custom_icon.dart';
 import '../../../buttons/enotis_button.dart';
 import '../../../buttons/time_log_button.dart';
 
 class SupervisorTodayTaskDetails extends StatefulWidget {
-  final String timeIn;
-  final String timeOut;
+  final SupervisorTask scheduleData;
+  final Function? refreshP;
 
   const SupervisorTodayTaskDetails({
     Key? key,
-    required this.timeIn,
-    required this.timeOut,
+    required this.scheduleData,
+    this.refreshP,
   }) : super(key: key);
 
   @override
@@ -25,11 +29,52 @@ class SupervisorTodayTaskDetails extends StatefulWidget {
 class _SupervisorTodayTaskDetailsState
     extends State<SupervisorTodayTaskDetails> {
   String todayDate = "0";
+  String todayTask = "";
+  String todayClockIn = "";
+  String todayClockOut = "";
 
   @override
   void initState() {
     super.initState();
     todayDate = Date.getTheDate(DateTime.now(), '', "dd MMM yyyy", 'ms');
+
+    /// User selected other date & selected date is not today
+    if (otherDate && selectedNewDate != '') {
+      todayDate = Date.getTheDate(
+          DateTime.parse(selectedNewDate), '', 'dd MMM yyyy', 'ms');
+
+      if (Date.isDateExpired(DateTime.parse(selectedNewDate))) {
+        todayTask = isScheduleListExist
+            ? "Tugasan Masa Lalu (${DateFormat("hh:mm a").format(DateTime.parse('20222312 ${widget.scheduleData.data.startWork!}')).toLowerCase()} - ${DateFormat("hh:mm a").format(DateTime.parse('20222312 ${widget.scheduleData.data.stopWork!}')).toLowerCase()})"
+            : "Tugasan Masa Lalu ( --:-- )";
+      } else {
+        todayTask = isScheduleListExist
+            ? "Tugasan Akan Datang (${DateFormat("hh:mm a").format(DateTime.parse('20222312 ${widget.scheduleData.data.startWork!}')).toLowerCase()} - ${DateFormat("hh:mm a").format(DateTime.parse('20222312 ${widget.scheduleData.data.stopWork!}')).toLowerCase()})"
+            : "Tugasan Akan Datang ( --:-- )";
+      }
+    } else {
+      todayDate = Date.getTheDate(DateTime.now(), '', 'dd MMM yyyy', 'ms');
+      todayTask = isScheduleListExist
+          ? "Tugasan Hari Ini (${DateFormat("hh:mm a").format(DateTime.parse('20222312 ${widget.scheduleData.data.startWork!}')).toLowerCase()} - ${DateFormat("hh:mm a").format(DateTime.parse('20222312 ${widget.scheduleData.data.stopWork!}')).toLowerCase()})"
+          : "Tugasan Hari ini ( --:-- )";
+    }
+    if (widget.scheduleData.data.attendance != null) {
+      if (widget.scheduleData.data.attendance!.clockInAt != "") {
+        todayClockIn =
+            Time.convertToHM(widget.scheduleData.data.attendance!.clockInAt);
+      } else {
+        todayClockIn = "";
+      }
+      if (widget.scheduleData.data.attendance!.clockOutAt != "") {
+        todayClockOut =
+            Time.convertToHM(widget.scheduleData.data.attendance!.clockOutAt);
+      } else {
+        todayClockOut = "";
+      }
+    } else {
+      todayClockIn = "";
+      todayClockOut = "";
+    }
   }
 
   @override
@@ -38,7 +83,7 @@ class _SupervisorTodayTaskDetailsState
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Tugasan Hari Ini (9.00 pg - 5.00 ptg)",
+          todayTask,
           style: TextStyle(
             color: white,
             fontWeight: FontWeight.w400,
@@ -61,14 +106,73 @@ class _SupervisorTodayTaskDetailsState
             const SizedBox(
               width: 5,
             ),
-            IconButton(
-              icon: const Icon(
-                CustomIcon.scheduleFill,
-                color: Color(0xffA0FD57),
-                size: 20,
-              ),
-              onPressed: () {},
-            ),
+            (otherDate && selectedNewDate != '')
+                ? IconButton(
+                    icon: const Icon(
+                      CustomIcon.refresh,
+                      color: Color(0xffA0FD57),
+                      size: 20,
+                    ),
+                    tooltip: "Tekan untuk lihat jadual hari ini",
+                    onPressed: () {
+                      selectedNewDate = '';
+                      otherDate = false;
+                      refresh.value = !refresh.value;
+                    })
+                : IconButton(
+                    icon: const Icon(
+                      CustomIcon.scheduleFill,
+                      color: Color(0xffA0FD57),
+                      size: 20,
+                    ),
+                    tooltip: "Pilih tarikh untuk lihat jadual anda",
+                    onPressed: () {
+                      showDatePicker(
+                        confirmText: "PILIH",
+                        builder: (context, child) {
+                          return Theme(
+                            data: Theme.of(context).copyWith(
+                              colorScheme: ColorScheme.light(
+                                primary: green,
+                                onPrimary: white,
+                                onSurface: black45,
+                              ),
+                              dialogTheme: DialogTheme(
+                                  shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16),
+                              )),
+                              textButtonTheme: TextButtonThemeData(
+                                style: TextButton.styleFrom(
+                                  primary: darkGreen, // button text color
+                                ),
+                              ),
+                            ),
+                            child: child!,
+                          );
+                        },
+                        context: context,
+                        locale: const Locale('ms'),
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(DateTime.now().year),
+                        lastDate: DateTime(DateTime.now().year + 1),
+                        initialEntryMode: DatePickerEntryMode.calendarOnly,
+                      ).then((value) {
+                        String today =
+                            DateFormat("yyyy-MM-dd").format(DateTime.now());
+                        String newDate = value != null
+                            ? DateFormat("yyyy-MM-dd").format(value)
+                            : "";
+                        if ((newDate != "") &&
+                            (today.compareTo(newDate) != 0)) {
+                          setState(() {
+                            selectedNewDate = newDate;
+                            otherDate = true;
+                            refresh.value = !refresh.value;
+                          });
+                        }
+                      });
+                    },
+                  ),
           ],
         ),
         const SizedBox(
@@ -76,37 +180,49 @@ class _SupervisorTodayTaskDetailsState
         ),
         Row(
           children: [
-            if (widget.timeIn != "")
-              const Icon(
-                CustomIcon.timerOutline,
-                color: Color(0xffA0FD57),
-                size: 18,
-              ),
+            todayClockIn != ""
+                ? const Icon(
+                    CustomIcon.timerOutline,
+                    color: Color(0xffA0FD57),
+                    size: 18,
+                  )
+                : Container(),
             const SizedBox(
               width: 6,
             ),
             Text(
-              widget.timeIn,
+              todayClockIn,
               style: TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.w400,
                 color: white,
               ),
             ),
-            const SizedBox(
+            SizedBox(
               width: 25,
+              child: todayClockOut != ""
+                  ? Center(
+                      child: Text(
+                      "-",
+                      style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w400,
+                          color: white),
+                    ))
+                  : null,
             ),
-            if (widget.timeOut != "")
-              const Icon(
-                CustomIcon.timerOutline,
-                color: Color(0xffA0FD57),
-                size: 18,
-              ),
+            todayClockOut != ""
+                ? const Icon(
+                    CustomIcon.timerOutline,
+                    color: Color(0xffA0FD57),
+                    size: 18,
+                  )
+                : Container(),
             const SizedBox(
               width: 6,
             ),
             Text(
-              widget.timeOut,
+              todayClockOut,
               style: TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.w400,
@@ -120,9 +236,13 @@ class _SupervisorTodayTaskDetailsState
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: const [
-            TimeLogButton(),
-            ENotisButton(),
+          children: [
+            TimeLogButton(
+              refresh: widget.refreshP,
+              timeIn: todayClockIn,
+              timeOut: todayClockOut,
+            ),
+            const ENotisButton(),
           ],
         )
       ],

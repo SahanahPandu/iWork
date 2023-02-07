@@ -7,6 +7,7 @@ import '../../config/config.dart';
 import '../../config/dimen.dart';
 import '../../config/font.dart';
 import '../../config/palette.dart';
+import '../../models/report/obstacle_types.dart';
 import '../../models/report/report_status.dart';
 import '../../providers/halangan_api.dart';
 import '../../providers/report/reports_api.dart';
@@ -16,7 +17,6 @@ import '../../utils/device/sizes.dart';
 import '../../utils/icon/custom_icon.dart';
 import '../../widgets/app_bar/app_bar_widget.dart';
 import '../schedule_filter/schedule_filter_list.dart';
-import '../../models/report/obstacle_types.dart';
 
 class ReportFilterDrawer extends StatefulWidget {
   final Map<String, dynamic>? passData;
@@ -664,7 +664,8 @@ class ReportFilterDrawerState extends State<ReportFilterDrawer> {
                 Expanded(
                   child: Divider(
                     thickness: 0.5,
-                    color: greyCustom,
+                    color:
+                        userRole == 100 ? const Color(0xffE5E5E5) : greyCustom,
                   ),
                 ),
                 const SizedBox(

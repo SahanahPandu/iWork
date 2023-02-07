@@ -61,41 +61,54 @@ class _CompactorPanelState extends State<CompactorPanel> {
                     default:
                       if (snapshot.hasError) {
                         return Center(
-                          child: SizedBox(
-                            height: 60,
-                            width: 200,
-                            child: TextButton(
-                              style: ButtonStyle(
-                                  elevation: MaterialStateProperty.all(0),
-                                  shape: MaterialStateProperty.all(
-                                    RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(12)),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                  height: 78,
+                                  width: 78,
+                                  child: Image.asset(opsImg)),
+                              SizedBox(
+                                height: 60,
+                                width: 200,
+                                child: TextButton(
+                                  style: ButtonStyle(
+                                      elevation: MaterialStateProperty.all(0),
+                                      shape: MaterialStateProperty.all(
+                                        RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(12)),
+                                      ),
+                                      overlayColor:
+                                          MaterialStateColor.resolveWith(
+                                              (states) =>
+                                                  const Color(0x0f0c057a)),
+                                      backgroundColor:
+                                          MaterialStateProperty.all(
+                                              transparent)),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "Sila Muat Semula",
+                                        style: TextStyle(
+                                            color: white,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                      const SizedBox(width: 10),
+                                      Icon(Icons.refresh,
+                                          size: 20, color: white),
+                                    ],
                                   ),
-                                  overlayColor: MaterialStateColor.resolveWith(
-                                      (states) => const Color(0x0f0c057a)),
-                                  backgroundColor:
-                                      MaterialStateProperty.all(transparent)),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "Sila Muat Semula",
-                                    style: TextStyle(
-                                        color: white,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                  const SizedBox(width: 10),
-                                  Icon(Icons.refresh, size: 20, color: white),
-                                ],
+                                  onPressed: () {
+                                    setState(() {
+                                      refresh.value = !refresh.value;
+                                    });
+                                  },
+                                ),
                               ),
-                              onPressed: () {
-                                setState(() {
-                                  refresh.value = !refresh.value;
-                                });
-                              },
-                            ),
+                            ],
                           ),
                         );
                       } else {

@@ -120,11 +120,11 @@ class ListOfRoadTextFormField2State extends State<ListOfRoadTextFormField2> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Divider(
+                    Divider(
                       thickness: 0.5,
-                      color: Color(0xff969696),
-                      indent: 160,
-                      endIndent: 160,
+                      color: const Color(0xff969696),
+                      indent: userRole == 100 ? 220 : 160,
+                      endIndent: userRole == 100 ? 220 : 160,
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
@@ -185,60 +185,59 @@ class ListOfRoadTextFormField2State extends State<ListOfRoadTextFormField2> {
                       child: Divider(height: 0.5),
                     ),
                     if (widget.data != null)
-                      Expanded(
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(
-                            horizontal: 15,
-                          ),
-                          child: ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: widget.data!.length,
-                            itemBuilder: (context, index) {
-                              var theData = widget.data;
-                              return GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    if (widget.updateData != null) {
-                                      widget.updateData!('jalan', {
-                                        'id': theData![index].streetId,
-                                        'name': theData[index].streetName,
-                                      });
-                                    }
-                                  });
-                                  selectedIndex = index;
-                                  Navigator.pop(context);
-                                },
-                                child: Container(
-                                  margin: const EdgeInsets.symmetric(
-                                    vertical: 16,
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Icon(
-                                          selectedIndex == index
-                                              ? Icons.check
-                                              : null,
-                                          color: green,
-                                          size: 18),
-                                      const SizedBox(width: 8),
-                                      Text(theData![index].streetName,
-                                          style: TextStyle(
-                                            color: blackCustom,
-                                            fontSize: 15,
-                                            fontWeight: selectedIndex == index
-                                                ? FontWeight.w600
-                                                : FontWeight.w400,
-                                          )),
-                                    ],
-                                  ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(
+                          horizontal: 15,
+                        ),
+                        child: ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: widget.data!.length,
+                          itemBuilder: (context, index) {
+                            var theData = widget.data;
+                            return GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  if (widget.updateData != null) {
+                                    widget.updateData!('jalan', {
+                                      'id': theData![index].streetId,
+                                      'name': theData[index].streetName,
+                                    });
+                                  }
+                                });
+                                selectedIndex = index;
+                                Navigator.pop(context);
+                              },
+                              child: Container(
+                                margin: const EdgeInsets.symmetric(
+                                  vertical: 16,
                                 ),
-                              );
-                            },
-                          ),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                        selectedIndex == index
+                                            ? Icons.check
+                                            : null,
+                                        color: green,
+                                        size: 18),
+                                    const SizedBox(width: 8),
+                                    Text(theData![index].streetName,
+                                        style: TextStyle(
+                                          color: blackCustom,
+                                          fontSize: 15,
+                                          fontWeight: selectedIndex == index
+                                              ? FontWeight.w600
+                                              : FontWeight.w400,
+                                        )),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
                         ),
                       ),
                   ],
-                ),
+                )
               ],
             ),
           ),

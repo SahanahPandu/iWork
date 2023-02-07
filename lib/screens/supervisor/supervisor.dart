@@ -1,7 +1,12 @@
+import 'package:eswm/utils/font/font.dart';
 import 'package:flutter/material.dart';
 
 //import files
+import '../../config/config.dart';
 import '../../config/palette.dart';
+import '../../config/resource.dart';
+import '../../models/task/supervisor/supervisor_task.dart';
+import '../../providers/task/supervisor/supervisor_task_api.dart';
 import '../../utils/calendar/date.dart';
 import '../../widgets/cards/today_task/today_task_card.dart';
 import '../../widgets/slivers/expand_collapse_header/expand_collapse_header.dart';
@@ -15,20 +20,152 @@ class Supervisor extends StatefulWidget {
 }
 
 class _SupervisorState extends State<Supervisor> {
+  late SupervisorTask? scheduleData;
+
+  @override
+  void initState() {
+    refresh.value = !refresh.value;
+    super.initState();
+  }
+
+  refreshPage(Function? updateButton) {
+    setState(() {
+      //set state so that it will reload the clock in/ clock out time in main page
+    });
+
+    if (updateButton != null) {
+      //this function to update button display
+      //refer page TimeLogButton, function LoadButton
+      updateButton();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return ExpandCollapseHeader(
-        centerTitle: false,
-        title: _collapseTitle(),
-        alwaysShowLeadingAndAction: false,
-        headerWidget: _header(context),
-        collapseHeight: 85,
-        fullyStretchable: true,
-        body: [
-          _scrollBody(),
-        ],
-        backgroundColor: transparent,
-        appBarColor: const Color(0xff2b7fe8));
+    return ValueListenableBuilder(
+        valueListenable: refresh,
+        builder: (BuildContext context, value, Widget? child) {
+          if (value == refresh.value) {
+            return FutureBuilder<SupervisorTask?>(
+                future: SupervisorTaskApi.getSupervisorTaskData(context),
+                builder: (context, snapshot) {
+                  switch (snapshot.connectionState) {
+                    case ConnectionState.waiting:
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    default:
+                      if (snapshot.hasError) {
+                        return Center(
+                          child: Column(
+                            children: [
+                              const SizedBox(height: 200),
+                              SizedBox(
+                                  height: 78,
+                                  width: 78,
+                                  child: Image.asset(opsImg)),
+                              SizedBox(
+                                height: 40,
+                                width: 200,
+                                child: TextButton(
+                                  style: ButtonStyle(
+                                      elevation: MaterialStateProperty.all(0),
+                                      shape: MaterialStateProperty.all(
+                                        RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(12)),
+                                      ),
+                                      overlayColor:
+                                          MaterialStateColor.resolveWith(
+                                              (states) =>
+                                                  const Color(0x0f0c057a)),
+                                      backgroundColor:
+                                          MaterialStateProperty.all(
+                                              transparent)),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "Sila Muat Semula",
+                                        style: TextStyle(
+                                            color: white,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                      const SizedBox(width: 10),
+                                      Icon(Icons.refresh,
+                                          size: 20, color: white),
+                                    ],
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      refresh.value = !refresh.value;
+                                    });
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      } else {
+                        if (snapshot.hasData) {
+                          scheduleData = snapshot.data!;
+                          return ExpandCollapseHeader(
+                              centerTitle: false,
+                              title: _collapseTitle(),
+                              alwaysShowLeadingAndAction: false,
+                              headerWidget: _header(context),
+                              collapseHeight: 85,
+                              fullyStretchable: true,
+                              body: [
+                                _scrollBody(),
+                              ],
+                              backgroundColor: transparent,
+                              appBarColor: const Color(0xff2b7fe8));
+                        }
+                      }
+                  }
+                  return Container();
+                });
+          } else {
+            return Center(
+              child: SizedBox(
+                height: 60,
+                width: 180,
+                child: TextButton(
+                  style: ButtonStyle(
+                      elevation: MaterialStateProperty.all(0),
+                      shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12)),
+                      ),
+                      overlayColor: MaterialStateColor.resolveWith(
+                          (states) => const Color(0x0f0c057a)),
+                      backgroundColor: MaterialStateProperty.all(transparent)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Muat Semula",
+                        style: TextStyle(
+                            color: white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500),
+                      ),
+                      const SizedBox(width: 10),
+                      Icon(Icons.refresh, size: 20, color: white),
+                    ],
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      refresh.value = !refresh.value;
+                    });
+                  },
+                ),
+              ),
+            );
+          }
+        });
   }
 
   SafeArea _scrollBody() {
@@ -104,13 +241,19 @@ class _SupervisorState extends State<Supervisor> {
                   ),
                 ),
                 const SizedBox(width: 10),
-                const Text(
-                  "Hi, Suhaimi!",
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
+                Expanded(
+                  child: Text(
+                    userInfo[4] != ''
+                        ? "Hi, ${userInfo[4].toTitleCase()}!"
+                        : "Hi, User!",
+                    textAlign: TextAlign.left,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
               ],
@@ -119,14 +262,15 @@ class _SupervisorState extends State<Supervisor> {
           const SizedBox(
             height: 10,
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: SizedBox(
               //height: Sizes().screenHeight(context) * 0.26,
               child: TodayTaskCard(
-                workTime: "",
-                timeIn: "",
-                timeOut: "",
+                scheduleData: scheduleData,
+                refresh: refreshPage,
+                timeOut: '',
+                timeIn: '',
               ),
             ),
           ),

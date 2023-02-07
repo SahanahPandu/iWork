@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import '../../../config/config.dart';
 import '../../../config/resource.dart';
 import '../../../config/string.dart';
-import '../../../models/task/compactor/compactor_task.dart';
 import '../../../utils/device/orientations.dart';
 import '../../../utils/device/sizes.dart';
 import '../../buttons/time_log_button.dart';
@@ -20,7 +19,7 @@ class TodayTaskCard extends StatefulWidget {
   final String timeOut;
   final Function? refresh;
   final GlobalKey<TimeLogButtonState>? timeLogButtonKey;
-  final CompactorTask? scheduleData;
+  final dynamic scheduleData;
 
   const TodayTaskCard({
     Key? key,
@@ -63,9 +62,7 @@ class _TodayTaskCardState extends State<TodayTaskCard> {
         );
       case 300:
         return SupervisorTodayTaskDetails(
-          timeIn: widget.timeIn,
-          timeOut: widget.timeOut,
-        );
+            scheduleData: widget.scheduleData, refreshP: widget.refresh);
       case 400:
         return const EOTodayTaskDetails();
       case 500:

@@ -182,8 +182,9 @@ class _ReportListMainState extends State<ReportListMain> {
         ),
       ),
       endDrawer: userRole == 100
-          ? const Drawer(
-              child: ReportFilterDrawer(),
+          ? Drawer(
+              child: ReportFilterDrawer(
+                  passData: passData, updateState: updateFilterData),
             )
           : const SizedBox(),
       body: ScrollConfiguration(
@@ -253,9 +254,24 @@ class _ReportListMainState extends State<ReportListMain> {
               )
             : Stack(
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.only(left: 16, right: 16, top: 45),
-                    child: CompactorReportListMain(),
+                  //filtered selection list
+                  if (displayFilterSection) filteredSection(),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        left: 16,
+                        right: 16,
+                        top: displayFilterSection ? 85 : 45),
+                    child: displayFilterSection
+                        ? CompactorReportListMain(passData: {
+                            "date": selectedDate,
+                            "mainRoute": selMainRoute,
+                            "subRoute": selSubRoute,
+                            "parkId": selParkId,
+                            "streetId": selRoadId,
+                            "obstacle": selectedObstacles,
+                            "statusCode": selectedStatus,
+                          })
+                        : const CompactorReportListMain(),
                   ),
                   Container(
                     color: white,
@@ -295,7 +311,7 @@ class _ReportListMainState extends State<ReportListMain> {
   Widget filteredSection() {
     return Container(
       padding: userRole == 100
-          ? const EdgeInsets.symmetric(horizontal: 16, vertical: 26)
+          ? const EdgeInsets.only(left: 16, top: 28, right: 16, bottom: 10)
           : const EdgeInsets.only(left: 14, top: 0, right: 14, bottom: 5),
       child: Column(
         children: [

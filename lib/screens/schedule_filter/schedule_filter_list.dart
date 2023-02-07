@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-//imported files
+//import files
+import '../../config/dimen.dart';
+import '../../config/font.dart';
+import '../../config/palette.dart';
 import '../../models/schedule/filter/schedule_filter_main_routes.dart';
 import '../../models/schedule/filter/schedule_filter_parks.dart';
 import '../../models/schedule/filter/schedule_filter_streets.dart';
 import '../../models/schedule/filter/schedule_filter_sub_routes.dart';
+import '../../providers/schedule_filter_api.dart';
 import '../../screens/list_of_park/list_of_parks2.dart';
 import '../../screens/list_of_sub_routes/list_of_sub_routes.dart';
-import '../../config/dimen.dart';
-import '../../config/font.dart';
-import '../../config/palette.dart';
-import '../../providers/schedule_filter_api.dart';
 import '../list_of_road/list_of_road_text_form_field2.dart';
 import '../list_of_routes/list_of_routes.dart';
 
@@ -72,6 +72,7 @@ class ScheduleFilterListState extends State<ScheduleFilterList> {
       borderRadiusCircular,
     ),
   );
+
   //==================== end of UI default======================================
 
   //==================== variables =============================================
@@ -430,6 +431,7 @@ class ScheduleFilterListState extends State<ScheduleFilterList> {
       jalanKey.currentState!.selectedIndex = -1;
     });
   }
+
   //==================== end of Methods ========================================
 
   @override

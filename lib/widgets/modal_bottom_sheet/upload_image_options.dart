@@ -27,7 +27,7 @@ Future<dynamic>? showUploadImageOption(
                 height: 2,
               ),
               const Divider(
-                thickness: 1,
+                thickness: 0.5,
                 color: Color(0xff969696),
                 indent: 170,
                 endIndent: 170,
@@ -48,7 +48,7 @@ Future<dynamic>? showUploadImageOption(
                 ),
               ),
               const Divider(
-                thickness: 1,
+                thickness: 0.5,
                 color: Color(0xffE5E5E5),
                 indent: 25,
                 endIndent: 25,

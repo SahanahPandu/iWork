@@ -7,8 +7,7 @@ import '../../../../utils/icon/custom_icon.dart';
 import 'report_list_tile.dart';
 
 class CompactorReportListMain extends StatelessWidget {
-  final Map<String, Object>? passData;
-
+final Map<String, Object?>? passData;
   const CompactorReportListMain({Key? key, this.passData}) : super(key: key);
 
   @override

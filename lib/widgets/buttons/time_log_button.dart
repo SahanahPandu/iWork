@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
 //import files
+import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../../screens/time_log/time_log.dart';
 import '../../utils/icon/custom_icon.dart';
@@ -48,7 +49,10 @@ class TimeLogButtonState extends State<TimeLogButton> {
 
   loadButton() {
     if ((widget.timeIn != null && widget.timeIn != "") &&
-        (widget.timeOut != null && widget.timeOut != "")) {
+            (widget.timeOut != null && widget.timeOut != "") ||
+
+        /// User selected other date & selected date is not today
+        (otherDate && selectedNewDate != '')) {
       //have time in and time out
       buttonText = "Masuk Kerja";
       buttonColor = const Color(0xffD9D9D9);

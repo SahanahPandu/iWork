@@ -15,7 +15,7 @@ enum ReportLoadMoreStatus { loading, stable }
 
 class ReportListTile extends StatefulWidget {
   final ReportPaging reports;
-  final Map<String, Object>? passData;
+  final Map<String, Object?>?passData;
 
   const ReportListTile({Key? key, required this.reports, this.passData})
       : super(key: key);
