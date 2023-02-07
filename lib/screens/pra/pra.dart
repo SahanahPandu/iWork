@@ -23,6 +23,7 @@ class Pra extends StatefulWidget {
 
 class _PraState extends State<Pra> {
   final timeLogButtonKey = GlobalKey<TimeLogButtonState>();
+  String selectedDate = Date.getTheDate(DateTime.now(), "", "yyyy-MM-dd", 'ms');
 
   refreshPage(Function? updateButton) {
     setState(() {
@@ -36,10 +37,16 @@ class _PraState extends State<Pra> {
     }
   }
 
+  updateSelDate(selDate) {
+    setState(() {
+      selectedDate = selDate;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<GeneralWorkerTask>(
-      future: LaluanApi.getDataMasaKerja(context),
+      future: LaluanApi.getDataMasaKerja(context, selectedDate),
       builder: (context, snapshot) {
         String workingTime = "";
         String clockInTime = "";
@@ -134,7 +141,10 @@ class _PraState extends State<Pra> {
       constraints: const BoxConstraints(minHeight: 400),
       color: white,
       padding: const EdgeInsets.all(15),
-      child: const CardListView(type: "Laluan"),
+      child: CardListView(
+        type: "Laluan",
+        passData: selectedDate,
+      ),
     ));
   }
 
@@ -171,7 +181,7 @@ class _PraState extends State<Pra> {
               height: 5,
             ),
             Text(
-              Date.getTheDate(DateTime.now(), "", "dd/MM/yyyy", 'ms'),
+              Date.getTheDate(selectedDate, "yyyy-MM-dd", "dd/MM/yyyy", 'ms'),
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
@@ -236,6 +246,8 @@ class _PraState extends State<Pra> {
                 workTime: workingTime,
                 timeIn: clockInTime,
                 timeOut: clockOutTime,
+                selectedDate: selectedDate,
+                updateSelDate: updateSelDate,
                 refresh: refreshPage,
                 timeLogButtonKey: timeLogButtonKey,
               ),

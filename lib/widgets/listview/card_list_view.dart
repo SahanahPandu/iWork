@@ -13,7 +13,6 @@ import '../cards/list_card.dart';
 
 class CardListView extends StatefulWidget {
   final String type;
-  final Function? topCardStatus;
   final String? screens;
   final dynamic cutiStatus;
   final dynamic passData;
@@ -21,7 +20,6 @@ class CardListView extends StatefulWidget {
   const CardListView({
     Key? key,
     required this.type,
-    this.topCardStatus,
     this.screens,
     this.cutiStatus,
     this.passData,
@@ -39,7 +37,7 @@ class _CardListViewState extends State<CardListView> {
       list = CutiApi.getDataEcuti();
     } else if (widget.type == "Laluan" && widget.screens != 'drawer') {
       //this is for Senarai Tugas Saya in the main page
-      list = LaluanApi.getDataLaluan();
+      list = LaluanApi.getDataLaluan(widget.passData);
     } else if (widget.type == "Laluan" && widget.screens == 'drawer') {
       //this is for Senarai Jadual Tugasan in the drawer
       list = JadualApi.getDataJadualDrawer(widget.passData);

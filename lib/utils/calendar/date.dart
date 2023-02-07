@@ -42,4 +42,15 @@ class Date {
     final bool isExpired = expirationDate.isBefore(now);
     return isExpired;
   }
+
+  static Future datePicker(context) {
+    DateTime current = DateTime.now();
+    return showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(current.year - 5),
+      lastDate: DateTime(current.year + 5),
+      initialEntryMode: DatePickerEntryMode.calendarOnly,
+    );
+  }
 }

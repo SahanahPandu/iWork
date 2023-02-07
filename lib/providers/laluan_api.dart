@@ -26,19 +26,17 @@ class LaluanApi {
     return data.map<Laluan>(Laluan.fromJson).toList();
   }
 
-  static Future<List<TaskList>>? getDataLaluan() async {
+  static Future<List<TaskList>>? getDataLaluan(selDate) async {
     print('Token: ${userInfo[1]}');
     List<TaskList> decodeBody = [];
-    String getAccessToken = userInfo[1];
 
     try {
       // ignore: unused_local_variable
       var response = await Dio().get(
         '$theBase/task/gw-list',
-        queryParameters: {'schedule_date': today},
-        // queryParameters: {'schedule_date': "2023-01-23"},
+        queryParameters: {'schedule_date': selDate},
         options: Options(headers: {
-          'authorization': 'Bearer $getAccessToken',
+          'authorization': 'Bearer ${userInfo[1]}',
         }),
       );
 
@@ -63,7 +61,7 @@ class LaluanApi {
     return decodeBody;
   }
 
-  static Future<GeneralWorkerTask> getDataMasaKerja(context) async {
+  static Future<GeneralWorkerTask> getDataMasaKerja(context, selDate) async {
     GeneralWorkerTask theTime = const GeneralWorkerTask(
         startSchedule: null, stopSchedule: null, list: []);
 
@@ -71,12 +69,11 @@ class LaluanApi {
       // ignore: unused_local_variable
       var response = await Dio().get(
         '$theBase/task/gw-list',
-        queryParameters: {'schedule_date': today},
+        queryParameters: {'schedule_date': selDate},
         options: Options(headers: {
           'authorization': 'Bearer ${userInfo[1]}',
         }),
       );
-      // print('Response: ${response.statusMessage}');
 
       if (response.statusCode == 200) {
         //checking task list null

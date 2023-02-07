@@ -6,18 +6,23 @@ import '../../../../utils/icon/custom_icon.dart';
 import '../../../buttons/ecuti_button.dart';
 import '../../../buttons/time_log_button.dart';
 
+// ignore: must_be_immutable
 class PraTodayTaskDetails extends StatefulWidget {
   final String timeIn;
   final String timeOut;
   final String? workTime;
+  String? selectedDate;
+  final Function(String)? updateSelDate;
   final Function? refresh;
   final GlobalKey<TimeLogButtonState>? timeLogButtonKey;
 
-  const PraTodayTaskDetails({
+  PraTodayTaskDetails({
     Key? key,
     required this.timeIn,
     required this.timeOut,
     this.workTime,
+    this.selectedDate,
+    this.updateSelDate,
     this.refresh,
     this.timeLogButtonKey,
   }) : super(key: key);
@@ -27,14 +32,6 @@ class PraTodayTaskDetails extends StatefulWidget {
 }
 
 class _PraTodayTaskDetailsState extends State<PraTodayTaskDetails> {
-  String todayDate = "0";
-
-  @override
-  void initState() {
-    super.initState();
-    todayDate = Date.getTheDate(DateTime.now(), '', "dd MMM yyyy", 'ms');
-  }
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -57,7 +54,8 @@ class _PraTodayTaskDetailsState extends State<PraTodayTaskDetails> {
         Row(
           children: [
             Text(
-              todayDate,
+              Date.getTheDate(
+                  widget.selectedDate, 'yyyy-MM-dd', "dd MMM yyyy", 'ms'),
               style: const TextStyle(
                 fontSize: 36,
                 fontWeight: FontWeight.w600,
@@ -73,7 +71,19 @@ class _PraTodayTaskDetailsState extends State<PraTodayTaskDetails> {
                 color: Color(0xffA0FD57),
                 size: 20,
               ),
-              onPressed: () {},
+              onPressed: () async {
+                DateTime? pickedDate = await Date.datePicker(context);
+
+                if (pickedDate != null) {
+                  if (widget.updateSelDate != null) {
+                    String thePickedDate =
+                        Date.getTheDate(pickedDate, "", "yyyy-MM-dd", 'ms');
+                    widget.updateSelDate!(
+                        thePickedDate); //re-call method to load list of 'Tugas Saya'
+
+                  }
+                }
+              },
             ),
           ],
         ),
@@ -91,11 +101,9 @@ class _PraTodayTaskDetailsState extends State<PraTodayTaskDetails> {
               key: widget.timeLogButtonKey,
               timeIn: widget.timeIn,
               timeOut: widget.timeOut,
+              selectedDate: widget.selectedDate,
               refresh: widget.refresh,
             ),
-            // const SizedBox(
-            //   width: 25,
-            // ),
             const EcutiButton(),
           ],
         )

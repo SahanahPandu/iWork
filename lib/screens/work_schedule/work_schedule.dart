@@ -86,10 +86,13 @@ class _WorkScheduleState extends State<WorkSchedule> {
                       child: ReportButton(passData: widget.data));
                 } else if (userRole == 100 ||
                     userRole == 200 && value == true) {
-                  // return const ReportButton(
-                  //   dataLaluan: null,
-                  // );
-                  return ReportButton(passData: widget.data);
+                  String todayDate =
+                      Date.getTheDate(DateTime.now(), "", "yyyy-MM-dd", "ms");
+                  if (widget.data.scheduleDate == todayDate) {
+                    return ReportButton(passData: widget.data);
+                  } else {
+                    return Container();
+                  }
                 } else {
                   return Container();
                 }

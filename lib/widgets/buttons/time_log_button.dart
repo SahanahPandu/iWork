@@ -7,17 +7,20 @@ import 'package:page_transition/page_transition.dart';
 import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../../screens/time_log/time_log.dart';
+import '../../utils/calendar/date.dart';
 import '../../utils/icon/custom_icon.dart';
 
 class TimeLogButton extends StatefulWidget {
   final String? timeIn;
   final String? timeOut;
+  final String? selectedDate;
   final Function? refresh;
 
   const TimeLogButton({
     Key? key,
     this.timeIn,
     this.timeOut,
+    this.selectedDate,
     this.refresh,
   }) : super(key: key);
 
@@ -48,28 +51,40 @@ class TimeLogButtonState extends State<TimeLogButton> {
   }
 
   loadButton() {
-    if ((widget.timeIn != null && widget.timeIn != "") &&
-            (widget.timeOut != null && widget.timeOut != "") ||
+    String todayDate = Date.getTheDate(DateTime.now(), "", "yyyy-MM-dd", "ms");
 
-        /// User selected other date & selected date is not today
-        (otherDate && selectedNewDate != '')) {
-      //have time in and time out
+    if (widget.selectedDate != todayDate) {
+      //selected date is back dated or future date
+      //need to disable the button
       buttonText = "Masuk Kerja";
       buttonColor = const Color(0xffD9D9D9);
       buttonTextColor = const Color(0xff969696);
       iconColor = const Color(0xff969696);
       buttonOverlayColor = const Color(0xffD9D9D9);
-    } else if ((widget.timeIn != null && widget.timeIn != "") &&
-        (widget.timeOut == null || widget.timeOut == "")) {
-      //have time in but no time out
+    } else {
+      if ((widget.timeIn != null && widget.timeIn != "") &&
+              (widget.timeOut != null && widget.timeOut != "") ||
 
-      buttonText = "Tamat Kerja";
-      buttonColor = const Color(0xffE04141);
-      buttonOverlayColor = red900;
-    } else if ((widget.timeIn == null || widget.timeIn == "") &&
-        (widget.timeOut != null && widget.timeOut != "")) {
-      //have time out but no time in
+          /// User selected other date & selected date is not today
+          (otherDate && selectedNewDate != '')) {
+        //have time in and time out
+        buttonText = "Masuk Kerja";
+        buttonColor = const Color(0xffD9D9D9);
+        buttonTextColor = const Color(0xff969696);
+        iconColor = const Color(0xff969696);
+        buttonOverlayColor = const Color(0xffD9D9D9);
+      } else if ((widget.timeIn != null && widget.timeIn != "") &&
+          (widget.timeOut == null || widget.timeOut == "")) {
+        //have time in but no time out
 
+        buttonText = "Tamat Kerja";
+        buttonColor = const Color(0xffE04141);
+        buttonOverlayColor = red900;
+      } else if ((widget.timeIn == null || widget.timeIn == "") &&
+          (widget.timeOut != null && widget.timeOut != "")) {
+        //have time out but no time in
+
+      }
     }
   }
 

@@ -17,6 +17,8 @@ class TodayTaskCard extends StatefulWidget {
   final String? workTime;
   final String timeIn;
   final String timeOut;
+  final String? selectedDate;
+  final Function(String)? updateSelDate;
   final Function? refresh;
   final GlobalKey<TimeLogButtonState>? timeLogButtonKey;
   final dynamic scheduleData;
@@ -26,6 +28,8 @@ class TodayTaskCard extends StatefulWidget {
     this.workTime,
     required this.timeIn,
     required this.timeOut,
+    this.selectedDate,
+    this.updateSelDate,
     this.refresh,
     this.timeLogButtonKey,
     this.scheduleData,
@@ -57,6 +61,8 @@ class _TodayTaskCardState extends State<TodayTaskCard> {
           timeIn: widget.timeIn,
           timeOut: widget.timeOut,
           workTime: widget.workTime,
+          selectedDate: widget.selectedDate,
+          updateSelDate: widget.updateSelDate,
           refresh: widget.refresh,
           timeLogButtonKey: widget.timeLogButtonKey,
         );
