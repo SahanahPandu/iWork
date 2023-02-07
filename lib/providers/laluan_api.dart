@@ -36,6 +36,7 @@ class LaluanApi {
       var response = await Dio().get(
         '$theBase/task/gw-list',
         queryParameters: {'schedule_date': today},
+        // queryParameters: {'schedule_date': "2023-01-23"},
         options: Options(headers: {
           'authorization': 'Bearer $getAccessToken',
         }),

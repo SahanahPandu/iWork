@@ -65,13 +65,13 @@ class ListOfRoadTextFormField2State extends State<ListOfRoadTextFormField2> {
           errorStyle: const TextStyle(height: 0),
           errorBorder: widget.uiData?['errorBorder'],
         ),
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return '';
-          }
+        // validator: (value) {
+        //   if (value == null || value.isEmpty) {
+        //     return '';
+        //   }
 
-          return null;
-        },
+        //   return null;
+        // },
       ),
     );
   }

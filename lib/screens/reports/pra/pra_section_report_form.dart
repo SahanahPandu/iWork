@@ -19,6 +19,7 @@ import '../../list_of_obstacles/list_of_obstacles.dart';
 import '../../list_of_park/list_of_parks.dart';
 import '../../list_of_road/list_of_road_text_form_field.dart';
 import '../../list_of_sub_routes/list_of_sub_routes_text_form_field.dart';
+import '../../schedule_filter/schedule_filter_list.dart';
 
 class PraSectionReportForm extends StatefulWidget {
   final String screen;
@@ -29,6 +30,7 @@ class PraSectionReportForm extends StatefulWidget {
   final ReportDetailsInfo? data;
   final int? scMainId;
   final Function? updateButton;
+  final String? currNamaLaluan;
 
   const PraSectionReportForm({
     Key? key,
@@ -40,6 +42,7 @@ class PraSectionReportForm extends StatefulWidget {
     this.data,
     this.scMainId,
     this.updateButton,
+    this.currNamaLaluan,
   }) : super(key: key);
 
   @override
@@ -51,6 +54,7 @@ class PraSectionReportFormState extends State<PraSectionReportForm> {
   final TextEditingController namaSubLaluan = TextEditingController();
   TextEditingController catatan = TextEditingController();
   final FocusNode _catatanFocusNode = FocusNode();
+  final scheduleFilterListKey = GlobalKey<ScheduleFilterListState>();
 
   Color textFieldFillColor = Colors.white;
   Color focusBorderColor = focusedBorder;
@@ -97,6 +101,19 @@ class PraSectionReportFormState extends State<PraSectionReportForm> {
         SizedBox(
           height: spacingHeight,
         ),
+        // ScheduleFilterList(
+        //   key: scheduleFilterListKey,
+        //   screen: "report form",
+        //   passData: {
+        //     "date": null,
+        //     "mainRoute": widget.currNamaLaluan,
+        //     "subRoute": null,
+        //     "parkId": null,
+        //     "streetId": null,
+        //     "obstacle": null,
+        //     "statusCode": null,
+        //   },
+        // ),
         //Sub Laluan
         ListOfSubRoutesTextFormField(
           key: widget.subLaluanKey,

@@ -57,13 +57,13 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
           errorBorder: widget.uiData?['errorBorder'],
           disabledBorder: widget.uiData?['disableBorder'],
         ),
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return '';
-          }
+        // validator: (value) {
+        //   if (value == null || value.isEmpty) {
+        //     return '';
+        //   }
 
-          return null;
-        },
+        //   return null;
+        // },
       ),
     );
   }

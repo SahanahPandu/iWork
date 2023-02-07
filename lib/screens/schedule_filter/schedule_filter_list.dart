@@ -96,6 +96,8 @@ class ScheduleFilterListState extends State<ScheduleFilterList> {
   List<ScheduleFilterParks>? senaraiTaman = [];
   List<ScheduleFilterStreets>? senaraiJalan = [];
 
+  bool labelVisibility = true;
+
   //==================== end of variables ======================================
 
   //==================== Methods ===============================================
@@ -144,6 +146,13 @@ class ScheduleFilterListState extends State<ScheduleFilterList> {
         'taman': null,
         'jalan': null,
       };
+    }
+
+    //checking for label visibility
+    if (widget.screen != 'drawer') {
+      setState(() {
+        labelVisibility = false;
+      });
     }
 
     // ignore: unused_local_variable
@@ -429,126 +438,145 @@ class ScheduleFilterListState extends State<ScheduleFilterList> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         //============== Laluan ====================================
-        Text(
-          "Laluan",
-          style: textLabelStyle,
-        ),
-        SizedBox(
-          height: spaceBetweenLabel,
-        ),
-
-        ListOfRoutes(
-          key: laluanKey,
-          uiData: {
-            "style": textFormFieldStyle,
-            "controller": namaLaluan,
-            "fillColor": textFieldFillColor,
-            "hintStyle": hintTextStyle,
-            "clickable": clickable,
-            "labelStyle": textFormFieldLabelStyle,
-            "errorBorder": errorBorderStyle,
-            "disableBorder": disableBorderStyle,
-          },
-          data: senaraiLaluan,
-          updateData: updateFilterItems,
-          resetSelection: resetSelection,
-        ),
+        if (widget.screen != 'report form')
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Laluan",
+                style: textLabelStyle,
+              ),
+              SizedBox(
+                height: spaceBetweenLabel,
+              ),
+              ListOfRoutes(
+                key: laluanKey,
+                uiData: {
+                  "style": textFormFieldStyle,
+                  "controller": namaLaluan,
+                  "fillColor": textFieldFillColor,
+                  "hintStyle": hintTextStyle,
+                  "clickable": clickable,
+                  "labelStyle": textFormFieldLabelStyle,
+                  "errorBorder": errorBorderStyle,
+                  "disableBorder": disableBorderStyle,
+                },
+                data: senaraiLaluan,
+                updateData: updateFilterItems,
+                resetSelection: resetSelection,
+              ),
+            ],
+          ),
 
         //============== end of Laluan =============================
 
         //============== Sub-Laluan ================================
         if (widget.screen != 'drawer')
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (labelVisibility)
                 SizedBox(
                   height: spaceBetweenItem,
                 ),
+              if (labelVisibility)
                 Text(
                   "Sub-Laluan",
                   style: textLabelStyle,
                 ),
-                SizedBox(
-                  height: spaceBetweenLabel,
-                ),
-                ListOfSubRoutes(
-                  uiData: {
-                    "style": textFormFieldStyle,
-                    "controller": namaSubLaluan,
-                    "fillColor": textFieldFillColor,
-                    "hintStyle": hintTextStyle,
-                    "clickable": clickable,
-                    "labelStyle": textFormFieldLabelStyle,
-                    "errorBorder": errorBorderStyle,
-                    "disableBorder": disableBorderStyle,
-                  },
-                  data: senaraiSubLaluan,
-                  updateData: updateFilterItems,
-                  resetSelection: resetSelection,
-                ),
-              ],
-            ),
+              SizedBox(
+                height: spaceBetweenLabel,
+              ),
+              ListOfSubRoutes(
+                uiData: {
+                  "style": textFormFieldStyle,
+                  "controller": namaSubLaluan,
+                  "fillColor": textFieldFillColor,
+                  "hintStyle": hintTextStyle,
+                  "clickable": clickable,
+                  "labelStyle": textFormFieldLabelStyle,
+                  "errorBorder": errorBorderStyle,
+                  "disableBorder": disableBorderStyle,
+                },
+                data: senaraiSubLaluan,
+                updateData: updateFilterItems,
+                resetSelection: resetSelection,
+              ),
+            ],
           ),
 
         //============== end of Sub-Laluan =====================================
-        SizedBox(
-          height: spaceBetweenItem,
-        ),
-        //============== Taman =================================================
-        Text(
-          "Taman",
-          style: textLabelStyle,
-        ),
-        SizedBox(
-          height: spaceBetweenLabel,
-        ),
 
-        ListOfParks2(
-          key: tamanKey,
-          uiData: {
-            "style": textFormFieldStyle,
-            "controller": namaTaman,
-            "fillColor": textFieldFillColor,
-            "hintStyle": hintTextStyle,
-            "clickable": clickable,
-            "labelStyle": textFormFieldLabelStyle,
-            "errorBorder": errorBorderStyle,
-            "disableBorder": disableBorderStyle,
-          },
-          data: senaraiTaman,
-          updateData: updateFilterItems,
-          resetSelection: resetSelection,
+        //============== Taman =================================================
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (labelVisibility)
+              SizedBox(
+                height: spaceBetweenItem,
+              ),
+            if (labelVisibility)
+              Text(
+                "Taman",
+                style: textLabelStyle,
+              ),
+            SizedBox(
+              height: spaceBetweenLabel,
+            ),
+            ListOfParks2(
+              key: tamanKey,
+              uiData: {
+                "style": textFormFieldStyle,
+                "controller": namaTaman,
+                "fillColor": textFieldFillColor,
+                "hintStyle": hintTextStyle,
+                "clickable": clickable,
+                "labelStyle": textFormFieldLabelStyle,
+                "errorBorder": errorBorderStyle,
+                "disableBorder": disableBorderStyle,
+              },
+              data: senaraiTaman,
+              updateData: updateFilterItems,
+              resetSelection: resetSelection,
+            ),
+          ],
         ),
 
         //============== end of Taman =========================================
-        SizedBox(
-          height: spaceBetweenItem,
-        ),
-        //============== Jalan =================================================
-        Text(
-          "Jalan",
-          style: textLabelStyle,
-        ),
-        SizedBox(
-          height: spaceBetweenLabel,
-        ),
 
-        ListOfRoadTextFormField2(
-          key: jalanKey,
-          uiData: {
-            "style": textFormFieldStyle,
-            "controller": namaJalan,
-            "fillColor": textFieldFillColor,
-            "hintStyle": hintTextStyle,
-            "clickable": clickable,
-            "labelStyle": textFormFieldLabelStyle,
-            "errorBorder": errorBorderStyle,
-            "disableBorder": disableBorderStyle,
-          },
-          data: senaraiJalan,
-          updateData: updateFilterItems,
-          resetSelection: resetSelection,
+        //============== Jalan =================================================
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (labelVisibility)
+              SizedBox(
+                height: spaceBetweenItem,
+              ),
+            if (labelVisibility)
+              Text(
+                "Jalan",
+                style: textLabelStyle,
+              ),
+            SizedBox(
+              height: spaceBetweenLabel,
+            ),
+            ListOfRoadTextFormField2(
+              key: jalanKey,
+              uiData: {
+                "style": textFormFieldStyle,
+                "controller": namaJalan,
+                "fillColor": textFieldFillColor,
+                "hintStyle": hintTextStyle,
+                "clickable": clickable,
+                "labelStyle": textFormFieldLabelStyle,
+                "errorBorder": errorBorderStyle,
+                "disableBorder": disableBorderStyle,
+              },
+              data: senaraiJalan,
+              updateData: updateFilterItems,
+              resetSelection: resetSelection,
+            ),
+          ],
         ),
 
         //============== end of Jalan =========================================
