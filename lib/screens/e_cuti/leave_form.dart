@@ -16,6 +16,7 @@ import '../../config/font.dart';
 import '../../config/palette.dart';
 import '../../models/ecuti/ecuti_details.dart';
 import '../../providers/jenis_cuti_api.dart';
+import '../../utils/calendar/date.dart';
 import '../../utils/device/orientations.dart';
 import '../../utils/device/sizes.dart';
 import '../../utils/icon/custom_icon.dart';
@@ -74,8 +75,11 @@ class _LeaveFormState extends State<LeaveForm> {
 
   loadData() {
     // ignore: unnecessary_null_comparison
+
     if (widget.screen == "2") {
+      print('E-Cuti ID: ${widget.data!.id}');
       //from leave list
+
       setState(() {
         formTitle = "Butiran permohonan E-Cuti: ";
         iconCondition = 2; //to disable click
@@ -147,6 +151,7 @@ class _LeaveFormState extends State<LeaveForm> {
             : null;
 
         //catatan
+        print("Catatan: ${widget.data!.remarks}");
         (widget.data!.remarks != "" && widget.data!.remarks != null)
             ? _catatan.text = widget.data!.remarks!
             : null;
@@ -193,50 +198,86 @@ class _LeaveFormState extends State<LeaveForm> {
       attachmentPath = null;
     }
 
-    //post data to the database
-    FormData formData = FormData.fromMap({
-      "leave_type_id": idJenisCuti,
-      "date_leave_from": tarikhMula,
-      "date_leave_to": tarikhTamat,
-      "leave_attachment": attachment != null
-          ? await MultipartFile.fromFile(
-              attachmentPath!,
-              filename: attachment,
-              contentType: MediaType(
-                "image,application",
-                "png,jpeg,pdf",
-              ),
-            )
-          : attachment,
-      "remarks": _catatan.text,
-    });
+    if (widget.screen != "2") {
+      //new e-cuti
+      //post data to the database
+      FormData formData = FormData.fromMap({
+        "leave_type_id": idJenisCuti,
+        "date_leave_from": tarikhMula,
+        "date_leave_to": tarikhTamat,
+        "leave_attachment": attachment != null
+            ? await MultipartFile.fromFile(
+                attachmentPath!,
+                filename: attachment,
+                contentType: MediaType(
+                  "image,application",
+                  "png,jpeg,pdf",
+                ),
+              )
+            : attachment,
+        "remarks": _catatan.text,
+      });
 
-    try {
-      Response response = await Dio().post(
-        '$theBase/attendance/ecuti/new',
-        data: formData,
-        options: Options(headers: {
-          "authorization": "Bearer ${userInfo[1]}",
-          "Content-Type": "multipart/form-data",
-        }),
-      );
+      try {
+        Response response = await Dio().post(
+          '$theBase/attendance/ecuti/new',
+          data: formData,
+          options: Options(headers: {
+            "authorization": "Bearer ${userInfo[1]}",
+            "Content-Type": "multipart/form-data",
+          }),
+        );
 
-      if (response.statusCode == 200) {
-        status = "successed";
-        clearForm();
+        if (response.statusCode == 200) {
+          status = "successed";
+          clearForm();
+        }
+      } on DioError catch (e) {
+        if (e.response?.statusCode == 404) {
+          //Case:The date already taken
+          status = "failed";
+          _tarikhMula.clear();
+          _tarikhTamat.clear();
+
+          setState(() {
+            errorVisibility = true;
+          });
+        }
+        // print(e);
       }
-    } on DioError catch (e) {
-      if (e.response?.statusCode == 404) {
-        //Case:The date already taken
-        status = "failed";
-        _tarikhMula.clear();
-        _tarikhTamat.clear();
+    } else {
+      //update e-cuti
 
-        setState(() {
-          errorVisibility = true;
-        });
+      FormData formData = FormData.fromMap({
+        "leave_id": widget.data!.id,
+        "leave_attachment": attachment != null
+            ? await MultipartFile.fromFile(
+                attachmentPath!,
+                filename: attachment,
+                contentType: MediaType(
+                  "image,application",
+                  "png,jpeg,pdf",
+                ),
+              )
+            : attachment,
+      });
+      try {
+        Response response = await Dio().post(
+          '$theBase/attendance/ecuti/update-leave-attachment',
+          data: formData,
+          options: Options(headers: {
+            "authorization": "Bearer ${userInfo[1]}",
+            "Content-Type": "multipart/form-data",
+          }),
+        );
+
+        if (response.statusCode == 200) {
+          status = "successed";
+          // clearForm();
+        }
+      } on DioError catch (e) {
+        print(e);
       }
-      // print(e);
     }
 
     return status;
@@ -437,7 +478,7 @@ class _LeaveFormState extends State<LeaveForm> {
                                   onTap: () async {
                                     if (widget.screen != "2") {
                                       DateTime? getStartDate =
-                                          await datePicker(context);
+                                          await Date.datePicker(context);
                                       if (getStartDate != null) {
                                         setState(() {
                                           _tarikhMula.text =
@@ -549,7 +590,7 @@ class _LeaveFormState extends State<LeaveForm> {
                                   onTap: () async {
                                     if (widget.screen != "2") {
                                       DateTime? getEndDate =
-                                          await datePicker(context);
+                                          await Date.datePicker(context);
                                       if (getEndDate != null) {
                                         setState(() {
                                           _tarikhTamat.text =
@@ -1098,15 +1139,4 @@ class _LeaveFormState extends State<LeaveForm> {
         });
     return null;
   }
-}
-
-Future datePicker(context) {
-  DateTime current = DateTime.now();
-  return showDatePicker(
-    context: context,
-    initialDate: DateTime.now(),
-    firstDate: DateTime(current.year),
-    lastDate: DateTime(current.year + 5),
-    initialEntryMode: DatePickerEntryMode.calendarOnly,
-  );
 }
