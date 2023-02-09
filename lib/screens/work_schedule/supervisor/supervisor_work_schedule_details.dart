@@ -1,20 +1,25 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 //import files
 import '../../../../config/palette.dart';
-import '../../../../models/laluan.dart';
 import '../../../config/font.dart';
+import '../../../models/schedule/schedule_data_detail_cp_sv/schedule_detail.dart';
+import '../../../models/schedule/supervisor/detail/sv_schedule_detail.dart';
+import '../../../utils/calendar/time.dart';
 import '../../../utils/device/sizes.dart';
 import '../../../utils/icon/custom_icon.dart';
+import '../../../widgets/alert/user_profile_dialog.dart';
+import '../../../widgets/container/staff_stack_container.dart';
 import '../../../widgets/container/status_container.dart';
 
 class SupervisorScheduleDetails extends StatefulWidget {
-  final Laluan data;
+  final SupervisorScheduleDetail? data;
   final bool? button;
 
-  const SupervisorScheduleDetails(
-      {Key? key, required this.data, this.button = false})
+  const SupervisorScheduleDetails({Key? key, this.data, this.button = false})
       : super(key: key);
 
   @override
@@ -24,6 +29,27 @@ class SupervisorScheduleDetails extends StatefulWidget {
 
 class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
   Color expandBgColor = const Color(0xea4a39be);
+
+  String startTime = "--:--";
+
+  String stopTime = "--:--";
+
+  @override
+  void initState() {
+    if (widget.data!.data!.details.startWorkAt == "--:--" ||
+        widget.data!.data!.details.startWorkAt == null) {
+      startTime = "--:--";
+    } else {
+      startTime = Time.convertToHM(widget.data!.data!.details.startWorkAt!);
+    }
+    if (widget.data!.data!.details.stopWorkAt == "--:--" ||
+        widget.data!.data!.details.stopWorkAt == null) {
+      stopTime = "--:--";
+    } else {
+      stopTime = Time.convertToHM(widget.data!.data!.details.stopWorkAt!);
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +63,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Text(
-                widget.data.namaLaluan,
+                widget.data!.data!.details.mainRoute!,
                 style: TextStyle(
                   fontSize: 16,
                   color: white,
@@ -47,8 +73,8 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
             ),
             StatusContainer(
               type: "Laluan",
-              status: widget.data.status,
-              statusId: widget.data.idStatus,
+              status: widget.data!.data!.details.statusCode!.name!,
+              statusId: widget.data!.data!.details.statusCode!.code!,
               fontWeight: statusFontWeight,
               roundedCorner: true,
             ),
@@ -82,7 +108,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                 ],
               ),
               Text(
-                widget.data.noKenderaan,
+                widget.data!.data!.details.vehicleNo!,
                 style: TextStyle(
                   fontSize: 15,
                   color: white,
@@ -119,7 +145,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                 ],
               ),
               Text(
-                "${widget.data.jumSubLaluan}",
+                "${widget.data!.data!.details.totalSubRoute}",
                 style: TextStyle(
                   fontSize: 15,
                   color: white,
@@ -156,7 +182,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                 ],
               ),
               Text(
-                "${widget.data.jumlahTaman}/${widget.data.jumlahJalan}",
+                "${widget.data!.data!.details.totalPark}/${widget.data!.data!.details.totalStreet}",
                 style: TextStyle(
                   fontSize: 15,
                   color: white,
@@ -193,7 +219,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                 ],
               ),
               Text(
-                widget.data.jenisKutipan,
+                widget.data!.data!.details.activityCode!.activityName!,
                 style: TextStyle(
                   fontSize: 15,
                   color: white,
@@ -227,7 +253,7 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                 ],
               ),
               Text(
-                "${widget.data.mulaKerja} / ${widget.data.tamatKerja}",
+                "$startTime/$stopTime",
                 style: TextStyle(
                   fontSize: 15,
                   color: white,
@@ -276,63 +302,8 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
         ),
         //Senarai Staf
         Align(
-          alignment: Alignment.centerRight,
-          child: Container(
-            alignment: Alignment.centerLeft,
-            width: 140,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(10, 0, 10, 15),
-              child: Stack(
-                clipBehavior: Clip.none,
-                fit: StackFit.passthrough,
-                children: [
-                  Positioned(
-                    left: 70,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: CircleAvatar(
-                        backgroundColor: expandBgColor,
-                        radius: 22,
-                        child: CircleAvatar(
-                          backgroundImage:
-                              NetworkImage(widget.data.senaraiStaf.staf3Img),
-                          radius: 20,
-                        ), //CircleAvatar
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 35,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: CircleAvatar(
-                        backgroundColor: expandBgColor,
-                        radius: 22,
-                        child: CircleAvatar(
-                          backgroundImage:
-                              NetworkImage(widget.data.senaraiStaf.staf2Img),
-                          radius: 20,
-                        ), //CircleAvatar
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: CircleAvatar(
-                      backgroundColor: expandBgColor,
-                      radius: 22,
-                      child: CircleAvatar(
-                        backgroundImage:
-                            NetworkImage(widget.data.senaraiStaf.staf1Img),
-                        radius: 20,
-                      ), //CircleAvatar
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
+            alignment: Alignment.centerRight,
+            child: SizedBox(child: buildStackedImages(widget.data))),
 
         widget.button == true
             ? Center(
@@ -363,13 +334,91 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                         style: TextStyle(
                             fontSize: 13, fontWeight: FontWeight.w600)),
                     onPressed: () {
-                      _callNumber(widget.data.leaderContact);
+                      _callNumber("widget.data.leaderContact");
                     },
                   ),
                 ),
               )
             : const SizedBox(height: 4),
       ],
+    );
+  }
+
+  Widget buildStackedImages(SupervisorScheduleDetail? scheduleDetail) {
+    const double size = 56;
+    const double xShift = 10;
+    List userData = [];
+    if (scheduleDetail!.data!.details.workerSchedules!.isNotEmpty) {
+      for (int i = 0;
+          i < scheduleDetail.data!.details.workerSchedules!.length;
+          i++) {
+        userData.add(scheduleDetail.data!.details.workerSchedules![i]);
+      }
+      final items = userData.map((userData) => buildImage(userData)).toList();
+
+      return StaffStackContainer(
+        items: items,
+        size: size,
+        xShift: xShift,
+      );
+    }
+    return Container();
+  }
+
+  Widget buildImage(WorkerSchedule userData) {
+    const double borderSize = 3;
+
+    return ClipOval(
+      child: Container(
+        padding: const EdgeInsets.all(borderSize),
+        color: expandBgColor,
+        child: GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onTap: () {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return showUserProfileDialog(
+                      context,
+                      userData.userId!.userDetail!.profilePic! !=
+                              "http://ems.swmsb.com/uploads/profile/blue.png"
+                          ? userData.userId!.userDetail!.profilePic!
+                          : "https://st3.depositphotos.com/9998432/13335/v/600/depositphotos_133352062-stock-illustration-default-placeholder-profile-icon.jpg",
+                      userData.userId!.userDetail!.name,
+                      "PRA",
+                      userData.userAttendanceId != null
+                          ? userData.userAttendanceId!.clockInAt
+                          : "--:--",
+                      userData.userAttendanceId != null
+                          ? userData.userAttendanceId!.clockOutAt ?? "--:--"
+                          : "--:--",
+                      userData.userId!.userDetail!.loginId);
+                });
+          },
+          child: ClipOval(
+            child: userData.userId!.userDetail!.profilePic !=
+                    "http://ems.swmsb.com/uploads/profile/blue.png"
+                ? Image.network(
+                    userData.userId!.userDetail!.profilePic!,
+                    fit: BoxFit.cover,
+                  )
+                : Container(
+                    color:
+                        Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
+                            .withOpacity(0.5),
+                    child: Center(
+                      child: Text(
+                        userData.userId!.userDetail!.name!.substring(0, 2),
+                        style: const TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white),
+                      ),
+                    ),
+                  ),
+          ),
+        ),
+      ),
     );
   }
 

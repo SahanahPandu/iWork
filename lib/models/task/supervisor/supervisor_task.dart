@@ -11,8 +11,8 @@ class SupervisorTask {
 
   factory SupervisorTask.fromJson(Map<String, dynamic> json) => SupervisorTask(
         data: SvData.fromJson(json["data"]),
-        status: json["status"],
-        message: json["message"],
+        status: json["status"] ?? "",
+        message: json["message"] ?? "",
       );
 
   Map<String, dynamic> toJson() => {
@@ -24,6 +24,7 @@ class SupervisorTask {
 
 class SvData {
   SvData({
+    this.scheduleDate,
     this.startWork,
     this.stopWork,
     this.attendance,
@@ -31,28 +32,168 @@ class SvData {
     this.sah,
   });
 
+  String? scheduleDate;
   String? startWork;
   String? stopWork;
   AttendanceToday? attendance;
-  List<dynamic>? isu;
+  List<Isu>? isu;
   Sah? sah;
 
   factory SvData.fromJson(Map<String, dynamic> json) => SvData(
+        scheduleDate: json["schedule_date"] ?? "",
         startWork: json["start_work"] ?? "",
         stopWork: json["stop_work"] ?? "",
         attendance: json["attendance"] != null
             ? AttendanceToday.fromJson(json["attendance"])
             : null,
-        isu: List<dynamic>.from(json["isu"].map((x) => x)),
+        isu: json["isu"] != null
+            ? List<Isu>.from(json["isu"].map((x) => Isu.fromJson(x)))
+            : [],
         sah: Sah.fromJson(json["sah"]),
       );
 
   Map<String, dynamic> toJson() => {
+        "schedule_date": scheduleDate,
         "start_work": startWork,
         "stop_work": stopWork,
         "attendance": attendance,
         "isu": List<dynamic>.from(isu!.map((x) => x)),
         "sah": sah!.toJson(),
+      };
+}
+
+class Isu {
+  Isu({
+    required this.scMainId,
+    required this.mainRoute,
+    required this.vehicleNo,
+    this.scheduleDate,
+    required this.tabGroupSv,
+    required this.tabSubGroupSv,
+    required this.totalSubRoute,
+    required this.totalPark,
+    required this.totalStreet,
+    required this.superviseBy,
+    required this.statusCode,
+  });
+
+  int scMainId;
+  String mainRoute;
+  String vehicleNo;
+  String? scheduleDate;
+  String tabGroupSv;
+  StatusCode tabSubGroupSv;
+  int totalSubRoute;
+  int totalPark;
+  int totalStreet;
+  SuperviseBy superviseBy;
+  StatusCode statusCode;
+
+  factory Isu.fromJson(Map<String, dynamic> json) => Isu(
+        scMainId: json["sc_main_id"],
+        mainRoute: json["main_route"],
+        vehicleNo: json["vehicle_no"],
+        scheduleDate: json["schedule_date"] ?? "--:--",
+        tabGroupSv: json["tab_group_sv"],
+        tabSubGroupSv: StatusCode.fromJson(json["tab_sub_group_sv"]),
+        totalSubRoute: json["total_sub_route"],
+        totalPark: json["total_park"],
+        totalStreet: json["total_street"],
+        superviseBy: SuperviseBy.fromJson(json["supervise_by"]),
+        statusCode: StatusCode.fromJson(json["status_code"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "sc_main_id": scMainId,
+        "main_route": mainRoute,
+        "vehicle_no": vehicleNo,
+        "tab_group_sv": tabGroupSv,
+        "tab_sub_group_sv": tabSubGroupSv.toJson(),
+        "total_sub_route": totalSubRoute,
+        "total_park": totalPark,
+        "total_street": totalStreet,
+        "supervise_by": superviseBy.toJson(),
+        "status_code": statusCode.toJson(),
+      };
+}
+
+class StatusCode {
+  StatusCode({
+    required this.code,
+    required this.name,
+  });
+
+  String code;
+  String name;
+
+  factory StatusCode.fromJson(Map<String, dynamic> json) => StatusCode(
+        code: json["code"],
+        name: json["name"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "code": code,
+        "name": name,
+      };
+}
+
+class SuperviseBy {
+  SuperviseBy({
+    required this.id,
+    required this.emsUserId,
+    required this.userDetail,
+  });
+
+  int id;
+  int emsUserId;
+  UserDetail userDetail;
+
+  factory SuperviseBy.fromJson(Map<String, dynamic> json) => SuperviseBy(
+        id: json["id"],
+        emsUserId: json["ems_user_id"],
+        userDetail: UserDetail.fromJson(json["user_detail"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "ems_user_id": emsUserId,
+        "user_detail": userDetail.toJson(),
+      };
+}
+
+class UserDetail {
+  UserDetail({
+    required this.id,
+    required this.name,
+    required this.loginId,
+    required this.profilePic,
+    this.email,
+    required this.supervisorId,
+  });
+
+  int id;
+  String name;
+  String loginId;
+  String profilePic;
+  String? email;
+  int supervisorId;
+
+  factory UserDetail.fromJson(Map<String, dynamic> json) => UserDetail(
+        id: json["id"],
+        name: json["name"],
+        loginId: json["login_id"],
+        profilePic: json["profile_pic"],
+        email: json["email"],
+        supervisorId: json["supervisor_id"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "login_id": loginId,
+        "profile_pic": profilePic,
+        "email": email,
+        "supervisor_id": supervisorId,
       };
 }
 
@@ -219,41 +360,5 @@ class UserId {
         "ems_user_id": emsUserId,
         "contractor_user_id": contractorUserId,
         "user_detail": userDetail!.toJson(),
-      };
-}
-
-class UserDetail {
-  UserDetail({
-    this.id,
-    this.name,
-    this.loginId,
-    this.profilePic,
-    this.email,
-    this.supervisorId,
-  });
-
-  int? id;
-  String? name;
-  String? loginId;
-  String? profilePic;
-  String? email;
-  int? supervisorId;
-
-  factory UserDetail.fromJson(Map<String, dynamic> json) => UserDetail(
-        id: json["id"],
-        name: json["name"],
-        loginId: json["login_id"],
-        profilePic: json["profile_pic"],
-        email: json["email"],
-        supervisorId: json["supervisor_id"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "login_id": loginId,
-        "profile_pic": profilePic,
-        "email": email,
-        "supervisor_id": supervisorId,
       };
 }

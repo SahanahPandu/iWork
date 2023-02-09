@@ -4,14 +4,14 @@ import 'package:page_transition/page_transition.dart';
 //import files
 import '../../../../config/font.dart';
 import '../../../../config/palette.dart';
-import '../../../../models/laluan.dart';
+import '../../../../models/task/supervisor/supervisor_task.dart';
 import '../../../../screens/schedule_issue/schedule_issue_main.dart';
-import '../../../../utils/icon/custom_icon.dart';
 import '../../../../utils/device/sizes.dart';
+import '../../../../utils/icon/custom_icon.dart';
 import '../../../container/status_container.dart';
 
 class SupervisorMyTaskListDetails extends StatefulWidget {
-  final Laluan data;
+  final Isu data;
   final bool? button;
 
   const SupervisorMyTaskListDetails(
@@ -30,17 +30,23 @@ class _SupervisorMyTaskListDetailsState
   @override
   void initState() {
     super.initState();
-    _filterTaskIssueText(widget.data.isu);
+    _filterTaskIssueText(widget.data.tabSubGroupSv.code);
   }
 
   _filterTaskIssueText(String issue) {
     switch (issue) {
-      case "kehadiran":
-        return taskIssueText = "Kehadiran";
-      case "belum":
-        return taskIssueText = "Belum Mula Tugas";
-      case "laporan":
-        return taskIssueText = "Laporan Halangan Kerja";
+      case "IHD":
+
+        /// Kehadiran
+        return taskIssueText = widget.data.tabSubGroupSv.name;
+      case "IBMT":
+
+        /// Belum Mula Kerja
+        return taskIssueText = widget.data.tabSubGroupSv.name;
+      case "ILHK":
+
+        /// Laporan Halangan Kerja
+        return taskIssueText = widget.data.tabSubGroupSv.name;
     }
     return taskIssueText;
   }
@@ -60,7 +66,7 @@ class _SupervisorMyTaskListDetailsState
                   padding:
                       const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
                   child: Text(
-                    widget.data.namaLaluan,
+                    widget.data.mainRoute,
                     style: TextStyle(
                         fontSize: 16,
                         color: blackCustom,
@@ -69,8 +75,8 @@ class _SupervisorMyTaskListDetailsState
                 ),
                 StatusContainer(
                   type: "Laluan",
-                  status: widget.data.status,
-                  statusId: widget.data.idStatus,
+                  status: widget.data.statusCode.name,
+                  statusId: widget.data.statusCode.code,
                   fontWeight: statusFontWeight,
                 ),
               ],
@@ -102,7 +108,7 @@ class _SupervisorMyTaskListDetailsState
                     ],
                   ),
                   Text(
-                    widget.data.noKenderaan,
+                    widget.data.vehicleNo,
                     style: TextStyle(
                       fontSize: 15,
                       color: blackCustom,
@@ -139,7 +145,7 @@ class _SupervisorMyTaskListDetailsState
                     ],
                   ),
                   Text(
-                    "${widget.data.jumSubLaluan}",
+                    "${widget.data.totalSubRoute}",
                     style: TextStyle(
                       fontSize: 15,
                       color: blackCustom,
@@ -177,7 +183,7 @@ class _SupervisorMyTaskListDetailsState
                     ],
                   ),
                   Text(
-                    "${widget.data.jumlahTaman}/${widget.data.jumlahJalan}",
+                    "${widget.data.totalPark}/${widget.data.totalStreet}",
                     style: TextStyle(
                       fontSize: 15,
                       color: blackCustom,
@@ -189,7 +195,7 @@ class _SupervisorMyTaskListDetailsState
             ),
           ],
         ),
-        widget.button == true && widget.data.isu != ""
+        widget.button == true && widget.data.tabSubGroupSv.code != ""
             ? Container(
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(18),
@@ -218,7 +224,7 @@ class _SupervisorMyTaskListDetailsState
                             type: PageTransitionType.fade,
                             child: ScheduleIssueMainScreen(
                                 laluanData: widget.data,
-                                issueType: widget.data.isu)));
+                                issueType: widget.data.tabSubGroupSv.code)));
                   },
                 ),
               )

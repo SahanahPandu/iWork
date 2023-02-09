@@ -62,7 +62,8 @@ class ApiError {
       /// Client Error Response 7. 405: Method not found
       else if (e.response!.statusCode == 405) {
         dioError.value = 7;
-        message = "Terdapat masalah kod 405.";
+        message = "Tamat tempoh akses. Sila log masuk semula";
+        Auth.clearUserData(context);
       }
 
       /// Client Error Response 8. 500: Internal Server Error
@@ -74,13 +75,16 @@ class ApiError {
       /// Client Error Response 9. 502: Bad Getaway
       else if (e.response!.statusCode == 502) {
         dioError.value = 9;
-        message = "Terdapat masalah 502 pada server. Sila hubungi jabatan IT anda.";
+        message =
+            "Terdapat masalah 502 pada server. Sila hubungi jabatan IT anda.";
       } else {
         message = message + e.message;
+        dioError.value = 11;
       }
     } else {
       message = message + e.message;
+      dioError.value = 12;
     }
-    showErrorToast(context, message);
+    showErrorToast(context, message, height: 16);
   }
 }

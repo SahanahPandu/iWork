@@ -52,8 +52,13 @@ class TimeLogButtonState extends State<TimeLogButton> {
 
   loadButton() {
     String todayDate = Date.getTheDate(DateTime.now(), "", "yyyy-MM-dd", "ms");
+    if ((userRole == 200 && widget.selectedDate != todayDate) ||
 
-    if (widget.selectedDate != todayDate) {
+        /// User selected other date & selected date is not today for cp || sv
+        (otherDate && selectedNewDate != '') ||
+
+        /// Task data failed to be fetched from server
+        (!isTaskDataFetched)) {
       //selected date is back dated or future date
       //need to disable the button
       buttonText = "Masuk Kerja";
@@ -63,10 +68,7 @@ class TimeLogButtonState extends State<TimeLogButton> {
       buttonOverlayColor = const Color(0xffD9D9D9);
     } else {
       if ((widget.timeIn != null && widget.timeIn != "") &&
-              (widget.timeOut != null && widget.timeOut != "") ||
-
-          /// User selected other date & selected date is not today
-          (otherDate && selectedNewDate != '')) {
+          (widget.timeOut != null && widget.timeOut != "")) {
         //have time in and time out
         buttonText = "Masuk Kerja";
         buttonColor = const Color(0xffD9D9D9);

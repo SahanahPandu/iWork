@@ -153,15 +153,17 @@ class _LoginScreenState extends State<LoginScreen> {
             context, '/home', ModalRoute.withName('/home'));
         showSnackBar(context, loginSuccess, const Duration(seconds: 2));
       } else if (validateResult == 2) {
+        /// Invalid staff id or password
         showErrorToast(context, loginFail);
       } else if (validateResult == 5) {
+        /// Device ID is new (not registered before) and staff ID is not same
         showDialog(
             context: context,
             builder: (BuildContext context) {
               return showAlertDialog(
                   context,
                   confirmation,
-                  "ID peranti yang didaftar anda tidak sama. Adakah anda pasti ini peranti baru anda?",
+                  "ID peranti yang didaftar untuk ID staf anda tidak sama. Adakah anda pasti ini peranti baru anda?",
                   cancel,
                   yes);
             }).then((actionText) async {
@@ -188,6 +190,10 @@ class _LoginScreenState extends State<LoginScreen> {
         });
         //showErrorToast(context, "ID peranti anda tidak sama!");
       } else if (validateResult == 7) {
+        /// Device is already registered. User need to login using their own device
+        showErrorToast(context,
+            "ID peranti tidah sah. Sila cuba log masuk menggunakan peranti anda!", height: 16);
+      } else if (validateResult == 8) {
         showErrorToast(context, "ID anda tidak sah. Sila cuba semula!");
       } else if (validateResult != 1 ||
           validateResult != 2 ||

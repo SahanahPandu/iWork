@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 //import files
 import '../../../../config/palette.dart';
 import '../../../config/font.dart';
+import '../../../models/schedule/schedule_details.dart';
 import '../../../utils/icon/custom_icon.dart';
 import '../../../widgets/container/status_container.dart';
-import '../../../models/schedule/schedule_details.dart';
 
 class PraWorkScheduleDetails extends StatefulWidget {
   final ScheduleDetails? data;
@@ -53,8 +53,8 @@ class _PraWorkScheduleDetailsState extends State<PraWorkScheduleDetails> {
                 status: widget.data?.statusCode?.name != null
                     ? widget.data!.statusCode!.name
                     : "Sedang Bertugas",
-                statusId: widget.data?.statusCode != null
-                    ? widget.data!.statusCode
+                statusId: widget.data?.statusCode!.code != null
+                    ? widget.data!.statusCode!.code
                     : "SBT",
                 fontWeight: statusFontWeight,
                 roundedCorner: true,
@@ -93,9 +93,7 @@ class _PraWorkScheduleDetailsState extends State<PraWorkScheduleDetails> {
                   ],
                 ),
                 Text(
-                  widget.data?.vehicleNo != null
-                      ? widget.data!.vehicleNo
-                      : "Vehicle",
+                  widget.data?.vehicleNo != null ? widget.data!.vehicleNo : "-",
                   style: TextStyle(
                     fontSize: 15,
                     color: white,
@@ -137,7 +135,7 @@ class _PraWorkScheduleDetailsState extends State<PraWorkScheduleDetails> {
                   ],
                 ),
                 Text(
-                  "${widget.data?.totalSubRoute != null ? widget.data!.totalSubRoute : "Total Sub Route"}",
+                  "${widget.data?.totalSubRoute != null ? widget.data!.totalSubRoute : "-"}",
                   style: TextStyle(
                     fontSize: 15,
                     color: white,
@@ -179,7 +177,7 @@ class _PraWorkScheduleDetailsState extends State<PraWorkScheduleDetails> {
                   ],
                 ),
                 Text(
-                  "${widget.data?.totalPark != null ? widget.data!.totalPark : "Total Park"}/${widget.data?.totalStreet != null ? widget.data!.totalStreet : "Total Street"}",
+                  "${widget.data?.totalPark != null ? widget.data!.totalPark : "-"}/${widget.data?.totalStreet != null ? widget.data!.totalStreet : "-"}",
                   style: TextStyle(
                     fontSize: 15,
                     color: white,
@@ -223,7 +221,7 @@ class _PraWorkScheduleDetailsState extends State<PraWorkScheduleDetails> {
                 Text(
                   widget.data?.activityCode?.activityName != null
                       ? widget.data!.activityCode!.activityName
-                      : "activity",
+                      : "-",
                   style: TextStyle(
                     fontSize: 15,
                     color: white,

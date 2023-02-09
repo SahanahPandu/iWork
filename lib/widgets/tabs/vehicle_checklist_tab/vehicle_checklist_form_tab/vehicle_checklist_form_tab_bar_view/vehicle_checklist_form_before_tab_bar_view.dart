@@ -28,8 +28,8 @@ class _VehicleChecklistFormBeforeTabbarViewState
   @override
   void initState() {
     if (widget.vcListData == null) {
-      if (widget.compactorData!.data!.vehicleChecklistId != null) {
-        vcId = widget.compactorData!.data!.vehicleChecklistId!.id;
+      if (widget.compactorData!.data.vehicleChecklistId != null) {
+        vcId = widget.compactorData!.data.vehicleChecklistId!.id;
         emptyVC = false;
       } else {
         emptyVC = true;

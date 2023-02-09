@@ -189,7 +189,7 @@ class _VehicleChecklistFormTabState extends State<VehicleChecklistFormTab>
                             if ((vcStatus == 1 ||
                                     vcStatus == 2 ||
                                     vcStatus == 3) &&
-                                widget.compactorData!.data!.vehicleChecklistId!
+                                widget.compactorData!.data.vehicleChecklistId!
                                         .statusCode!.code ==
                                     "VC1") {
                               _tabController.index = 0;

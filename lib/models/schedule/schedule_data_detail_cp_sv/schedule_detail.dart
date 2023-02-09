@@ -1,44 +1,3 @@
-class CScheduleDetail {
-  CScheduleDetail({
-    this.data,
-    this.status,
-    this.message,
-  });
-
-  Data? data;
-  String? status;
-  dynamic message;
-
-  factory CScheduleDetail.fromJson(Map<String, dynamic> json) =>
-      CScheduleDetail(
-        data: Data.fromJson(json["data"]),
-        status: json["status"],
-        message: json["message"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "data": data!.toJson(),
-        "status": status,
-        "message": message,
-      };
-}
-
-class Data {
-  Data({
-    this.details,
-  });
-
-  Details? details;
-
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
-        details: Details.fromJson(json["details"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "details": details!.toJson(),
-      };
-}
-
 class Details {
   Details({
     this.id,
@@ -61,7 +20,7 @@ class Details {
   int? id;
   String? vehicleNo;
   String? mainRoute;
-  DateTime? scheduleDate;
+  String? scheduleDate;
   ActivityCode? activityCode;
   String? startScheduleAt;
   String? stopScheduleAt;
@@ -78,7 +37,7 @@ class Details {
         id: json["id"],
         vehicleNo: json["vehicle_no"],
         mainRoute: json["main_route"],
-        scheduleDate: DateTime.parse(json["schedule_date"]),
+        scheduleDate: json["schedule_date"],
         activityCode: ActivityCode.fromJson(json["activity_code"]),
         startScheduleAt: json["start_schedule_at"] ?? "--:--",
         stopScheduleAt: json["stop_schedule_at"] ?? "--:--",

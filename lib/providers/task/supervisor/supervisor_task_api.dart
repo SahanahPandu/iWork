@@ -14,7 +14,7 @@ import '../../http/service/http_service.dart';
 class SupervisorTaskApi {
   static Future<SupervisorTask> getSupervisorTaskData(
       BuildContext context) async {
-    late SupervisorTask dataSchedule;
+    SupervisorTask dataSchedule = SupervisorTask(data: SvData(), status: "");
     String? getAccessToken = userInfo[1];
     DateTime getTodayDate = DateTime.now();
     String currentDate = (selectedNewDate != "" && otherDate == true)

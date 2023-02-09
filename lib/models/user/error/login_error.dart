@@ -11,7 +11,7 @@ class LoginError {
   dynamic data;
   String status;
   String message;
-  String? errorStr;
+  dynamic errorStr;
 
   factory LoginError.fromJson(Map<String, dynamic> json) => LoginError(
         data: json["data"],

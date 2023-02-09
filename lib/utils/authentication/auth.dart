@@ -24,7 +24,7 @@ class Auth {
         return await _getLoginResponse(id, password, 2, userDeviceId);
       } else {
         /// Mobile user ID not SWxxxxxx or CSWMxxxxxx
-        return loginStatus = 7;
+        return loginStatus = 8;
       }
     }
     return 0;
@@ -82,6 +82,8 @@ class Auth {
       return loginStatus = 5;
     } else if (result == 'token_ng') {
       return loginStatus = 6;
+    } else if (result == 'device_registered') {
+      return loginStatus = 7;
     } else {
       return loginStatus = 0;
     }

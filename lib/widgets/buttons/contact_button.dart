@@ -5,11 +5,11 @@ import 'package:url_launcher/url_launcher.dart';
 //import files
 import '../../config/config.dart';
 import '../../config/palette.dart';
-import '../../models/laluan.dart';
+import '../../models/task/supervisor/supervisor_task.dart';
 import '../container/bubble_shape_container.dart';
 
 class ContactButton extends StatefulWidget {
-  final Laluan? data;
+  final Isu? data;
 
   const ContactButton({Key? key, required this.data}) : super(key: key);
 
@@ -96,7 +96,7 @@ class _ContactButtonState extends State<ContactButton>
                         color: white,
                         iconSize: 18,
                         onPressed: () {
-                          _callNumber(widget.data!.leaderContact);
+                          _callNumber("0142612967");
                         },
                         icon: const Icon(
                           Icons.wifi_calling_3_rounded,

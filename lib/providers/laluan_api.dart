@@ -12,6 +12,8 @@ import '../config/config.dart';
 import '../models/laluan.dart';
 import '../models/task/pra/task_data.dart';
 import '../utils/calendar/date.dart';
+import 'http/error/api_error.dart';
+import 'http/service/http_header.dart';
 
 DateTime getTodayDate = DateTime.now();
 String today = Date.getTheDate(getTodayDate, '', "yyyy-MM-dd", null);
@@ -26,7 +28,7 @@ class LaluanApi {
     return data.map<Laluan>(Laluan.fromJson).toList();
   }
 
-  static Future<List<TaskList>>? getDataLaluan(selDate) async {
+  static Future<List<TaskList>>? getDataLaluan(context, selDate) async {
     print('Token: ${userInfo[1]}');
     List<TaskList> decodeBody = [];
 
@@ -35,9 +37,7 @@ class LaluanApi {
       var response = await Dio().get(
         '$theBase/task/gw-list',
         queryParameters: {'schedule_date': selDate},
-        options: Options(headers: {
-          'authorization': 'Bearer ${userInfo[1]}',
-        }),
+        options: HttpHeader.getApiHeader(userInfo[1]),
       );
 
       if (response.statusCode == 200) {
@@ -55,8 +55,8 @@ class LaluanApi {
 
         }
       }
-    } catch (e) {
-      print(e);
+    } on DioError catch (e) {
+      ApiError.findDioError(e, context);
     }
     return decodeBody;
   }
@@ -70,9 +70,7 @@ class LaluanApi {
       var response = await Dio().get(
         '$theBase/task/gw-list',
         queryParameters: {'schedule_date': selDate},
-        options: Options(headers: {
-          'authorization': 'Bearer ${userInfo[1]}',
-        }),
+        options: HttpHeader.getApiHeader(userInfo[1]),
       );
 
       if (response.statusCode == 200) {
@@ -86,7 +84,7 @@ class LaluanApi {
         }
       }
     } on DioError catch (e) {
-      print("The error: $e");
+      ApiError.findDioError(e, context);
     }
 
     return theTime;

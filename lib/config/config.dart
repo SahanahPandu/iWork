@@ -87,7 +87,8 @@ bool completedFirstVc = false;
 bool completedSecondVc = false;
 
 /// ** Schedule Listing Condition **
-bool isScheduleListExist = false;
+bool isTaskDataFetched = false;
+bool isTaskExist = false;
 bool onGoingTask = false;
 bool otherDate = false;
 int listLength = 0;

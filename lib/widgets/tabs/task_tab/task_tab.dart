@@ -1,16 +1,23 @@
+import 'package:eswm/utils/device/sizes.dart';
 import 'package:flutter/material.dart';
 
 //import files
+import '../../../config/config.dart';
 import '../../../config/palette.dart';
+import '../../../config/resource.dart';
+import '../../../models/task/supervisor/supervisor_task.dart';
 import '../../../screens/schedule_verification/schedule_verification_main.dart';
-import '../../listview/card_list_view.dart';
+import '../../../utils/icon/custom_icon.dart';
+import '../../cards/list_card.dart';
 
 /// temporarily disable tabBarView
 //import 'supervisor/issue_tab_bar_view.dart';
 //import 'supervisor/verification_tab_bar_view.dart';
 
 class TaskStackOverTab extends StatefulWidget {
-  const TaskStackOverTab({Key? key}) : super(key: key);
+  final SupervisorTask? scheduleData;
+
+  const TaskStackOverTab({Key? key, this.scheduleData}) : super(key: key);
 
   @override
   TaskStackOverTabState createState() => TaskStackOverTabState();
@@ -92,23 +99,88 @@ class TaskStackOverTabState extends State<TaskStackOverTab>
             valueListenable: defaultTab,
             builder: (BuildContext context, value, Widget? child) {
               if (value == true) {
-                /// Issue cards listing
-                return Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 5),
-                  constraints: const BoxConstraints(minHeight: 500),
-                  child: Column(
-                    children: const [
-                      SizedBox(height: 10),
-                      CardListView(type: 'Laluan', screens: "isu"),
-                    ],
-                  ),
-                );
+                if (isTaskDataFetched) {
+                  if (widget.scheduleData!.data.isu!.isNotEmpty) {
+                    isTaskExist = true;
+
+                    /// Issue cards listing
+                    return Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                      constraints: const BoxConstraints(minHeight: 310),
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 10),
+                          ListView.builder(
+                            physics: const ScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: widget.scheduleData!.data.isu!.length,
+                            itemBuilder: (context, index) {
+                              return ListCard(
+                                data: widget.scheduleData!.data.isu![index],
+                                type: "Laluan",
+                                screen: "isu",
+                                listIndex: index,
+                              );
+                            },
+                          ),
+                          //CardListView(type: 'Laluan', passData: widget.scheduleData, screens: "isu"),
+                        ],
+                      ),
+                    );
+                  } else {
+                    isTaskExist = false;
+                    return Center(
+                      child: Container(
+                        margin: const EdgeInsets.all(20),
+                        constraints: const BoxConstraints(minHeight: 500),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(CustomIcon.exclamation,
+                                color: Colors.orange, size: 14),
+                            const SizedBox(width: 10),
+                            Text("Tiada isu untuk diambil tindakan.",
+                                style: TextStyle(color: grey500)),
+                          ],
+                        ),
+                      ),
+                    );
+                  }
+                } else {
+                  return displayOpsButton(context);
+                }
               } else {
-                /// Verification cards listing
-                return Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 5),
-                    color: white,
-                    child: const ScheduleVerificationMain());
+                if (isTaskDataFetched) {
+                  if (widget.scheduleData!.data.sah != null) {
+                    isTaskExist = true;
+
+                    /// Verification cards listing
+                    return Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                        color: white,
+                        child: const ScheduleVerificationMain());
+                  } else {
+                    isTaskExist = false;
+                    return Center(
+                      child: Container(
+                        margin: const EdgeInsets.all(20),
+                        constraints: const BoxConstraints(minHeight: 500),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(CustomIcon.exclamation,
+                                color: Colors.orange, size: 14),
+                            const SizedBox(width: 10),
+                            Text("Tiada tugasan untuk disah",
+                                style: TextStyle(color: grey500)),
+                          ],
+                        ),
+                      ),
+                    );
+                  }
+                } else {
+                  return displayOpsButton(context);
+                }
               }
             }),
 
@@ -130,6 +202,55 @@ class TaskStackOverTabState extends State<TaskStackOverTab>
           ),
         ),*/
       ],
+    );
+  }
+
+  Container displayOpsButton(BuildContext context) {
+    return Container(
+      constraints: BoxConstraints(
+          minHeight: (Sizes().screenHeight(context) * 0.48) - kToolbarHeight),
+      //height: (Sizes().screenHeight(context) * 0.5) - kToolbarHeight,
+      child: Center(
+        child: Column(
+          children: [
+            SizedBox(height: 78, width: 78, child: Image.asset(opsImg)),
+            SizedBox(
+              height: 40,
+              width: 180,
+              child: TextButton(
+                style: ButtonStyle(
+                    elevation: MaterialStateProperty.all(0),
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12)),
+                    ),
+                    overlayColor: MaterialStateColor.resolveWith(
+                        (states) => const Color(0x0f0c057a)),
+                    backgroundColor: MaterialStateProperty.all(transparent)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Sila Muat Semula",
+                      style: TextStyle(
+                          color: grey500,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400),
+                    ),
+                    const SizedBox(width: 8),
+                    Icon(Icons.refresh, size: 18, color: blue),
+                  ],
+                ),
+                onPressed: () {
+                  setState(() {
+                    refresh.value = !refresh.value;
+                  });
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

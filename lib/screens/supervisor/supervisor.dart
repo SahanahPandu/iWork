@@ -8,6 +8,8 @@ import '../../config/resource.dart';
 import '../../models/task/supervisor/supervisor_task.dart';
 import '../../providers/task/supervisor/supervisor_task_api.dart';
 import '../../utils/calendar/date.dart';
+import '../../utils/calendar/time.dart';
+import '../../widgets/alert/toast.dart';
 import '../../widgets/cards/today_task/today_task_card.dart';
 import '../../widgets/slivers/expand_collapse_header/expand_collapse_header.dart';
 import '../../widgets/tabs/task_tab/task_tab.dart';
@@ -46,87 +48,121 @@ class _SupervisorState extends State<Supervisor> {
         valueListenable: refresh,
         builder: (BuildContext context, value, Widget? child) {
           if (value == refresh.value) {
-            return FutureBuilder<SupervisorTask?>(
-                future: SupervisorTaskApi.getSupervisorTaskData(context),
-                builder: (context, snapshot) {
-                  switch (snapshot.connectionState) {
-                    case ConnectionState.waiting:
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    default:
-                      if (snapshot.hasError) {
-                        return Center(
-                          child: Column(
-                            children: [
-                              const SizedBox(height: 200),
-                              SizedBox(
-                                  height: 78,
-                                  width: 78,
-                                  child: Image.asset(opsImg)),
-                              SizedBox(
-                                height: 40,
-                                width: 200,
-                                child: TextButton(
-                                  style: ButtonStyle(
-                                      elevation: MaterialStateProperty.all(0),
-                                      shape: MaterialStateProperty.all(
-                                        RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(12)),
-                                      ),
-                                      overlayColor:
-                                          MaterialStateColor.resolveWith(
-                                              (states) =>
-                                                  const Color(0x0f0c057a)),
-                                      backgroundColor:
-                                          MaterialStateProperty.all(
-                                              transparent)),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        "Sila Muat Semula",
-                                        style: TextStyle(
-                                            color: white,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w500),
-                                      ),
-                                      const SizedBox(width: 10),
-                                      Icon(Icons.refresh,
-                                          size: 20, color: white),
-                                    ],
-                                  ),
-                                  onPressed: () {
-                                    setState(() {
-                                      refresh.value = !refresh.value;
-                                    });
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
+            return RefreshIndicator(
+              color: grey,
+              displacement: 20,
+              edgeOffset: 40,
+              strokeWidth: 3,
+              backgroundColor: const Color(0xa5ffffff),
+              onRefresh: () {
+                return Future.delayed(
+                  const Duration(milliseconds: 500),
+                  () {
+                    setState(() {
+                      refresh.value = !refresh.value;
+                    });
+                    isTaskDataFetched
+                        ? showInfoToast(
+                            context, "Halaman berjaya dimuat semula!")
+                        : null;
+                  },
+                );
+              },
+              child: FutureBuilder<SupervisorTask?>(
+                  future: SupervisorTaskApi.getSupervisorTaskData(context),
+                  builder: (context, snapshot) {
+                    switch (snapshot.connectionState) {
+                      case ConnectionState.waiting:
+                        return const Center(
+                          child: CircularProgressIndicator(),
                         );
-                      } else {
-                        if (snapshot.hasData) {
-                          scheduleData = snapshot.data!;
-                          return ExpandCollapseHeader(
-                              centerTitle: false,
-                              title: _collapseTitle(),
-                              alwaysShowLeadingAndAction: false,
-                              headerWidget: _header(context),
-                              collapseHeight: 85,
-                              fullyStretchable: true,
-                              body: [
-                                _scrollBody(),
+                      default:
+                        if (snapshot.hasError) {
+                          return Center(
+                            child: Column(
+                              children: [
+                                const SizedBox(height: 200),
+                                SizedBox(
+                                    height: 78,
+                                    width: 78,
+                                    child: Image.asset(opsImg)),
+                                SizedBox(
+                                  height: 40,
+                                  width: 200,
+                                  child: TextButton(
+                                    style: ButtonStyle(
+                                        elevation: MaterialStateProperty.all(0),
+                                        shape: MaterialStateProperty.all(
+                                          RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(12)),
+                                        ),
+                                        overlayColor:
+                                            MaterialStateColor.resolveWith(
+                                                (states) =>
+                                                    const Color(0x0f0c057a)),
+                                        backgroundColor:
+                                            MaterialStateProperty.all(
+                                                transparent)),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "Sila Muat Semula",
+                                          style: TextStyle(
+                                              color: white,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                        const SizedBox(width: 10),
+                                        Icon(Icons.refresh,
+                                            size: 20, color: white),
+                                      ],
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        refresh.value = !refresh.value;
+                                      });
+                                    },
+                                  ),
+                                ),
                               ],
-                              backgroundColor: transparent,
-                              appBarColor: const Color(0xff2b7fe8));
+                            ),
+                          );
+                        } else {
+                          if (snapshot.hasData) {
+                            scheduleData = snapshot.data!;
+
+                            /// Failed to fetch data from internet
+                            if (scheduleData!.data.startWork == null &&
+                                scheduleData!.data.stopWork == null &&
+                                scheduleData!.data.isu == null &&
+                                scheduleData!.data.sah == null &&
+                                scheduleData!.status == "" &&
+                                dioError.value != 0) {
+                              isTaskDataFetched = false;
+                            } else {
+                              isTaskDataFetched = true;
+                            }
+                            return ExpandCollapseHeader(
+                                centerTitle: false,
+                                title: _collapseTitle(),
+                                alwaysShowLeadingAndAction: false,
+                                headerWidget: _header(context),
+                                collapseHeight: 85,
+                                fullyStretchable: true,
+                                body: [
+                                  _scrollBody(scheduleData),
+                                ],
+                                backgroundColor: transparent,
+                                appBarColor: const Color(0xff2b7fe8));
+                          }
                         }
-                      }
-                  }
-                  return Container();
-                });
+                    }
+                    return Container();
+                  }),
+            );
           } else {
             return Center(
               child: SizedBox(
@@ -168,9 +204,10 @@ class _SupervisorState extends State<Supervisor> {
         });
   }
 
-  SafeArea _scrollBody() {
+  SafeArea _scrollBody(SupervisorTask? scheduleData) {
     return SafeArea(
-        child: Container(color: white, child: const TaskStackOverTab()));
+        child: Container(
+            color: white, child: TaskStackOverTab(scheduleData: scheduleData)));
   }
 
   Row _collapseTitle() {
@@ -195,18 +232,24 @@ class _SupervisorState extends State<Supervisor> {
               height: 10,
             ),
             Text(
-              "Tugasan Hari Ini (9.00 pg - 5.00 ptg)",
+              Time.getTodayTaskTimeForCollapseHeader(
+                  scheduleData!.data.startWork != ""
+                      ? scheduleData!.data.startWork!
+                      : "--:--",
+                  scheduleData!.data.stopWork != ""
+                      ? scheduleData!.data.stopWork!
+                      : "--:--"),
               style: TextStyle(
                 color: white,
                 fontWeight: FontWeight.w400,
-                fontSize: 15,
+                fontSize: 14,
               ),
             ),
             const SizedBox(
               height: 5,
             ),
             Text(
-              Date.getTheDate(DateTime.now(), '', "dd/MM/yyyy", 'ms'),
+              _getTodayDateForCollapseHeader(),
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
@@ -277,5 +320,14 @@ class _SupervisorState extends State<Supervisor> {
         ],
       ),
     );
+  }
+
+  String _getTodayDateForCollapseHeader() {
+    if (otherDate && selectedNewDate != '') {
+      return Date.getTheDate(
+          DateTime.parse(selectedNewDate), '', 'dd MMMM yyyy', 'ms');
+    } else {
+      return Date.getTheDate(DateTime.now(), '', 'dd MMMM yyyy', 'ms');
+    }
   }
 }

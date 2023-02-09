@@ -13,7 +13,8 @@ showUserProfileDialog(BuildContext context, String photo,
     [String? name = "",
     String? role = "",
     String? clockIn = "--:--",
-    String? clockOut = "--:--"]) {
+    String? clockOut = "--:--",
+    String? id = ""]) {
   return AlertDialog(
     title: Align(
       alignment: Alignment.topRight,
@@ -106,7 +107,11 @@ showUserProfileDialog(BuildContext context, String photo,
                 )
               ],
             ),
-          )
+          ),
+          Text(id!,style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+              color: greyCustom))
         ],
       ),
     ),

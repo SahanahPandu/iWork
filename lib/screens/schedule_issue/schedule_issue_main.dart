@@ -3,14 +3,14 @@ import 'package:flutter/services.dart';
 
 //import files
 import '../../config/palette.dart';
-import '../../models/laluan.dart';
+import '../../models/task/supervisor/supervisor_task.dart';
 import '../../utils/device/sizes.dart';
 import '../../utils/icon/custom_icon.dart';
 import '../../widgets/buttons/sahkan_ganti_pekerja.dart';
 import 'schedule_issue_detail.dart';
 
 class ScheduleIssueMainScreen extends StatefulWidget {
-  final Laluan? laluanData;
+  final Isu? laluanData;
   final String issueType;
 
   const ScheduleIssueMainScreen(
@@ -95,7 +95,9 @@ class _ScheduleIssueMainScreen extends State<ScheduleIssueMainScreen> {
               getInfo: widget.laluanData!,
               getIssue: widget.issueType,
             )),
-        bottomNavigationBar: widget.issueType == "kehadiran"
+        bottomNavigationBar: widget.issueType == "IHD"
+
+            /// kehadiran
             ? SizedBox(
                 height: Sizes().screenHeight(context) * 0.1,
                 child: const BottomAppBar(
@@ -115,13 +117,13 @@ class _ScheduleIssueMainScreen extends State<ScheduleIssueMainScreen> {
 
   void _filterIssueType() {
     switch (widget.issueType) {
-      case "kehadiran":
+      case "IHD":
         issueTypeStr = "Kehadiran";
         break;
-      case "laporan":
+      case "ILHK":
         issueTypeStr = "Laporan";
         break;
-      case "belum":
+      case "IBMT":
         issueTypeStr = "Perincian Laluan";
         break;
     }

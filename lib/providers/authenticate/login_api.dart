@@ -63,7 +63,8 @@ class LoginApi {
         case 422:
           if (LoginError.fromJson(json.decode(response.body)).message ==
               "Validation Failed") {
-            return 'ng';
+            /// device is already registered with other id
+            return 'device_registered';
           }
           return 'ng';
 

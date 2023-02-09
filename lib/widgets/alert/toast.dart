@@ -10,40 +10,43 @@ import '../../utils/device/orientations.dart';
 import '../../utils/device/sizes.dart';
 
 void showSuccessToast(BuildContext context, String message,
-    {bool shouldDismiss = true}) {
+    {bool shouldDismiss = true, double height = 18}) {
   Timer.run(() => _showToast(
       context,
       message,
       const Color.fromRGBO(91, 180, 107, 1),
       CupertinoIcons.check_mark_circled_solid,
       white,
-      shouldDismiss));
+      shouldDismiss,
+      height));
 }
 
 void showInfoToast(BuildContext context, String message,
-    {bool shouldDismiss = true}) {
+    {bool shouldDismiss = true, double height = 18}) {
   Timer.run(() => _showToast(
       context,
       message,
       const Color.fromRGBO(82, 186, 218, 0.9372549019607843),
       Icons.info_outline,
       white,
-      shouldDismiss));
+      shouldDismiss,
+      height));
 }
 
 void showErrorToast(BuildContext context, String message,
-    {bool shouldDismiss = true}) {
+    {bool shouldDismiss = true, double height = 18}) {
   Timer.run(() => _showToast(
       context,
       message,
       const Color.fromRGBO(204, 76, 76, 0.8745098039215686),
       Icons.error_outline,
       white,
-      shouldDismiss));
+      shouldDismiss,
+      height));
 }
 
 void _showToast(BuildContext context, String message, Color color,
-    IconData icon, Color iconColor, bool shouldDismiss) {
+    IconData icon, Color iconColor, bool shouldDismiss, double height) {
   showGeneralDialog(
       context: context,
       barrierDismissible: false,
@@ -78,7 +81,7 @@ void _showToast(BuildContext context, String message, Color color,
                         : Sizes().screenWidth(context) - 50,
                     height: Orientations().isLandscape(context)
                         ? Sizes().screenHeight(context) / 12
-                        : Sizes().screenHeight(context) / 18,
+                        : Sizes().screenHeight(context) / height,
                     padding: const EdgeInsets.all(5),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,

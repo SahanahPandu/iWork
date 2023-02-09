@@ -37,7 +37,7 @@ class _CardListViewState extends State<CardListView> {
       list = CutiApi.getDataEcuti();
     } else if (widget.type == "Laluan" && widget.screens != 'drawer') {
       //this is for Senarai Tugas Saya in the main page
-      list = LaluanApi.getDataLaluan(widget.passData);
+      list = LaluanApi.getDataLaluan(context, widget.passData);
     } else if (widget.type == "Laluan" && widget.screens == 'drawer') {
       //this is for Senarai Jadual Tugasan in the drawer
       list = JadualApi.getDataJadualDrawer(widget.passData);

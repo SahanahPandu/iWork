@@ -36,17 +36,17 @@ class _VehicleChecklistFormAfterTabbarViewState
       }
       vcId = widget.vcListData!.id;
     } else {
-      if (widget.compactorData!.data!.vehicleChecklistId!.statusCode!.code ==
+      if (widget.compactorData!.data.vehicleChecklistId!.statusCode!.code ==
               "VC2" ||
-          widget.compactorData!.data!.vehicleChecklistId!.statusCode!.code ==
+          widget.compactorData!.data.vehicleChecklistId!.statusCode!.code ==
               "VC3") {
         emptyVC = false;
       } else if (widget
-              .compactorData!.data!.vehicleChecklistId!.statusCode!.code ==
+              .compactorData!.data.vehicleChecklistId!.statusCode!.code ==
           "VC1") {
         emptyVC = true;
       }
-      vcId = widget.compactorData!.data!.vehicleChecklistId!.id;
+      vcId = widget.compactorData!.data.vehicleChecklistId!.id;
     }
     super.initState();
   }

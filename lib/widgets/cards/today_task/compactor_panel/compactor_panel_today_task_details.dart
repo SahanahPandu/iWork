@@ -9,6 +9,7 @@ import '../../../../config/palette.dart';
 import '../../../../models/task/compactor/compactor_task.dart';
 import '../../../../models/task/compactor/data/workers/workers.dart';
 import '../../../../utils/calendar/date.dart';
+import '../../../../utils/calendar/time.dart';
 import '../../../../utils/device/orientations.dart';
 import '../../../../utils/icon/custom_icon.dart';
 import '../../../alert/user_profile_dialog.dart';
@@ -29,7 +30,6 @@ class _CompactorPanelTodayTaskDetailsState
     extends State<CompactorPanelTodayTaskDetails>
     with TickerProviderStateMixin {
   String todayDate = "0";
-  String todayTask = "";
 
   @override
   void initState() {
@@ -37,21 +37,8 @@ class _CompactorPanelTodayTaskDetailsState
     if (otherDate && selectedNewDate != '') {
       todayDate = Date.getTheDate(
           DateTime.parse(selectedNewDate), '', 'dd MMMM yyyy', 'ms');
-
-      if (Date.isDateExpired(DateTime.parse(selectedNewDate))) {
-        todayTask = isScheduleListExist
-            ? "Tugasan Masa Lalu (${DateFormat("hh:mm a").format(DateTime.parse('20222312 ${widget.scheduleData!.data!.startWork!}')).toLowerCase()} - ${DateFormat("hh:mm a").format(DateTime.parse('20222312 ${widget.scheduleData!.data!.stopWork!}')).toLowerCase()})"
-            : "Tugasan Masa Lalu ( --:-- )";
-      } else {
-        todayTask = isScheduleListExist
-            ? "Tugasan Akan Datang (${DateFormat("hh:mm a").format(DateTime.parse('20222312 ${widget.scheduleData!.data!.startWork!}')).toLowerCase()} - ${DateFormat("hh:mm a").format(DateTime.parse('20222312 ${widget.scheduleData!.data!.stopWork!}')).toLowerCase()})"
-            : "Tugasan Akan Datang ( --:-- )";
-      }
     } else {
       todayDate = Date.getTheDate(DateTime.now(), '', 'dd MMMM yyyy', 'ms');
-      todayTask = isScheduleListExist
-          ? "Tugasan Hari Ini (${DateFormat("hh:mm a").format(DateTime.parse('20222312 ${widget.scheduleData!.data!.startWork!}')).toLowerCase()} - ${DateFormat("hh:mm a").format(DateTime.parse('20222312 ${widget.scheduleData!.data!.stopWork!}')).toLowerCase()})"
-          : "Tugasan Hari ini ( --:-- )";
     }
   }
 
@@ -65,7 +52,13 @@ class _CompactorPanelTodayTaskDetailsState
         height: 15,
       ),
       Text(
-        todayTask,
+        Time.getTodayTaskTimeForCollapseHeader(
+            widget.scheduleData!.data.startWork != ""
+                ? widget.scheduleData!.data.startWork!
+                : "--:--",
+            widget.scheduleData!.data.stopWork != ""
+                ? widget.scheduleData!.data.stopWork!
+                : "--:--"),
         style: const TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.w400,
@@ -156,10 +149,10 @@ class _CompactorPanelTodayTaskDetailsState
                 )
         ]),
         //Senarai Staf
-        isScheduleListExist
+        isTaskDataFetched
             ? SizedBox(
                 width: 180,
-                child: widget.scheduleData!.data!.workers!.isNotEmpty
+                child: widget.scheduleData!.data.workers!.isNotEmpty
                     ? buildStackedImages()
                     : null)
             : Container()
@@ -171,9 +164,9 @@ class _CompactorPanelTodayTaskDetailsState
     const double size = 65;
     const double xShift = 10;
     List userData = [];
-    if (widget.scheduleData!.data!.workers!.isNotEmpty) {
-      for (int i = 0; i < widget.scheduleData!.data!.workers!.length; i++) {
-        userData.add(widget.scheduleData!.data!.workers![i]);
+    if (widget.scheduleData!.data.workers!.isNotEmpty) {
+      for (int i = 0; i < widget.scheduleData!.data.workers!.length; i++) {
+        userData.add(widget.scheduleData!.data.workers![i]);
       }
       final items = userData.map((userData) => buildImage(userData)).toList();
 

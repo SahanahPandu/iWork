@@ -5,11 +5,12 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../../config/config.dart';
-import '../../../models/schedule/compactor/detail/schedule_detail.dart';
+import '../../../models/schedule/compactor/detail/cp_schedule_detail.dart';
 import '../../../models/schedule/compactor/list/schedule_list.dart';
 import '../../../utils/calendar/date.dart';
 import '../../http/error/api_error.dart';
 import '../../http/service/http_header.dart';
+import '../../http/service/http_service.dart';
 
 class CompactorScheduleApi {
   static Future<ScheduleList> fetchCompactScheduleList(
@@ -91,23 +92,18 @@ class CompactorScheduleApi {
     String getAccessToken = userInfo[1];
 
     try {
-      // ignore: unused_local_variable
       Response response = await Dio().get(
-        '$theBase/schedule',
+        HttpService().loadScheduleDetailUrl,
         queryParameters: {'sc_main_id': id},
         options: HttpHeader.getApiHeader(getAccessToken),
       );
 
       if (response.statusCode == 200) {
-        Map<String, dynamic> decode =
-            json.decode(json.encode(response.data)); // decode the data from api
+        Map<String, dynamic> decode = json.decode(json.encode(response.data));
 
-        var convertData = CScheduleDetail.fromJson(
-            decode); // map the data with ScheduleData model, fromJson method do the task for mapping
+        var convertData = CScheduleDetail.fromJson(decode);
 
-        scheduleDetail =
-            convertData; // only pass data list , list hold all data
-
+        scheduleDetail = convertData;
       }
     } on DioError catch (e) {
       ApiError.findDioError(e, context);

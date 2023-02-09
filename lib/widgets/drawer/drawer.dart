@@ -21,7 +21,6 @@ import '../../utils/device/devices.dart';
 import '../../utils/device/sizes.dart';
 import '../../utils/font/font.dart';
 import '../alert/alert_dialog.dart';
-import '../alert/toast.dart';
 import '../tabs/akbk_tab/akbk_tab.dart';
 import '../tabs/ecuti_approval_tab/ecuti_approval_tab.dart';
 
@@ -463,13 +462,14 @@ class _DrawerBuildState extends State<DrawerBuild> {
           return showAlertDialog(context, reminder, confirmLogout, cancel, yes);
         }).then((actionText) async {
       if (actionText == yes) {
-        String result = await LogoutApi.logoutUser();
-        if (result == 'ok') {
-          Auth.clearUserData(context);
-        } else {
-          showErrorToast(
-              context, "Log keluar tidak berjaya. Sila cuba semula!");
-        }
+        await LogoutApi.logoutUser();
+        //String result = await LogoutApi.logoutUser();
+        //if (result == 'ok') {
+        Auth.clearUserData(context);
+        //} else {
+        // showErrorToast(
+        //     context, "Log keluar tidak berjaya. Sila cuba semula!");
+        //}
       }
     });
   }

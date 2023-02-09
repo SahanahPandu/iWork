@@ -7,6 +7,7 @@ import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../alert/alert_dialog.dart';
 import '../alert/lottie_alert_dialog.dart';
+import '../alert/toast.dart';
 
 class TimeLogRippleButton extends StatefulWidget {
   final String btnText;
@@ -70,6 +71,9 @@ class _TimeLogRippleButtonState extends State<TimeLogRippleButton> {
               } on DioError catch (e) {
                 // ignore: avoid_print
                 print(e);
+                showErrorToast(
+                    context, "Log masuk anda tidak berjaya. Sila cuba lagi.",
+                    height: 16);
               }
             } else if (actionText == "Tamat Kerja") {
               //get clock out time into db
@@ -99,6 +103,9 @@ class _TimeLogRippleButtonState extends State<TimeLogRippleButton> {
               } on DioError catch (e) {
                 // ignore: avoid_print
                 print(e);
+                showErrorToast(
+                    context, "Log keluar anda tidak berjaya. Sila cuba lagi.",
+                    height: 16);
               }
             }
           });

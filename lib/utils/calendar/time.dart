@@ -1,5 +1,9 @@
 import 'package:intl/intl.dart';
 
+//import files
+import '../../config/config.dart';
+import 'date.dart';
+
 class Time {
   static String getCurrentTime() {
     var now = DateTime.now();
@@ -35,5 +39,50 @@ class Time {
       }
     }
     return DateFormat("a", "ms").format(DateTime.parse(time));
+  }
+
+  static String getTodayTaskTimeForCollapseHeader(
+      String startTime, String stopTime) {
+    String convStartTime = "";
+    String convStopTime = "";
+    if (startTime != "--:--" && stopTime != "--:--") {
+      convStartTime = DateFormat("hh:mm a")
+          .format(DateTime.parse('20222312 $startTime'))
+          .toLowerCase();
+      convStopTime = DateFormat("hh:mm a")
+          .format(DateTime.parse('20222312 $stopTime'))
+          .toLowerCase();
+    }
+
+    if (otherDate && selectedNewDate != '') {
+      if (Date.isDateExpired(DateTime.parse(selectedNewDate))) {
+        if (convStartTime != "" && convStopTime != "") {
+          return "Tugasan Masa Lalu ($convStartTime - $convStopTime)";
+        } else if (convStartTime == "" && convStopTime != "") {
+          return "Tugasan Masa Lalu (--:$convStopTime)";
+        } else if (convStartTime != "" && convStopTime == "") {
+          return "Tugasan Masa Lalu ($convStartTime:--)";
+        }
+        return "Tugasan Masa Lalu ( --:-- )";
+      } else {
+        if (convStartTime != "" && convStopTime != "") {
+          return "Tugasan Akan Datang ($convStartTime - $convStopTime)";
+        } else if (convStartTime == "" && convStopTime != "") {
+          return "Tugasan Akan Datang (--:$convStopTime)";
+        } else if (convStartTime != "" && convStopTime == "") {
+          return "Tugasan Akan Datang ($convStartTime:--)";
+        }
+        return "Tugasan Akan Datang ( --:-- )";
+      }
+    } else {
+      if (convStartTime != "" && convStopTime != "") {
+        return "Tugasan Hari Ini ($convStartTime - $convStopTime)";
+      } else if (convStartTime == "" && convStopTime != "") {
+        return "Tugasan Hari Ini (--:$convStopTime)";
+      } else if (convStartTime != "" && convStopTime == "") {
+        return "Tugasan Hari Ini ($convStartTime:--)";
+      }
+      return "Tugasan Hari Ini ( --:-- )";
+    }
   }
 }

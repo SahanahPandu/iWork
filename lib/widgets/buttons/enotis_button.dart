@@ -1,16 +1,18 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 //import files
+import '../../config/config.dart';
 import '../../config/dimen.dart';
 import '../../config/palette.dart';
 import '../../config/string.dart';
+import '../../providers/attendance/enotice_api.dart';
 import '../../utils/calendar/date.dart';
 import '../../utils/device/sizes.dart';
 import '../alert/alert_dialog.dart';
 import '../alert/lottie_alert_dialog.dart';
+import '../alert/toast.dart';
 
 class ENotisButton extends StatefulWidget {
   const ENotisButton({Key? key}) : super(key: key);
@@ -50,54 +52,70 @@ class _ENotisButtonState extends State<ENotisButton>
 
   @override
   Widget build(BuildContext context) {
+    Color buttonColor = isTaskDataFetched ? white : grey500;
     return SizedBox(
       width: Sizes().screenWidth(context) * (buttonEcutiWidth(context)),
       height: Sizes().screenHeight(context) * (buttonHeight(context)),
       child: GestureDetector(
         behavior: HitTestBehavior.translucent,
         onTap: () {
-          if (_controllerText.isCompleted) {
-            _controllerText.reverse();
-          } else {
-            _controllerText.forward(from: 0.5);
-          }
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return showAlertDialog(
-                    context,
-                    confirmation,
-                    "Maklumkan kepada BA anda tidak hadir pada tarikh $todayDate?",
-                    cancel,
-                    yes);
-              }).then((actionText) {
-            if (actionText == yes) {
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return showLottieAlertDialog(
-                      context,
-                      _textBuilder(),
-                      "",
-                      null,
-                      null,
-                    );
-                  });
-              // Navigator.push(
-              //     context,
-              //     PageTransition(
-              //         child: CustomDialog(text: _textBuilder()),
-              //         type: PageTransitionType.fade));
+          if (isTaskDataFetched) {
+            if (_controllerText.isCompleted) {
+              _controllerText.reverse();
+            } else {
+              _controllerText.forward(from: 0.5);
             }
-          });
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return showAlertDialog(
+                      context,
+                      confirmation,
+                      "Maklumkan kepada BA anda tidak hadir pada tarikh ${selectedNewDate != "" ? Date.getTheDate(DateTime.parse(selectedNewDate), '', 'dd/MM/yyyy', 'ms') : todayDate}?",
+                      cancel,
+                      yes);
+                }).then((actionText) async {
+              if (actionText == yes) {
+                var result = await ENoticeApi.updateENotice(context);
+                if (result == 'ok') {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return showLottieAlertDialog(
+                          context,
+                          _textBuilder(),
+                          "",
+                          null,
+                          null,
+                        );
+                      });
+                } else {
+                  // ignore: use_build_context_synchronously
+                  showErrorToast(context,
+                      "Permohonan E-Notis anda tidak berjaya bagi hari ${selectedNewDate != "" ? Date.getTheDate(DateTime.parse(selectedNewDate), '', 'dd/MM/yyyy', 'ms') : "ini"}",
+                      height: 16);
+                }
+
+                // Navigator.push(
+                //     context,
+                //     PageTransition(
+                //         child: CustomDialog(text: _textBuilder()),
+                //         type: PageTransitionType.fade));
+              }
+            });
+          }
         },
         onTapDown: (dp) {
-          _controllerText.reverse();
+          if (isTaskDataFetched) {
+            _controllerText.reverse();
+          }
         },
         onTapUp: (dp) {
-          Timer(const Duration(milliseconds: 200), () {
-            _controllerText.fling();
-          });
+          if (isTaskDataFetched) {
+            Timer(const Duration(milliseconds: 200), () {
+              _controllerText.fling();
+            });
+          }
         },
         onTapCancel: () {
           _controllerText.fling();
@@ -109,7 +127,7 @@ class _ENotisButtonState extends State<ENotisButton>
               Text(
                 "E-Notis",
                 style: TextStyle(
-                  color: white,
+                  color: buttonColor,
                   fontSize: 15,
                   fontWeight: FontWeight.w600,
                 ),
@@ -118,7 +136,7 @@ class _ENotisButtonState extends State<ENotisButton>
               Icon(
                 Icons.navigate_next_rounded,
                 size: 20,
-                color: white,
+                color: buttonColor,
               ),
             ],
           ),
@@ -139,8 +157,10 @@ class _ENotisButtonState extends State<ENotisButton>
                 height: 1.5),
             children: <TextSpan>[
               TextSpan(
-                  text:
-                      " ${DateFormat("dd MMMM yyyy", 'ms').format(DateTime.now())}",
+                  text: selectedNewDate != ""
+                      ? Date.getTheDate(DateTime.parse(selectedNewDate), '',
+                          'dd MMMM yyyy', 'ms')
+                      : "ini",
                   style: TextStyle(
                       fontSize: 15, fontWeight: FontWeight.w400, color: green)),
               TextSpan(

@@ -29,7 +29,6 @@ class SupervisorTodayTaskDetails extends StatefulWidget {
 class _SupervisorTodayTaskDetailsState
     extends State<SupervisorTodayTaskDetails> {
   String todayDate = "0";
-  String todayTask = "";
   String todayClockIn = "";
   String todayClockOut = "";
 
@@ -42,21 +41,8 @@ class _SupervisorTodayTaskDetailsState
     if (otherDate && selectedNewDate != '') {
       todayDate = Date.getTheDate(
           DateTime.parse(selectedNewDate), '', 'dd MMM yyyy', 'ms');
-
-      if (Date.isDateExpired(DateTime.parse(selectedNewDate))) {
-        todayTask = isScheduleListExist
-            ? "Tugasan Masa Lalu (${DateFormat("hh:mm a").format(DateTime.parse('20222312 ${widget.scheduleData.data.startWork!}')).toLowerCase()} - ${DateFormat("hh:mm a").format(DateTime.parse('20222312 ${widget.scheduleData.data.stopWork!}')).toLowerCase()})"
-            : "Tugasan Masa Lalu ( --:-- )";
-      } else {
-        todayTask = isScheduleListExist
-            ? "Tugasan Akan Datang (${DateFormat("hh:mm a").format(DateTime.parse('20222312 ${widget.scheduleData.data.startWork!}')).toLowerCase()} - ${DateFormat("hh:mm a").format(DateTime.parse('20222312 ${widget.scheduleData.data.stopWork!}')).toLowerCase()})"
-            : "Tugasan Akan Datang ( --:-- )";
-      }
     } else {
       todayDate = Date.getTheDate(DateTime.now(), '', 'dd MMM yyyy', 'ms');
-      todayTask = isScheduleListExist
-          ? "Tugasan Hari Ini (${DateFormat("hh:mm a").format(DateTime.parse('20222312 ${widget.scheduleData.data.startWork!}')).toLowerCase()} - ${DateFormat("hh:mm a").format(DateTime.parse('20222312 ${widget.scheduleData.data.stopWork!}')).toLowerCase()})"
-          : "Tugasan Hari ini ( --:-- )";
     }
     if (widget.scheduleData.data.attendance != null) {
       if (widget.scheduleData.data.attendance!.clockInAt != "") {
@@ -83,7 +69,13 @@ class _SupervisorTodayTaskDetailsState
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          todayTask,
+          Time.getTodayTaskTimeForCollapseHeader(
+              widget.scheduleData.data.startWork != ""
+                  ? widget.scheduleData.data.startWork!
+                  : "--:--",
+              widget.scheduleData.data.stopWork != ""
+                  ? widget.scheduleData.data.stopWork!
+                  : "--:--"),
           style: TextStyle(
             color: white,
             fontWeight: FontWeight.w400,
@@ -231,17 +223,16 @@ class _SupervisorTodayTaskDetailsState
             ),
           ],
         ),
-        const SizedBox(
-          height: 20,
+        SizedBox(
+          height: todayClockIn != "" || todayClockOut != "" ? 20 : 8,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             TimeLogButton(
-              refresh: widget.refreshP,
-              timeIn: todayClockIn,
-              timeOut: todayClockOut,
-            ),
+                refresh: widget.refreshP,
+                timeIn: todayClockIn,
+                timeOut: todayClockOut),
             const ENotisButton(),
           ],
         )

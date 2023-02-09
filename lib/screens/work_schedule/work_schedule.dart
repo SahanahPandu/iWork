@@ -59,7 +59,9 @@ class _WorkScheduleState extends State<WorkSchedule> {
             ),
             title: Center(
               child: Text(
-                "Perincian Laluan - ${Date.getTheDate(widget.data.scheduleDate, "yyyy-MM-dd", "dd/MM/yyyy", "ms")}",
+                widget.data.scheduleDate != "--:--"
+                    ? "Perincian Laluan - ${Date.getTheDate(widget.data.scheduleDate, "yyyy-MM-dd", "dd/MM/yyyy", "ms")}"
+                    : "--:--",
                 style: TextStyle(
                   fontSize: 15,
                   color: white,

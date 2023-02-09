@@ -9,14 +9,14 @@ String compactorTaskToJson(CompactorTask data) => json.encode(data.toJson());
 
 class CompactorTask {
   CompactorTask({
-    this.data,
-    this.status,
+    required this.data,
+    required this.status,
     this.message,
   });
 
-  Data? data;
-  String? status;
-  String? message;
+  Data data;
+  String status;
+  dynamic message;
 
   factory CompactorTask.fromJson(Map<String, dynamic> json) => CompactorTask(
         data: Data.fromJson(json["data"]),
@@ -25,7 +25,7 @@ class CompactorTask {
       );
 
   Map<String, dynamic> toJson() => {
-        "data": data!.toJson(),
+        "data": data.toJson(),
         "status": status,
         "message": message,
       };

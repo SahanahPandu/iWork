@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 //import files
 import '../../../config/font.dart';
 import '../../../config/palette.dart';
-import '../../../models/schedule/compactor/detail/schedule_detail.dart';
+import '../../../models/schedule/compactor/detail/cp_schedule_detail.dart';
+import '../../../models/schedule/schedule_data_detail_cp_sv/schedule_detail.dart';
 import '../../../utils/calendar/time.dart';
 import '../../../utils/device/orientations.dart';
 import '../../../utils/icon/custom_icon.dart';
@@ -421,7 +422,8 @@ class _CompactorPanelScheduleDetailsState
                           : "--:--",
                       userData.userAttendanceId != null
                           ? userData.userAttendanceId!.clockOutAt ?? "--:--"
-                          : "--:--");
+                          : "--:--",
+                      userData.userId!.userDetail!.loginId!);
                 });
           },
           child: ClipOval(

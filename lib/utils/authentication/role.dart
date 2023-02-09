@@ -3,13 +3,15 @@ import '../../config/config.dart';
 
 class Roles {
   static const roleComp = "COMP";
+  static const roleDriver = "D";
   static const rolePra = "PRA";
   static const roleSv = "SV";
   static const roleEo = "EO";
   static const roleBa = "BA";
   static const roleSam = "SAM";
   static const roleRom = "ROM";
-  static const roleMech = "MECH";
+  static const roleMech = "MC";
+  static const roleExecMech = "SVWS";
   static const roleContractor = "CONTRACTOR";
 
   static int? setRole(String roleID) {
@@ -17,6 +19,7 @@ class Roles {
       case roleComp:
         return userRole = 100;
       case rolePra:
+      case roleDriver:
         return userRole = 200;
       case roleSv:
         return userRole = 300;
@@ -30,6 +33,8 @@ class Roles {
         return userRole = 700;
       case roleMech:
         return userRole = 800;
+      case roleExecMech:
+        return userRole = 900;
       case roleContractor:
         return userRole = 1000;
       default:

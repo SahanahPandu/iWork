@@ -160,16 +160,16 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
         _isAfterVcEmpty = true;
       }
     } else {
-      _vehicleNo = widget.compactorData!.data!.schedules![0].vehicleNo!;
-      if (widget.compactorData!.data!.vehicleChecklistId != null &&
-          widget.compactorData!.data!.vehicleChecklistId!.statusCode!.code !=
+      _vehicleNo = widget.compactorData!.data.schedules![0].vehicleNo!;
+      if (widget.compactorData!.data.vehicleChecklistId != null &&
+          widget.compactorData!.data.vehicleChecklistId!.statusCode!.code !=
               null) {
-        _vcId = widget.compactorData!.data!.vehicleChecklistId!.id!;
+        _vcId = widget.compactorData!.data.vehicleChecklistId!.id!;
         _isVcExist = true;
       }
       if (!widget.before &&
-              (widget.compactorData!.data!.vehicleChecklistId == null ||
-          widget.compactorData!.data!.vehicleChecklistId!.statusCode!.code ==
+              (widget.compactorData!.data.vehicleChecklistId == null ||
+          widget.compactorData!.data.vehicleChecklistId!.statusCode!.code ==
               "VC1")) {
         _isAfterVcEmpty = true;
       }

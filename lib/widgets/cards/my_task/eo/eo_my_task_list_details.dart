@@ -273,7 +273,6 @@ class _EOMyTaskListDetailsState extends State<EOMyTaskListDetails> {
                         PageTransition(
                             type: PageTransitionType.fade,
                             child: ScheduleIssueMainScreen(
-                                laluanData: widget.data,
                                 issueType: widget.data.isu)));
                   },
                 ),

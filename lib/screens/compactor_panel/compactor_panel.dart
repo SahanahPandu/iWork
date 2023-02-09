@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 //import files
 import '../../config/config.dart';
@@ -8,6 +7,7 @@ import '../../config/resource.dart';
 import '../../models/task/compactor/compactor_task.dart';
 import '../../providers/task/compactor_panel/compactor_task_api.dart';
 import '../../utils/calendar/date.dart';
+import '../../utils/calendar/time.dart';
 import '../../utils/device/orientations.dart';
 import '../../widgets/alert/toast.dart';
 import '../../widgets/cards/today_task/today_task_card.dart';
@@ -37,7 +37,10 @@ class _CompactorPanelState extends State<CompactorPanel> {
       builder: (BuildContext context, value, Widget? child) {
         if (value == refresh.value) {
           return RefreshIndicator(
-            color: greenCustom,
+            color: grey,
+            displacement: 20,
+            edgeOffset: 40,
+            strokeWidth: 3,
             backgroundColor: white,
             onRefresh: () {
               return Future.delayed(
@@ -46,7 +49,9 @@ class _CompactorPanelState extends State<CompactorPanel> {
                   setState(() {
                     refresh.value = !refresh.value;
                   });
-                  showInfoToast(context, "Halaman berjaya dimuat semula!");
+                  isTaskDataFetched
+                      ? showInfoToast(context, "Halaman berjaya dimuat semula!")
+                      : null;
                 },
               );
             },
@@ -114,10 +119,21 @@ class _CompactorPanelState extends State<CompactorPanel> {
                       } else {
                         if (snapshot.hasData) {
                           scheduleData = snapshot.data!;
-                          if (scheduleData!.data!.schedules!.isNotEmpty) {
-                            isScheduleListExist = true;
-                            //print(scheduleData!.data!.schedules!.length);
-                            /* if (scheduleData!.data!.schedules!.length == 1) {
+                          /// Failed to fetch data from internet
+                          if (scheduleData!.data.startWork == null &&
+                              scheduleData!.data.stopWork == null &&
+                              scheduleData!.data.schedules == null &&
+                              scheduleData!.status == "" &&
+                              dioError.value != 0) {
+                            isTaskDataFetched = false;
+                            isTaskExist = false;
+                          } else {
+                            /// dioError == 0
+                            isTaskDataFetched = true;
+                            if (scheduleData!.data.schedules!.isNotEmpty) {
+                              isTaskExist = true;
+                              //print(scheduleData!.data!.schedules!.length);
+                              /* if (scheduleData!.data!.schedules!.length == 1) {
                               /// *** No any actions ***
                               /// VC Before NULL (ENABLED TO FILL) * VC After NULL (DISABLED TO FILL) * Start Work (DISABLED) * Stop Work (DISABLED)
                               if (scheduleData!.data!.vehicleChecklistId ==
@@ -194,75 +210,76 @@ class _CompactorPanelState extends State<CompactorPanel> {
                             /// Multiple Schedule cards per vehicle
                             else {*/
 
-                            /// *** No any actions ***
-                            /// VC Before NULL (ENABLED TO FILL) * VC After NULL (DISABLED TO FILL) * Start Work (DISABLED) * Stop Work (DISABLED)
-                            if (scheduleData!.data!.vehicleChecklistId ==
-                                null) {
-                              vcStatus = 0;
-                            }
+                              /// *** No any actions ***
+                              /// VC Before NULL (ENABLED TO FILL) * VC After NULL (DISABLED TO FILL) * Start Work (DISABLED) * Stop Work (DISABLED)
+                              if (scheduleData!.data.vehicleChecklistId ==
+                                  null) {
+                                vcStatus = 0;
+                              }
 
-                            /// *** VC Before DONE (VC1) ***
-                            /// VC Before DONE (ENABLED TO VIEW) * VC After NULL (DISABLED TO FILL) * Start Works (ENABLED) * Stop Work (DISABLED)
-                            else if (scheduleData!.data!.vehicleChecklistId!
-                                        .statusCode!.code ==
-                                    "VC1" &&
-                                scheduleData!
-                                        .data!.vehicleChecklistId!.timeOut ==
-                                    "--:--" &&
-                                scheduleData!
-                                        .data!.vehicleChecklistId!.timeIn ==
-                                    "--:--") {
-                              vcStatus = 1;
-                            }
+                              /// *** VC Before DONE (VC1) ***
+                              /// VC Before DONE (ENABLED TO VIEW) * VC After NULL (DISABLED TO FILL) * Start Works (ENABLED) * Stop Work (DISABLED)
+                              else if (scheduleData!.data.vehicleChecklistId!
+                                          .statusCode!.code ==
+                                      "VC1" &&
+                                  scheduleData!
+                                          .data.vehicleChecklistId!.timeOut ==
+                                      "--:--" &&
+                                  scheduleData!
+                                          .data.vehicleChecklistId!.timeIn ==
+                                      "--:--") {
+                                vcStatus = 1;
+                              }
 
-                            /// *** VC Before DONE (VC1) && Start Work DONE ***
-                            /// VC Before DONE (ENABLED TO VIEW) * VC After NULL (DISABLED TO FILL) * Start Work DONE (DISABLED) * Stop Work (ENABLED)
-                            else if (scheduleData!.data!.vehicleChecklistId!
-                                        .statusCode!.code ==
-                                    "VC1" &&
-                                scheduleData!
-                                        .data!.vehicleChecklistId!.timeOut !=
-                                    "--:--" &&
-                                scheduleData!
-                                        .data!.vehicleChecklistId!.timeIn ==
-                                    "--:--") {
-                              vcStatus = 2;
-                            }
+                              /// *** VC Before DONE (VC1) && Start Work DONE ***
+                              /// VC Before DONE (ENABLED TO VIEW) * VC After NULL (DISABLED TO FILL) * Start Work DONE (DISABLED) * Stop Work (ENABLED)
+                              else if (scheduleData!.data.vehicleChecklistId!
+                                          .statusCode!.code ==
+                                      "VC1" &&
+                                  scheduleData!
+                                          .data.vehicleChecklistId!.timeOut !=
+                                      "--:--" &&
+                                  scheduleData!
+                                          .data.vehicleChecklistId!.timeIn ==
+                                      "--:--") {
+                                vcStatus = 2;
+                              }
 
-                            /// *** VC Before DONE (VC1) && First Start Work DONE && First Stop Work DONE && Last Stop Work DONE ***
-                            /// VC Before DONE (ENABLED TO VIEW) * VC After NULL (ENABLED TO FILL) * Start Work DONE (DISABLED) * Stop Work DONE (DISABLED)
-                            else if (scheduleData!.data!.vehicleChecklistId!
-                                        .statusCode!.code ==
-                                    "VC1" &&
-                                scheduleData!
-                                        .data!.vehicleChecklistId!.timeOut !=
-                                    "--:--" &&
-                                scheduleData!
-                                        .data!.vehicleChecklistId!.timeIn !=
-                                    "--:--") {
-                              vcStatus = 3;
-                            }
+                              /// *** VC Before DONE (VC1) && First Start Work DONE && First Stop Work DONE && Last Stop Work DONE ***
+                              /// VC Before DONE (ENABLED TO VIEW) * VC After NULL (ENABLED TO FILL) * Start Work DONE (DISABLED) * Stop Work DONE (DISABLED)
+                              else if (scheduleData!.data.vehicleChecklistId!
+                                          .statusCode!.code ==
+                                      "VC1" &&
+                                  scheduleData!
+                                          .data.vehicleChecklistId!.timeOut !=
+                                      "--:--" &&
+                                  scheduleData!
+                                          .data.vehicleChecklistId!.timeIn !=
+                                      "--:--") {
+                                vcStatus = 3;
+                              }
 
-                            /// *** VC Before DONE && VC After DONE (VC2) && First Start Work DONE && First Stop Work DONE && Last Stop Work DONE ***
-                            /// VC Before DONE (ENABLED TO VIEW) * VC After DONE (ENABLED TO VIEW) * Start Work DONE (DISABLED) * Stop Work DONE (DISABLED)
-                            else if ((scheduleData!.data!.vehicleChecklistId!
-                                            .statusCode!.code ==
-                                        "VC2" ||
-                                    scheduleData!.data!.vehicleChecklistId!
-                                            .statusCode!.code ==
-                                        "VC3") &&
-                                scheduleData!
-                                        .data!.vehicleChecklistId!.timeOut !=
-                                    "--:--" &&
-                                scheduleData!
-                                        .data!.vehicleChecklistId!.timeIn !=
-                                    "--:--") {
-                              vcStatus = 4;
-                            } else {}
-                          } else if (scheduleData!.data!.schedules!.isEmpty) {
-                            isScheduleListExist = false;
-                          } else {
-                            //print("schedule? $isScheduleListExist");
+                              /// *** VC Before DONE && VC After DONE (VC2) && First Start Work DONE && First Stop Work DONE && Last Stop Work DONE ***
+                              /// VC Before DONE (ENABLED TO VIEW) * VC After DONE (ENABLED TO VIEW) * Start Work DONE (DISABLED) * Stop Work DONE (DISABLED)
+                              else if ((scheduleData!.data.vehicleChecklistId!
+                                              .statusCode!.code ==
+                                          "VC2" ||
+                                      scheduleData!.data.vehicleChecklistId!
+                                              .statusCode!.code ==
+                                          "VC3") &&
+                                  scheduleData!
+                                          .data.vehicleChecklistId!.timeOut !=
+                                      "--:--" &&
+                                  scheduleData!
+                                          .data.vehicleChecklistId!.timeIn !=
+                                      "--:--") {
+                                vcStatus = 4;
+                              } else {}
+                            } else if (scheduleData!.data.schedules!.isEmpty) {
+                              isTaskExist = false;
+                            } else {
+                              //print("schedule? $isScheduleListExist");
+                            }
                           }
                         }
                         return ExpandCollapseHeader(
@@ -274,7 +291,7 @@ class _CompactorPanelState extends State<CompactorPanel> {
                             body: [
                               _scrollBody(scheduleData),
                             ],
-                            headerExpandedHeight: isScheduleListExist
+                            headerExpandedHeight: isTaskExist
                                 ? Orientations().isTabletPortrait(context)
                                     ? 0.35
                                     : 0.405
@@ -345,8 +362,8 @@ class _CompactorPanelState extends State<CompactorPanel> {
     );
   }
 
-  SafeArea _scrollBody(CompactorTask? scheduleData) {
-    if (isScheduleListExist) {
+  Widget _scrollBody(CompactorTask? scheduleData) {
+    if (isTaskDataFetched && isTaskExist) {
       return SafeArea(
           child: Container(
               constraints: Orientations().isTabletPortrait(context)
@@ -355,7 +372,7 @@ class _CompactorPanelState extends State<CompactorPanel> {
               color: white,
               padding: const EdgeInsets.fromLTRB(15, 0, 15, 10),
               child: CompactorTaskList(main: true, data: scheduleData)));
-    } else {
+    } else if (isTaskDataFetched && !isTaskExist) {
       return SafeArea(
           child: Container(
               color: white,
@@ -371,11 +388,13 @@ class _CompactorPanelState extends State<CompactorPanel> {
                     "Tiada tugasan pada tarikh ini",
                     style: TextStyle(
                         color: darkBlue,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16),
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14),
                   )
                 ],
               )));
+    } else {
+      return displayOpsButton(context);
     }
   }
 
@@ -407,8 +426,13 @@ class _CompactorPanelState extends State<CompactorPanel> {
             height: 10,
           ),
           Text(
-            _getTodayTaskTimeForCollapseHeader(
-                scheduleData!.data!.startWork!, scheduleData.data!.stopWork!),
+            Time.getTodayTaskTimeForCollapseHeader(
+                scheduleData!.data.startWork != ""
+                    ? scheduleData.data.startWork!
+                    : "--:--",
+                scheduleData.data.stopWork != ""
+                    ? scheduleData.data.stopWork!
+                    : "--:--"),
             style: TextStyle(
               color: white,
               fontWeight: FontWeight.w400,
@@ -432,7 +456,7 @@ class _CompactorPanelState extends State<CompactorPanel> {
         ])
       ]),
       //Senarai Staf
-      isScheduleListExist
+      isTaskDataFetched
           ? Align(
               alignment: Alignment.centerRight,
               child: Container(
@@ -547,21 +571,53 @@ class _CompactorPanelState extends State<CompactorPanel> {
     }
   }
 
-  String _getTodayTaskTimeForCollapseHeader(String startTime, String stopTime) {
-    if (otherDate && selectedNewDate != '') {
-      if (Date.isDateExpired(DateTime.parse(selectedNewDate))) {
-        return isScheduleListExist
-            ? "Tugasan Masa Lalu (${DateFormat("hh:mm a").format(DateTime.parse('20222312 $startTime')).toLowerCase()} - ${DateFormat("hh:mm a").format(DateTime.parse('20222312 $stopTime')).toLowerCase()})"
-            : "Tugasan Masa Lalu ( --:-- )";
-      } else {
-        return isScheduleListExist
-            ? "Tugasan Akan Datang (${DateFormat("hh:mm a").format(DateTime.parse('20222312 $startTime')).toLowerCase()} - ${DateFormat("hh:mm a").format(DateTime.parse('20222312 $stopTime')).toLowerCase()})"
-            : "Tugasan Akan Datang ( --:-- )";
-      }
-    } else {
-      return isScheduleListExist
-          ? "Tugasan Hari Ini (${DateFormat("hh:mm a").format(DateTime.parse('20222312 $startTime')).toLowerCase()} - ${DateFormat("hh:mm a").format(DateTime.parse('20222312 $stopTime')).toLowerCase()})"
-          : "Tugasan Hari ini ( --:-- )";
-    }
+  Container displayOpsButton(BuildContext context) {
+    return Container(
+      constraints: Orientations().isTabletPortrait(context)
+          ? const BoxConstraints(minHeight: 630) //555
+          : const BoxConstraints(minHeight: 285),
+      color: white,
+      child: Center(
+        child: Column(
+          children: [
+            SizedBox(height: 80, width: 80, child: Image.asset(opsImg)),
+            SizedBox(
+              height: 40,
+              width: 180,
+              child: TextButton(
+                style: ButtonStyle(
+                    elevation: MaterialStateProperty.all(0),
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12)),
+                    ),
+                    overlayColor: MaterialStateColor.resolveWith(
+                        (states) => const Color(0x0f0c057a)),
+                    backgroundColor: MaterialStateProperty.all(transparent)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Sila Muat Semula",
+                      style: TextStyle(
+                          color: grey500,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400),
+                    ),
+                    const SizedBox(width: 8),
+                    Icon(Icons.refresh, size: 18, color: blue),
+                  ],
+                ),
+                onPressed: () {
+                  setState(() {
+                    refresh.value = !refresh.value;
+                  });
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
