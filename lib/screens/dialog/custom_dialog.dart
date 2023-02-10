@@ -5,8 +5,9 @@ import '../../config/palette.dart';
 
 class CustomDialog extends StatefulWidget {
   final Widget? text;
+  final bool? isSuccess;
 
-  const CustomDialog({Key? key, this.text}) : super(key: key);
+  const CustomDialog({Key? key, this.text, this.isSuccess}) : super(key: key);
 
   @override
   State<CustomDialog> createState() => _CustomDialogState();
@@ -50,7 +51,9 @@ class _CustomDialogState extends State<CustomDialog>
           children: [
             SizedBox(
               child: LottieBuilder.asset(
-                'assets/lottie/lottie_success.json',
+                widget.isSuccess!
+                    ? 'assets/lottie/lottie_success.json'
+                    : 'assets/lottie/lottie_error.json',
                 repeat: true,
                 height: 100,
                 width: 100,
@@ -62,7 +65,7 @@ class _CustomDialogState extends State<CustomDialog>
               ),
             ),
             const SizedBox(
-              height: 30,
+              height: 20,
             ),
             Expanded(
               child: SizedBox(

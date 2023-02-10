@@ -72,7 +72,7 @@ class LoginApi {
         default:
           return 'ng';
       }
-    } on SocketException {
+    } catch (e) {
       //print("Connection error.Please retry ");
       return 'error';
     }

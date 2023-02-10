@@ -429,7 +429,7 @@ class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
                 : null);
   }
 
-  RichText _textBuilder(String message) {
+  RichText _textBuilder(String message, [bool? success = true]) {
     var timeNow = DateFormat("hh:mm").format(DateTime.now());
     var timeNow24Hr = DateFormat("HH:mm").format(DateTime.now());
     return RichText(
@@ -439,7 +439,7 @@ class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
             style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w500,
-                color: greenCustom,
+                color: success! ? greenCustom : redCustom,
                 height: 1.5),
             children: <TextSpan>[
               TextSpan(
