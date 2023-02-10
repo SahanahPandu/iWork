@@ -107,37 +107,57 @@ class _TimeLogRippleButtonState extends State<TimeLogRippleButton> {
                     });
               }
             } else if (actionText == "Tamat Kerja") {
-              //get clock out time into db
-              try {
-                Response response = await Dio().post(
-                  '$theBase/attendance/end-work',
-                  options: Options(headers: {
-                    "authorization": "Bearer ${userInfo[1]}",
-                  }),
-                );
+              await UserLocator().getCurrentPosition();
 
-                if (response.statusCode == 200) {
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return showLottieAlertDialog(
-                          context,
-                          _textBuilder("Jumpa lagi! Anda telah tamat kerja"),
-                          "",
-                          null,
-                          null,
-                        );
-                      }).then((value) {
-                    Navigator.pop(context, actionText);
-                  });
+              /// Your Current location is office, correct!
+              if (currentAddress == "1, Taman Tun Dr Ismail, , 60000") {
+                //get clock out time into db
+                try {
+                  Response response = await Dio().post(
+                    '$theBase/attendance/end-work',
+                    options: Options(headers: {
+                      "authorization": "Bearer ${userInfo[1]}",
+                    }),
+                  );
+
+                  if (response.statusCode == 200) {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return showLottieAlertDialog(
+                            context,
+                            _textBuilder("Jumpa lagi! Anda telah tamat kerja"),
+                            "",
+                            null,
+                            null,
+                          );
+                        }).then((value) {
+                      Navigator.pop(context, actionText);
+                    });
+                  }
+                } on DioError catch (e) {
+                  // ignore: avoid_print
+                  print(e);
+                  // ignore: use_build_context_synchronously
+                  showErrorToast(
+                      context, "Log keluar anda tidak berjaya. Sila cuba lagi.",
+                      height: 16);
                 }
-              } on DioError catch (e) {
-                // ignore: avoid_print
-                print(e);
-                showErrorToast(
-                    context, "Log keluar anda tidak berjaya. Sila cuba lagi.",
-                    height: 16);
               }
+            } else {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return showLottieAlertDialog(
+                        context,
+                        _textBuilder(
+                          "Lokasi kini: $currentAddress\nAnda berada di luar kawasan depoh. Pastikan anda berada di dalam kawasan sebelum keluar kerja",
+                        ),
+                        "",
+                        null,
+                        null,
+                        false);
+                  });
             }
           });
         },
