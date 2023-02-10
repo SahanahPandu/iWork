@@ -427,12 +427,14 @@ class _CompactorPanelState extends State<CompactorPanel> {
           ),
           Text(
             Time.getTodayTaskTimeForCollapseHeader(
-                scheduleData!.data.startWork != ""
-                    ? scheduleData.data.startWork!
-                    : "--:--",
-                scheduleData.data.stopWork != ""
-                    ? scheduleData.data.stopWork!
-                    : "--:--"),
+                scheduleData!.data.startWork == null ||
+                        scheduleData.data.startWork == ""
+                    ? "--:--"
+                    : scheduleData.data.startWork!,
+                scheduleData.data.stopWork == null ||
+                        scheduleData.data.stopWork == ""
+                    ? "--:--"
+                    : scheduleData.data.stopWork!),
             style: TextStyle(
               color: white,
               fontWeight: FontWeight.w400,

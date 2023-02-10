@@ -312,63 +312,6 @@ class _CompactorPanelScheduleDetailsState
       Align(
           alignment: Alignment.centerRight,
           child: Container(child: buildStackedImages())),
-      /*Align(
-          alignment: Alignment.centerRight,
-          child: Container(
-              alignment: Alignment.centerLeft,
-              width: 165,
-              child: Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 20, 10, 15),
-                  child: Stack(
-                      clipBehavior: Clip.none,
-                      fit: StackFit.passthrough,
-                      children: [
-                        Positioned(
-                            left: 90,
-                            child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 12),
-                                child: CircleAvatar(
-                                    backgroundColor:
-                                        Orientations().isTabletPortrait(context)
-                                            ? portraitExpandBgColor
-                                            : expandBgColor,
-                                    radius: 28,
-                                    child: const CircleAvatar(
-                                      backgroundImage: NetworkImage(
-                                          'https://i0.wp.com/i-panic.com/wp-content/uploads/2021/09/portrait-square-05.jpg?resize=400%2C400&ssl=1'),
-                                      radius: 25.5,
-                                    )))),
-                        Positioned(
-                            left: 45,
-                            child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 12),
-                                child: CircleAvatar(
-                                    backgroundColor:
-                                        Orientations().isTabletPortrait(context)
-                                            ? portraitExpandBgColor
-                                            : expandBgColor,
-                                    radius: 28,
-                                    child: const CircleAvatar(
-                                      backgroundImage: NetworkImage(
-                                          'https://focusforensics.com/wp-content/uploads/staff-clayton_mccall-square.jpg'),
-                                      radius: 25.5,
-                                    )))),
-                        Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 12),
-                            child: CircleAvatar(
-                                backgroundColor:
-                                    Orientations().isTabletPortrait(context)
-                                        ? portraitExpandBgColor
-                                        : expandBgColor,
-                                radius: 28,
-                                child: const CircleAvatar(
-                                  backgroundImage: NetworkImage(
-                                      'https://automateonline.com.au/wp-content/uploads/2019/02/portrait-square-04.jpg'),
-                                  radius: 25.5,
-                                )))
-                      ])))),*/
     ]);
   }
 

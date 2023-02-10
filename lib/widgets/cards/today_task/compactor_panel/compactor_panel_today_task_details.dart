@@ -53,12 +53,14 @@ class _CompactorPanelTodayTaskDetailsState
       ),
       Text(
         Time.getTodayTaskTimeForCollapseHeader(
-            widget.scheduleData!.data.startWork != ""
-                ? widget.scheduleData!.data.startWork!
-                : "--:--",
-            widget.scheduleData!.data.stopWork != ""
-                ? widget.scheduleData!.data.stopWork!
-                : "--:--"),
+            widget.scheduleData!.data.startWork == null ||
+                    widget.scheduleData!.data.startWork == ""
+                ? "--:--"
+                : widget.scheduleData!.data.startWork!,
+            widget.scheduleData!.data.stopWork == null ||
+                    widget.scheduleData!.data.stopWork == ""
+                ? "--:--"
+                : widget.scheduleData!.data.stopWork!),
         style: const TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.w400,

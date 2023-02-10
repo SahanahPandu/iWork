@@ -109,6 +109,11 @@ class _PraState extends State<Pra> {
                     clockOutTime = clockOut.format(context);
                   }
                 }
+                if (dioError.value == 0) {
+                  isTaskDataFetched = true;
+                } else {
+                  isTaskDataFetched = false;
+                }
               } else {
                 //Show image no data;
               }

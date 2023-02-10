@@ -375,6 +375,22 @@ class _StartEndWorkSlideBarState extends State<StartEndWorkSlideBar> {
                         case 'ng':
                           showErrorToast(context,
                               "Anda tidak berjaya untuk mulakan kerja. Sila cuba lagi!");
+                          break;
+                        case 'isu-ihd':
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return showLottieAlertDialog(
+                                    context,
+                                    _textBuilder(
+                                        "\nAnda tidak berjaya untuk mulakan kerja kerana terdapat isu \nkehadiran pada jadual ${widget.data.mainRoute}. Sila hubungi penyelia anda!",
+                                        false),
+                                    "",
+                                    null,
+                                    null,
+                                    false);
+                              });
+                          break;
                       }
                     } else if (actionText == endWorkText &&
                         ((cpSchedule[widget.idx! - 1] == 2) && vcStatus == 2)) {

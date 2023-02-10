@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 
 import '../../config/config.dart';
+import '../../models/start_stop_work_time/start_stop_work_error.dart';
 import '../../models/start_stop_work_time/start_stop_work_time.dart';
 import '../http/service/http_service.dart';
 
@@ -33,6 +34,13 @@ class StartStopWorkApi {
       case 401:
         return 'ng';
       case 404:
+        Map<String, dynamic> decode = jsonDecode(response.body);
+        StartStopWorkError convertErrorData =
+            StartStopWorkError.fromJson(decode);
+        if (convertErrorData.message == "Kehadiran tidak lengkap" ||
+            convertErrorData.error == "ISU-IHD") {
+          return 'isu-ihd';
+        }
         return 'not_found';
       default:
         return 'error';

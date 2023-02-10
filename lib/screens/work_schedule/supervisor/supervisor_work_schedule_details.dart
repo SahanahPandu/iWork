@@ -29,9 +29,9 @@ class SupervisorScheduleDetails extends StatefulWidget {
 
 class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
   Color expandBgColor = const Color(0xea4a39be);
-
+  Color beforeVC = white;
+  Color afterVC = white;
   String startTime = "--:--";
-
   String stopTime = "--:--";
 
   @override
@@ -47,6 +47,23 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
       stopTime = "--:--";
     } else {
       stopTime = Time.convertToHM(widget.data!.data!.details.stopWorkAt!);
+    }
+    if (widget.data!.data!.details.vehicleChecklistId == null) {
+      beforeVC = white;
+      afterVC = white;
+    } else {
+      if (widget.data!.data!.details.vehicleChecklistId!.statusCode!.code ==
+          "VC1") {
+        beforeVC = okTextColor;
+        afterVC = white;
+      } else if (widget
+                  .data!.data!.details.vehicleChecklistId!.statusCode!.code ==
+              "VC2" ||
+          widget.data!.data!.details.vehicleChecklistId!.statusCode!.code ==
+              "VC3") {
+        beforeVC = okTextColor;
+        afterVC = okTextColor;
+      }
     }
     super.initState();
   }
@@ -289,14 +306,30 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                   ),
                 ],
               ),
-              Text(
-                "Sebelum/Selepas",
-                style: TextStyle(
-                  fontSize: 15,
-                  color: white,
-                  fontWeight: FontWeight.w600,
-                ),
-              )
+              RichText(
+                  text: TextSpan(
+                      text: "Sebelum",
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: beforeVC,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      children: <TextSpan>[
+                    TextSpan(
+                        text: "/",
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: white,
+                          fontWeight: FontWeight.w600,
+                        )),
+                    TextSpan(
+                        text: "Selepas",
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: afterVC,
+                          fontWeight: FontWeight.w600,
+                        )),
+                  ])),
             ],
           ),
         ),

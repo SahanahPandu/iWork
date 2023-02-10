@@ -199,7 +199,7 @@ class _LoginScreenState extends State<LoginScreen> {
           validateResult != 2 ||
           validateResult != 5) {
         showErrorToast(
-            context, "Masalah sambungan internet. Sila cuba semula!");
+            context, "Masalah sambungan internet. Sila cuba semula!", height: 16);
       }
     } else {}
   }
