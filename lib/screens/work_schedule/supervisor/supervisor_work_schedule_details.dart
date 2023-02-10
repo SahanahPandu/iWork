@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 //import files
@@ -14,6 +15,7 @@ import '../../../utils/icon/custom_icon.dart';
 import '../../../widgets/alert/user_profile_dialog.dart';
 import '../../../widgets/container/staff_stack_container.dart';
 import '../../../widgets/container/status_container.dart';
+import '../../geo_location/track_user_location.dart';
 
 class SupervisorScheduleDetails extends StatefulWidget {
   final SupervisorScheduleDetail? data;
@@ -333,10 +335,36 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
             ],
           ),
         ),
+
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      PageTransition(
+                          type: PageTransitionType.fade,
+                          child: const TrackUserLocation()));
+                },
+                child: Text(
+                  "Lokasi Kompaktor",
+                  style: TextStyle(
+                      decoration: TextDecoration.underline,
+                      color: okTextColor,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500),
+                ),
+              ),
+            ),
+            Align(
+                alignment: Alignment.centerRight,
+                child: SizedBox(child: buildStackedImages(widget.data))),
+          ],
+        ),
         //Senarai Staf
-        Align(
-            alignment: Alignment.centerRight,
-            child: SizedBox(child: buildStackedImages(widget.data))),
 
         widget.button == true
             ? Center(

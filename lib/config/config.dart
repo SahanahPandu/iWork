@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 
 //import files
 import '../utils/device/devices.dart';
@@ -117,3 +118,7 @@ ValueNotifier<int> dioError = ValueNotifier(0);
 bool isLoading = true;
 bool hasMore = true;
 String nextPageUrl = "";
+
+/// Geo Location
+String? currentAddress;
+Position? currentPosition;

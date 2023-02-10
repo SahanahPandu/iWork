@@ -5,6 +5,7 @@ import 'package:simple_ripple_animation/simple_ripple_animation.dart';
 //import files
 import '../../config/config.dart';
 import '../../config/palette.dart';
+import '../../screens/geo_location/user_locator.dart';
 import '../alert/alert_dialog.dart';
 import '../alert/lottie_alert_dialog.dart';
 import '../alert/toast.dart';
@@ -44,36 +45,66 @@ class _TimeLogRippleButtonState extends State<TimeLogRippleButton> {
               }).then((actionText) async {
             // Navigator.pop(context, actionText);
             if (actionText == "Masuk Kerja") {
-              //get clock in time into db
-              try {
-                Response response = await Dio().post(
-                  '$theBase/attendance/start-work',
-                  options: Options(headers: {
-                    "authorization": "Bearer ${userInfo[1]}",
-                  }),
-                );
+              await UserLocator().getCurrentPosition();
 
-                if (response.statusCode == 200) {
+              /// Your Current location is office, correct!
+              if (currentAddress == "1, Taman Tun Dr Ismail, , 60000") {
+                //get clock in time into db
+                try {
+                  Response response = await Dio().post(
+                    '$theBase/attendance/start-work',
+                    options: Options(headers: {
+                      "authorization": "Bearer ${userInfo[1]}",
+                    }),
+                  );
+
+                  if (response.statusCode == 200) {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return showLottieAlertDialog(
+                            context,
+                            _textBuilder("Tahniah! Anda berjaya masuk kerja"),
+                            "",
+                            null,
+                            null,
+                          );
+                        }).then((value) {
+                      Navigator.pop(context, actionText);
+                    });
+                  }
+                } on DioError catch (e) {
+                  // ignore: avoid_print
+                  print(e);
+                  // ignore: use_build_context_synchronously
                   showDialog(
                       context: context,
                       builder: (BuildContext context) {
                         return showLottieAlertDialog(
+                            context,
+                            _textBuilder(
+                              "Anda berada di luar kawasan depoh. Pastikan anda berada di dalam kawasan sebelum masuk kerja",
+                            ),
+                            "",
+                            null,
+                            null,
+                            false);
+                      });
+                }
+              } else {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return showLottieAlertDialog(
                           context,
-                          _textBuilder(),
+                          _textBuilder(
+                            "Lokasi kini: $currentAddress\nAnda berada di luar kawasan depoh. Pastikan anda berada di dalam kawasan sebelum masuk kerja",
+                          ),
                           "",
                           null,
                           null,
-                        );
-                      }).then((value) {
-                    Navigator.pop(context, actionText);
-                  });
-                }
-              } on DioError catch (e) {
-                // ignore: avoid_print
-                print(e);
-                showErrorToast(
-                    context, "Log masuk anda tidak berjaya. Sila cuba lagi.",
-                    height: 16);
+                          false);
+                    });
               }
             } else if (actionText == "Tamat Kerja") {
               //get clock out time into db
@@ -91,7 +122,7 @@ class _TimeLogRippleButtonState extends State<TimeLogRippleButton> {
                       builder: (BuildContext context) {
                         return showLottieAlertDialog(
                           context,
-                          _textBuilder(),
+                          _textBuilder("Jumpa lagi! Anda telah tamat kerja"),
                           "",
                           null,
                           null,
@@ -131,11 +162,9 @@ class _TimeLogRippleButtonState extends State<TimeLogRippleButton> {
     );
   }
 
-  Widget _textBuilder() {
+  Widget _textBuilder(String text) {
     return Text(
-      widget.btnText == "Masuk Kerja"
-          ? "Tahniah! Anda berjaya masuk kerja"
-          : "Jumpa lagi! Anda telah tamat kerja",
+      text,
       textAlign: TextAlign.center,
       textWidthBasis: TextWidthBasis.parent,
       style: TextStyle(
