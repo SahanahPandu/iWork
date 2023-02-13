@@ -359,9 +359,9 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                 ),
               ),
             ),
-            Align(
-                alignment: Alignment.centerRight,
-                child: SizedBox(child: buildStackedImages(widget.data))),
+            Expanded(
+              child: SizedBox(child: buildStackedImages(widget.data)),
+            ),
           ],
         ),
         //Senarai Staf

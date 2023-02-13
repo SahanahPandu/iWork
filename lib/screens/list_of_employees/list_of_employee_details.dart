@@ -4,18 +4,19 @@ import "package:flutter/material.dart";
 //import files
 import '../../config/dimen.dart';
 import '../../config/palette.dart';
-import '../../models/pekerja.dart';
+// import '../../models/pekerja.dart';
+import '../../models/schedule/schedule_data_detail_cp_sv/schedule_detail.dart';
 import '../../widgets/buttons/select_employee_button.dart';
 
 class ListOfEmployeeDetails extends StatefulWidget {
   final String? type;
-  final Pekerja? data;
+  final WorkerSchedule? dataPekerja;
   final Function(dynamic)? assignedEmployee;
 
   const ListOfEmployeeDetails({
     Key? key,
     this.type,
-    this.data,
+    this.dataPekerja,
     this.assignedEmployee,
   }) : super(key: key);
 
@@ -25,7 +26,7 @@ class ListOfEmployeeDetails extends StatefulWidget {
 
 class _ListOfEmployeeDetailsState extends State<ListOfEmployeeDetails> {
   selectEmployee() {
-    widget.assignedEmployee!(widget.data);
+    widget.assignedEmployee!(widget.dataPekerja);
     Navigator.pop(context);
   }
 
@@ -53,7 +54,8 @@ class _ListOfEmployeeDetailsState extends State<ListOfEmployeeDetails> {
                     borderRadius: BorderRadius.circular(borderRadiusCircular),
                     child: FittedBox(
                       fit: BoxFit.fill,
-                      child: Image.network(widget.data!.displayPicture,
+                      child: Image.network(
+                          widget.dataPekerja!.userId!.userDetail!.profilePic!,
                           height: 56,
                           width: 56, loadingBuilder: (BuildContext context,
                               Widget child, ImageChunkEvent? loadingProgress) {
@@ -87,73 +89,60 @@ class _ListOfEmployeeDetailsState extends State<ListOfEmployeeDetails> {
                     width: _textSize().width,
                     height: _textSize().height,
                     child: Text(
-                      widget.data!.name,
+                      widget.dataPekerja!.userId!.userDetail!.name!,
                       style: textStyle,
                       softWrap: true,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
                     ),
                   ),
-                  const SizedBox(height: 4),
+                  const SizedBox(
+                    height: 4,
+                  ),
                   Row(
                     children: [
                       Text(
-                        widget.data!.designCat,
+                        widget.dataPekerja!.userId!.userRoles![0].roleDesc!,
                         style: TextStyle(
-                            color: greyCustom,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400),
+                          color: greyCustom,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
-                      const SizedBox(width: 6),
+                      const SizedBox(
+                        width: 6,
+                      ),
                       Icon(
                         Icons.fiber_manual_record,
                         size: 5,
                         color: greyCustom,
                       ),
-                      const SizedBox(width: 6),
+                      const SizedBox(
+                        width: 6,
+                      ),
                       Text(
-                        widget.data!.skills,
+                        "Kutipan, Memandu",
                         style: TextStyle(
-                            color: greyCustom,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400),
+                          color: greyCustom,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
                     ],
                   ),
 
-                  if (widget.data!.idAttStatus == 2)
-                    const SizedBox(
-                      height: 16,
-                    ),
                   //Status kehadiran
                   // this status only show for employee that absent
-                  if (widget.data!.idAttStatus == 2)
-                    FittedBox(
-                      fit: BoxFit.contain,
-                      child: Container(
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color: orangeStatusBox,
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        child: AutoSizeText(
-                          widget.data!.attStatus,
-                          style: TextStyle(
-                            fontSize: 11,
-                            color: orangeStatusText,
-                            fontWeight: FontWeight.w600,
-                          ),
-                          maxLines: 1,
-                        ),
-                      ),
-                    ),
+                  if (widget.dataPekerja!.userLeaveId != null ||
+                      widget.dataPekerja!.userAttendanceId == null)
+                    _statusSection(),
                 ],
               ),
             ),
           ],
         ),
         //button pilih pekerja
-        if (widget.data!.idAttStatus == 1 && widget.type == "Senarai Hadir")
+        if (widget.type == "Senarai Hadir")
           Align(
             alignment: Alignment.topRight,
             child: SizedBox(
@@ -171,10 +160,51 @@ class _ListOfEmployeeDetailsState extends State<ListOfEmployeeDetails> {
 
   Size _textSize() {
     final TextPainter textPainter = TextPainter(
-        text: TextSpan(text: widget.data!.name, style: textStyle),
+        text: TextSpan(
+            text: widget.dataPekerja!.userId!.userDetail!.name!,
+            style: textStyle),
         maxLines: 2,
         textDirection: TextDirection.ltr)
       ..layout(minWidth: 0, maxWidth: 220);
     return textPainter.size;
+  }
+
+  Widget _statusSection() {
+    WorkerSchedule workerData = widget.dataPekerja!;
+    String theAbsentStatus = "";
+
+    if (workerData.userLeaveId != null) {
+      theAbsentStatus = workerData.userLeaveId!.leaveType!.name;
+    } else if (workerData.userAttendanceId == null) {
+      theAbsentStatus = "Tidak Clock In";
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(
+          height: 16,
+        ),
+        FittedBox(
+          fit: BoxFit.contain,
+          child: Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: orangeStatusBox,
+              borderRadius: BorderRadius.circular(6),
+            ),
+            child: AutoSizeText(
+              theAbsentStatus,
+              style: TextStyle(
+                fontSize: 11,
+                color: orangeStatusText,
+                fontWeight: FontWeight.w600,
+              ),
+              maxLines: 1,
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }

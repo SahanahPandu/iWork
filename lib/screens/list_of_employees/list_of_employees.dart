@@ -101,7 +101,7 @@ class _ListOfEmployeesState extends State<ListOfEmployees> {
                                   margin: const EdgeInsets.only(bottom: 24),
                                   child: ListOfEmployeeDetails(
                                     type: widget.type,
-                                    data: dataFuture![index],
+                                    dataPekerja: dataFuture![index],
                                     assignedEmployee: widget.assignedEmployee,
                                   ),
                                 );

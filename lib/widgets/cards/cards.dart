@@ -39,7 +39,7 @@ class _CardsState extends State<Cards> {
       return SupervisorScheduleDetails(data: widget.data);
     } else if (widget.type == "Senarai Pekerja") {
       return ListOfEmployeeDetails(
-        data: widget.data!,
+        dataPekerja: widget.data!,
       );
     } else if (widget.type == "Reassign Pekerja") {
       return ReassignEmployeeDetails(

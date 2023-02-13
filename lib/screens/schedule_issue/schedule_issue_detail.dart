@@ -90,7 +90,7 @@ class _ScheduleIssueDetailState extends State<ScheduleIssueDetail> {
                       headerWidget: _header(context, scheduleDetail),
                       fullyStretchable: true,
                       body: [
-                        _scrollBody(),
+                        _scrollBody(scheduleDetail),
                       ],
                       curvedBodyRadius: 24,
                       fixedTitle: _fixedTitle(context),
@@ -111,24 +111,27 @@ class _ScheduleIssueDetailState extends State<ScheduleIssueDetail> {
     ]);
   }
 
-  SafeArea _scrollBody() {
+  SafeArea _scrollBody(dynamic scheduleDetail) {
     return SafeArea(
       child: Container(
           color: white,
           child: Column(
-            children: [_getBottomList(widget.getIssue)],
+            children: [_getBottomList(widget.getIssue, scheduleDetail)],
           )),
     );
   }
 
-  Widget _getBottomList(String issue) {
+  Widget _getBottomList(String issue, dynamic scheduleDetail) {
     switch (issue) {
       case "IHD":
 
         /// Kehadiran
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 5),
-          child: ReassignEmployeeList(namaLaluan: widget.getInfo.mainRoute),
+          child: ReassignEmployeeList(
+            namaLaluan: widget.getInfo.mainRoute,
+            absentStaffList: scheduleDetail.data.details.workerSchedules,
+          ),
         );
       case "IBMT":
 
@@ -150,26 +153,36 @@ class _ScheduleIssueDetailState extends State<ScheduleIssueDetail> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          widget.getInfo.mainRoute,
-          style: TextStyle(
-            color: white,
-            fontWeight: FontWeight.w700,
-            fontSize: 17,
+        Expanded(
+          child: Row(
+            children: [
+              Text(
+                widget.getInfo.mainRoute,
+                style: TextStyle(
+                  color: white,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 17,
+                ),
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              StatusContainer(
+                type: "Laluan",
+                status: widget.getInfo.statusCode.name,
+                statusId: widget.getInfo.statusCode.code,
+                fontWeight: statusFontWeight,
+                roundedCorner: true,
+              ),
+            ],
           ),
         ),
-        const SizedBox(width: 10),
-        StatusContainer(
-          type: "Laluan",
-          status: widget.getInfo.statusCode.name,
-          statusId: widget.getInfo.statusCode.code,
-          fontWeight: statusFontWeight,
-          roundedCorner: true,
-        ),
-        Padding(
-            padding: const EdgeInsets.only(top: 5),
-            child: //Senarai Staf
-                buildStackedImages(scheduleDetail))
+        Expanded(
+          child: Padding(
+              padding: const EdgeInsets.only(top: 5),
+              child: //Senarai Staf
+                  buildStackedImages(scheduleDetail)),
+        )
       ],
     );
   }
