@@ -231,6 +231,114 @@ class _PraWorkScheduleDetailsState extends State<PraWorkScheduleDetails> {
               ],
             ),
           ),
+
+          SizedBox(
+            height: heightGap,
+          ),
+
+          //Jadual Mula/Tamat
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Icon(
+                      CustomIcon.scheduleFill,
+                      size: 16,
+                      color: white,
+                    ),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    Text(
+                      "Jadual Mula/Tamat",
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: white,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ],
+                ),
+                Text(
+                  widget.data?.startScheduleAt == null &&
+                          widget.data?.stopScheduleAt ==
+                              null // no start & stop schedule time
+                      ? "--:--"
+                      : widget.data?.startScheduleAt != null &&
+                              widget.data?.stopScheduleAt ==
+                                  null // have start schedule time but no stop schedule time
+                          ? "${widget.data!.startScheduleAt!} / --:--"
+                          : widget.data?.startScheduleAt == null &&
+                                  widget.data?.stopScheduleAt !=
+                                      null // no start schedule time but have stop schedule time
+                              ? "--:-- / ${widget.data?.stopScheduleAt}"
+                              : "${widget.data?.startScheduleAt} / ${widget.data?.stopScheduleAt}", // have both start and stop schedule time
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: white,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          SizedBox(
+            height: heightGap,
+          ),
+
+          //Mula/Tamat Kerja
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Icon(
+                      CustomIcon.timerFill,
+                      size: 16,
+                      color: white,
+                    ),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    Text(
+                      "Mula/Tamat Kerja",
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: white,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ],
+                ),
+                Text(
+                  widget.data?.startWorkAt == null &&
+                          widget.data?.stopWorkAt ==
+                              null // no start & stop work time
+                      ? "--:--"
+                      : widget.data?.startWorkAt != null &&
+                              widget.data?.stopWorkAt ==
+                                  null // have start work time but no stop work time
+                          ? "${widget.data!.startWorkAt!} / --:--"
+                          : widget.data?.startWorkAt == null &&
+                                  widget.data?.stopWorkAt !=
+                                      null // no start work time but have stop work time
+                              ? "--:-- / ${widget.data?.stopWorkAt}"
+                              : "${widget.data?.startWorkAt} / ${widget.data?.stopWorkAt}", // have both start and stop work time
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: white,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );

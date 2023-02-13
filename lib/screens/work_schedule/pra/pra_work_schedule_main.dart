@@ -48,7 +48,7 @@ class _PraWorkScheduleMainState extends State<PraWorkScheduleMain> {
     return ExpandCollapseHeader(
         centerTitle: false,
         title: _collapseTitle(),
-        headerExpandedHeight: 0.4,
+        headerExpandedHeight: 0.5,
         alwaysShowLeadingAndAction: false,
         headerWidget: _header(context),
         fullyStretchable: true,
@@ -65,9 +65,9 @@ class _PraWorkScheduleMainState extends State<PraWorkScheduleMain> {
 
   SafeArea _scrollBody() {
     return SafeArea(
-
-        /// 0.438 = headerExpandedHeight + 0.038
-        child: StreetSearch(height: 0.438, scMainId: widget.data?.id));
+      /// 0.438 = headerExpandedHeight + 0.038
+      child: StreetSearch(height: 0.438, scMainId: widget.data?.id),
+    );
   }
 
   Row _collapseTitle() {

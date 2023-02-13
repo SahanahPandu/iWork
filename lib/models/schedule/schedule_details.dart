@@ -10,16 +10,16 @@ class ScheduleDetails {
   @JsonKey(defaultValue: null)
   final Activity? activityCode;
 
-  @JsonKey(defaultValue: "")
+  @JsonKey(defaultValue: null)
   final String? startScheduleAt;
 
-  @JsonKey(defaultValue: "")
+  @JsonKey(defaultValue: null)
   final String? stopScheduleAt;
 
-  @JsonKey(defaultValue: "")
+  @JsonKey(defaultValue: null)
   final String? startWorkAt;
 
-  @JsonKey(defaultValue: "")
+  @JsonKey(defaultValue: null)
   final String? stopWorkAt;
 
   @JsonKey(defaultValue: 0)
