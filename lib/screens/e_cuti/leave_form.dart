@@ -133,14 +133,14 @@ class _LeaveFormState extends State<LeaveForm> {
         //tarikh mula
         if (widget.data?.dateFrom != "") {
           String theConvStartDate = DateFormat("dd/MM/yyyy")
-              .format(DateTime.parse(widget.data!.dateFrom));
+              .format(DateTime.parse(widget.data!.dateFrom!));
           _tarikhMula.text = theConvStartDate;
         }
 
         //tarikh tamat
         if (widget.data?.dateTo != "") {
           String theConvEndDate = DateFormat("dd/MM/yyyy")
-              .format(DateTime.parse(widget.data!.dateTo));
+              .format(DateTime.parse(widget.data!.dateTo!));
           _tarikhTamat.text = theConvEndDate;
         }
 

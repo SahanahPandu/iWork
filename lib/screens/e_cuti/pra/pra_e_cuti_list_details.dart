@@ -28,14 +28,14 @@ class _PraECutiListDetailsState extends State<PraECutiListDetails> {
     String endDate = "";
 
     if (widget.data.dateFrom != "") {
-      String theConvStartDate =
-          DateFormat("dd/MM/yyyy").format(DateTime.parse(widget.data.dateFrom));
+      String theConvStartDate = DateFormat("dd/MM/yyyy")
+          .format(DateTime.parse(widget.data.dateFrom!));
       startDate = theConvStartDate;
     }
 
     if (widget.data.dateTo != "") {
       String theConvEndDate =
-          DateFormat("dd/MM/yyyy").format(DateTime.parse(widget.data.dateTo));
+          DateFormat("dd/MM/yyyy").format(DateTime.parse(widget.data.dateTo!));
       endDate = theConvEndDate;
     }
 

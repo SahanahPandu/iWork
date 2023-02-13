@@ -1,3 +1,7 @@
+import 'package:eswm/models/task/compactor/data/workers/user_roles/user_roles.dart';
+
+import '../../ecuti/ecuti_details.dart';
+
 class Details {
   Details({
     this.id,
@@ -142,12 +146,14 @@ class WorkerSchedule {
     this.id,
     this.scMainId,
     this.userId,
+    this.userLeaveId,
     this.userAttendanceId,
   });
 
   int? id;
   int? scMainId;
   UserId? userId;
+  EcutiDetails? userLeaveId;
   UserAttendanceId? userAttendanceId;
 
   factory WorkerSchedule.fromJson(Map<String, dynamic> json) => WorkerSchedule(
@@ -155,6 +161,9 @@ class WorkerSchedule {
         scMainId: json["sc_main_id"],
         userId:
             json["user_id"] != null ? UserId.fromJson(json["user_id"]) : null,
+        userLeaveId: json['user_leave_id'] != null
+            ? EcutiDetails.fromJson(json['user_leave_id'])
+            : null,
         userAttendanceId: json["user_attendance_id"] != null
             ? UserAttendanceId.fromJson(json["user_attendance_id"])
             : null,
@@ -208,6 +217,7 @@ class UserId {
     this.emsUserId,
     this.contractorUserId,
     this.userDetail,
+    this.userRoles,
   });
 
   int? id;
@@ -215,6 +225,7 @@ class UserId {
   int? emsUserId;
   dynamic contractorUserId;
   UserDetail? userDetail;
+  List<UserRole>? userRoles;
 
   factory UserId.fromJson(Map<String, dynamic> json) => UserId(
         id: json["id"],
@@ -223,6 +234,10 @@ class UserId {
         contractorUserId: json["contractor_user_id"],
         userDetail: json["user_detail"] != null
             ? UserDetail.fromJson(json["user_detail"])
+            : null,
+        userRoles: json["user_roles"] != null
+            ? List<UserRole>.from(
+                json["user_roles"].map((x) => UserRole.fromJson(x)))
             : null,
       );
 

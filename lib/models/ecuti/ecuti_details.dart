@@ -8,8 +8,11 @@ class EcutiDetails {
   @JsonKey(defaultValue: null)
   final UserData? userId;
 
-  final String dateFrom;
-  final String dateTo;
+  @JsonKey(defaultValue: "")
+  final String? dateFrom;
+
+  @JsonKey(defaultValue: "")
+  final String? dateTo;
 
   @JsonKey(defaultValue: "")
   final String? remarks;
