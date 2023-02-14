@@ -151,31 +151,22 @@ class _ScheduleIssueDetailState extends State<ScheduleIssueDetail> {
 
   Row _collapseTitle() {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Expanded(
-          child: Row(
-            children: [
-              Text(
-                widget.getInfo.mainRoute,
-                style: TextStyle(
-                  color: white,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 17,
-                ),
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              StatusContainer(
-                type: "Laluan",
-                status: widget.getInfo.statusCode.name,
-                statusId: widget.getInfo.statusCode.code,
-                fontWeight: statusFontWeight,
-                roundedCorner: true,
-              ),
-            ],
+        Text(
+          widget.getInfo.mainRoute,
+          style: TextStyle(
+            color: white,
+            fontWeight: FontWeight.w700,
+            fontSize: 17,
           ),
+        ),
+        StatusContainer(
+          type: "Laluan",
+          status: widget.getInfo.statusCode.name,
+          statusId: widget.getInfo.statusCode.code,
+          fontWeight: statusFontWeight,
+          roundedCorner: true,
         ),
         Expanded(
           child: Padding(

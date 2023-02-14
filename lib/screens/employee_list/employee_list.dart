@@ -206,16 +206,16 @@ class _EmployeeListState extends State<EmployeeList> {
                       height: 16,
                     ),
                     //Employee List
-                    Expanded(
-                      flex: 5,
-                      child: ListOfEmployees(
-                        type: "Senarai Hadir",
-                        idStatus: 1, // Hadir
-                        searchedName: searchName,
-                        assignedEmployee: widget.assignedEmployee,
-                        idSv: svIdList,
-                      ),
-                    ),
+                    // Expanded(
+                    //   flex: 5,
+                    //   child: ListOfEmployees(
+                    //     type: "Senarai Hadir",
+                    //     idStatus: 1, // Hadir
+                    //     searchedName: searchName,
+                    //     assignedEmployee: widget.assignedEmployee,
+                    //     idSv: svIdList,
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
