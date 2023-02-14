@@ -26,6 +26,12 @@ class _TrackUserLocationState extends State<TrackUserLocation> {
     super.initState();
   }
 
+  @override
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   LocationData? currentLocation;
 
   void getCurrentLocation() async {
@@ -71,7 +77,8 @@ class _TrackUserLocationState extends State<TrackUserLocation> {
                   key: mapsWidgetController,
                   sourceLatLng: sourceLocation,
                   destinationLatLng: destination,
-
+                  myLocationEnabled: true,
+                  zoomGesturesEnabled: true,
                   ///////////////////////////////////////////////////////
                   //////////////    OPTIONAL PARAMETERS    //////////////
                   ///////////////////////////////////////////////////////
@@ -95,7 +102,7 @@ class _TrackUserLocationState extends State<TrackUserLocation> {
                     onTapMarker: (currentLocation) {
                       //print("Driver is currently at $currentLocation");
                     },
-                    assetMarkerSize: const Size.square(90),
+                    assetMarkerSize: const Size(50, 90),
                     //rotation: 90,
                   ),
                   onMapCreated: (mapController) {
@@ -106,15 +113,15 @@ class _TrackUserLocationState extends State<TrackUserLocation> {
                   },
                   updatePolylinesOnDriverLocUpdate:
                       reachedDest == false ? true : false,
+
                   /// Mock compactor's stream
-                  driverCoordinatesStream: reachedDest == false
-                      ? Stream.periodic(const Duration(seconds: 2), (i) {
-                          return LatLng(3.1378175500000003 - i / 10000,
-                              101.62956750000001 + i / 10000);
-                          //currentLocation!.latitude!+ i / 10000,
-                          //currentLocation!.longitude!- i / 10000);
-                        })
-                      : null,
+                  driverCoordinatesStream:
+                      Stream.periodic(const Duration(seconds: 2), (i) {
+                    return LatLng(3.1378175500000003 - i / 10000,
+                        101.62956750000001 + i / 10000);
+                    //currentLocation!.latitude!+ i / 10000,
+                    //currentLocation!.longitude!- i / 10000);
+                  }),
                   totalTimeCallback: (time) {
                     //print(time);
                   },

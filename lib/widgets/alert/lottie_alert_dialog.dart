@@ -57,7 +57,9 @@ showLottieAlertDialog(BuildContext context, contents, String screen,
           : Sizes().screenWidth(context) * 0.8,
       height: userRole == 100 && Orientations().isTabletPortrait(context)
           ? Sizes().screenHeight(context) * 0.2
-          : Sizes().screenHeight(context) * 0.31,
+          : success!
+              ? Sizes().screenHeight(context) * 0.3
+              : Sizes().screenHeight(context) * 0.31,
       child: CustomDialog(text: contents, isSuccess: success),
     ),
     contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
