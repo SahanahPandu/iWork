@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 //import files
 import '../../../../config/dimen.dart';
 import '../../../../config/palette.dart';
-import '../../../../models/pekerja.dart';
 import '../../../../utils/calendar/time.dart';
 
 class AttendanceVerificationDetailList extends StatefulWidget {
-  final Pekerja data;
+  final dynamic data;
   final int? index;
+  final int? lastIndex;
 
   const AttendanceVerificationDetailList(
-      {Key? key, required this.data, this.index})
+      {Key? key, this.data, this.index, this.lastIndex})
       : super(key: key);
 
   @override
@@ -32,14 +32,20 @@ class _AttendanceVerificationDetailListState
   }
 
   bool _isClockedIn() {
-    if (widget.data.timeIn != "") {
-      timeIn = widget.data.timeIn;
-      timeInColor = greenCustom;
-      return val = true;
-    } else {
+    if (widget.data!.userAttendanceId == null) {
       timeIn = "Tiada Rekod";
       timeInColor = red;
       return val = false;
+    } else {
+      if (widget.data!.userAttendanceId!.clockInAt != "") {
+        timeIn = widget.data!.userAttendanceId!.clockInAt;
+        timeInColor = greenCustom;
+        return val = true;
+      } else {
+        timeIn = "Tiada Rekod";
+        timeInColor = red;
+        return val = false;
+      }
     }
   }
 
@@ -74,10 +80,10 @@ class _AttendanceVerificationDetailListState
                           borderRadius:
                               BorderRadius.circular(borderRadiusCircular),
                           child: Image.network(
+                            widget.data!.userId.userDetail.profilePic,
                             height: 56,
                             width: 56,
                             fit: BoxFit.fill,
-                            widget.data.displayPicture,
                             loadingBuilder: (BuildContext context, Widget child,
                                 ImageChunkEvent? loadingProgress) {
                               if (loadingProgress == null) return child;
@@ -108,7 +114,7 @@ class _AttendanceVerificationDetailListState
                       width: _textSize().width,
                       height: _textSize().height,
                       child: Text(
-                        widget.data.name,
+                        widget.data!.userId.userDetail.name,
                         style: textStyle,
                         softWrap: true,
                         overflow: TextOverflow.ellipsis,
@@ -119,7 +125,7 @@ class _AttendanceVerificationDetailListState
                     Row(
                       children: [
                         Text(
-                          widget.data.designCat,
+                          "PRA",
                           style: TextStyle(
                               color: greyCustom,
                               fontSize: 13,
@@ -133,7 +139,7 @@ class _AttendanceVerificationDetailListState
                         ),
                         const SizedBox(width: 6),
                         Text(
-                          widget.data.skills,
+                          "Kutipan",
                           style: TextStyle(
                               color: greyCustom,
                               fontSize: 13,
@@ -177,7 +183,7 @@ class _AttendanceVerificationDetailListState
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: widget.index != 6
+          child: widget.index != widget.lastIndex
               ? const Divider(
                   thickness: 0.5,
                 )
@@ -195,7 +201,8 @@ class _AttendanceVerificationDetailListState
 
   Size _textSize() {
     final TextPainter textPainter = TextPainter(
-        text: TextSpan(text: widget.data.name, style: textStyle),
+        text: TextSpan(
+            text: widget.data!.userId.userDetail.name, style: textStyle),
         maxLines: 2,
         textDirection: TextDirection.ltr)
       ..layout(minWidth: 0, maxWidth: 180);
@@ -204,14 +211,15 @@ class _AttendanceVerificationDetailListState
 
   void _toggleTimeInData(bool isTicked) {
     if (isTicked == true) {
-      if (widget.data.timeIn == "") {
+      if (widget.data!.userAttendanceId == null ||
+          widget.data!.userAttendanceId!.clockInAt == "") {
         if (Time.getCurrentTime().contains("AM")) {
           timeIn = "${Time.getCurrentTimeInHHMM()} pagi";
         } else {
           timeIn = "${Time.getCurrentTimeInHHMM()} petang";
         }
       } else {
-        timeIn = widget.data.timeIn;
+        timeIn = widget.data!.userAttendanceId!.clockInAt;
       }
       timeInColor = greenCustom;
     } else {

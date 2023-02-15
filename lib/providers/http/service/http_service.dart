@@ -42,4 +42,10 @@ class HttpService {
 
   /// Update Stop Work Time Url as Uri
   final Uri updateStopWorkTime = (Uri.parse('$theBase/task/stop'));
+
+  /// Load Vehicle Checklist Verification list Url as String
+  final loadVehicleChecklistVerificationList = '$theBase/task/confirmation/list/vehicle-checklists';
+
+  /// Load Workers Attendance Url as String
+  final loadWorkersAttendanceList = '$theBase/task/confirmation/attendance';
 }

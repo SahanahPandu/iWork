@@ -227,15 +227,22 @@ class Sah {
   });
 
   List<Attendance>? attendance;
-  List<dynamic>? checklist;
+  List<Checklist>? checklist;
   List<Leave>? leave;
   List<dynamic>? workerRequest;
 
   factory Sah.fromJson(Map<String, dynamic> json) => Sah(
-        attendance: List<Attendance>.from(
-            json["attendance"].map((x) => Attendance.fromJson(x))),
-        checklist: List<dynamic>.from(json["checklist"].map((x) => x)),
-        leave: List<Leave>.from(json["leave"].map((x) => Leave.fromJson(x))),
+        attendance: json["attendance"] != null
+            ? List<Attendance>.from(
+                json["attendance"].map((x) => Attendance.fromJson(x)))
+            : [],
+        checklist: json["checklist"] != null
+            ? List<Checklist>.from(
+                json["checklist"].map((x) => Checklist.fromJson(x)))
+            : [],
+        leave: json["leave"] != null
+            ? List<Leave>.from(json["leave"].map((x) => Leave.fromJson(x)))
+            : [],
         workerRequest: List<dynamic>.from(json["worker_request"].map((x) => x)),
       );
 
@@ -276,6 +283,58 @@ class Attendance {
         "vehicle_no": vehicleNo,
         "total_worker": totalWorker,
         "workers_attended_count": workersAttendedCount,
+      };
+}
+
+class Checklist {
+  Checklist({
+    required this.id,
+    required this.mainRoute,
+    required this.vehicleNo,
+    required this.vehicleChecklistId,
+  });
+
+  int id;
+  String mainRoute;
+  String vehicleNo;
+  VehicleChecklistId vehicleChecklistId;
+
+  factory Checklist.fromJson(Map<String, dynamic> json) => Checklist(
+        id: json["id"],
+        mainRoute: json["main_route"],
+        vehicleNo: json["vehicle_no"],
+        vehicleChecklistId:
+            VehicleChecklistId.fromJson(json["vehicle_checklist_id"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "main_route": mainRoute,
+        "vehicle_no": vehicleNo,
+        "vehicle_checklist_id": vehicleChecklistId.toJson(),
+      };
+}
+
+class VehicleChecklistId {
+  VehicleChecklistId({
+    required this.id,
+    required this.statusCode,
+  });
+
+  int id;
+  StatusCode? statusCode;
+
+  factory VehicleChecklistId.fromJson(Map<String, dynamic> json) =>
+      VehicleChecklistId(
+        id: json["id"],
+        statusCode: json["status_code"] != null
+            ? StatusCode.fromJson(json["status_code"])
+            : null,
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "status_code": statusCode!.toJson(),
       };
 }
 

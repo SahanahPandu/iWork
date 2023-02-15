@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 //import files
 import '../../../config/font.dart';
 import '../../../config/palette.dart';
-import '../../../models/vc/detail/vc_main.dart';
+import '../../../models/vc/confirmation/vc_verification_list.dart';
 import '../../../utils/icon/custom_icon.dart';
 import '../../../widgets/container/status_container.dart';
 
 class VehicleChecklistApprovalDetails extends StatefulWidget {
-  final VehicleChecklistMain data;
+  final ChecklistList data;
 
   const VehicleChecklistApprovalDetails({Key? key, required this.data})
       : super(key: key);
@@ -30,7 +30,7 @@ class _VehicleChecklistApprovalDetailsState
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
               child: Text(
-                "widget.data.noLaluan",
+                "15/02/2023",
                 style: TextStyle(
                     fontWeight: FontWeight.w500,
                     color: blackCustom,
@@ -39,8 +39,8 @@ class _VehicleChecklistApprovalDetailsState
             ),
             StatusContainer(
               type: "vc",
-              status: widget.data.data!.vehicleChecklists!.statusCode,
-              statusId: widget.data.data!.vehicleChecklists!.statusCode,
+              status: widget.data.vehicleChecklistId.statusCode.name,
+              statusId: widget.data.vehicleChecklistId.statusCode.code,
               fontWeight: statusFontWeight,
             ),
           ],
@@ -67,7 +67,7 @@ class _VehicleChecklistApprovalDetailsState
                           fontSize: 15)),
                 ],
               ),
-              Text("widget.data.noKenderaan",
+              Text(widget.data.vehicleNo,
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
                       color: blackCustom,
@@ -83,21 +83,21 @@ class _VehicleChecklistApprovalDetailsState
               Row(
                 children: [
                   Icon(
-                    CustomIcon.timerFill,
+                    CustomIcon.roadFill,
                     size: 16,
                     color: activeColor,
                   ),
                   const SizedBox(
                     width: 8,
                   ),
-                  Text('Keluar/Balik',
+                  Text('Laluan',
                       style: TextStyle(
                           fontWeight: FontWeight.w400,
                           color: greyCustom,
                           fontSize: 15)),
                 ],
               ),
-              Text('${"widget.data.masaKeluar"} / ${"widget.data.masaBalik"}',
+              Text(widget.data.mainRoute,
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
                       color: blackCustom,

@@ -5,7 +5,8 @@ import 'package:page_transition/page_transition.dart';
 import '../../../config/config.dart';
 import '../../../config/dimen.dart';
 import '../../../config/palette.dart';
-import '../../../providers/vehicle_checklist/vehicle_checklist_api.dart';
+import '../../../models/vc/confirmation/vc_verification_list.dart';
+import '../../../providers/vehicle_checklist/verification/vehicle_checklist_verification_api.dart';
 import '../../../utils/icon/custom_icon.dart';
 import '../../../widgets/tabs/vehicle_checklist_tab/vehicle_checklist_approval_tab/vehicle_checklist_approval_tab.dart';
 import 'vehicle_checklist_approval_details.dart';
@@ -20,12 +21,8 @@ class VehicleChecklistApprovalMain extends StatefulWidget {
 
 class _VehicleChecklistApprovalMainState
     extends State<VehicleChecklistApprovalMain> {
-  late Future<List> _loadVehicleChecklistData;
-
   @override
   void initState() {
-    _loadVehicleChecklistData =
-        VehicleChecklistApi.getVehicleChecklist() as Future<List>;
     super.initState();
   }
 
@@ -93,8 +90,9 @@ class _VehicleChecklistApprovalMainState
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: FutureBuilder<List>(
-                future: _loadVehicleChecklistData,
+              child: FutureBuilder<List<ChecklistList>?>(
+                future: VehicleChecklistVerificationApi
+                    .getVehicleChecklistVerificationList(context, '2023-02-15'),
                 builder: (context, snapshot) {
                   final dataFuture = snapshot.data;
 
@@ -131,9 +129,7 @@ class _VehicleChecklistApprovalMainState
                                           PageTransition(
                                               type: PageTransitionType.fade,
                                               child:
-                                                  VehicleChecklistApprovalTab(
-                                                data: dataFuture[i],
-                                              )));
+                                                  const VehicleChecklistApprovalTab()));
                                       //print("index clicked ${i - 1}");
                                     },
                                     child: buildTabletCard(
@@ -156,9 +152,8 @@ class _VehicleChecklistApprovalMainState
                                         context,
                                         PageTransition(
                                             type: PageTransitionType.fade,
-                                            child: VehicleChecklistApprovalTab(
-                                              data: dataFuture[index],
-                                            )));
+                                            child:
+                                                VehicleChecklistApprovalTab(vcData: dataFuture[index])));
                                   },
                                   child: Padding(
                                       padding: const EdgeInsets.symmetric(

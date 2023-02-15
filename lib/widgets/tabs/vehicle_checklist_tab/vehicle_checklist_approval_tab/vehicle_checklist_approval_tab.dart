@@ -4,19 +4,20 @@ import 'package:intl/intl.dart';
 //import files
 import '../../../../config/palette.dart';
 import '../../../../config/string.dart';
-import '../../../../models/vc/detail/vc_main.dart';
 import '../../../../utils/device/sizes.dart';
 import '../../../../utils/icon/custom_icon.dart';
 import '../../../alert/alert_dialog.dart';
 import '../../../alert/lottie_alert_dialog.dart';
+import '../../../alert/toast.dart';
 import 'vehicle_checklist_approval_tab_bar_view/vehicle_checklist_approval_after_tab_bar_view.dart';
 import 'vehicle_checklist_approval_tab_bar_view/vehicle_checklist_approval_before_tab_bar_view.dart';
 
 class VehicleChecklistApprovalTab extends StatefulWidget {
-  final VehicleChecklistMain data;
+  // Task (clicked directly from main card list) --> VehicleChecklist (supervisor_task.dart)
+  // Task/confirmation/list (clicked from today's vc confirmation list)--> VehicleChecklistList (VCVerificationList.dart)
+  final dynamic vcData;
 
-  const VehicleChecklistApprovalTab({Key? key, required this.data})
-      : super(key: key);
+  const VehicleChecklistApprovalTab({Key? key, this.vcData}) : super(key: key);
 
   @override
   State<VehicleChecklistApprovalTab> createState() =>
@@ -73,16 +74,7 @@ class _VehicleChecklistApprovalTabState
                   ),
                 ),
               ),
-              actions: [
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    CustomIcon.filter,
-                    color: blackCustom,
-                    size: 13,
-                  ),
-                ),
-              ],
+              actions: const [SizedBox(width: 50)],
             ),
           ),
         ),
@@ -122,6 +114,18 @@ class _VehicleChecklistApprovalTabState
                     unselectedLabelStyle: const TextStyle(
                         fontWeight: FontWeight.w400, fontSize: 14),
                     unselectedLabelColor: greyCustom,
+                    onTap: (index) {
+                      if (index == 1) {
+                        if (widget
+                                .vcData!.vehicleChecklistId.statusCode!.code ==
+                            "VC1") {
+                          _tabController.index = 0;
+                          showInfoToast(context,
+                              "Tiada rekod bagi semakan kenderaan (selepas)",
+                              height: 16);
+                        }
+                      }
+                    },
                     tabs: const [
                       Tab(
                         text: 'Sebelum',
@@ -138,12 +142,13 @@ class _VehicleChecklistApprovalTabState
                     const MaterialScrollBehavior().copyWith(overscroll: false),
                 child: Expanded(
                   child: TabBarView(
+                    physics: const NeverScrollableScrollPhysics(),
                     controller: _tabController,
                     children: [
                       VehicleChecklistApprovalBeforeTabbarView(
-                          data: widget.data),
+                          vcData: widget.vcData!),
                       VehicleChecklistApprovalAfterTabbarView(
-                          data: widget.data),
+                          vcData: widget.vcData!),
                     ],
                   ),
                 ),
@@ -151,70 +156,72 @@ class _VehicleChecklistApprovalTabState
             ],
           ),
         ),
-        bottomNavigationBar: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-          decoration: BoxDecoration(
-            color: white,
-            boxShadow: [
-              BoxShadow(
-                  color: Colors.grey.withOpacity(.3),
-                  blurRadius: 6,
-                  spreadRadius: 0.5)
-            ],
-          ),
-          child: SizedBox(
-            height: 45,
-            width: 150,
-            child: ElevatedButton(
-              style: ButtonStyle(
-                  elevation: MaterialStateProperty.all(0),
-                  shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0)),
-                  ),
-                  overlayColor:
-                      MaterialStateColor.resolveWith((states) => green800),
-                  minimumSize: MaterialStateProperty.all(
-                      Size(Sizes().screenWidth(context), 41)),
-                  backgroundColor: MaterialStateProperty.all(greenCustom)),
-              child: Text('Sahkan',
-                  style: TextStyle(
-                      color: white, fontSize: 14, fontWeight: FontWeight.w700)),
-              onPressed: () {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return showAlertDialog(
-                          context,
-                          confirmation,
-                          "Anda pasti untuk sahkan borang Semakan Kenderaan ini?",
-                          "Tidak",
-                          "Ya, Sahkan");
-                    }).then((actionText) {
-                  if (actionText == "Ya, Sahkan") {
-                    Navigator.pop(context);
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return showLottieAlertDialog(
-                            context,
-                            _textBuilder(),
-                            "",
-                            null,
-                            null,
-                          );
-                        });
-                    // Navigator.push(
-                    //     context,
-                    //     PageTransition(
-                    //         child: CustomDialog(text: _textBuilder()),
-                    //         type: PageTransitionType.fade));
-                  }
-                });
-              },
-            ),
-          ),
-        ));
+        bottomNavigationBar:
+            widget.vcData!.vehicleChecklistId.statusCode!.code != "VC1"
+                ? Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 15),
+                    decoration: BoxDecoration(
+                      color: white,
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.grey.withOpacity(.3),
+                            blurRadius: 6,
+                            spreadRadius: 0.5)
+                      ],
+                    ),
+                    child: SizedBox(
+                      height: 45,
+                      width: 150,
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                            elevation: MaterialStateProperty.all(0),
+                            shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8.0)),
+                            ),
+                            overlayColor: MaterialStateColor.resolveWith(
+                                (states) => green800),
+                            minimumSize: MaterialStateProperty.all(
+                                Size(Sizes().screenWidth(context), 41)),
+                            backgroundColor:
+                                MaterialStateProperty.all(greenCustom)),
+                        child: Text('Sahkan',
+                            style: TextStyle(
+                                color: white,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w700)),
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return showAlertDialog(
+                                    context,
+                                    confirmation,
+                                    "Anda pasti untuk sahkan borang Semakan Kenderaan ini?",
+                                    "Tidak",
+                                    "Ya, Sahkan");
+                              }).then((actionText) {
+                            if (actionText == "Ya, Sahkan") {
+                              Navigator.pop(context);
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return showLottieAlertDialog(
+                                      context,
+                                      _textBuilder(),
+                                      "",
+                                      null,
+                                      null,
+                                    );
+                                  });
+                            }
+                          });
+                        },
+                      ),
+                    ),
+                  )
+                : null);
   }
 
   RichText _textBuilder() {

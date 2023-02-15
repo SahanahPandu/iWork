@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 //import files
-import '../../../../config/config.dart';
 import '../../../../config/palette.dart';
 import '../../../../config/string.dart';
-import '../../../../providers/pekerja_api.dart';
+import '../../../../models/attendance/worker_attendance/worker_attendance_verification.dart';
+import '../../../../providers/attendance/worker_attendance_verification_api.dart';
 import '../../../../utils/device/sizes.dart';
 import '../../../../utils/icon/custom_icon.dart';
 import '../../../../widgets/alert/alert_dialog.dart';
@@ -23,14 +23,16 @@ class AttendanceVerificationList extends StatefulWidget {
 
 class _AttendanceVerificationListState
     extends State<AttendanceVerificationList> {
-  late Future<List> _loadPekerjaData;
   IconData icon = CustomIcon.checkBoxEmpty;
   Color iconColor = grey600;
+
+  late Future<WorkerAttendanceVerification?> _loadStaffData;
 
   @override
   void initState() {
     super.initState();
-    _loadPekerjaData = PekerjaApi.getPekerjaData(context);
+    _loadStaffData =
+        WorkerAttendanceVerificationApi.getWorkersAttendance(context);
   }
 
   @override
@@ -66,15 +68,8 @@ class _AttendanceVerificationListState
                   ),
                 ),
               ),
-              actions: [
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    CustomIcon.filter,
-                    color: blackCustom,
-                    size: 13,
-                  ),
-                ),
+              actions: const [
+                SizedBox(width: 50),
               ],
             ),
           ),
@@ -112,78 +107,89 @@ class _AttendanceVerificationListState
                   child: SingleChildScrollView(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 10),
-                            child: Row(
-                              children: [
-                                InkWell(
-                                    onTap: () {
-                                      if (icon == CustomIcon.checkBoxEmpty) {
-                                        icon = CustomIcon.checkedBox;
-                                        iconColor = greenCustom;
-                                        allSelected.value = true;
-                                      } else {
-                                        icon = CustomIcon.checkBoxEmpty;
-                                        iconColor = greyCustom;
-                                        allSelected.value = false;
-                                      }
-                                      setState(() {});
-                                    },
-                                    child:
-                                        Icon(icon, color: iconColor, size: 18)),
-                                const SizedBox(width: 10),
-                                Text(
-                                  "Pilih semua",
-                                  style: TextStyle(
-                                      color: blackCustom,
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 15),
-                                )
-                              ],
-                            ),
-                          ),
-                          FutureBuilder<List>(
-                            future: _loadPekerjaData,
-                            builder: (context, snapshot) {
-                              final dataFuture = snapshot.data;
-                              switch (snapshot.connectionState) {
-                                case ConnectionState.waiting:
-                                  return const Center(
-                                    child: CircularProgressIndicator(),
-                                  );
-                                default:
-                                  if (snapshot.hasError) {
-                                    return const Center(
-                                      child: Text("Some errors occurred!"),
-                                    );
-                                  } else {
-                                    return ListView.builder(
+                      child: FutureBuilder<WorkerAttendanceVerification?>(
+                        future: _loadStaffData,
+                        builder: (context, snapshot) {
+                          switch (snapshot.connectionState) {
+                            case ConnectionState.waiting:
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            default:
+                              if (snapshot.hasError) {
+                                return const Center(
+                                  child: Text("Some errors occurred!"),
+                                );
+                              } else {
+                                final staffData = snapshot.data;
+                                dynamic workerList =
+                                    staffData!.data.workersAttend;
+                                dynamic absentWorkerList =
+                                    staffData.data.workersNotAttend;
+
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 10, vertical: 8),
+                                      child: Text(
+                                        "Telah log Masuk Kerja",
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                    ),
+                                    ListView.builder(
                                       physics:
                                           const NeverScrollableScrollPhysics(),
                                       shrinkWrap: true,
-                                      itemCount: dataFuture!.length,
+                                      itemCount: workerList.length,
                                       itemBuilder: (context, index) {
-                                        if (dataFuture.length > 1) {
-                                          return Container(
-                                            color: white,
-                                            child:
-                                                AttendanceVerificationDetailList(
-                                              data: dataFuture[index],
-                                              index: index,
-                                            ),
-                                          );
-                                        }
-                                        return Container();
+                                        return Container(
+                                          color: white,
+                                          child:
+                                              AttendanceVerificationDetailList(
+                                                  data: workerList[index],
+                                                  index: index,
+                                                  lastIndex:
+                                                      workerList.length - 1),
+                                        );
                                       },
-                                    );
-                                  }
+                                    ),
+                                    const Padding(
+                                      padding:
+                                          EdgeInsets.fromLTRB(10, 20, 10, 8),
+                                      child: Text(
+                                        "Belum log Masuk Kerja",
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                    ),
+                                    ListView.builder(
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      itemCount: absentWorkerList.length,
+                                      itemBuilder: (context, index) {
+                                        return Container(
+                                          color: white,
+                                          child:
+                                              AttendanceVerificationDetailList(
+                                                  data: absentWorkerList[index],
+                                                  index: index,
+                                                  lastIndex:
+                                                      absentWorkerList.length -
+                                                          1),
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                );
                               }
-                            },
-                          ),
-                        ],
+                          }
+                        },
                       ),
                     ),
                   ),

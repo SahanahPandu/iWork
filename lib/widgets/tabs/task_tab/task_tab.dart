@@ -27,12 +27,22 @@ class TaskStackOverTabState extends State<TaskStackOverTab>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   ValueNotifier<bool> defaultTab = ValueNotifier(false);
+  int sahLength = 0;
+  Color isuBox = lightBlue;
+  Color isuText = darkBlue;
+  Color sahBox = grey300;
+  Color sahText = grey500;
+  Duration duration = const Duration(milliseconds: 300);
+  double distance = 24.0;
 
   @override
   void initState() {
     _tabController =
         TabController(length: 2, animationDuration: Duration.zero, vsync: this);
     defaultTab.value = true;
+    sahLength = widget.scheduleData!.data.sah!.attendance!.length +
+        widget.scheduleData!.data.sah!.checklist!.length +
+        widget.scheduleData!.data.sah!.workerRequest!.length;
     super.initState();
   }
 
@@ -79,18 +89,76 @@ class TaskStackOverTabState extends State<TaskStackOverTab>
               unselectedLabelColor: greyCustom,
               onTap: (index) {
                 if (index == 0) {
-                  defaultTab.value = true;
+                  setState(() {
+                    defaultTab.value = true;
+                    isuBox = lightBlue;
+                    isuText = darkBlue;
+                    sahBox = grey300;
+                    sahText = grey500;
+                  });
                 } else {
-                  defaultTab.value = false;
+                  setState(() {
+                    defaultTab.value = false;
+                    isuBox = grey300;
+                    isuText = grey500;
+                    sahBox = lightBlue;
+                    sahText = darkBlue;
+                  });
                 }
               },
-              tabs: const [
+              tabs: [
                 Tab(
-                  text: 'Isu',
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text("Isu"),
+                      const SizedBox(width: 6),
+                      widget.scheduleData!.data.isu!.isNotEmpty
+                          ? Container(
+                              height: 15,
+                              width: 14,
+                              decoration: BoxDecoration(
+                                color: isuBox,
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: Center(
+                                child: Text(
+                                    widget.scheduleData!.data.isu!.length
+                                        .toString(),
+                                    style: TextStyle(
+                                        color: isuText,
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w500)),
+                              ))
+                          : Container()
+                    ],
+                  ),
                 ),
                 Tab(
-                  text: 'Pengesahan',
-                ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text("Pengesahan"),
+                      const SizedBox(width: 6),
+                      sahLength > 0
+                          ? Container(
+                              height: 15,
+                              width: 14,
+                              decoration: BoxDecoration(
+                                color: sahBox,
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: Center(
+                                child: Text(sahLength.toString(),
+                                    style: TextStyle(
+                                        color: sahText,
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w500)),
+                              ))
+                          : Container()
+                    ],
+                  ),
+                )
               ],
             ),
           ),
@@ -156,9 +224,13 @@ class TaskStackOverTabState extends State<TaskStackOverTab>
 
                     /// Verification cards listing
                     return Container(
+                        constraints: BoxConstraints(
+                            minHeight: Sizes().screenHeight(context) * 0.48 -
+                                kToolbarHeight),
                         padding: const EdgeInsets.symmetric(horizontal: 5),
                         color: white,
-                        child: const ScheduleVerificationMain());
+                        child: ScheduleVerificationMain(
+                            sahData: widget.scheduleData!.data.sah));
                   } else {
                     isTaskExist = false;
                     return Center(
@@ -209,7 +281,6 @@ class TaskStackOverTabState extends State<TaskStackOverTab>
     return Container(
       constraints: BoxConstraints(
           minHeight: (Sizes().screenHeight(context) * 0.48) - kToolbarHeight),
-      //height: (Sizes().screenHeight(context) * 0.5) - kToolbarHeight,
       child: Center(
         child: Column(
           children: [
