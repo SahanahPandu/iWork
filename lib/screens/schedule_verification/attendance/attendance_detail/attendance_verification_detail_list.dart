@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 
 //import files
+import '../../../../config/config.dart';
 import '../../../../config/dimen.dart';
 import '../../../../config/palette.dart';
 import '../../../../utils/calendar/time.dart';
 
 class AttendanceVerificationDetailList extends StatefulWidget {
+  /// WorkersAttend list
+  /// WorkersNotAttend list
   final dynamic data;
   final int? index;
   final int? lastIndex;
@@ -34,16 +37,19 @@ class _AttendanceVerificationDetailListState
   bool _isClockedIn() {
     if (widget.data!.userAttendanceId == null) {
       timeIn = "Tiada Rekod";
-      timeInColor = red;
+      timeInColor = redCustom;
+      tickedWorker.remove(widget.data!.userId.id);
       return val = false;
     } else {
       if (widget.data!.userAttendanceId!.clockInAt != "") {
-        timeIn = widget.data!.userAttendanceId!.clockInAt;
+        timeIn = widget.data!.userAttendanceId!.clockInAt!;
         timeInColor = greenCustom;
+        tickedWorker.add(widget.data!.userId.id);
         return val = true;
       } else {
         timeIn = "Tiada Rekod";
-        timeInColor = red;
+        timeInColor = redCustom;
+        tickedWorker.remove(widget.data!.userId.id);
         return val = false;
       }
     }
@@ -80,7 +86,10 @@ class _AttendanceVerificationDetailListState
                           borderRadius:
                               BorderRadius.circular(borderRadiusCircular),
                           child: Image.network(
-                            widget.data!.userId.userDetail.profilePic,
+                            widget.data!.userId.userDetail.profilePic ==
+                                    "http://ems.swmsb.com/uploads/profile/blue.png"
+                                ? "https://st3.depositphotos.com/9998432/13335/v/600/depositphotos_133352062-stock-illustration-default-placeholder-profile-icon.jpg"
+                                : widget.data!.userId.userDetail.profilePic,
                             height: 56,
                             width: 56,
                             fit: BoxFit.fill,
@@ -125,7 +134,7 @@ class _AttendanceVerificationDetailListState
                     Row(
                       children: [
                         Text(
-                          "PRA",
+                          widget.data!.userId.userRoles[0].roleDesc,
                           style: TextStyle(
                               color: greyCustom,
                               fontSize: 13,
@@ -161,7 +170,7 @@ class _AttendanceVerificationDetailListState
                                   text: timeIn,
                                   style: TextStyle(
                                       fontSize: 13,
-                                      fontWeight: FontWeight.w600,
+                                      fontWeight: FontWeight.w500,
                                       color: timeInColor)),
                             ]))
                   ],
@@ -213,18 +222,17 @@ class _AttendanceVerificationDetailListState
     if (isTicked == true) {
       if (widget.data!.userAttendanceId == null ||
           widget.data!.userAttendanceId!.clockInAt == "") {
-        if (Time.getCurrentTime().contains("AM")) {
-          timeIn = "${Time.getCurrentTimeInHHMM()} pagi";
-        } else {
-          timeIn = "${Time.getCurrentTimeInHHMM()} petang";
-        }
+        timeIn = Time.getCurrentTimeInHHMMSS();
       } else {
-        timeIn = widget.data!.userAttendanceId!.clockInAt;
+        timeIn = widget.data!.userAttendanceId!.clockInAt!;
       }
       timeInColor = greenCustom;
+      tickedWorker.add(widget.data!.userId.id);
     } else {
       timeIn = "Tiada Rekod";
-      timeInColor = red;
+      timeInColor = redCustom;
+      tickedWorker.remove(widget.data!.userId.id);
     }
+    //print(tickedWorker);
   }
 }

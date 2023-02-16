@@ -101,9 +101,9 @@ Widget? showNavigationOptions(BuildContext context) {
 
 void _launchMaps(double lat, double lng) async {
   dynamic url =
-      'http://maps.google.com/maps?q=${lat.toString()},${lng.toString()}}';
-  if (await canLaunchUrl(url)) {
-    await launchUrl(url);
+      'http://maps.google.com/maps?q=${lat.toString()},${lng.toString()}';
+  if (await canLaunch(url)) {
+    await launch(url);
   } else {
     throw 'Could not launch $url';
   }

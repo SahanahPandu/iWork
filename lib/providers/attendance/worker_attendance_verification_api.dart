@@ -34,4 +34,24 @@ class WorkerAttendanceVerificationApi {
 
     return attendanceDetail;
   }
+
+  static updateWorkerAttendance(BuildContext context, var list) async {
+    Map attendanceBody = {"worker": list};
+    final jsonString = json.encode(attendanceBody);
+    try {
+      Response response = await Dio().post(
+          HttpService().updateWorkerAttendanceUrl,
+          options: HttpHeader.getJsonApiHeader(userInfo[1]),
+          data: jsonString);
+
+      if (response.statusCode == 200 && response.data != null) {
+        return 'ok';
+      }
+    } on DioError catch (e) {
+      if (e.response?.statusCode == 404) {
+        return 'ng';
+      }
+      ApiError.findDioError(e, context);
+    }
+  }
 }

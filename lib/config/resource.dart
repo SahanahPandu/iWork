@@ -12,3 +12,7 @@ String splashImg = 'assets/image/splash/splash.png';
 String sliderImg_1 = 'assets/image/splash/slider_1.png';
 String sliderImg_2 = 'assets/image/splash/slider_2.png';
 String sliderImg_3 = 'assets/image/splash/slider_3.jpg';
+
+String noApproval = 'assets/image/no_approval.png';
+String noTask = 'assets/image/no_task.png';
+String notFound = 'assets/image/no_found.png';

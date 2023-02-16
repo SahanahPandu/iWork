@@ -114,7 +114,6 @@ ValueNotifier<bool> reachedBottom = ValueNotifier(false);
 /// '11' = Backend returns null value/Unable to map into modal
 ValueNotifier<int> dioError = ValueNotifier(0);
 
-//List<Link?>? linkList;
 bool isLoading = true;
 bool hasMore = true;
 String nextPageUrl = "";
@@ -122,3 +121,6 @@ String nextPageUrl = "";
 /// Geo Location
 String? currentAddress;
 Position? currentPosition;
+
+/// Selected worker from attendance list
+var tickedWorker = [];

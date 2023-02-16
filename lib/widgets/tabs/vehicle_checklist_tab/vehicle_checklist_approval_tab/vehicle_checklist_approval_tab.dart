@@ -186,7 +186,7 @@ class _VehicleChecklistApprovalTabState
                                 Size(Sizes().screenWidth(context), 41)),
                             backgroundColor:
                                 MaterialStateProperty.all(greenCustom)),
-                        child: Text('Sahkan',
+                        child: Text('Sahkan Semakan Kenderaan',
                             style: TextStyle(
                                 color: white,
                                 fontSize: 14,

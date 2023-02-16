@@ -11,9 +11,9 @@ class Time {
     return formatter.format(now);
   }
 
-  static String getCurrentTimeInHHMM() {
+  static String getCurrentTimeInHHMMSS() {
     var now = DateTime.now();
-    var formatter = DateFormat("hh:mm");
+    var formatter = DateFormat("hh:mm:ss");
     return formatter.format(now);
   }
 

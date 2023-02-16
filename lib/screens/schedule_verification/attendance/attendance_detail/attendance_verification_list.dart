@@ -1,7 +1,9 @@
+import 'package:eswm/widgets/alert/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 //import files
+import '../../../../config/config.dart';
 import '../../../../config/palette.dart';
 import '../../../../config/string.dart';
 import '../../../../models/attendance/worker_attendance/worker_attendance_verification.dart';
@@ -27,10 +29,13 @@ class _AttendanceVerificationListState
   Color iconColor = grey600;
 
   late Future<WorkerAttendanceVerification?> _loadStaffData;
+  dynamic workerList = [];
+  dynamic absentWorkerList = [];
 
   @override
   void initState() {
     super.initState();
+    tickedWorker = [];
     _loadStaffData =
         WorkerAttendanceVerificationApi.getWorkersAttendance(context);
   }
@@ -89,9 +94,9 @@ class _AttendanceVerificationListState
                     boxShadow: [
                       BoxShadow(
                           color: grey200,
-                          offset: const Offset(0, -4),
-                          blurRadius: 10,
-                          spreadRadius: 0.5)
+                          offset: const Offset(0, -6), //0, -4
+                          blurRadius: 8,
+                          spreadRadius: 0.4)
                     ],
                   ),
                   padding:
@@ -122,69 +127,81 @@ class _AttendanceVerificationListState
                                 );
                               } else {
                                 final staffData = snapshot.data;
-                                dynamic workerList =
-                                    staffData!.data.workersAttend;
-                                dynamic absentWorkerList =
-                                    staffData.data.workersNotAttend;
 
+                                workerList = staffData!.data.workersAttend;
+
+                                absentWorkerList =
+                                    staffData.data.workersNotAttend;
                                 return Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     const Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 10, vertical: 8),
+                                      padding:
+                                          EdgeInsets.fromLTRB(10, 25, 10, 20),
                                       child: Text(
-                                        "Telah log Masuk Kerja",
+                                        "Telah Log Masuk Kerja",
                                         style: TextStyle(
                                             fontSize: 14,
                                             fontWeight: FontWeight.w500),
                                       ),
                                     ),
-                                    ListView.builder(
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
-                                      shrinkWrap: true,
-                                      itemCount: workerList.length,
-                                      itemBuilder: (context, index) {
-                                        return Container(
-                                          color: white,
-                                          child:
-                                              AttendanceVerificationDetailList(
-                                                  data: workerList[index],
-                                                  index: index,
-                                                  lastIndex:
-                                                      workerList.length - 1),
-                                        );
-                                      },
+                                    workerList.length > 0
+                                        ? ListView.builder(
+                                            physics:
+                                                const NeverScrollableScrollPhysics(),
+                                            shrinkWrap: true,
+                                            itemCount: workerList.length,
+                                            itemBuilder: (context, index) {
+                                              return Container(
+                                                color: white,
+                                                child:
+                                                    AttendanceVerificationDetailList(
+                                                        data: workerList[index],
+                                                        index: index,
+                                                        lastIndex:
+                                                            workerList.length -
+                                                                1),
+                                              );
+                                            },
+                                          )
+                                        : Container(),
+                                    const Divider(
+                                      indent: 10,
+                                      endIndent: 10,
+                                      thickness: 0.5,
                                     ),
                                     const Padding(
                                       padding:
                                           EdgeInsets.fromLTRB(10, 20, 10, 8),
                                       child: Text(
-                                        "Belum log Masuk Kerja",
+                                        "Belum Log Masuk Kerja",
                                         style: TextStyle(
                                             fontSize: 14,
                                             fontWeight: FontWeight.w500),
                                       ),
                                     ),
-                                    ListView.builder(
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
-                                      shrinkWrap: true,
-                                      itemCount: absentWorkerList.length,
-                                      itemBuilder: (context, index) {
-                                        return Container(
-                                          color: white,
-                                          child:
-                                              AttendanceVerificationDetailList(
-                                                  data: absentWorkerList[index],
-                                                  index: index,
-                                                  lastIndex:
-                                                      absentWorkerList.length -
-                                                          1),
-                                        );
-                                      },
-                                    ),
+                                    absentWorkerList.length > 0
+                                        ? ListView.builder(
+                                            physics:
+                                                const NeverScrollableScrollPhysics(),
+                                            shrinkWrap: true,
+                                            itemCount: absentWorkerList.length,
+                                            itemBuilder: (context, index) {
+                                              return Container(
+                                                color: white,
+                                                child:
+                                                    AttendanceVerificationDetailList(
+                                                        data: absentWorkerList[
+                                                            index],
+                                                        index: index,
+                                                        lastIndex:
+                                                            absentWorkerList
+                                                                    .length -
+                                                                1),
+                                              );
+                                            },
+                                          )
+                                        : Container(),
                                   ],
                                 );
                               }
@@ -224,7 +241,7 @@ class _AttendanceVerificationListState
                       MaterialStateColor.resolveWith((states) => green800),
                   minimumSize: MaterialStateProperty.all(
                       Size(Sizes().screenWidth(context), 41)),
-                  backgroundColor: MaterialStateProperty.all(green)),
+                  backgroundColor: MaterialStateProperty.all(greenCustom)),
               child: Text('Sahkan Kehadiran',
                   style: TextStyle(
                       color: white, fontSize: 14, fontWeight: FontWeight.w700)),
@@ -238,25 +255,39 @@ class _AttendanceVerificationListState
                           "Sahkan kehadiran pekerja yang hadir pada hari ini?",
                           cancel,
                           "Sahkan");
-                    }).then((actionText) {
+                    }).then((actionText) async {
                   if (actionText == "Sahkan") {
-                    Navigator.pop(context, 'refreshAttendance');
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return showLottieAlertDialog(
-                            context,
-                            _textBuilder(),
-                            "",
-                            null,
-                            null,
-                          );
+                    if (tickedWorker.isNotEmpty) {
+                      List<Map<String, dynamic>> list = List.generate(
+                          tickedWorker.length, (index) => {"user_id": ''});
+                      for (int i = 0; i < list.length; i++) {
+                        list[i] = {"user_id": tickedWorker[i]};
+                      }
+                      var result = await WorkerAttendanceVerificationApi
+                          .updateWorkerAttendance(context, list);
+                      if (result == 'ok') {
+                        // ignore: use_build_context_synchronously
+                        Navigator.pop(context);
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return showLottieAlertDialog(
+                                context,
+                                _textBuilder(),
+                                "",
+                                null,
+                                null,
+                              );
+                            });
+                        setState(() {
+                          refresh.value = !refresh.value;
                         });
-                    // Navigator.push(
-                    //     context,
-                    //     PageTransition(
-                    //         child: CustomDialog(text: _textBuilder()),
-                    //         type: PageTransitionType.fade));
+                      }
+                    } else {
+                      showErrorToast(context,
+                          "Sila pilih pekerja yang hadir sebelum buat pengesahan kehadiran.",
+                          height: 15);
+                    }
                   }
                 });
               },
@@ -265,11 +296,28 @@ class _AttendanceVerificationListState
         ));
   }
 
+/*
+  Padding _noStaffListFound(String str) {
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: Row(
+        children: [
+          Icon(Icons.search, color: grey400, size: 14),
+          const SizedBox(width: 6),
+          Text(
+            str,
+            style: TextStyle(fontSize: 12, color: grey500),
+          ),
+        ],
+      ),
+    );
+  }
+*/
   RichText _textBuilder() {
     return RichText(
         textAlign: TextAlign.center,
         text: TextSpan(
-            text: "Kehadiran pekerja subordinat anda \npada",
+            text: "Kehadiran staf anda \npada",
             style: TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.w400,

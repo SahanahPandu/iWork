@@ -9,7 +9,6 @@ import '../../models/task/supervisor/supervisor_task.dart';
 import '../../providers/task/supervisor/supervisor_task_api.dart';
 import '../../utils/calendar/date.dart';
 import '../../utils/calendar/time.dart';
-import '../../widgets/alert/toast.dart';
 import '../../widgets/cards/today_task/today_task_card.dart';
 import '../../widgets/slivers/expand_collapse_header/expand_collapse_header.dart';
 import '../../widgets/tabs/task_tab/task_tab.dart';
@@ -61,10 +60,6 @@ class _SupervisorState extends State<Supervisor> {
                     setState(() {
                       refresh.value = !refresh.value;
                     });
-                    isTaskDataFetched
-                        ? showInfoToast(
-                            context, "Halaman berjaya dimuat semula!")
-                        : null;
                   },
                 );
               },
@@ -156,6 +151,7 @@ class _SupervisorState extends State<Supervisor> {
                                   _scrollBody(scheduleData),
                                 ],
                                 backgroundColor: transparent,
+                                collapseFade: 40,
                                 appBarColor: const Color(0xff2b7fe8));
                           }
                         }
