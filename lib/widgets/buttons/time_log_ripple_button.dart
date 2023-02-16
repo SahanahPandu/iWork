@@ -5,6 +5,7 @@ import 'package:simple_ripple_animation/simple_ripple_animation.dart';
 //import files
 import '../../config/config.dart';
 import '../../config/palette.dart';
+import '../../providers/http/service/http_header.dart';
 import '../../screens/geo_location/user_locator.dart';
 import '../alert/alert_dialog.dart';
 import '../alert/lottie_alert_dialog.dart';
@@ -47,16 +48,18 @@ class _TimeLogRippleButtonState extends State<TimeLogRippleButton> {
             if (actionText == "Masuk Kerja") {
               await UserLocator().getCurrentPosition();
 
-              /// Your Current location is office, correct!
-              if (currentAddress == "1, Taman Tun Dr Ismail, , 60000") {
+              /// App able to locate user
+              if (currentPosition != null) {
                 //get clock in time into db
+                FormData bodyData = FormData.fromMap({
+                  "latitude_current": currentPosition!.latitude,
+                  "longitude_current": currentPosition!.longitude
+                });
                 try {
                   Response response = await Dio().post(
-                    '$theBase/attendance/start-work',
-                    options: Options(headers: {
-                      "authorization": "Bearer ${userInfo[1]}",
-                    }),
-                  );
+                      '$theBase/attendance/start-work',
+                      options: HttpHeader.getFormApiHeader(userInfo[1]),
+                      data: bodyData);
 
                   if (response.statusCode == 200) {
                     showDialog(
@@ -76,55 +79,56 @@ class _TimeLogRippleButtonState extends State<TimeLogRippleButton> {
                 } on DioError catch (e) {
                   // ignore: avoid_print
                   print(e);
-                  // ignore: use_build_context_synchronously
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return showLottieAlertDialog(
-                            context,
-                            _textBuilder(
-                              "Anda berada di luar kawasan depoh. Pastikan anda berada di dalam kawasan sebelum masuk kerja",
-                            ),
-                            "",
-                            null,
-                            null,
-                            false);
-                      });
+                  if (e.message
+                      .contains("Current location is not within depoh")) {
+                    if (currentAddress != null) {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return showLottieAlertDialog(
+                                context,
+                                _textBuilder(
+                                  "Lokasi kini: $currentAddress\nAnda berada di luar kawasan depoh. Pastikan anda berada di dalam kawasan sebelum masuk kerja",
+                                ),
+                                "",
+                                null,
+                                null,
+                                false);
+                          });
+                    } else {
+                      // ignore: use_build_context_synchronously
+                      showErrorToast(context,
+                          "Log masuk anda tidak berjaya. Sila cuba lagi.",
+                          height: 16);
+                    }
+                  } else {
+                    // ignore: use_build_context_synchronously
+                    showErrorToast(context,
+                        "Log masuk anda tidak berjaya. Sila cuba lagi.",
+                        height: 16);
+                  }
                 }
               } else {
-                if (currentAddress != null) {
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return showLottieAlertDialog(
-                            context,
-                            _textBuilder(
-                              "Lokasi kini: $currentAddress\nAnda berada di luar kawasan depoh. Pastikan anda berada di dalam kawasan sebelum masuk kerja",
-                            ),
-                            "",
-                            null,
-                            null,
-                            false);
-                      });
-                } else {
-                  // ignore: use_build_context_synchronously
-                  showErrorToast(context,
-                      "Lokasi anda tidak dapat dikesan. Sila cuba lagi.",
-                      height: 16);
-                }
+                // ignore: use_build_context_synchronously
+                showErrorToast(context,
+                    "Lokasi anda tidak dapat dikesan. Sila semak tetapan lokasi dalam peranti anda.",
+                    height: 15);
               }
             } else if (actionText == "Tamat Kerja") {
               await UserLocator().getCurrentPosition();
 
-              /// Your Current location is office, correct!
-              if (currentAddress == "1, Taman Tun Dr Ismail, , 60000") {
+              /// App able to locate user
+              if (currentPosition != null) {
                 //get clock out time into db
+                FormData bodyData = FormData.fromMap({
+                  "latitude_current": currentPosition!.latitude,
+                  "longitude_current": currentPosition!.longitude
+                });
                 try {
                   Response response = await Dio().post(
                     '$theBase/attendance/end-work',
-                    options: Options(headers: {
-                      "authorization": "Bearer ${userInfo[1]}",
-                    }),
+                    options: HttpHeader.getFormApiHeader(userInfo[1]),
+                    data: bodyData,
                   );
 
                   if (response.statusCode == 200) {
@@ -144,32 +148,41 @@ class _TimeLogRippleButtonState extends State<TimeLogRippleButton> {
                   }
                 } on DioError catch (e) {
                   // ignore: avoid_print
-                  print(e);
-                  // ignore: use_build_context_synchronously
-                  showErrorToast(
-                      context, "Log keluar anda tidak berjaya. Sila cuba lagi.",
-                      height: 16);
+                  print(e.message);
+                  if (e.message
+                      .contains("Current location is not within depoh")) {
+                    if (currentAddress != null) {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return showLottieAlertDialog(
+                                context,
+                                _textBuilder(
+                                  "Lokasi kini: $currentAddress\nAnda berada di luar kawasan depoh. Pastikan anda berada di dalam kawasan sebelum keluar kerja",
+                                ),
+                                "",
+                                null,
+                                null,
+                                false);
+                          });
+                    } else {
+                      // ignore: use_build_context_synchronously
+                      showErrorToast(context,
+                          "Log keluar anda tidak berjaya. Sila cuba lagi.",
+                          height: 16);
+                    }
+                  } else {
+                    // ignore: use_build_context_synchronously
+                    showErrorToast(context,
+                        "Log keluar anda tidak berjaya. Sila cuba lagi.",
+                        height: 16);
+                  }
                 }
-              }
-            } else {
-              if (currentAddress != null) {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return showLottieAlertDialog(
-                          context,
-                          _textBuilder(
-                            "Lokasi kini: $currentAddress\nAnda berada di luar kawasan depoh. Pastikan anda berada di dalam kawasan sebelum keluar kerja",
-                          ),
-                          "",
-                          null,
-                          null,
-                          false);
-                    });
               } else {
-                showErrorToast(
-                    context, "Lokasi anda tidak dapat dikesan. Sila cuba lagi.",
-                    height: 16);
+                // ignore: use_build_context_synchronously
+                showErrorToast(context,
+                    "Lokasi anda tidak dapat dikesan. Sila semak tetapan lokasi dalam peranti anda.",
+                    height: 15);
               }
             }
           });
