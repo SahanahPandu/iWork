@@ -1,3 +1,4 @@
+import 'package:eswm/utils/calendar/date.dart';
 import 'package:flutter/material.dart';
 
 //import files
@@ -20,6 +21,27 @@ class VehicleChecklistApprovalDetails extends StatefulWidget {
 
 class _VehicleChecklistApprovalDetailsState
     extends State<VehicleChecklistApprovalDetails> {
+  Color beforeVC = blackCustom;
+  Color afterVC = blackCustom;
+
+  @override
+  void initState() {
+    if (widget.data.vehicleChecklistId == null) {
+      beforeVC = blackCustom;
+      afterVC = blackCustom;
+    } else {
+      if (widget.data.vehicleChecklistId.statusCode.code == "VC1") {
+        beforeVC = greenCustom;
+        afterVC = blackCustom;
+      } else if (widget.data.vehicleChecklistId.statusCode.code == "VC2" ||
+          widget.data.vehicleChecklistId.statusCode.code == "VC3") {
+        beforeVC = greenCustom;
+        afterVC = greenCustom;
+      }
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -30,7 +52,7 @@ class _VehicleChecklistApprovalDetailsState
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
               child: Text(
-                "15/02/2023",
+                Date.getTheDate(DateTime.now(), '', "dd/MM/yyyy", 'ms'),
                 style: TextStyle(
                     fontWeight: FontWeight.w500,
                     color: blackCustom,
@@ -75,6 +97,7 @@ class _VehicleChecklistApprovalDetailsState
             ],
           ),
         ),
+        //Nama laluan
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: Row(
@@ -102,6 +125,56 @@ class _VehicleChecklistApprovalDetailsState
                       fontWeight: FontWeight.w600,
                       color: blackCustom,
                       fontSize: 15)),
+            ],
+          ),
+        ),
+        // Semakan kenderaan
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Icon(
+                    CustomIcon.manualFill,
+                    size: 16,
+                    color: activeColor,
+                  ),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  Text('Status Semakan',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          color: greyCustom,
+                          fontSize: 15)),
+                ],
+              ),
+              RichText(
+                  text: TextSpan(
+                      text: "Sebelum",
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: beforeVC,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      children: <TextSpan>[
+                    TextSpan(
+                        text: "/",
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: afterVC,
+                          fontWeight: FontWeight.w600,
+                        )),
+                    TextSpan(
+                        text: "Selepas",
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: afterVC,
+                          fontWeight: FontWeight.w600,
+                        )),
+                  ])),
             ],
           ),
         )

@@ -73,7 +73,7 @@ class _VehicleChecklistVerificationDetailListState
                       fontWeight: FontWeight.w600)),
               Text("/",
                   style: TextStyle(
-                      color: greyCustom,
+                      color: afterText,
                       fontSize: 15,
                       fontWeight: FontWeight.w600)),
               Text("Selepas",

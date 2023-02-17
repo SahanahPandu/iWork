@@ -67,7 +67,7 @@ class _TimeLogRippleButtonState extends State<TimeLogRippleButton> {
                         builder: (BuildContext context) {
                           return showLottieAlertDialog(
                             context,
-                            _textBuilder("Tahniah! Anda berjaya masuk kerja"),
+                            _textBuilder("Tahniah, anda berjaya masuk kerja!"),
                             "",
                             null,
                             null,
@@ -137,7 +137,7 @@ class _TimeLogRippleButtonState extends State<TimeLogRippleButton> {
                         builder: (BuildContext context) {
                           return showLottieAlertDialog(
                             context,
-                            _textBuilder("Jumpa lagi! Anda telah tamat kerja"),
+                            _textBuilder("Anda telah tamat kerja. Jumpa lagi!"),
                             "",
                             null,
                             null,

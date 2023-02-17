@@ -10,7 +10,6 @@ import '../../http/service/http_header.dart';
 import '../../http/service/http_service.dart';
 
 class VehicleChecklistVerificationApi {
-
   static Future<List<ChecklistList>?> getVehicleChecklistVerificationList(
       BuildContext context, String date) async {
     String? getAccessToken = userInfo[1];
@@ -30,5 +29,24 @@ class VehicleChecklistVerificationApi {
     }
 
     return vcList;
+  }
+
+  static verifyVehicleChecklist(BuildContext context, int vcId) async {
+    FormData bodyData =
+        FormData.fromMap({'vehicle_checklist_id': vcId.toString()});
+    try {
+      Response response = await Dio().post(
+          '$theBase/task/vehicle-checklist/verify',
+          options: HttpHeader.getFormApiHeader(userInfo[1]),
+          data: bodyData);
+      if (response.statusCode == 200 && response.data != null) {
+        return 'ok';
+      }
+    } on DioError catch (e) {
+      if (e.response?.statusCode == 404) {
+        return 'ng';
+      }
+      ApiError.findDioError(e, context);
+    }
   }
 }

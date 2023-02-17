@@ -7,8 +7,6 @@ import '../../../config/palette.dart';
 import '../../../config/resource.dart';
 import '../../../models/task/supervisor/supervisor_task.dart';
 import '../../../screens/schedule_verification/schedule_verification_main.dart';
-import '../../../utils/calendar/time.dart';
-import '../../../utils/icon/custom_icon.dart';
 import '../../cards/list_card.dart';
 
 /// temporarily disable tabBarView
@@ -41,10 +39,14 @@ class TaskStackOverTabState extends State<TaskStackOverTab>
     _tabController =
         TabController(length: 2, animationDuration: Duration.zero, vsync: this);
     defaultTab.value = true;
+    int isAttendance =
+        widget.scheduleData!.data.sah!.attendance!.isNotEmpty ? 1 : 0;
+    int isChecklist =
+        widget.scheduleData!.data.sah!.checklist!.isNotEmpty ? 1 : 0;
+    int isWorkerRequest =
+        widget.scheduleData!.data.sah!.workerRequest!.isNotEmpty ? 1 : 0;
     sahLength = widget.scheduleData!.data.sah != null
-        ? widget.scheduleData!.data.sah!.attendance!.length +
-            widget.scheduleData!.data.sah!.checklist!.length +
-            widget.scheduleData!.data.sah!.workerRequest!.length
+        ? isAttendance + isChecklist + isWorkerRequest
         : 0;
     super.initState();
   }
@@ -178,7 +180,9 @@ class TaskStackOverTabState extends State<TaskStackOverTab>
                     /// Issue cards listing
                     return Container(
                       padding: const EdgeInsets.symmetric(horizontal: 5),
-                      constraints: const BoxConstraints(minHeight: 310),
+                      constraints: BoxConstraints(
+                          minHeight: Sizes().screenHeight(context) * 0.46 -
+                              kToolbarHeight),
                       child: Column(
                         children: [
                           const SizedBox(height: 10),
@@ -201,38 +205,26 @@ class TaskStackOverTabState extends State<TaskStackOverTab>
                     );
                   } else {
                     isTaskExist = false;
-                    return Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 20),
-                      constraints: BoxConstraints(
-                          minHeight: Sizes().screenHeight(context) * 0.455 -
-                              kToolbarHeight),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(width: 160, child: Image.asset(noApproval)),
-                          const SizedBox(height: 20),
-                          Text(
-                              "Tiada isu perlu diselesaikan\npada ${Time.convertToHM(widget.scheduleData!.data.scheduleDate!)}",
-                              style: TextStyle(
-                                  color: grey500, height: 1.5, fontSize: 14),
-                              textAlign: TextAlign.center),
-                        ],
-                      ),
-                    );
+                    return _displayNoTask(context,
+                        "Tiada isu perlu diselesaikan\npada ${widget.scheduleData!.data.scheduleDate!}");
                   }
                 } else {
                   return displayOpsButton(context);
                 }
               } else {
                 if (isTaskDataFetched) {
-                  if (widget.scheduleData!.data.sah != null) {
+                  if (widget.scheduleData!.data.sah != null &&
+                      (widget.scheduleData!.data.sah!.checklist!.isNotEmpty ||
+                          widget
+                              .scheduleData!.data.sah!.attendance!.isNotEmpty ||
+                          widget.scheduleData!.data.sah!.workerRequest!
+                              .isNotEmpty)) {
                     isTaskExist = true;
 
                     /// Verification cards listing
                     return Container(
                         constraints: BoxConstraints(
-                            minHeight: Sizes().screenHeight(context) * 0.48 -
+                            minHeight: Sizes().screenHeight(context) * 0.46 -
                                 kToolbarHeight),
                         padding: const EdgeInsets.fromLTRB(5, 0, 5, 15),
                         color: white,
@@ -240,22 +232,8 @@ class TaskStackOverTabState extends State<TaskStackOverTab>
                             sahData: widget.scheduleData!.data.sah));
                   } else {
                     isTaskExist = false;
-                    return Center(
-                      child: Container(
-                        margin: const EdgeInsets.all(20),
-                        constraints: const BoxConstraints(minHeight: 500),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Icon(CustomIcon.exclamation,
-                                color: Colors.orange, size: 14),
-                            const SizedBox(width: 10),
-                            Text("Tiada tugasan untuk disah",
-                                style: TextStyle(color: grey500)),
-                          ],
-                        ),
-                      ),
-                    );
+                    return _displayNoTask(context,
+                        "Tiada pengesahan perlu diselesaikan\npada ${widget.scheduleData!.data.scheduleDate!}");
                   }
                 } else {
                   return displayOpsButton(context);
@@ -284,10 +262,29 @@ class TaskStackOverTabState extends State<TaskStackOverTab>
     );
   }
 
+  Container _displayNoTask(BuildContext context, String str) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 20),
+      constraints: BoxConstraints(
+          minHeight: Sizes().screenHeight(context) * 0.46 - kToolbarHeight),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(width: 160, child: Image.asset(noApproval)),
+          const SizedBox(height: 20),
+          Text(str,
+              style: TextStyle(color: grey500, height: 1.5, fontSize: 14),
+              textAlign: TextAlign.center),
+        ],
+      ),
+    );
+  }
+
   Container displayOpsButton(BuildContext context) {
     return Container(
       constraints: BoxConstraints(
-          minHeight: (Sizes().screenHeight(context) * 0.48) - kToolbarHeight),
+          minHeight: (Sizes().screenHeight(context) * 0.46) - kToolbarHeight),
       child: Center(
         child: Column(
           children: [
