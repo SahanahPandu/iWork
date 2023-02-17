@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import '../../config/config.dart';
 import '../../config/font.dart';
 import '../../config/palette.dart';
-import '../../models/report/report_details/report_details_info.dart';
 import '../../utils/calendar/date.dart';
 import '../../utils/device/orientations.dart';
 import '../../utils/icon/custom_icon.dart';
 import '../../widgets/container/status_container.dart';
 
 class ReportListDetails extends StatefulWidget {
-  final ReportDetailsInfo data;
+  /// Report -> from ReportOfSchedule for approval
+  final dynamic data;
   final int? index;
 
   const ReportListDetails({
