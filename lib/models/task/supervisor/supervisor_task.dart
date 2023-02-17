@@ -345,18 +345,18 @@ class WorkerRequest {
     required this.scMainId,
     required this.userId,
     required this.reassignWithUserId,
-    this.updatedAt,
+    required this.updatedAt,
   });
 
   int id;
-  int scMainId;
+  ScMainId scMainId;
   UserId userId;
   UserId reassignWithUserId;
-  String? updatedAt;
+  String updatedAt;
 
   factory WorkerRequest.fromJson(Map<String, dynamic> json) => WorkerRequest(
         id: json["id"],
-        scMainId: json["sc_main_id"],
+        scMainId: ScMainId.fromJson(json["sc_main_id"]),
         userId: UserId.fromJson(json["user_id"]),
         reassignWithUserId: UserId.fromJson(json["reassign_with_user_id"]),
         updatedAt: json["updated_at"],
@@ -364,10 +364,67 @@ class WorkerRequest {
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "sc_main_id": scMainId,
+        "sc_main_id": scMainId.toJson(),
         "user_id": userId.toJson(),
         "reassign_with_user_id": reassignWithUserId.toJson(),
         "updated_at": updatedAt,
+      };
+}
+
+class UserRole {
+  UserRole({
+    required this.id,
+    required this.userId,
+    required this.roleCode,
+    required this.roleDesc,
+  });
+
+  int id;
+  int userId;
+  String roleCode;
+  String roleDesc;
+
+  factory UserRole.fromJson(Map<String, dynamic> json) => UserRole(
+        id: json["id"],
+        userId: json["user_id"],
+        roleCode: json["role_code"],
+        roleDesc: json["role_desc"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "user_id": userId,
+        "role_code": roleCode,
+        "role_desc": roleDesc,
+      };
+}
+
+class ScMainId {
+  ScMainId({
+    required this.id,
+    required this.scheduleDate,
+    required this.mainRoute,
+    required this.superviseBy,
+  });
+
+  int id;
+  DateTime scheduleDate;
+  String mainRoute;
+  SuperviseBy superviseBy;
+
+  factory ScMainId.fromJson(Map<String, dynamic> json) => ScMainId(
+        id: json["id"],
+        scheduleDate: DateTime.parse(json["schedule_date"]),
+        mainRoute: json["main_route"],
+        superviseBy: SuperviseBy.fromJson(json["supervise_by"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "schedule_date":
+            "${scheduleDate.year.toString().padLeft(4, '0')}-${scheduleDate.month.toString().padLeft(2, '0')}-${scheduleDate.day.toString().padLeft(2, '0')}",
+        "main_route": mainRoute,
+        "supervise_by": superviseBy.toJson(),
       };
 }
 
