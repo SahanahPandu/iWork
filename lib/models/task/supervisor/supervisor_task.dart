@@ -229,7 +229,7 @@ class Sah {
   List<Attendance>? attendance;
   List<Checklist>? checklist;
   List<Leave>? leave;
-  List<dynamic>? workerRequest;
+  List<WorkerRequest>? workerRequest;
 
   factory Sah.fromJson(Map<String, dynamic> json) => Sah(
         attendance: json["attendance"] != null
@@ -243,7 +243,8 @@ class Sah {
         leave: json["leave"] != null
             ? List<Leave>.from(json["leave"].map((x) => Leave.fromJson(x)))
             : [],
-        workerRequest: List<dynamic>.from(json["worker_request"].map((x) => x)),
+        workerRequest: List<WorkerRequest>.from(
+            json["worker_request"].map((x) => WorkerRequest.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -335,6 +336,38 @@ class VehicleChecklistId {
   Map<String, dynamic> toJson() => {
         "id": id,
         "status_code": statusCode!.toJson(),
+      };
+}
+
+class WorkerRequest {
+  WorkerRequest({
+    required this.id,
+    required this.scMainId,
+    required this.userId,
+    required this.reassignWithUserId,
+    this.updatedAt,
+  });
+
+  int id;
+  int scMainId;
+  UserId userId;
+  UserId reassignWithUserId;
+  String? updatedAt;
+
+  factory WorkerRequest.fromJson(Map<String, dynamic> json) => WorkerRequest(
+        id: json["id"],
+        scMainId: json["sc_main_id"],
+        userId: UserId.fromJson(json["user_id"]),
+        reassignWithUserId: UserId.fromJson(json["reassign_with_user_id"]),
+        updatedAt: json["updated_at"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "sc_main_id": scMainId,
+        "user_id": userId.toJson(),
+        "reassign_with_user_id": reassignWithUserId.toJson(),
+        "updated_at": updatedAt,
       };
 }
 

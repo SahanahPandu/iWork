@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../../utils/calendar/date.dart';
+import '../../utils/device/sizes.dart';
 import '../../utils/font/font.dart';
 import '../../widgets/buttons/time_log_button.dart';
 import '../../widgets/cards/today_task/today_task_card.dart';
@@ -143,7 +144,8 @@ class _PraState extends State<Pra> {
   SafeArea _scrollBody() {
     return SafeArea(
         child: Container(
-      constraints: const BoxConstraints(minHeight: 400),
+      constraints: BoxConstraints(
+          minHeight: Sizes().screenHeight(context) * 0.5 - kToolbarHeight),
       color: white,
       padding: const EdgeInsets.all(15),
       child: CardListView(

@@ -9,7 +9,7 @@ import '../../utils/device/sizes.dart';
 import '../vehicle_checklist/vehicle_checklist_approval/vehicle_checklist_approval_main.dart';
 import 'attendance/attendance_detail/attendance_verification_list.dart';
 import 'attendance/attendance_verification.dart';
-import 'reschedule/reschedule_verification.dart';
+import 'request_worker/request_worker_verification.dart';
 import 'vehicle_checklist/vehicle_checklist_verification.dart';
 
 class ScheduleVerificationMain extends StatefulWidget {
@@ -58,7 +58,8 @@ class _ScheduleVerificationMainState extends State<ScheduleVerificationMain> {
                 rescheduleMainCard,
                 "Permohonan Pinjam Pekerja",
                 "Sahkan",
-                const RescheduleVerification(),
+                RequestWorkerVerification(
+                    requestData: widget.sahData!.workerRequest),
                 const AttendanceVerificationList())
             : const SizedBox(),
       ],
