@@ -1,40 +1,31 @@
+import 'package:eswm/utils/font/font.dart';
 import 'package:flutter/material.dart';
 
 //import files
 import '../../../../config/palette.dart';
-import '../../../../models/pekerja.dart';
+import '../../../../models/task/supervisor/supervisor_task.dart';
 import '../../../../utils/device/sizes.dart';
 
-class VerifyRescheduleListDetails extends StatefulWidget {
-  final Pekerja? data;
+class VerifyRequestWorkerListDetails extends StatefulWidget {
+  final WorkerRequest data;
   final int? index;
+  final int? lastItem;
 
-  const VerifyRescheduleListDetails({Key? key, this.data, this.index})
+  const VerifyRequestWorkerListDetails(
+      {Key? key, required this.data, this.index, this.lastItem})
       : super(key: key);
 
   @override
-  State<VerifyRescheduleListDetails> createState() =>
-      _VerifyRescheduleListDetailsState();
+  State<VerifyRequestWorkerListDetails> createState() =>
+      _VerifyRequestWorkerListDetailsState();
 }
 
-class _VerifyRescheduleListDetailsState
-    extends State<VerifyRescheduleListDetails> {
+class _VerifyRequestWorkerListDetailsState
+    extends State<VerifyRequestWorkerListDetails> {
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 4),
-      decoration: BoxDecoration(
-        border: widget.index != 2
-            ? Border(
-                top: BorderSide.none,
-                bottom: BorderSide(
-                  color: greyCustom,
-                  width: 0.1,
-                  style: BorderStyle.solid,
-                ),
-              )
-            : null,
-      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -45,9 +36,9 @@ class _VerifyRescheduleListDetailsState
                   fontWeight: FontWeight.w500)),
           const SizedBox(height: 6),
           SizedBox(
-            width: _textSize(widget.data!.reportsTo).width,
-            height: _textSize(widget.data!.reportsTo).height,
-            child: Text(widget.data!.reportsTo,
+            width: _textSize("widget.data!.reportsTo").width,
+            height: _textSize("widget.data!.reportsTo").height,
+            child: Text("widget.data!.reportsTo",
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
@@ -63,9 +54,9 @@ class _VerifyRescheduleListDetailsState
                   fontWeight: FontWeight.w500)),
           const SizedBox(height: 6),
           SizedBox(
-            width: _textSize(widget.data!.name).width,
-            height: _textSize(widget.data!.name).height,
-            child: Text(widget.data!.name,
+            width: _textSize(widget.data.userId.userDetail!.name).width,
+            height: _textSize(widget.data.userId.userDetail!.name).height,
+            child: Text(widget.data.userId.userDetail!.name.toTitleCase(),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
@@ -73,6 +64,14 @@ class _VerifyRescheduleListDetailsState
                     color: greyCustom,
                     fontWeight: FontWeight.w400)),
           ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: widget.index != widget.lastItem
+                ? const Divider(
+                    thickness: 0.5,
+                  )
+                : null,
+          )
         ],
       ),
     );

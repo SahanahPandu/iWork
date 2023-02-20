@@ -10,14 +10,15 @@ import '../../models/schedule/schedule_data_detail_cp_sv/schedule_detail.dart';
 import '../../models/schedule/supervisor/detail/sv_schedule_detail.dart';
 import '../../models/task/supervisor/supervisor_task.dart';
 import '../../providers/schedule/supervisor/supervisor_schedule_api.dart';
+import '../../utils/device/sizes.dart';
 import '../../widgets/alert/user_profile_dialog.dart';
 import '../../widgets/buttons/contact_button.dart';
 import '../../widgets/container/staff_stack_container.dart';
 import '../../widgets/container/status_container.dart';
-import '../../widgets/listview/card_list_view.dart';
 import '../../widgets/slivers/expand_collapse_header/expand_collapse_header.dart';
 import '../reassign_employee/reassign_employee_list.dart';
 import '../street_search/street_search.dart';
+import 'report/report_of_schedule_approval/report_of_schedule_approval_main.dart';
 
 class ScheduleIssueDetail extends StatefulWidget {
   final Isu getInfo;
@@ -114,6 +115,8 @@ class _ScheduleIssueDetailState extends State<ScheduleIssueDetail> {
   SafeArea _scrollBody(dynamic scheduleDetail) {
     return SafeArea(
       child: Container(
+          constraints:
+              BoxConstraints(minHeight: Sizes().screenHeight(context) * 0.36),
           color: white,
           child: Column(
             children: [_getBottomList(widget.getIssue, scheduleDetail)],
@@ -140,9 +143,10 @@ class _ScheduleIssueDetailState extends State<ScheduleIssueDetail> {
       case "ILHK":
 
         /// Laporan Halangan Kerja
-        return const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 5),
-          child: CardListView(type: "Laporan"),
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child:
+              ReportOfScheduleApprovalMain(scMainId: widget.getInfo.scMainId),
         );
       default:
         return Container();

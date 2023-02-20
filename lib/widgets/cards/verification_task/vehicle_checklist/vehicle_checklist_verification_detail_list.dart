@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../../../config/palette.dart';
-import '../../../../models/vc/detail/vc_main.dart';
+import '../../../../models/task/supervisor/supervisor_task.dart';
 
 class VehicleChecklistVerificationDetailList extends StatefulWidget {
-  final VehicleChecklistMain data;
   final int index;
+  final int lastItem;
+  final Checklist? vcData;
 
   const VehicleChecklistVerificationDetailList(
-      {Key? key, required this.data, required this.index})
+      {Key? key, required this.index, this.vcData, required this.lastItem})
       : super(key: key);
 
   @override
@@ -19,12 +20,31 @@ class VehicleChecklistVerificationDetailList extends StatefulWidget {
 
 class _VehicleChecklistVerificationDetailListState
     extends State<VehicleChecklistVerificationDetailList> {
+  Color beforeText = greyCustom;
+  Color afterText = greyCustom;
+
+  @override
+  void initState() {
+    if (widget.vcData!.vehicleChecklistId.statusCode == null) {
+      beforeText = greyCustom;
+      afterText = greyCustom;
+    } else if (widget.vcData!.vehicleChecklistId.statusCode!.code == "VC1") {
+      beforeText = greenCustom;
+      afterText = greyCustom;
+    } else if (widget.vcData!.vehicleChecklistId.statusCode!.code == "VC2" ||
+        widget.vcData!.vehicleChecklistId.statusCode!.code == "VC3") {
+      beforeText = greenCustom;
+      afterText = greenCustom;
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 4),
       decoration: BoxDecoration(
-        border: widget.index != 2
+        border: widget.index != widget.lastItem
             ? Border(
                 top: BorderSide.none,
                 bottom: BorderSide(
@@ -38,18 +58,31 @@ class _VehicleChecklistVerificationDetailListState
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text("widget.data.noKenderaan",
+          Text(widget.vcData!.vehicleNo,
               style: TextStyle(
                   color: blackCustom,
                   fontSize: 15,
                   fontWeight: FontWeight.w400)),
-          Center(
-            child: Text('Sebelum/Selepas',
-                style: TextStyle(
-                    color: greenCustom,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w600)),
-          )
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("Sebelum",
+                  style: TextStyle(
+                      color: beforeText,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600)),
+              Text("/",
+                  style: TextStyle(
+                      color: afterText,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600)),
+              Text("Selepas",
+                  style: TextStyle(
+                      color: afterText,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600)),
+            ],
+          ),
         ],
       ),
     );

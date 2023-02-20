@@ -7,7 +7,6 @@ import '../../../config/palette.dart';
 import '../../../config/resource.dart';
 import '../../../models/task/supervisor/supervisor_task.dart';
 import '../../../screens/schedule_verification/schedule_verification_main.dart';
-import '../../../utils/icon/custom_icon.dart';
 import '../../cards/list_card.dart';
 
 /// temporarily disable tabBarView
@@ -27,12 +26,28 @@ class TaskStackOverTabState extends State<TaskStackOverTab>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   ValueNotifier<bool> defaultTab = ValueNotifier(false);
+  int sahLength = 0;
+  Color isuBox = lightBlue;
+  Color isuText = darkBlue;
+  Color sahBox = grey300;
+  Color sahText = grey500;
+  Duration duration = const Duration(milliseconds: 300);
+  double distance = 24.0;
 
   @override
   void initState() {
     _tabController =
         TabController(length: 2, animationDuration: Duration.zero, vsync: this);
     defaultTab.value = true;
+    int isAttendance =
+        widget.scheduleData!.data.sah!.attendance!.isNotEmpty ? 1 : 0;
+    int isChecklist =
+        widget.scheduleData!.data.sah!.checklist!.isNotEmpty ? 1 : 0;
+    int isWorkerRequest =
+        widget.scheduleData!.data.sah!.workerRequest!.isNotEmpty ? 1 : 0;
+    sahLength = widget.scheduleData!.data.sah != null
+        ? isAttendance + isChecklist + isWorkerRequest
+        : 0;
     super.initState();
   }
 
@@ -79,18 +94,77 @@ class TaskStackOverTabState extends State<TaskStackOverTab>
               unselectedLabelColor: greyCustom,
               onTap: (index) {
                 if (index == 0) {
-                  defaultTab.value = true;
+                  setState(() {
+                    defaultTab.value = true;
+                    isuBox = lightBlue;
+                    isuText = darkBlue;
+                    sahBox = grey300;
+                    sahText = grey500;
+                  });
                 } else {
-                  defaultTab.value = false;
+                  setState(() {
+                    defaultTab.value = false;
+                    isuBox = grey300;
+                    isuText = grey500;
+                    sahBox = lightBlue;
+                    sahText = darkBlue;
+                  });
                 }
               },
-              tabs: const [
+              tabs: [
                 Tab(
-                  text: 'Isu',
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text("Isu"),
+                      const SizedBox(width: 6),
+                      widget.scheduleData!.data.isu != null &&
+                              widget.scheduleData!.data.isu!.isNotEmpty
+                          ? Container(
+                              height: 15,
+                              width: 14,
+                              decoration: BoxDecoration(
+                                color: isuBox,
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: Center(
+                                child: Text(
+                                    widget.scheduleData!.data.isu!.length
+                                        .toString(),
+                                    style: TextStyle(
+                                        color: isuText,
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w500)),
+                              ))
+                          : Container()
+                    ],
+                  ),
                 ),
                 Tab(
-                  text: 'Pengesahan',
-                ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text("Pengesahan"),
+                      const SizedBox(width: 6),
+                      sahLength > 0
+                          ? Container(
+                              height: 15,
+                              width: 14,
+                              decoration: BoxDecoration(
+                                color: sahBox,
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: Center(
+                                child: Text(sahLength.toString(),
+                                    style: TextStyle(
+                                        color: sahText,
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w500)),
+                              ))
+                          : Container()
+                    ],
+                  ),
+                )
               ],
             ),
           ),
@@ -106,7 +180,9 @@ class TaskStackOverTabState extends State<TaskStackOverTab>
                     /// Issue cards listing
                     return Container(
                       padding: const EdgeInsets.symmetric(horizontal: 5),
-                      constraints: const BoxConstraints(minHeight: 310),
+                      constraints: BoxConstraints(
+                          minHeight: Sizes().screenHeight(context) * 0.46 -
+                              kToolbarHeight),
                       child: Column(
                         children: [
                           const SizedBox(height: 10),
@@ -129,54 +205,35 @@ class TaskStackOverTabState extends State<TaskStackOverTab>
                     );
                   } else {
                     isTaskExist = false;
-                    return Center(
-                      child: Container(
-                        margin: const EdgeInsets.all(20),
-                        constraints: const BoxConstraints(minHeight: 500),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Icon(CustomIcon.exclamation,
-                                color: Colors.orange, size: 14),
-                            const SizedBox(width: 10),
-                            Text("Tiada isu untuk diambil tindakan.",
-                                style: TextStyle(color: grey500)),
-                          ],
-                        ),
-                      ),
-                    );
+                    return _displayNoTask(context,
+                        "Tiada isu perlu diselesaikan\npada ${widget.scheduleData!.data.scheduleDate!}");
                   }
                 } else {
                   return displayOpsButton(context);
                 }
               } else {
                 if (isTaskDataFetched) {
-                  if (widget.scheduleData!.data.sah != null) {
+                  if (widget.scheduleData!.data.sah != null &&
+                      (widget.scheduleData!.data.sah!.checklist!.isNotEmpty ||
+                          widget
+                              .scheduleData!.data.sah!.attendance!.isNotEmpty ||
+                          widget.scheduleData!.data.sah!.workerRequest!
+                              .isNotEmpty)) {
                     isTaskExist = true;
 
                     /// Verification cards listing
                     return Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                        constraints: BoxConstraints(
+                            minHeight: Sizes().screenHeight(context) * 0.46 -
+                                kToolbarHeight),
+                        padding: const EdgeInsets.fromLTRB(5, 0, 5, 15),
                         color: white,
-                        child: const ScheduleVerificationMain());
+                        child: ScheduleVerificationMain(
+                            sahData: widget.scheduleData!.data.sah));
                   } else {
                     isTaskExist = false;
-                    return Center(
-                      child: Container(
-                        margin: const EdgeInsets.all(20),
-                        constraints: const BoxConstraints(minHeight: 500),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Icon(CustomIcon.exclamation,
-                                color: Colors.orange, size: 14),
-                            const SizedBox(width: 10),
-                            Text("Tiada tugasan untuk disah",
-                                style: TextStyle(color: grey500)),
-                          ],
-                        ),
-                      ),
-                    );
+                    return _displayNoTask(context,
+                        "Tiada pengesahan perlu diselesaikan\npada ${widget.scheduleData!.data.scheduleDate!}");
                   }
                 } else {
                   return displayOpsButton(context);
@@ -205,11 +262,29 @@ class TaskStackOverTabState extends State<TaskStackOverTab>
     );
   }
 
+  Container _displayNoTask(BuildContext context, String str) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 20),
+      constraints: BoxConstraints(
+          minHeight: Sizes().screenHeight(context) * 0.46 - kToolbarHeight),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(width: 160, child: Image.asset(noApproval)),
+          const SizedBox(height: 20),
+          Text(str,
+              style: TextStyle(color: grey500, height: 1.5, fontSize: 14),
+              textAlign: TextAlign.center),
+        ],
+      ),
+    );
+  }
+
   Container displayOpsButton(BuildContext context) {
     return Container(
       constraints: BoxConstraints(
-          minHeight: (Sizes().screenHeight(context) * 0.48) - kToolbarHeight),
-      //height: (Sizes().screenHeight(context) * 0.5) - kToolbarHeight,
+          minHeight: (Sizes().screenHeight(context) * 0.46) - kToolbarHeight),
       child: Center(
         child: Column(
           children: [

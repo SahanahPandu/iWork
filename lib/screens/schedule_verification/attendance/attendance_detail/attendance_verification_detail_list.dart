@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 
 //import files
+import '../../../../config/config.dart';
 import '../../../../config/dimen.dart';
 import '../../../../config/palette.dart';
-import '../../../../models/pekerja.dart';
 import '../../../../utils/calendar/time.dart';
 
 class AttendanceVerificationDetailList extends StatefulWidget {
-  final Pekerja data;
+  /// WorkersAttend list
+  /// WorkersNotAttend list
+  final dynamic data;
   final int? index;
+  final int? lastIndex;
 
   const AttendanceVerificationDetailList(
-      {Key? key, required this.data, this.index})
+      {Key? key, this.data, this.index, this.lastIndex})
       : super(key: key);
 
   @override
@@ -32,14 +35,23 @@ class _AttendanceVerificationDetailListState
   }
 
   bool _isClockedIn() {
-    if (widget.data.timeIn != "") {
-      timeIn = widget.data.timeIn;
-      timeInColor = greenCustom;
-      return val = true;
-    } else {
+    if (widget.data!.userAttendanceId == null) {
       timeIn = "Tiada Rekod";
-      timeInColor = red;
+      timeInColor = redCustom;
+      tickedWorker.remove(widget.data!.userId.id);
       return val = false;
+    } else {
+      if (widget.data!.userAttendanceId!.clockInAt != "") {
+        timeIn = widget.data!.userAttendanceId!.clockInAt!;
+        timeInColor = greenCustom;
+        tickedWorker.add(widget.data!.userId.id);
+        return val = true;
+      } else {
+        timeIn = "Tiada Rekod";
+        timeInColor = redCustom;
+        tickedWorker.remove(widget.data!.userId.id);
+        return val = false;
+      }
     }
   }
 
@@ -74,10 +86,13 @@ class _AttendanceVerificationDetailListState
                           borderRadius:
                               BorderRadius.circular(borderRadiusCircular),
                           child: Image.network(
+                            widget.data!.userId.userDetail.profilePic ==
+                                    "http://ems.swmsb.com/uploads/profile/blue.png"
+                                ? "https://st3.depositphotos.com/9998432/13335/v/600/depositphotos_133352062-stock-illustration-default-placeholder-profile-icon.jpg"
+                                : widget.data!.userId.userDetail.profilePic,
                             height: 56,
                             width: 56,
                             fit: BoxFit.fill,
-                            widget.data.displayPicture,
                             loadingBuilder: (BuildContext context, Widget child,
                                 ImageChunkEvent? loadingProgress) {
                               if (loadingProgress == null) return child;
@@ -108,7 +123,7 @@ class _AttendanceVerificationDetailListState
                       width: _textSize().width,
                       height: _textSize().height,
                       child: Text(
-                        widget.data.name,
+                        widget.data!.userId.userDetail.name,
                         style: textStyle,
                         softWrap: true,
                         overflow: TextOverflow.ellipsis,
@@ -119,7 +134,7 @@ class _AttendanceVerificationDetailListState
                     Row(
                       children: [
                         Text(
-                          widget.data.designCat,
+                          widget.data!.userId.userRoles[0].roleDesc,
                           style: TextStyle(
                               color: greyCustom,
                               fontSize: 13,
@@ -133,7 +148,7 @@ class _AttendanceVerificationDetailListState
                         ),
                         const SizedBox(width: 6),
                         Text(
-                          widget.data.skills,
+                          "Kutipan",
                           style: TextStyle(
                               color: greyCustom,
                               fontSize: 13,
@@ -155,7 +170,7 @@ class _AttendanceVerificationDetailListState
                                   text: timeIn,
                                   style: TextStyle(
                                       fontSize: 13,
-                                      fontWeight: FontWeight.w600,
+                                      fontWeight: FontWeight.w500,
                                       color: timeInColor)),
                             ]))
                   ],
@@ -177,7 +192,7 @@ class _AttendanceVerificationDetailListState
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: widget.index != 6
+          child: widget.index != widget.lastIndex
               ? const Divider(
                   thickness: 0.5,
                 )
@@ -195,7 +210,8 @@ class _AttendanceVerificationDetailListState
 
   Size _textSize() {
     final TextPainter textPainter = TextPainter(
-        text: TextSpan(text: widget.data.name, style: textStyle),
+        text: TextSpan(
+            text: widget.data!.userId.userDetail.name, style: textStyle),
         maxLines: 2,
         textDirection: TextDirection.ltr)
       ..layout(minWidth: 0, maxWidth: 180);
@@ -204,19 +220,19 @@ class _AttendanceVerificationDetailListState
 
   void _toggleTimeInData(bool isTicked) {
     if (isTicked == true) {
-      if (widget.data.timeIn == "") {
-        if (Time.getCurrentTime().contains("AM")) {
-          timeIn = "${Time.getCurrentTimeInHHMM()} pagi";
-        } else {
-          timeIn = "${Time.getCurrentTimeInHHMM()} petang";
-        }
+      if (widget.data!.userAttendanceId == null ||
+          widget.data!.userAttendanceId!.clockInAt == "") {
+        timeIn = Time.getCurrentTimeInHHMMSS();
       } else {
-        timeIn = widget.data.timeIn;
+        timeIn = widget.data!.userAttendanceId!.clockInAt!;
       }
       timeInColor = greenCustom;
+      tickedWorker.add(widget.data!.userId.id);
     } else {
       timeIn = "Tiada Rekod";
-      timeInColor = red;
+      timeInColor = redCustom;
+      tickedWorker.remove(widget.data!.userId.id);
     }
+    //print(tickedWorker);
   }
 }

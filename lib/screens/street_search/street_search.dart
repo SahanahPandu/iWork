@@ -25,6 +25,7 @@ class _StreetSearchState extends State<StreetSearch> {
   bool _showSenaraiJalan = false;
   int idTaman = 0;
   int iconCondition = 1;
+
   // int idSubLaluan = 0;
   String namaTaman = "";
   String namaSublaluan = "";
@@ -49,6 +50,8 @@ class _StreetSearchState extends State<StreetSearch> {
   @override
   Widget build(BuildContext context) {
     return Container(
+        constraints: BoxConstraints(
+            minHeight: Sizes().screenHeight(context) * 0.5 - kToolbarHeight),
 
         /// 0.555 = headerExpandedHeight + 0.05
         height: _showSenaraiTaman && _showSenaraiJalan

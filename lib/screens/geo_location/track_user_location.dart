@@ -5,10 +5,14 @@ import 'package:google_maps_widget/google_maps_widget.dart';
 import 'package:location/location.dart';
 
 //import files
+import '../../config/palette.dart';
+import '../../utils/icon/custom_icon.dart';
 import '../../widgets/alert/toast.dart';
 
 class TrackUserLocation extends StatefulWidget {
-  const TrackUserLocation({Key? key}) : super(key: key);
+  final String? vehicleId;
+
+  const TrackUserLocation({Key? key, this.vehicleId}) : super(key: key);
 
   @override
   State<TrackUserLocation> createState() => _TrackUserLocationState();
@@ -20,9 +24,27 @@ class _TrackUserLocationState extends State<TrackUserLocation> {
   bool shownToast = false;
 
   bool reachedDest = false;
+  final Set<Marker> _markers = {};
+  final Set<Polyline> _polyline = {};
 
   @override
   void initState() {
+    for (int i = 0; i < latLen.length; i++) {
+      _markers.add(
+          // added markers
+          Marker(
+        markerId: MarkerId(i.toString()),
+        position: latLen[i],
+        icon: BitmapDescriptor.defaultMarker,
+      ));
+      setState(() {});
+      _polyline.add(Polyline(
+        polylineId: const PolylineId('1'),
+        points: latLen,
+        width: 2,
+        color: darkBlue,
+      ));
+    }
     super.initState();
   }
 
@@ -63,12 +85,51 @@ class _TrackUserLocationState extends State<TrackUserLocation> {
   final Completer<GoogleMapController> _controller = Completer();
   static const LatLng sourceLocation = LatLng(3.1379116, 101.6296056);
   static const LatLng destination = LatLng(3.1362133, 101.6316105);
+  List<LatLng> latLen = const [
+    LatLng(3.138164658578095, 101.62975788116456),
+    LatLng(3.1382985679118374, 101.62948966026306),
+    LatLng(3.138164658578095, 101.62922143936159),
+    LatLng(3.1380307492271777, 101.62900149822237),
+    LatLng(3.1377629304738814, 101.62893176078798),
+    LatLng(3.137077314152752, 101.62987589836122),
+    LatLng(3.136209580351658, 101.63093805313112),
+    LatLng(3.1360596015970046, 101.63117408752441),
+    LatLng(3.1365898835259736, 101.63102924823761),
+    LatLng(3.137318351191913, 101.63020312786104),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: SafeArea(
         child: Scaffold(
+          appBar: PreferredSize(
+              preferredSize: const Size.fromHeight(kToolbarHeight),
+              child: Container(
+                  decoration: BoxDecoration(boxShadow: [
+                    BoxShadow(
+                      color: barShadowColor,
+                      offset: const Offset(0, 3),
+                      blurRadius: 8,
+                    )
+                  ]),
+                  child: AppBar(
+                      backgroundColor: white,
+                      elevation: 0,
+                      leading: IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: Icon(CustomIcon.arrowBack,
+                            color: blackCustom, size: 20),
+                      ),
+                      title: Center(
+                          child: Text("Laluan Kompaktor - ${widget.vehicleId}",
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: blackCustom,
+                                fontWeight: FontWeight.w400,
+                              )))))),
           body: Column(
             children: [
               Expanded(
@@ -78,12 +139,11 @@ class _TrackUserLocationState extends State<TrackUserLocation> {
                   sourceLatLng: sourceLocation,
                   destinationLatLng: destination,
                   myLocationEnabled: true,
-                  zoomGesturesEnabled: true,
                   ///////////////////////////////////////////////////////
                   //////////////    OPTIONAL PARAMETERS    //////////////
                   ///////////////////////////////////////////////////////
-
                   routeWidth: 2,
+                  routeColor: green,
                   sourceMarkerIconInfo: MarkerIconInfo(
                     infoWindowTitle: "This is source name",
                     onTapInfoWindow: (_) {
@@ -108,6 +168,7 @@ class _TrackUserLocationState extends State<TrackUserLocation> {
                   onMapCreated: (mapController) {
                     _controller.complete(mapController);
                   },
+                  polylines: _polyline,
                   onPolylineUpdate: (p) {
                     //print("Polyline updated: ${p.points}");
                   },

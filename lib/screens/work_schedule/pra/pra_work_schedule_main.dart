@@ -66,7 +66,7 @@ class _PraWorkScheduleMainState extends State<PraWorkScheduleMain> {
   SafeArea _scrollBody() {
     return SafeArea(
       /// 0.438 = headerExpandedHeight + 0.038
-      child: StreetSearch(height: 0.438, scMainId: widget.data?.id),
+      child: StreetSearch(height: 0.48, scMainId: widget.data?.id),
     );
   }
 

@@ -9,7 +9,6 @@ import '../../providers/task/compactor_panel/compactor_task_api.dart';
 import '../../utils/calendar/date.dart';
 import '../../utils/calendar/time.dart';
 import '../../utils/device/orientations.dart';
-import '../../widgets/alert/toast.dart';
 import '../../widgets/cards/today_task/today_task_card.dart';
 import '../../widgets/gridview/compactor_panel/task/compactor_task_list.dart';
 import '../../widgets/slivers/expand_collapse_header/expand_collapse_header.dart';
@@ -49,9 +48,9 @@ class _CompactorPanelState extends State<CompactorPanel> {
                   setState(() {
                     refresh.value = !refresh.value;
                   });
-                  isTaskDataFetched
-                      ? showInfoToast(context, "Halaman berjaya dimuat semula!")
-                      : null;
+                  // isTaskDataFetched
+                  //     ? showInfoToast(context, "Halaman berjaya dimuat semula!")
+                  //     : null;
                 },
               );
             },
@@ -119,6 +118,7 @@ class _CompactorPanelState extends State<CompactorPanel> {
                       } else {
                         if (snapshot.hasData) {
                           scheduleData = snapshot.data!;
+
                           /// Failed to fetch data from internet
                           if (scheduleData!.data.startWork == null &&
                               scheduleData!.data.stopWork == null &&

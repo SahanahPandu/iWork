@@ -15,4 +15,12 @@ class HttpHeader {
       'Content-Type': 'multipart/form-data'
     });
   }
+
+  static Options getJsonApiHeader(String accessToken) {
+    return Options(headers: {
+      'authorization': 'Bearer $accessToken',
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    });
+  }
 }

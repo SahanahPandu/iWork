@@ -2,19 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
 //import files
+import '../../../models/task/supervisor/supervisor_task.dart';
 import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../../utils/device/sizes.dart';
-import '../../widgets/tabs/ecuti_approval_tab/ecuti_approval_tab.dart';
 import '../vehicle_checklist/vehicle_checklist_approval/vehicle_checklist_approval_main.dart';
 import 'attendance/attendance_detail/attendance_verification_list.dart';
 import 'attendance/attendance_verification.dart';
-import 'ecuti/ecuti_verification.dart';
-import 'reschedule/reschedule_verification.dart';
+import 'request_worker/request_worker_verification.dart';
 import 'vehicle_checklist/vehicle_checklist_verification.dart';
 
 class ScheduleVerificationMain extends StatefulWidget {
-  const ScheduleVerificationMain({Key? key}) : super(key: key);
+  final Sah? sahData;
+
+  const ScheduleVerificationMain({Key? key, this.sahData}) : super(key: key);
 
   @override
   State<ScheduleVerificationMain> createState() =>
@@ -27,29 +28,40 @@ class _ScheduleVerificationMainState extends State<ScheduleVerificationMain> {
     return Column(
       children: [
         const SizedBox(height: 10),
-        _buildVerifyCard(
-            context,
-            attendanceMainCard,
-            "Kehadiran",
-            "Sahkan Kehadiran",
-            const AttendanceVerification(),
-            const AttendanceVerificationList()),
-        _buildVerifyCard(
-            context,
-            attendanceMainCard,
-            "Semakan Kenderaan",
-            "Sahkan Semakan Kenderaan",
-            const VehicleChecklistVerification(),
-            const VehicleChecklistApprovalMain()),
-        _buildVerifyCard(context, eCutiMainCard, "E-Cuti", "Sahkan E-Cuti",
-            const EcutiVerification(), const EcutiApprovalTab()),
-        _buildVerifyCard(
-            context,
-            rescheduleMainCard,
-            "Permohonan Pinjam Pekerja",
-            "Sahkan",
-            const RescheduleVerification(),
-            const AttendanceVerificationList()),
+        widget.sahData!.attendance!.isNotEmpty
+            ? _buildVerifyCard(
+                context,
+                attendanceMainCard,
+                "Kehadiran",
+                "Sahkan Kehadiran",
+                AttendanceVerification(
+                    attendanceData: widget.sahData!.attendance!),
+                const AttendanceVerificationList())
+            : const SizedBox(),
+        widget.sahData!.checklist!.isNotEmpty
+            ? _buildVerifyCard(
+                context,
+                attendanceMainCard,
+                "Semakan Kenderaan",
+                "Sahkan Semakan Kenderaan",
+                VehicleChecklistVerification(
+                    checklistData: widget.sahData!.checklist!),
+                const VehicleChecklistApprovalMain())
+            : const SizedBox(),
+
+        /// Disable ecuti verification function
+        // _buildVerifyCard(context, eCutiMainCard, "E-Cuti", "Sahkan E-Cuti",
+        //    const EcutiVerification(), const EcutiApprovalTab()),
+        widget.sahData!.workerRequest!.isNotEmpty
+            ? _buildVerifyCard(
+                context,
+                rescheduleMainCard,
+                "Permohonan Pinjam Pekerja",
+                "Sahkan",
+                RequestWorkerVerification(
+                    requestData: widget.sahData!.workerRequest),
+                const AttendanceVerificationList())
+            : const SizedBox(),
       ],
     );
   }

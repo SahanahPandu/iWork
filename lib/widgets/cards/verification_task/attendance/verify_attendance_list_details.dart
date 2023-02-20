@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 
 //import files
 import '../../../../config/palette.dart';
-import '../../../../models/laluan.dart';
+import '../../../../models/task/supervisor/supervisor_task.dart';
 
 class VerifyAttendanceListDetails extends StatefulWidget {
-  final Laluan? data;
   final int? index;
+  final int? lastItem;
+  final Attendance? data;
 
-  const VerifyAttendanceListDetails({Key? key, this.data, this.index})
+  const VerifyAttendanceListDetails(
+      {Key? key, this.index, this.data, this.lastItem})
       : super(key: key);
 
   @override
@@ -23,7 +25,7 @@ class _VerifyAttendanceListDetailsState
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 4),
       decoration: BoxDecoration(
-        border: widget.index != 2
+        border: widget.index != widget.lastItem
             ? Border(
                 top: BorderSide.none,
                 bottom: BorderSide(
@@ -37,7 +39,7 @@ class _VerifyAttendanceListDetailsState
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(widget.data!.namaLaluan,
+          Text(widget.data!.mainRoute!,
               style: TextStyle(
                   color: blackCustom,
                   fontSize: 15,
@@ -48,12 +50,25 @@ class _VerifyAttendanceListDetailsState
             decoration: BoxDecoration(
                 color: activeBoxColor,
                 borderRadius: const BorderRadius.all(Radius.circular(5))),
-            child: Center(
-              child: Text(widget.data!.kehadiran,
-                  style: TextStyle(
-                      color: darkBlue,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600)),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(widget.data!.workersAttendedCount.toString(),
+                    style: TextStyle(
+                        color: darkBlue,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600)),
+                Text("/",
+                    style: TextStyle(
+                        color: darkBlue,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600)),
+                Text(widget.data!.totalWorker.toString(),
+                    style: TextStyle(
+                        color: darkBlue,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600)),
+              ],
             ),
           )
         ],

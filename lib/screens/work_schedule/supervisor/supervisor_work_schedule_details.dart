@@ -347,7 +347,9 @@ class _SupervisorScheduleDetailsState extends State<SupervisorScheduleDetails> {
                       context,
                       PageTransition(
                           type: PageTransitionType.fade,
-                          child: const TrackUserLocation()));
+                          child: TrackUserLocation(
+                              vehicleId:
+                                  widget.data!.data!.details.vehicleNo!)));
                 },
                 child: Text(
                   "Lokasi Kompaktor",
