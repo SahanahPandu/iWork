@@ -253,28 +253,14 @@ class _RequestWorkerListState extends State<RequestWorkerList> {
         ));
   }
 
-  RichText _textBuilder() {
-    return RichText(
+  Text _textBuilder() {
+    return Text(
         textAlign: TextAlign.center,
-        text: TextSpan(
-            text: "Kehadiran staf anda \npada",
-            style: TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w400,
-                color: greyCustom,
-                height: 1.5),
-            children: <TextSpan>[
-              TextSpan(
-                  text:
-                      " ${DateFormat("dd MMMM yyyy", 'ms').format(DateTime.now())}",
-                  style: TextStyle(
-                      fontSize: 15, fontWeight: FontWeight.w400, color: green)),
-              TextSpan(
-                  text: " telah berjaya disahkan",
-                  style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w400,
-                      color: greyCustom))
-            ]));
+        "Pengesahan pinjam pekerja telah berjaya dihantar!",
+        style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.w400,
+            color: greyCustom,
+            height: 1.5));
   }
 }

@@ -28,7 +28,7 @@ class _RequestWorkerDetailListState extends State<RequestWorkerDetailList> {
   @override
   void initState() {
     if (val == true) {
-      tickedRequestedWorker.add(widget.data!.reassignWithUserId.userDetail.id);
+      tickedRequestedWorker.add(widget.data!.id);
     }
     super.initState();
   }
@@ -222,10 +222,10 @@ class _RequestWorkerDetailListState extends State<RequestWorkerDetailList> {
 
   void _toggleTimeInData(bool isTicked) {
     if (isTicked == true) {
-      tickedRequestedWorker.add(widget.data!.reassignWithUserId.userDetail.id);
+      tickedRequestedWorker.add(widget.data!.id);
     } else {
       tickedRequestedWorker
-          .remove(widget.data!.reassignWithUserId.userDetail.id);
+          .remove(widget.data!.id);
     }
     //print(tickedRequestedWorker);
   }

@@ -10,7 +10,8 @@ import '../http/service/http_header.dart';
 import '../http/service/http_service.dart';
 
 class RequestWorkerApi {
-  static Future<RequestWorker?> getRequestWorkerData(BuildContext context) async {
+  static Future<RequestWorker?> getRequestWorkerData(
+      BuildContext context) async {
     RequestWorker? requestWorkerData;
     String getAccessToken = userInfo[1];
 
@@ -37,11 +38,8 @@ class RequestWorkerApi {
     Map workerBody = {"worker_schedule": list};
     final jsonString = json.encode(workerBody);
     try {
-      Response response = await Dio().post(
-          HttpService().updateRequestWorkerUrl,
-          options: HttpHeader.getJsonApiHeader(userInfo[1]),
-          data: jsonString);
-
+      Response response = await Dio().post(HttpService().updateRequestWorkerUrl,
+          options: HttpHeader.getJsonApiHeader(userInfo[1]), data: jsonString);
       if (response.statusCode == 200 && response.data != null) {
         return 'ok';
       }
