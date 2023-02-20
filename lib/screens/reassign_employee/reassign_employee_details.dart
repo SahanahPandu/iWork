@@ -143,20 +143,20 @@ class _ReassignEmployeeDetailsState extends State<ReassignEmployeeDetails> {
                           ),
                         ),
                         onPressed: () {
-                          // Timer(const Duration(milliseconds: 200), () {
-                          //   setState(() {
-                          //     textColor = greenCustom;
-                          //   });
-                          // });
-                          // Navigator.push(
-                          //     context,
-                          //     PageTransition(
-                          //         type: PageTransitionType.fade,
-                          //         child: EmployeeList(
-                          //           absentEmployee: widget.dataEmployee1,
-                          //           assignedEmployee:
-                          //               getAssignedEmployeeDetails,
-                          //         )));
+                          Timer(const Duration(milliseconds: 200), () {
+                            setState(() {
+                              textColor = greenCustom;
+                            });
+                          });
+                          Navigator.push(
+                              context,
+                              PageTransition(
+                                  type: PageTransitionType.fade,
+                                  child: EmployeeList(
+                                    absentEmployee: widget.dataEmployee1,
+                                    assignedEmployee:
+                                        getAssignedEmployeeDetails,
+                                  )));
                         },
                         child: Row(
                           children: [

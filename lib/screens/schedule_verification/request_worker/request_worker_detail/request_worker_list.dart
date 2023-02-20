@@ -1,11 +1,11 @@
-import 'package:eswm/models/request_worker/list/request_worker.dart';
-import 'package:eswm/screens/schedule_verification/request_worker/request_worker_detail/request_worker_detail_list.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+//import files
 import '../../../../config/config.dart';
 import '../../../../config/palette.dart';
 import '../../../../config/string.dart';
+import '../../../../models/request_worker/list/request_worker.dart';
 import '../../../../providers/request_worker/request_worker_api.dart';
 import '../../../../utils/device/sizes.dart';
 import '../../../../utils/icon/custom_icon.dart';
@@ -13,6 +13,7 @@ import '../../../../widgets/alert/alert_dialog.dart';
 import '../../../../widgets/alert/lottie_alert_dialog.dart';
 import '../../../../widgets/alert/toast.dart';
 import '../../../../widgets/custom_scroll/custom_scroll.dart';
+import 'request_worker_detail_list.dart';
 
 class RequestWorkerList extends StatefulWidget {
   const RequestWorkerList({Key? key}) : super(key: key);
@@ -211,14 +212,16 @@ class _RequestWorkerListState extends State<RequestWorkerList> {
                     if (tickedRequestedWorker.isNotEmpty) {
                       List<Map<String, dynamic>> list = List.generate(
                           tickedRequestedWorker.length,
-                          (index) => {"worker_request_id": '',"has_approval": ''});
+                          (index) =>
+                              {"worker_request_id": '', "has_approval": ''});
                       for (int i = 0; i < list.length; i++) {
                         list[i] = {
                           "worker_request_id": tickedRequestedWorker[i],
                           "has_approval": 1
                         };
                       }
-                      var result = await RequestWorkerApi.updateRequestWorker(context, list);
+                      var result = await RequestWorkerApi.updateRequestWorker(
+                          context, list);
                       if (result == 'ok') {
                         // ignore: use_build_context_synchronously
                         Navigator.pop(context);

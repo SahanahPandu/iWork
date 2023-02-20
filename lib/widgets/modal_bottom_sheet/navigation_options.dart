@@ -102,7 +102,9 @@ Widget? showNavigationOptions(BuildContext context) {
 void _launchMaps(double lat, double lng) async {
   dynamic url =
       'http://maps.google.com/maps?q=${lat.toString()},${lng.toString()}';
+  // ignore: deprecated_member_use
   if (await canLaunch(url)) {
+    // ignore: deprecated_member_use
     await launch(url);
   } else {
     throw 'Could not launch $url';
