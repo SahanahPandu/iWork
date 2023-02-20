@@ -50,9 +50,10 @@ int userType = 0;
 /// ** User Info **
 /// [0] = device id
 /// [1] = access token
-/// [2] = user id
+/// [2] = user login id
 /// [3] = user role
 /// [4] = user name
+/// [5] = user id
 
 /// ** Compactor Info **
 /// [0] = device id
@@ -60,7 +61,7 @@ int userType = 0;
 /// [2] = vehicle no
 /// [3] = user role
 List<String> userInfo = Devices().isPhone()
-    ? List.generate(5, (index) => '')
+    ? List.generate(6, (index) => '')
     : List.generate(4, (index) => '');
 
 /// ** User Device Info **
