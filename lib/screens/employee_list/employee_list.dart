@@ -10,7 +10,6 @@ import '../../utils/icon/custom_icon.dart';
 import '../../widgets/app_bar/app_bar_widget.dart';
 import '../../widgets/search_box/search_box.dart';
 import '../list_of_employees/absent_employee_details.dart';
-import '../list_of_employees/list_of_employees.dart';
 
 class EmployeeList extends StatefulWidget {
   final dynamic absentEmployee;

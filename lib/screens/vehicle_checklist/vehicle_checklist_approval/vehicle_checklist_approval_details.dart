@@ -26,6 +26,7 @@ class _VehicleChecklistApprovalDetailsState
 
   @override
   void initState() {
+    // ignore: unnecessary_null_comparison
     if (widget.data.vehicleChecklistId == null) {
       beforeVC = blackCustom;
       afterVC = blackCustom;

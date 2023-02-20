@@ -44,7 +44,6 @@ class ViewHistoryUserLocationState extends State<ViewHistoryUserLocation> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     // declared for loop for various locations
