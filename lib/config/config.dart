@@ -124,3 +124,9 @@ Position? currentPosition;
 
 /// Selected worker from attendance list
 var tickedWorker = [];
+
+/// Selected worker from request worker list
+var tickedRequestedWorker = [];
+
+/// Approval worker from request worker list
+var approvalRequestedWorker = [];

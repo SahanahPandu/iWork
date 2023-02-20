@@ -142,22 +142,26 @@ class SuperviseBy {
     required this.id,
     required this.emsUserId,
     required this.userDetail,
+    this.contractorUserId,
   });
 
   int id;
   int emsUserId;
   UserDetail userDetail;
+  dynamic contractorUserId;
 
   factory SuperviseBy.fromJson(Map<String, dynamic> json) => SuperviseBy(
         id: json["id"],
         emsUserId: json["ems_user_id"],
         userDetail: UserDetail.fromJson(json["user_detail"]),
+        contractorUserId: json["contractor_user_id"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "ems_user_id": emsUserId,
         "user_detail": userDetail.toJson(),
+        "contractor_user_id": contractorUserId,
       };
 }
 
@@ -486,28 +490,37 @@ class LeaveTypeId {
 
 class UserId {
   UserId({
-    this.id,
-    this.emsUserId,
+    required this.id,
+    required this.emsUserId,
     this.contractorUserId,
     required this.userDetail,
+    this.userRoles,
   });
 
-  int? id;
-  int? emsUserId;
+  int id;
+  int emsUserId;
   dynamic contractorUserId;
-  UserDetail? userDetail;
+  UserDetail userDetail;
+  List<UserRole>? userRoles;
 
   factory UserId.fromJson(Map<String, dynamic> json) => UserId(
         id: json["id"],
         emsUserId: json["ems_user_id"],
         contractorUserId: json["contractor_user_id"],
         userDetail: UserDetail.fromJson(json["user_detail"]),
+        userRoles: json["user_roles"] == null
+            ? []
+            : List<UserRole>.from(
+                json["user_roles"]!.map((x) => UserRole.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "ems_user_id": emsUserId,
         "contractor_user_id": contractorUserId,
-        "user_detail": userDetail!.toJson(),
+        "user_detail": userDetail.toJson(),
+        "user_roles": userRoles == null
+            ? []
+            : List<dynamic>.from(userRoles!.map((x) => x.toJson())),
       };
 }

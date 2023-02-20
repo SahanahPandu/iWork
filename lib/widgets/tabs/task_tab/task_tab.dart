@@ -39,12 +39,18 @@ class TaskStackOverTabState extends State<TaskStackOverTab>
     _tabController =
         TabController(length: 2, animationDuration: Duration.zero, vsync: this);
     defaultTab.value = true;
-    int isAttendance =
-        widget.scheduleData!.data.sah!.attendance!.isNotEmpty ? 1 : 0;
-    int isChecklist =
-        widget.scheduleData!.data.sah!.checklist!.isNotEmpty ? 1 : 0;
-    int isWorkerRequest =
-        widget.scheduleData!.data.sah!.workerRequest!.isNotEmpty ? 1 : 0;
+    int isAttendance = widget.scheduleData!.data.sah != null &&
+            widget.scheduleData!.data.sah!.attendance!.isNotEmpty
+        ? 1
+        : 0;
+    int isChecklist = widget.scheduleData!.data.sah != null &&
+            widget.scheduleData!.data.sah!.checklist!.isNotEmpty
+        ? 1
+        : 0;
+    int isWorkerRequest = widget.scheduleData!.data.sah != null &&
+            widget.scheduleData!.data.sah!.workerRequest!.isNotEmpty
+        ? 1
+        : 0;
     sahLength = widget.scheduleData!.data.sah != null
         ? isAttendance + isChecklist + isWorkerRequest
         : 0;
