@@ -96,7 +96,7 @@ class _ScheduleIssueDetailState extends State<ScheduleIssueDetail> {
                       curvedBodyRadius: 24,
                       fixedTitle: _fixedTitle(context),
                       fixedTitleHeight: 60,
-                      collapseFade: 70,
+                      collapseFade: 80,
                       backgroundColor: transparent,
                       appBarColor: collapseBgColor,
                       collapseButton: widget.getIssue == "IBMT" ? true : false);
@@ -144,7 +144,7 @@ class _ScheduleIssueDetailState extends State<ScheduleIssueDetail> {
 
         /// Laporan Halangan Kerja
         return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
           child:
               ReportOfScheduleApprovalMain(scMainId: widget.getInfo.scMainId),
         );
@@ -176,7 +176,9 @@ class _ScheduleIssueDetailState extends State<ScheduleIssueDetail> {
           child: Padding(
               padding: const EdgeInsets.only(top: 5),
               child: //Senarai Staf
-                  buildStackedImages(scheduleDetail)),
+                  Align(
+                      alignment: Alignment.centerRight,
+                      child: buildStackedImages(scheduleDetail))),
         )
       ],
     );

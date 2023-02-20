@@ -412,21 +412,20 @@ class ScMainId {
   });
 
   int id;
-  DateTime scheduleDate;
+  String scheduleDate;
   String mainRoute;
   SuperviseBy superviseBy;
 
   factory ScMainId.fromJson(Map<String, dynamic> json) => ScMainId(
         id: json["id"],
-        scheduleDate: DateTime.parse(json["schedule_date"]),
+        scheduleDate: json["schedule_date"],
         mainRoute: json["main_route"],
         superviseBy: SuperviseBy.fromJson(json["supervise_by"]),
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "schedule_date":
-            "${scheduleDate.year.toString().padLeft(4, '0')}-${scheduleDate.month.toString().padLeft(2, '0')}-${scheduleDate.day.toString().padLeft(2, '0')}",
+        "schedule_date": scheduleDate,
         "main_route": mainRoute,
         "supervise_by": superviseBy.toJson(),
       };

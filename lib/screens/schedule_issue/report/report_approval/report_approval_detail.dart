@@ -1,14 +1,14 @@
+import 'package:eswm/models/report/report_details/report_details_info.dart';
 import 'package:flutter/material.dart';
 
 //import files
 import '../../../../config/dimen.dart';
 import '../../../../config/palette.dart';
-import '../../../../models/reports.dart';
 import '../../../../utils/device/sizes.dart';
 import '../../../../widgets/image_viewer/image_viewer.dart';
 
 class ReportApprovalDetail extends StatefulWidget {
-  final Reports data;
+  final ReportDetailsInfo data;
   final int reportStatus;
 
   const ReportApprovalDetail(
@@ -77,7 +77,7 @@ class _ReportApprovalDetailState extends State<ReportApprovalDetail> {
   void _setVehicleAkbkText() {}
 
   void _setBaFeedbackText() {
-    if (widget.data.statusBA != "") {
+    /* if (widget.data.statusBA != "") {
       setState(() {
         _baStatus.text = widget.data.statusBA;
       });
@@ -88,18 +88,18 @@ class _ReportApprovalDetailState extends State<ReportApprovalDetail> {
       });
     } else {
       _baFeedback.text = "-";
-    }
+    }*/
   }
 
   void _setSvFeedbackText() {
-    if (widget.data.statusPenyelia != "") {
+    if (widget.data.svRemarks != "") {
       setState(() {
-        _svStatus.text = widget.data.statusPenyelia;
+        _svStatus.text = widget.data.svRemarks!;
       });
     }
-    if (widget.data.maklumbalasPenyelia != "") {
+    if (widget.data.svRemarks != "") {
       setState(() {
-        _svFeedback.text = widget.data.maklumbalasPenyelia;
+        _svFeedback.text = widget.data.svRemarks!;
       });
     } else {
       _svFeedback.text = "-";
@@ -107,29 +107,29 @@ class _ReportApprovalDetailState extends State<ReportApprovalDetail> {
   }
 
   void _setMainReportText() {
-    if (widget.data.namaLaluan != "" ||
-        widget.data.noKenderaan != "" ||
-        widget.data.namaSubLaluan != "" ||
-        widget.data.namaTaman != "" ||
-        widget.data.namaJalan != "" ||
-        widget.data.jenisHalangan != "" ||
-        widget.data.catatan != "") {
+    if (widget.data.schCollectionMain!.mainRoute != "" ||
+        widget.data.schCollectionMain!.vehicleNo != "" ||
+        widget.data.subRouteName != "" ||
+        widget.data.park!.parkName != "" ||
+        widget.data.street!.streetName != "" ||
+        widget.data.obstacleType!.obsTypeName != "" ||
+        widget.data.remarks != "") {
       setState(() {
-        _laluan.text = widget.data.namaLaluan;
-        _vehicleNo.text = widget.data.noKenderaan;
-        _subLaluan.text = widget.data.namaSubLaluan;
-        _taman.text = widget.data.namaTaman;
-        _jalan.text = widget.data.namaJalan;
-        _reportType.text = widget.data.jenisHalangan;
+        _laluan.text = widget.data.schCollectionMain!.mainRoute;
+        _vehicleNo.text = widget.data.schCollectionMain!.vehicleNo!;
+        _subLaluan.text = widget.data.subRouteName!;
+        _taman.text = widget.data.park!.parkName;
+        _jalan.text = widget.data.street!.streetName;
+        _reportType.text = widget.data.obstacleType!.obsTypeName;
 
-        if (widget.data.lampiran != "") {
+        if (widget.data.uploadFileId!.filePath != "") {
           _isAttached = true;
         } else {
           _isAttached = false;
         }
 
-        if (widget.data.catatan != "") {
-          _remarks.text = widget.data.catatan;
+        if (widget.data.remarks != "") {
+          _remarks.text = widget.data.remarks!;
         } else {
           _remarks.text = "-";
         }
@@ -155,7 +155,7 @@ class _ReportApprovalDetailState extends State<ReportApprovalDetail> {
                     PageRouteBuilder(
                       opaque: false,
                       pageBuilder: (_, __, ___) => ImageViewer(
-                          attachment: widget.data.lampiran,
+                          attachment: widget.data.uploadFileId!.filePath,
                           type: BoxFit.fitWidth),
                     ),
                   );
@@ -169,7 +169,7 @@ class _ReportApprovalDetailState extends State<ReportApprovalDetail> {
                     child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),
                         child: Image.network(
-                          widget.data.lampiran,
+                          widget.data.uploadFileId!.filePath,
                           fit: BoxFit.fitWidth,
                           loadingBuilder: (BuildContext context, Widget child,
                               ImageChunkEvent? loadingProgress) {

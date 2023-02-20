@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
+import './my_task/pra/pra_my_task_list_details.dart';
+
 //import files
 import '../../config/config.dart';
 import '../../config/palette.dart';
@@ -12,14 +14,13 @@ import '../../screens/e_cuti/supervisor/supervisor_leave_list_details.dart';
 import '../../screens/list_of_road/list_of_road_details.dart';
 import '../../screens/reports/report_form.dart';
 import '../../screens/reports/report_list_details.dart';
-import '../../screens/schedule_issue/report/report_approval/report_approval_main.dart';
+import '../../screens/schedule_issue/report/report_approval/report_approval.dart';
 import '../../screens/schedule_verification/ecuti/ecuti_approval/ecuti_approval_main.dart';
 import '../../screens/work_schedule/work_schedule.dart';
 import '../../utils/icon/custom_icon.dart';
 import '../app_bar/app_bar_widget.dart';
 import 'my_task/ba/ba_my_task_list_details.dart';
 import 'my_task/eo/eo_my_task_list_details.dart';
-import './my_task/pra/pra_my_task_list_details.dart';
 import 'my_task/supervisor/supervisor_my_task_list_details.dart';
 
 class ListCard extends StatefulWidget {
@@ -192,10 +193,10 @@ class _ListCardState extends State<ListCard> with TickerProviderStateMixin {
         );
       } else if (userRole == 300) {
         // sv
-        return ReportApprovalMain(data: widget.data);
+        return ReportApproval(reportId: widget.data.id);
       } else {
         //others add later
-        return ReportApprovalMain(data: widget.data);
+        return ReportApproval(reportId: widget.data.id);
       }
     } else {
       return Container();

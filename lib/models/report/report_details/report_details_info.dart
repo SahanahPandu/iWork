@@ -166,17 +166,32 @@ class Status {
 }
 
 class ObstacleType {
-  final int obsTypeId;
-  final String obsTypeName;
-
-  const ObstacleType({
+  ObstacleType({
     required this.obsTypeId,
     required this.obsTypeName,
+    this.code,
+    this.category,
+    this.isAkbk,
   });
 
-  factory ObstacleType.fromJson(json) => ObstacleType(
-        obsTypeId: json['id'],
-        obsTypeName: json['name'],
+  int obsTypeId;
+  String obsTypeName;
+
+  @JsonKey(defaultValue: null)
+  String? code;
+
+  @JsonKey(defaultValue: null)
+  String? category;
+
+  @JsonKey(defaultValue: -1)
+  int? isAkbk;
+
+  factory ObstacleType.fromJson(Map<String, dynamic> json) => ObstacleType(
+        obsTypeId: json["id"],
+        obsTypeName: json["name"],
+        code: json["code"] ?? "",
+        category: json["category"] ?? "",
+        isAkbk: json["is_akbk"] ?? -1,
       );
 }
 
