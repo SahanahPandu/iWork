@@ -6,11 +6,12 @@ import '../../config/dimen.dart';
 import '../../config/palette.dart';
 // import '../../models/pekerja.dart';
 import '../../models/schedule/schedule_data_detail_cp_sv/schedule_detail.dart';
+import '../../models/user/user_data.dart';
 import '../../widgets/buttons/select_employee_button.dart';
 
 class ListOfEmployeeDetails extends StatefulWidget {
   final String? type;
-  final WorkerSchedule? dataPekerja;
+  final dynamic dataPekerja;
   final Function(dynamic)? assignedEmployee;
 
   const ListOfEmployeeDetails({
@@ -25,9 +26,42 @@ class ListOfEmployeeDetails extends StatefulWidget {
 }
 
 class _ListOfEmployeeDetailsState extends State<ListOfEmployeeDetails> {
+  String profileImage = "";
+  String workerName = "";
+  String roleDesc = "";
+  dynamic leaveId;
+  dynamic attendanceId;
+
   selectEmployee() {
     widget.assignedEmployee!(widget.dataPekerja);
     Navigator.pop(context);
+  }
+
+  loadData() {
+    dynamic theData = widget.dataPekerja;
+    if (theData.runtimeType == UserData) {
+      setState(() {
+        profileImage = theData.userDetail.profilePic;
+        workerName = theData.userDetail.name;
+        roleDesc = "Pra";
+        leaveId = null;
+        attendanceId = null;
+      });
+    } else if (theData.runtimeType == WorkerSchedule) {
+      setState(() {
+        profileImage = theData.userId!.userDetail!.profilePic!;
+        workerName = theData.userId!.userDetail!.name!;
+        roleDesc = theData.userId!.userRoles![0].roleDesc!;
+        leaveId = theData.userLeaveId;
+        attendanceId = theData.userAttendanceId;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    loadData();
+    super.initState();
   }
 
   @override
@@ -54,11 +88,9 @@ class _ListOfEmployeeDetailsState extends State<ListOfEmployeeDetails> {
                     borderRadius: BorderRadius.circular(borderRadiusCircular),
                     child: FittedBox(
                       fit: BoxFit.fill,
-                      child: Image.network(
-                          widget.dataPekerja!.userId!.userDetail!.profilePic!,
-                          height: 56,
-                          width: 56, loadingBuilder: (BuildContext context,
-                              Widget child, ImageChunkEvent? loadingProgress) {
+                      child: Image.network(profileImage, height: 56, width: 56,
+                          loadingBuilder: (BuildContext context, Widget child,
+                              ImageChunkEvent? loadingProgress) {
                         if (loadingProgress == null) return child;
                         return Padding(
                           padding: const EdgeInsets.all(20),
@@ -89,7 +121,7 @@ class _ListOfEmployeeDetailsState extends State<ListOfEmployeeDetails> {
                     width: _textSize().width,
                     height: _textSize().height,
                     child: Text(
-                      widget.dataPekerja!.userId!.userDetail!.name!,
+                      workerName,
                       style: textStyle,
                       softWrap: true,
                       overflow: TextOverflow.ellipsis,
@@ -102,7 +134,7 @@ class _ListOfEmployeeDetailsState extends State<ListOfEmployeeDetails> {
                   Row(
                     children: [
                       Text(
-                        widget.dataPekerja!.userId!.userRoles![0].roleDesc!,
+                        roleDesc,
                         style: TextStyle(
                           color: greyCustom,
                           fontSize: 12,
@@ -133,9 +165,8 @@ class _ListOfEmployeeDetailsState extends State<ListOfEmployeeDetails> {
 
                   //Status kehadiran
                   // this status only show for employee that absent
-                  if (widget.dataPekerja!.userLeaveId != null ||
-                      widget.dataPekerja!.userAttendanceId == null)
-                    _statusSection(),
+                  // if (leaveId != null || attendanceId == null)
+                  _statusSection(),
                 ],
               ),
             ),
@@ -160,9 +191,7 @@ class _ListOfEmployeeDetailsState extends State<ListOfEmployeeDetails> {
 
   Size _textSize() {
     final TextPainter textPainter = TextPainter(
-        text: TextSpan(
-            text: widget.dataPekerja!.userId!.userDetail!.name!,
-            style: textStyle),
+        text: TextSpan(text: workerName, style: textStyle),
         maxLines: 2,
         textDirection: TextDirection.ltr)
       ..layout(minWidth: 0, maxWidth: 220);
@@ -170,41 +199,48 @@ class _ListOfEmployeeDetailsState extends State<ListOfEmployeeDetails> {
   }
 
   Widget _statusSection() {
-    WorkerSchedule workerData = widget.dataPekerja!;
-    String theAbsentStatus = "";
+    if (widget.dataPekerja.runtimeType == WorkerSchedule) {
+      WorkerSchedule workerData = widget.dataPekerja!;
+      String theAbsentStatus = "";
 
-    if (workerData.userLeaveId != null) {
-      theAbsentStatus = workerData.userLeaveId!.leaveType!.name;
-    } else if (workerData.userAttendanceId == null) {
-      theAbsentStatus = "Tidak Clock In";
-    }
+      if (workerData.userLeaveId != null) {
+        theAbsentStatus = workerData.userLeaveId!.leaveType!.name;
+      } else if (workerData.userAttendanceId == null) {
+        theAbsentStatus = "Tidak Clock In";
+      }
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const SizedBox(
-          height: 16,
-        ),
-        FittedBox(
-          fit: BoxFit.contain,
-          child: Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: orangeStatusBox,
-              borderRadius: BorderRadius.circular(6),
-            ),
-            child: AutoSizeText(
-              theAbsentStatus,
-              style: TextStyle(
-                fontSize: 11,
-                color: orangeStatusText,
-                fontWeight: FontWeight.w600,
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(
+            height: 16,
+          ),
+          FittedBox(
+            fit: BoxFit.contain,
+            child: Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: orangeStatusBox,
+                borderRadius: BorderRadius.circular(6),
               ),
-              maxLines: 1,
+              child: AutoSizeText(
+                theAbsentStatus,
+                style: TextStyle(
+                  fontSize: 11,
+                  color: orangeStatusText,
+                  fontWeight: FontWeight.w600,
+                ),
+                maxLines: 1,
+              ),
             ),
           ),
-        ),
-      ],
-    );
+        ],
+      );
+    } else {
+      return const SizedBox(
+        width: 0,
+        height: 0,
+      );
+    }
   }
 }

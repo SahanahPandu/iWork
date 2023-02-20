@@ -43,7 +43,7 @@ class _CardsState extends State<Cards> {
       );
     } else if (widget.type == "Reassign Pekerja") {
       return ReassignEmployeeDetails(
-        dataEmployee1: widget.data!,
+        passData: widget.data!,
       );
     }
     _isScheduleDetailCard;

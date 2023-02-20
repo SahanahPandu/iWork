@@ -14,6 +14,7 @@ class ListOfEmployees extends StatefulWidget {
   final int? idStatus;
   final String? searchedName;
   final Function(dynamic)? assignedEmployee;
+  final int? scMainId;
 
   const ListOfEmployees({
     Key? key,
@@ -23,6 +24,7 @@ class ListOfEmployees extends StatefulWidget {
     this.idStatus,
     this.searchedName,
     this.assignedEmployee,
+    this.scMainId,
   }) : super(key: key);
 
   @override
@@ -40,7 +42,10 @@ class _ListOfEmployeesState extends State<ListOfEmployees> {
         ),
         Expanded(
           child: FutureBuilder<List>(
-              future: PekerjaApi.getPekerjaData(context),
+              future: PekerjaApi.getDataSenaraiPekerja({
+                "scMainId": widget.scMainId,
+                "svIdList": widget.idSv,
+              }),
               builder: (context, snapshot) {
                 var dataFuture = snapshot.data;
                 //List<dynamic> newList = [];
@@ -69,16 +74,16 @@ class _ListOfEmployeesState extends State<ListOfEmployees> {
                       }
 
                       //checking attendance id status, Hadir/Tidak Hadir
-                      if (widget.idStatus != null) {
-                        dataFuture!.removeWhere(
-                            (item) => item.idAttStatus != widget.idStatus);
-                      }
+                      // if (widget.idStatus != null) {
+                      //   dataFuture!.removeWhere(
+                      //       (item) => item.idAttStatus != widget.idStatus);
+                      // }
 
                       //checking searching string , from searching box
                       if (widget.searchedName != null) {
                         // print("Searching name: ${widget.searchedName}");
                         dataFuture = dataFuture!
-                            .where((item) => item.name
+                            .where((item) => item.userDetail.name
                                 .toLowerCase()
                                 .contains(widget.searchedName!.toLowerCase()))
                             .toList();
@@ -86,7 +91,8 @@ class _ListOfEmployeesState extends State<ListOfEmployees> {
 
                       return widget.type != null
                           ? ListView.separated(
-                              physics: const NeverScrollableScrollPhysics(),
+                              // physics: const NeverScrollableScrollPhysics(),
+                              physics: const AlwaysScrollableScrollPhysics(),
                               shrinkWrap: true,
                               scrollDirection: Axis.vertical,
                               separatorBuilder: (context, index) {
@@ -109,6 +115,7 @@ class _ListOfEmployeesState extends State<ListOfEmployees> {
                             )
                           : ListView.builder(
                               physics: const NeverScrollableScrollPhysics(),
+                              // physics: const AlwaysScrollableScrollPhysics(),
                               shrinkWrap: true,
                               itemCount: dataFuture!.length,
                               itemBuilder: (context, index) {

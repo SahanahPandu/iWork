@@ -11,11 +11,11 @@ import '../employee_list/employee_list.dart';
 import '../list_of_employees/list_of_employee_details.dart';
 
 class ReassignEmployeeDetails extends StatefulWidget {
-  final dynamic dataEmployee1; //absence employee
+  final dynamic passData; //data schedule id and absence employee
 
   const ReassignEmployeeDetails({
     Key? key,
-    required this.dataEmployee1,
+    required this.passData,
   }) : super(key: key);
 
   @override
@@ -67,7 +67,7 @@ class _ReassignEmployeeDetailsState extends State<ReassignEmployeeDetails> {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16),
       child: ListOfEmployeeDetails(
-        dataPekerja: widget.dataEmployee1!,
+        dataPekerja: widget.passData['absentStaff']!,
         assignedEmployee: getAssignedEmployeeDetails,
       ),
     );
@@ -97,7 +97,8 @@ class _ReassignEmployeeDetailsState extends State<ReassignEmployeeDetails> {
                       PageTransition(
                           type: PageTransitionType.fade,
                           child: EmployeeList(
-                            absentEmployee: widget.dataEmployee1,
+                            scMainId: widget.passData['sMainId'],
+                            absentEmployee: widget.passData['absentStaff'],
                             assignedEmployee: getAssignedEmployeeDetails,
                           )));
                 },
@@ -153,7 +154,9 @@ class _ReassignEmployeeDetailsState extends State<ReassignEmployeeDetails> {
                               PageTransition(
                                   type: PageTransitionType.fade,
                                   child: EmployeeList(
-                                    absentEmployee: widget.dataEmployee1,
+                                    scMainId: widget.passData['sMainId'],
+                                    absentEmployee:
+                                        widget.passData['absentStaff'],
                                     assignedEmployee:
                                         getAssignedEmployeeDetails,
                                   )));

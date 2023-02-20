@@ -132,7 +132,7 @@ class _ScheduleIssueDetailState extends State<ScheduleIssueDetail> {
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 5),
           child: ReassignEmployeeList(
-            namaLaluan: widget.getInfo.mainRoute,
+            scMainId: widget.getInfo.scMainId,
             absentStaffList: scheduleDetail.data.details.workerSchedules,
           ),
         );

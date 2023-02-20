@@ -5,12 +5,12 @@ import '../../models/schedule/schedule_data_detail_cp_sv/schedule_detail.dart';
 import '../../widgets/cards/cards.dart';
 
 class ReassignEmployeeList extends StatefulWidget {
-  final String? namaLaluan;
+  final int? scMainId;
   final List<WorkerSchedule>? absentStaffList;
 
   const ReassignEmployeeList({
     Key? key,
-    this.namaLaluan,
+    this.scMainId,
     this.absentStaffList,
   }) : super(key: key);
 
@@ -49,7 +49,10 @@ class _ReassignEmployeeListState extends State<ReassignEmployeeList> {
               margin: const EdgeInsets.only(bottom: 16),
               child: Cards(
                 type: "Reassign Pekerja",
-                data: widget.absentStaffList![index],
+                data: {
+                  "sMainId": widget.scMainId,
+                  "absentStaff": widget.absentStaffList![index]
+                },
               ),
             );
           }),

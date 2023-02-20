@@ -1,3 +1,4 @@
+import 'package:eswm/models/user/user_roles.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'user_details.dart';
@@ -28,7 +29,7 @@ class UserData {
   int? canLogin;
 
   @JsonKey(defaultValue: null)
-  List<String>? roles;
+  List<UserRole>? userRoles;
 
   @JsonKey(defaultValue: [])
   UserDetail? userDetail;
@@ -42,11 +43,11 @@ class UserData {
     this.isFirstTimeLogin,
     required this.accessToken,
     this.canLogin,
-    this.roles,
+    this.userRoles,
     this.userDetail,
   });
 
-  factory UserData.fromJson(Map<String, dynamic> json) => UserData(
+  factory UserData.fromJson(json) => UserData(
         id: json["id"],
         userTypeId: json["user_type_id"],
         emsUserId: json["ems_user_id"],
@@ -55,8 +56,8 @@ class UserData {
         isFirstTimeLogin: json["is_first_time_login"],
         accessToken: json["access_token"],
         canLogin: json["can_login"],
-        roles: json["roles"] != null
-            ? List<String>.from(json["roles"].map((x) => x))
+        userRoles: json["user_roles"] != null
+            ? List<UserRole>.from(json["user_roles"].map((x) => x))
             : [],
         userDetail: json["user_detail"] != null
             ? UserDetail?.fromJson(json["user_detail"])
@@ -72,7 +73,7 @@ class UserData {
         "is_first_time_login": isFirstTimeLogin,
         "access_token": accessToken,
         "can_login": canLogin,
-        "roles": roles ?? List<dynamic>.from(roles!.map((x) => x)),
+        "roles": userRoles ?? List<UserRole>.from(userRoles!.map((x) => x)),
         "user_detail": userDetail?.toJson(),
       };
 }

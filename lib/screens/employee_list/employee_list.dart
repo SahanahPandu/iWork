@@ -10,13 +10,16 @@ import '../../utils/icon/custom_icon.dart';
 import '../../widgets/app_bar/app_bar_widget.dart';
 import '../../widgets/search_box/search_box.dart';
 import '../list_of_employees/absent_employee_details.dart';
+import '../list_of_employees/list_of_employees.dart';
 
 class EmployeeList extends StatefulWidget {
+  final int? scMainId;
   final dynamic absentEmployee;
   final Function(dynamic)? assignedEmployee;
 
   const EmployeeList({
     Key? key,
+    this.scMainId,
     this.absentEmployee,
     this.assignedEmployee,
   }) : super(key: key);
@@ -204,17 +207,18 @@ class _EmployeeListState extends State<EmployeeList> {
                     const SizedBox(
                       height: 16,
                     ),
-                    //Employee List
-                    // Expanded(
-                    //   flex: 5,
-                    //   child: ListOfEmployees(
-                    //     type: "Senarai Hadir",
-                    //     idStatus: 1, // Hadir
-                    //     searchedName: searchName,
-                    //     assignedEmployee: widget.assignedEmployee,
-                    //     idSv: svIdList,
-                    //   ),
-                    // ),
+                    // Employee List
+                    Expanded(
+                      flex: 5,
+                      child: ListOfEmployees(
+                        type: "Senarai Hadir",
+                        idStatus: 1, // Hadir
+                        searchedName: searchName,
+                        assignedEmployee: widget.assignedEmployee,
+                        idSv: svIdList,
+                        scMainId: widget.scMainId,
+                      ),
+                    ),
                   ],
                 ),
               ),
