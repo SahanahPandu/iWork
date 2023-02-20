@@ -49,8 +49,9 @@ class Auth {
         getUserData.deviceInfo1 ?? "",
         getUserData.accessToken.toString(),
         getUserData.userDetail!.loginId ?? "",
-        getUserData.roles![0],
-        getUserData.userDetail!.name
+        getUserData.userRoles![0].roleDesc,
+        getUserData.userDetail!.name,
+        getUserData.id.toString(),
       ];
     } else {
       userInfo = [
