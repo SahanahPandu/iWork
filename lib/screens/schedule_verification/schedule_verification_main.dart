@@ -9,6 +9,7 @@ import '../../utils/device/sizes.dart';
 import '../vehicle_checklist/vehicle_checklist_approval/vehicle_checklist_approval_main.dart';
 import 'attendance/attendance_detail/attendance_verification_list.dart';
 import 'attendance/attendance_verification.dart';
+import 'request_worker/request_worker_detail/request_worker_list.dart';
 import 'request_worker/request_worker_verification.dart';
 import 'vehicle_checklist/vehicle_checklist_verification.dart';
 
@@ -60,7 +61,7 @@ class _ScheduleVerificationMainState extends State<ScheduleVerificationMain> {
                 "Sahkan",
                 RequestWorkerVerification(
                     requestData: widget.sahData!.workerRequest),
-                const AttendanceVerificationList())
+                const RequestWorkerList())
             : const SizedBox(),
       ],
     );

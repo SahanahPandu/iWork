@@ -7,25 +7,23 @@ import '../../../../config/config.dart';
 import '../../../../config/dimen.dart';
 import '../../../../config/palette.dart';
 import '../../../../config/string.dart';
-import '../../../../models/report/report_details/report_details_info.dart';
+import '../../../../models/reports.dart';
 import '../../../../utils/device/sizes.dart';
 import '../../../../utils/icon/custom_icon.dart';
 import '../../../../widgets/alert/alert_dialog.dart';
 import '../../../../widgets/alert/lottie_alert_dialog.dart';
 import '../../../../widgets/modal_bottom_sheet/custom_bottom_sheet_options.dart';
-import 'report_approval_detail.dart';
 
-class ReportApprovalMain extends StatefulWidget {
-  final ReportDetailsInfo reportData;
+class ReportApprovalMainV1 extends StatefulWidget {
+  final Reports data;
 
-  const ReportApprovalMain({Key? key, required this.reportData})
-      : super(key: key);
+  const ReportApprovalMainV1({Key? key, required this.data}) : super(key: key);
 
   @override
-  State<ReportApprovalMain> createState() => _ReportApprovalMainState();
+  State<ReportApprovalMainV1> createState() => _ReportApprovalMainV1State();
 }
 
-class _ReportApprovalMainState extends State<ReportApprovalMain> {
+class _ReportApprovalMainV1State extends State<ReportApprovalMainV1> {
   final ExpandableController _reportController =
       ExpandableController(initialExpanded: false);
   final TextEditingController _rStatus = TextEditingController();
@@ -48,15 +46,12 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
   String endHourMinute = "";
   Duration endInitialTime = const Duration();
 
-  ReportDetailsInfo reportDetail = const ReportDetailsInfo(id: 0);
-
   @override
   void initState() {
     iconColor = grey500;
-    // _setSvFeedbackText();
-    // _setBaFeedbackText();
-    _loadReportStatus(widget.reportData.status!.statusCode,
-        widget.reportData.obstacleType!.code!);
+    _loadReportStatus(widget.data.idStatus, widget.data.jenisHalangan);
+    _setSvFeedbackText();
+    _setBaFeedbackText();
     super.initState();
   }
 
@@ -66,16 +61,15 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
     });
   }
 
-/*
   void _setSvFeedbackText() {
-    if (widget.data!.statusPenyelia != "") {
+    if (widget.data.statusPenyelia != "") {
       setState(() {
-        _svStatus.text = widget.data!.statusPenyelia;
+        _svStatus.text = widget.data.statusPenyelia;
       });
     }
-    if (widget.data!.maklumbalasPenyelia != "") {
+    if (widget.data.maklumbalasPenyelia != "") {
       setState(() {
-        _svFeedback.text = widget.data!.maklumbalasPenyelia;
+        _svFeedback.text = widget.data.maklumbalasPenyelia;
       });
     } else {
       _svFeedback.text = "-";
@@ -83,19 +77,19 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
   }
 
   void _setBaFeedbackText() {
-    if (widget.data!.statusBA != "") {
+    if (widget.data.statusBA != "") {
       setState(() {
-        _baStatus.text = widget.data!.statusBA;
+        _baStatus.text = widget.data.statusBA;
       });
     }
-    if (widget.data!.maklumbalasBA != "") {
+    if (widget.data.maklumbalasBA != "") {
       setState(() {
-        _baFeedback.text = widget.data!.maklumbalasBA;
+        _baFeedback.text = widget.data.maklumbalasBA;
       });
     } else {
       _baFeedback.text = "-";
     }
-  }*/
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -123,7 +117,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
                 ),
                 title: Center(
                   child: Text(
-                    'L0${widget.reportData.id}',
+                    'Laporan ${widget.data.id}',
                     style: TextStyle(
                       fontSize: 15,
                       color: blackCustom,
@@ -139,69 +133,71 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
         body: ScrollConfiguration(
           behavior: const MaterialScrollBehavior().copyWith(overscroll: false),
           child: SingleChildScrollView(
-              child: Column(
-            children: [
-              ExpandableNotifier(
-                controller: _reportController,
-                child: Container(
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 15),
-                        child: ExpandableButton(
-                          child: InkWell(
-                            highlightColor: white,
-                            onTap: () {
-                              _reportController.toggle();
-                              _reportController.expanded
-                                  ? setState(() {
-                                      iconColor = green;
-                                    })
-                                  : setState(() {
-                                      iconColor = grey500;
-                                    });
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text("Butiran maklumat laporan:",
-                                    style: TextStyle(
-                                        color: blackCustom,
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w400)),
-                                Icon(
-                                  _reportController.expanded
-                                      ? CustomIcon.expand
-                                      : CustomIcon.collapse,
-                                  size: 16,
-                                  color: activeColor,
-                                ),
-                              ],
+            child: Column(
+              children: [
+                ExpandableNotifier(
+                  controller: _reportController,
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 15),
+                          child: ExpandableButton(
+                            child: InkWell(
+                              highlightColor: white,
+                              onTap: () {
+                                _reportController.toggle();
+                                _reportController.expanded
+                                    ? setState(() {
+                                        iconColor = green;
+                                      })
+                                    : setState(() {
+                                        iconColor = grey500;
+                                      });
+                              },
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text("Butiran maklumat laporan:",
+                                      style: TextStyle(
+                                          color: blackCustom,
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w400)),
+                                  Icon(
+                                    _reportController.expanded
+                                        ? CustomIcon.expand
+                                        : CustomIcon.collapse,
+                                    size: 16,
+                                    color: activeColor,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      ScrollOnExpand(
-                        scrollOnCollapse: false,
-                        scrollOnExpand: true,
-                        child: Expandable(
-                          collapsed: Container(),
-                          expanded: ReportApprovalDetail(
-                              data: widget.reportData, reportStatus: condition),
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      const Divider(height: 0.5),
-                      _buildReportSections(context, condition),
-                    ],
+                        /* ScrollOnExpand(
+                          scrollOnCollapse: false,
+                          scrollOnExpand: true,
+                          child: Expandable(
+                            collapsed: Container(),
+                            expanded: ReportApprovalDetail(
+                                data: widget.data, reportStatus: condition),
+                          ),
+                        ),*/
+                        const SizedBox(height: 10),
+                        const Divider(height: 0.5),
+                        _buildReportSections(context, condition),
+                      ],
+                    ),
                   ),
                 ),
-              )
-            ],
-          )),
+              ],
+            ),
+          ),
         ),
         bottomNavigationBar: Container(
           decoration: BoxDecoration(
@@ -773,7 +769,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
               "Laporan Halangan Kerja juga akan dihantar kepada\nBA untuk pengesahan.",
               style: TextStyle(
                   fontStyle: FontStyle.italic,
-                  fontSize: 12,
+                  fontSize: 13,
                   height: 1.3,
                   color: grey600))
         ],
@@ -817,21 +813,10 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
     );
   }
 
-  void _loadReportStatus(String rptStatus, String rptType) {
-    /// rptStatus
-    /// RBR - Baharu
-    /// RTRS - "Diterima Penyelia"
-    /// RTLS - "Ditolak Penyelia"
-    /// RSHB - "Disahkan"
-    /// rptType (later user category/is_akbk)
-    /// code: CC - "Cuaca"
-    /// code: KKD - "Kerosakan Kenderaan"
-    /// code: KTY - "Kerosakan Tayar"
-    /// code: L - "Laluan"
-    /// code: T - "Kerosakan Tong"
+  void _loadReportStatus(int rptStatus, String rptType) {
     switch (rptStatus) {
-      //Baharu
-      case "RBR":
+      //Baharu & Dalam Proses
+      case 1:
         switch (userRole) {
           // sv -> need to accept/reject laluan/cuaca case from pra.
           case 300:
@@ -839,42 +824,39 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
           case 500:
             switch (rptType) {
               // display: report by pra, sv -> acceptance option & feedback
-              case "CC":
-              case "L":
-              case "T":
+              case "Cuaca":
+              case "Laluan":
                 condition = 1;
                 break;
               // display: report by pra, sv -> acceptance option, feedback & akbk
-              case "KKD":
+              case "Kerosakan Kenderaan":
                 condition = 2;
                 break;
               // display: report by pra, sv -> acceptance option, feedback & akbk tayar
-              case "KTY":
+              case "Kerosakan Tayar":
                 condition = 3;
                 break;
             }
             break;
         }
         break;
-      //Diterima/Ditolak sv
-      case "RTRS":
-      case "RTLS":
+      //Diterima sv
+      case 2:
         switch (userRole) {
           // sv -> wait eo/ba to accept/reject case
           case 300:
             switch (rptType) {
               // display: report by pra, feedback by sv
-              case "CC":
-              case "L":
-              case "T":
+              case "Cuaca":
+              case "Laluan":
                 condition = 4;
                 break;
               // display: report by pra, feedback & akbk by sv
-              case "KKD":
+              case "Kerosakan Kenderaan":
                 condition = 5;
                 break;
               // display: report by pra, feedback & akbk tayar by sv
-              case "KTY":
+              case "Kerosakan Tayar":
                 condition = 6;
                 break;
             }
@@ -884,17 +866,16 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
           case 500:
             switch (rptType) {
               // display: report by pra, feedback by sv, eo/ba -> acceptance option & feedback
-              case "CC":
-              case "L":
-              case "T":
+              case "Cuaca":
+              case "Laluan":
                 condition = 13;
                 break;
               // display: report by pra, feedback & akbk by sv, eo/ba -> acceptance option & feedback
-              case "KKD":
+              case "Kerosakan Kenderaan":
                 condition = 14;
                 break;
               // display: report by pra, feedback & akbk tayar by sv, eo/ba -> acceptance option & feedback
-              case "KTY":
+              case "Kerosakan Tayar":
                 condition = 15;
                 break;
             }
@@ -902,23 +883,22 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
         }
         break;
       //Disahkan ba
-      case "RSHB":
+      case 4:
         switch (userRole) {
           // sv -> need to reschedule case
           case 300:
             switch (rptType) {
               // display: report by pra, feedback by sv, feedback by eo/ba, reschedule form
-              case "CC":
-              case "L":
-              case "T":
+              case "Cuaca":
+              case "Laluan":
                 condition = 7;
                 break;
               // display: report by pra, feedback & akbk by sv, feedback by eo/ba, reschedule form
-              case "KKD":
+              case "Kerosakan Kenderaan":
                 condition = 8;
                 break;
               // display: report by pra, feedback & akbk tayar by sv, feedback by eo/ba, reschedule form
-              case "KTY":
+              case "Kerosakan Tayar":
                 condition = 9;
                 break;
             }
@@ -928,17 +908,16 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
           case 500:
             switch (rptType) {
               // display: report by pra, feedback by sv, feedback by eo/ba
-              case "CC":
-              case "L":
-              case "T":
+              case "Cuaca":
+              case "Laluan":
                 condition = 16;
                 break;
               // display: report by pra, feedback & akbk by sv, feedback by eo/ba
-              case "KKD":
+              case "Kerosakan Kenderaan":
                 condition = 17;
                 break;
               // display: report by pra, feedback & akbk tayar by sv, feedback by eo/ba
-              case "KTY":
+              case "Kerosakan Tayar":
                 condition = 18;
                 break;
             }
@@ -946,8 +925,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
         }
         break;
       //Selesai
-      /// BHK part - Reschedule is KIV
-      /*case 6:
+      case 6:
         switch (userRole) {
           // sv -> Penjadualan semula selesai and laporan ditutup
           case 300:
@@ -955,21 +933,22 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
           case 500:
             switch (rptType) {
               // display: report by pra, feedback by sv, feedback by eo/ba, reschedule report
-              case "CC":
-              case "L":
-              case "T":
+              case "Cuaca":
+              case "Laluan":
                 condition = 10;
                 break;
               // display: report by pra, feedback & akbk by sv, feedback by eo/ba, reschedule report
-              case "KKD":
+              case "Kerosakan Kenderaan":
                 condition = 11;
                 break;
               // display: report by pra, feedback & akbk tayar by sv, feedback by eo/ba, reschedule report
-              case "KTY":
+              case "Kerosakan Tayar":
                 condition = 12;
                 break;
             }
-            break;*/
+            break;
+        }
+        break;
       default:
         condition = 0;
     }

@@ -54,4 +54,10 @@ class HttpService {
 
   /// Load Report of Schedule Url as String
   final loadReportOfScheduleList = '$theBase/report/schedule';
+
+  /// Load Request Worker List Url as String
+  final loadRequestWorkerList = '$theBase/task/confirmation/list/request-workers';
+
+  /// Update Request Worker Url as String
+  final updateRequestWorkerUrl = '$theBase/task/confirmation/request-workers';
 }

@@ -7,6 +7,7 @@ import '../../../config/palette.dart';
 import '../../../config/resource.dart';
 import '../../../models/task/supervisor/supervisor_task.dart';
 import '../../../screens/schedule_verification/schedule_verification_main.dart';
+import '../../../utils/calendar/date.dart';
 import '../../cards/list_card.dart';
 
 /// temporarily disable tabBarView
@@ -39,12 +40,18 @@ class TaskStackOverTabState extends State<TaskStackOverTab>
     _tabController =
         TabController(length: 2, animationDuration: Duration.zero, vsync: this);
     defaultTab.value = true;
-    int isAttendance =
-        widget.scheduleData!.data.sah!.attendance!.isNotEmpty ? 1 : 0;
-    int isChecklist =
-        widget.scheduleData!.data.sah!.checklist!.isNotEmpty ? 1 : 0;
-    int isWorkerRequest =
-        widget.scheduleData!.data.sah!.workerRequest!.isNotEmpty ? 1 : 0;
+    int isAttendance = widget.scheduleData!.data.sah != null &&
+            widget.scheduleData!.data.sah!.attendance!.isNotEmpty
+        ? 1
+        : 0;
+    int isChecklist = widget.scheduleData!.data.sah != null &&
+            widget.scheduleData!.data.sah!.checklist!.isNotEmpty
+        ? 1
+        : 0;
+    int isWorkerRequest = widget.scheduleData!.data.sah != null &&
+            widget.scheduleData!.data.sah!.workerRequest!.isNotEmpty
+        ? 1
+        : 0;
     sahLength = widget.scheduleData!.data.sah != null
         ? isAttendance + isChecklist + isWorkerRequest
         : 0;
@@ -206,7 +213,7 @@ class TaskStackOverTabState extends State<TaskStackOverTab>
                   } else {
                     isTaskExist = false;
                     return _displayNoTask(context,
-                        "Tiada isu perlu diselesaikan\npada ${widget.scheduleData!.data.scheduleDate!}");
+                        "Tiada isu perlu diselesaikan\npada ${Date.getTheDate(widget.scheduleData!.data.scheduleDate!, "yyyy-MM-dd", "dd/MM/yyyy", "ms")}");
                   }
                 } else {
                   return displayOpsButton(context);
@@ -233,7 +240,7 @@ class TaskStackOverTabState extends State<TaskStackOverTab>
                   } else {
                     isTaskExist = false;
                     return _displayNoTask(context,
-                        "Tiada pengesahan perlu diselesaikan\npada ${widget.scheduleData!.data.scheduleDate!}");
+                        "Tiada pengesahan perlu diselesaikan\npada ${Date.getTheDate(widget.scheduleData!.data.scheduleDate!, "yyyy-MM-dd", "dd/MM/yyyy", "ms")}");
                   }
                 } else {
                   return displayOpsButton(context);

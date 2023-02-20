@@ -36,9 +36,12 @@ class _VerifyRequestWorkerListDetailsState
                   fontWeight: FontWeight.w500)),
           const SizedBox(height: 6),
           SizedBox(
-            width: _textSize("widget.data!.reportsTo").width,
-            height: _textSize("widget.data!.reportsTo").height,
-            child: Text("widget.data!.reportsTo",
+            width: _textSize(widget.data.scMainId.superviseBy.userDetail.name)
+                .width,
+            height: _textSize(widget.data.scMainId.superviseBy.userDetail.name)
+                .height,
+            child: Text(
+                widget.data.scMainId.superviseBy.userDetail.name.toTitleCase(),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
@@ -47,16 +50,21 @@ class _VerifyRequestWorkerListDetailsState
                     fontWeight: FontWeight.w400)),
           ),
           const SizedBox(height: 10),
-          Text("PRA",
+          Text(
+              widget.data.reassignWithUserId.userRoles![0].roleDesc
+                  .toUpperCase(),
               style: TextStyle(
                   fontSize: 13,
                   color: blackCustom,
                   fontWeight: FontWeight.w500)),
           const SizedBox(height: 6),
           SizedBox(
-            width: _textSize(widget.data.userId.userDetail!.name).width,
-            height: _textSize(widget.data.userId.userDetail!.name).height,
-            child: Text(widget.data.userId.userDetail!.name.toTitleCase(),
+            width:
+                _textSize(widget.data.reassignWithUserId.userDetail.name).width,
+            height: _textSize(widget.data.reassignWithUserId.userDetail.name)
+                .height,
+            child: Text(
+                widget.data.reassignWithUserId.userDetail.name.toTitleCase(),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
