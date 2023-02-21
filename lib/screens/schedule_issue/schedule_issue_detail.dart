@@ -185,7 +185,7 @@ class _ScheduleIssueDetailState extends State<ScheduleIssueDetail> {
   }
 
   Widget buildStackedImages(SupervisorScheduleDetail? scheduleDetail) {
-    const double size = 56;
+    const double size = 50;
     const double xShift = 10;
     List userData = [];
     if (scheduleDetail!.data!.details.workerSchedules!.isNotEmpty) {

@@ -60,4 +60,10 @@ class HttpService {
 
   /// Update Request Worker Url as String
   final updateRequestWorkerUrl = '$theBase/task/confirmation/request-workers';
+
+  /// Update Report for Approval Url as String
+  final updateReportApproveUrl = '$theBase/report/update';
+
+  /// Update e-Notice Url as String
+  final updateEnotice = '$theBase/attendance/enotis/update';
 }

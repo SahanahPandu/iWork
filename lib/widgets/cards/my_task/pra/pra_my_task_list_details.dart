@@ -43,7 +43,7 @@ class _PraMyTaskListDetailsState extends State<PraMyTaskListDetails> {
               StatusContainer(
                 type: "Laluan",
                 status: widget.data.statusCode.name,
-                statusId: widget.data.statusCode,
+                statusId: widget.data.statusCode.code,
                 fontWeight: statusFontWeight,
               ),
             ],

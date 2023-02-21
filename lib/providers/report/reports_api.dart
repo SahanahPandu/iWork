@@ -3,6 +3,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:eswm/providers/http/service/http_service.dart';
 import 'package:flutter/material.dart';
 
 //import files
@@ -309,5 +310,24 @@ class ReportsApi {
     }
 
     return reports;
+  }
+
+  static updateReportForApproval(
+      BuildContext context, int reportId, String status, String remark) async {
+    // print("reportId: $reportId, status: $status, remark: $remark");
+    FormData bodyData = FormData.fromMap(
+        {"report_id": reportId, "status_code": status, "remarks": remark});
+    try {
+      Response response = await Dio().post(HttpService().updateReportApproveUrl,
+          options: HttpHeader.getFormApiHeader(userInfo[1]), data: bodyData);
+      if (response.statusCode == 200 && response.data != null) {
+        return 'ok';
+      }
+    } on DioError catch (e) {
+      if (e.response?.statusCode == 404) {
+        return 'ng';
+      }
+      ApiError.findDioError(e, context);
+    }
   }
 }

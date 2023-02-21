@@ -13,7 +13,7 @@ class ReportOfSchedule {
       ReportOfSchedule(
         data: Data.fromJson(json["data"]),
         status: json["status"],
-        message: json["message"],
+        message: json["message"] ?? "",
       );
 
   Map<String, dynamic> toJson() => {
@@ -42,40 +42,48 @@ class Data {
 
 class Report {
   Report({
-    required this.id,
-    required this.schCollectionMain,
-    required this.park,
-    required this.street,
-    required this.status,
-    required this.obstacleType,
-    required this.createdAt,
+    this.id,
+    this.schCollectionMain,
+    this.park,
+    this.street,
+    this.status,
+    this.obstacleType,
+    this.createdAt,
   });
 
-  int id;
-  ScMainId schCollectionMain;
-  ParkId park;
-  StreetId street;
-  StatusCode status;
-  ObstacleTypeId obstacleType;
-  String createdAt;
+  int? id;
+  ScMainId? schCollectionMain;
+  ParkId? park;
+  StreetId? street;
+  StatusCode? status;
+  ObstacleTypeId? obstacleType;
+  String? createdAt;
 
   factory Report.fromJson(Map<String, dynamic> json) => Report(
         id: json["id"],
-    schCollectionMain: ScMainId.fromJson(json["sc_main_id"]),
-    park: ParkId.fromJson(json["park_id"]),
-    street: StreetId.fromJson(json["street_id"]),
-    status: StatusCode.fromJson(json["status_code"]),
-        obstacleType: ObstacleTypeId.fromJson(json["obstacle_type_id"]),
-        createdAt: json["created_at"],
+        schCollectionMain: json["sc_main_id"] != null
+            ? ScMainId.fromJson(json["sc_main_id"])
+            : null,
+        park: json["park_id"] != null ? ParkId.fromJson(json["park_id"]) : null,
+        street: json["street_id"] != null
+            ? StreetId.fromJson(json["street_id"])
+            : null,
+        status: json["status_code"] != null
+            ? StatusCode.fromJson(json["status_code"])
+            : null,
+        obstacleType: json["obstacle_type_id"] != null
+            ? ObstacleTypeId.fromJson(json["obstacle_type_id"])
+            : null,
+        createdAt: json["created_at"] ?? "",
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "sc_main_id": schCollectionMain.toJson(),
-        "park_id": park.toJson(),
-        "street_id": street.toJson(),
-        "status_code": status.toJson(),
-        "obstacle_type_id": obstacleType.toJson(),
+        "sc_main_id": schCollectionMain!.toJson(),
+        "park_id": park!.toJson(),
+        "street_id": street!.toJson(),
+        "status_code": status!.toJson(),
+        "obstacle_type_id": obstacleType!.toJson(),
         "created_at": createdAt,
       };
 }
@@ -91,7 +99,7 @@ class ObstacleTypeId {
 
   factory ObstacleTypeId.fromJson(Map<String, dynamic> json) => ObstacleTypeId(
         id: json["id"],
-    obsTypeName: json["name"],
+        obsTypeName: json["name"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -154,8 +162,8 @@ class StatusCode {
   String statusName;
 
   factory StatusCode.fromJson(Map<String, dynamic> json) => StatusCode(
-    statusCode: json["code"],
-    statusName: json["name"],
+        statusCode: json["code"],
+        statusName: json["name"],
       );
 
   Map<String, dynamic> toJson() => {
