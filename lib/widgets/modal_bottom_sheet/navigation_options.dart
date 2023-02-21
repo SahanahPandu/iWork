@@ -1,4 +1,6 @@
+import 'package:eswm/widgets/alert/toast.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 //import files
@@ -76,7 +78,7 @@ Widget? showNavigationOptions(BuildContext context) {
               ),
               GestureDetector(
                 onTap: () {
-                  _launchMaps(3.1392412891357626, 101.62878692150117);
+                  _launchMaps(context, 3.1392412891357626, 101.62878692150117);
                 },
                 child: Container(
                   margin: const EdgeInsets.symmetric(
@@ -99,9 +101,23 @@ Widget? showNavigationOptions(BuildContext context) {
   return null;
 }
 
-void _launchMaps(double lat, double lng) async {
+void _launchMaps(BuildContext context, double lat, double lng) async {
+  LocationPermission permission = await Geolocator.checkPermission();
+  if (permission == LocationPermission.denied) {
+    permission = await Geolocator.requestPermission();
+    if (permission == LocationPermission.denied) {
+      return;
+    }
+  }
+  if (permission == LocationPermission.deniedForever) {
+    // ignore: use_build_context_synchronously
+    showErrorToast(context, "Sila semak tetapan lokasi peranti anda.",
+        height: 16);
+    return;
+  }
+
   dynamic url =
-      'http://maps.google.com/maps?q=${lat.toString()},${lng.toString()}';
+      'http://maps.google.com/maps?q=${lat.toString()},${lng.toString()},&travelmode=driving&dir_action=navigate';
   // ignore: deprecated_member_use
   if (await canLaunch(url)) {
     // ignore: deprecated_member_use

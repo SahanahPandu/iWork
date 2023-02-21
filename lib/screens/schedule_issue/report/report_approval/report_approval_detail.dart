@@ -122,7 +122,7 @@ class _ReportApprovalDetailState extends State<ReportApprovalDetail> {
         _jalan.text = widget.data.street!.streetName;
         _reportType.text = widget.data.obstacleType!.obsTypeName;
 
-        if (widget.data.uploadFileId!.filePath != "") {
+        if (widget.data.uploadFileId != null && widget.data.uploadFileId!.filePath != "") {
           _isAttached = true;
         } else {
           _isAttached = false;

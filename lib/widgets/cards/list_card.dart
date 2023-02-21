@@ -184,7 +184,7 @@ class _ListCardState extends State<ListCard> with TickerProviderStateMixin {
         return Scaffold(
           backgroundColor: white,
           appBar: AppBarWidget(
-              leadingIcon: CustomIcon.arrowBack, title: "${widget.data.id}"),
+              leadingIcon: CustomIcon.arrowBack, title: "L0${widget.data.id}"),
           body: ReportForm(
             screen: "4",
             passData: widget.screen != "drawer" ? widget.passData : null,

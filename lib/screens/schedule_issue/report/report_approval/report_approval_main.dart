@@ -8,6 +8,7 @@ import '../../../../config/dimen.dart';
 import '../../../../config/palette.dart';
 import '../../../../config/string.dart';
 import '../../../../models/report/report_details/report_details_info.dart';
+import '../../../../providers/report/reports_api.dart';
 import '../../../../utils/device/sizes.dart';
 import '../../../../utils/icon/custom_icon.dart';
 import '../../../../widgets/alert/alert_dialog.dart';
@@ -43,9 +44,11 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
   bool buttonVisibility = true;
   int condition = 0;
   Color iconColor = grey500;
+  Color borderTextClr = const Color.fromRGBO(221, 223, 226, 1);
   String startHourMinute = "";
-  Duration startInitialTime = const Duration();
   String endHourMinute = "";
+  String svComment = "";
+  Duration startInitialTime = const Duration();
   Duration endInitialTime = const Duration();
 
   ReportDetailsInfo reportDetail = const ReportDetailsInfo(id: 0);
@@ -53,10 +56,15 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
   @override
   void initState() {
     iconColor = grey500;
-    // _setSvFeedbackText();
+    if (widget.reportData.status!.statusCode == "RTRS" ||
+        widget.reportData.status!.statusCode == "RTLS") {
+      _setSvFeedbackText();
+    }
+
     // _setBaFeedbackText();
     _loadReportStatus(widget.reportData.status!.statusCode,
         widget.reportData.obstacleType!.code!);
+    borderTextColor = const Color.fromRGBO(221, 223, 226, 1);
     super.initState();
   }
 
@@ -66,22 +74,18 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
     });
   }
 
-/*
   void _setSvFeedbackText() {
-    if (widget.data!.statusPenyelia != "") {
+    _svStatus.text = widget.reportData.status!.statusName;
+    if (widget.reportData.svRemarks != null) {
       setState(() {
-        _svStatus.text = widget.data!.statusPenyelia;
-      });
-    }
-    if (widget.data!.maklumbalasPenyelia != "") {
-      setState(() {
-        _svFeedback.text = widget.data!.maklumbalasPenyelia;
+        _svFeedback.text = widget.reportData.svRemarks!;
       });
     } else {
       _svFeedback.text = "-";
     }
   }
 
+/*
   void _setBaFeedbackText() {
     if (widget.data!.statusBA != "") {
       setState(() {
@@ -242,20 +246,61 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
                           "Anda pasti untuk hantar sekarang? Maklumbalas ini akan dihantar kepada PRA dan BA.",
                           cancel,
                           submit);
-                    }).then((actionText) {
+                    }).then((actionText) async {
                   if (actionText == submit) {
-                    Navigator.pop(context);
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return showLottieAlertDialog(
-                            context,
-                            _textBuilder(),
-                            "",
-                            null,
-                            null,
-                          );
-                        });
+                    String fStatus = "";
+                    if (userRole == 300) {
+                      /// SV terima
+                      if (_rStatus.text == "Diterima") {
+                        fStatus = "RTRS";
+                      } else if (_rStatus.text == "Ditolak") {
+                        /// SV tolak
+                        fStatus = "RTLS";
+                      }
+                    } else if (userRole == 400) {
+                      /// BA terima
+                      if (_rStatus.text == "Diterima") {
+                        fStatus = "RSHB";
+                      } else if (_rStatus.text == "Ditolak") {
+                        /// BA tolak
+                        fStatus = "RTLB";
+                      }
+                    }
+                    var result = await ReportsApi.updateReportForApproval(
+                        context, widget.reportData.id, fStatus, svComment);
+                    if (result == "ok") {
+                      // ignore: use_build_context_synchronously
+                      Navigator.pop(context);
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return showLottieAlertDialog(
+                              context,
+                              _textBuilder(),
+                              "",
+                              null,
+                              null,
+                            );
+                          });
+                    } else {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return showLottieAlertDialog(
+                                context,
+                                Text(
+                                    "Anda tidak berjaya hantar laporan ini. Sila cuba lagi",
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w400,
+                                        color: greyCustom,
+                                        height: 1.5)),
+                                "",
+                                null,
+                                null,
+                                false);
+                          });
+                    }
                   }
                 });
               },
@@ -268,7 +313,8 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
     return RichText(
         textAlign: TextAlign.center,
         text: TextSpan(
-            text: "Status telah dikemaskini dan dimaklumkan kepada PRA dan BA",
+            text:
+                "Laporan telah dikemaskini dan maklumanbalas anda berjaya dihantar kepada PRA dan BA",
             style: TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.w400,
@@ -289,40 +335,51 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
         return Column(
           children: [
             _buildReportAcceptanceColumn(context, "Maklumbalas kepada PRA:"),
-            _buildNote(),
+            // _buildNote(),
             const SizedBox(height: 20),
             const Divider(height: 0.5),
-            //check here if SV accept or not the report
-            if (_rStatus.text == "Diterima")
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildReportAkbkMainColumn(context),
-                  const SizedBox(height: 15),
-                  const Divider(height: 0.5),
-                  const SizedBox(height: 15),
-                  _buildReportAkbkSubColumn(context),
-                ],
-              )
+
+            /// Check if SV accept or not the report
+            _rStatus.text == "Diterima" &&
+                    widget.reportData.obstacleType!.isAkbk == 1
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildReportAkbkMainColumn(context),
+                      const SizedBox(height: 15),
+                      const Divider(height: 0.5),
+                      const SizedBox(height: 15),
+                      _buildReportAkbkSubColumn(context),
+                    ],
+                  )
+                : Container()
           ],
         );
       case 3:
         return Column(
           children: [
             _buildReportAcceptanceColumn(context, "Maklumbalas kepada PRA:"),
-            _buildNote(),
+            // _buildNote(),
             const SizedBox(height: 20),
-            const Divider(height: 0.5),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildReportAkbkMainColumn(context),
-                const SizedBox(height: 15),
-                const Divider(height: 0.5),
-                const SizedBox(height: 15),
-                _buildReportAkbkTyreSubColumn(context),
-              ],
-            )
+            _rStatus.text == "Diterima" &&
+                    widget.reportData.obstacleType!.isAkbk == 1 &&
+                    widget.reportData.obstacleType!.category == "TY"
+                ? const Divider(height: 0.5)
+                : Container(),
+            _rStatus.text == "Diterima" &&
+                    widget.reportData.obstacleType!.isAkbk == 1 &&
+                    widget.reportData.obstacleType!.category == "TY"
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildReportAkbkMainColumn(context),
+                      const SizedBox(height: 15),
+                      const Divider(height: 0.5),
+                      const SizedBox(height: 15),
+                      _buildReportAkbkTyreSubColumn(context),
+                    ],
+                  )
+                : Container()
           ],
         );
       case 4:
@@ -690,44 +747,49 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
   TextFormField _buildActiveTextField(TextInputType type, String label,
       [int? minLines = 1, int? maxLines = 1]) {
     return TextFormField(
-      textInputAction: TextInputAction.done,
-      cursorColor: green,
-      cursorHeight: 20,
-      cursorWidth: 1.2,
-      keyboardType: type,
-      minLines: minLines,
-      maxLines: maxLines,
-      style: TextStyle(color: blackCustom, fontSize: 14),
-      decoration: InputDecoration(
-        filled: true,
-        fillColor: white,
-        focusColor: green,
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-        labelText: label,
-        labelStyle: TextStyle(
-          fontSize: 14,
-          color: labelColor,
-          fontWeight: FontWeight.w300,
-        ),
-        border: const OutlineInputBorder(),
-        focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(borderRadiusCircular),
-            borderSide: BorderSide(color: green, width: 0.5)),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: green, width: 0.5),
-          borderRadius: BorderRadius.circular(borderRadiusCircular),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            width: 0.5,
-            color: borderTextColor,
+        textInputAction: TextInputAction.done,
+        cursorColor: green,
+        cursorHeight: 20,
+        cursorWidth: 1.2,
+        keyboardType: type,
+        minLines: minLines,
+        maxLines: maxLines,
+        style: TextStyle(color: blackCustom, fontSize: 14),
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: white,
+          focusColor: green,
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+          labelText: label,
+          labelStyle: TextStyle(
+            fontSize: 14,
+            color: labelColor,
+            fontWeight: FontWeight.w300,
           ),
-          borderRadius: BorderRadius.circular(borderRadiusCircular),
-          //gapPadding: 6.0,
+          border: const OutlineInputBorder(),
+          focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(borderRadiusCircular),
+              borderSide: BorderSide(color: green, width: 0.5)),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: green, width: 0.5),
+            borderRadius: BorderRadius.circular(borderRadiusCircular),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              width: 0.5,
+              color: borderTextClr,
+            ),
+            borderRadius: BorderRadius.circular(borderRadiusCircular),
+            //gapPadding: 6.0,
+          ),
         ),
-      ),
-    );
+        onChanged: (value) {
+          setState(() {
+            borderTextClr = greenCustom;
+            svComment = value.toString();
+          });
+        });
   }
 
   Column _buildReportAcceptanceColumn(BuildContext context, String feedBackTo) {

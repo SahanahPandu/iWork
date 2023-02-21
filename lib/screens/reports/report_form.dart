@@ -144,6 +144,14 @@ class _ReportFormState extends State<ReportForm> {
             praSectionKey.currentState!.pathGambar =
                 theDetails.uploadFileId!.filePath;
           }
+          // SV responded (accept/reject) and have remarks
+          if (theDetails.status!.statusCode == "RTRS" ||
+              theDetails.status!.statusCode == "RTLS") {
+            _statusPenyelia.text = theDetails.status!.statusName;
+            if (theDetails.svRemarks != null) {
+              _maklumbalasPenyelia.text = theDetails.svRemarks!;
+            }
+          }
         }
       });
     }

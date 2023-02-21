@@ -70,19 +70,19 @@ class _StatusContainerState extends State<StatusContainer> {
         boxColor = redStatusBox;
       }
     } else if (widget.type == "Laporan") {
-      if (widget.statusId == 1) {
-        //Dalam Proses
+      if (widget.statusId == "RBR") {
+        //Baru || Dalam Proses
         // textColor = blueStatusText;
         // boxColor = blueStatusBox;
         textColor = orangeStatusText;
         boxColor = orangeStatusBox;
-      } else if (widget.statusId == 2 || widget.statusId == 4) {
+      } else if (widget.statusId == "RTRS" || widget.statusId == "RSHB") {
         //Diterima SV || Disahkan BA
         // textColor = orangeStatusText;
         // boxColor = orangeStatusBox;
         textColor = greenStatusText;
         boxColor = greenStatusBox;
-      } else if (widget.statusId == 3 || widget.statusId == 5) {
+      } else if (widget.statusId == "RTLS" || widget.statusId == "RTLB") {
         //Ditolak SV || Ditolak BA
         textColor = redStatusText;
         boxColor = redStatusBox;
