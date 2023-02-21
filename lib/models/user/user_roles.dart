@@ -11,7 +11,7 @@ class UserRole {
   String roleCode;
   String roleDesc;
 
-  factory UserRole.fromJson(Map<String, dynamic> json) => UserRole(
+  factory UserRole.fromJson(json) => UserRole(
         id: json["id"],
         userId: json["user_id"],
         roleCode: json["role_code"],

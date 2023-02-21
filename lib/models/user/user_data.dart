@@ -28,8 +28,8 @@ class UserData {
   @JsonKey(defaultValue: null)
   int? canLogin;
 
-  @JsonKey(defaultValue: null)
-  List<UserRole>? userRoles;
+  @JsonKey(defaultValue: [])
+  dynamic userRoles;
 
   @JsonKey(defaultValue: [])
   UserDetail? userDetail;
@@ -56,12 +56,13 @@ class UserData {
         isFirstTimeLogin: json["is_first_time_login"],
         accessToken: json["access_token"],
         canLogin: json["can_login"],
-        userRoles: json["user_roles"] != null
-            ? List<UserRole>.from(json["user_roles"].map((x) => x))
-            : [],
         userDetail: json["user_detail"] != null
             ? UserDetail?.fromJson(json["user_detail"])
             : null,
+        userRoles: json["user_roles"] != null
+            // ? List<UserRole>.from(json["user_roles"].map((x) => x))
+            ? json['user_roles'].map<UserRole>(UserRole.fromJson).toList()
+            : [],
       );
 
   Map<String, dynamic> toJson() => {
