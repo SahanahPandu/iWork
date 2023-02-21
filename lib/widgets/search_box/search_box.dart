@@ -12,18 +12,32 @@ class SearchBoxWidget extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<SearchBoxWidget> createState() => _SearchBoxWidgetState();
+  SearchBoxWidgetState createState() => SearchBoxWidgetState();
 }
 
-class _SearchBoxWidgetState extends State<SearchBoxWidget> {
-  final TextEditingController _search = TextEditingController();
+class SearchBoxWidgetState extends State<SearchBoxWidget> {
+  final TextEditingController searchBox = TextEditingController();
   IconData searchboxIcon = Icons.search;
   Color borderColor = const Color(0xffDDDFE2);
 
   @override
+  void initState() {
+    searchBox.addListener(() {
+      widget.searchedName!(searchBox.text);
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    searchBox.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: _search,
+      controller: searchBox,
       decoration: InputDecoration(
         filled: true,
         fillColor: Colors.white,
@@ -66,7 +80,7 @@ class _SearchBoxWidgetState extends State<SearchBoxWidget> {
                 onTap: () {
                   setState(() {
                     widget.searchedName!("");
-                    _search.text = "";
+                    searchBox.text = "";
                     searchboxIcon = Icons.search;
                   });
                 },
@@ -79,8 +93,9 @@ class _SearchBoxWidgetState extends State<SearchBoxWidget> {
             : null,
       ),
       onChanged: (value) {
-        widget.searchedName!(value);
+        // widget.searchedName!(value);
         setState(() {
+          // searchBox.text = value;
           searchboxIcon = Icons.close;
         });
       },

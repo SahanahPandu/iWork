@@ -29,7 +29,9 @@ class _ReassignEmployeeListState extends State<ReassignEmployeeList> {
 
   loadAbsentEmployeeList() {
     List<WorkerSchedule> absentEmployeeList = widget.absentStaffList!;
-    absentEmployeeList.removeWhere((status) => status.userAttendanceId != null);
+    absentEmployeeList.removeWhere((status) =>
+        status.userAttendanceId !=
+        null); //removed list of staff that have attendance id/clock in info
 
     setState(() {
       employeeAbsentList.addAll(absentEmployeeList);

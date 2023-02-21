@@ -68,10 +68,10 @@ class _ListOfEmployeesState extends State<ListOfEmployees> {
                       }
 
                       //checking if there is idSv is passed, else show all, list of selected sv
-                      if (widget.idSv != null && widget.idSv!.isNotEmpty) {
-                        dataFuture!.removeWhere(
-                            (item) => !widget.idSv!.contains(item.idSv));
-                      }
+                      // if (widget.idSv != null && widget.idSv!.isNotEmpty) {
+                      //   dataFuture!.removeWhere(
+                      //       (item) => !widget.idSv!.contains(item.idSv));
+                      // }
 
                       //checking attendance id status, Hadir/Tidak Hadir
                       // if (widget.idStatus != null) {

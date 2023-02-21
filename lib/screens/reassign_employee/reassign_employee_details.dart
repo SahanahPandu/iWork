@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
@@ -87,11 +85,6 @@ class _ReassignEmployeeDetailsState extends State<ReassignEmployeeDetails> {
         child: (dataEmployee2 != null)
             ? InkWell(
                 onTap: () {
-                  Timer(const Duration(milliseconds: 200), () {
-                    setState(() {
-                      textColor = greenCustom;
-                    });
-                  });
                   Navigator.push(
                       context,
                       PageTransition(
@@ -101,21 +94,6 @@ class _ReassignEmployeeDetailsState extends State<ReassignEmployeeDetails> {
                             absentEmployee: widget.passData['absentStaff'],
                             assignedEmployee: getAssignedEmployeeDetails,
                           )));
-                },
-                onTapDown: (_) {
-                  setState(() {
-                    textColor = const Color(0xFF75BE72);
-                  });
-                },
-                onTapUp: (_) {
-                  setState(() {
-                    textColor = greenCustom;
-                  });
-                },
-                onTapCancel: () {
-                  setState(() {
-                    textColor = greenCustom;
-                  });
                 },
                 child: Padding(
                   padding:
@@ -144,11 +122,6 @@ class _ReassignEmployeeDetailsState extends State<ReassignEmployeeDetails> {
                           ),
                         ),
                         onPressed: () {
-                          Timer(const Duration(milliseconds: 200), () {
-                            setState(() {
-                              textColor = greenCustom;
-                            });
-                          });
                           Navigator.push(
                               context,
                               PageTransition(

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../../config/dimen.dart';
 import '../../config/palette.dart';
 import '../../models/penyelia_checkbox.dart';
-import '../../providers/penyelia_api.dart';
+import '../../providers/pekerja_api.dart';
 import '../../utils/device/sizes.dart';
 import '../../utils/icon/custom_icon.dart';
 import '../../widgets/app_bar/app_bar_widget.dart';
@@ -29,6 +29,7 @@ class EmployeeList extends StatefulWidget {
 }
 
 class _EmployeeListState extends State<EmployeeList> {
+  final searchBoxKey = GlobalKey<SearchBoxWidgetState>();
   String? searchName;
   List<dynamic> svNameList = [];
   List<dynamic> svIdList = [];
@@ -36,7 +37,8 @@ class _EmployeeListState extends State<EmployeeList> {
   List<PenyeliaCheckBox> selectedSVName = [];
   Color collapseBgColor = const Color(0xff2b7fe8);
 
-  void getSearchName(name) {
+  getSearchName(name) {
+    print('masuk sini');
     setState(() {
       searchName = name;
     });
@@ -111,6 +113,7 @@ class _EmployeeListState extends State<EmployeeList> {
                       Expanded(
                         flex: 0,
                         child: SearchBoxWidget(
+                          key: searchBoxKey,
                           labelText: 'Carian',
                           searchedName: getSearchName,
                         ),
@@ -285,7 +288,7 @@ class _EmployeeListState extends State<EmployeeList> {
                   ),
                   Expanded(
                     child: FutureBuilder<List>(
-                        future: PenyeliaApi.getPenyeliaData(context),
+                        future: PekerjaApi.getDataSenaraiPenyelia(),
                         builder: (context, snapshot) {
                           final dataFuture = snapshot.data;
 
@@ -303,8 +306,8 @@ class _EmployeeListState extends State<EmployeeList> {
                               } else {
                                 allSVName = dataFuture!
                                     .map((data) => PenyeliaCheckBox(
-                                        idPenyelia: data.id,
-                                        namaPenyelia: data.name))
+                                        idPenyelia: data.id.toString(),
+                                        namaPenyelia: data.userDetail.name))
                                     .toList();
 
                                 return ListView.builder(
