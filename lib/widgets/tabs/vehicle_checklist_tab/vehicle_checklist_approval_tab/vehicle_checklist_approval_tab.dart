@@ -270,7 +270,7 @@ class _VehicleChecklistApprovalTabState
                       color: greenCustom,
                       height: 1.5)),
               TextSpan(
-                  text: "bagi kenderaan",
+                  text: " bagi kenderaan",
                   style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
@@ -284,7 +284,7 @@ class _VehicleChecklistApprovalTabState
                       color: greenCustom,
                       height: 1.5)),
               TextSpan(
-                  text: "telah berjaya disahkan oleh anda",
+                  text: " telah berjaya disahkan oleh anda",
                   style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
