@@ -25,7 +25,7 @@ class _VerifyRequestWorkerListDetailsState
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 4),
+      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 4),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -73,7 +73,7 @@ class _VerifyRequestWorkerListDetailsState
                     fontWeight: FontWeight.w400)),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            padding: const EdgeInsets.fromLTRB(2, 10, 2, 2),
             child: widget.index != widget.lastItem
                 ? const Divider(
                     thickness: 0.5,

@@ -131,7 +131,7 @@ class _SupervisorWorkScheduleMainState
         style: TextStyle(
           color: white,
           fontWeight: FontWeight.w700,
-          fontSize: 17,
+          fontSize: 14,
         ),
       ),
       StatusContainer(
