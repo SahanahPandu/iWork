@@ -168,9 +168,9 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
         _isVcExist = true;
       }
       if (!widget.before &&
-              (widget.compactorData!.data.vehicleChecklistId == null ||
-          widget.compactorData!.data.vehicleChecklistId!.statusCode!.code ==
-              "VC1")) {
+          (widget.compactorData!.data.vehicleChecklistId == null ||
+              widget.compactorData!.data.vehicleChecklistId!.statusCode!.code ==
+                  "VC1")) {
         _isAfterVcEmpty = true;
       }
     }
@@ -406,7 +406,11 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
           empty = true;
         } else {
           widget.data!.data!.vehicleChecklists!.createdAt != null
-              ? _todayDate =  Date.getTheDate(widget.data!.data!.vehicleChecklists!.createdAt!,"yyyy-MM-dd","dd/MM/yyyy", "ms")
+              ? _todayDate = Date.getTheDate(
+                  widget.data!.data!.vehicleChecklists!.createdAt!,
+                  "yyyy-MM-dd",
+                  "dd/MM/yyyy",
+                  "ms")
               : _todayDate =
                   Date.getTheDate(DateTime.now(), '', "dd-MM-yyyy", 'ms');
           _odoReader.text = widget.data!.data!.vehicleChecklists!
@@ -1568,7 +1572,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                             Container(
                               color: white,
                               padding: const EdgeInsets.fromLTRB(0, 15, 0, 20),
-                              height: 100,
+                              //height: 100,
                               child: empty
                                   ? _textFieldBuild(0)
                                   : _inactiveTextFieldBuild(0),
@@ -1723,7 +1727,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                     color: white,
                                     padding:
                                         const EdgeInsets.fromLTRB(0, 15, 0, 20),
-                                    height: 100,
+                                    //height: 100,
                                     child: empty
                                         ? _textFieldBuild(1)
                                         : _inactiveTextFieldBuild(1),
@@ -1921,7 +1925,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                   color: white,
                                   padding:
                                       const EdgeInsets.fromLTRB(0, 15, 0, 20),
-                                  height: 100,
+                                  //height: 100,
                                   child: empty
                                       ? _textFieldBuild(2)
                                       : _inactiveTextFieldBuild(2),
@@ -2127,7 +2131,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                   color: white,
                                   padding:
                                       const EdgeInsets.fromLTRB(0, 15, 0, 20),
-                                  height: 100,
+                                  //height: 100,
                                   child: empty
                                       ? _textFieldBuild(3)
                                       : _inactiveTextFieldBuild(3),
@@ -2393,7 +2397,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                   color: white,
                                   padding:
                                       const EdgeInsets.fromLTRB(0, 15, 0, 20),
-                                  height: 100,
+                                  //height: 100,
                                   child: empty
                                       ? _textFieldBuild(4)
                                       : _inactiveTextFieldBuild(4),
@@ -2571,7 +2575,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                   color: white,
                                   padding:
                                       const EdgeInsets.fromLTRB(0, 15, 0, 20),
-                                  height: 100,
+                                  //height: 100,
                                   child: empty
                                       ? _textFieldBuild(5)
                                       : _inactiveTextFieldBuild(5),
@@ -2755,7 +2759,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                   color: white,
                                   padding:
                                       const EdgeInsets.fromLTRB(0, 15, 0, 20),
-                                  height: 100,
+                                  //height: 100,
                                   child: empty
                                       ? _textFieldBuild(6)
                                       : _inactiveTextFieldBuild(6),
@@ -2937,7 +2941,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                   color: white,
                                   padding:
                                       const EdgeInsets.fromLTRB(0, 15, 0, 20),
-                                  height: 100,
+                                  //height: 100,
                                   child: empty
                                       ? _textFieldBuild(7)
                                       : _inactiveTextFieldBuild(7),
@@ -3113,7 +3117,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                   color: white,
                                   padding:
                                       const EdgeInsets.fromLTRB(0, 15, 0, 20),
-                                  height: 100,
+                                  //height: 100,
                                   child: empty
                                       ? _textFieldBuild(8)
                                       : _inactiveTextFieldBuild(8),
@@ -3296,7 +3300,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                   color: white,
                                   padding:
                                       const EdgeInsets.fromLTRB(0, 15, 0, 20),
-                                  height: 100,
+                                  //height: 100,
                                   child: empty
                                       ? _textFieldBuild(9)
                                       : _inactiveTextFieldBuild(9),
@@ -3479,7 +3483,7 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
                                   color: white,
                                   padding:
                                       const EdgeInsets.fromLTRB(0, 15, 0, 20),
-                                  height: 100,
+                                  // height: 100,
                                   child: empty
                                       ? _textFieldBuild(10)
                                       : _inactiveTextFieldBuild(10),
@@ -3709,8 +3713,9 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
     return Form(
       key: _textKeys[idx],
       child: TextField(
+        inputFormatters: [LengthLimitingTextInputFormatter(500)],
         controller: _remarkController[idx],
-        maxLines: 5,
+        maxLines: 3,
         cursorWidth: 1.2,
         cursorColor: greenCustom,
         keyboardType: TextInputType.text,
@@ -4001,15 +4006,18 @@ class _VehicleChecklistDetailState extends State<VehicleChecklistDetail>
       child: TextField(
         controller: _remarkController[idx],
         maxLines: 5,
+        minLines: 1,
         readOnly: true,
         enabled: false,
         cursorWidth: 1.2,
         cursorColor: greenCustom,
         keyboardType: TextInputType.text,
         textInputAction: TextInputAction.done,
+        inputFormatters: [LengthLimitingTextInputFormatter(500)],
         onSubmitted: (value) {
           _remarkController[idx].text = value.toString();
         },
+        style: TextStyle(color: grey500, fontSize: 15),
         decoration: InputDecoration(
             fillColor: fillColor,
             filled: true,
