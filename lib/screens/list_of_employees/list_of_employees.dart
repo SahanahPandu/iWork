@@ -91,10 +91,8 @@ class _ListOfEmployeesState extends State<ListOfEmployees> {
 
                       return widget.type != null
                           ? ListView.separated(
-                              // physics: const NeverScrollableScrollPhysics(),
-                              physics: const AlwaysScrollableScrollPhysics(),
+                              physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
-                              scrollDirection: Axis.vertical,
                               separatorBuilder: (context, index) {
                                 return Divider(
                                   thickness: 0.5,
@@ -115,7 +113,6 @@ class _ListOfEmployeesState extends State<ListOfEmployees> {
                             )
                           : ListView.builder(
                               physics: const NeverScrollableScrollPhysics(),
-                              // physics: const AlwaysScrollableScrollPhysics(),
                               shrinkWrap: true,
                               itemCount: dataFuture!.length,
                               itemBuilder: (context, index) {

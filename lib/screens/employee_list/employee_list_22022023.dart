@@ -9,7 +9,6 @@ import '../../utils/device/sizes.dart';
 import '../../utils/icon/custom_icon.dart';
 import '../../widgets/app_bar/app_bar_widget.dart';
 import '../../widgets/search_box/search_box.dart';
-import '../../widgets/slivers/expand_collapse_header/expand_collapse_header.dart';
 import '../list_of_employees/absent_employee_details.dart';
 import '../list_of_employees/list_of_employees.dart';
 
@@ -64,210 +63,170 @@ class _EmployeeListState extends State<EmployeeList> {
           bgColor: Colors.white.withOpacity(0.5),
           leadingIcon: CustomIcon.arrowBack,
           title: "Pilih Pekerja",
-        ),
-        body: ExpandCollapseHeader(
-          centerTitle: false,
-          title: _collapseTitle(),
-          headerExpandedHeight: selectedSVName.isNotEmpty ? 0.5 : 0.4,
-          headerWidget: _header(),
-          fullyStretchable: true,
-          body: [
-            _scrollBody(),
-          ],
-          curvedBodyRadius: 24,
-          fixedTitle: _fixedTitle(),
-          fixedTitleHeight: selectedSVName.isNotEmpty ? 150 : 83,
-          collapseHeight: selectedSVName.isNotEmpty ? 160 : 90,
-          collapseFade: selectedSVName.isNotEmpty ? 150 : 120,
-          backgroundColor: transparent,
-          appBarColor: collapseBgColor,
-        ),
-      ),
-    );
-  }
-
-  Widget _collapseTitle() {
-    return const SizedBox();
-  }
-
-  Widget _header() {
-    return SafeArea(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          //absent employee section
-          Container(
-            margin: const EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 24,
-            ),
-            child: AbsentEmployeeDetails(
-              data: widget.absentEmployee,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  SafeArea _scrollBody() {
-    return SafeArea(
-      child: Container(
-        constraints:
-            BoxConstraints(minHeight: Sizes().screenHeight(context) * 0.4),
-        color: white,
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 24),
-          width: Sizes().screenWidth(context),
-          height: Sizes().screenHeight(context),
-          child: ListOfEmployees(
-            type: "Senarai Hadir",
-            idStatus: 1, // Hadir
-            searchedName: searchName,
-            assignedEmployee: widget.assignedEmployee,
-            idSv: svIdList,
-            scMainId: widget.scMainId,
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _fixedTitle() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        //Search Box for Employee name
-        if (svNameList.isEmpty)
-          Expanded(
-            flex: 0,
-            child: Container(
-              padding: const EdgeInsets.only(
-                left: 26,
-                top: 24,
-                right: 26,
-                bottom: 10,
+          listOfWidget: [
+            IconButton(
+              onPressed: () {
+                showListOfSupervisor();
+              },
+              icon: Icon(
+                Icons.filter_alt_rounded,
+                color: blackCustom,
+                size: 22,
               ),
-              child: Row(
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: SearchBoxWidget(
-                      key: searchBoxKey,
-                      labelText: 'Carian',
-                      searchedName: getSearchName,
-                    ),
+            ),
+          ],
+        ),
+        body: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              //absent employee section
+              Container(
+                margin: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 24,
+                ),
+                child: AbsentEmployeeDetails(
+                  data: widget.absentEmployee,
+                ),
+              ),
+              //employee list
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 26, vertical: 24),
+                width: Sizes().screenWidth(context),
+                height: Sizes().screenHeight(context),
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(28),
+                    topRight: Radius.circular(28),
                   ),
-                  Expanded(
-                    flex: 0,
-                    child: IconButton(
-                      onPressed: () {
-                        showListOfSupervisor();
-                      },
-                      icon: Icon(
-                        Icons.filter_alt_rounded,
-                        color: blackCustom,
-                        size: 25,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    //Search Box for Employee name
+                    if (svNameList.isEmpty)
+                      Expanded(
+                        flex: 0,
+                        child: SearchBoxWidget(
+                          key: searchBoxKey,
+                          labelText: 'Carian',
+                          searchedName: getSearchName,
+                        ),
+                      ),
+
+                    //list of selected sv name
+                    if (selectedSVName.isNotEmpty)
+                      Expanded(
+                        flex: 1,
+                        child: Column(
+                          children: [
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            const Divider(
+                              thickness: 1,
+                              color: Color(0xffE5E5E5),
+                            ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            SizedBox(
+                              height: 35,
+                              child: ListView(
+                                physics: const BouncingScrollPhysics(),
+                                scrollDirection: Axis.horizontal,
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        selectedSVName.clear();
+                                        svIdList.clear();
+                                      });
+                                    },
+                                    child: Container(
+                                      width: 60,
+                                      height: 30,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        border: Border.all(
+                                          color: const Color(0xffD9D9D9),
+                                        ),
+                                        borderRadius: BorderRadius.circular(26),
+                                      ),
+                                      padding: const EdgeInsets.all(8),
+                                      child: Center(
+                                        child: Text(
+                                          "Reset",
+                                          style: TextStyle(
+                                            color: blackCustom,
+                                            fontSize: 11,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 8,
+                                  ),
+                                  Container(
+                                    height: 30,
+                                    padding: const EdgeInsets.only(left: 8),
+                                    child: ListView.separated(
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.horizontal,
+                                      separatorBuilder: (context, index) {
+                                        return const SizedBox(
+                                          width: 8,
+                                        );
+                                      },
+                                      itemCount: selectedSVName.length,
+                                      itemBuilder: (context, index) {
+                                        return InkWell(
+                                          onTap: () {},
+                                          child: _showSelectedSvName(
+                                              selectedSVName[index]),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 8,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    // Employee List
+                    Flexible(
+                      child: ListOfEmployees(
+                        type: "Senarai Hadir",
+                        idStatus: 1, // Hadir
+                        searchedName: searchName,
+                        assignedEmployee: widget.assignedEmployee,
+                        idSv: svIdList,
+                        scMainId: widget.scMainId,
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
+            ],
           ),
-
-        //list of selected sv name
-        if (selectedSVName.isNotEmpty)
-          Expanded(
-            flex: 1,
-            child: Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 26,
-              ),
-              child: Column(
-                children: [
-                  const Divider(
-                    thickness: 1,
-                    color: Color(0xffE5E5E5),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  SizedBox(
-                    height: 35,
-                    child: ListView(
-                      physics: const BouncingScrollPhysics(),
-                      scrollDirection: Axis.horizontal,
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            setState(() {
-                              selectedSVName.clear();
-                              svIdList.clear();
-                            });
-                          },
-                          child: Container(
-                            width: 60,
-                            height: 30,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              border: Border.all(
-                                color: const Color(0xffD9D9D9),
-                              ),
-                              borderRadius: BorderRadius.circular(26),
-                            ),
-                            padding: const EdgeInsets.all(8),
-                            child: Center(
-                              child: Text(
-                                "Reset",
-                                style: TextStyle(
-                                  color: blackCustom,
-                                  fontSize: 11,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 8,
-                        ),
-                        Container(
-                          height: 30,
-                          padding: const EdgeInsets.only(left: 8),
-                          child: ListView.separated(
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            separatorBuilder: (context, index) {
-                              return const SizedBox(
-                                width: 8,
-                              );
-                            },
-                            itemCount: selectedSVName.length,
-                            itemBuilder: (context, index) {
-                              return InkWell(
-                                onTap: () {},
-                                child:
-                                    _showSelectedSvName(selectedSVName[index]),
-                              );
-                            },
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 8,
-                        ),
-                      ],
-                    ),
-                  ),
-                  // const SizedBox(
-                  //   height: 16,
-                  // ),
-                ],
-              ),
-            ),
-          ),
-      ],
+        ),
+      ),
     );
   }
 
