@@ -13,6 +13,7 @@ import '../../../../utils/device/sizes.dart';
 import '../../../../utils/icon/custom_icon.dart';
 import '../../../../widgets/alert/alert_dialog.dart';
 import '../../../../widgets/alert/lottie_alert_dialog.dart';
+import '../../../../widgets/alert/toast.dart';
 import '../../../../widgets/modal_bottom_sheet/custom_bottom_sheet_options.dart';
 import 'report_approval_detail.dart';
 
@@ -148,8 +149,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
               ExpandableNotifier(
                 controller: _reportController,
                 child: Container(
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  margin: const EdgeInsets.fromLTRB(20, 10, 20, 20),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -207,106 +207,127 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
             ],
           )),
         ),
-        bottomNavigationBar: Container(
-          decoration: BoxDecoration(
-            color: white,
-            boxShadow: [
-              BoxShadow(
-                  color: Colors.grey.withOpacity(.3),
-                  blurRadius: 6,
-                  spreadRadius: 0.5)
-            ],
-          ),
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-          child: SizedBox(
-            height: 45,
-            width: 150,
-            child: ElevatedButton(
-              style: ButtonStyle(
-                  elevation: MaterialStateProperty.all(0),
-                  shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0)),
-                  ),
-                  overlayColor:
-                      MaterialStateColor.resolveWith((states) => green800),
-                  minimumSize: MaterialStateProperty.all(
-                      Size(Sizes().screenWidth(context), 41)),
-                  backgroundColor: MaterialStateProperty.all(green)),
-              child: Text('Hantar',
-                  style: TextStyle(
-                      color: white, fontSize: 14, fontWeight: FontWeight.w700)),
-              onPressed: () {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return showAlertDialog(
-                          context,
-                          confirmation,
-                          "Anda pasti untuk hantar sekarang? Maklumbalas ini akan dihantar kepada PRA dan BA.",
-                          cancel,
-                          submit);
-                    }).then((actionText) async {
-                  if (actionText == submit) {
-                    String fStatus = "";
-                    if (userRole == 300) {
-                      /// SV terima
-                      if (_rStatus.text == "Diterima") {
-                        fStatus = "RTRS";
-                      } else if (_rStatus.text == "Ditolak") {
-                        /// SV tolak
-                        fStatus = "RTLS";
-                      }
-                    } else if (userRole == 400) {
-                      /// BA terima
-                      if (_rStatus.text == "Diterima") {
-                        fStatus = "RSHB";
-                      } else if (_rStatus.text == "Ditolak") {
-                        /// BA tolak
-                        fStatus = "RTLB";
-                      }
-                    }
-                    var result = await ReportsApi.updateReportForApproval(
-                        context, widget.reportData.id, fStatus, svComment);
-                    if (result == "ok") {
-                      // ignore: use_build_context_synchronously
-                      Navigator.pop(context);
+        bottomNavigationBar: widget.reportData.status!.statusCode == "RBR"
+            ? Container(
+                decoration: BoxDecoration(
+                  color: white,
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.grey.withOpacity(.3),
+                        blurRadius: 6,
+                        spreadRadius: 0.5)
+                  ],
+                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                child: SizedBox(
+                  height: 45,
+                  width: 150,
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                        elevation: MaterialStateProperty.all(0),
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.0)),
+                        ),
+                        overlayColor: MaterialStateColor.resolveWith(
+                            (states) => green800),
+                        minimumSize: MaterialStateProperty.all(
+                            Size(Sizes().screenWidth(context), 41)),
+                        backgroundColor: MaterialStateProperty.all(green)),
+                    child: Text('Hantar',
+                        style: TextStyle(
+                            color: white,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700)),
+                    onPressed: () {
                       showDialog(
                           context: context,
                           builder: (BuildContext context) {
-                            return showLottieAlertDialog(
-                              context,
-                              _textBuilder(),
-                              "",
-                              null,
-                              null,
-                            );
-                          });
-                    } else {
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return showLottieAlertDialog(
+                            return showAlertDialog(
                                 context,
-                                Text(
-                                    "Anda tidak berjaya hantar laporan ini. Sila cuba lagi",
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w400,
-                                        color: greyCustom,
-                                        height: 1.5)),
-                                "",
-                                null,
-                                null,
-                                false);
-                          });
-                    }
-                  }
-                });
-              },
-            ),
-          ),
-        ));
+                                confirmation,
+                                "Anda pasti untuk hantar sekarang? Maklumbalas ini akan dihantar kepada PRA dan BA.",
+                                cancel,
+                                submit);
+                          }).then((actionText) async {
+                        if (actionText == submit) {
+                          String fStatus = "";
+                          if (userRole == 300) {
+                            /// SV terima
+                            if (_rStatus.text == "Diterima") {
+                              fStatus = "RTRS";
+                            } else if (_rStatus.text == "Ditolak") {
+                              /// SV tolak
+                              fStatus = "RTLS";
+                            }
+                          } else if (userRole == 400) {
+                            /// BA terima
+                            if (_rStatus.text == "Diterima") {
+                              fStatus = "RSHB";
+                            } else if (_rStatus.text == "Ditolak") {
+                              /// BA tolak
+                              fStatus = "RTLB";
+                            }
+                          }
+                          if (fStatus != "" && svComment != "") {
+                            var result =
+                                await ReportsApi.updateReportForApproval(
+                                    context,
+                                    widget.reportData.id,
+                                    fStatus,
+                                    svComment);
+                            if (result == "ok") {
+                              // ignore: use_build_context_synchronously
+                              Navigator.pop(context);
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return showLottieAlertDialog(
+                                      context,
+                                      _textBuilder(),
+                                      "",
+                                      null,
+                                      null,
+                                    );
+                                  });
+                              setState(() {
+                                refreshReportList.value =
+                                    !refreshReportList.value;
+                                refresh.value = !refresh.value;
+                              });
+                            } else {
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return showLottieAlertDialog(
+                                        context,
+                                        Text(
+                                            "Anda tidak berjaya hantar laporan ini. Sila cuba lagi.",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.w400,
+                                                color: greyCustom,
+                                                height: 1.5)),
+                                        "",
+                                        null,
+                                        null,
+                                        false);
+                                  });
+                            }
+                          } else {
+                            showErrorToast(context,
+                                "Sila pilih status dan maklumbalas anda sebelum hantar laporan.",
+                                height: 15);
+                          }
+                        }
+                      });
+                    },
+                  ),
+                ),
+              )
+            : null);
   }
 
   RichText _textBuilder() {
@@ -337,11 +358,15 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
             _buildReportAcceptanceColumn(context, "Maklumbalas kepada PRA:"),
             // _buildNote(),
             const SizedBox(height: 20),
-            const Divider(height: 0.5),
 
+            /// DISABLE AKBK FORM FOR PHASE 1 RELEASE, isAkbk == 1 (akbk is exist)
             /// Check if SV accept or not the report
             _rStatus.text == "Diterima" &&
-                    widget.reportData.obstacleType!.isAkbk == 1
+                    widget.reportData.obstacleType!.isAkbk == 2
+                ? const Divider(height: 0.5)
+                : Container(),
+            _rStatus.text == "Diterima" &&
+                    widget.reportData.obstacleType!.isAkbk == 2
                 ? Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -361,13 +386,15 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
             _buildReportAcceptanceColumn(context, "Maklumbalas kepada PRA:"),
             // _buildNote(),
             const SizedBox(height: 20),
+
+            /// DISABLE AKBK FORM FOR PHASE 1 RELEASE, isAkbk == 1 (akbk is exist)
             _rStatus.text == "Diterima" &&
-                    widget.reportData.obstacleType!.isAkbk == 1 &&
+                    widget.reportData.obstacleType!.isAkbk == 2 &&
                     widget.reportData.obstacleType!.category == "TY"
                 ? const Divider(height: 0.5)
                 : Container(),
             _rStatus.text == "Diterima" &&
-                    widget.reportData.obstacleType!.isAkbk == 1 &&
+                    widget.reportData.obstacleType!.isAkbk == 2 &&
                     widget.reportData.obstacleType!.category == "TY"
                 ? Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

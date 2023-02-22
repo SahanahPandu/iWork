@@ -25,8 +25,11 @@ ValueNotifier<bool> button = ValueNotifier(true);
 /// ** Select All Button **
 ValueNotifier<bool> allSelected = ValueNotifier(false);
 
-/// ** Refresh App Variable ***
+/// ** Refresh Main page of App Variable ***
 ValueNotifier<bool> refresh = ValueNotifier(false);
+
+/// ** Refresh Report List from Issued Schedule Variable ***
+ValueNotifier<bool> refreshReportList = ValueNotifier(false);
 
 /// ** UserRole **
 /// '0' = unknown
