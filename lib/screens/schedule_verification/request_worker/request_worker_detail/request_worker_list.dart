@@ -23,10 +23,6 @@ class RequestWorkerList extends StatefulWidget {
 
 class _RequestWorkerListState extends State<RequestWorkerList> {
   IconData icon = CustomIcon.checkBoxEmpty;
-  Color iconColor = grey600;
-
-  dynamic workerList = [];
-  dynamic absentWorkerList = [];
 
   late Future<RequestWorker?> _loadStaffData;
 
@@ -34,6 +30,7 @@ class _RequestWorkerListState extends State<RequestWorkerList> {
   void initState() {
     super.initState();
     tickedRequestedWorker = [];
+    approvalRequestedWorker = [];
     _loadStaffData = RequestWorkerApi.getRequestWorkerData(context);
   }
 
@@ -124,10 +121,18 @@ class _RequestWorkerListState extends State<RequestWorkerList> {
                                 );
                               } else {
                                 final requestedStaffData = snapshot.data;
+                                tickedRequestedWorker = List.generate(
+                                    requestedStaffData!
+                                        .data.workerRequest.length,
+                                    (index) => -1);
+                                approvalRequestedWorker = List.generate(
+                                    requestedStaffData
+                                        .data.workerRequest.length,
+                                    (index) => -1);
                                 return Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    requestedStaffData!
+                                    requestedStaffData
                                             .data.workerRequest.isNotEmpty
                                         ? ListView.builder(
                                             physics:
@@ -203,20 +208,34 @@ class _RequestWorkerListState extends State<RequestWorkerList> {
                       return showAlertDialog(
                           context,
                           confirmation,
-                          "Sahkan kehadiran pekerja yang hadir pada hari ini?",
+                          "Sahkan pinjam pekerja?",
                           cancel,
-                          "Sahkan");
+                          "Ya, sahkan");
                     }).then((actionText) async {
-                  if (actionText == "Sahkan") {
-                    if (tickedRequestedWorker.isNotEmpty) {
+                  if (actionText == "Ya, sahkan") {
+                    /// Generate new list to keep the result temporarily
+                    var tickedWorker = List.from(tickedRequestedWorker);
+                    var approvedWorker = List.from(approvalRequestedWorker);
+
+                    /// Check for unselected items from temporary list (-1) and remove it
+                    if (tickedWorker.contains(-1)) {
+                      tickedWorker.removeWhere((item) => item == -1);
+                      if (approvedWorker.contains(-1)) {
+                        approvedWorker.removeWhere((item) => item == -1);
+                      }
+                    }
+
+                    /// Check for values in list
+                    if (tickedWorker.isNotEmpty && approvedWorker.isNotEmpty) {
+                      /// Generate new list for mapping values to be sent as json in body of api
                       List<Map<String, dynamic>> list = List.generate(
-                          tickedRequestedWorker.length,
+                          tickedWorker.length,
                           (index) =>
                               {"worker_request_id": '', "has_approval": ''});
                       for (int i = 0; i < list.length; i++) {
                         list[i] = {
-                          "worker_request_id": tickedRequestedWorker[i],
-                          "has_approval": 1
+                          "worker_request_id": tickedWorker[i],
+                          "has_approval": approvedWorker[i]
                         };
                       }
                       var result = await RequestWorkerApi.updateRequestWorker(

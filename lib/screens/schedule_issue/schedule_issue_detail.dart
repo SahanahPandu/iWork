@@ -162,7 +162,7 @@ class _ScheduleIssueDetailState extends State<ScheduleIssueDetail> {
           style: TextStyle(
             color: white,
             fontWeight: FontWeight.w700,
-            fontSize: 17,
+            fontSize: 14,
           ),
         ),
         StatusContainer(
@@ -172,14 +172,12 @@ class _ScheduleIssueDetailState extends State<ScheduleIssueDetail> {
           fontWeight: statusFontWeight,
           roundedCorner: true,
         ),
-        Expanded(
-          child: Padding(
-              padding: const EdgeInsets.only(top: 5),
-              child: //Senarai Staf
-                  Align(
-                      alignment: Alignment.centerRight,
-                      child: buildStackedImages(scheduleDetail))),
-        )
+        Padding(
+            padding: const EdgeInsets.only(top: 5),
+            child: //Senarai Staf
+                Align(
+                    alignment: Alignment.centerRight,
+                    child: buildStackedImages(scheduleDetail)))
       ],
     );
   }
