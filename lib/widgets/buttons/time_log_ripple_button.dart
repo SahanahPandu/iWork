@@ -6,6 +6,7 @@ import 'package:simple_ripple_animation/simple_ripple_animation.dart';
 import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../../providers/http/service/http_header.dart';
+import '../../providers/http/service/http_service.dart';
 import '../../screens/geo_location/user_locator.dart';
 import '../alert/alert_dialog.dart';
 import '../alert/lottie_alert_dialog.dart';
@@ -57,7 +58,7 @@ class _TimeLogRippleButtonState extends State<TimeLogRippleButton> {
                 });
                 try {
                   Response response = await Dio().post(
-                      '$theBase/attendance/start-work',
+                      HttpService().updateClockIn,
                       options: HttpHeader.getFormApiHeader(userInfo[1]),
                       data: bodyData);
 
@@ -78,40 +79,42 @@ class _TimeLogRippleButtonState extends State<TimeLogRippleButton> {
                   }
                 } on DioError catch (e) {
                   // ignore: avoid_print
-                  print(e);
-                  if (e.message
-                      .contains("Current location is not within depoh")) {
-                    if (currentAddress != null) {
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return showLottieAlertDialog(
-                                context,
-                                _textBuilder(
-                                  "Lokasi kini: $currentAddress\nAnda berada di luar kawasan depoh. Pastikan anda berada di dalam kawasan sebelum masuk kerja",
-                                ),
-                                "",
-                                null,
-                                null,
-                                false);
-                          });
-                    } else {
-                      // ignore: use_build_context_synchronously
-                      showErrorToast(context,
-                          "Log masuk anda tidak berjaya. Sila cuba lagi.",
-                          height: 16);
+                  print("error data -> ${e.response?.data}");
+                  if (e.error == "Http status error [404]") {
+                    if (e.response?.data['message'] ==
+                        "Current location is not within depoh") {
+                      if (currentAddress != null) {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return showLottieAlertDialog(
+                                  context,
+                                  _textBuilder(
+                                    "Lokasi kini: $currentAddress\nAnda berada di luar kawasan depoh. Pastikan anda di depoh sebelum masuk kerja.",
+                                  ),
+                                  "",
+                                  null,
+                                  null,
+                                  false);
+                            });
+                      } else {
+                        // ignore: use_build_context_synchronously
+                        showErrorToast(context,
+                            "Log masuk anda tidak berjaya. Sila cuba lagi.",
+                            height: 15);
+                      }
                     }
                   } else {
                     // ignore: use_build_context_synchronously
                     showErrorToast(context,
                         "Log masuk anda tidak berjaya. Sila cuba lagi.",
-                        height: 16);
+                        height: 15);
                   }
                 }
               } else {
                 // ignore: use_build_context_synchronously
                 showErrorToast(context,
-                    "Lokasi anda tidak dapat dikesan. Sila semak tetapan lokasi dalam peranti anda.",
+                    "Lokasi anda tidak dapat dikesan. Sila semak tetapan lokasi peranti anda.",
                     height: 15);
               }
             } else if (actionText == "Tamat Kerja") {
@@ -126,7 +129,7 @@ class _TimeLogRippleButtonState extends State<TimeLogRippleButton> {
                 });
                 try {
                   Response response = await Dio().post(
-                    '$theBase/attendance/end-work',
+                    HttpService().updateClockOut,
                     options: HttpHeader.getFormApiHeader(userInfo[1]),
                     data: bodyData,
                   );
@@ -148,9 +151,9 @@ class _TimeLogRippleButtonState extends State<TimeLogRippleButton> {
                   }
                 } on DioError catch (e) {
                   // ignore: avoid_print
-                  print(e.message);
-                  if (e.message
-                      .contains("Current location is not within depoh")) {
+                  print("error data -> ${e.response?.data}");
+                  if (e.response?.data['message'] ==
+                      "Current location is not within depoh") {
                     if (currentAddress != null) {
                       showDialog(
                           context: context,
@@ -158,7 +161,7 @@ class _TimeLogRippleButtonState extends State<TimeLogRippleButton> {
                             return showLottieAlertDialog(
                                 context,
                                 _textBuilder(
-                                  "Lokasi kini: $currentAddress\nAnda berada di luar kawasan depoh. Pastikan anda berada di dalam kawasan sebelum keluar kerja",
+                                  "Lokasi kini: $currentAddress\nAnda berada di luar kawasan depoh. Pastikan anda di depoh sebelum keluar kerja.",
                                 ),
                                 "",
                                 null,
@@ -169,13 +172,13 @@ class _TimeLogRippleButtonState extends State<TimeLogRippleButton> {
                       // ignore: use_build_context_synchronously
                       showErrorToast(context,
                           "Log keluar anda tidak berjaya. Sila cuba lagi.",
-                          height: 16);
+                          height: 15);
                     }
                   } else {
                     // ignore: use_build_context_synchronously
                     showErrorToast(context,
                         "Log keluar anda tidak berjaya. Sila cuba lagi.",
-                        height: 16);
+                        height: 15);
                   }
                 }
               } else {
@@ -214,7 +217,7 @@ class _TimeLogRippleButtonState extends State<TimeLogRippleButton> {
       textAlign: TextAlign.center,
       textWidthBasis: TextWidthBasis.parent,
       style: TextStyle(
-          fontSize: 15,
+          fontSize: 14,
           fontWeight: FontWeight.w400,
           color: greyCustom,
           height: 1.5),

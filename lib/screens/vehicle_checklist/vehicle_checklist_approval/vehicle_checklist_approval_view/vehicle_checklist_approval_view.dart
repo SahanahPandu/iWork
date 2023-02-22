@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 //import files
+import '../../../../config/dimen.dart';
 import '../../../../config/palette.dart';
 import '../../../../models/vc/detail/vc_main.dart';
 import '../../../../utils/calendar/date.dart';
@@ -28,11 +30,162 @@ class VehicleChecklistApprovalView extends StatefulWidget {
 class _VehicleChecklistApprovalViewState
     extends State<VehicleChecklistApprovalView> {
   bool before = false;
+  final TextEditingController documentRemark = TextEditingController();
+  final TextEditingController tyreRemark = TextEditingController();
+  final TextEditingController mampatanRemark = TextEditingController();
+  final TextEditingController lightRemark = TextEditingController();
+  final TextEditingController engineRemark = TextEditingController();
+  final TextEditingController outsideRemark = TextEditingController();
+  final TextEditingController safetyRemark = TextEditingController();
+  final TextEditingController cleanTruckRemark = TextEditingController();
+  final TextEditingController cleanBinRemark = TextEditingController();
+  final TextEditingController accidentRemark = TextEditingController();
+  final TextEditingController physicRemark = TextEditingController();
 
   @override
   void initState() {
     _isBefore(widget.section);
+    _setVCRemarksData();
     super.initState();
+  }
+
+  void _setVCRemarksData() {
+    if (before) {
+      if (widget.data!.data!.vehicleChecklists!.checklistBefore!.vcItem.document
+              .remarks !=
+          "-") {
+        documentRemark.text = widget.data!.data!.vehicleChecklists!
+            .checklistBefore!.vcItem.document.remarks!;
+      }
+      if (widget.data!.data!.vehicleChecklists!.checklistBefore!.vcItem.tyre
+              .remarks !=
+          "-") {
+        tyreRemark.text = widget.data!.data!.vehicleChecklists!.checklistBefore!
+            .vcItem.tyre.remarks!;
+      }
+      if (widget.data!.data!.vehicleChecklists!.checklistBefore!.vcItem.mampatan
+              .remarks !=
+          "-") {
+        mampatanRemark.text = widget.data!.data!.vehicleChecklists!
+            .checklistBefore!.vcItem.mampatan.remarks!;
+      }
+      if (widget.data!.data!.vehicleChecklists!.checklistBefore!.vcItem.light
+              .remarks !=
+          "-") {
+        lightRemark.text = widget.data!.data!.vehicleChecklists!
+            .checklistBefore!.vcItem.light.remarks!;
+      }
+      if (widget.data!.data!.vehicleChecklists!.checklistBefore!.vcItem.engine
+              .remarks !=
+          "-") {
+        engineRemark.text = widget.data!.data!.vehicleChecklists!
+            .checklistBefore!.vcItem.engine.remarks!;
+      }
+      if (widget.data!.data!.vehicleChecklists!.checklistBefore!.vcItem.outside
+              .remarks !=
+          "-") {
+        outsideRemark.text = widget.data!.data!.vehicleChecklists!
+            .checklistBefore!.vcItem.outside.remarks!;
+      }
+      if (widget.data!.data!.vehicleChecklists!.checklistBefore!.vcItem
+              .safetyThings.remarks !=
+          "-") {
+        safetyRemark.text = widget.data!.data!.vehicleChecklists!
+            .checklistBefore!.vcItem.safetyThings.remarks!;
+      }
+      if (widget.data!.data!.vehicleChecklists!.checklistBefore!.vcItem
+              .cleanliness.remarks !=
+          "-") {
+        cleanTruckRemark.text = widget.data!.data!.vehicleChecklists!
+            .checklistBefore!.vcItem.cleanliness.remarks!;
+      }
+      if (widget.data!.data!.vehicleChecklists!.checklistBefore!.vcItem
+              .binLifterCleanliness.remarks !=
+          "-") {
+        cleanBinRemark.text = widget.data!.data!.vehicleChecklists!
+            .checklistBefore!.vcItem.binLifterCleanliness.remarks!;
+      }
+      if (widget.data!.data!.vehicleChecklists!.checklistBefore!.vcItem.accident
+              .remarks !=
+          "-") {
+        accidentRemark.text = widget.data!.data!.vehicleChecklists!
+            .checklistBefore!.vcItem.accident.remarks!;
+      }
+      if (widget.data!.data!.vehicleChecklists!.checklistBefore!.vcItem
+              .vehiclePhysical.remarks !=
+          "-") {
+        physicRemark.text = widget.data!.data!.vehicleChecklists!
+            .checklistBefore!.vcItem.vehiclePhysical.remarks!;
+      }
+    } else {
+      /// VC After
+      if (widget.data!.data!.vehicleChecklists!.checklistAfter!.vcItem.document
+              .remarks !=
+          "-") {
+        documentRemark.text = widget.data!.data!.vehicleChecklists!
+            .checklistAfter!.vcItem.document.remarks!;
+      }
+      if (widget.data!.data!.vehicleChecklists!.checklistAfter!.vcItem.tyre
+              .remarks !=
+          "-") {
+        tyreRemark.text = widget.data!.data!.vehicleChecklists!.checklistAfter!
+            .vcItem.tyre.remarks!;
+      }
+      if (widget.data!.data!.vehicleChecklists!.checklistAfter!.vcItem.mampatan
+              .remarks !=
+          "-") {
+        mampatanRemark.text = widget.data!.data!.vehicleChecklists!
+            .checklistAfter!.vcItem.mampatan.remarks!;
+      }
+      if (widget.data!.data!.vehicleChecklists!.checklistAfter!.vcItem.light
+              .remarks !=
+          "-") {
+        lightRemark.text = widget.data!.data!.vehicleChecklists!.checklistAfter!
+            .vcItem.light.remarks!;
+      }
+      if (widget.data!.data!.vehicleChecklists!.checklistAfter!.vcItem.engine
+              .remarks !=
+          "-") {
+        engineRemark.text = widget.data!.data!.vehicleChecklists!
+            .checklistAfter!.vcItem.engine.remarks!;
+      }
+      if (widget.data!.data!.vehicleChecklists!.checklistAfter!.vcItem.outside
+              .remarks !=
+          "-") {
+        outsideRemark.text = widget.data!.data!.vehicleChecklists!
+            .checklistAfter!.vcItem.outside.remarks!;
+      }
+      if (widget.data!.data!.vehicleChecklists!.checklistAfter!.vcItem
+              .safetyThings.remarks !=
+          "-") {
+        safetyRemark.text = widget.data!.data!.vehicleChecklists!
+            .checklistAfter!.vcItem.safetyThings.remarks!;
+      }
+      if (widget.data!.data!.vehicleChecklists!.checklistAfter!.vcItem
+              .cleanliness.remarks !=
+          "-") {
+        cleanTruckRemark.text = widget.data!.data!.vehicleChecklists!
+            .checklistAfter!.vcItem.cleanliness.remarks!;
+      }
+      if (widget.data!.data!.vehicleChecklists!.checklistAfter!.vcItem
+              .binLifterCleanliness.remarks !=
+          "-") {
+        cleanBinRemark.text = widget.data!.data!.vehicleChecklists!
+            .checklistAfter!.vcItem.binLifterCleanliness.remarks!;
+      }
+      if (widget.data!.data!.vehicleChecklists!.checklistAfter!.vcItem.accident
+              .remarks !=
+          "-") {
+        accidentRemark.text = widget.data!.data!.vehicleChecklists!
+            .checklistAfter!.vcItem.accident.remarks!;
+      }
+      if (widget.data!.data!.vehicleChecklists!.checklistAfter!.vcItem
+              .vehiclePhysical.remarks !=
+          "-") {
+        physicRemark.text = widget.data!.data!.vehicleChecklists!
+            .checklistAfter!.vcItem.vehiclePhysical.remarks!;
+      }
+    }
   }
 
   @override
@@ -292,6 +445,13 @@ class _VehicleChecklistApprovalViewState
                             : widget.data!.data!.vehicleChecklists!
                                 .checklistAfter!.vcItem.document.lesen),
                   ),
+                  documentRemark.text != ""
+                      ? Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 4, vertical: 10),
+                          child: _buildInactiveTextField(documentRemark),
+                        )
+                      : Container()
                 ],
               ),
             ),
@@ -352,6 +512,13 @@ class _VehicleChecklistApprovalViewState
                             : widget.data!.data!.vehicleChecklists!
                                 .checklistAfter!.vcItem.tyre.tekananTayar),
                   ),
+                  tyreRemark.text != ""
+                      ? Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 4, vertical: 10),
+                          child: _buildInactiveTextField(tyreRemark),
+                        )
+                      : Container()
                 ],
               ),
             ),
@@ -444,6 +611,13 @@ class _VehicleChecklistApprovalViewState
                             : widget.data!.data!.vehicleChecklists!
                                 .checklistAfter!.vcItem.mampatan.leachate),
                   ),
+                  mampatanRemark.text != ""
+                      ? Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 4, vertical: 10),
+                          child: _buildInactiveTextField(mampatanRemark),
+                        )
+                      : Container()
                 ],
               ),
             ),
@@ -534,6 +708,13 @@ class _VehicleChecklistApprovalViewState
                             : widget.data!.data!.vehicleChecklists!
                                 .checklistAfter!.vcItem.light.lampuPlet),
                   ),
+                  lightRemark.text != ""
+                      ? Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 4, vertical: 10),
+                          child: _buildInactiveTextField(lightRemark),
+                        )
+                      : Container()
                 ],
               ),
             ),
@@ -802,6 +983,13 @@ class _VehicleChecklistApprovalViewState
                             : widget.data!.data!.vehicleChecklists!
                                 .checklistAfter!.vcItem.engine.asapEkzos),
                   ),
+                  engineRemark.text != ""
+                      ? Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 4, vertical: 10),
+                          child: _buildInactiveTextField(engineRemark),
+                        )
+                      : Container()
                 ],
               ),
             ),
@@ -851,7 +1039,14 @@ class _VehicleChecklistApprovalViewState
                                 .checklistBefore!.vcItem.outside.hon
                             : widget.data!.data!.vehicleChecklists!
                                 .checklistAfter!.vcItem.outside.hon),
-                  )
+                  ),
+                  outsideRemark.text != ""
+                      ? Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 4, vertical: 10),
+                          child: _buildInactiveTextField(outsideRemark),
+                        )
+                      : Container()
                 ],
               ),
             ),
@@ -941,7 +1136,14 @@ class _VehicleChecklistApprovalViewState
                                 .vcItem
                                 .safetyThings
                                 .kotakKecemasan),
-                  )
+                  ),
+                  safetyRemark.text != ""
+                      ? Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 4, vertical: 10),
+                          child: _buildInactiveTextField(safetyRemark),
+                        )
+                      : Container()
                 ],
               ),
             ),
@@ -1010,6 +1212,13 @@ class _VehicleChecklistApprovalViewState
                                 .cleanliness
                                 .luarBadanTrak),
                   ),
+                  cleanTruckRemark.text != ""
+                      ? Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 4, vertical: 10),
+                          child: _buildInactiveTextField(cleanTruckRemark),
+                        )
+                      : Container()
                 ],
               ),
             ),
@@ -1061,7 +1270,14 @@ class _VehicleChecklistApprovalViewState
                                 .vcItem
                                 .binLifterCleanliness
                                 .binDicuci),
-                  )
+                  ),
+                  cleanBinRemark.text != ""
+                      ? Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 4, vertical: 10),
+                          child: _buildInactiveTextField(cleanBinRemark),
+                        )
+                      : Container()
                 ],
               ),
             ),
@@ -1136,6 +1352,13 @@ class _VehicleChecklistApprovalViewState
                                 .accident
                                 .noKenderaanPartiKetiga),
                   ),
+                  accidentRemark.text != ""
+                      ? Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 4, vertical: 10),
+                          child: _buildInactiveTextField(accidentRemark),
+                        )
+                      : Container()
                 ],
               ),
             ),
@@ -1198,6 +1421,13 @@ class _VehicleChecklistApprovalViewState
                                 .vehiclePhysical
                                 .kecacatan),
                   ),
+                  physicRemark.text != ""
+                      ? Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 4, vertical: 10),
+                          child: _buildInactiveTextField(physicRemark),
+                        )
+                      : Container()
                 ],
               ),
             ),
@@ -1226,5 +1456,38 @@ class _VehicleChecklistApprovalViewState
       return before = true;
     }
     return false;
+  }
+
+  TextFormField _buildInactiveTextField(TextEditingController controller,
+      [String? label = ""]) {
+    return TextFormField(
+        controller: controller,
+        readOnly: true,
+        enabled: false,
+        maxLines: 13,
+        minLines: 1,
+        inputFormatters: [LengthLimitingTextInputFormatter(500)],
+        style: TextStyle(
+            color: grey500,
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
+            overflow: TextOverflow.ellipsis),
+        decoration: InputDecoration(
+            filled: true,
+            fillColor: fillColor,
+            contentPadding: const EdgeInsets.all(15),
+            labelText: label,
+            labelStyle: TextStyle(
+              fontSize: 14,
+              color: labelColor,
+              fontWeight: FontWeight.w400,
+            ),
+            disabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                width: 0.5,
+                color: borderTextColor,
+              ),
+              borderRadius: BorderRadius.circular(borderRadiusCircular),
+            )));
   }
 }

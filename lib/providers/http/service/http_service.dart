@@ -66,4 +66,10 @@ class HttpService {
 
   /// Update e-Notice Url as String
   final updateEnotice = '$theBase/attendance/enotis/update';
+
+  /// Update Attendance for clock in Url as String
+  final updateClockIn = '$theBase/attendance/start-work';
+
+  /// Update Attendance for clock in Url as String
+  final updateClockOut = '$theBase/attendance/end-work';
 }

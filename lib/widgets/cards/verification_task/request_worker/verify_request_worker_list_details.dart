@@ -74,7 +74,11 @@ class _VerifyRequestWorkerListDetailsState
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(2, 10, 2, 2),
-            child: widget.index != widget.lastItem
+
+            /// Check for last index on card listing
+            child: widget.index! < 3 &&
+                    widget.index != 2 &&
+                    widget.index != widget.lastItem
                 ? const Divider(
                     thickness: 0.5,
                   )

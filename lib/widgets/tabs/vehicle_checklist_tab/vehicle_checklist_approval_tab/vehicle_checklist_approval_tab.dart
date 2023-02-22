@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 //import files
+import '../../../../config/config.dart';
 import '../../../../config/palette.dart';
 import '../../../../config/string.dart';
 import '../../../../providers/vehicle_checklist/verification/vehicle_checklist_verification_api.dart';
@@ -222,6 +223,9 @@ class _VehicleChecklistApprovalTabState
                                     null,
                                   );
                                 });
+                            setState(() {
+                              refresh.value = !refresh.value;
+                            });
                           } else {
                             // ignore: use_build_context_synchronously
                             Navigator.pop(context);

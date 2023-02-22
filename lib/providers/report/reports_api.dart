@@ -84,9 +84,7 @@ class ReportsApi {
           Map<String, dynamic> decode = json.decode(
             json.encode(response.data),
           );
-
           var convertData = ReportDetailsData.fromJson(decode);
-
           theDetails = convertData.data;
         }
       }
@@ -315,6 +313,7 @@ class ReportsApi {
   static updateReportForApproval(
       BuildContext context, int reportId, String status, String remark) async {
     // print("reportId: $reportId, status: $status, remark: $remark");
+
     FormData bodyData = FormData.fromMap(
         {"report_id": reportId, "status_code": status, "remarks": remark});
     try {
@@ -324,6 +323,7 @@ class ReportsApi {
         return 'ok';
       }
     } on DioError catch (e) {
+      //print(e.response!.data);
       if (e.response?.statusCode == 404) {
         return 'ng';
       }

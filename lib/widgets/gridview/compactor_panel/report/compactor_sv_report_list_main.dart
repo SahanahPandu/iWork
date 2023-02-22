@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 
+//import files
 import '../../../../config/palette.dart';
 import '../../../../models/report/report_list/report_paging.dart';
 import '../../../../providers/report/reports_api.dart';
 import '../../../../utils/icon/custom_icon.dart';
 import 'report_list_tile.dart';
 
-class CompactorReportListMain extends StatelessWidget {
+class CompactorSVReportListMain extends StatelessWidget {
   final Map<String, Object?>? passData;
 
-  const CompactorReportListMain({Key? key, this.passData}) : super(key: key);
+  const CompactorSVReportListMain({Key? key, this.passData}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

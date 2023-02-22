@@ -1,10 +1,10 @@
-import 'package:eswm/widgets/gridview/compactor_panel/schedule/schedule_list_tile.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../models/schedule/compactor/list/schedule_list.dart';
 import '../../../../providers/schedule/compactor_panel/compactor_schedule_api.dart';
 import '../../../../utils/icon/custom_icon.dart';
+import 'schedule_list_tile.dart';
 
 class ScheduleListMain extends StatelessWidget {
   final Map<String, Object>? passData;

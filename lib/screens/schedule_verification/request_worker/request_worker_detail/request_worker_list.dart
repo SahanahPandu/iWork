@@ -205,12 +205,8 @@ class _RequestWorkerListState extends State<RequestWorkerList> {
                 showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      return showAlertDialog(
-                          context,
-                          confirmation,
-                          "Sahkan pinjam pekerja?",
-                          cancel,
-                          "Ya, sahkan");
+                      return showAlertDialog(context, confirmation,
+                          "Sahkan pinjam pekerja?", cancel, "Ya, sahkan");
                     }).then((actionText) async {
                   if (actionText == "Ya, sahkan") {
                     /// Generate new list to keep the result temporarily
@@ -274,7 +270,7 @@ class _RequestWorkerListState extends State<RequestWorkerList> {
   Text _textBuilder() {
     return Text(
         textAlign: TextAlign.center,
-        "Pengesahan pinjam pekerja telah berjaya dihantar!",
+        "Anda telah berjaya sahkan permohonan pinjam pekerja!",
         style: TextStyle(
             fontSize: 15,
             fontWeight: FontWeight.w400,
