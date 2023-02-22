@@ -7,7 +7,7 @@ import '../../config/palette.dart';
 import '../../utils/device/orientations.dart';
 import '../../utils/icon/custom_icon.dart';
 import '../../widgets/custom_scroll/custom_scroll.dart';
-import '../../widgets/gridview/compactor_panel/report/compactor_report_list_main.dart';
+import '../../widgets/gridview/compactor_panel/report/compactor_sv_report_list_main.dart';
 import '../../widgets/listview/card_list_view.dart';
 
 class ReportList extends StatefulWidget {
@@ -32,7 +32,7 @@ class _ReportListState extends State<ReportList> {
                   padding: Orientations().isTabletPortrait(context)
                       ? const EdgeInsets.only(left: 5, right: 5, top: 60)
                       : const EdgeInsets.only(left: 45, right: 45, top: 60),
-                  child: CompactorReportListMain(passData: {
+                  child: CompactorSVReportListMain(passData: {
                     "mainRoute": widget.passData.mainRoute,
                   }),
                 ),

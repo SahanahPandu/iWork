@@ -9,7 +9,7 @@ import '../../models/report/obstacle_types.dart';
 import '../../models/report/report_status.dart';
 import '../../utils/icon/custom_icon.dart';
 import '../../widgets/custom_scroll/custom_scroll.dart';
-import '../../widgets/gridview/compactor_panel/report/compactor_report_list_main.dart';
+import '../../widgets/gridview/compactor_panel/report/compactor_sv_report_list_main.dart';
 import '../../widgets/listview/card_list_view.dart';
 import 'report_filter_drawer.dart';
 
@@ -186,10 +186,10 @@ class _ReportListMainState extends State<ReportListMain> {
               child: ReportFilterDrawer(
                   passData: passData, updateState: updateFilterData),
             )
-          : const SizedBox(),
+          : null,
       body: ScrollConfiguration(
         behavior: CustomScrollBehavior(),
-        child: userRole != 100
+        child: userRole == 200
             ? Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -252,17 +252,25 @@ class _ReportListMainState extends State<ReportListMain> {
                   )
                 ],
               )
-            : Stack(
+            :
+
+            /// REPORT LIST : COMPACTOR PANEL || SUPERVISOR
+            Stack(
                 children: [
                   //filtered selection list
                   if (displayFilterSection) filteredSection(),
                   Padding(
-                    padding: EdgeInsets.only(
-                        left: 16,
-                        right: 16,
-                        top: displayFilterSection ? 85 : 45),
+                    padding: userRole == 100
+                        ? EdgeInsets.only(
+                            left: 16,
+                            right: 16,
+                            top: displayFilterSection ? 85 : 45)
+                        : EdgeInsets.only(
+                            left: 5,
+                            right: 5,
+                            top: displayFilterSection ? 85 : 45),
                     child: displayFilterSection
-                        ? CompactorReportListMain(passData: {
+                        ? CompactorSVReportListMain(passData: {
                             "date": selectedDate,
                             "mainRoute": selMainRoute,
                             "subRoute": selSubRoute,
@@ -271,11 +279,13 @@ class _ReportListMainState extends State<ReportListMain> {
                             "obstacle": selectedObstacles,
                             "statusCode": selectedStatus,
                           })
-                        : const CompactorReportListMain(),
+                        : const CompactorSVReportListMain(),
                   ),
                   Container(
                     color: white,
-                    padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+                    padding: userRole == 100
+                        ? const EdgeInsets.fromLTRB(30, 0, 30, 0)
+                        : const EdgeInsets.fromLTRB(14, 0, 14, 0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -291,7 +301,18 @@ class _ReportListMainState extends State<ReportListMain> {
                           splashColor: transparent,
                           highlightColor: transparent,
                           onPressed: () {
-                            _key.currentState!.openEndDrawer();
+                            userRole == 100
+                                ? _key.currentState!.openEndDrawer()
+                                : Navigator.push(
+                                    context,
+                                    PageTransition(
+                                      type: PageTransitionType.fade,
+                                      child: ReportFilterDrawer(
+                                        passData: passData,
+                                        updateState: updateFilterData,
+                                      ),
+                                    ),
+                                  );
                           },
                           icon: Icon(
                             CustomIcon.filter,
@@ -312,11 +333,13 @@ class _ReportListMainState extends State<ReportListMain> {
     return Container(
       padding: userRole == 100
           ? const EdgeInsets.only(left: 16, top: 28, right: 16, bottom: 10)
-          : const EdgeInsets.only(left: 14, top: 0, right: 14, bottom: 5),
+          : userRole == 200
+              ? const EdgeInsets.only(left: 14, top: 0, right: 14, bottom: 5)
+              : const EdgeInsets.only(left: 14, top: 30, right: 14, bottom: 5),
       child: Column(
         children: [
           SizedBox(
-            height: userRole == 100 ? 20 : 0,
+            height: userRole == 200 ? 0 : 20,
           ),
           SizedBox(
             height: 35,

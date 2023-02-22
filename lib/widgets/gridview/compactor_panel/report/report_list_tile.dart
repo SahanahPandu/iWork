@@ -3,6 +3,7 @@ import 'package:async/async.dart';
 import 'package:flutter/material.dart';
 
 //import files
+import '../../../../config/config.dart';
 import '../../../../config/dimen.dart';
 import '../../../../config/palette.dart';
 import '../../../../models/report/report_details/report_details_info.dart';
@@ -15,7 +16,7 @@ enum ReportLoadMoreStatus { loading, stable }
 
 class ReportListTile extends StatefulWidget {
   final ReportPaging reports;
-  final Map<String, Object?>?passData;
+  final Map<String, Object?>? passData;
 
   const ReportListTile({Key? key, required this.reports, this.passData})
       : super(key: key);
@@ -77,20 +78,30 @@ class ReportListTileState extends State<ReportListTile> {
             )
           : Stack(
               children: [
-                GridView.builder(
-                  shrinkWrap: true,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: axisSpacing(context),
-                      mainAxisSpacing: axisSpacing(context),
-                      childAspectRatio: gridRatioSchedule(context)),
-                  physics: const ScrollPhysics(),
-                  controller: scrollController,
-                  itemCount: reports!.length,
-                  itemBuilder: (_, index) {
-                    return ReportListTileDetail(report: reports![index]!);
-                  },
-                ),
+                userRole == 100
+                    ? GridView.builder(
+                        shrinkWrap: true,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: axisSpacing(context),
+                            mainAxisSpacing: axisSpacing(context),
+                            childAspectRatio: gridRatioSchedule(context)),
+                        physics: const ScrollPhysics(),
+                        controller: scrollController,
+                        itemCount: reports!.length,
+                        itemBuilder: (_, index) {
+                          return ReportListTileDetail(report: reports![index]!);
+                        },
+                      )
+                    : ListView.builder(
+                        shrinkWrap: true,
+                        physics: const ScrollPhysics(),
+                        controller: scrollController,
+                        itemCount: reports!.length,
+                        itemBuilder: (_, index) {
+                          return ReportListTileDetail(report: reports![index]!);
+                        },
+                      ),
                 loadMoreStatus == ReportLoadMoreStatus.loading
                     ? const CircularProgressIndicator()
                     : Container()
