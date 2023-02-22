@@ -5,6 +5,7 @@ import "package:flutter/material.dart";
 //import files
 import '../../config/dimen.dart';
 import '../../config/palette.dart';
+import '../../config/resource.dart';
 // import '../../models/pekerja.dart';
 
 class AbsentEmployeeDetails extends StatefulWidget {
@@ -43,7 +44,9 @@ class _AbsentEmployeeDetailsState extends State<AbsentEmployeeDetails> {
                 child: FittedBox(
                   fit: BoxFit.fill,
                   child: Image.network(
-                      widget.data!.userId!.userDetail!.profilePic!,
+                      widget.data!.userId!.userDetail!.profilePic == blueImg
+                          ? imgPlaceHolder
+                          : widget.data!.userId!.userDetail!.profilePic!,
                       height: 56,
                       width: 56, loadingBuilder: (BuildContext context,
                           Widget child, ImageChunkEvent? loadingProgress) {

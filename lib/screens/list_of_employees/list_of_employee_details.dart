@@ -5,6 +5,7 @@ import "package:flutter/material.dart";
 import '../../config/dimen.dart';
 import '../../config/palette.dart';
 // import '../../models/pekerja.dart';
+import '../../config/resource.dart';
 import '../../models/schedule/schedule_data_detail_cp_sv/schedule_detail.dart';
 import '../../models/user/user_data.dart';
 import '../../widgets/buttons/select_employee_button.dart';
@@ -41,7 +42,9 @@ class _ListOfEmployeeDetailsState extends State<ListOfEmployeeDetails> {
     dynamic theData = widget.dataPekerja;
     if (theData.runtimeType == UserData) {
       setState(() {
-        profileImage = theData.userDetail.profilePic;
+        profileImage = theData.userDetail.profilePic == blueImg
+            ? imgPlaceHolder
+            : theData.userDetail.profilePic;
         workerName = theData.userDetail.name;
         roleDesc = "Pra";
         leaveId = null;
@@ -49,7 +52,9 @@ class _ListOfEmployeeDetailsState extends State<ListOfEmployeeDetails> {
       });
     } else if (theData.runtimeType == WorkerSchedule) {
       setState(() {
-        profileImage = theData.userId!.userDetail!.profilePic!;
+        profileImage = theData.userId!.userDetail!.profilePic == blueImg
+            ? imgPlaceHolder
+            : theData.userId!.userDetail!.profilePic;
         workerName = theData.userId!.userDetail!.name!;
         roleDesc = theData.userId!.userRoles![0].roleDesc!;
         leaveId = theData.userLeaveId;

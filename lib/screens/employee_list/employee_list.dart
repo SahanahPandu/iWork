@@ -38,7 +38,6 @@ class _EmployeeListState extends State<EmployeeList> {
   Color collapseBgColor = const Color(0xff2b7fe8);
 
   getSearchName(name) {
-    print('masuk sini');
     setState(() {
       searchName = name;
     });
