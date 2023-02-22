@@ -4,7 +4,9 @@ import 'package:page_transition/page_transition.dart';
 
 //import files
 import '../../config/palette.dart';
+import '../../config/string.dart';
 import '../../utils/icon/custom_icon.dart';
+import '../../widgets/alert/alert_dialog.dart';
 import '../employee_list/employee_list.dart';
 import '../list_of_employees/list_of_employee_details.dart';
 
@@ -25,6 +27,10 @@ class _ReassignEmployeeDetailsState extends State<ReassignEmployeeDetails> {
   //assigned employee
   dynamic dataEmployee2;
   Color textColor = greenCustom;
+  String noReassignLink = "Teruskan Tanpa Ganti";
+  String noReassignText =
+      "Pekerja tidak diganti dengan mana-mana pekerja lain . Tugasan akan terus dilakukan tanpa pekerja gantian.";
+  bool noReassignTextVisibility = false;
 
   getAssignedEmployeeDetails(dynamic data) {
     //final buttonVisibility = StateInheritedWidget.of(context);
@@ -74,139 +80,161 @@ class _ReassignEmployeeDetailsState extends State<ReassignEmployeeDetails> {
   Widget assignedEmployeeSection() {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-      height: (dataEmployee2 == null) ? 100 : null,
-      color: dataEmployee2 != null ? const Color(0x4DEBFFF0) : Colors.white,
-      child: DottedBorder(
-        borderType: BorderType.RRect,
-        radius: const Radius.circular(8),
-        color: const Color(0xff34A853),
-        strokeWidth: 0.8,
-        dashPattern: const [3, 3],
-        child: (dataEmployee2 != null)
-            ? InkWell(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      PageTransition(
-                          type: PageTransitionType.fade,
-                          child: EmployeeList(
-                            scMainId: widget.passData['sMainId'],
-                            absentEmployee: widget.passData['absentStaff'],
-                            assignedEmployee: getAssignedEmployeeDetails,
-                          )));
-                },
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 16),
-                  child: ListOfEmployeeDetails(
-                    dataPekerja: dataEmployee2,
-                  ),
-                ),
-              )
-            : Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: 135,
-                      height: 36,
-                      child: ElevatedButton(
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(white),
-                          overlayColor: MaterialStateProperty.all(white),
-                          elevation: MaterialStateProperty.all(5),
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(26),
+      // height: (dataEmployee2 == null) ? 200 : null,
+      color: (dataEmployee2 != null || noReassignTextVisibility)
+          ? const Color(0x4DEBFFF0)
+          : Colors.white,
+      child: Column(
+        children: [
+          SizedBox(
+            height: (dataEmployee2 == null) ? 100 : null,
+            child: DottedBorder(
+              borderType: BorderType.RRect,
+              radius: const Radius.circular(8),
+              color: const Color(0xff34A853),
+              strokeWidth: 0.8,
+              dashPattern: const [3, 3],
+              child: (noReassignTextVisibility)
+                  ? Center(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 16,
+                        ),
+                        child: Text(
+                          noReassignText,
+                          style: TextStyle(
+                            color: blackCustom,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w400,
+                            fontStyle: FontStyle.italic,
+                          ),
+                        ),
+                      ),
+                    )
+                  : (dataEmployee2 != null)
+                      ? InkWell(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                PageTransition(
+                                    type: PageTransitionType.fade,
+                                    child: EmployeeList(
+                                      scMainId: widget.passData['sMainId'],
+                                      absentEmployee:
+                                          widget.passData['absentStaff'],
+                                      assignedEmployee:
+                                          getAssignedEmployeeDetails,
+                                    )));
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 16),
+                            child: ListOfEmployeeDetails(
+                              dataPekerja: dataEmployee2,
+                            ),
+                          ),
+                        )
+                      : Center(
+                          child: SizedBox(
+                            width: 135,
+                            height: 36,
+                            child: ElevatedButton(
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all(white),
+                                overlayColor: MaterialStateProperty.all(white),
+                                shadowColor: MaterialStateProperty.all(white),
+                                elevation: MaterialStateProperty.all(5),
+                                shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(26),
+                                  ),
+                                ),
+                              ),
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    PageTransition(
+                                        type: PageTransitionType.fade,
+                                        child: EmployeeList(
+                                          scMainId: widget.passData['sMainId'],
+                                          absentEmployee:
+                                              widget.passData['absentStaff'],
+                                          assignedEmployee:
+                                              getAssignedEmployeeDetails,
+                                        )));
+                              },
+                              child: Row(
+                                children: [
+                                  Text(
+                                    "Ganti Pekerja",
+                                    style: TextStyle(
+                                      color: textColor,
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 8,
+                                  ),
+                                  Center(
+                                    child: Icon(
+                                      CustomIcon.arrowRight,
+                                      color: textColor,
+                                      size: 15,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              PageTransition(
-                                  type: PageTransitionType.fade,
-                                  child: EmployeeList(
-                                    scMainId: widget.passData['sMainId'],
-                                    absentEmployee:
-                                        widget.passData['absentStaff'],
-                                    assignedEmployee:
-                                        getAssignedEmployeeDetails,
-                                  )));
-                        },
-                        child: Row(
-                          children: [
-                            Text(
-                              "Ganti Pekerja",
-                              style: TextStyle(
-                                color: textColor,
-                                fontSize: 13,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 8,
-                            ),
-                            Center(
-                              child: Icon(
-                                CustomIcon.arrowRight,
-                                color: textColor,
-                                size: 15,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 24,
-                    ),
-                    Text("Teruskan Tanpa Ganti",
-                        style: TextStyle(
-                          color: blackCustom,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400,
-                          decoration: TextDecoration.underline,
-                        )),
-                  ],
-                ),
+            ),
+          ),
+          const SizedBox(
+            height: 24,
+          ),
+          InkWell(
+            onTap: () {
+              if (noReassignLink != "Batal") {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return showAlertDialog(
+                          context,
+                          confirmation,
+                          "Adakah anda pasti untuk teruskan tugas tanpa ganti pekerja ini sekarang?",
+                          cancel,
+                          yesConfirm);
+                    }).then((actionText) async {
+                  if (actionText == yesConfirm) {
+                    setState(() {
+                      noReassignTextVisibility = true;
+                      noReassignLink = "Batal";
+                      dataEmployee2 = null;
+                    });
+                  }
+                });
+              } else {
+                setState(() {
+                  noReassignTextVisibility = false;
+                  noReassignLink = "Teruskan Tanpa Ganti";
+                });
+              }
+            },
+            child: Text(
+              noReassignLink,
+              style: TextStyle(
+                color: blackCustom,
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+                decoration: TextDecoration.underline,
               ),
-        // Center(
-        //     child: Column(
-        //       mainAxisAlignment: MainAxisAlignment.spaceAround,
-        //       children: [
-        //         Text("Ganti Pekerja",
-        //             style: TextStyle(
-        //               color: textColor,
-        //               fontSize: 13,
-        //               fontWeight: FontWeight.w400,
-        //               decoration: TextDecoration.underline,
-        //             )),
-        //       ],
-        //     ),
-        //   ),
+            ),
+          ),
+        ],
       ),
     );
   }
-
-// Widget? showBottomButton() {
-//   showBottomSheet(
-//     context: context,
-//     builder: (builder) {
-//       return SizedBox(
-//         height: MediaQuery.of(context).size.height * 0.1,
-//         width: MediaQuery.of(context).size.width,
-//         child: const BottomAppBar(
-//           elevation: 40,
-//           color: Colors.white,
-//           child: Padding(
-//             padding: EdgeInsets.symmetric(horizontal: 26, vertical: 17),
-//             child: SahkanGantiPekerjaButton(),
-//           ),
-//         ),
-//       );
-//     },
-//   );
-//   return null;
-// }
 }
