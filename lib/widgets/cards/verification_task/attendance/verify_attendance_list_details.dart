@@ -25,7 +25,10 @@ class _VerifyAttendanceListDetailsState
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 4),
       decoration: BoxDecoration(
-        border: widget.index != widget.lastItem
+        /// Check for last index on card listing
+        border: widget.index! < 3 &&
+                widget.index != 2 &&
+                widget.index != widget.lastItem
             ? Border(
                 top: BorderSide.none,
                 bottom: BorderSide(

@@ -42,7 +42,7 @@ class _ScheduleVerificationMainState extends State<ScheduleVerificationMain> {
         widget.sahData!.checklist!.isNotEmpty
             ? _buildVerifyCard(
                 context,
-                attendanceMainCard,
+                vcMainCard,
                 "Semakan Kenderaan",
                 "Sahkan Semakan Kenderaan",
                 VehicleChecklistVerification(

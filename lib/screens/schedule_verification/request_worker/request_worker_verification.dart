@@ -22,7 +22,7 @@ class _RequestWorkerVerificationState extends State<RequestWorkerVerification> {
       itemCount: widget.requestData!.length,
       itemBuilder: (context, index) {
         var lastItem = widget.requestData!.length - 1;
-        if (index < 4) {
+        if (index < 3) {
           return InkWell(
             onTap: () {},
             child: VerifyRequestWorkerListDetails(

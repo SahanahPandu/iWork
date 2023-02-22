@@ -27,7 +27,7 @@ class _VehicleChecklistVerificationState
       itemCount: widget.checklistData!.length,
       itemBuilder: (context, index) {
         var lastItem = widget.checklistData!.length - 1;
-        if (index < 4) {
+        if (index < 3) {
           return InkWell(
             onTap: () {
               Navigator.push(

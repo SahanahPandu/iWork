@@ -130,7 +130,7 @@ class _RequestWorkerDetailListState extends State<RequestWorkerDetailList> {
                   ),
                   const SizedBox(height: 20),
                   SizedBox(
-                    width: Sizes().screenWidth(context) * 0.62,
+                    width: Sizes().screenWidth(context) * 0.61,
                     child: Table(
                       defaultVerticalAlignment: TableCellVerticalAlignment.top,
                       columnWidths: const {
@@ -184,6 +184,7 @@ class _RequestWorkerDetailListState extends State<RequestWorkerDetailList> {
                       ],
                     ),
                   ),
+                  const SizedBox(height: 8),
                   Row(
                     children: [
                       OutlinedButton(
@@ -219,7 +220,7 @@ class _RequestWorkerDetailListState extends State<RequestWorkerDetailList> {
                           size: 24,
                         ),
                       ),
-                      const SizedBox(width: 20),
+                      const SizedBox(width: 16),
                       OutlinedButton(
                         style: OutlinedButton.styleFrom(
                           primary: transparent,

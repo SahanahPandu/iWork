@@ -274,7 +274,7 @@ class _RequestWorkerListState extends State<RequestWorkerList> {
   Text _textBuilder() {
     return Text(
         textAlign: TextAlign.center,
-        "Pengesahan pinjam pekerja telah berjaya dihantar!",
+        "Anda telah berjaya sahkan permohonan pinjam pekerja!",
         style: TextStyle(
             fontSize: 15,
             fontWeight: FontWeight.w400,

@@ -23,7 +23,7 @@ class _AttendanceVerificationState extends State<AttendanceVerification> {
       itemCount: widget.attendanceData!.length,
       itemBuilder: (context, index) {
         var lastItem = widget.attendanceData!.length - 1;
-        if (index < 4) {
+        if (index < 3) {
           return VerifyAttendanceListDetails(
               data: widget.attendanceData![index],
               index: index,
