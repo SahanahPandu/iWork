@@ -62,7 +62,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
       _setSvFeedbackText();
     }
 
-    // _setBaFeedbackText();
+    _setBaFeedbackText();
     _loadReportStatus(widget.reportData.status!.statusCode,
         widget.reportData.obstacleType!.code!);
     borderTextColor = const Color.fromRGBO(221, 223, 226, 1);
@@ -86,21 +86,26 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
     }
   }
 
-/*
   void _setBaFeedbackText() {
-    if (widget.data!.statusBA != "") {
-      setState(() {
-        _baStatus.text = widget.data!.statusBA;
-      });
+    if (widget.reportData.status!.statusCode == "RSHB" ||
+        widget.reportData.status!.statusCode == "RTLB") {
+      /// ENABLE THIS ONCE BA PART IS INCLUDED
+      /* _baStatus.text = widget.reportData.status!.statusName;
+
+      if (widget.reportData.baRemarks != null) {
+        setState(() {
+          _baFeedback.text = widget.reportData.baRemarks!;
+        });
+      } else {
+        _baFeedback.text = "-";
+      }*/
+
+    } else if (widget.reportData.status!.statusCode == "RTLS" ||
+        widget.reportData.status!.statusCode == "RTRS") {
+      _baStatus.text = "";
+      _baFeedback.text = "";
     }
-    if (widget.data!.maklumbalasBA != "") {
-      setState(() {
-        _baFeedback.text = widget.data!.maklumbalasBA;
-      });
-    } else {
-      _baFeedback.text = "-";
-    }
-  }*/
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -410,7 +415,32 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
           ],
         );
       case 4:
+
+        /// diterima/tolak -> laluan/cuaca/kerosakan tong
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 15),
+              child: Text("Maklumbalas kepada PRA:",
+                  style: TextStyle(
+                      color: blackCustom,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400)),
+            ),
+            _buildTextForm(_svStatus, "Status"),
+            _buildTextForm(_svFeedback, "Maklumbalas", true),
+            const SizedBox(height: 20),
+            widget.reportData.status!.statusCode == "RTRS"
+                ? _showPendingBApproval()
+                : Container(),
+          ],
+        );
+
+      /// diterima/tolak -> kerosakan kenderaan
       case 5:
+
+      /// diterima/tolak -> kerosakan tayar
       case 6:
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -458,6 +488,25 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
         Container();
     }
     return Container();
+  }
+
+  Column _showPendingBApproval() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Divider(height: 0.5),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 18),
+          child: Text("Pengesahan dari BA:",
+              style: TextStyle(
+                  color: blackCustom,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w400)),
+        ),
+        _buildTextForm(_baStatus, "Status"),
+        _buildTextForm(_baFeedback, "Maklumbalas", true),
+      ],
+    );
   }
 
   Padding _buildTextForm(TextEditingController textController, String label,
