@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
 //import files
-import '../../../config/config.dart';
-import '../../../config/dimen.dart';
 import '../../../config/palette.dart';
 import '../../../models/vc/confirmation/vc_verification_list.dart';
 import '../../../providers/vehicle_checklist/verification/vehicle_checklist_verification_api.dart';
@@ -93,7 +91,10 @@ class _VehicleChecklistApprovalMainState
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: FutureBuilder<List<ChecklistList>?>(
                 future: VehicleChecklistVerificationApi
-                    .getVehicleChecklistVerificationList(context, Date.getTheDate(DateTime.now(), '', "yyyy-MM-dd", 'ms')),
+                    .getVehicleChecklistVerificationList(
+                        context,
+                        Date.getTheDate(
+                            DateTime.now(), '', "yyyy-MM-dd", 'ms')),
                 builder: (context, snapshot) {
                   final dataFuture = snapshot.data;
 
@@ -109,97 +110,62 @@ class _VehicleChecklistApprovalMainState
                             child: Text("Some errors occurred!"));
                       } else {
                         if (snapshot.hasData) {
-                          if (userRole == 100) {
-                            return Expanded(
-                                child: Container(
-                              height: 500,
-                              margin: const EdgeInsets.all(10),
-                              child: GridView.builder(
-                                gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 2,
-                                        crossAxisSpacing: axisSpacing(context),
-                                        mainAxisSpacing: axisSpacing(context),
-                                        childAspectRatio: 2.8),
-                                physics: const BouncingScrollPhysics(),
-                                itemCount: dataFuture!.length,
-                                itemBuilder: (context, i) {
-                                  return GestureDetector(
-                                      onTap: () {
-                                        Navigator.push(
-                                            context,
-                                            PageTransition(
-                                                type: PageTransitionType.fade,
-                                                child:
-                                                    const VehicleChecklistApprovalTab()));
-                                        //print("index clicked ${i - 1}");
-                                      },
-                                      child: buildTabletCard(
-                                          VehicleChecklistApprovalDetails(
-                                        data: dataFuture[i],
-                                      )));
-                                },
-                              ),
-                            ));
-                          } else {
-                            return ListView.builder(
-                              physics: const NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              itemCount: dataFuture!.length,
-                              itemBuilder: (context, index) {
-                                if (dataFuture.isNotEmpty) {
-                                  return GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          PageTransition(
-                                              type: PageTransitionType.fade,
-                                              child:
-                                                  VehicleChecklistApprovalTab(
-                                                      vcData:
-                                                          dataFuture[index])));
-                                    },
-                                    child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 8, horizontal: 10),
-                                        child: Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(14),
-                                              color: white,
-                                              boxShadow: [
-                                                BoxShadow(
-                                                    color: cardShadowColor,
-                                                    offset: const Offset(0, 2),
-                                                    blurRadius: 10,
-                                                    spreadRadius: 0.5)
-                                              ],
-                                            ),
-                                            child: Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 16),
-                                                child:
-                                                    VehicleChecklistApprovalDetails(
-                                                  data: dataFuture[index],
-                                                )))),
-                                  );
-                                } else {
-                                  Padding(
+                          return ListView.builder(
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: dataFuture!.length,
+                            itemBuilder: (context, index) {
+                              if (dataFuture.isNotEmpty) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        PageTransition(
+                                            type: PageTransitionType.fade,
+                                            child: VehicleChecklistApprovalTab(
+                                                vcData: dataFuture[index])));
+                                  },
+                                  child: Padding(
                                       padding: const EdgeInsets.symmetric(
-                                          horizontal: 20, vertical: 10),
-                                      child: Text(
-                                        "Tiada rekod dijumpai",
-                                        style: TextStyle(
-                                            color: grey500,
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.w500),
-                                      ));
-                                }
-                                return Container();
-                              },
-                            );
-                          }
+                                          vertical: 8, horizontal: 10),
+                                      child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(14),
+                                            color: white,
+                                            boxShadow: [
+                                              BoxShadow(
+                                                  color: cardShadowColor,
+                                                  offset: const Offset(0, 2),
+                                                  blurRadius: 10,
+                                                  spreadRadius: 0.5)
+                                            ],
+                                          ),
+                                          child: Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 16),
+                                              child:
+                                                  VehicleChecklistApprovalDetails(
+                                                data: dataFuture[index],
+                                                isDrawer: false,
+                                              )))),
+                                );
+                              } else {
+                                Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20, vertical: 10),
+                                    child: Text(
+                                      "Tiada rekod dijumpai",
+                                      style: TextStyle(
+                                          color: grey500,
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w500),
+                                    ));
+                              }
+                              return Container();
+                            },
+                          );
                         } else {
                           return Center(
                             child: Container(

@@ -17,6 +17,7 @@ class CompactorSVReportListMain extends StatelessWidget {
   Widget build(BuildContext context) {
     refreshReportList.value = !refreshReportList.value;
     return ValueListenableBuilder(
+      valueListenable: refreshReportList,
       builder: (BuildContext context, value, Widget? child) {
         if (value == refreshReportList.value) {
           return FutureBuilder<ReportPaging>(
@@ -73,7 +74,6 @@ class CompactorSVReportListMain extends StatelessWidget {
         }
         return Container();
       },
-      valueListenable: refreshReportList,
     );
   }
 }

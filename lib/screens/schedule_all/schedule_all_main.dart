@@ -81,7 +81,10 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
       body: ScrollConfiguration(
         behavior: CustomScrollBehavior(),
         child: userRole == 100 || userRole == 300
-            ? Stack(
+            ?
+
+            /// SCHEDULE LIST : COMPACTOR PANEL || SUPERVISOR
+            Stack(
                 children: [
                   Padding(
                       padding: userRole == 100
@@ -236,14 +239,14 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                         ),
                       ),
                       const SizedBox(
-                        height: 18,
+                        height: 16,
                       ),
                       const Divider(
                         thickness: 0.5,
-                        color: Color(0xffe0e0e0),
+                        color: Color(0xffd7d7d7),
                       ),
                       const SizedBox(
-                        height: 24,
+                        height: 22,
                       ),
                       Expanded(
                         child: ListView(
@@ -283,7 +286,7 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     width: borderSideWidth,
-                                    color: enabledBorderWithoutText,
+                                    color: borderTextColor,
                                   ),
                                   borderRadius: BorderRadius.circular(
                                     borderRadiusCircular,
@@ -292,7 +295,7 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     width: borderSideWidth,
-                                    color: enabledBorderWithoutText,
+                                    color: borderTextColor,
                                   ),
                                   borderRadius: BorderRadius.circular(
                                     borderRadiusCircular,
@@ -301,7 +304,7 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                                 disabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     width: borderSideWidth,
-                                    color: enabledBorderWithoutText,
+                                    color: borderTextColor,
                                   ),
                                   borderRadius: BorderRadius.circular(
                                     borderRadiusCircular,
@@ -385,7 +388,7 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                                           (BuildContext context,
                                               StateSetter setState) {
                                         return Wrap(
-                                          runSpacing: 8,
+                                          runSpacing: 2,
                                           spacing: 16,
                                           children: statusData
                                               .map(
@@ -651,10 +654,10 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                     ],
                   ),
                 ),
-                Expanded(
+                const Expanded(
                   child: Divider(
                     thickness: 0.5,
-                    color: greyCustom,
+                    color: Color(0xffd7d7d7),
                   ),
                 ),
                 const SizedBox(

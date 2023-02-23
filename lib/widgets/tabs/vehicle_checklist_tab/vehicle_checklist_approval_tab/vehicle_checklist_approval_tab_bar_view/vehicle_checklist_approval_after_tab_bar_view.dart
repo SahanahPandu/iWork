@@ -8,9 +8,11 @@ import '../../../../custom_scroll/custom_scroll.dart';
 
 class VehicleChecklistApprovalAfterTabbarView extends StatefulWidget {
   final dynamic vcData;
+  final int? vcId;
+  final String? routeName;
 
   const VehicleChecklistApprovalAfterTabbarView(
-      {Key? key, required this.vcData})
+      {Key? key, required this.vcData, this.vcId, this.routeName})
       : super(key: key);
 
   @override
@@ -29,7 +31,7 @@ class _VehicleChecklistApprovalAfterTabbarViewState
       child: SingleChildScrollView(
           child: FutureBuilder<VehicleChecklistMain?>(
               future: VehicleChecklistApi.getVehicleChecklistData(
-                  context, widget.vcData.vehicleChecklistId.id),
+                  context, widget.vcId),
               builder: (context, snapshot) {
                 switch (snapshot.connectionState) {
                   case ConnectionState.waiting:
@@ -48,7 +50,7 @@ class _VehicleChecklistApprovalAfterTabbarViewState
                             data: checklistData,
                             section: 1,
                             vehicleName: widget.vcData.vehicleNo,
-                            routeName: widget.vcData.mainRoute);
+                            routeName: widget.routeName);
                       }
                     }
                 }

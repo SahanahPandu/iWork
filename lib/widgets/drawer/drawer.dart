@@ -12,7 +12,6 @@ import '../../screens/e_cuti/e_cuti.dart';
 import '../../screens/reports/report_list_main.dart';
 import '../../screens/schedule_all/schedule_all_main.dart';
 import '../../screens/schedule_shift/schedule_shift_main.dart';
-import '../../screens/vehicle_checklist/vehicle_checklist_approval/vehicle_checklist_approval_main.dart';
 import '../../screens/vehicle_checklist/vehicle_checklist_list/vehicle_checklist_list_main.dart';
 import '../../screens/workshop_vehicle/workshop_vehicle_main.dart';
 import '../../utils/authentication/auth.dart';
@@ -423,13 +422,13 @@ class _DrawerBuildState extends State<DrawerBuild> {
                 PageTransition(
                     type: PageTransitionType.fade, child: const AkbkMainTab()));
             break;
-          case 6: // Vehicle Checklist Approval
+          case 6: // Vehicle Checklist List for Approval
             Navigator.pop(context);
             Navigator.push(
                 context,
                 PageTransition(
                     type: PageTransitionType.fade,
-                    child: const VehicleChecklistApprovalMain()));
+                    child: const VehicleChecklistListMain()));
             break;
           case 7: // Workshop Vehicle
             Navigator.pop(context);

@@ -429,7 +429,7 @@ class ReportFilterDrawerState extends State<ReportFilterDrawer> {
                     StatefulBuilder(builder:
                         (BuildContext context, StateSetter setStatusState) {
                       return Wrap(
-                        runSpacing: 8,
+                        runSpacing: 2,
                         spacing: 16,
                         children: statusData
                             .map(
@@ -529,7 +529,7 @@ class ReportFilterDrawerState extends State<ReportFilterDrawer> {
                     StatefulBuilder(builder:
                         (BuildContext context, StateSetter setObstacleState) {
                       return Wrap(
-                        runSpacing: 8,
+                        runSpacing: 2,
                         spacing: 16,
                         children: obstaclesData
                             .map(
