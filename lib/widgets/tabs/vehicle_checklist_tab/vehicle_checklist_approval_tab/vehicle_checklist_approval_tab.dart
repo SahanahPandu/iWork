@@ -15,11 +15,15 @@ import 'vehicle_checklist_approval_tab_bar_view/vehicle_checklist_approval_after
 import 'vehicle_checklist_approval_tab_bar_view/vehicle_checklist_approval_before_tab_bar_view.dart';
 
 class VehicleChecklistApprovalTab extends StatefulWidget {
-  // Task (clicked directly from main card list) --> VehicleChecklist (supervisor_task.dart)
-  // Task/confirmation/list (clicked from today's vc confirmation list)--> VehicleChecklistList (VCVerificationList.dart)
+  /// Task (clicked directly from main card list) --> VehicleChecklist (supervisor_task.dart)
+  /// Task/confirmation/list (clicked from today's vc confirmation list)--> VehicleChecklistList (VCVerificationList.dart)
+  /// VC App drawer list -> VCListDetail
   final dynamic vcData;
+  final bool? isDrawer;
 
-  const VehicleChecklistApprovalTab({Key? key, this.vcData}) : super(key: key);
+  const VehicleChecklistApprovalTab(
+      {Key? key, this.vcData, this.isDrawer = false})
+      : super(key: key);
 
   @override
   State<VehicleChecklistApprovalTab> createState() =>
@@ -30,10 +34,22 @@ class _VehicleChecklistApprovalTabState
     extends State<VehicleChecklistApprovalTab>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  String? statusCode = "";
+  String? routeName = "";
+  int? vcId = 0;
 
   @override
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
+    if (widget.isDrawer!) {
+      statusCode = widget.vcData!.statusCode!.code;
+      vcId = widget.vcData!.scheduleCollectionMain!.vehicleChecklistId;
+      routeName = widget.vcData.scheduleCollectionMain!.mainRoute;
+    } else {
+      statusCode = widget.vcData!.vehicleChecklistId.statusCode!.code;
+      vcId = widget.vcData.vehicleChecklistId.id;
+      routeName = widget.vcData.mainRoute;
+    }
     super.initState();
   }
 
@@ -118,9 +134,7 @@ class _VehicleChecklistApprovalTabState
                     unselectedLabelColor: greyCustom,
                     onTap: (index) {
                       if (index == 1) {
-                        if (widget
-                                .vcData!.vehicleChecklistId.statusCode!.code ==
-                            "VC1") {
+                        if (statusCode == "VC1") {
                           _tabController.index = 0;
                           showInfoToast(context,
                               "Tiada rekod bagi semakan kenderaan (selepas)",
@@ -148,8 +162,12 @@ class _VehicleChecklistApprovalTabState
                     controller: _tabController,
                     children: [
                       VehicleChecklistApprovalBeforeTabbarView(
+                          vcId: vcId,
+                          routeName: routeName,
                           vcData: widget.vcData!),
                       VehicleChecklistApprovalAfterTabbarView(
+                          vcId: vcId,
+                          routeName: routeName,
                           vcData: widget.vcData!),
                     ],
                   ),
@@ -158,9 +176,7 @@ class _VehicleChecklistApprovalTabState
             ],
           ),
         ),
-        bottomNavigationBar: widget
-                    .vcData!.vehicleChecklistId.statusCode!.code !=
-                "VC1"
+        bottomNavigationBar: statusCode != "VC1" && statusCode != "VC3"
             ? Container(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
@@ -207,8 +223,7 @@ class _VehicleChecklistApprovalTabState
                           }).then((actionText) async {
                         if (actionText == "Ya, Sahkan") {
                           var result = await VehicleChecklistVerificationApi
-                              .verifyVehicleChecklist(
-                                  context, widget.vcData.vehicleChecklistId.id);
+                              .verifyVehicleChecklist(context, vcId!);
                           if (result == 'ok') {
                             // ignore: use_build_context_synchronously
                             Navigator.pop(context);
@@ -225,6 +240,7 @@ class _VehicleChecklistApprovalTabState
                                 });
                             setState(() {
                               refresh.value = !refresh.value;
+                              refreshVcList.value = !refreshVcList.value;
                             });
                           } else {
                             // ignore: use_build_context_synchronously
@@ -247,7 +263,7 @@ class _VehicleChecklistApprovalTabState
 
   Text _text() {
     return Text(
-        "Semakan Kenderaan bagi kenderaan ${widget.vcData.vehicleNo} tidak berjaya disahkan. Sila cuba lagi",
+        "Semakan Kenderaan bagi kenderaan ${widget.vcData!.vehicleNo} tidak berjaya disahkan. Sila cuba lagi",
         style: TextStyle(
             fontSize: 15,
             fontWeight: FontWeight.w400,
@@ -281,7 +297,7 @@ class _VehicleChecklistApprovalTabState
                       color: greyCustom,
                       height: 1.5)),
               TextSpan(
-                  text: " ${widget.vcData.vehicleNo}",
+                  text: " ${widget.vcData!.vehicleNo}",
                   style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,

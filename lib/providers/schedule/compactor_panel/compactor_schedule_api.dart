@@ -13,7 +13,8 @@ import '../../http/service/http_header.dart';
 import '../../http/service/http_service.dart';
 
 class CompactorScheduleApi {
-  static Future<ScheduleList> fetchCompactScheduleList(
+  /// App drawer - Schedule list (Used by Compactor panel, Supervisor)
+  static Future<ScheduleList> fetchScheduleLists(
       BuildContext context, int pageNumber,
       [Map<String, Object>? passData]) async {
     String? getAccessToken = userInfo[1];

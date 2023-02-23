@@ -15,7 +15,7 @@ class ScheduleListMain extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder<ScheduleList>(
         future:
-            CompactorScheduleApi.fetchCompactScheduleList(context, 1, passData),
+            CompactorScheduleApi.fetchScheduleLists(context, 1, passData),
         builder: (context, snapshots) {
           if (snapshots.hasError) {
             return Center(

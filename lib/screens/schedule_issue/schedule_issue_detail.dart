@@ -9,7 +9,6 @@ import '../../config/font.dart';
 import '../../models/employee/reassign_employee.dart';
 import '../../models/schedule/schedule_data_detail_cp_sv/schedule_detail.dart';
 import '../../models/schedule/supervisor/detail/sv_schedule_detail.dart';
-import '../../models/task/supervisor/supervisor_task.dart';
 import '../../providers/schedule/supervisor/supervisor_schedule_api.dart';
 import '../../utils/device/sizes.dart';
 import '../../widgets/alert/user_profile_dialog.dart';
@@ -23,7 +22,7 @@ import '../street_search/street_search.dart';
 import 'report/report_of_schedule_approval/report_of_schedule_approval_main.dart';
 
 class ScheduleIssueDetail extends StatefulWidget {
-  final Isu getInfo;
+  final dynamic getInfo;
   final String getIssue;
 
   const ScheduleIssueDetail({
@@ -87,40 +86,39 @@ class _ScheduleIssueDetailState extends State<ScheduleIssueDetail> {
   Widget build(BuildContext context) {
     return Stack(children: [
       FutureBuilder<SupervisorScheduleDetail?>(
-        future: SupervisorScheduleApi.getSupervisorScheduleDetail(
-            context, widget.getInfo.scMainId),
-        builder: (context, snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.waiting:
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            default:
-              if (snapshot.hasError) {
-                return const Center(child: Text("Some error occurred"));
-              } else {
-                scheduleDetail = snapshot.data!;
-                return ExpandCollapseHeader(
-                    centerTitle: false,
-                    title: _collapseTitle(),
-                    headerExpandedHeight: 0.54,
-                    alwaysShowLeadingAndAction: false,
-                    headerWidget: _header(context, scheduleDetail),
-                    fullyStretchable: true,
-                    body: [
-                      _scrollBody(scheduleDetail),
-                    ],
-                    curvedBodyRadius: 24,
-                    fixedTitle: _fixedTitle(context),
-                    fixedTitleHeight: 60,
-                    collapseFade: 80,
-                    backgroundColor: transparent,
-                    appBarColor: collapseBgColor,
-                    collapseButton: widget.getIssue == "IBMT" ? true : false);
-              }
-          }
-        },
-      ),
+          future: SupervisorScheduleApi.getSupervisorScheduleDetail(
+              context, widget.getInfo.id),
+          builder: (context, snapshot) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.waiting:
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              default:
+                if (snapshot.hasError) {
+                  return const Center(child: Text("Some error occurred"));
+                } else {
+                  scheduleDetail = snapshot.data!;
+                  return ExpandCollapseHeader(
+                      centerTitle: false,
+                      title: _collapseTitle(),
+                      headerExpandedHeight: 0.54,
+                      alwaysShowLeadingAndAction: false,
+                      headerWidget: _header(context, scheduleDetail),
+                      fullyStretchable: true,
+                      body: [
+                        _scrollBody(scheduleDetail),
+                      ],
+                      curvedBodyRadius: 24,
+                      fixedTitle: _fixedTitle(context),
+                      fixedTitleHeight: 60,
+                      collapseFade: 80,
+                      backgroundColor: transparent,
+                      appBarColor: collapseBgColor,
+                      collapseButton: widget.getIssue == "IBMT" ? true : false);
+                }
+            }
+          }),
       widget.getIssue == "IBMT"
           ? Positioned(
               bottom: 25,
@@ -174,7 +172,7 @@ class _ScheduleIssueDetailState extends State<ScheduleIssueDetail> {
           padding: const EdgeInsets.symmetric(vertical: 5),
           child: ReassignEmployeeList(
             key: reassignEmployeeListKey,
-            scMainId: widget.getInfo.scMainId,
+            scMainId: widget.getInfo.id,
             absentStaffList: scheduleDetail.data.details.workerSchedules,
             updateReassignList: reassignEmployeeList,
           ),
@@ -188,8 +186,7 @@ class _ScheduleIssueDetailState extends State<ScheduleIssueDetail> {
         /// Laporan Halangan Kerja
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-          child:
-              ReportOfScheduleApprovalMain(scMainId: widget.getInfo.scMainId),
+          child: ReportOfScheduleApprovalMain(scMainId: widget.getInfo.id),
         );
       default:
         return Container();
@@ -201,7 +198,7 @@ class _ScheduleIssueDetailState extends State<ScheduleIssueDetail> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Text(
-          widget.getInfo.mainRoute,
+          widget.getInfo.mainRoute!,
           style: TextStyle(
             color: white,
             fontWeight: FontWeight.w700,
@@ -210,8 +207,8 @@ class _ScheduleIssueDetailState extends State<ScheduleIssueDetail> {
         ),
         StatusContainer(
           type: "Laluan",
-          status: widget.getInfo.statusCode.name,
-          statusId: widget.getInfo.statusCode.code,
+          status: widget.getInfo.statusCode!.name!,
+          statusId: widget.getInfo.statusCode!.code,
           fontWeight: statusFontWeight,
           roundedCorner: true,
         ),

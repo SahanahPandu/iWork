@@ -223,7 +223,7 @@ class ReportsApi {
 
     return filteredList;
   }
-
+  /// App drawer - Report list (Used by Compactor panel, Supervisor)
   static Future<ReportPaging> fetchReportList(
       BuildContext context, int pageNumber,
       [Map<String, Object?>? passData]) async {

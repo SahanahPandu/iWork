@@ -266,8 +266,8 @@ class _ReportListMainState extends State<ReportListMain> {
                             right: 16,
                             top: displayFilterSection ? 85 : 45)
                         : EdgeInsets.only(
-                            left: 5,
-                            right: 5,
+                            left: 8,
+                            right: 8,
                             top: displayFilterSection ? 85 : 45),
                     child: displayFilterSection
                         ? CompactorSVReportListMain(passData: {
@@ -285,7 +285,7 @@ class _ReportListMainState extends State<ReportListMain> {
                     color: white,
                     padding: userRole == 100
                         ? const EdgeInsets.fromLTRB(30, 0, 30, 0)
-                        : const EdgeInsets.fromLTRB(14, 0, 14, 0),
+                        : const EdgeInsets.fromLTRB(16, 0, 4, 0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

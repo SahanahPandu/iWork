@@ -7,8 +7,11 @@ import 'package:http/http.dart' as http;
 
 //import files
 import '../../config/config.dart';
+import '../../models/options/options_data.dart';
 import '../../models/vc/detail/vc_main.dart';
 import '../../models/vc/list/data/vc_data.dart';
+import '../../models/vc/status/vc_filter_status.dart';
+import '../../utils/calendar/date.dart';
 import '../http/error/api_error.dart';
 import '../http/service/http_header.dart';
 import '../http/service/http_service.dart';
@@ -191,12 +194,36 @@ class VehicleChecklistApi {
       [Map<String, Object>? passData]) async {
     String? getAccessToken = userInfo[1];
     dynamic vcList;
-
+    dynamic myData =
+        passData != null ? Map<String, dynamic>.from(passData) : null;
+    dynamic convDate = "";
+    dynamic statusList;
+    List newStatusList = [];
+    dynamic futureResponse;
     try {
-      final response = await Dio().get(
-          '$theBase/task/vehicle-checklist-list?page=$pageNumber',
-          options: HttpHeader.getApiHeader(getAccessToken));
+      if (myData != null) {
+        if (myData['filteredDate'] != "") {
+          convDate = Date.getTheDate(
+              myData['filteredDate'], "dd/MM/yyyy", "yyyy-MM-dd", "ms");
+        }
+        statusList = myData['selectedStatus'];
+        if (statusList.length > 0) {
+          for (int i = 0; i < statusList.length; i++) {
+            newStatusList.add(statusList[i].code);
+          }
+        }
+        futureResponse = Dio().get(
+            '$theBase/task/vehicle-checklist-list?page=$pageNumber',
+            options: HttpHeader.getApiHeader(getAccessToken),
+            queryParameters:
+                _getQueryParameter(passData, convDate, newStatusList));
+      } else {
+        futureResponse = Dio().get(
+            '$theBase/task/vehicle-checklist-list?page=$pageNumber',
+            options: HttpHeader.getApiHeader(getAccessToken));
+      }
 
+      final response = await futureResponse;
       if (response.statusCode == 200) {
         Map<String, dynamic> decode =
             json.decode(json.encode(response.data['data']));
@@ -209,5 +236,60 @@ class VehicleChecklistApi {
     }
 
     return vcList;
+  }
+
+  static _getQueryParameter(
+      Map<String, Object>? passData, String? convDate, dynamic status) {
+    /// no passdata
+    if (passData == null) {
+      return null;
+    }
+
+    /// filtered date only
+    else if (convDate != null && (status.length == 0 || status.isEmpty)) {
+      return {'date': convDate};
+    }
+
+    /// filtered status only
+    else if (convDate == null && (status.length >= 0 || status.isNotEmpty)) {
+      return {
+        'status_code[]': [status],
+      };
+    }
+
+    /// filtered date and status
+    else if (convDate != null && (status.length >= 0 || status.isNotEmpty)) {
+      return {
+        'date': convDate,
+        'status_code[]': [status],
+      };
+    } else {
+      return null;
+    }
+  }
+
+  static Future<List<VcStatus?>?>? getVcStatus(BuildContext context) async {
+    List<VcStatus?>? filterData = [];
+    try {
+      Response response = await Dio().get(
+        HttpService().loadFilterOption,
+        queryParameters: {
+          'fields[]': 'vc_status',
+        },
+        options: HttpHeader.getApiHeader(userInfo[1]),
+      );
+
+      if (response.statusCode == 200) {
+        Map<String, dynamic> decode = json.decode(json.encode(response.data));
+        var convertData = OptionsData.fromJson(decode);
+        convertData.data?.vcStatus != null
+            ? filterData = convertData.data!.vcStatus
+            : filterData = [];
+      }
+    } on DioError catch (e) {
+      ApiError.findDioError(e, context);
+    }
+
+    return filterData;
   }
 }

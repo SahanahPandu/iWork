@@ -4,14 +4,17 @@ import 'package:flutter/material.dart';
 //import files
 import '../../../config/font.dart';
 import '../../../config/palette.dart';
-import '../../../models/vc/confirmation/vc_verification_list.dart';
 import '../../../utils/icon/custom_icon.dart';
 import '../../../widgets/container/status_container.dart';
 
 class VehicleChecklistApprovalDetails extends StatefulWidget {
-  final ChecklistList data;
+  /// from pengesahan tab ChecklistList
+  /// from app drawer -> VCListDetail
+  final dynamic data;
+  final bool isDrawer;
 
-  const VehicleChecklistApprovalDetails({Key? key, required this.data})
+  const VehicleChecklistApprovalDetails(
+      {Key? key, required this.data, required this.isDrawer})
       : super(key: key);
 
   @override
@@ -23,23 +26,53 @@ class _VehicleChecklistApprovalDetailsState
     extends State<VehicleChecklistApprovalDetails> {
   Color beforeVC = blackCustom;
   Color afterVC = blackCustom;
+  String? statusName = "";
+  String? statusCode = "";
+  String? routeName = "";
+  String? date = "";
 
   @override
   void initState() {
-    // ignore: unnecessary_null_comparison
-    if (widget.data.vehicleChecklistId == null) {
-      beforeVC = blackCustom;
-      afterVC = blackCustom;
-    } else {
-      if (widget.data.vehicleChecklistId.statusCode.code == "VC1") {
-        beforeVC = greenCustom;
+    if (widget.isDrawer) {
+      if (widget.data.scheduleCollectionMain!.vehicleChecklistId == null) {
+        beforeVC = blackCustom;
         afterVC = blackCustom;
-      } else if (widget.data.vehicleChecklistId.statusCode.code == "VC2" ||
-          widget.data.vehicleChecklistId.statusCode.code == "VC3") {
-        beforeVC = greenCustom;
-        afterVC = greenCustom;
+      } else {
+        if (widget.data.statusCode!.code == "VC1") {
+          beforeVC = greenCustom;
+          afterVC = blackCustom;
+        } else if (widget.data.statusCode!.code == "VC2" ||
+            widget.data.statusCode!.code == "VC3") {
+          beforeVC = greenCustom;
+          afterVC = greenCustom;
+        }
       }
+      statusName = widget.data.statusCode!.name;
+      statusCode = widget.data.statusCode!.code;
+      routeName = widget.data.scheduleCollectionMain!.mainRoute;
+      date = Date.getTheDate(
+          widget.data.createdAt, "yyyy-MM-dd", "dd/MM/yyyy", "ms");
+    } else {
+      // ignore: unnecessary_null_comparison
+      if (widget.data.vehicleChecklistId == null) {
+        beforeVC = blackCustom;
+        afterVC = blackCustom;
+      } else {
+        if (widget.data.vehicleChecklistId.statusCode.code == "VC1") {
+          beforeVC = greenCustom;
+          afterVC = blackCustom;
+        } else if (widget.data.vehicleChecklistId.statusCode.code == "VC2" ||
+            widget.data.vehicleChecklistId.statusCode.code == "VC3") {
+          beforeVC = greenCustom;
+          afterVC = greenCustom;
+        }
+      }
+      statusName = widget.data.vehicleChecklistId.statusCode.name;
+      statusCode = widget.data.vehicleChecklistId.statusCode.code;
+      routeName = widget.data.mainRoute;
+      date = Date.getTheDate(DateTime.now(), '', "dd/MM/yyyy", 'ms');
     }
+
     super.initState();
   }
 
@@ -53,7 +86,7 @@ class _VehicleChecklistApprovalDetailsState
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
               child: Text(
-                Date.getTheDate(DateTime.now(), '', "dd/MM/yyyy", 'ms'),
+                date!,
                 style: TextStyle(
                     fontWeight: FontWeight.w500,
                     color: blackCustom,
@@ -62,8 +95,8 @@ class _VehicleChecklistApprovalDetailsState
             ),
             StatusContainer(
               type: "vc",
-              status: widget.data.vehicleChecklistId.statusCode.name,
-              statusId: widget.data.vehicleChecklistId.statusCode.code,
+              status: statusName!,
+              statusId: statusCode,
               fontWeight: statusFontWeight,
             ),
           ],
@@ -90,7 +123,7 @@ class _VehicleChecklistApprovalDetailsState
                           fontSize: 15)),
                 ],
               ),
-              Text(widget.data.vehicleNo,
+              Text(widget.data.vehicleNo!,
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
                       color: blackCustom,
@@ -121,7 +154,7 @@ class _VehicleChecklistApprovalDetailsState
                           fontSize: 15)),
                 ],
               ),
-              Text(widget.data.mainRoute,
+              Text(routeName!,
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
                       color: blackCustom,

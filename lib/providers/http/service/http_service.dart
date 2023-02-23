@@ -47,7 +47,8 @@ class HttpService {
   final updateWorkerAttendanceUrl = '$theBase/task/confirmation-attendance';
 
   /// Load Vehicle Checklist Verification list Url as String
-  final loadVehicleChecklistVerificationList = '$theBase/task/confirmation/list/vehicle-checklists';
+  final loadVehicleChecklistVerificationList =
+      '$theBase/task/confirmation/list/vehicle-checklists';
 
   /// Load Workers Attendance Url as String
   final loadWorkersAttendanceList = '$theBase/task/confirmation/attendance';
@@ -56,7 +57,8 @@ class HttpService {
   final loadReportOfScheduleList = '$theBase/report/schedule';
 
   /// Load Request Worker List Url as String
-  final loadRequestWorkerList = '$theBase/task/confirmation/list/request-workers';
+  final loadRequestWorkerList =
+      '$theBase/task/confirmation/list/request-workers';
 
   /// Update Request Worker Url as String
   final updateRequestWorkerUrl = '$theBase/task/confirmation/request-workers';
@@ -72,4 +74,7 @@ class HttpService {
 
   /// Update Attendance for clock in Url as String
   final updateClockOut = '$theBase/attendance/end-work';
+
+  /// Get Filter Options Url as String
+  final loadFilterOption = '$theBase/options';
 }

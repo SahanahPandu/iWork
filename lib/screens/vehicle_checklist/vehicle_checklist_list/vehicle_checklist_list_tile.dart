@@ -1,12 +1,16 @@
 // ignore: depend_on_referenced_packages
 import 'package:async/async.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../../../../config/palette.dart';
 import '../../../../utils/icon/custom_icon.dart';
+import '../../../config/config.dart';
 import '../../../models/vc/list/data/vc_data.dart';
 import '../../../models/vc/list/data/vc_data/vc_list_detail.dart';
 import '../../../providers/vehicle_checklist/vehicle_checklist_api.dart';
+import '../../../widgets/tabs/vehicle_checklist_tab/vehicle_checklist_approval_tab/vehicle_checklist_approval_tab.dart';
+import '../vehicle_checklist_approval/vehicle_checklist_approval_details.dart';
 import 'vehicle_checklist_list_tile_detail.dart';
 
 enum VehicleChecklistLoadMoreStatus { loading, stable }
@@ -82,8 +86,42 @@ class VehicleChecklistListTileState extends State<VehicleChecklistListTile> {
                   shrinkWrap: true,
                   itemCount: vcList.length,
                   itemBuilder: (context, index) {
-                    return VehicleChecklistListTileDetail(
-                        vcDetail: vcList[index]!);
+                    return userRole == 100
+                        ? VehicleChecklistListTileDetail(
+                            vcDetail: vcList[index]!)
+                        : GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  PageTransition(
+                                      type: PageTransitionType.fade,
+                                      child: VehicleChecklistApprovalTab(
+                                          vcData: vcList[index],
+                                          isDrawer: true)));
+                            },
+                            child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 10, horizontal: 10),
+                                child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(14),
+                                      color: white,
+                                      boxShadow: [
+                                        BoxShadow(
+                                            color: cardShadowColor,
+                                            offset: const Offset(0, 2),
+                                            blurRadius: 10,
+                                            spreadRadius: 0.5)
+                                      ],
+                                    ),
+                                    child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 16),
+                                        child: VehicleChecklistApprovalDetails(
+                                          data: vcList[index]!,
+                                          isDrawer: true,
+                                        )))),
+                          );
                   },
                 ),
                 loadMoreStatus == VehicleChecklistLoadMoreStatus.loading

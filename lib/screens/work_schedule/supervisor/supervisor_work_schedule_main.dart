@@ -9,7 +9,6 @@ import '../../../config/palette.dart';
 import '../../../config/resource.dart';
 import '../../../models/schedule/schedule_data_detail_cp_sv/schedule_detail.dart';
 import '../../../models/schedule/supervisor/detail/sv_schedule_detail.dart';
-import '../../../models/task/supervisor/supervisor_task.dart';
 import '../../../providers/schedule/supervisor/supervisor_schedule_api.dart';
 import '../../../widgets/alert/user_profile_dialog.dart';
 import '../../../widgets/container/staff_stack_container.dart';
@@ -19,7 +18,7 @@ import '../../street_search/street_search.dart';
 import 'supervisor_work_schedule_details.dart';
 
 class SupervisorWorkScheduleMain extends StatefulWidget {
-  final Isu data;
+  final dynamic data;
 
   const SupervisorWorkScheduleMain({Key? key, required this.data})
       : super(key: key);
@@ -38,7 +37,7 @@ class _SupervisorWorkScheduleMainState
   Widget build(BuildContext context) {
     return FutureBuilder<SupervisorScheduleDetail?>(
         future: SupervisorScheduleApi.getSupervisorScheduleDetail(
-            context, widget.data.scMainId),
+            context, widget.data.id!),
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.waiting:
@@ -127,7 +126,7 @@ class _SupervisorWorkScheduleMainState
   Widget _collapseTitle(SupervisorScheduleDetail? scheduleDetail) {
     return Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
       Text(
-        widget.data.mainRoute,
+        widget.data.mainRoute!,
         style: TextStyle(
           color: white,
           fontWeight: FontWeight.w700,
@@ -136,8 +135,8 @@ class _SupervisorWorkScheduleMainState
       ),
       StatusContainer(
         type: "Laluan",
-        status: widget.data.statusCode.name,
-        statusId: widget.data.statusCode.code,
+        status: widget.data.statusCode!.name!,
+        statusId: widget.data.statusCode!.code,
         fontWeight: statusFontWeight,
         roundedCorner: true,
       ),
