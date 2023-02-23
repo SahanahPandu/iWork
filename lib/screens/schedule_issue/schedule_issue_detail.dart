@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import '../../../config/palette.dart';
 import '../../../screens/work_schedule/supervisor/supervisor_work_schedule_details.dart';
 import '../../config/font.dart';
+import '../../models/employee/reassign_employee.dart';
 import '../../models/schedule/schedule_data_detail_cp_sv/schedule_detail.dart';
 import '../../models/schedule/supervisor/detail/sv_schedule_detail.dart';
 import '../../models/task/supervisor/supervisor_task.dart';
@@ -13,6 +14,7 @@ import '../../providers/schedule/supervisor/supervisor_schedule_api.dart';
 import '../../utils/device/sizes.dart';
 import '../../widgets/alert/user_profile_dialog.dart';
 import '../../widgets/buttons/contact_button.dart';
+import '../../widgets/buttons/sahkan_ganti_pekerja.dart';
 import '../../widgets/container/staff_stack_container.dart';
 import '../../widgets/container/status_container.dart';
 import '../../widgets/slivers/expand_collapse_header/expand_collapse_header.dart';
@@ -37,6 +39,8 @@ class ScheduleIssueDetail extends StatefulWidget {
 class _ScheduleIssueDetailState extends State<ScheduleIssueDetail> {
   String listTitle = "Test";
   Color collapseBgColor = const Color(0xff2b7fe8);
+  final reassignEmployeeListKey = GlobalKey<ReassignEmployeeListState>();
+  List<ReassignEmployee>? reassignEmployeeList = [];
 
   late SupervisorScheduleDetail scheduleDetail;
 
@@ -66,49 +70,86 @@ class _ScheduleIssueDetailState extends State<ScheduleIssueDetail> {
     }
   }
 
+  // updateReassignList() {
+  //   print(
+  //       'current list: ${reassignEmployeeListKey.currentState!.reassignEmployeeList[0].toJson()}');
+  //   setState(() {
+  //     if (reassignEmployeeList != null && reassignEmployeeList != []) {
+  //       reassignEmployeeList!.clear();
+  //     }
+
+  //     reassignEmployeeList =
+  //         reassignEmployeeListKey.currentState!.reassignEmployeeList;
+  //   });
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
       FutureBuilder<SupervisorScheduleDetail?>(
-          future: SupervisorScheduleApi.getSupervisorScheduleDetail(
-              context, widget.getInfo.scMainId),
-          builder: (context, snapshot) {
-            switch (snapshot.connectionState) {
-              case ConnectionState.waiting:
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              default:
-                if (snapshot.hasError) {
-                  return const Center(child: Text("Some error occurred"));
-                } else {
-                  scheduleDetail = snapshot.data!;
-                  return ExpandCollapseHeader(
-                      centerTitle: false,
-                      title: _collapseTitle(),
-                      headerExpandedHeight: 0.54,
-                      alwaysShowLeadingAndAction: false,
-                      headerWidget: _header(context, scheduleDetail),
-                      fullyStretchable: true,
-                      body: [
-                        _scrollBody(scheduleDetail),
-                      ],
-                      curvedBodyRadius: 24,
-                      fixedTitle: _fixedTitle(context),
-                      fixedTitleHeight: 60,
-                      collapseFade: 80,
-                      backgroundColor: transparent,
-                      appBarColor: collapseBgColor,
-                      collapseButton: widget.getIssue == "IBMT" ? true : false);
-                }
-            }
-          }),
+        future: SupervisorScheduleApi.getSupervisorScheduleDetail(
+            context, widget.getInfo.scMainId),
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.waiting:
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            default:
+              if (snapshot.hasError) {
+                return const Center(child: Text("Some error occurred"));
+              } else {
+                scheduleDetail = snapshot.data!;
+                return ExpandCollapseHeader(
+                    centerTitle: false,
+                    title: _collapseTitle(),
+                    headerExpandedHeight: 0.54,
+                    alwaysShowLeadingAndAction: false,
+                    headerWidget: _header(context, scheduleDetail),
+                    fullyStretchable: true,
+                    body: [
+                      _scrollBody(scheduleDetail),
+                    ],
+                    curvedBodyRadius: 24,
+                    fixedTitle: _fixedTitle(context),
+                    fixedTitleHeight: 60,
+                    collapseFade: 80,
+                    backgroundColor: transparent,
+                    appBarColor: collapseBgColor,
+                    collapseButton: widget.getIssue == "IBMT" ? true : false);
+              }
+          }
+        },
+      ),
       widget.getIssue == "IBMT"
           ? Positioned(
               bottom: 25,
               right: -10,
               child: ContactButton(data: widget.getInfo))
-          : Container()
+          : widget.getIssue == "IHD"
+              ? Positioned(
+                  bottom: 0,
+                  child: Material(
+                    elevation: 50,
+                    child: SizedBox(
+                      width: Sizes().screenWidth(context),
+                      height: Sizes().screenHeight(context) * 0.1,
+                      child: BottomAppBar(
+                        elevation: 40,
+                        color: Colors.white,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 26, vertical: 16),
+                          child: SahkanGantiPekerjaButton(data: {
+                            'scMainId': widget.getInfo.scMainId,
+                            'reassignList': reassignEmployeeList,
+                          }),
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+              : Container(),
     ]);
   }
 
@@ -132,8 +173,10 @@ class _ScheduleIssueDetailState extends State<ScheduleIssueDetail> {
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 5),
           child: ReassignEmployeeList(
+            key: reassignEmployeeListKey,
             scMainId: widget.getInfo.scMainId,
             absentStaffList: scheduleDetail.data.details.workerSchedules,
+            updateReassignList: reassignEmployeeList,
           ),
         );
       case "IBMT":

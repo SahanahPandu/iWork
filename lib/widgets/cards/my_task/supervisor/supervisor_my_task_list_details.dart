@@ -219,12 +219,15 @@ class _SupervisorMyTaskListDetailsState
                           color: white)),
                   onPressed: () {
                     Navigator.push(
-                        context,
-                        PageTransition(
-                            type: PageTransitionType.fade,
-                            child: ScheduleIssueMainScreen(
-                                laluanData: widget.data,
-                                issueType: widget.data.tabSubGroupSv.code)));
+                            context,
+                            PageTransition(
+                                type: PageTransitionType.fade,
+                                child: ScheduleIssueMainScreen(
+                                    laluanData: widget.data,
+                                    issueType: widget.data.tabSubGroupSv.code)))
+                        .then((value) {
+                      setState(() {});
+                    });
                   },
                 ),
               )

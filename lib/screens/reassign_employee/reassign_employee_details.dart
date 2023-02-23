@@ -1,4 +1,5 @@
 import 'package:dotted_border/dotted_border.dart';
+import 'package:eswm/models/schedule/schedule_data_detail_cp_sv/schedule_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -42,6 +43,15 @@ class _ReassignEmployeeDetailsState extends State<ReassignEmployeeDetails> {
           dataEmployee2 = data;
         });
       }
+    }
+
+    //update reassign list
+    if (widget.passData['updateReassign'] != null) {
+      Function(int, int, int?, int?) updateReassign =
+          widget.passData['updateReassign'];
+
+      WorkerSchedule absentStaff = widget.passData['absentStaff'];
+      updateReassign(absentStaff.id!, 1, data.id, data.userDetail.supervisorId);
     }
   }
 
@@ -209,6 +219,16 @@ class _ReassignEmployeeDetailsState extends State<ReassignEmployeeDetails> {
                           yesConfirm);
                     }).then((actionText) async {
                   if (actionText == yesConfirm) {
+                    //update reassign list
+                    if (widget.passData['updateReassign'] != null) {
+                      Function(int, int, int?, int?) updateReassign =
+                          widget.passData['updateReassign'];
+
+                      WorkerSchedule absentStaff =
+                          widget.passData['absentStaff'];
+                      updateReassign(absentStaff.id!, 0, null, null);
+                    }
+
                     setState(() {
                       noReassignTextVisibility = true;
                       noReassignLink = "Batal";

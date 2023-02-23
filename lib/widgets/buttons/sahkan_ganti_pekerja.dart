@@ -1,14 +1,23 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 //import files
+import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../../config/string.dart';
 import '../alert/alert_dialog.dart';
 import '../alert/lottie_alert_dialog.dart';
 
 class SahkanGantiPekerjaButton extends StatefulWidget {
-  const SahkanGantiPekerjaButton({Key? key}) : super(key: key);
+  final dynamic data;
+
+  const SahkanGantiPekerjaButton({
+    Key? key,
+    this.data,
+  }) : super(key: key);
 
   @override
   State<SahkanGantiPekerjaButton> createState() =>
@@ -16,6 +25,33 @@ class SahkanGantiPekerjaButton extends StatefulWidget {
 }
 
 class _SahkanGantiPekerjaButtonState extends State<SahkanGantiPekerjaButton> {
+  postFunction() async {
+    Map<String, dynamic> theData = {
+      "sc_main_id": widget.data['scMainId'],
+      "worker": widget.data['reassignList'],
+    };
+    final encodeData = json.encode(theData);
+
+    try {
+      Response response = await Dio().post(
+        '$theBase/task/worker-reassign',
+        data: encodeData,
+        options: Options(headers: {
+          "authorization": "Bearer ${userInfo[1]}",
+          "Content-Type": "application/json",
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        // ignore: avoid_print
+        print('success');
+      }
+    } on DioError catch (e) {
+      // ignore: avoid_print
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -37,19 +73,26 @@ class _SahkanGantiPekerjaButtonState extends State<SahkanGantiPekerjaButton> {
                 cancel,
                 yesConfirm,
               );
-            }).then((value) {
-          showDialog(
-              barrierDismissible: false,
-              context: context,
-              builder: (BuildContext context) {
-                return showLottieAlertDialog(
-                  context,
-                  successText(),
-                  "",
-                  null,
-                  null,
-                );
-              });
+            }).then((actionText) {
+          if (actionText == yesConfirm) {
+            if (widget.data['reassignList'] != null) {
+              //post data
+              postFunction();
+            }
+
+            showDialog(
+                barrierDismissible: false,
+                context: context,
+                builder: (BuildContext context) {
+                  return showLottieAlertDialog(
+                    context,
+                    successText(),
+                    "",
+                    null,
+                    null,
+                  );
+                }).then((value) => Navigator.pop(context));
+          }
         });
       },
       child: const Text(

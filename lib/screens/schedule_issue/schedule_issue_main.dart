@@ -6,7 +6,6 @@ import '../../config/palette.dart';
 import '../../models/task/supervisor/supervisor_task.dart';
 import '../../utils/device/sizes.dart';
 import '../../utils/icon/custom_icon.dart';
-import '../../widgets/buttons/sahkan_ganti_pekerja.dart';
 import 'schedule_issue_detail.dart';
 
 class ScheduleIssueMainScreen extends StatefulWidget {
@@ -39,12 +38,7 @@ class _ScheduleIssueMainScreen extends State<ScheduleIssueMainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return
-        // StateInheritedWidget(
-        //   buttonVisibility: buttonVisibility,
-        //   stateWidget: this,
-        //   child:
-        Container(
+    return Container(
       height: Sizes().screenHeight(context),
       decoration: const BoxDecoration(
         gradient: LinearGradient(
@@ -98,17 +92,18 @@ class _ScheduleIssueMainScreen extends State<ScheduleIssueMainScreen> {
         bottomNavigationBar: widget.issueType == "IHD"
 
             /// kehadiran
-            ? SizedBox(
-                height: Sizes().screenHeight(context) * 0.1,
-                child: const BottomAppBar(
-                  elevation: 40,
-                  color: Colors.white,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 26, vertical: 16),
-                    child: SahkanGantiPekerjaButton(),
-                  ),
-                ),
-              )
+            // ? SizedBox(
+            //     height: Sizes().screenHeight(context) * 0.1,
+            //     child: const BottomAppBar(
+            //       elevation: 40,
+            //       color: Colors.white,
+            //       child: Padding(
+            //         padding: EdgeInsets.symmetric(horizontal: 26, vertical: 16),
+            //         child: SahkanGantiPekerjaButton(),
+            //       ),
+            //     ),
+            //   )
+            ? null
             : null,
       ),
       // ),
@@ -129,25 +124,3 @@ class _ScheduleIssueMainScreen extends State<ScheduleIssueMainScreen> {
     }
   }
 }
-
-//trying using inherited widget
-
-// class StateInheritedWidget extends InheritedWidget {
-//   final bool buttonVisibility;
-//   final _ScheduleIssueMainScreen stateWidget;
-
-//   const StateInheritedWidget({
-//     Key? key,
-//     required Widget child,
-//     required this.buttonVisibility,
-//     required this.stateWidget,
-//   }) : super(key: key, child: child);
-
-//   static _ScheduleIssueMainScreen? of(BuildContext context) => context
-//       .dependOnInheritedWidgetOfExactType<StateInheritedWidget>()
-//       ?.stateWidget;
-
-//   @override
-//   bool updateShouldNotify(StateInheritedWidget oldWidget) =>
-//       oldWidget.buttonVisibility != buttonVisibility;
-// }
