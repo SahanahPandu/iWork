@@ -3,6 +3,7 @@ import 'package:async/async.dart';
 import 'package:flutter/material.dart';
 
 //import files
+import '../../../../config/config.dart';
 import '../../../../config/dimen.dart';
 import '../../../../config/palette.dart';
 import '../../../../models/schedule/compactor/list/data/schedule_data/schedule_data.dart';
@@ -76,20 +77,32 @@ class ScheduleListTileState extends State<ScheduleListTile> {
             )
           : Stack(
               children: [
-                GridView.builder(
-                  shrinkWrap: true,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: axisSpacing(context),
-                      mainAxisSpacing: axisSpacing(context),
-                      childAspectRatio: gridRatioSchedule(context)),
-                  physics: const ScrollPhysics(),
-                  controller: scrollController,
-                  itemCount: schedules!.length,
-                  itemBuilder: (_, index) {
-                    return ScheduleListTileDetail(schedule: schedules![index]!);
-                  },
-                ),
+                userRole == 100
+                    ? GridView.builder(
+                        shrinkWrap: true,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: axisSpacing(context),
+                            mainAxisSpacing: axisSpacing(context),
+                            childAspectRatio: gridRatioSchedule(context)),
+                        physics: const ScrollPhysics(),
+                        controller: scrollController,
+                        itemCount: schedules!.length,
+                        itemBuilder: (_, index) {
+                          return ScheduleListTileDetail(
+                              schedule: schedules![index]!);
+                        },
+                      )
+                    : ListView.builder(
+                        shrinkWrap: true,
+                        physics: const ScrollPhysics(),
+                        controller: scrollController,
+                        itemCount: schedules!.length,
+                        itemBuilder: (_, index) {
+                          return ScheduleListTileDetail(
+                              schedule: schedules![index]!, index: index);
+                        },
+                      ),
                 loadMoreStatus == ScheduleLoadMoreStatus.loading
                     ? const CircularProgressIndicator()
                     : Container()
@@ -106,7 +119,7 @@ class ScheduleListTileState extends State<ScheduleListTile> {
           if (loadMoreStatus == ScheduleLoadMoreStatus.stable) {
             loadMoreStatus = ScheduleLoadMoreStatus.loading;
             scheduleOperation = CancelableOperation.fromFuture(
-                CompactorScheduleApi.fetchCompactScheduleList(
+                CompactorScheduleApi.fetchScheduleLists(
                         context, currentPageNumber + 1, widget.passData)
                     .then((schedulesObject) {
               currentPageNumber = schedulesObject.data!.currentPage!;

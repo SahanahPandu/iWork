@@ -8,7 +8,6 @@ import '../../../screens/work_schedule/supervisor/supervisor_work_schedule_detai
 import '../../config/font.dart';
 import '../../models/schedule/schedule_data_detail_cp_sv/schedule_detail.dart';
 import '../../models/schedule/supervisor/detail/sv_schedule_detail.dart';
-import '../../models/task/supervisor/supervisor_task.dart';
 import '../../providers/schedule/supervisor/supervisor_schedule_api.dart';
 import '../../utils/device/sizes.dart';
 import '../../widgets/alert/user_profile_dialog.dart';
@@ -21,7 +20,7 @@ import '../street_search/street_search.dart';
 import 'report/report_of_schedule_approval/report_of_schedule_approval_main.dart';
 
 class ScheduleIssueDetail extends StatefulWidget {
-  final Isu getInfo;
+  final dynamic getInfo;
   final String getIssue;
 
   const ScheduleIssueDetail({
@@ -71,7 +70,7 @@ class _ScheduleIssueDetailState extends State<ScheduleIssueDetail> {
     return Stack(children: [
       FutureBuilder<SupervisorScheduleDetail?>(
           future: SupervisorScheduleApi.getSupervisorScheduleDetail(
-              context, widget.getInfo.scMainId),
+              context, widget.getInfo.id),
           builder: (context, snapshot) {
             switch (snapshot.connectionState) {
               case ConnectionState.waiting:
@@ -132,7 +131,7 @@ class _ScheduleIssueDetailState extends State<ScheduleIssueDetail> {
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 5),
           child: ReassignEmployeeList(
-            scMainId: widget.getInfo.scMainId,
+            scMainId: widget.getInfo.id,
             absentStaffList: scheduleDetail.data.details.workerSchedules,
           ),
         );
@@ -145,8 +144,7 @@ class _ScheduleIssueDetailState extends State<ScheduleIssueDetail> {
         /// Laporan Halangan Kerja
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-          child:
-              ReportOfScheduleApprovalMain(scMainId: widget.getInfo.scMainId),
+          child: ReportOfScheduleApprovalMain(scMainId: widget.getInfo.id),
         );
       default:
         return Container();
@@ -158,7 +156,7 @@ class _ScheduleIssueDetailState extends State<ScheduleIssueDetail> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Text(
-          widget.getInfo.mainRoute,
+          widget.getInfo.mainRoute!,
           style: TextStyle(
             color: white,
             fontWeight: FontWeight.w700,
@@ -167,8 +165,8 @@ class _ScheduleIssueDetailState extends State<ScheduleIssueDetail> {
         ),
         StatusContainer(
           type: "Laluan",
-          status: widget.getInfo.statusCode.name,
-          statusId: widget.getInfo.statusCode.code,
+          status: widget.getInfo.statusCode!.name!,
+          statusId: widget.getInfo.statusCode!.code,
           fontWeight: statusFontWeight,
           roundedCorner: true,
         ),

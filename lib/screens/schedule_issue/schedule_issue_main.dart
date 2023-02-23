@@ -3,14 +3,13 @@ import 'package:flutter/services.dart';
 
 //import files
 import '../../config/palette.dart';
-import '../../models/task/supervisor/supervisor_task.dart';
 import '../../utils/device/sizes.dart';
 import '../../utils/icon/custom_icon.dart';
 import '../../widgets/buttons/sahkan_ganti_pekerja.dart';
 import 'schedule_issue_detail.dart';
 
 class ScheduleIssueMainScreen extends StatefulWidget {
-  final Isu? laluanData;
+  final dynamic laluanData;
   final String issueType;
 
   const ScheduleIssueMainScreen(

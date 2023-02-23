@@ -64,7 +64,7 @@ class SvData {
 
 class Isu {
   Isu({
-    required this.scMainId,
+    required this.id,
     required this.mainRoute,
     required this.vehicleNo,
     this.scheduleDate,
@@ -77,7 +77,7 @@ class Isu {
     required this.statusCode,
   });
 
-  int scMainId;
+  int id;
   String mainRoute;
   String vehicleNo;
   String? scheduleDate;
@@ -90,7 +90,7 @@ class Isu {
   StatusCode statusCode;
 
   factory Isu.fromJson(Map<String, dynamic> json) => Isu(
-        scMainId: json["sc_main_id"],
+    id: json["sc_main_id"],
         mainRoute: json["main_route"],
         vehicleNo: json["vehicle_no"],
         scheduleDate: json["schedule_date"] ?? "--:--",
@@ -104,7 +104,7 @@ class Isu {
       );
 
   Map<String, dynamic> toJson() => {
-        "sc_main_id": scMainId,
+        "sc_main_id": id,
         "main_route": mainRoute,
         "vehicle_no": vehicleNo,
         "tab_group_sv": tabGroupSv,

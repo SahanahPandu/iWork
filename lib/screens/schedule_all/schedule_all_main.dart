@@ -80,14 +80,19 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
       ),
       body: ScrollConfiguration(
         behavior: CustomScrollBehavior(),
-        child: userRole == 100
+        child: userRole == 100 || userRole == 300
             ? Stack(
                 children: [
                   Padding(
-                      padding: EdgeInsets.only(
-                          top: displayFilterSection ? 80 : 50,
-                          left: 16,
-                          right: 16),
+                      padding: userRole == 100
+                          ? EdgeInsets.only(
+                              top: displayFilterSection ? 80 : 50,
+                              left: 16,
+                              right: 16)
+                          : EdgeInsets.only(
+                              left: 8,
+                              right: 8,
+                              top: displayFilterSection ? 85 : 45),
                       child: displayFilterSection
                           ? ScheduleListMain(passData: {
                               "filteredDate": selectedDate,
@@ -96,7 +101,9 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                           : const ScheduleListMain()),
                   Container(
                       color: white,
-                      padding: const EdgeInsets.fromLTRB(20, 5, 20, 0),
+                      padding: userRole == 100
+                          ? const EdgeInsets.fromLTRB(20, 5, 20, 0)
+                          : const EdgeInsets.fromLTRB(16, 0, 4, 0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -204,7 +211,7 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                 ? const BoxConstraints(maxWidth: 550, maxHeight: 380)
                 : const BoxConstraints(maxWidth: 550, maxHeight: 380))
             : BoxConstraints(
-                maxHeight: Sizes().screenHeight(context) * 0.6,
+                maxHeight: Sizes().screenHeight(context) * 0.61,
                 maxWidth: Sizes().screenWidth(context),
               ),
         context: context,
@@ -231,9 +238,9 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
                       const SizedBox(
                         height: 18,
                       ),
-                      Divider(
+                      const Divider(
                         thickness: 0.5,
-                        color: greyCustom,
+                        color: Color(0xffe0e0e0),
                       ),
                       const SizedBox(
                         height: 24,
@@ -690,11 +697,13 @@ class _ScheduleIssueMainScreen extends State<ScheduleAllMainScreen> {
     return Container(
       padding: userRole == 100
           ? const EdgeInsets.symmetric(horizontal: 16, vertical: 26)
-          : const EdgeInsets.only(left: 14, top: 0, right: 14, bottom: 5),
+          : userRole == 200
+              ? const EdgeInsets.only(left: 14, top: 0, right: 14, bottom: 5)
+              : const EdgeInsets.only(left: 14, top: 30, right: 14, bottom: 5),
       child: Column(
         children: [
           SizedBox(
-            height: userRole == 100 ? 20 : 0,
+            height: userRole == 200 ? 0 : 20,
           ),
           SizedBox(
             height: 35,

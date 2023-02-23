@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:eswm/models/task/compactor/data/schedule/vehicle_checklist_id/vehicle_checklist_id.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 import '../../../../../task/compactor/data/schedule/status_code/status_code.dart';
 import 'supervise_by/supervise_by.dart';
@@ -20,6 +21,8 @@ class CScheduleData {
     this.statusCode,
     this.vehicleNo,
     this.vehicleChecklistId,
+    this.tabGroupSv,
+    this.tabSubGroupSv,
     this.totalSubRoute,
     this.totalPark,
     this.totalStreet,
@@ -36,6 +39,13 @@ class CScheduleData {
   StatusCode? statusCode;
   String? vehicleNo;
   VehicleChecklistId? vehicleChecklistId;
+
+  @JsonKey(defaultValue: "")
+  String? tabGroupSv;
+
+  @JsonKey(defaultValue: null)
+  StatusCode? tabSubGroupSv;
+
   int? totalSubRoute;
   int? totalPark;
   int? totalStreet;
@@ -54,6 +64,10 @@ class CScheduleData {
         vehicleChecklistId: json["vehicle_checklist_id"] == null
             ? null
             : VehicleChecklistId.fromJson(json["vehicle_checklist_id"]),
+        tabGroupSv: json["tab_group_sv"] ?? "",
+        tabSubGroupSv: json["tab_sub_group_sv"] != null
+            ? StatusCode.fromJson(json["tab_sub_group_sv"])
+            : null,
         totalSubRoute: json["total_sub_route"],
         totalPark: json["total_park"],
         totalStreet: json["total_street"],
@@ -73,6 +87,8 @@ class CScheduleData {
         "status_code": statusCode!.toJson(),
         "vehicle_no": vehicleNo,
         "vehicle_checklist_id": vehicleChecklistId,
+        "tab_group_sv": tabGroupSv,
+        "tab_sub_group_sv": tabSubGroupSv!.toJson(),
         "total_sub_route": totalSubRoute,
         "total_park": totalPark,
         "total_street": totalStreet,
