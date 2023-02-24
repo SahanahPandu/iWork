@@ -16,6 +16,7 @@ import '../../screens/reports/report_form.dart';
 import '../../screens/reports/report_list_details.dart';
 import '../../screens/schedule_issue/report/report_approval/report_approval.dart';
 import '../../screens/schedule_verification/ecuti/ecuti_approval/ecuti_approval_main.dart';
+import '../../screens/schedule_verification/ecuti/ecuti_approval/ecuti_request_detail.dart';
 import '../../screens/work_schedule/work_schedule.dart';
 import '../../utils/icon/custom_icon.dart';
 import '../app_bar/app_bar_widget.dart';
@@ -170,7 +171,7 @@ class _ListCardState extends State<ListCard> with TickerProviderStateMixin {
         );
       } else if (userRole == 300) {
         //sv
-        return EcutiApprovalMain(data: widget.data);
+        return ECutiRequestDetail(data: widget.data);
       } else {
         //others add later
         return EcutiApprovalMain(data: widget.data);

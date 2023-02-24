@@ -139,7 +139,7 @@ class _ScheduleIssueDetailState extends State<ScheduleIssueDetail> {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 26, vertical: 16),
                           child: SahkanGantiPekerjaButton(data: {
-                            'scMainId': widget.getInfo.scMainId,
+                            'scMainId': widget.getInfo.id,
                             'reassignList': reassignEmployeeList,
                           }),
                         ),

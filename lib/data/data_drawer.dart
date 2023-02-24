@@ -36,7 +36,7 @@ List praDrawerList = [
 List svDrawerList = [
   Drawers(
       "Halaman Utama", CustomIcon.homeOutline, CustomIcon.homeFill, "context"),
-  Drawers("E-Cuti", CustomIcon.eCutiOutline, CustomIcon.eCutiFill, "context"),
+  Drawers("E-Notis Pekerja", CustomIcon.eCutiOutline, CustomIcon.eCutiFill, "context"),
   Drawers("Jadual Tugasan", CustomIcon.scheduleOutline, CustomIcon.scheduleFill,
       "context"),
   Drawers("Anjakan Jadual", CustomIcon.calendarEditOutline,

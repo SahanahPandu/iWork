@@ -7,8 +7,8 @@ import '../../config/palette.dart';
 import '../../utils/device/orientations.dart';
 import '../../utils/icon/custom_icon.dart';
 import '../../widgets/custom_scroll/custom_scroll.dart';
-import '../../widgets/gridview/compactor_panel/report/compactor_sv_report_list_main.dart';
 import '../../widgets/listview/card_list_view.dart';
+import '../../widgets/paging/report/compactor_sv_report_list_main.dart';
 
 class ReportList extends StatefulWidget {
   final String? screen;

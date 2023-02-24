@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 
 //import files
-import '../../../config/font.dart';
 import '../../../config/palette.dart';
-import '../../../models/cuti.dart';
+import '../../../models/ecuti/ecuti_details.dart';
+import '../../../utils/calendar/date.dart';
 import '../../../utils/device/sizes.dart';
-import '../../../widgets/container/status_container.dart';
 
 class SupervisorLeaveListDetails extends StatefulWidget {
-  final Cuti data;
+  final EcutiDetails data;
 
   const SupervisorLeaveListDetails({Key? key, required this.data})
       : super(key: key);
@@ -20,60 +19,34 @@ class SupervisorLeaveListDetails extends StatefulWidget {
 
 class _SupervisorLeaveListDetailsState
     extends State<SupervisorLeaveListDetails> {
-  String statusText = "";
-
-  _filterData() {
-    if (widget.data.idStatus == 1) {
-      //Baharu
-      statusText = "Baru";
-    } else if (widget.data.idStatus == 2) {
-      //Diluluskan Tanpa Lampiran
-      statusText = "Diluluskan Tanpa Lampiran";
-    } else if (widget.data.idStatus == 3) {
-      //Diluluskan
-      statusText = "Diluluskan";
-    } else if (widget.data.idStatus == 4) {
-      //Ditolak
-      statusText = "Ditolak";
-    }
-  }
-
-  @override
-  void initState() {
-    _filterData();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        //Jenis dan Status Cuti
+        //Nama
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8),
+          padding: const EdgeInsets.fromLTRB(15, 15, 15, 8),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: SizedBox(
-                    width: _textSize(widget.data.pemohon).width,
-                    height: _textSize(widget.data.pemohon).height,
-                    child: Text(
-                      widget.data.pemohon,
-                      style: textStyle,
-                      softWrap: true,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                    ),
-                  )),
-              const SizedBox(width: 10),
-              StatusContainer(
-                type: "Cuti",
-                status: statusText,
-                statusId: widget.data.idStatus,
-                fontWeight: statusFontWeight,
+              SizedBox(
+                width: _textSize(widget.data.userId!.userDetail!.name).width,
+                height: _textSize(widget.data.userId!.userDetail!.name).height,
+                child: Text(
+                  widget.data.userId!.userDetail!.name,
+                  style: textStyle,
+                  softWrap: true,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                ),
               ),
+              const SizedBox(width: 10),
+              /*StatusContainer(
+                type: "Cuti",
+                status: widget.data.status!.name,
+                statusId: widget.data.status!.code,
+                fontWeight: statusFontWeight,
+              ),*/
             ],
           ),
         ),
@@ -93,7 +66,7 @@ class _SupervisorLeaveListDetailsState
                 ),
               ),
               Text(
-                widget.data.jenisCuti,
+                widget.data.leaveType!.name,
                 style: TextStyle(
                   fontSize: 15,
                   color: blackCustom,
@@ -120,9 +93,10 @@ class _SupervisorLeaveListDetailsState
               ),
               const SizedBox(width: 5),
               Text(
-                (widget.data.tarikhMula != widget.data.tarikhTamat)
-                    ? "${widget.data.tarikhMula} - ${widget.data.tarikhTamat}"
-                    : widget.data.tarikhMula,
+                (widget.data.dateFrom != widget.data.dateTo)
+                    ? "${Date.getTheDate(widget.data.dateFrom, 'yyyy-MM-dd', "dd/MM/yyyy", null)} - ${Date.getTheDate(widget.data.dateTo, 'yyyy-MM-dd', "dd/MM/yyyy", null)}"
+                    : Date.getTheDate(
+                        widget.data.dateFrom, 'yyyy-MM-dd', "dd/MM/yyyy", null),
                 style: TextStyle(
                   fontSize: 14,
                   color: blackCustom,
@@ -133,21 +107,21 @@ class _SupervisorLeaveListDetailsState
           ),
         ),
         const SizedBox(
-          height: 10,
+          height: 20,
         ),
       ],
     );
   }
 
   final TextStyle textStyle =
-      TextStyle(fontSize: 16, color: blackCustom, fontWeight: FontWeight.w500);
+      TextStyle(fontSize: 16, color: blackCustom, fontWeight: FontWeight.w400);
 
   Size _textSize(String data) {
     final TextPainter textPainter = TextPainter(
         text: TextSpan(text: data, style: textStyle),
         maxLines: 1,
         textDirection: TextDirection.ltr)
-      ..layout(minWidth: 0, maxWidth: Sizes().screenWidth(context) * 0.52);
+      ..layout(minWidth: 0, maxWidth: Sizes().screenWidth(context) * 0.76);
     return textPainter.size;
   }
 }

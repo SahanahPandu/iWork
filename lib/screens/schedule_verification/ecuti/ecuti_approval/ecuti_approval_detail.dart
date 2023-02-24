@@ -9,14 +9,15 @@ import 'package:path_provider/path_provider.dart';
 import '../../../../config/dimen.dart';
 import '../../../../config/palette.dart';
 import '../../../../config/resource.dart';
-import '../../../../models/cuti.dart';
+import '../../../../models/ecuti/ecuti_details.dart';
+import '../../../../utils/calendar/date.dart';
 import '../../../../utils/device/sizes.dart';
 import '../../../../utils/icon/custom_icon.dart';
 import '../../../../widgets/image_viewer/image_viewer.dart';
 import '../../../../widgets/pdf_viewer/pdf_viewer.dart';
 
 class EcutiApprovalDetail extends StatefulWidget {
-  final Cuti data;
+  final EcutiDetails data;
 
   const EcutiApprovalDetail({Key? key, required this.data}) : super(key: key);
 
@@ -26,7 +27,6 @@ class EcutiApprovalDetail extends StatefulWidget {
 
 class _EcutiApprovalDetailState extends State<EcutiApprovalDetail> {
   final TextEditingController _appliedBy = TextEditingController();
-  final TextEditingController _designation = TextEditingController();
   final TextEditingController _leaveType = TextEditingController();
   final TextEditingController _startDate = TextEditingController();
   final TextEditingController _endDate = TextEditingController();
@@ -45,23 +45,24 @@ class _EcutiApprovalDetailState extends State<EcutiApprovalDetail> {
   }
 
   void _setLeaveDataText() {
-    if (widget.data.pemohon != "" ||
-        widget.data.jenisCuti != "" ||
-        widget.data.tarikhMula != "") {
+    if (widget.data.userId!.userDetail!.name != "" ||
+        widget.data.leaveType!.name != "" ||
+        widget.data.dateFrom != "") {
       setState(() {
-        _appliedBy.text = widget.data.pemohon;
-        _leaveType.text = widget.data.jenisCuti;
-        _startDate.text = widget.data.tarikhMula;
-        _designation.text = widget.data.designation;
-        if (widget.data.tarikhTamat != "") {
-          _endDate.text = widget.data.tarikhTamat;
+        _appliedBy.text = widget.data.userId!.userDetail!.name;
+        _leaveType.text = widget.data.leaveType!.name;
+        _startDate.text = Date.getTheDate(
+            widget.data.dateFrom, 'yyyy-MM-dd', "dd/MM/yyyy", null);
+        if (widget.data.dateTo != "") {
+          _endDate.text = Date.getTheDate(
+              widget.data.dateTo, 'yyyy-MM-dd', "dd/MM/yyyy", null);
         } else {
-          _endDate.text = widget.data.tarikhMula;
+          _endDate.text = widget.data.dateFrom!;
         }
 
-        if (widget.data.lampiran != "") {
-          urlFormat =
-              widget.data.lampiran.substring(widget.data.lampiran.length - 4);
+        if (widget.data.uploadFile != null) {
+          urlFormat = widget.data.uploadFile!.fileName
+              .substring(widget.data.uploadFile!.fileName.length - 4);
           if (urlFormat == ".pdf") {
             pdfAttached = true;
             _createFileOfPdfUrl().then((f) {
@@ -77,8 +78,8 @@ class _EcutiApprovalDetailState extends State<EcutiApprovalDetail> {
           imgAttached = false;
         }
 
-        if (widget.data.catatan != "") {
-          _remarks.text = widget.data.catatan;
+        if (widget.data.remarks != "") {
+          _remarks.text = widget.data.remarks!;
         } else {
           _remarks.text = "-";
         }
@@ -92,7 +93,6 @@ class _EcutiApprovalDetailState extends State<EcutiApprovalDetail> {
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Column(children: [
         _buildTextForm(_appliedBy, "Pemohon"),
-        _buildTextForm(_designation, "Jawatan"),
         _buildTextForm(_leaveType, "Jenis Cuti"),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -123,7 +123,8 @@ class _EcutiApprovalDetailState extends State<EcutiApprovalDetail> {
             PageRouteBuilder(
               opaque: false,
               pageBuilder: (_, __, ___) => ImageViewer(
-                  attachment: widget.data.lampiran, type: BoxFit.fitWidth),
+                  attachment: widget.data.uploadFile!.filePath,
+                  type: BoxFit.fitWidth),
             ),
           );
         },
@@ -135,7 +136,7 @@ class _EcutiApprovalDetailState extends State<EcutiApprovalDetail> {
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: Image.network(
-                  widget.data.lampiran,
+                  widget.data.uploadFile!.filePath,
                   fit: BoxFit.fitWidth,
                   loadingBuilder: (BuildContext context, Widget child,
                       ImageChunkEvent? loadingProgress) {
@@ -221,7 +222,7 @@ class _EcutiApprovalDetailState extends State<EcutiApprovalDetail> {
   Future<File> _createFileOfPdfUrl() async {
     Completer<File> completer = Completer();
     try {
-      var url = widget.data.lampiran;
+      var url = widget.data.uploadFile!.filePath;
       filename = url.substring(url.lastIndexOf("/") + 1);
       var request = await HttpClient().getUrl(Uri.parse(url));
       var response = await request.close();

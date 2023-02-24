@@ -184,7 +184,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   });
             } else {
               showErrorToast(context,
-                  "Pertukaran ID peranti anda gagal. Sila semak id anda atau cuba semula");
+                  "Pertukaran ID peranti anda gagal. Sila semak id anda atau cuba semula", height: 15);
             }
           }
         });

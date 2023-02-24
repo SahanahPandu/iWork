@@ -130,7 +130,7 @@ class _CardListViewState extends State<CardListView> {
                                     widget.screens == "isu"))
                             ? const BouncingScrollPhysics()
                             : const NeverScrollableScrollPhysics())
-                        : const BouncingScrollPhysics(),
+                        : const ScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: dataFuture.length,
                     itemBuilder: (context, index) {
