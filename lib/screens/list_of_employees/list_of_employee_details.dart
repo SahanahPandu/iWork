@@ -40,6 +40,7 @@ class _ListOfEmployeeDetailsState extends State<ListOfEmployeeDetails> {
 
   loadData() {
     dynamic theData = widget.dataPekerja;
+
     if (theData.runtimeType == UserData) {
       setState(() {
         profileImage = theData.userDetail.profilePic == blueImg
@@ -67,6 +68,13 @@ class _ListOfEmployeeDetailsState extends State<ListOfEmployeeDetails> {
   void initState() {
     loadData();
     super.initState();
+  }
+
+  @override
+  void didUpdateWidget(covariant ListOfEmployeeDetails oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    loadData();
   }
 
   @override

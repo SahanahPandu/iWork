@@ -37,7 +37,7 @@ class PekerjaApi {
         var svList = theData['svIdList'];
         var svIdList = [];
 
-        // svIdList.add(userInfo[5]); // add current login sv id
+        svIdList.add(userInfo[5]); // add current login sv id
         svList.forEach(
           (svId) {
             svIdList.add(svId);

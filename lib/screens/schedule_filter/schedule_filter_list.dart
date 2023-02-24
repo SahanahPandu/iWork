@@ -259,6 +259,8 @@ class ScheduleFilterListState extends State<ScheduleFilterList> {
 
               //this is to check the list of sub laluan have current selection of the sub laluan
               //if the selected sub laluan still in the new list , no need to clear the text
+
+              //this section to check existing selection in other dropdown , case: choose Laluan, and then choose other laluan
               if (namaSubLaluan.text != "") {
                 if (theData.subRoutes.where((subRoutes) =>
                         subRoutes.subRoute == namaSubLaluan.text) ==

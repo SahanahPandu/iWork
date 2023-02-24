@@ -1,4 +1,5 @@
 import 'package:eswm/models/task/compactor/data/workers/user_roles/user_roles.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 import '../../ecuti/ecuti_details.dart';
 
@@ -142,19 +143,31 @@ class VehicleChecklistId {
 }
 
 class WorkerSchedule {
+  int? id;
+  int? scMainId;
+  UserId? userId;
+  EcutiDetails? userLeaveId;
+  UserAttendanceId? userAttendanceId;
+
+  @JsonKey(defaultValue: null)
+  int? isDriver;
+
+  @JsonKey(defaultValue: null)
+  String? statusCode;
+
+  @JsonKey(defaultValue: null)
+  UserId? reassignWihUserId;
+
   WorkerSchedule({
     this.id,
     this.scMainId,
     this.userId,
     this.userLeaveId,
     this.userAttendanceId,
+    this.isDriver,
+    this.statusCode,
+    this.reassignWihUserId,
   });
-
-  int? id;
-  int? scMainId;
-  UserId? userId;
-  EcutiDetails? userLeaveId;
-  UserAttendanceId? userAttendanceId;
 
   factory WorkerSchedule.fromJson(Map<String, dynamic> json) => WorkerSchedule(
         id: json["id"],
@@ -167,6 +180,8 @@ class WorkerSchedule {
         userAttendanceId: json["user_attendance_id"] != null
             ? UserAttendanceId.fromJson(json["user_attendance_id"])
             : null,
+        isDriver: json['is_driver'],
+        statusCode: json['status_code'],
       );
 
   Map<String, dynamic> toJson() => {

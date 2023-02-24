@@ -34,11 +34,9 @@ class _ReassignEmployeeDetailsState extends State<ReassignEmployeeDetails> {
   bool noReassignTextVisibility = false;
 
   getAssignedEmployeeDetails(dynamic data) {
-    //final buttonVisibility = StateInheritedWidget.of(context);
+    // print("panggil ni");
     if (data != null) {
-      // widget.visibility!();
       if (mounted) {
-        // showBottomButton();
         setState(() {
           dataEmployee2 = data;
         });
@@ -53,6 +51,12 @@ class _ReassignEmployeeDetailsState extends State<ReassignEmployeeDetails> {
       WorkerSchedule absentStaff = widget.passData['absentStaff'];
       updateReassign(absentStaff.id!, 1, data.id, data.userDetail.supervisorId);
     }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    // print('Reassign Employee Details Dispose');
   }
 
   @override

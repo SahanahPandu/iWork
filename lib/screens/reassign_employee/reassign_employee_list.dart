@@ -33,6 +33,7 @@ class ReassignEmployeeListState extends State<ReassignEmployeeList> {
   }
 
   loadAbsentEmployeeList() {
+    print('scMainId: ${widget.scMainId}');
     List<WorkerSchedule> absentEmployeeList = widget.absentStaffList!;
     absentEmployeeList.removeWhere((status) =>
         status.userAttendanceId !=
