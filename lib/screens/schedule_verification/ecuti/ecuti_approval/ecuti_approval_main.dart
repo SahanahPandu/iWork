@@ -6,7 +6,7 @@ import '../../../../config/config.dart';
 import '../../../../config/dimen.dart';
 import '../../../../config/palette.dart';
 import '../../../../config/string.dart';
-import '../../../../models/cuti.dart';
+import '../../../../models/ecuti/ecuti_details.dart';
 import '../../../../utils/device/sizes.dart';
 import '../../../../utils/icon/custom_icon.dart';
 import '../../../../widgets/alert/alert_dialog.dart';
@@ -15,7 +15,7 @@ import '../../../../widgets/modal_bottom_sheet/custom_bottom_sheet_options.dart'
 import 'ecuti_approval_detail.dart';
 
 class EcutiApprovalMain extends StatefulWidget {
-  final Cuti data;
+  final EcutiDetails data;
 
   const EcutiApprovalMain({Key? key, required this.data}) : super(key: key);
 
@@ -36,7 +36,7 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
   @override
   void initState() {
     iconColor = grey500;
-    _loadLeaveStatus(widget.data.idStatus);
+    _loadLeaveStatus(widget.data.status!.code);
     _setSvFeedbackText(condition);
     super.initState();
   }
@@ -46,11 +46,11 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
       case 2:
       case 3:
       case 4:
-        if (widget.data.status != "") {
-          _status.text = widget.data.status;
+        if (widget.data.status!.name != "") {
+          _status.text = widget.data.status!.name;
         }
-        if (widget.data.maklumbalasSV != "") {
-          _feedback.text = widget.data.maklumbalasSV;
+        if (widget.data.remarksBySv != "") {
+          _feedback.text = widget.data.remarksBySv!;
         } else {
           _feedback.text = "-";
         }
@@ -209,7 +209,7 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
                       return showAlertDialog(
                           context,
                           confirmation,
-                          "Sahkan borang E-Cuti pekerja ${widget.data.pemohon}?",
+                          "Sahkan borang E-Cuti pekerja ${widget.data.userId!.userDetail!.name}?",
                           cancel,
                           "Sahkan");
                     }).then((actionText) {
@@ -407,10 +407,13 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
                 height: 1.5)));
   }
 
-  void _loadLeaveStatus(int leaveStatus) {
+  void _loadLeaveStatus(String leaveStatus) {
+    ///"code": "EBC",     "code": "EDL",        "code": "EDP",          "code": "EDTL",                        "code": "ETLK",
+    ///"name": "Baharu",  "name": "Diluluskan", "name": "Dalam Proses", "name": "Diluluskan Tanpa Lampiran",   "name": "Ditolak",
     switch (leaveStatus) {
-      //Baru
-      case 1:
+
+      /// Baharu
+      case "EBC":
         switch (userRole) {
           // sv/eo/ba -> need to accept/reject ecuti from pra.
           case 300:
@@ -422,7 +425,7 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
         }
         break;
       //Diluluskan tanpa lampiran
-      case 2:
+      case "EDTL":
         switch (userRole) {
           // sv/eo/ba -> wait pra to upload attachment
           case 300:
@@ -434,7 +437,7 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
         }
         break;
       //Diluluskan
-      case 3:
+      case "EDL":
         switch (userRole) {
           // sv -> completed process
           case 300:
@@ -446,7 +449,7 @@ class _EcutiApprovalMain extends State<EcutiApprovalMain> {
         }
         break;
       //Ditolak
-      case 4:
+      case "ETLK":
         switch (userRole) {
           // sv -> Penjadualan semula selesai and laporan ditutup
           case 300:

@@ -9,6 +9,7 @@ import '../../config/string.dart';
 import '../../data/data_drawer.dart';
 import '../../providers/authenticate/logout_api.dart';
 import '../../screens/e_cuti/e_cuti.dart';
+import '../../screens/e_cuti/supervisor/supervisor_leave_list.dart';
 import '../../screens/reports/report_list_main.dart';
 import '../../screens/schedule_all/schedule_all_main.dart';
 import '../../screens/schedule_shift/schedule_shift_main.dart';
@@ -20,7 +21,6 @@ import '../../utils/device/sizes.dart';
 import '../../utils/font/font.dart';
 import '../alert/alert_dialog.dart';
 import '../tabs/akbk_tab/akbk_tab.dart';
-import '../tabs/ecuti_approval_tab/ecuti_approval_tab.dart';
 
 class DrawerBuild extends StatefulWidget {
   const DrawerBuild({Key? key}) : super(key: key);
@@ -382,13 +382,13 @@ class _DrawerBuildState extends State<DrawerBuild> {
       case 600: //sam
       case 700: //rom
         switch (idx) {
-          case 1: // ECuti
+          case 1: // ENotis Pekerja
             Navigator.pop(context);
             Navigator.push(
                 context,
                 PageTransition(
                     type: PageTransitionType.fade,
-                    child: const EcutiApprovalTab()));
+                    child: const SupervisorLeaveList()));
             break;
           case 2: // Jadual tugasan
             Navigator.pop(context);

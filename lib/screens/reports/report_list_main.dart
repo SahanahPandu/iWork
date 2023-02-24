@@ -9,8 +9,8 @@ import '../../models/report/obstacle_types.dart';
 import '../../models/report/report_status.dart';
 import '../../utils/icon/custom_icon.dart';
 import '../../widgets/custom_scroll/custom_scroll.dart';
-import '../../widgets/gridview/compactor_panel/report/compactor_sv_report_list_main.dart';
 import '../../widgets/listview/card_list_view.dart';
+import '../../widgets/paging/report/compactor_sv_report_list_main.dart';
 import 'report_filter_drawer.dart';
 
 class ReportListMain extends StatefulWidget {

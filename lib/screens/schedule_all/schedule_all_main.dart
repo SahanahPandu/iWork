@@ -13,8 +13,8 @@ import '../../utils/device/orientations.dart';
 import '../../utils/device/sizes.dart';
 import '../../utils/icon/custom_icon.dart';
 import '../../widgets/custom_scroll/custom_scroll.dart';
-import '../../widgets/gridview/compactor_panel/schedule/schedule_list_main.dart';
 import '../../widgets/listview/card_list_view.dart';
+import '../../widgets/paging/schedule/schedule_list_main.dart';
 
 class ScheduleAllMainScreen extends StatefulWidget {
   const ScheduleAllMainScreen({Key? key}) : super(key: key);

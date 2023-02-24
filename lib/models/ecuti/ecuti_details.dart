@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+
 import '../user/user_data.dart';
 
 @JsonSerializable()
@@ -47,7 +48,7 @@ class EcutiDetails {
             json['user_id'] != null ? UserData.fromJson(json['user_id']) : null,
         dateFrom: json['date_leave_from'],
         dateTo: json['date_leave_to'],
-        remarks: json['remarks'],
+        remarks: json['remarks'] ?? "",
         status: json['status_code'] != null
             ? Status.fromJson(json['status_code'])
             : null,
