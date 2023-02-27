@@ -1,6 +1,7 @@
 class ScheduleFilterLocations {
   ScheduleFilterLocations({
     required this.id,
+    required this.pdibId,
     required this.subRoute,
     required this.parkId,
     required this.parkName,
@@ -11,6 +12,7 @@ class ScheduleFilterLocations {
   });
 
   final int id;
+  final int pdibId;
   final String subRoute;
   final int parkId;
   final String parkName;
@@ -21,6 +23,7 @@ class ScheduleFilterLocations {
 
   factory ScheduleFilterLocations.fromJson(json) => ScheduleFilterLocations(
         id: json['id'],
+        pdibId: json['pdib_id'],
         subRoute: json['sub_route'],
         parkId: json['park_id'],
         parkName: json['park_name'],
@@ -33,6 +36,7 @@ class ScheduleFilterLocations {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
+    data['pdib_id'] = pdibId;
     data['sub_route'] = subRoute;
     data['park_id'] = parkId;
     data['park_name'] = parkName;
