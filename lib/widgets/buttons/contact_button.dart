@@ -5,11 +5,12 @@ import 'package:url_launcher/url_launcher.dart';
 //import files
 import '../../config/config.dart';
 import '../../config/palette.dart';
-import '../../models/task/supervisor/supervisor_task.dart';
 import '../container/bubble_shape_container.dart';
 
 class ContactButton extends StatefulWidget {
-  final Isu? data;
+  /// Isu -> from main scren Isu Tab
+  /// CScheduleData -> from app drawer
+  final dynamic data;
 
   const ContactButton({Key? key, required this.data}) : super(key: key);
 

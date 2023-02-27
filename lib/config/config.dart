@@ -31,7 +31,10 @@ ValueNotifier<bool> refresh = ValueNotifier(false);
 /// ** Refresh Report List from Issued Schedule Variable ***
 ValueNotifier<bool> refreshReportList = ValueNotifier(false);
 
-/// ** Refresh Vehicle Checklist List from Issued Schedule Variable ***
+/// ** Refresh Schedule List Variable ***
+ValueNotifier<bool> refreshScheduleList = ValueNotifier(false);
+
+/// ** Refresh Vehicle Checklist List from Verify Schedule Variable ***
 ValueNotifier<bool> refreshVcList = ValueNotifier(false);
 
 /// ** UserRole **

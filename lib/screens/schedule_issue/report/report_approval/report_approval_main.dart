@@ -300,6 +300,7 @@ class _ReportApprovalMainState extends State<ReportApprovalMain> {
                                 refreshReportList.value =
                                     !refreshReportList.value;
                                 refresh.value = !refresh.value;
+                                refreshScheduleList.value = !refreshScheduleList.value;
                               });
                             } else {
                               showDialog(
