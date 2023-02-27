@@ -45,6 +45,18 @@ class _SahkanGantiPekerjaButtonState extends State<SahkanGantiPekerjaButton> {
       if (response.statusCode == 200) {
         // ignore: avoid_print
         print('success');
+        showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (BuildContext context) {
+              return showLottieAlertDialog(
+                context,
+                successText(),
+                "",
+                null,
+                null,
+              );
+            }).then((value) => Navigator.pop(context));
       }
     } on DioError catch (e) {
       // ignore: avoid_print
@@ -79,19 +91,6 @@ class _SahkanGantiPekerjaButtonState extends State<SahkanGantiPekerjaButton> {
               //post data
               postFunction();
             }
-
-            showDialog(
-                barrierDismissible: false,
-                context: context,
-                builder: (BuildContext context) {
-                  return showLottieAlertDialog(
-                    context,
-                    successText(),
-                    "",
-                    null,
-                    null,
-                  );
-                }).then((value) => Navigator.pop(context));
           }
         });
       },

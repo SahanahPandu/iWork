@@ -182,6 +182,9 @@ class WorkerSchedule {
             : null,
         isDriver: json['is_driver'],
         statusCode: json['status_code'],
+        reassignWihUserId: json['reassign_with_user_id'] != null
+            ? UserId.fromJson(json["reassign_with_user_id"])
+            : null,
       );
 
   Map<String, dynamic> toJson() => {

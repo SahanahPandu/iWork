@@ -227,7 +227,12 @@ class _SupervisorMyTaskListDetailsState
                                     issueType:
                                         widget.data.tabSubGroupSv!.code!)))
                         .then((value) {
-                      setState(() {});
+                      print('sini ke');
+                      Navigator.pop(context);
+                      // PageTransition(
+                      //     child: const Supervisor(),
+                      //     type: PageTransitionType.fade);
+                      // setState(() {});
                     });
                   },
                 ),

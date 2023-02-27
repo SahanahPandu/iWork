@@ -32,6 +32,22 @@ class _ReassignEmployeeDetailsState extends State<ReassignEmployeeDetails> {
   String noReassignText =
       "Pekerja tidak diganti dengan mana-mana pekerja lain . Tugasan akan terus dilakukan tanpa pekerja gantian.";
   bool noReassignTextVisibility = false;
+  bool noReassignLinkVisibility = true;
+
+  loadData() {
+    if (widget.passData['absentStaff'] != null) {
+      WorkerSchedule dataAbsent = widget.passData['absentStaff'];
+
+      if (dataAbsent.statusCode != "WSC" &&
+          dataAbsent.reassignWihUserId != null) {
+        UserId reassignUser = dataAbsent.reassignWihUserId!;
+        setState(() {
+          dataEmployee2 = reassignUser;
+          noReassignLinkVisibility = false;
+        });
+      }
+    }
+  }
 
   getAssignedEmployeeDetails(dynamic data) {
     // print("panggil ni");
@@ -51,6 +67,12 @@ class _ReassignEmployeeDetailsState extends State<ReassignEmployeeDetails> {
       WorkerSchedule absentStaff = widget.passData['absentStaff'];
       updateReassign(absentStaff.id!, 1, data.id, data.userDetail.supervisorId);
     }
+  }
+
+  @override
+  void initState() {
+    loadData();
+    super.initState();
   }
 
   @override
@@ -129,17 +151,19 @@ class _ReassignEmployeeDetailsState extends State<ReassignEmployeeDetails> {
                   : (dataEmployee2 != null)
                       ? InkWell(
                           onTap: () {
-                            Navigator.push(
-                                context,
-                                PageTransition(
-                                    type: PageTransitionType.fade,
-                                    child: EmployeeList(
-                                      scMainId: widget.passData['sMainId'],
-                                      absentEmployee:
-                                          widget.passData['absentStaff'],
-                                      assignedEmployee:
-                                          getAssignedEmployeeDetails,
-                                    )));
+                            if (noReassignLinkVisibility) {
+                              Navigator.push(
+                                  context,
+                                  PageTransition(
+                                      type: PageTransitionType.fade,
+                                      child: EmployeeList(
+                                        scMainId: widget.passData['sMainId'],
+                                        absentEmployee:
+                                            widget.passData['absentStaff'],
+                                        assignedEmployee:
+                                            getAssignedEmployeeDetails,
+                                      )));
+                            }
                           },
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
@@ -206,59 +230,66 @@ class _ReassignEmployeeDetailsState extends State<ReassignEmployeeDetails> {
                         ),
             ),
           ),
-          const SizedBox(
-            height: 24,
-          ),
-          InkWell(
-            onTap: () {
-              if (noReassignLink != "Batal") {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return showAlertDialog(
-                          context,
-                          confirmation,
-                          "Adakah anda pasti untuk teruskan tugas tanpa ganti pekerja ini sekarang?",
-                          cancel,
-                          yesConfirm);
-                    }).then((actionText) async {
-                  if (actionText == yesConfirm) {
-                    //update reassign list
-                    if (widget.passData['updateReassign'] != null) {
-                      Function(int, int, int?, int?) updateReassign =
-                          widget.passData['updateReassign'];
-
-                      WorkerSchedule absentStaff =
-                          widget.passData['absentStaff'];
-                      updateReassign(absentStaff.id!, 0, null, null);
-                    }
-
-                    setState(() {
-                      noReassignTextVisibility = true;
-                      noReassignLink = "Batal";
-                      dataEmployee2 = null;
-                    });
-                  }
-                });
-              } else {
-                setState(() {
-                  noReassignTextVisibility = false;
-                  noReassignLink = "Teruskan Tanpa Ganti";
-                });
-              }
-            },
-            child: Text(
-              noReassignLink,
-              style: TextStyle(
-                color: blackCustom,
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
-                decoration: TextDecoration.underline,
-              ),
-            ),
-          ),
+          if (noReassignLinkVisibility) noReassignLinkSection(),
         ],
       ),
+    );
+  }
+
+  Widget noReassignLinkSection() {
+    return Column(
+      children: [
+        const SizedBox(
+          height: 24,
+        ),
+        InkWell(
+          onTap: () {
+            if (noReassignLink != "Batal") {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return showAlertDialog(
+                        context,
+                        confirmation,
+                        "Adakah anda pasti untuk teruskan tugas tanpa ganti pekerja ini sekarang?",
+                        cancel,
+                        yesConfirm);
+                  }).then((actionText) async {
+                if (actionText == yesConfirm) {
+                  //update reassign list
+                  if (widget.passData['updateReassign'] != null) {
+                    Function(int, int, int?, int?) updateReassign =
+                        widget.passData['updateReassign'];
+
+                    WorkerSchedule absentStaff = widget.passData['absentStaff'];
+                    updateReassign(absentStaff.id!, 0, null, null);
+                  }
+
+                  setState(() {
+                    noReassignTextVisibility = true;
+                    noReassignLink = "Batal";
+                    dataEmployee2 = null;
+                  });
+                }
+              });
+            } else {
+              setState(() {
+                noReassignTextVisibility = false;
+                noReassignLink = "Teruskan Tanpa Ganti";
+              });
+            }
+          },
+          child: Text(
+            noReassignLink,
+            style: TextStyle(
+              color: blackCustom,
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
+              decoration: TextDecoration.underline,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

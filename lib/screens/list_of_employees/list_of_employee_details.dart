@@ -61,6 +61,14 @@ class _ListOfEmployeeDetailsState extends State<ListOfEmployeeDetails> {
         leaveId = theData.userLeaveId;
         attendanceId = theData.userAttendanceId;
       });
+    } else if (theData.runtimeType == UserId) {
+      profileImage = theData.userDetail!.profilePic == blueImg
+          ? imgPlaceHolder
+          : theData.userDetail!.profilePic;
+      workerName = theData.userDetail!.name!;
+      roleDesc = theData.userRoles![0].roleDesc!;
+      leaveId = null;
+      attendanceId = null;
     }
   }
 
@@ -246,6 +254,35 @@ class _ListOfEmployeeDetailsState extends State<ListOfEmployeeDetails> {
                 maxLines: 1,
               ),
             ),
+          ),
+        ],
+      );
+    } else if (widget.dataPekerja.runtimeType == UserId) {
+      return Column(
+        children: [
+          const SizedBox(
+            height: 14,
+          ),
+          Row(
+            children: [
+              Icon(
+                Icons.error_rounded,
+                size: 16,
+                color: orangeStatusText,
+              ),
+              const SizedBox(
+                width: 8,
+              ),
+              Text(
+                "Belum Disahkan",
+                style: TextStyle(
+                  color: orangeStatusText,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w400,
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
+            ],
           ),
         ],
       );

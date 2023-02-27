@@ -360,6 +360,13 @@ class _EmployeeListState extends State<EmployeeList> {
                                     shrinkWrap: true,
                                     itemCount: allSVName.length,
                                     itemBuilder: (context, index) {
+                                      //checking to check the box
+                                      dynamic getId = selectedSVName.where(
+                                          (sv) => sv.idPenyelia.contains(
+                                              allSVName[index].idPenyelia));
+                                      if (getId.isNotEmpty) {
+                                        allSVName[index].valueCheckbox = true;
+                                      }
                                       return svCheckBoxList(allSVName[index]);
                                     });
                               }
