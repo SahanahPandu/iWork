@@ -34,7 +34,7 @@ class _VehicleChecklistApprovalDetailsState
   @override
   void initState() {
     if (widget.isDrawer) {
-      if (widget.data.scheduleCollectionMain!.vehicleChecklistId == null) {
+      if (widget.data.scheduleCollectionMain![0].vehicleChecklistId == null) {
         beforeVC = blackCustom;
         afterVC = blackCustom;
       } else {
@@ -49,7 +49,7 @@ class _VehicleChecklistApprovalDetailsState
       }
       statusName = widget.data.statusCode!.name;
       statusCode = widget.data.statusCode!.code;
-      routeName = widget.data.scheduleCollectionMain!.mainRoute;
+      routeName = widget.data.scheduleCollectionMain![0].mainRoute;
       date = Date.getTheDate(
           widget.data.createdAt, "yyyy-MM-dd", "dd/MM/yyyy", "ms");
     } else {

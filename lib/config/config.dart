@@ -140,3 +140,6 @@ var tickedRequestedWorker = [];
 
 /// Approval worker from request worker list
 var approvalRequestedWorker = [];
+
+/// App connectivity checker
+dynamic appConnnection;

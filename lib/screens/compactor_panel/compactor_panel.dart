@@ -1,13 +1,21 @@
+import 'dart:async';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:eswm/utils/storage/local_pref.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 
 //import files
 import '../../config/config.dart';
 import '../../config/palette.dart';
 import '../../config/resource.dart';
+import '../../models/location/driver_location.dart';
 import '../../models/task/compactor/compactor_task.dart';
+import '../../providers/geolocation/track_location_api.dart';
 import '../../providers/task/compactor_panel/compactor_task_api.dart';
 import '../../utils/calendar/date.dart';
 import '../../utils/calendar/time.dart';
+import '../../utils/connectivity/connectivity.dart';
 import '../../utils/device/orientations.dart';
 import '../../widgets/cards/today_task/today_task_card.dart';
 import '../../widgets/gridview/compactor_panel/task/compactor_task_list.dart';
@@ -20,14 +28,152 @@ class CompactorPanel extends StatefulWidget {
   State<CompactorPanel> createState() => _CompactorPanelState();
 }
 
-class _CompactorPanelState extends State<CompactorPanel> {
+class _CompactorPanelState extends State<CompactorPanel>
+    with WidgetsBindingObserver {
   late CompactorTask? scheduleData;
+  late StreamSubscription<Position> positionStream;
+  dynamic interval;
+  bool activeState = false;
+
+  /// 0 - resumed (active now - app is visible and responding to user input)
+  /// 1 - inactive (app is in an inactive state and is not receiving user input)
+  /// 2 - paused (inactive/clos
+  /// ed app is not currently visible to the user, not responding to
+  /// user input, and running in the background).
+  @override
+  Future<void> didChangeAppLifecycleState(AppLifecycleState state) async {
+    if (state == AppLifecycleState.resumed) {
+      activeState = true;
+    }
+  }
 
   @override
-  void initState() {
+  initState() {
     refresh.value = !refresh.value;
+    WidgetsBinding.instance.addObserver(this);
+    updateDriverLocation();
     super.initState();
   }
+
+  @override
+  void dispose() {
+    positionStream.cancel();
+    if (interval != null) {
+      interval.cancel();
+    }
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  void updateDriverLocation() {
+    if (WidgetsBinding.instance.lifecycleState == AppLifecycleState.resumed) {
+      activeState = true;
+      positionStream = _getPositionStream().listen((Position position) {
+        /// Handle position changes
+        interval = Timer(const Duration(seconds: 3), () async {
+          dynamic list;
+
+          /// if app's connection is ok && coordinates not null, fetch and decode data
+          if (dioError.value == 0 &&
+              position.longitude.toString() != "" &&
+              position.latitude.toString() != "") {
+            String? locsString = await LocalPrefs().restoreOfflinePositions();
+            final List<DriverLocation> locs = locsString != null
+                ? DriverLocation.decodeOfflinePositions(locsString)
+                : [];
+
+            /// offline_loc_key list has data
+            if (locs.isNotEmpty) {
+              _uploadOfflinePositionsToServer(locs);
+            } else {
+              /// offline_loc_key is empty, proceed to capture current positions and save in server
+              list = [
+                {
+                  "datetime": DateTime.now().toString(),
+                  "latitude": position.latitude,
+                  "longitude": position.longitude
+                },
+              ];
+              // ignore: use_build_context_synchronously
+              await TrackLocationApi.updateVehicleLocation(
+                  context, list, userInfo[2]);
+            }
+          } else {
+            /// dioError != 0, means api throws error, so, we check the app's connection first.
+            AppConnectivity connectionStatus = AppConnectivity.instance;
+            connectionStatus.initialise();
+
+            /// if device has no internet connection
+            if (appConnnection == ConnectivityResult.none) {
+              _getOfflinePositionsSaveToLocalStorage(position);
+            } else {
+              dioError.value = 0;
+            }
+          }
+        });
+      });
+    }
+  }
+
+  Future<void> _getOfflinePositionsSaveToLocalStorage(Position position) async {
+    {
+      /// Fetch and decode data
+      String? locsString = await LocalPrefs().restoreOfflinePositions();
+
+      final List<DriverLocation> locs = locsString != null
+          ? DriverLocation.decodeOfflinePositions(locsString)
+          : [];
+
+      /// Encode and store data in SharedPreferences
+      // print("new offline positions -> ${position.latitude}, ${position.longitude}");
+      var index = locs.isNotEmpty ? locs.length : 0;
+      locs.insert(
+          index,
+          DriverLocation(
+              dateTime: DateTime.now().toString(),
+              lat: position.latitude,
+              long: position.longitude));
+
+      final String encodedData = DriverLocation.encodeOfflinePositions(locs);
+      LocalPrefs().saveOfflinePosition(encodedData);
+    }
+  }
+
+  Future<void> _uploadOfflinePositionsToServer(
+      List<DriverLocation> locs) async {
+    {
+      /// generate new offlinePositionList
+      List<Map<String, dynamic>> offlinePositionList = List.generate(
+          locs.length,
+          (index) => {"datetime": '', "latitude": '', "longitude": ''});
+
+      /// map offline_loc_key to api json data
+      for (int i = 0; i < locs.length; i++) {
+        offlinePositionList[i] = {
+          "datetime": locs[i].dateTime,
+          "latitude": locs[i].lat,
+          "longitude": locs[i].long
+        };
+      }
+      //print(offlinePositionList);
+
+      /// store data to server
+      // ignore: use_build_context_synchronously
+      var result = await TrackLocationApi.updateVehicleLocation(
+          context, offlinePositionList, userInfo[2]);
+      if (result == 'ok') {
+        /// clears data
+        LocalPrefs().clearOfflinePositions();
+      }
+    }
+  }
+
+  static Stream<Position> _getPositionStream({
+    LocationSettings? locationSettings,
+  }) =>
+      GeolocatorPlatform.instance.getPositionStream(
+        locationSettings: locationSettings,
+      );
 
   @override
   Widget build(BuildContext context) {

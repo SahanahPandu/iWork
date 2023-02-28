@@ -20,4 +20,20 @@ class LocalPrefs {
     prefs.remove('userInfo');
     userInfo.clear();
   }
+
+  Future<void> saveOfflinePosition(String encodedData) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('offline_loc_key', encodedData);
+  }
+
+  Future<String?> restoreOfflinePositions() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? locsString = prefs.getString('offline_loc_key');
+    return locsString;
+  }
+
+  Future<void> clearOfflinePositions() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove('offline_loc_key');
+  }
 }

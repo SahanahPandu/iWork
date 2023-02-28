@@ -3,6 +3,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:eswm/config/config.dart';
 
 class AppConnectivity {
   AppConnectivity._();
@@ -18,15 +19,17 @@ class AppConnectivity {
   void initialise() async {
     ConnectivityResult result = await _connectivity.checkConnectivity();
     _checkStatus(result);
+    appConnnection = result;
     _connectivity.onConnectivityChanged.listen((result) {
       _checkStatus(result);
+      appConnnection = result;
     });
   }
 
   void _checkStatus(ConnectivityResult result) async {
     bool isOnline = false;
     try {
-      final result = await InternetAddress.lookup('example.com');
+      final result = await InternetAddress.lookup(theBase);
       isOnline = result.isNotEmpty && result[0].rawAddress.isNotEmpty;
     } on SocketException catch (_) {
       isOnline = false;
