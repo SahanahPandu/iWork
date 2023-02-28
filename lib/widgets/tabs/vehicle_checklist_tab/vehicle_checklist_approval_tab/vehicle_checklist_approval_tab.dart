@@ -43,7 +43,7 @@ class _VehicleChecklistApprovalTabState
     _tabController = TabController(length: 2, vsync: this);
     if (widget.isDrawer!) {
       statusCode = widget.vcData!.statusCode!.code;
-      vcId = widget.vcData!.scheduleCollectionMain!.vehicleChecklistId;
+      vcId = widget.vcData!.scheduleCollectionMain[0].vehicleChecklistId;
       routeName = widget.vcData.scheduleCollectionMain!.mainRoute;
     } else {
       statusCode = widget.vcData!.vehicleChecklistId.statusCode!.code;

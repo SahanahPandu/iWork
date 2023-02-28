@@ -77,4 +77,7 @@ class HttpService {
 
   /// Get Filter Options Url as String
   final loadFilterOption = '$theBase/options';
+
+  /// Update vehicle's location URL as String
+  final updateLocationUrl = '$theBase/vehicle/new-vehicle-location';
 }

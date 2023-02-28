@@ -15,7 +15,7 @@ class VCListDetail {
   String? vehicleNo;
   StatusCode? statusCode;
   String? createdAt;
-  ScheduleCollectionMain? scheduleCollectionMain;
+  List<ScheduleCollectionMain>? scheduleCollectionMain;
 
   factory VCListDetail.fromJson(Map<String, dynamic> json) => VCListDetail(
         id: json["id"] ?? 0,
@@ -25,8 +25,8 @@ class VCListDetail {
             : null,
         createdAt: json["created_at"] ?? "",
         scheduleCollectionMain: json["schedule_collection_main"] != null
-            ? ScheduleCollectionMain.fromJson(json["schedule_collection_main"])
-            : null,
+            ? List<ScheduleCollectionMain>.from(json["schedule_collection_main"].map((x) => ScheduleCollectionMain.fromJson(x)))
+            : [],
       );
 
   Map<String, dynamic> toJson() => {
@@ -34,6 +34,6 @@ class VCListDetail {
         "vehicle_no": vehicleNo,
         "status_code": statusCode!.toJson(),
         "created_at": createdAt,
-        "schedule_collection_main": scheduleCollectionMain!.toJson(),
+        "schedule_collection_main": List<dynamic>.from(scheduleCollectionMain!.map((x) => x.toJson())),
       };
 }

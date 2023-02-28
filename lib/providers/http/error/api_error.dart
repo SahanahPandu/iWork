@@ -7,7 +7,8 @@ import '../../../utils/authentication/auth.dart';
 import '../../../widgets/alert/toast.dart';
 
 class ApiError {
-  static findDioError(DioError e, BuildContext context) {
+  static findDioError(DioError e, BuildContext context,
+      [bool? showError = true]) {
     String message = "Issue: ";
 
     /// Checks for Dio returns error
@@ -85,6 +86,8 @@ class ApiError {
       message = message + e.message;
       dioError.value = 12;
     }
-    showErrorToast(context, message, height: 16);
+    if (showError!) {
+      showErrorToast(context, message, height: 16);
+    }
   }
 }
