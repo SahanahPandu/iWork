@@ -82,17 +82,22 @@ class _WorkScheduleState extends State<WorkSchedule> {
           floatingActionButton: ValueListenableBuilder(
               valueListenable: button,
               builder: (context, value, Widget? child) {
-                if (userRole == 100 || userRole == 200 && value != true) {
-                  return Container(
-                      margin: const EdgeInsets.only(right: 45),
-                      child: ReportButton(passData: widget.data));
-                } else if (userRole == 100 ||
-                    userRole == 200 && value == true) {
-                  String todayDate =
-                      Date.getTheDate(DateTime.now(), "", "yyyy-MM-dd", "ms");
-                  if (widget.data.scheduleDate == todayDate &&
-                      widget.data.statusCode.code == "SBT") {
-                    return ReportButton(passData: widget.data);
+                //value : to control button position
+
+                String todayDate =
+                    Date.getTheDate(DateTime.now(), "", "yyyy-MM-dd", "ms");
+
+                if (widget.data.scheduleDate == todayDate) {
+                  //button will visibility for today date only
+                  if (userRole == 100 || userRole == 200) {
+                    if (value != true) {
+                      //if value is false, move the button inward
+                      return Container(
+                          margin: const EdgeInsets.only(right: 45),
+                          child: ReportButton(passData: widget.data));
+                    } else {
+                      return ReportButton(passData: widget.data);
+                    }
                   } else {
                     return Container();
                   }
