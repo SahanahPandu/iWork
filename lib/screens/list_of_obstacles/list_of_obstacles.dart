@@ -125,7 +125,7 @@ class ListOfObstaclesState extends State<ListOfObstacles> {
         ),
         validator: (value) {
           if ((value == null || value.isEmpty) && widget.screen != "4") {
-            return '';
+            return 'Please choose';
           }
 
           return null;

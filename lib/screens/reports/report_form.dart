@@ -480,7 +480,6 @@ class _ReportFormState extends State<ReportForm> {
                               postData: postNewReport,
                               clearForm: clearForm,
                               passData: widget.passData,
-                              // dataLaluan: widget.passData,
                             ),
                           ),
                         ),

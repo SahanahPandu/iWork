@@ -60,8 +60,12 @@ class ListOfRoadTextFormField2State extends State<ListOfRoadTextFormField2> {
                 )
               : null,
           //removed label so that can display hint text "Semua"
-          // label: const Text('Jalan'),
-          // labelStyle: widget.uiData?['labelStyle'],
+            label: widget.uiData?['labelVisibility'] == true
+              ? null
+              : const Text('Jalan'),
+          labelStyle: widget.uiData?['labelVisibility'] == true
+              ? null
+              : widget.uiData?['labelStyle'],
           disabledBorder: widget.uiData?['disableBorder'],
           errorStyle: const TextStyle(height: 0),
           errorBorder: widget.uiData?['errorBorder'],

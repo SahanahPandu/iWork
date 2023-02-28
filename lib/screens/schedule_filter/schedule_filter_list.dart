@@ -82,9 +82,11 @@ class ScheduleFilterListState extends State<ScheduleFilterList> {
   final TextEditingController namaJalan = TextEditingController();
 
   final laluanKey = GlobalKey<ListOfRoutesState>();
+  final subLaluanKey = GlobalKey<ListOfSubRoutesState>();
   final tamanKey = GlobalKey<ListOfParks2State>();
   final jalanKey = GlobalKey<ListOfRoadTextFormField2State>();
 
+  String? scMainId;
   int idTaman = 0;
   int idJalan = 0;
   List<ScheduleFilterMainRoutes> dataLaluan = [];
@@ -115,6 +117,16 @@ class ScheduleFilterListState extends State<ScheduleFilterList> {
     if (widget.passData != null && type == 'init') {
       Map<String, dynamic> passingData = widget.passData!;
 
+      if (widget.screen != 'drawer') {
+        setState(() {
+          scMainId = passingData['scMainId'].toString();
+        });
+      } else {
+        setState(() {
+          scMainId = "";
+        });
+      }
+
       if (passingData['mainRoute'] != null) {
         namaLaluan.text = passingData['mainRoute'];
       }
@@ -134,6 +146,7 @@ class ScheduleFilterListState extends State<ScheduleFilterList> {
       }
 
       filteredData = {
+        'scMainId': scMainId,
         'laluan': namaLaluan.text,
         'subLaluan': namaSubLaluan.text,
         'taman': idTaman,
@@ -142,6 +155,7 @@ class ScheduleFilterListState extends State<ScheduleFilterList> {
     } else {
       // this is for Reset button in Laluan, Taman and Jalan
       filteredData = {
+        'scMainId': scMainId,
         'laluan': "",
         'subLaluan': "",
         'taman': null,
@@ -216,6 +230,7 @@ class ScheduleFilterListState extends State<ScheduleFilterList> {
 
       if (item == 'laluan') {
         filteredValue = {
+          'scMainId': scMainId,
           'laluan': value,
           'subLaluan': namaSubLaluan.text,
           'taman': idTaman,
@@ -223,6 +238,7 @@ class ScheduleFilterListState extends State<ScheduleFilterList> {
         };
       } else if (item == 'sub-laluan') {
         filteredValue = {
+          'scMainId': scMainId,
           'laluan': namaLaluan.text,
           'subLaluan': value,
           'taman': idTaman,
@@ -230,6 +246,7 @@ class ScheduleFilterListState extends State<ScheduleFilterList> {
         };
       } else if (item == 'taman') {
         filteredValue = {
+          'scMainId': scMainId,
           'laluan': namaLaluan.text,
           'subLaluan': namaSubLaluan.text,
           'taman': value['id'],
@@ -237,6 +254,7 @@ class ScheduleFilterListState extends State<ScheduleFilterList> {
         };
       } else if (item == 'jalan') {
         filteredValue = {
+          'scMainId': scMainId,
           'laluan': namaLaluan.text,
           'subLaluan': namaSubLaluan.text,
           'taman': idTaman,
@@ -425,10 +443,15 @@ class ScheduleFilterListState extends State<ScheduleFilterList> {
     }
   }
 
-  //this is to reset all selection for Laluan , Taman and Jalan
+  //this is to reset all selection for Laluan , Sub-Laluan , Taman and Jalan
   resetSelection() {
     setState(() {
-      laluanKey.currentState!.selectedIndex = -1;
+      if (widget.screen == 'drawer') {
+        laluanKey.currentState!.selectedIndex = -1;
+      } else {
+        subLaluanKey.currentState!.selectedIndex = -1;
+      }
+
       tamanKey.currentState!.selectedIndex = -1;
       jalanKey.currentState!.selectedIndex = -1;
     });
@@ -446,12 +469,17 @@ class ScheduleFilterListState extends State<ScheduleFilterList> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                "Laluan",
-                style: textLabelStyle,
-              ),
+              if (labelVisibility)
+                SizedBox(
+                  height: spaceBetweenItem,
+                ),
+              if (labelVisibility)
+                Text(
+                  "Laluan",
+                  style: textLabelStyle,
+                ),
               SizedBox(
-                height: spaceBetweenLabel,
+                height: labelVisibility ? spaceBetweenLabel : spaceBetweenItem,
               ),
               ListOfRoutes(
                 key: laluanKey,
@@ -464,6 +492,7 @@ class ScheduleFilterListState extends State<ScheduleFilterList> {
                   "labelStyle": textFormFieldLabelStyle,
                   "errorBorder": errorBorderStyle,
                   "disableBorder": disableBorderStyle,
+                  "labelVisibility": labelVisibility,
                 },
                 data: senaraiLaluan,
                 updateData: updateFilterItems,
@@ -489,9 +518,10 @@ class ScheduleFilterListState extends State<ScheduleFilterList> {
                   style: textLabelStyle,
                 ),
               SizedBox(
-                height: spaceBetweenLabel,
+                height: labelVisibility ? spaceBetweenLabel : spaceBetweenItem,
               ),
               ListOfSubRoutes(
+                key: subLaluanKey,
                 uiData: {
                   "style": textFormFieldStyle,
                   "controller": namaSubLaluan,
@@ -501,6 +531,7 @@ class ScheduleFilterListState extends State<ScheduleFilterList> {
                   "labelStyle": textFormFieldLabelStyle,
                   "errorBorder": errorBorderStyle,
                   "disableBorder": disableBorderStyle,
+                  "labelVisibility": labelVisibility,
                 },
                 data: senaraiSubLaluan,
                 updateData: updateFilterItems,
@@ -525,7 +556,7 @@ class ScheduleFilterListState extends State<ScheduleFilterList> {
                 style: textLabelStyle,
               ),
             SizedBox(
-              height: spaceBetweenLabel,
+              height: labelVisibility ? spaceBetweenLabel : spaceBetweenItem,
             ),
             ListOfParks2(
               key: tamanKey,
@@ -538,6 +569,7 @@ class ScheduleFilterListState extends State<ScheduleFilterList> {
                 "labelStyle": textFormFieldLabelStyle,
                 "errorBorder": errorBorderStyle,
                 "disableBorder": disableBorderStyle,
+                "labelVisibility": labelVisibility,
               },
               data: senaraiTaman,
               updateData: updateFilterItems,
@@ -562,7 +594,7 @@ class ScheduleFilterListState extends State<ScheduleFilterList> {
                 style: textLabelStyle,
               ),
             SizedBox(
-              height: spaceBetweenLabel,
+              height: labelVisibility ? spaceBetweenLabel : spaceBetweenItem,
             ),
             ListOfRoadTextFormField2(
               key: jalanKey,
@@ -575,6 +607,7 @@ class ScheduleFilterListState extends State<ScheduleFilterList> {
                 "labelStyle": textFormFieldLabelStyle,
                 "errorBorder": errorBorderStyle,
                 "disableBorder": disableBorderStyle,
+                "labelVisibility": labelVisibility,
               },
               data: senaraiJalan,
               updateData: updateFilterItems,

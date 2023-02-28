@@ -10,6 +10,7 @@ class ScheduleFilterApi {
   static Future<ScheduleFilterData> getDataScheduleFilter(
       Map<String, dynamic> filteredData) async {
     ScheduleFilterData fetchData = ScheduleFilterData(
+      scMainId: null,
       mainRoute: null,
       subRoutes: null,
       parks: null,
@@ -17,10 +18,13 @@ class ScheduleFilterApi {
       locations: null,
     );
 
+    print('Sc Main Id: ${filteredData['scMainId']}');
+
     try {
       Response response = await Dio().get(
         '$theBase/schedule/route-filter',
         queryParameters: {
+          'sc_main_id': filteredData['scMainId'],
           'main_route': filteredData['laluan'],
           'sub_route': filteredData['subLaluan'],
           'park_id': filteredData['taman'],

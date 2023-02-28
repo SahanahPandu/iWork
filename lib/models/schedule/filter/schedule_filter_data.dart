@@ -6,6 +6,7 @@ import 'package:eswm/models/schedule/filter/schedule_filter_sub_routes.dart';
 import 'package:eswm/models/schedule/filter/schedule_filter_main_routes.dart';
 
 class ScheduleFilterData {
+  final String? scMainId;
   final dynamic mainRoute;
   final dynamic subRoutes;
   final dynamic parks;
@@ -13,6 +14,7 @@ class ScheduleFilterData {
   final dynamic locations;
 
   ScheduleFilterData({
+    this.scMainId,
     required this.mainRoute,
     required this.subRoutes,
     required this.parks,
@@ -21,6 +23,7 @@ class ScheduleFilterData {
   });
 
   factory ScheduleFilterData.fromJson(json) => ScheduleFilterData(
+        scMainId: json['sc_main_id'],
         mainRoute: (json['main_route'] != null || json['main_route'] != [])
             ? json['main_route']
                 .map<ScheduleFilterMainRoutes>(

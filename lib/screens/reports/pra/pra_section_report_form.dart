@@ -70,7 +70,7 @@ class PraSectionReportFormState extends State<PraSectionReportForm> {
   String namaGambar = "";
   String? pathGambar;
 
-  double spacingHeight = userRole == 100 ? 30 : 20;
+  double spacingHeight = userRole == 100 ? 30 : 24;
 
   getImageName(fileName) {
     setState(() {
@@ -106,6 +106,7 @@ class PraSectionReportFormState extends State<PraSectionReportForm> {
         //   screen: "report form",
         //   passData: {
         //     "date": null,
+        //     'scMainId': widget.scMainId,
         //     "mainRoute": widget.currNamaLaluan,
         //     "subRoute": null,
         //     "parkId": null,

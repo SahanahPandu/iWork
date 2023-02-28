@@ -225,9 +225,9 @@ class ReportFilterDrawerState extends State<ReportFilterDrawer> {
                       ),
                       //============== end of Tarikh ===========================
 
-                      SizedBox(
-                        height: spaceBetweenItem,
-                      ),
+                      // SizedBox(
+                      //   height: spaceBetweenItem,
+                      // ),
 
                       //============= dropdown related to laluan section =======
                       ScheduleFilterList(

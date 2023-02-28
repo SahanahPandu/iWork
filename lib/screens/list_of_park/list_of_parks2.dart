@@ -52,8 +52,12 @@ class ListOfParks2State extends State<ListOfParks2> {
                 )
               : null,
           //removed label so that can display hint text "Semua"
-          // label: const Text('Taman'),
-          // labelStyle: widget.uiData?['labelStyle'],
+          label: widget.uiData?['labelVisibility'] == true
+              ? null
+              : const Text('Taman'),
+          labelStyle: widget.uiData?['labelVisibility'] == true
+              ? null
+              : widget.uiData?['labelStyle'],
           errorStyle: const TextStyle(height: 0),
           errorBorder: widget.uiData?['errorBorder'],
           disabledBorder: widget.uiData?['disableBorder'],

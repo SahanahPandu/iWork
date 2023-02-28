@@ -21,10 +21,10 @@ class ListOfSubRoutes extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<ListOfSubRoutes> createState() => _ListOfSubRoutesState();
+  ListOfSubRoutesState createState() => ListOfSubRoutesState();
 }
 
-class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
+class ListOfSubRoutesState extends State<ListOfSubRoutes> {
   int selectedIndex = -1;
 
   @override
@@ -52,8 +52,12 @@ class _ListOfSubRoutesState extends State<ListOfSubRoutes> {
                 )
               : null,
           //removed label to display hint text 'Semua'
-          // label: const Text('Sub-Laluan'),
-          // labelStyle: widget.uiData?['labelStyle'],
+          label: widget.uiData?['labelVisibility'] == true
+              ? null
+              : const Text('Sub-Laluan'),
+          labelStyle: widget.uiData?['labelVisibility'] == true
+              ? null
+              : widget.uiData?['labelStyle'],
           errorStyle: const TextStyle(height: 0),
           errorBorder: widget.uiData?['errorBorder'],
           disabledBorder: widget.uiData?['disableBorder'],
